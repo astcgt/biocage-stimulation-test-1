@@ -13,6 +13,7 @@ import os, sys, json, time, math
 import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from params import MAT, CONTACT, ENDPOINTS, CYCLIC, SIXDOF
+from progress import Progress
 
 RES = 'results'
 
@@ -77,15 +78,16 @@ def torch_quant(t, q):
     return torch.kthvalue(t.flatten().float().cpu(), k).values
 
 
-def damage_passes(m, rec, q_presc, F_ext, max_passes=60):
+def damage_passes(m, rec, q_presc, F_ext, max_passes=25):
     """Progressive failure at the current load: delete over-stressed PLCL elements and re-equilibrate."""
-    n_tot = 0
+    n_tot = 0; prog = getattr(rec, 'prog', None)
     for p in range(max_passes):
+        if prog and p: prog.update(phase=f'damage pass {p + 1}', minor=True)
         vm, s1, _, _ = m.cage_stress()
-        n = m.apply_failure(vm, s1)
+        n = m.apply_failure(vm, s1, max_frac_per_pass=0.02)
         if n == 0: break
         n_tot += n
-        m.solve_increment(q_presc, F_ext)
+        m.solve_increment(q_presc, F_ext, max_outer=8)
         if m.damage_fraction() >= ENDPOINTS['damage_report'][-1]: break
     return n_tot
 
@@ -102,8 +104,9 @@ def crossings(rows, key, levels, xkey):
 def static_job(job, dev):
     design = job[1]
     out = f'{RES}/test1_static/{design}'
+    prog = Progress(f'static/{design}', total_steps=int(3.0 / 0.005)); prog.update(phase='build model')
     m = load_model(design, dev, log=lambda *a: None)
-    rec = Recorder(out, m); m.log = rec.log
+    rec = Recorder(out, m); m.log = rec.log; rec.prog = prog
     rec.log(f'=== Test 1 static compression, design {design}, device {dev}')
     uz, du, step, t0 = 0.0, 0.01, 0, time.time()
     rec.record(m, dict(step=0, uz_imposed=0.0, new_failed=0, outer=0, pcg=0, wall=0.0))
@@ -118,6 +121,8 @@ def static_job(job, dev):
         rec.log(f"step {step:3d} uz {uz:.4f} Fz {r['Fz']:9.1f} N  dmg {100 * r['damage']:6.2f}%  maxVM {r['max_vm']:6.2f}  "
                 f"slip C4/C3 {r['slip_C4']:.4f}/{r['slip_C3']:.4f}  tilt {r['Rx_deg']:+.3f}/{r['Ry_deg']:+.3f}  contact {r['contact_closed']:.2f}  "
                 f"({info['outer']} outer, {info['pcg_it']} pcg, {time.time() - t0:.0f}s)")
+        prog.update(step, frac=max(uz / 3.0, r['damage'] / ENDPOINTS['damage_report'][-1], r['slip'] / ENDPOINTS['slip_mm']),
+                    phase='axial compression', extra=f"Uz {uz:.3f} mm, Fz {-r['Fz']:.0f} N, dmg {100 * r['damage']:.1f}%")
         if r['max_vm'] > 0.6 * MAT['PLCL']['sigma_vm_fail'] or r['damage'] > 0: du = 0.005
         if r['damage'] >= ENDPOINTS['damage_report'][-1]: reason = 'damage >= 20 %'; break
         if r['slip'] >= ENDPOINTS['slip_mm']: reason = 'slip >= 2 mm'; break
@@ -133,10 +138,13 @@ def static_job(job, dev):
                                                       type='damage 15 %' if ep['damage'] >= ENDPOINTS['damage_frac'] else 'slip 2 mm'),
                 damage_crossings=crossings(rows, 'damage', ENDPOINTS['damage_report'], 'uz_imposed'),
                 max_slip_mm=max(r['slip'] for r in rows), steps=len(rows) - 1, wall_s=time.time() - t0)
-    summ['F_fail_N'] = summ['endpoint']['Fz'] if summ['endpoint'] else peakF
+    summ['F_fail_N'] = peakF   # static ultimate (peak) load = reference for ASTM F2077 fatigue levels
+    summ['F_fail_definition'] = 'peak axial force in displacement-controlled compression (structural failure)'
     json.dump(summ, open(f'{out}/summary.json', 'w'), indent=1, default=float)
+    prog.update(phase='saving results')
     rec.save_frames(m, dict(uz=np.array([r['uz_imposed'] for r in rows])))
     rec.log(json.dumps(summ, default=float))
+    prog.done(reason)
     return summ
 
 
@@ -145,45 +153,66 @@ def cyclic_job(job, dev):
     import torch
     _, design, level, F_ult = job
     out = f'{RES}/test2_cyclic/{design}_L{int(round(level * 1000)):04d}'
+    prog = Progress(f'cyclic/{design}_L{int(round(level * 1000)):04d}', total_steps=60); prog.update(phase='build model')
     m = load_model(design, dev, log=lambda *a: None)
-    rec = Recorder(out, m); m.log = rec.log
+    rec = Recorder(out, m); m.log = rec.log; rec.prog = prog
     Fmax = level * F_ult; Fmin = Fmax / CYCLIC['R']
     sig_u = MAT['PLCL']['sigma_vm_fail']; b = MAT['PLCL']['basquin_b']; sf = MAT['PLCL']['basquin_sf']
     rec.log(f'=== Test 2 cyclic {design}: level {level:.3f} x F_fail {F_ult:.0f} N -> Fmax {Fmax:.0f} N, Fmin {Fmin:.0f} N, device {dev}')
     t0 = time.time()
     # ramp (force control on Fz, all other DOF free)
-    for F in np.linspace(0, Fmax, max(3, int(math.ceil(Fmax / 300))) + 1)[1:]:
-        m.solve_increment({}, np.array([0, 0, -F, 0, 0, 0.]))
-    damage_passes(m, rec, {}, np.array([0, 0, -Fmax, 0, 0, 0.])); m.commit_slip(m.x)
+    preload(m, rec, Fmin)
     P = m.is_plcl
     D = torch.zeros_like(m.cage.dmg)
     N = 0.0; block = 0; slip_acc = np.zeros(2); reason = 'runout'
+    kst = [12000.0]          # secant axial stiffness estimate (N/mm), updated every solve
     def at(F):
-        m.solve_increment({}, np.array([0, 0, -F, 0, 0, 0.]))
+        """Reach axial force F by secant iteration on imposed Uz (other 5 DOF free) = load control at convergence."""
+        t = time.time(); n = 0
+        prog.update(phase=f'load to {F:.0f} N', minor=True)
+        uz = -float(m.x[-4]); Fc = -m.reaction()[2]
+        for n in range(1, 6):
+            uz_new = uz + (F - Fc) / kst[0]
+            m.solve_increment({2: -uz_new}, np.zeros(6), max_outer=15, tol=1e-6, dx_tol=1e-3, chg_frac=1 / 200)
+            F_new = -m.reaction()[2]
+            if abs(uz_new - uz) > 1e-9 and (F_new - Fc) / (uz_new - uz) > 500: kst[0] = (F_new - Fc) / (uz_new - uz)
+            uz, Fc = uz_new, F_new
+            if abs(Fc - F) < 0.01 * Fmax: break
+        rec.log(f'      reach F={F:.0f} N -> {Fc:.1f} N, Uz {uz:.4f} mm, {n} solves, k {kst[0]:.0f} N/mm, {time.time() - t:.0f}s')
         return m
     def signed_eq():
         vm, s1, s3, sig = m.cage_stress()
         return vm * torch.sign(sig[..., :3].sum(-1)), vm, s1
+    prog.update(phase=f'ramp to Fmax {Fmax:.0f} N')
+    for F in np.linspace(Fmin, Fmax, max(2, int(math.ceil((Fmax - Fmin) / 300))) + 1)[1:]:
+        at(F)
+    damage_passes(m, rec, {2: float(m.x[-4])}, np.zeros(6)); m.commit_slip(m.x)
     rec.record(m, dict(step=0, block=0, N=0.0, dN=0.0, Fmax=Fmax, Fmin=Fmin, maxD=0.0, slip_extrap=0.0, stiffness=0.0, wall=0.0))
-    while N < CYCLIC['runout'] and block < 80:
+    while N < CYCLIC['runout'] and block < 60:
         block += 1
-        # explicit cycle 1 and 2 (Fmax -> Fmin), measuring ratcheting of the interface
+        # 3 explicit cycles (Fmax -> Fmin); ratcheting = slip change per cycle at Fmin, accepted only if it exceeds 3x the
+        # numerical noise (re-solve at the same load) and is not decaying (shakedown -> 0)
         sl = []
-        for c in range(2):
-            at(Fmax); nf = damage_passes(m, rec, {}, np.array([0, 0, -Fmax, 0, 0, 0.])); m.commit_slip(m.x)
+        prog.update(block - 1, phase=f'cycle block {block}: explicit cycles + damage/ratchet update', extra=f'N {N:.3g}')
+        for c in range(3):
+            at(Fmax); nf = damage_passes(m, rec, {2: float(m.x[-4])}, np.zeros(6)); m.commit_slip(m.x)
             eq_max, vm_max, s1_max = signed_eq(); uz_max = float(m.x[-4])
             at(Fmin); m.commit_slip(m.x)
             eq_min, _, _ = signed_eq(); uz_min = float(m.x[-4])
             _, _, vlo, vup = m.interface_slip(); sl.append(np.r_[vlo[:2], vup[:2]])
-        ratchet = np.array([np.linalg.norm(sl[1][:2] - sl[0][:2]), np.linalg.norm(sl[1][2:] - sl[0][2:])])
+        at(Fmin); _, _, vlo, vup = m.interface_slip(); rep = np.r_[vlo[:2], vup[:2]]
+        nrm = lambda v: np.array([np.linalg.norm(v[:2]), np.linalg.norm(v[2:])])
+        noise = nrm(rep - sl[2]); r1 = nrm(sl[1] - sl[0]); r2 = nrm(sl[2] - sl[1])
+        ratchet = np.where((r2 > 3 * noise) & (r2 >= 0.8 * r1), r2, 0.0)
         sa = (eq_max - eq_min).abs() / 2; sm = (eq_max + eq_min) / 2
         sar = sa / torch.clamp(1 - torch.clamp(sm, min=0) / sig_u, min=1e-3)
         Nf = 0.5 * (torch.clamp(sar, min=1e-9) / sf) ** (1 / b)
         rate = torch.where(P & (m.cage.dmg > 0.5), 1 / Nf, torch.zeros_like(Nf))
         rmax = float(rate.max())
         dN = CYCLIC['runout'] - N if rmax <= 0 else min(CYCLIC['max_dD_per_jump'] / rmax, CYCLIC['runout'] - N)
+        if ratchet.max() > 0: dN = min(dN, 0.2 / ratchet.max())
         dN = max(dN, 1.0)
-        D += rate * dN; N += dN + 2
+        D += rate * dN; N += dN + 3
         slip_acc += ratchet * dN
         newly = P & (m.cage.dmg > 0.5) & (D >= 1)
         m.cage.dmg[newly] = 1e-3
@@ -192,8 +221,11 @@ def cyclic_job(job, dev):
                                slip_extrap=float(slip_acc.max()), stiffness=stiff, wall=time.time() - t0))
         r['damage'] = m.damage_fraction(); rec.rows[-1]['damage'] = r['damage']
         rec.log(f"block {block:3d} N {N:12.0f} (+{dN:10.0f}) maxD {float(D[P].max()):.3f} dmg {100 * r['damage']:6.2f}%  "
-                f"maxVM@Fmax {float(vm_max[P].max()):6.2f}  ratchet {ratchet.max():.2e} mm/cyc slip {slip_acc.max():.4f} mm  "
+                f"maxVM@Fmax {float(vm_max[P].max()):6.2f}  ratchet {ratchet.max():.2e} (raw {r2.max():.1e}, noise {noise.max():.1e}) mm/cyc slip {slip_acc.max():.4f} mm  "
                 f"k {stiff:8.0f} N/mm ({time.time() - t0:.0f}s)")
+        prog.update(block, frac=max(math.log10(N + 1) / math.log10(CYCLIC['runout']), r['damage'] / ENDPOINTS['damage_report'][-1],
+                                    (slip_acc.max() + r['slip']) / ENDPOINTS['slip_mm'], block / 60),
+                    phase=f'cycle block {block} done', extra=f"N {N:.3g}/{CYCLIC['runout']:.0e}, dmg {100 * r['damage']:.1f}%, slip {slip_acc.max() + r['slip']:.3f} mm")
         if r['damage'] >= ENDPOINTS['damage_report'][-1]: reason = 'damage >= 20 %'; break
         if slip_acc.max() + r['slip'] >= ENDPOINTS['slip_mm']: reason = 'slip >= 2 mm'; break
     rows = rec.rows
@@ -207,8 +239,10 @@ def cyclic_job(job, dev):
                 initial_stiffness=rows[1]['stiffness'] if len(rows) > 1 else None, final_stiffness=rows[-1]['stiffness'],
                 blocks=len(rows) - 1, wall_s=time.time() - t0, test_duration_days_at_5Hz=N / CYCLIC['freq_hz'] / 86400)
     json.dump(summ, open(f'{out}/summary.json', 'w'), indent=1, default=float)
+    prog.update(phase='saving results')
     rec.save_frames(m, dict(N=np.array([r['N'] for r in rows]), D=D[P].cpu().numpy().astype(np.float16)))
     rec.log(json.dumps(summ, default=float))
+    prog.done(reason)
     return summ
 
 
@@ -217,23 +251,40 @@ MODES = {  # name: (dof index, sign, step, max)   dof: 0 Ux 1 Uy 2 Uz 3 Rx 4 Ry 
     'flexion': (3, -1, math.radians(0.25), math.radians(10)), 'extension': (3, +1, math.radians(0.25), math.radians(10)),
     'lat_bend_pos': (4, +1, math.radians(0.25), math.radians(10)), 'lat_bend_neg': (4, -1, math.radians(0.25), math.radians(10)),
     'axial_rot_pos': (5, +1, math.radians(0.25), math.radians(10)), 'axial_rot_neg': (5, -1, math.radians(0.25), math.radians(10)),
-    'shear_ant': (1, +1, 0.05, 3.0), 'shear_post': (1, -1, 0.05, 3.0),
-    'shear_lat_pos': (0, +1, 0.05, 3.0), 'shear_lat_neg': (0, -1, 0.05, 3.0),
+    'shear_ant': (1, +1, 0.05, 5.0), 'shear_post': (1, -1, 0.05, 5.0),
+    'shear_lat_pos': (0, +1, 0.05, 5.0), 'shear_lat_neg': (0, -1, 0.05, 5.0),
 }
+
+
+def preload(m, rec, Fp, k_guess=12000.0):
+    """Reach Fz = -Fp by secant iteration on imposed Uz (other DOFs free), then hold Fz by force control."""
+    uz, F = 0.0, 0.0; prog = getattr(rec, 'prog', None)
+    if prog: prog.update(phase=f'preload to {Fp:.0f} N')
+    for it in range(12):
+        uz_new = uz + (Fp - F) / k_guess
+        m.solve_increment({2: -uz_new}, np.zeros(6))
+        F_new = -m.reaction()[2]
+        if it > 0 and abs(F_new - F) > 1e-6: k_guess = max(1000.0, (F_new - F) / (uz_new - uz))
+        uz, F = uz_new, F_new
+        rec.log(f'   preload secant {it}: Uz {uz:.5f} mm -> Fz {-F:.2f} N')
+        if abs(F - Fp) < 0.02 * Fp: break
+    m.solve_increment({}, np.array([0, 0, -Fp, 0, 0, 0.]))
+    m.commit_slip(m.x)
+    rec.log(f'   preload done: Fz {m.reaction()[2]:.2f} N, Uz {float(m.x[-4]):.5f} mm')
 
 
 def sixdof_job(job, dev):
     _, design, mode = job
     dof, sgn, dstep, dmax = MODES[mode]
     out = f'{RES}/test3_6dof/{design}_{mode}'
+    n_tot = int(round(dmax / dstep))
+    prog = Progress(f'6dof/{design}_{mode}', total_steps=n_tot); prog.update(phase='build model')
     m = load_model(design, dev, log=lambda *a: None)
-    rec = Recorder(out, m); m.log = rec.log
+    rec = Recorder(out, m); m.log = rec.log; rec.prog = prog
     Fp = SIXDOF['preload_N']
     rec.log(f'=== Test 3 6-DOF {design} {mode}: preload {Fp} N (force), dof {dof} displacement-controlled, device {dev}')
     t0 = time.time()
-    for F in (25, 50, 75, Fp):
-        m.solve_increment({}, np.array([0, 0, -F, 0, 0, 0.]))
-    m.commit_slip(m.x)
+    preload(m, rec, Fp)
     base = float(m.x[-6 + dof])
     rec.record(m, dict(step=0, imposed=0.0, new_failed=0, wall=0.0))
     val, step, reason = 0.0, 0, 'imposed limit reached'
@@ -250,6 +301,8 @@ def sixdof_job(job, dev):
         rec.log(f"step {step:3d} {mode} {'%.2f deg' % math.degrees(val) if dof > 2 else '%.3f mm' % val}  load {load:9.2f} {'Nmm' if dof > 2 else 'N'}  "
                 f"Fz {r['Fz']:7.1f}  dmg {100 * r['damage']:5.2f}%  maxVM {r['max_vm']:6.2f}  slip C4/C3 {r['slip_C4']:.4f}/{r['slip_C3']:.4f}  "
                 f"contact {r['contact_closed']:.2f} ({info['outer']} outer, {time.time() - t0:.0f}s)")
+        prog.update(step, frac=max(step / n_tot, r['damage'] / ENDPOINTS['damage_frac'], r['slip'] / ENDPOINTS['slip_mm']),
+                    phase=f'imposing {mode}', extra=f"{'%.2f deg' % math.degrees(val) if dof > 2 else '%.2f mm' % val}, load {load:.1f}, dmg {100 * r['damage']:.1f}%")
         if r['damage'] >= ENDPOINTS['damage_frac']: reason = 'damage >= 15 %'; break
         if r['slip'] >= ENDPOINTS['slip_mm']: reason = 'slip >= 2 mm'; break
     rows = rec.rows; key = ['Fx', 'Fy', 'Fz', 'Mx', 'My', 'Mz'][dof]
@@ -260,8 +313,10 @@ def sixdof_job(job, dev):
                 load_at_endpoint=loads[-1], final_damage=rows[-1]['damage'], final_slip=rows[-1]['slip'],
                 max_vm=max(r['max_vm'] for r in rows), steps=len(rows) - 1, wall_s=time.time() - t0)
     json.dump(summ, open(f'{out}/summary.json', 'w'), indent=1, default=float)
+    prog.update(phase='saving results')
     rec.save_frames(m, dict(imposed=np.array([r['imposed'] for r in rows])))
     rec.log(json.dumps(summ, default=float))
+    prog.done(reason)
     return summ
 
 
