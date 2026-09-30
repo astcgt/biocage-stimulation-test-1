@@ -15,6 +15,13 @@ def main():
         jobs = [('static', d) for d in DESIGNS] + [('sixdof', d, mo) for mo in MODES for d in DESIGNS]
         run_jobs(jobs, 'run_tests', 'dispatch')
 
+    if phase == 'rerun':   # v2: corrected cyclic ratcheting + shear modes extended to 5 mm
+        jobs = [('sixdof', d, mo) for mo in MODES if mo.startswith('shear') for d in DESIGNS]
+        for d in DESIGNS:
+            s = json.load(open(f'results/test1_static/{d}/summary.json'))
+            jobs = [('cyclic', d, lv, s['F_fail_N']) for lv in CYCLIC['levels']] + jobs
+        run_jobs(jobs, 'run_tests', 'dispatch')
+
     if phase in ('all', '2'):
         jobs = []
         for d in DESIGNS:

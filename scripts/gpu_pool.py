@@ -23,28 +23,32 @@ def _owner(pid):
 
 
 def free_logical(me=None):
-    """Logical devices whose physical GPU is free or used only by processes of the current user."""
+    """Logical devices whose physical GPU responds to nvidia-smi and has no compute process owned by another user.
+    Each GPU is queried separately (-i) so one faulty GPU does not hide the healthy ones."""
     me = me or getpass.getuser()
-    q = lambda args: subprocess.run(['nvidia-smi'] + args, capture_output=True, text=True, check=True).stdout.strip().splitlines()
-    uuid = {l.split(',')[1].strip(): int(l.split(',')[0]) for l in q(['--query-gpu=index,uuid', '--format=csv,noheader'])}
-    foreign = set()
-    for l in q(['--query-compute-apps=gpu_uuid,pid', '--format=csv,noheader']):
-        if not l.strip(): continue
-        g, pid = l.split(',')[0].strip(), int(l.split(',')[1])
-        if _owner(pid) != me: foreign.add(uuid[g])
-    phys = visible_physical()
-    return [(i, p) for i, p in enumerate(phys) if p not in foreign]
+    out = []
+    for i, p in enumerate(visible_physical()):
+        r = subprocess.run(['nvidia-smi', '-i', str(p), '--query-compute-apps=pid', '--format=csv,noheader'], capture_output=True, text=True)
+        if r.returncode != 0:
+            print(f'[gpu_pool] physical GPU {p} not queryable ({r.stdout.strip() or r.stderr.strip()}); skipped'); continue
+        owners = {_owner(int(l)) for l in r.stdout.split() if l.strip().isdigit()}
+        if owners - {me}:
+            print(f'[gpu_pool] physical GPU {p} used by {owners - {me}}; skipped'); continue
+        out.append((i, p))
+    return out
 
 
-def _worker(logical, jobs, results, fn_module, fn_name):
+def _worker(logical, physical, jobs, results, fn_module, fn_name):
     import importlib, sys, torch
     torch.cuda.set_device(logical)                       # before any CUDA allocation
     dev = f'cuda:{logical}'
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     fn = getattr(importlib.import_module(fn_module), fn_name)
     while True:
-        job = jobs.get()
-        if job is None: break
+        item = jobs.get()
+        if item is None: break
+        case_no, n_cases, job = item
+        import progress; progress.set_context(physical, case_no, n_cases)
         t0 = time.time()
         try:
             torch.cuda.reset_peak_memory_stats(dev)
@@ -63,9 +67,9 @@ def run_jobs(job_list, fn_module, fn_name, n_workers=None, log=print):
     log(f"[gpu_pool] {len(job_list)} jobs -> workers " + ', '.join(f'cuda:{l} (physical GPU {p})' for l, p in avail))
     ctx = mp.get_context('spawn')
     jobs, results = ctx.Queue(), ctx.Queue()
-    for j in job_list: jobs.put(j)
+    for n, j in enumerate(job_list, 1): jobs.put((n, len(job_list), j))
     for _ in avail: jobs.put(None)
-    procs = [ctx.Process(target=_worker, args=(l, jobs, results, fn_module, fn_name)) for l, _ in avail]
+    procs = [ctx.Process(target=_worker, args=(l, p, jobs, results, fn_module, fn_name)) for l, p in avail]
     for p in procs: p.start()
     out = []
     for _ in job_list:

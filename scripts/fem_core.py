@@ -286,7 +286,7 @@ class VoxelContactModel:
         self.s_hist = torch.where((new == 0)[:, None], dT, s_eff)
         self.s_eff = self.s_hist.clone()
 
-    def solve_increment(self, q_presc, F_ext, max_outer=15, tol=1e-6, verbose=False):
+    def solve_increment(self, q_presc, F_ext, max_outer=15, tol=1e-6, verbose=False, dx_tol=5e-3, chg_frac=1 / 40):
         """q_presc: dict {dof_index: value} displacement-controlled rigid DOFs; F_ext: (6,) applied load on the rest."""
         dev = self.dev
         qmask = torch.ones(6, dtype=DT, device=dev); qv = torch.zeros(6, dtype=DT, device=dev)
@@ -311,7 +311,7 @@ class VoxelContactModel:
             dxr = float(torch.linalg.norm(x - x_old) / (torch.linalg.norm(x - x_start) + 1e-30))
             self.status, self.lamN, self.tdir, self.s_eff = new, lamN, tdir, s_eff
             if verbose: self.log(f'   outer {outer}: pcg {it} it res {res:.1e}, status changed {changed} (slip {int((new == 2).sum())}, open {int((new == 0).sum())}), |dx|/|Dx| {dxr:.2e}')
-            if outer > 0 and changed <= max(5, self.np_ // 40) and dxr < 5e-3:
+            if outer > 0 and changed <= max(5, int(self.np_ * chg_frac)) and dxr < dx_tol:
                 break
         self.x = x
         return dict(outer=outer + 1, pcg_it=total_it, t=time.time() - t0)
