@@ -1,0 +1,110 @@
+[gpu_pool] 6 jobs -> workers cuda:0 (physical GPU 3), cuda:1 (physical GPU 4), cuda:2 (physical GPU 7)
+[gpu_pool] pid 1871606 cuda:2(GPU7) done ('A_smooth', 0.02) 17.7s
+[gpu_pool] pid 1871605 cuda:1(GPU4) done ('A_smooth', 0.03) 17.6s
+[gpu_pool] pid 1871604 cuda:0(GPU3) done ('A_smooth', 0.01) 18.3s
+[gpu_pool] pid 1871606 cuda:2(GPU7) done ('B_tread', 0.01) 17.5s
+[gpu_pool] pid 1871605 cuda:1(GPU4) done ('B_tread', 0.02) 17.5s
+[gpu_pool] pid 1871604 cuda:0(GPU3) done ('B_tread', 0.03) 17.5s
+{
+ "workers": [
+  {
+   "logical": 0,
+   "physical": 3
+  },
+  {
+   "logical": 1,
+   "physical": 4
+  },
+  {
+   "logical": 2,
+   "physical": 7
+  }
+ ],
+ "wall_s": 38.89436626434326,
+ "cases": [
+  {
+   "job": [
+    "A_smooth",
+    0.02
+   ],
+   "pid": 1871606,
+   "physical": 7,
+   "wall": 17.659849166870117,
+   "peak_gb": 1.615077376,
+   "Fz": -257.26572162040475,
+   "max_vm": 5.739353535939541,
+   "pcg_it": 1858,
+   "device": "2"
+  },
+  {
+   "job": [
+    "A_smooth",
+    0.03
+   ],
+   "pid": 1871605,
+   "physical": 4,
+   "wall": 17.569771766662598,
+   "peak_gb": 1.615077376,
+   "Fz": -385.89858243057756,
+   "max_vm": 8.609030306072722,
+   "pcg_it": 1858,
+   "device": "1"
+  },
+  {
+   "job": [
+    "A_smooth",
+    0.01
+   ],
+   "pid": 1871604,
+   "physical": 3,
+   "wall": 18.28369951248169,
+   "peak_gb": 1.615077376,
+   "Fz": -128.63286081020237,
+   "max_vm": 2.8696767679697706,
+   "pcg_it": 1858,
+   "device": "0"
+  },
+  {
+   "job": [
+    "B_tread",
+    0.01
+   ],
+   "pid": 1871606,
+   "physical": 7,
+   "wall": 17.522171020507812,
+   "peak_gb": 1.622146048,
+   "Fz": -130.1926121446201,
+   "max_vm": 3.0206521510034103,
+   "pcg_it": 1903,
+   "device": "2"
+  },
+  {
+   "job": [
+    "B_tread",
+    0.02
+   ],
+   "pid": 1871605,
+   "physical": 4,
+   "wall": 17.525115489959717,
+   "peak_gb": 1.622146048,
+   "Fz": -260.3852242892402,
+   "max_vm": 6.041304302006821,
+   "pcg_it": 1903,
+   "device": "1"
+  },
+  {
+   "job": [
+    "B_tread",
+    0.03
+   ],
+   "pid": 1871604,
+   "physical": 3,
+   "wall": 17.549211263656616,
+   "peak_gb": 1.622146048,
+   "Fz": -390.57783643847864,
+   "max_vm": 9.061956286769101,
+   "pcg_it": 1903,
+   "device": "0"
+  }
+ ]
+}
