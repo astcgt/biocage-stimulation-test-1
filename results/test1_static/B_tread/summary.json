@@ -1,0 +1,36 @@
+{
+ "design": "B_tread",
+ "stop_reason": "max displacement",
+ "peak_Fz_N": 1342.8287145388174,
+ "stiffness_N_per_mm": 12359.477404017738,
+ "first_damage": {
+  "uz": 0.12500000000000003,
+  "Fz": 1249.5028888624286
+ },
+ "endpoint": {
+  "uz": 1.589999999999988,
+  "Fz": 725.7536302922388,
+  "damage": 0.16376389821655102,
+  "slip": 0.15536471324775827,
+  "type": "damage 15 %"
+ },
+ "damage_crossings": {
+  "0.1": {
+   "uz_imposed": 1.0000000000000007,
+   "Fz": -629.7453585887811,
+   "step": 192
+  },
+  "0.15": {
+   "uz_imposed": 1.589999999999988,
+   "Fz": -725.7536302922388,
+   "step": 310
+  },
+  "0.2": null
+ },
+ "max_slip_mm": 0.35697465984701254,
+ "steps": 593,
+ "wall_s": 10852.645310163498,
+ "F_fail_N": 1342.8287145388174,
+ "F_fail_N_at_15pct_damage": 725.7536302922388,
+ "F_fail_definition": "peak axial force in displacement-controlled compression (structural failure)"
+}

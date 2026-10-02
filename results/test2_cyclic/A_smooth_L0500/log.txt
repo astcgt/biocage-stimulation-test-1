@@ -1,0 +1,58 @@
+=== Test 2 cyclic A_smooth: level 0.500 x F_fail 1299 N -> Fmax 649 N, Fmin 65 N, device cuda:0
+   preload secant 0: Uz 0.00541 mm -> Fz -67.97 N
+   preload secant 1: Uz 0.00516 mm -> Fz -60.85 N
+   preload secant 2: Uz 0.00531 mm -> Fz -60.13 N
+   preload secant 3: Uz 0.01012 mm -> Fz -120.58 N
+   preload secant 4: Uz 0.00569 mm -> Fz -63.87 N
+   preload done: Fz -64.94 N, Uz -0.00588 mm
+      reach F=357 N -> 351.1 N, Uz 0.0302 mm, 1 solves, k 11751 N/mm, 15s
+      reach F=649 N -> 628.6 N, Uz 0.0597 mm, 5 solves, k 15711 N/mm, 50s
+      reach F=649 N -> 654.8 N, Uz 0.0657 mm, 5 solves, k 8332 N/mm, 39s
+      reach F=65 N -> 54.5 N, Uz 0.0108 mm, 5 solves, k 7806 N/mm, 356s
+      reach F=649 N -> 644.6 N, Uz 0.0656 mm, 4 solves, k 5166 N/mm, 45s
+      reach F=65 N -> 0.3 N, Uz -0.0018 mm, 5 solves, k 5746 N/mm, 272s
+      reach F=649 N -> 659.2 N, Uz 0.0663 mm, 5 solves, k 7606 N/mm, 113s
+      reach F=65 N -> 29.1 N, Uz 0.0091 mm, 5 solves, k 10783 N/mm, 424s
+      reach F=65 N -> 65.9 N, Uz 0.0134 mm, 2 solves, k 9239 N/mm, 20s
+block   1 N          125 (+       122) maxD 0.000 dmg   0.00%  maxVM@Fmax  17.39  ratchet 1.64e-03 (raw 3.9e-03, noise 1.8e-04) mm/cyc slip 0.2000 mm  k    10227 N/mm (1526s)
+      reach F=649 N -> 655.2 N, Uz 0.0678 mm, 4 solves, k 8053 N/mm, 45s
+      reach F=65 N -> 57.9 N, Uz 0.0138 mm, 5 solves, k 8721 N/mm, 371s
+      reach F=649 N -> 652.8 N, Uz 0.0691 mm, 4 solves, k 7959 N/mm, 49s
+      reach F=65 N -> 57.9 N, Uz 0.0144 mm, 5 solves, k 8836 N/mm, 370s
+      reach F=649 N -> 651.7 N, Uz 0.0697 mm, 4 solves, k 7748 N/mm, 46s
+      reach F=65 N -> 54.0 N, Uz 0.0147 mm, 5 solves, k 8441 N/mm, 382s
+      reach F=65 N -> 65.5 N, Uz 0.0160 mm, 1 solves, k 8834 N/mm, 7s
+block   2 N          220 (+        92) maxD 0.000 dmg   0.00%  maxVM@Fmax  19.56  ratchet 2.17e-03 (raw 2.2e-03, noise 1.2e-04) mm/cyc slip 0.2458 mm  k    10629 N/mm (2796s)
+      reach F=649 N -> 647.7 N, Uz 0.0703 mm, 4 solves, k 6454 N/mm, 44s
+      reach F=65 N -> 333.1 N, Uz 0.0448 mm, 5 solves, k 8462 N/mm, 473s
+      reach F=649 N -> 648.7 N, Uz 0.0732 mm, 4 solves, k 6192 N/mm, 36s
+      reach F=65 N -> 275.3 N, Uz 0.0416 mm, 5 solves, k 7556 N/mm, 429s
+      reach F=649 N -> 644.5 N, Uz 0.0741 mm, 3 solves, k 9193 N/mm, 28s
+      reach F=65 N -> 67.5 N, Uz 0.0181 mm, 3 solves, k 6933 N/mm, 105s
+      reach F=65 N -> 64.7 N, Uz 0.0178 mm, 1 solves, k 7724 N/mm, 7s
+block   3 N          294 (+        71) maxD 0.000 dmg   0.00%  maxVM@Fmax  23.38  ratchet 2.83e-03 (raw 2.8e-03, noise 1.4e-04) mm/cyc slip 0.4000 mm  k    10440 N/mm (3918s)
+      reach F=649 N -> 645.8 N, Uz 0.0730 mm, 4 solves, k 6316 N/mm, 44s
+      reach F=65 N -> 235.3 N, Uz 0.0381 mm, 5 solves, k 7404 N/mm, 541s
+      reach F=649 N -> 643.7 N, Uz 0.0745 mm, 3 solves, k 9330 N/mm, 30s
+      reach F=65 N -> 67.2 N, Uz 0.0190 mm, 3 solves, k 6888 N/mm, 98s
+      reach F=649 N -> 643.4 N, Uz 0.0740 mm, 4 solves, k 4214 N/mm, 48s
+      reach F=65 N -> 0.3 N, Uz -0.0088 mm, 5 solves, k 4687 N/mm, 193s
+      reach F=65 N -> 67.3 N, Uz 0.0154 mm, 5 solves, k 7544 N/mm, 255s
+block   4 N          327 (+        30) maxD 0.000 dmg   0.00%  maxVM@Fmax  22.52  ratchet 6.61e-03 (raw 6.6e-03, noise 2.1e-03) mm/cyc slip 0.6000 mm  k     7056 N/mm (5128s)
+      reach F=649 N -> 645.1 N, Uz 0.0697 mm, 4 solves, k 5723 N/mm, 59s
+      reach F=65 N -> 17.3 N, Uz 0.0086 mm, 5 solves, k 1614 N/mm, 492s
+      reach F=649 N -> 655.3 N, Uz 0.0777 mm, 3 solves, k 12669 N/mm, 67s
+      reach F=65 N -> 68.6 N, Uz 0.0213 mm, 3 solves, k 6503 N/mm, 74s
+      reach F=649 N -> 644.5 N, Uz 0.0768 mm, 4 solves, k 4935 N/mm, 50s
+      reach F=65 N -> 6.9 N, Uz 0.0062 mm, 5 solves, k 545 N/mm, 356s
+      reach F=65 N -> 66.4 N, Uz 0.0170 mm, 4 solves, k 7724 N/mm, 103s
+block   5 N          401 (+        72) maxD 0.000 dmg   0.00%  maxVM@Fmax  22.93  ratchet 2.80e-03 (raw 2.8e-03, noise 7.6e-04) mm/cyc slip 0.6000 mm  k     8280 N/mm (6329s)
+      reach F=649 N -> 644.7 N, Uz 0.0724 mm, 4 solves, k 5630 N/mm, 52s
+      reach F=65 N -> 19.5 N, Uz 0.0103 mm, 5 solves, k 1776 N/mm, 538s
+      reach F=649 N -> 651.4 N, Uz 0.0785 mm, 3 solves, k 12410 N/mm, 64s
+      reach F=65 N -> 68.6 N, Uz 0.0220 mm, 3 solves, k 6260 N/mm, 75s
+      reach F=649 N -> 663.3 N, Uz 0.0802 mm, 5 solves, k 8998 N/mm, 58s
+      reach F=65 N -> 67.9 N, Uz 0.0215 mm, 3 solves, k 6197 N/mm, 106s
+      reach F=65 N -> 64.1 N, Uz 0.0210 mm, 1 solves, k 7917 N/mm, 4s
+block   6 N        26014 (+     25609) maxD 0.100 dmg   0.00%  maxVM@Fmax  24.41  ratchet 0.00e+00 (raw 2.0e-03, noise 4.2e-05) mm/cyc slip 0.6000 mm  k     9960 N/mm (7225s)
+      reach F=649 N -> 645.8 N, Uz 0.0779 mm, 4 solves, k 6682 N/mm, 49s

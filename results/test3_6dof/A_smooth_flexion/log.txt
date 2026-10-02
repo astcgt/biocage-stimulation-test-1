@@ -1,1 +1,48 @@
 === Test 3 6-DOF A_smooth flexion: preload 100.0 N (force), dof 3 displacement-controlled, device cuda:2
+   preload secant 0: Uz 0.00833 mm -> Fz -104.66 N
+   preload secant 1: Uz 0.00794 mm -> Fz -93.34 N
+   preload secant 2: Uz 0.00817 mm -> Fz -92.64 N
+   preload secant 3: Uz 0.01553 mm -> Fz -185.02 N
+   preload secant 4: Uz 0.00876 mm -> Fz -98.35 N
+   preload done: Fz -100.00 N, Uz -0.00906 mm
+step   1 flexion -0.25 deg  load   -656.04 Nmm  Fz  -100.0  dmg  0.00%  maxVM   7.03  slip C4/C3 0.0017/0.0011  contact 0.32 (7 outer, 233s)
+step   2 flexion -0.50 deg  load   -753.67 Nmm  Fz  -100.0  dmg  0.00%  maxVM   9.21  slip C4/C3 0.0018/0.0022  contact 0.24 (4 outer, 257s)
+step   3 flexion -0.75 deg  load   -765.87 Nmm  Fz  -100.0  dmg  0.00%  maxVM  10.44  slip C4/C3 0.0028/0.0022  contact 0.20 (6 outer, 278s)
+step   4 flexion -1.00 deg  load   -776.79 Nmm  Fz  -100.0  dmg  0.00%  maxVM  11.63  slip C4/C3 0.0034/0.0006  contact 0.18 (2 outer, 296s)
+step   5 flexion -1.25 deg  load   -788.59 Nmm  Fz  -100.1  dmg  0.00%  maxVM  12.77  slip C4/C3 0.0062/0.0010  contact 0.16 (2 outer, 315s)
+step   6 flexion -1.50 deg  load   -808.38 Nmm  Fz  -100.1  dmg  0.00%  maxVM  12.73  slip C4/C3 0.0055/0.0021  contact 0.14 (2 outer, 327s)
+step   7 flexion -1.75 deg  load   -813.76 Nmm  Fz  -100.1  dmg  0.00%  maxVM  14.47  slip C4/C3 0.0052/0.0024  contact 0.13 (2 outer, 338s)
+step   8 flexion -2.00 deg  load   -814.06 Nmm  Fz  -100.1  dmg  0.00%  maxVM  15.94  slip C4/C3 0.0051/0.0030  contact 0.12 (2 outer, 349s)
+step   9 flexion -2.25 deg  load   -815.91 Nmm  Fz  -100.1  dmg  0.00%  maxVM  17.37  slip C4/C3 0.0057/0.0043  contact 0.11 (2 outer, 361s)
+step  10 flexion -2.50 deg  load   -825.56 Nmm  Fz  -100.1  dmg  0.00%  maxVM  18.83  slip C4/C3 0.0050/0.0062  contact 0.11 (2 outer, 370s)
+step  11 flexion -2.75 deg  load   -826.20 Nmm  Fz  -100.2  dmg  0.00%  maxVM  20.22  slip C4/C3 0.0054/0.0074  contact 0.10 (2 outer, 379s)
+step  12 flexion -3.00 deg  load   -822.43 Nmm  Fz  -100.2  dmg  0.00%  maxVM  21.14  slip C4/C3 0.0056/0.0088  contact 0.10 (3 outer, 388s)
+step  13 flexion -3.25 deg  load   -828.92 Nmm  Fz  -100.2  dmg  0.00%  maxVM  22.46  slip C4/C3 0.0062/0.0107  contact 0.10 (2 outer, 397s)
+step  14 flexion -3.50 deg  load   -830.34 Nmm  Fz  -100.1  dmg  0.00%  maxVM  23.15  slip C4/C3 0.0065/0.0123  contact 0.09 (2 outer, 404s)
+step  15 flexion -3.75 deg  load   -832.62 Nmm  Fz  -100.3  dmg  0.00%  maxVM  24.22  slip C4/C3 0.0072/0.0139  contact 0.09 (2 outer, 412s)
+step  16 flexion -4.00 deg  load   -832.42 Nmm  Fz  -100.3  dmg  0.00%  maxVM  25.24  slip C4/C3 0.0076/0.0153  contact 0.09 (2 outer, 420s)
+step  17 flexion -4.25 deg  load   -833.62 Nmm  Fz  -100.3  dmg  0.00%  maxVM  26.25  slip C4/C3 0.0083/0.0168  contact 0.09 (2 outer, 428s)
+step  18 flexion -4.50 deg  load   -837.30 Nmm  Fz  -100.3  dmg  0.00%  maxVM  27.46  slip C4/C3 0.0085/0.0179  contact 0.08 (2 outer, 435s)
+step  19 flexion -4.75 deg  load   -837.89 Nmm  Fz  -100.2  dmg  0.00%  maxVM  28.44  slip C4/C3 0.0093/0.0192  contact 0.08 (2 outer, 443s)
+step  20 flexion -5.00 deg  load   -838.64 Nmm  Fz  -100.3  dmg  0.00%  maxVM  29.42  slip C4/C3 0.0095/0.0199  contact 0.08 (2 outer, 450s)
+step  21 flexion -5.25 deg  load   -846.19 Nmm  Fz  -100.3  dmg  0.00%  maxVM  30.48  slip C4/C3 0.0101/0.0213  contact 0.08 (2 outer, 458s)
+step  22 flexion -5.50 deg  load   -841.99 Nmm  Fz  -100.2  dmg  0.00%  maxVM  30.89  slip C4/C3 0.0102/0.0219  contact 0.08 (2 outer, 465s)
+step  23 flexion -5.75 deg  load   -849.06 Nmm  Fz  -100.3  dmg  0.00%  maxVM  32.00  slip C4/C3 0.0110/0.0233  contact 0.08 (2 outer, 472s)
+step  24 flexion -6.00 deg  load   -861.77 Nmm  Fz  -100.4  dmg  0.00%  maxVM  33.35  slip C4/C3 0.0105/0.0231  contact 0.08 (2 outer, 479s)
+step  25 flexion -6.25 deg  load   -881.27 Nmm  Fz  -100.4  dmg  0.00%  maxVM  34.27  slip C4/C3 0.0119/0.0258  contact 0.08 (2 outer, 486s)
+step  26 flexion -6.50 deg  load   -772.79 Nmm  Fz  -100.1  dmg  0.00%  maxVM  33.18  slip C4/C3 0.0113/0.0213  contact 0.06 (2 outer, 495s)
+step  27 flexion -6.75 deg  load   -863.83 Nmm  Fz  -100.2  dmg  0.00%  maxVM  34.99  slip C4/C3 0.0118/0.0212  contact 0.07 (2 outer, 504s)
+step  28 flexion -7.00 deg  load   -714.24 Nmm  Fz  -100.2  dmg  0.01%  maxVM  32.95  slip C4/C3 0.0102/0.0184  contact 0.06 (2 outer, 514s)
+step  29 flexion -7.25 deg  load   -751.40 Nmm  Fz  -100.2  dmg  0.04%  maxVM  33.60  slip C4/C3 0.0117/0.0181  contact 0.07 (2 outer, 525s)
+step  30 flexion -7.50 deg  load   -890.60 Nmm  Fz  -100.4  dmg  0.04%  maxVM  33.28  slip C4/C3 0.0089/0.0160  contact 0.07 (2 outer, 533s)
+step  31 flexion -7.75 deg  load   -695.51 Nmm  Fz  -100.2  dmg  0.07%  maxVM  34.43  slip C4/C3 0.0105/0.0166  contact 0.06 (2 outer, 545s)
+step  32 flexion -8.00 deg  load   -594.35 Nmm  Fz  -100.2  dmg  0.27%  maxVM  41.71  slip C4/C3 0.0102/0.0248  contact 0.07 (15 outer, 592s)
+step  33 flexion -8.25 deg  load   -480.63 Nmm  Fz  -100.2  dmg  0.56%  maxVM  44.64  slip C4/C3 0.0113/0.0416  contact 0.08 (15 outer, 671s)
+step  34 flexion -8.50 deg  load   -424.24 Nmm  Fz  -100.1  dmg  0.76%  maxVM  34.38  slip C4/C3 0.0112/0.0550  contact 0.09 (15 outer, 718s)
+step  35 flexion -8.75 deg  load   -428.73 Nmm  Fz  -100.0  dmg  0.92%  maxVM  34.56  slip C4/C3 0.0106/0.0671  contact 0.10 (15 outer, 760s)
+step  36 flexion -9.00 deg  load   -438.47 Nmm  Fz  -100.0  dmg  1.05%  maxVM  34.95  slip C4/C3 0.0098/0.0789  contact 0.11 (15 outer, 808s)
+step  37 flexion -9.25 deg  load   -488.34 Nmm  Fz  -100.3  dmg  1.13%  maxVM  34.74  slip C4/C3 0.0092/0.0894  contact 0.12 (15 outer, 846s)
+step  38 flexion -9.50 deg  load   -574.43 Nmm  Fz  -100.2  dmg  1.19%  maxVM  34.91  slip C4/C3 0.0088/0.0983  contact 0.13 (15 outer, 868s)
+step  39 flexion -9.75 deg  load   -630.33 Nmm  Fz  -100.0  dmg  1.27%  maxVM  34.71  slip C4/C3 0.0088/0.1073  contact 0.14 (15 outer, 894s)
+step  40 flexion -10.00 deg  load   -639.79 Nmm  Fz  -100.3  dmg  1.32%  maxVM  34.07  slip C4/C3 0.0092/0.1159  contact 0.14 (15 outer, 917s)
+{"design": "A_smooth", "mode": "flexion", "dof": 3, "stop_reason": "imposed limit reached", "preload_N": 100.0, "max_imposed": -0.1745329251994331, "max_imposed_unit": "rad", "max_load": 890.5975084683083, "load_unit": "Nmm", "load_at_endpoint": 639.7893462951085, "final_damage": 0.013216000513866361, "final_slip": 0.11590532214658589, "max_vm": 44.637942107998626, "steps": 40, "wall_s": 917.3983097076416}

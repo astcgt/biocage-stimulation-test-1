@@ -1,0 +1,74 @@
+=== Test 2 cyclic B_tread: level 0.375 x F_fail 1343 N -> Fmax 504 N, Fmin 50 N, device cuda:1
+   preload secant 0: Uz 0.00420 mm -> Fz -53.13 N
+   preload secant 1: Uz 0.00396 mm -> Fz -47.88 N
+   preload secant 2: Uz 0.00407 mm -> Fz -48.12 N
+   preload secant 3: Uz 0.00511 mm -> Fz -61.20 N
+   preload secant 4: Uz 0.00425 mm -> Fz -50.04 N
+   preload done: Fz -50.35 N, Uz -0.00434 mm
+      reach F=277 N -> 279.0 N, Uz 0.0232 mm, 1 solves, k 12109 N/mm, 16s
+      reach F=504 N -> 499.4 N, Uz 0.0418 mm, 1 solves, k 11887 N/mm, 12s
+      reach F=504 N -> 494.9 N, Uz 0.0445 mm, 5 solves, k 3923 N/mm, 41s
+      reach F=50 N -> 0.8 N, Uz -0.0229 mm, 5 solves, k 4359 N/mm, 83s
+      reach F=504 N -> 507.1 N, Uz 0.0457 mm, 5 solves, k 7311 N/mm, 115s
+      reach F=50 N -> 73.4 N, Uz 0.0076 mm, 5 solves, k 7964 N/mm, 402s
+      reach F=504 N -> 499.6 N, Uz 0.0457 mm, 4 solves, k 3114 N/mm, 41s
+      reach F=50 N -> 0.4 N, Uz -0.0406 mm, 5 solves, k 3470 N/mm, 65s
+      reach F=50 N -> 38.9 N, Uz -0.0014 mm, 5 solves, k 3067 N/mm, 422s
+block   1 N           16 (+        13) maxD 0.000 dmg   0.00%  maxVM@Fmax  14.31  ratchet 1.52e-02 (raw 1.5e-02, noise 4.2e-03) mm/cyc slip 0.2000 mm  k     5246 N/mm (1378s)
+      reach F=504 N -> 508.4 N, Uz 0.0449 mm, 5 solves, k 7204 N/mm, 116s
+      reach F=50 N -> 19.1 N, Uz -0.0019 mm, 5 solves, k 10455 N/mm, 377s
+      reach F=504 N -> 487.2 N, Uz 0.0453 mm, 5 solves, k 2661 N/mm, 69s
+      reach F=50 N -> 2.1 N, Uz -0.0507 mm, 5 solves, k 2980 N/mm, 72s
+      reach F=504 N -> 502.8 N, Uz 0.0462 mm, 5 solves, k 6708 N/mm, 160s
+      reach F=50 N -> 22.3 N, Uz -0.0029 mm, 5 solves, k 9523 N/mm, 293s
+      reach F=50 N -> 53.3 N, Uz 0.0027 mm, 2 solves, k 6124 N/mm, 254s
+block   2 N          107 (+        88) maxD 0.000 dmg   0.00%  maxVM@Fmax  19.29  ratchet 2.27e-03 (raw 6.4e-03, noise 9.5e-04) mm/cyc slip 0.4000 mm  k     9222 N/mm (2719s)
+      reach F=504 N -> 498.8 N, Uz 0.0475 mm, 4 solves, k 4289 N/mm, 56s
+      reach F=50 N -> 0.8 N, Uz -0.0155 mm, 5 solves, k 4759 N/mm, 150s
+      reach F=504 N -> 505.7 N, Uz 0.0473 mm, 5 solves, k 6876 N/mm, 128s
+      reach F=50 N -> 17.4 N, Uz -0.0011 mm, 5 solves, k 10083 N/mm, 381s
+      reach F=504 N -> 491.8 N, Uz 0.0476 mm, 5 solves, k 13466 N/mm, 65s
+      reach F=50 N -> 52.7 N, Uz 0.0064 mm, 3 solves, k 7400 N/mm, 64s
+      reach F=50 N -> 50.5 N, Uz 0.0061 mm, 1 solves, k 6814 N/mm, 18s
+block   3 N          261 (+       151) maxD 0.000 dmg   0.00%  maxVM@Fmax  16.93  ratchet 1.33e-03 (raw 1.3e-03, noise 1.8e-04) mm/cyc slip 0.4000 mm  k    10994 N/mm (3580s)
+      reach F=504 N -> 500.4 N, Uz 0.0492 mm, 4 solves, k 4533 N/mm, 40s
+      reach F=50 N -> 0.9 N, Uz -0.0104 mm, 5 solves, k 5041 N/mm, 127s
+      reach F=504 N -> 510.9 N, Uz 0.0480 mm, 5 solves, k 8389 N/mm, 97s
+      reach F=50 N -> 46.8 N, Uz 0.0054 mm, 5 solves, k 6673 N/mm, 327s
+      reach F=504 N -> 499.8 N, Uz 0.0483 mm, 4 solves, k 3818 N/mm, 41s
+      reach F=50 N -> 1.2 N, Uz -0.0226 mm, 5 solves, k 4250 N/mm, 151s
+      reach F=50 N -> 47.1 N, Uz 0.0016 mm, 4 solves, k 7730 N/mm, 405s
+block   4 N          279 (+        15) maxD 0.000 dmg   0.00%  maxVM@Fmax  16.06  ratchet 1.38e-02 (raw 1.4e-02, noise 2.0e-03) mm/cyc slip 0.4000 mm  k     6388 N/mm (4769s)
+      reach F=504 N -> 501.0 N, Uz 0.0476 mm, 4 solves, k 6682 N/mm, 59s
+      reach F=50 N -> 28.1 N, Uz -0.0008 mm, 5 solves, k 7704 N/mm, 429s
+      reach F=504 N -> 501.7 N, Uz 0.0486 mm, 4 solves, k 7319 N/mm, 54s
+      reach F=50 N -> 33.3 N, Uz 0.0016 mm, 5 solves, k 3984 N/mm, 405s
+      reach F=504 N -> 502.5 N, Uz 0.0498 mm, 4 solves, k 9397 N/mm, 59s
+      reach F=50 N -> 51.6 N, Uz 0.0058 mm, 3 solves, k 5951 N/mm, 151s
+      reach F=50 N -> 49.8 N, Uz 0.0056 mm, 1 solves, k 8413 N/mm, 13s
+block   5 N          626 (+       344) maxD 0.000 dmg   0.00%  maxVM@Fmax  18.45  ratchet 5.81e-04 (raw 1.3e-03, noise 1.4e-04) mm/cyc slip 0.6000 mm  k    10302 N/mm (5939s)
+      reach F=504 N -> 503.2 N, Uz 0.0502 mm, 4 solves, k 9013 N/mm, 43s
+      reach F=50 N -> 49.1 N, Uz 0.0059 mm, 4 solves, k 7253 N/mm, 342s
+      reach F=504 N -> 502.8 N, Uz 0.0501 mm, 4 solves, k 8588 N/mm, 37s
+      reach F=50 N -> 46.5 N, Uz 0.0058 mm, 4 solves, k 7134 N/mm, 241s
+      reach F=504 N -> 501.8 N, Uz 0.0502 mm, 4 solves, k 7104 N/mm, 39s
+      reach F=50 N -> 39.3 N, Uz 0.0040 mm, 5 solves, k 7671 N/mm, 362s
+      reach F=50 N -> 49.5 N, Uz 0.0055 mm, 1 solves, k 7110 N/mm, 9s
+block   6 N          734 (+       105) maxD 0.000 dmg   0.00%  maxVM@Fmax  18.38  ratchet 1.90e-03 (raw 1.9e-03, noise 6.9e-05) mm/cyc slip 0.8000 mm  k     9806 N/mm (7012s)
+      reach F=504 N -> 502.1 N, Uz 0.0493 mm, 4 solves, k 7735 N/mm, 39s
+      reach F=50 N -> 42.8 N, Uz 0.0051 mm, 5 solves, k 5687 N/mm, 354s
+      reach F=504 N -> 500.8 N, Uz 0.0493 mm, 3 solves, k 11752 N/mm, 35s
+      reach F=50 N -> 51.2 N, Uz 0.0071 mm, 3 solves, k 6923 N/mm, 59s
+      reach F=504 N -> 499.6 N, Uz 0.0497 mm, 3 solves, k 10921 N/mm, 32s
+      reach F=50 N -> 54.3 N, Uz 0.0079 mm, 2 solves, k 5104 N/mm, 48s
+      reach F=50 N -> 49.4 N, Uz 0.0071 mm, 1 solves, k 6301 N/mm, 12s
+block   7 N      2705121 (+   2704384) maxD 0.100 dmg   0.00%  maxVM@Fmax  17.85  ratchet 0.00e+00 (raw 3.8e-04, noise 1.7e-04) mm/cyc slip 0.8000 mm  k    10834 N/mm (7590s)
+      reach F=504 N -> 501.0 N, Uz 0.0502 mm, 3 solves, k 11606 N/mm, 35s
+      reach F=50 N -> 51.1 N, Uz 0.0076 mm, 3 solves, k 6566 N/mm, 54s
+      reach F=504 N -> 502.4 N, Uz 0.0507 mm, 4 solves, k 8172 N/mm, 36s
+      reach F=50 N -> 48.7 N, Uz 0.0069 mm, 5 solves, k 6451 N/mm, 363s
+      reach F=504 N -> 500.3 N, Uz 0.0498 mm, 3 solves, k 11323 N/mm, 34s
+      reach F=50 N -> 50.2 N, Uz 0.0075 mm, 3 solves, k 6835 N/mm, 54s
+      reach F=50 N -> 51.1 N, Uz 0.0076 mm, 1 solves, k 34269 N/mm, 3s
+block   8 N      5000003 (+   2294879) maxD 0.186 dmg   0.00%  maxVM@Fmax  17.74  ratchet 0.00e+00 (raw 3.3e-04, noise 3.1e-05) mm/cyc slip 0.8000 mm  k    10721 N/mm (8170s)
+{"design": "B_tread", "level": 0.375, "F_fail_static": 1342.8287145388174, "Fmax": 503.5607679520565, "Fmin": 50.35607679520565, "stop_reason": "runout", "cycles_run": 5000003.0, "runout": true, "cycles_to_endpoint": null, "endpoint_type": null, "damage_crossings": {"0.1": null, "0.15": null, "0.2": null}, "final_damage": 0.0, "final_slip_mm": 0.8165367807760374, "initial_stiffness": 5245.867558556112, "final_stiffness": 10720.841863181398, "blocks": 8, "wall_s": 8169.82347202301, "test_duration_days_at_5Hz": 11.574081018518518}

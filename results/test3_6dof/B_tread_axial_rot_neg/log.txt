@@ -1,0 +1,48 @@
+=== Test 3 6-DOF B_tread axial_rot_neg: preload 100.0 N (force), dof 5 displacement-controlled, device cuda:2
+   preload secant 0: Uz 0.00833 mm -> Fz -105.30 N
+   preload secant 1: Uz 0.00789 mm -> Fz -95.33 N
+   preload secant 2: Uz 0.00810 mm -> Fz -95.61 N
+   preload secant 3: Uz 0.01131 mm -> Fz -136.22 N
+   preload secant 4: Uz 0.00845 mm -> Fz -99.27 N
+   preload done: Fz -100.00 N, Uz -0.00862 mm
+step   1 axial_rot_neg -0.25 deg  load  -1369.43 Nmm  Fz  -100.0  dmg  0.00%  maxVM  18.17  slip C4/C3 0.0020/0.0030  contact 0.45 (13 outer, 256s)
+step   2 axial_rot_neg -0.50 deg  load  -1414.82 Nmm  Fz  -100.0  dmg  0.00%  maxVM  19.49  slip C4/C3 0.0070/0.0154  contact 0.25 (15 outer, 370s)
+step   3 axial_rot_neg -0.75 deg  load  -1668.37 Nmm  Fz  -100.0  dmg  0.00%  maxVM  27.90  slip C4/C3 0.0119/0.0248  contact 0.19 (15 outer, 432s)
+step   4 axial_rot_neg -1.00 deg  load  -1454.37 Nmm  Fz  -100.0  dmg  0.01%  maxVM  31.86  slip C4/C3 0.0178/0.0367  contact 0.14 (15 outer, 506s)
+step   5 axial_rot_neg -1.25 deg  load  -1341.60 Nmm  Fz  -100.0  dmg  0.01%  maxVM  29.57  slip C4/C3 0.0218/0.0478  contact 0.11 (15 outer, 578s)
+step   6 axial_rot_neg -1.50 deg  load  -1270.66 Nmm  Fz  -100.0  dmg  0.02%  maxVM  31.20  slip C4/C3 0.0252/0.0581  contact 0.10 (15 outer, 637s)
+step   7 axial_rot_neg -1.75 deg  load  -1221.57 Nmm  Fz  -100.0  dmg  0.02%  maxVM  33.06  slip C4/C3 0.0287/0.0682  contact 0.08 (13 outer, 686s)
+step   8 axial_rot_neg -2.00 deg  load   -867.67 Nmm  Fz  -100.0  dmg  0.04%  maxVM  31.41  slip C4/C3 0.0315/0.0823  contact 0.07 (15 outer, 766s)
+step   9 axial_rot_neg -2.25 deg  load   -827.78 Nmm  Fz  -100.0  dmg  0.05%  maxVM  34.92  slip C4/C3 0.0340/0.0934  contact 0.06 (15 outer, 816s)
+step  10 axial_rot_neg -2.50 deg  load   -988.10 Nmm  Fz  -100.1  dmg  0.05%  maxVM  34.91  slip C4/C3 0.0358/0.1020  contact 0.06 (15 outer, 846s)
+step  11 axial_rot_neg -2.75 deg  load   -916.59 Nmm  Fz  -100.1  dmg  0.07%  maxVM  33.70  slip C4/C3 0.0379/0.1132  contact 0.06 (15 outer, 883s)
+step  12 axial_rot_neg -3.00 deg  load   -896.52 Nmm  Fz  -100.0  dmg  0.09%  maxVM  34.47  slip C4/C3 0.0404/0.1268  contact 0.06 (15 outer, 926s)
+step  13 axial_rot_neg -3.25 deg  load   -703.76 Nmm  Fz  -100.0  dmg  0.16%  maxVM  33.53  slip C4/C3 0.0429/0.1473  contact 0.05 (15 outer, 995s)
+step  14 axial_rot_neg -3.50 deg  load   -801.31 Nmm  Fz  -100.1  dmg  0.18%  maxVM  34.23  slip C4/C3 0.0438/0.1603  contact 0.05 (15 outer, 1036s)
+step  15 axial_rot_neg -3.75 deg  load   -697.50 Nmm  Fz  -100.0  dmg  0.24%  maxVM  33.99  slip C4/C3 0.0459/0.1798  contact 0.05 (15 outer, 1093s)
+step  16 axial_rot_neg -4.00 deg  load   -686.44 Nmm  Fz  -100.0  dmg  0.31%  maxVM  34.12  slip C4/C3 0.0472/0.2008  contact 0.05 (15 outer, 1160s)
+step  17 axial_rot_neg -4.25 deg  load   -821.28 Nmm  Fz  -100.1  dmg  0.33%  maxVM  34.58  slip C4/C3 0.0476/0.2131  contact 0.05 (15 outer, 1193s)
+step  18 axial_rot_neg -4.50 deg  load   -647.12 Nmm  Fz  -100.0  dmg  0.44%  maxVM  34.59  slip C4/C3 0.0479/0.2397  contact 0.05 (15 outer, 1272s)
+step  19 axial_rot_neg -4.75 deg  load   -672.67 Nmm  Fz  -100.0  dmg  0.50%  maxVM  34.83  slip C4/C3 0.0482/0.2566  contact 0.06 (15 outer, 1325s)
+step  20 axial_rot_neg -5.00 deg  load   -734.65 Nmm  Fz  -100.1  dmg  0.55%  maxVM  34.87  slip C4/C3 0.0489/0.2710  contact 0.06 (15 outer, 1368s)
+step  21 axial_rot_neg -5.25 deg  load   -721.21 Nmm  Fz  -100.1  dmg  0.59%  maxVM  35.00  slip C4/C3 0.0491/0.2864  contact 0.06 (15 outer, 1416s)
+step  22 axial_rot_neg -5.50 deg  load   -760.74 Nmm  Fz  -100.1  dmg  0.63%  maxVM  34.79  slip C4/C3 0.0494/0.2987  contact 0.06 (15 outer, 1452s)
+step  23 axial_rot_neg -5.75 deg  load   -708.82 Nmm  Fz  -100.1  dmg  0.69%  maxVM  34.57  slip C4/C3 0.0499/0.3155  contact 0.06 (15 outer, 1504s)
+step  24 axial_rot_neg -6.00 deg  load   -688.94 Nmm  Fz  -100.0  dmg  0.76%  maxVM  34.01  slip C4/C3 0.0493/0.3329  contact 0.06 (15 outer, 1563s)
+step  25 axial_rot_neg -6.25 deg  load   -716.32 Nmm  Fz  -100.1  dmg  0.79%  maxVM  33.72  slip C4/C3 0.0489/0.3485  contact 0.06 (15 outer, 1611s)
+step  26 axial_rot_neg -6.50 deg  load   -704.15 Nmm  Fz  -100.1  dmg  0.84%  maxVM  34.59  slip C4/C3 0.0481/0.3654  contact 0.06 (15 outer, 1667s)
+step  27 axial_rot_neg -6.75 deg  load   -634.96 Nmm  Fz  -100.0  dmg  0.95%  maxVM  34.76  slip C4/C3 0.0449/0.3835  contact 0.07 (15 outer, 1738s)
+step  28 axial_rot_neg -7.00 deg  load   -791.28 Nmm  Fz  -100.2  dmg  0.97%  maxVM  33.70  slip C4/C3 0.0436/0.3929  contact 0.07 (15 outer, 1764s)
+step  29 axial_rot_neg -7.25 deg  load   -893.01 Nmm  Fz  -100.2  dmg  1.00%  maxVM  34.71  slip C4/C3 0.0437/0.4036  contact 0.07 (15 outer, 1791s)
+step  30 axial_rot_neg -7.50 deg  load   -756.60 Nmm  Fz  -100.1  dmg  1.06%  maxVM  34.26  slip C4/C3 0.0412/0.4178  contact 0.07 (15 outer, 1833s)
+step  31 axial_rot_neg -7.75 deg  load   -740.29 Nmm  Fz  -100.1  dmg  1.11%  maxVM  34.83  slip C4/C3 0.0408/0.4313  contact 0.07 (15 outer, 1871s)
+step  32 axial_rot_neg -8.00 deg  load   -730.62 Nmm  Fz  -100.1  dmg  1.17%  maxVM  34.77  slip C4/C3 0.0389/0.4444  contact 0.07 (15 outer, 1915s)
+step  33 axial_rot_neg -8.25 deg  load   -747.38 Nmm  Fz  -100.1  dmg  1.22%  maxVM  34.44  slip C4/C3 0.0372/0.4565  contact 0.08 (15 outer, 1952s)
+step  34 axial_rot_neg -8.50 deg  load   -694.77 Nmm  Fz  -100.1  dmg  1.30%  maxVM  34.93  slip C4/C3 0.0347/0.4710  contact 0.08 (15 outer, 2010s)
+step  35 axial_rot_neg -8.75 deg  load   -743.23 Nmm  Fz  -100.2  dmg  1.33%  maxVM  34.17  slip C4/C3 0.0345/0.4822  contact 0.08 (15 outer, 2046s)
+step  36 axial_rot_neg -9.00 deg  load   -830.58 Nmm  Fz  -100.3  dmg  1.37%  maxVM  34.36  slip C4/C3 0.0346/0.4916  contact 0.08 (15 outer, 2071s)
+step  37 axial_rot_neg -9.25 deg  load   -849.59 Nmm  Fz  -100.3  dmg  1.39%  maxVM  34.26  slip C4/C3 0.0353/0.5018  contact 0.08 (15 outer, 2099s)
+step  38 axial_rot_neg -9.50 deg  load   -860.40 Nmm  Fz  -100.3  dmg  1.43%  maxVM  34.84  slip C4/C3 0.0350/0.5127  contact 0.08 (15 outer, 2134s)
+step  39 axial_rot_neg -9.75 deg  load   -844.29 Nmm  Fz  -100.4  dmg  1.48%  maxVM  34.03  slip C4/C3 0.0345/0.5214  contact 0.08 (15 outer, 2162s)
+step  40 axial_rot_neg -10.00 deg  load  -1076.75 Nmm  Fz  -100.3  dmg  1.50%  maxVM  34.03  slip C4/C3 0.0370/0.5310  contact 0.09 (15 outer, 2182s)
+{"design": "B_tread", "mode": "axial_rot_neg", "dof": 5, "stop_reason": "imposed limit reached", "preload_N": 100.0, "max_imposed": -0.1745329251994331, "max_imposed_unit": "rad", "max_load": 1668.366372220957, "load_unit": "Nmm", "load_at_endpoint": 1076.7485035458753, "final_damage": 0.014954107902395345, "final_slip": 0.5309932178956341, "max_vm": 34.99745617566328, "steps": 40, "wall_s": 2182.1696331501007}

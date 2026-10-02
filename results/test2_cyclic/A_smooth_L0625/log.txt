@@ -1,0 +1,11 @@
+=== Test 2 cyclic A_smooth: level 0.625 x F_fail 1299 N -> Fmax 812 N, Fmin 81 N, device cuda:1
+   preload secant 0: Uz 0.00677 mm -> Fz -84.96 N
+   preload secant 1: Uz 0.00645 mm -> Fz -75.83 N
+   preload secant 2: Uz 0.00664 mm -> Fz -75.21 N
+   preload secant 3: Uz 0.01260 mm -> Fz -150.17 N
+   preload secant 4: Uz 0.00711 mm -> Fz -79.84 N
+   preload done: Fz -81.18 N, Uz -0.00736 mm
+      reach F=325 N -> 319.5 N, Uz 0.0277 mm, 1 solves, k 11740 N/mm, 14s
+      reach F=568 N -> 548.6 N, Uz 0.0524 mm, 5 solves, k 15706 N/mm, 47s
+      reach F=812 N -> 788.1 N, Uz 0.0780 mm, 5 solves, k 14588 N/mm, 45s
+      reach F=812 N -> 818.8 N, Uz 0.0820 mm, 2 solves, k 8802 N/mm, 13s

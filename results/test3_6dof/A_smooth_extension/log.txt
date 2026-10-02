@@ -1,0 +1,48 @@
+=== Test 3 6-DOF A_smooth extension: preload 100.0 N (force), dof 3 displacement-controlled, device cuda:2
+   preload secant 0: Uz 0.00833 mm -> Fz -104.66 N
+   preload secant 1: Uz 0.00794 mm -> Fz -93.34 N
+   preload secant 2: Uz 0.00817 mm -> Fz -92.64 N
+   preload secant 3: Uz 0.01553 mm -> Fz -185.02 N
+   preload secant 4: Uz 0.00876 mm -> Fz -98.35 N
+   preload done: Fz -100.00 N, Uz -0.00906 mm
+step   1 extension 0.25 deg  load    679.11 Nmm  Fz  -100.0  dmg  0.00%  maxVM   8.28  slip C4/C3 0.0008/0.0001  contact 0.42 (6 outer, 225s)
+step   2 extension 0.50 deg  load    753.73 Nmm  Fz  -100.0  dmg  0.00%  maxVM  11.23  slip C4/C3 0.0028/0.0001  contact 0.28 (4 outer, 251s)
+step   3 extension 0.75 deg  load    776.33 Nmm  Fz  -100.1  dmg  0.00%  maxVM  13.35  slip C4/C3 0.0029/0.0012  contact 0.23 (3 outer, 268s)
+step   4 extension 1.00 deg  load    776.16 Nmm  Fz  -100.1  dmg  0.00%  maxVM  14.71  slip C4/C3 0.0056/0.0027  contact 0.19 (3 outer, 286s)
+step   5 extension 1.25 deg  load    779.06 Nmm  Fz  -100.1  dmg  0.00%  maxVM  16.13  slip C4/C3 0.0060/0.0028  contact 0.17 (2 outer, 304s)
+step   6 extension 1.50 deg  load    783.86 Nmm  Fz  -100.1  dmg  0.00%  maxVM  17.46  slip C4/C3 0.0065/0.0033  contact 0.15 (2 outer, 322s)
+step   7 extension 1.75 deg  load    789.90 Nmm  Fz  -100.1  dmg  0.00%  maxVM  18.70  slip C4/C3 0.0065/0.0039  contact 0.13 (2 outer, 341s)
+step   8 extension 2.00 deg  load    841.72 Nmm  Fz  -100.1  dmg  0.00%  maxVM  24.26  slip C4/C3 0.0066/0.0074  contact 0.12 (2 outer, 352s)
+step   9 extension 2.25 deg  load    806.76 Nmm  Fz  -100.1  dmg  0.00%  maxVM  22.59  slip C4/C3 0.0097/0.0063  contact 0.11 (2 outer, 371s)
+step  10 extension 2.50 deg  load    844.73 Nmm  Fz  -100.2  dmg  0.00%  maxVM  27.59  slip C4/C3 0.0084/0.0097  contact 0.10 (2 outer, 381s)
+step  11 extension 2.75 deg  load    844.62 Nmm  Fz  -100.2  dmg  0.00%  maxVM  31.29  slip C4/C3 0.0083/0.0132  contact 0.10 (2 outer, 391s)
+step  12 extension 3.00 deg  load    840.54 Nmm  Fz  -100.1  dmg  0.00%  maxVM  34.32  slip C4/C3 0.0092/0.0162  contact 0.09 (2 outer, 402s)
+step  13 extension 3.25 deg  load    797.00 Nmm  Fz  -100.1  dmg  0.06%  maxVM  33.73  slip C4/C3 0.0101/0.0177  contact 0.09 (2 outer, 461s)
+step  14 extension 3.50 deg  load    776.84 Nmm  Fz  -100.1  dmg  0.09%  maxVM  33.01  slip C4/C3 0.0138/0.0214  contact 0.10 (15 outer, 511s)
+step  15 extension 3.75 deg  load    787.93 Nmm  Fz  -100.1  dmg  0.13%  maxVM  33.88  slip C4/C3 0.0150/0.0244  contact 0.10 (15 outer, 560s)
+step  16 extension 4.00 deg  load    769.85 Nmm  Fz  -100.1  dmg  0.18%  maxVM  34.77  slip C4/C3 0.0164/0.0275  contact 0.11 (15 outer, 594s)
+step  17 extension 4.25 deg  load    764.54 Nmm  Fz  -100.2  dmg  0.28%  maxVM  34.54  slip C4/C3 0.0185/0.0344  contact 0.11 (2 outer, 638s)
+step  18 extension 4.50 deg  load    720.78 Nmm  Fz  -100.1  dmg  0.37%  maxVM  34.87  slip C4/C3 0.0192/0.0344  contact 0.13 (15 outer, 670s)
+step  19 extension 4.75 deg  load    692.60 Nmm  Fz  -100.1  dmg  0.45%  maxVM  34.95  slip C4/C3 0.0201/0.0384  contact 0.13 (15 outer, 717s)
+step  20 extension 5.00 deg  load    720.66 Nmm  Fz  -100.2  dmg  0.52%  maxVM  34.18  slip C4/C3 0.0213/0.0414  contact 0.15 (15 outer, 755s)
+step  21 extension 5.25 deg  load    695.96 Nmm  Fz  -100.1  dmg  0.59%  maxVM  34.63  slip C4/C3 0.0225/0.0439  contact 0.15 (15 outer, 788s)
+step  22 extension 5.50 deg  load    683.98 Nmm  Fz  -100.1  dmg  0.66%  maxVM  34.39  slip C4/C3 0.0240/0.0460  contact 0.16 (15 outer, 825s)
+step  23 extension 5.75 deg  load    735.12 Nmm  Fz  -100.2  dmg  0.72%  maxVM  34.97  slip C4/C3 0.0252/0.0479  contact 0.17 (15 outer, 855s)
+step  24 extension 6.00 deg  load    658.58 Nmm  Fz  -100.0  dmg  0.79%  maxVM  34.83  slip C4/C3 0.0269/0.0495  contact 0.16 (15 outer, 889s)
+step  25 extension 6.25 deg  load    643.62 Nmm  Fz  -100.1  dmg  0.97%  maxVM  34.79  slip C4/C3 0.0286/0.0567  contact 0.17 (15 outer, 939s)
+step  26 extension 6.50 deg  load    636.69 Nmm  Fz  -100.1  dmg  1.08%  maxVM  34.85  slip C4/C3 0.0282/0.0650  contact 0.17 (15 outer, 981s)
+step  27 extension 6.75 deg  load    665.10 Nmm  Fz  -100.2  dmg  1.14%  maxVM  34.74  slip C4/C3 0.0302/0.0650  contact 0.19 (15 outer, 1020s)
+step  28 extension 7.00 deg  load    641.96 Nmm  Fz  -100.1  dmg  1.24%  maxVM  34.90  slip C4/C3 0.0300/0.0733  contact 0.20 (15 outer, 1060s)
+step  29 extension 7.25 deg  load    641.95 Nmm  Fz  -100.1  dmg  1.34%  maxVM  34.48  slip C4/C3 0.0296/0.0814  contact 0.21 (15 outer, 1097s)
+step  30 extension 7.50 deg  load    708.60 Nmm  Fz  -100.2  dmg  1.41%  maxVM  34.29  slip C4/C3 0.0291/0.0893  contact 0.22 (15 outer, 1130s)
+step  31 extension 7.75 deg  load    697.35 Nmm  Fz  -100.2  dmg  1.50%  maxVM  33.11  slip C4/C3 0.0287/0.0975  contact 0.22 (15 outer, 1166s)
+step  32 extension 8.00 deg  load    730.20 Nmm  Fz  -100.3  dmg  1.58%  maxVM  34.87  slip C4/C3 0.0282/0.1057  contact 0.23 (15 outer, 1196s)
+step  33 extension 8.25 deg  load    699.49 Nmm  Fz  -100.2  dmg  1.65%  maxVM  34.94  slip C4/C3 0.0278/0.1138  contact 0.24 (15 outer, 1230s)
+step  34 extension 8.50 deg  load    765.78 Nmm  Fz  -100.4  dmg  1.74%  maxVM  34.23  slip C4/C3 0.0270/0.1209  contact 0.24 (15 outer, 1289s)
+step  35 extension 8.75 deg  load    828.01 Nmm  Fz  -100.5  dmg  1.78%  maxVM  33.23  slip C4/C3 0.0259/0.1283  contact 0.25 (15 outer, 1305s)
+step  36 extension 9.00 deg  load    831.35 Nmm  Fz  -100.6  dmg  1.82%  maxVM  34.52  slip C4/C3 0.0253/0.1357  contact 0.26 (15 outer, 1340s)
+step  37 extension 9.25 deg  load    886.32 Nmm  Fz  -100.6  dmg  1.85%  maxVM  33.96  slip C4/C3 0.0244/0.1428  contact 0.27 (15 outer, 1359s)
+step  38 extension 9.50 deg  load    894.08 Nmm  Fz  -100.7  dmg  1.91%  maxVM  33.91  slip C4/C3 0.0240/0.1509  contact 0.26 (15 outer, 1395s)
+step  39 extension 9.75 deg  load    926.68 Nmm  Fz  -100.7  dmg  1.94%  maxVM  34.93  slip C4/C3 0.0232/0.1581  contact 0.28 (15 outer, 1416s)
+step  40 extension 10.00 deg  load   1000.67 Nmm  Fz  -100.9  dmg  1.97%  maxVM  33.18  slip C4/C3 0.0224/0.1653  contact 0.28 (15 outer, 1435s)
+{"design": "A_smooth", "mode": "extension", "dof": 3, "stop_reason": "imposed limit reached", "preload_N": 100.0, "max_imposed": 0.1745329251994331, "max_imposed_unit": "rad", "max_load": 1000.6732576916904, "load_unit": "Nmm", "load_at_endpoint": 1000.6732576916904, "final_damage": 0.019703563342058354, "final_slip": 0.16525118481458892, "max_vm": 34.970996386581575, "steps": 40, "wall_s": 1435.3955132961273}

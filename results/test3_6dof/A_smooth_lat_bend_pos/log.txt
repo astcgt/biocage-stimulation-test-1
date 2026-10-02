@@ -1,0 +1,48 @@
+=== Test 3 6-DOF A_smooth lat_bend_pos: preload 100.0 N (force), dof 4 displacement-controlled, device cuda:2
+   preload secant 0: Uz 0.00833 mm -> Fz -104.66 N
+   preload secant 1: Uz 0.00794 mm -> Fz -93.34 N
+   preload secant 2: Uz 0.00817 mm -> Fz -92.64 N
+   preload secant 3: Uz 0.01553 mm -> Fz -185.02 N
+   preload secant 4: Uz 0.00876 mm -> Fz -98.35 N
+   preload done: Fz -100.00 N, Uz -0.00906 mm
+step   1 lat_bend_pos 0.25 deg  load    910.61 Nmm  Fz  -100.0  dmg  0.00%  maxVM   9.31  slip C4/C3 0.0004/0.0033  contact 0.34 (7 outer, 240s)
+step   2 lat_bend_pos 0.50 deg  load   1023.92 Nmm  Fz  -100.1  dmg  0.00%  maxVM  12.71  slip C4/C3 0.0003/0.0093  contact 0.26 (4 outer, 264s)
+step   3 lat_bend_pos 0.75 deg  load   1048.71 Nmm  Fz  -100.0  dmg  0.00%  maxVM  14.26  slip C4/C3 0.0001/0.0190  contact 0.21 (4 outer, 282s)
+step   4 lat_bend_pos 1.00 deg  load   1046.76 Nmm  Fz  -100.1  dmg  0.00%  maxVM  15.28  slip C4/C3 0.0014/0.0281  contact 0.19 (3 outer, 300s)
+step   5 lat_bend_pos 1.25 deg  load   1060.92 Nmm  Fz  -100.1  dmg  0.00%  maxVM  16.48  slip C4/C3 0.0026/0.0377  contact 0.17 (2 outer, 316s)
+step   6 lat_bend_pos 1.50 deg  load   1069.96 Nmm  Fz  -100.1  dmg  0.00%  maxVM  17.57  slip C4/C3 0.0038/0.0474  contact 0.15 (2 outer, 332s)
+step   7 lat_bend_pos 1.75 deg  load   1061.38 Nmm  Fz  -100.2  dmg  0.00%  maxVM  18.50  slip C4/C3 0.0058/0.0575  contact 0.14 (3 outer, 348s)
+step   8 lat_bend_pos 2.00 deg  load   1075.42 Nmm  Fz  -100.2  dmg  0.00%  maxVM  19.42  slip C4/C3 0.0068/0.0671  contact 0.13 (2 outer, 363s)
+step   9 lat_bend_pos 2.25 deg  load   1089.63 Nmm  Fz  -100.2  dmg  0.00%  maxVM  20.25  slip C4/C3 0.0044/0.0759  contact 0.12 (4 outer, 380s)
+step  10 lat_bend_pos 2.50 deg  load   1060.82 Nmm  Fz  -100.3  dmg  0.00%  maxVM  21.32  slip C4/C3 0.0028/0.0855  contact 0.11 (9 outer, 410s)
+step  11 lat_bend_pos 2.75 deg  load   1123.59 Nmm  Fz  -100.3  dmg  0.00%  maxVM  22.39  slip C4/C3 0.0050/0.0981  contact 0.12 (3 outer, 425s)
+step  12 lat_bend_pos 3.00 deg  load   1106.86 Nmm  Fz  -100.3  dmg  0.00%  maxVM  22.98  slip C4/C3 0.0055/0.1078  contact 0.10 (4 outer, 442s)
+step  13 lat_bend_pos 3.25 deg  load   1079.77 Nmm  Fz  -100.2  dmg  0.00%  maxVM  24.06  slip C4/C3 0.0025/0.1173  contact 0.09 (11 outer, 471s)
+step  14 lat_bend_pos 3.50 deg  load   1104.45 Nmm  Fz  -100.4  dmg  0.00%  maxVM  24.60  slip C4/C3 0.0042/0.1283  contact 0.11 (3 outer, 487s)
+step  15 lat_bend_pos 3.75 deg  load   1132.36 Nmm  Fz  -100.3  dmg  0.00%  maxVM  25.36  slip C4/C3 0.0044/0.1402  contact 0.09 (4 outer, 502s)
+step  16 lat_bend_pos 4.00 deg  load   1080.11 Nmm  Fz  -100.4  dmg  0.00%  maxVM  26.01  slip C4/C3 0.0024/0.1511  contact 0.08 (11 outer, 529s)
+step  17 lat_bend_pos 4.25 deg  load   1115.91 Nmm  Fz  -100.4  dmg  0.00%  maxVM  26.81  slip C4/C3 0.0055/0.1622  contact 0.09 (3 outer, 545s)
+step  18 lat_bend_pos 4.50 deg  load   1113.39 Nmm  Fz  -100.5  dmg  0.00%  maxVM  27.34  slip C4/C3 0.0029/0.1739  contact 0.08 (5 outer, 561s)
+step  19 lat_bend_pos 4.75 deg  load   1122.75 Nmm  Fz  -100.3  dmg  0.00%  maxVM  28.08  slip C4/C3 0.0042/0.1859  contact 0.08 (7 outer, 580s)
+step  20 lat_bend_pos 5.00 deg  load   1105.81 Nmm  Fz  -100.5  dmg  0.00%  maxVM  28.77  slip C4/C3 0.0050/0.1973  contact 0.08 (6 outer, 598s)
+step  21 lat_bend_pos 5.25 deg  load   1088.64 Nmm  Fz  -100.4  dmg  0.00%  maxVM  29.73  slip C4/C3 0.0045/0.2095  contact 0.07 (10 outer, 618s)
+step  22 lat_bend_pos 5.50 deg  load   1138.82 Nmm  Fz  -100.5  dmg  0.00%  maxVM  30.32  slip C4/C3 0.0077/0.2205  contact 0.08 (3 outer, 629s)
+step  23 lat_bend_pos 5.75 deg  load   1105.76 Nmm  Fz  -100.8  dmg  0.00%  maxVM  31.59  slip C4/C3 0.0089/0.2331  contact 0.07 (2 outer, 639s)
+step  24 lat_bend_pos 6.00 deg  load   1139.61 Nmm  Fz  -100.5  dmg  0.00%  maxVM  32.39  slip C4/C3 0.0088/0.2449  contact 0.08 (3 outer, 648s)
+step  25 lat_bend_pos 6.25 deg  load   1131.87 Nmm  Fz  -100.6  dmg  0.00%  maxVM  33.43  slip C4/C3 0.0083/0.2569  contact 0.07 (3 outer, 657s)
+step  26 lat_bend_pos 6.50 deg  load   1134.07 Nmm  Fz  -100.6  dmg  0.00%  maxVM  34.42  slip C4/C3 0.0096/0.2679  contact 0.07 (3 outer, 666s)
+step  27 lat_bend_pos 6.75 deg  load    872.78 Nmm  Fz  -100.6  dmg  0.01%  maxVM  34.98  slip C4/C3 0.0050/0.2838  contact 0.05 (4 outer, 697s)
+step  28 lat_bend_pos 7.00 deg  load   1044.94 Nmm  Fz  -100.7  dmg  0.50%  maxVM  72.04  slip C4/C3 0.0067/0.3371  contact 0.07 (8 outer, 809s)
+step  29 lat_bend_pos 7.25 deg  load    968.69 Nmm  Fz  -100.0  dmg  1.10%  maxVM  59.83  slip C4/C3 0.0157/0.3725  contact 0.12 (15 outer, 937s)
+step  30 lat_bend_pos 7.50 deg  load    683.46 Nmm  Fz  -100.0  dmg  1.47%  maxVM  37.08  slip C4/C3 0.0212/0.3919  contact 0.13 (15 outer, 1043s)
+step  31 lat_bend_pos 7.75 deg  load    723.81 Nmm  Fz  -100.0  dmg  1.54%  maxVM  34.93  slip C4/C3 0.0225/0.4056  contact 0.14 (15 outer, 1079s)
+step  32 lat_bend_pos 8.00 deg  load    841.27 Nmm  Fz  -100.3  dmg  1.59%  maxVM  34.35  slip C4/C3 0.0240/0.4188  contact 0.15 (15 outer, 1108s)
+step  33 lat_bend_pos 8.25 deg  load    902.71 Nmm  Fz  -100.2  dmg  1.66%  maxVM  34.24  slip C4/C3 0.0253/0.4322  contact 0.16 (15 outer, 1141s)
+step  34 lat_bend_pos 8.50 deg  load    973.04 Nmm  Fz  -100.4  dmg  1.70%  maxVM  32.08  slip C4/C3 0.0271/0.4445  contact 0.16 (15 outer, 1161s)
+step  35 lat_bend_pos 8.75 deg  load   1071.89 Nmm  Fz  -100.4  dmg  1.74%  maxVM  31.70  slip C4/C3 0.0283/0.4582  contact 0.17 (15 outer, 1197s)
+step  36 lat_bend_pos 9.00 deg  load   1212.61 Nmm  Fz  -100.6  dmg  1.76%  maxVM  33.39  slip C4/C3 0.0300/0.4699  contact 0.18 (15 outer, 1212s)
+step  37 lat_bend_pos 9.25 deg  load   1180.36 Nmm  Fz  -100.6  dmg  1.80%  maxVM  34.60  slip C4/C3 0.0317/0.4820  contact 0.18 (15 outer, 1230s)
+step  38 lat_bend_pos 9.50 deg  load   1223.69 Nmm  Fz  -100.8  dmg  1.83%  maxVM  34.43  slip C4/C3 0.0331/0.4949  contact 0.19 (15 outer, 1257s)
+step  39 lat_bend_pos 9.75 deg  load   1324.57 Nmm  Fz  -100.8  dmg  1.87%  maxVM  30.29  slip C4/C3 0.0344/0.5075  contact 0.19 (15 outer, 1283s)
+step  40 lat_bend_pos 10.00 deg  load   1354.38 Nmm  Fz  -100.9  dmg  1.89%  maxVM  31.70  slip C4/C3 0.0359/0.5194  contact 0.20 (15 outer, 1302s)
+{"design": "A_smooth", "mode": "lat_bend_pos", "dof": 4, "stop_reason": "imposed limit reached", "preload_N": 100.0, "max_imposed": 0.1745329251994331, "max_imposed_unit": "rad", "max_load": 1354.3786450607136, "load_unit": "Nmm", "load_at_endpoint": 1354.3786450607136, "final_damage": 0.018916705474282595, "final_slip": 0.5193700123476889, "max_vm": 72.0397032063612, "steps": 40, "wall_s": 1302.3124268054962}
