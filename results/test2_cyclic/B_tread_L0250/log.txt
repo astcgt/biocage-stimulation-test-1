@@ -1,0 +1,26 @@
+=== Test 2 cyclic B_tread: level 0.250 x F_fail 1343 N -> Fmax 336 N, Fmin 34 N, device cuda:0
+   preload secant 0: Uz 0.00280 mm -> Fz -35.42 N
+   preload secant 1: Uz 0.00264 mm -> Fz -31.93 N
+   preload secant 2: Uz 0.00272 mm -> Fz -32.13 N
+   preload secant 3: Uz 0.00324 mm -> Fz -38.62 N
+   preload secant 4: Uz 0.00283 mm -> Fz -33.29 N
+   preload done: Fz -33.57 N, Uz -0.00290 mm
+      reach F=185 N -> 186.0 N, Uz 0.0155 mm, 1 solves, k 12110 N/mm, 16s
+      reach F=336 N -> 332.9 N, Uz 0.0278 mm, 1 solves, k 11884 N/mm, 12s
+      reach F=336 N -> 330.0 N, Uz 0.0297 mm, 5 solves, k 3744 N/mm, 42s
+      reach F=34 N -> 0.6 N, Uz -0.0174 mm, 5 solves, k 4171 N/mm, 95s
+      reach F=336 N -> 340.6 N, Uz 0.0305 mm, 5 solves, k 8369 N/mm, 125s
+      reach F=34 N -> 24.0 N, Uz 0.0022 mm, 5 solves, k 6592 N/mm, 425s
+      reach F=336 N -> 333.3 N, Uz 0.0307 mm, 4 solves, k 4180 N/mm, 40s
+      reach F=34 N -> 0.4 N, Uz -0.0123 mm, 5 solves, k 4652 N/mm, 114s
+      reach F=34 N -> 35.3 N, Uz 0.0014 mm, 2 solves, k 4912 N/mm, 217s
+block   1 N           97 (+        94) maxD 0.000 dmg   0.00%  maxVM@Fmax   9.70  ratchet 2.13e-03 (raw 2.9e-03, noise 3.6e-04) mm/cyc slip 0.2000 mm  k     7037 N/mm (1265s)
+      reach F=336 N -> 332.8 N, Uz 0.0303 mm, 4 solves, k 5578 N/mm, 55s
+      reach F=34 N -> 4.0 N, Uz -0.0017 mm, 5 solves, k 693 N/mm, 277s
+      reach F=336 N -> 334.6 N, Uz 0.0358 mm, 3 solves, k 12265 N/mm, 85s
+      reach F=34 N -> 35.2 N, Uz 0.0066 mm, 3 solves, k 6489 N/mm, 88s
+      reach F=336 N -> 334.1 N, Uz 0.0344 mm, 3 solves, k 11434 N/mm, 39s
+      reach F=34 N -> 34.3 N, Uz 0.0062 mm, 3 solves, k 6122 N/mm, 76s
+      reach F=34 N -> 34.1 N, Uz 0.0061 mm, 1 solves, k 1591 N/mm, 12s
+block   2 N      5000003 (+   4999903) maxD 0.001 dmg   0.00%  maxVM@Fmax  13.84  ratchet 0.00e+00 (raw 2.9e-04, noise 4.4e-05) mm/cyc slip 0.2000 mm  k    10742 N/mm (1895s)
+{"design": "B_tread", "level": 0.25, "F_fail_static": 1342.8287145388174, "Fmax": 335.70717863470435, "Fmin": 33.570717863470435, "stop_reason": "runout", "cycles_run": 5000003.0, "runout": true, "cycles_to_endpoint": null, "endpoint_type": null, "damage_crossings": {"0.1": null, "0.15": null, "0.2": null}, "final_damage": 0.0, "final_slip_mm": 0.20850962421252925, "initial_stiffness": 7036.871063434667, "final_stiffness": 10742.07276225525, "blocks": 2, "wall_s": 1895.2719359397888, "test_duration_days_at_5Hz": 11.574081018518518}

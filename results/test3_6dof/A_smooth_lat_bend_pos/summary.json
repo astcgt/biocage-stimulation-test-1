@@ -1,0 +1,17 @@
+{
+ "design": "A_smooth",
+ "mode": "lat_bend_pos",
+ "dof": 4,
+ "stop_reason": "imposed limit reached",
+ "preload_N": 100.0,
+ "max_imposed": 0.1745329251994331,
+ "max_imposed_unit": "rad",
+ "max_load": 1354.3786450607136,
+ "load_unit": "Nmm",
+ "load_at_endpoint": 1354.3786450607136,
+ "final_damage": 0.018916705474282595,
+ "final_slip": 0.5193700123476889,
+ "max_vm": 72.0397032063612,
+ "steps": 40,
+ "wall_s": 1302.3124268054962
+}

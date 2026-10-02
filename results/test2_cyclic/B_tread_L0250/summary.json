@@ -1,0 +1,24 @@
+{
+ "design": "B_tread",
+ "level": 0.25,
+ "F_fail_static": 1342.8287145388174,
+ "Fmax": 335.70717863470435,
+ "Fmin": 33.570717863470435,
+ "stop_reason": "runout",
+ "cycles_run": 5000003.0,
+ "runout": true,
+ "cycles_to_endpoint": null,
+ "endpoint_type": null,
+ "damage_crossings": {
+  "0.1": null,
+  "0.15": null,
+  "0.2": null
+ },
+ "final_damage": 0.0,
+ "final_slip_mm": 0.20850962421252925,
+ "initial_stiffness": 7036.871063434667,
+ "final_stiffness": 10742.07276225525,
+ "blocks": 2,
+ "wall_s": 1895.2719359397888,
+ "test_duration_days_at_5Hz": 11.574081018518518
+}

@@ -1,0 +1,17 @@
+{
+ "design": "B_tread",
+ "mode": "axial_rot_pos",
+ "dof": 5,
+ "stop_reason": "imposed limit reached",
+ "preload_N": 100.0,
+ "max_imposed": 0.1745329251994331,
+ "max_imposed_unit": "rad",
+ "max_load": 1630.5840784411992,
+ "load_unit": "Nmm",
+ "load_at_endpoint": 761.3930535947222,
+ "final_damage": 0.01704350421610328,
+ "final_slip": 0.4480601660566921,
+ "max_vm": 35.88784907154743,
+ "steps": 40,
+ "wall_s": 2311.2532365322113
+}
