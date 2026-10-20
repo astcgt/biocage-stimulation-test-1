@@ -1,0 +1,27 @@
+{
+ "origin_ICR": [
+  23.186,
+  0.0,
+  75.019
+ ],
+ "X_anterior": [
+  0.95272,
+  0.0,
+  -0.30384
+ ],
+ "Y_left": [
+  0.0,
+  1.0,
+  0.0
+ ],
+ "Z_superior": [
+  0.30384,
+  -0.0,
+  0.95272
+ ],
+ "C3_inferior_endplate_tilt_deg": -20.73,
+ "C4_superior_endplate_tilt_deg": -14.65,
+ "endplate_wedge_deg": 6.08,
+ "midplane_tilt_deg": -17.69,
+ "note": "tilts are in the CT (C34.feb) x-z plane; positive = anterior end higher; wedge = C4 sup minus C3 inf"
+}

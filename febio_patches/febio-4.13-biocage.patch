@@ -1,0 +1,104 @@
+diff --git a/FEBioMech/FESolidSolver2.cpp b/FEBioMech/FESolidSolver2.cpp
+index ec546a6..24dc56f 100644
+--- a/FEBioMech/FESolidSolver2.cpp
++++ b/FEBioMech/FESolidSolver2.cpp
+@@ -1112,7 +1112,11 @@ bool FESolidSolver2::Quasin()
+ 		if ((m_Etol > 0) && (normE1 > m_Etol * normEi)) bconv = false;
+ 
+ 		// check linestep size
+-		if ((m_lineSearch->m_LStol > 0) && (s < m_lineSearch->m_LSmin)) bconv = false;
++		// BIOCAGE patch 2026-10-20: a zero line step is not a failure when the residual has already dropped by >= 1e6
++		// (frictional contact: the solution is converged and the line search simply finds nothing to improve; previously
++		// the converged state was rejected and the step retried until the iteration limit)
++		bool resConverged = (normRi > 0) && (normR1 < 1e-6 * normRi);
++		if ((m_lineSearch->m_LStol > 0) && (s < m_lineSearch->m_LSmin) && !resConverged) bconv = false;
+ 
+ 		// check energy divergence
+ 		if (m_bdivreform)
+diff --git a/FEBioMech/FETiedElasticInterface.cpp b/FEBioMech/FETiedElasticInterface.cpp
+index 791ab1c..ea20ba1 100644
+--- a/FEBioMech/FETiedElasticInterface.cpp
++++ b/FEBioMech/FETiedElasticInterface.cpp
+@@ -48,6 +48,7 @@ BEGIN_FECORE_CLASS(FETiedElasticInterface, FEContactInterface)
+ 	ADD_PARAMETER(m_stol     , "search_tol"         );
+ 	ADD_PARAMETER(m_bsymm    , "symmetric_stiffness");
+ 	ADD_PARAMETER(m_srad     , "search_radius"      );
++	ADD_PARAMETER(m_tinit    , "init_time"          );
+ 	ADD_PARAMETER(m_naugmin  , "minaug"             );
+ 	ADD_PARAMETER(m_naugmax  , "maxaug"             );
+ 	ADD_PARAMETER(m_bflips   , "flip_primary"       );
+@@ -263,6 +264,8 @@ FETiedElasticInterface::FETiedElasticInterface(FEModel* pfem) : FEContactInterfa
+     m_stol = 0.01;
+     m_bsymm = true;
+     m_srad = 1.0;
++    m_tinit = -1.0;     // BIOCAGE patch default: tie formed at activation (original behaviour)
++    m_binit = false;
+     m_gtol = -1;    // we use augmentation tolerance by default
+     m_bautopen = false;
+     m_bupdtpen = false;
+@@ -396,8 +399,14 @@ void FETiedElasticInterface::Activate()
+     
+     // project the surfaces onto each other
+     // this will evaluate the gap functions in the reference configuration
+-    InitialProjection(m_ss, m_ms);
+-    if (m_btwo_pass) InitialProjection(m_ms, m_ss);
++    // BIOCAGE patch 2026-10-21: with init_time >= 0 the tie is formed later (in Update) in the configuration at that time
++    m_binit = false;
++    if (m_tinit < 0)
++    {
++        InitialProjection(m_ss, m_ms);
++        if (m_btwo_pass) InitialProjection(m_ms, m_ss);
++        m_binit = true;
++    }
+ }
+ 
+ //-----------------------------------------------------------------------------
+@@ -539,6 +548,13 @@ void FETiedElasticInterface::ProjectSurface(FETiedElasticSurface& ss, FETiedElas
+ 
+ void FETiedElasticInterface::Update()
+ {
++    // BIOCAGE patch: form the tie at init_time in the current configuration
++    if (!m_binit && (GetFEModel()->GetTime().currentTime >= m_tinit - 1e-12))
++    {
++        InitialProjection(m_ss, m_ms);
++        if (m_btwo_pass) InitialProjection(m_ms, m_ss);
++        m_binit = true;
++    }
+     // project the surfaces onto each other
+     // this will update the gap functions as well
+     ProjectSurface(m_ss, m_ms);
+diff --git a/FEBioMech/FETiedElasticInterface.h b/FEBioMech/FETiedElasticInterface.h
+index ad7a4ac..a889709 100644
+--- a/FEBioMech/FETiedElasticInterface.h
++++ b/FEBioMech/FETiedElasticInterface.h
+@@ -145,6 +145,8 @@ public:
+     double      m_stol;         //!< search tolerance
+     bool        m_bsymm;        //!< use symmetric stiffness components only
+     double      m_srad;         //!< contact search radius
++    double      m_tinit;        //!< BIOCAGE patch: time at which the tie is formed (<0: at activation, original behaviour)
++    bool        m_binit;        //!< BIOCAGE patch: tie formed (initial projection done)
+     int         m_naugmax;      //!< maximum nr of augmentations
+     int         m_naugmin;      //!< minimum nr of augmentations
+     
+diff --git a/FECore/PointCurve.cpp b/FECore/PointCurve.cpp
+index 5c769f3..64ffd42 100644
+--- a/FECore/PointCurve.cpp
++++ b/FECore/PointCurve.cpp
+@@ -28,6 +28,7 @@ SOFTWARE.*/
+ #include "BSpline.h"
+ #include "AkimaSpline.h"
+ #include <assert.h>
++#include "FEException.h"
+ #include <algorithm>
+ 
+ #ifndef min
+@@ -36,6 +37,9 @@ SOFTWARE.*/
+ 
+ size_t binarySearch(const std::vector<vec2d>& points, double x)
+ {
++	// BIOCAGE patch 2026-10-20: a NaN argument (e.g. a spring length during a diverging line search) skips the range checks
++	// in the callers and makes 'high' wrap around (size_t) -> out-of-bounds read / segfault. Throw so the step is retried.
++	if (x != x) throw NANInSolutionDetected();
+ 	size_t N = points.size();
+ 	size_t low = 0;
+ 	size_t high = N - 1;

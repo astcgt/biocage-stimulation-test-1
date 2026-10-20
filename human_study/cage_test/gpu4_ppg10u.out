@@ -1,0 +1,2 @@
+started human_study/cage_test/case_A_push_post_g10u_gpu4 on GPU 4, cores 32..50
+{'exit': 1, 'normal': False, 'wall_s': 2799.6, 'gpu': 4, 'cores': 16, 'core_h': 12.443, 'gpu_h': 0.778}

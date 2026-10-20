@@ -1,0 +1,57 @@
+{
+ "note": "every compute batch of the human C3-C4 study, including discarded ones; core_h = pinned cores x wall time",
+ "entries": [
+  {
+   "when": "2026-10-20 08:08-08:21",
+   "what": "validation C0-C7 x6, FIRST attempt (facet search_radius bug -> discarded)",
+   "core_h": 17.083,
+   "gpu_h": 0.0,
+   "wall_min": 12.8
+  },
+  {
+   "when": "2026-10-20 08:24-08:26",
+   "what": "validation reruns x5 with smaller steps (same bug, stopped)",
+   "core_h": 2.2,
+   "gpu_h": 0.0,
+   "wall_min": 1.7,
+   "estimated": true
+  },
+  {
+   "when": "2026-10-20 07:40-08:30",
+   "what": "benchmarks and smoke tests (C34 x ~8 runs, FSU, Pardiso vs cuDSS)",
+   "core_h": 0.6,
+   "gpu_h": 0.02,
+   "wall_min": 10,
+   "estimated": true
+  },
+  {
+   "when": "2026-10-20 08:27-08:47",
+   "what": "validation C0-C7 x6 with facet search_radius fix (5 normal, flex_neg_y stopped at 99.9 % load)",
+   "core_h": 26.869,
+   "gpu_h": 0.0,
+   "wall_min": 19.4
+  },
+  {
+   "when": "2026-10-20 08:55-08:57",
+   "what": "intact FSU x6 (16 cores) + thread benchmark 8/4 cores",
+   "core_h": 2.045,
+   "gpu_h": 0.0,
+   "wall_min": 3.0
+  },
+  {
+   "when": "2026-10-20 ~09:30-11:10",
+   "what": "cage pipeline debugging runs (design A compress test case, ~8 attempts incl. 3 diagnostic variants)",
+   "core_h": 17.0,
+   "gpu_h": 0.0,
+   "wall_min": 75,
+   "estimated": true
+  },
+  {
+   "when": "2026-10-20 11:15-11:34",
+   "what": "same cage case on GPU 1 (cuDSS) for benchmark",
+   "core_h": 5.0,
+   "gpu_h": 0.31,
+   "wall_min": 18.7
+  }
+ ]
+}

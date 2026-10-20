@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<febio_config version="3.0">
+	<import><PROJECT_DIR>/febio_cudss/libfebio_cudss.so</import>
+	<default_linear_solver type="cudss"></default_linear_solver>
+</febio_config>

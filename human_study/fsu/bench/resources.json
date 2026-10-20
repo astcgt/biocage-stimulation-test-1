@@ -1,0 +1,15 @@
+{
+ "cases": {
+  "t4": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 80.1,
+   "cores": 4,
+   "core_h": 0.089
+  }
+ },
+ "batch_wall_s": 90.2,
+ "total_core_h": 0.089,
+ "gpu_h": 0.0,
+ "not_run": []
+}

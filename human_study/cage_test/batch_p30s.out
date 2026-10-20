@@ -1,0 +1,17 @@
+started case_A_compress_ref_p30s on cores 85..137
+finished case_A_compress_ref_p30s: {'exit': 1, 'normal': False, 'wall_s': 232.2, 'cores': 16, 'core_h': 1.032}
+{
+ "cases": {
+  "case_A_compress_ref_p30s": {
+   "exit": 1,
+   "normal": false,
+   "wall_s": 232.2,
+   "cores": 16,
+   "core_h": 1.032
+  }
+ },
+ "batch_wall_s": 242.3,
+ "total_core_h": 1.032,
+ "gpu_h": 0.0,
+ "not_run": []
+}

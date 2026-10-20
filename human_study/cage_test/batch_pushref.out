@@ -1,0 +1,26 @@
+started case_A_push_ant_ref on cores 2..46
+started case_A_push_post_ref on cores 48..94
+finished case_A_push_ant_ref: {'exit': -15, 'normal': False, 'wall_s': 2444.4, 'cores': 16, 'core_h': 10.864}
+finished case_A_push_post_ref: {'exit': -15, 'normal': False, 'wall_s': 2444.4, 'cores': 16, 'core_h': 10.864}
+{
+ "cases": {
+  "case_A_push_ant_ref": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 2444.4,
+   "cores": 16,
+   "core_h": 10.864
+  },
+  "case_A_push_post_ref": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 2444.4,
+   "cores": 16,
+   "core_h": 10.864
+  }
+ },
+ "batch_wall_s": 2454.5,
+ "total_core_h": 21.728,
+ "gpu_h": 0.0,
+ "not_run": []
+}

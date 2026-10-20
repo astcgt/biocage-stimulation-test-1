@@ -1,0 +1,17 @@
+started case_A_iso_ref_pen1 on cores 13..121
+finished case_A_iso_ref_pen1: {'exit': -15, 'normal': False, 'wall_s': 5737.9, 'cores': 16, 'core_h': 25.502}
+{
+ "cases": {
+  "case_A_iso_ref_pen1": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 5737.9,
+   "cores": 16,
+   "core_h": 25.502
+  }
+ },
+ "batch_wall_s": 5747.9,
+ "total_core_h": 25.502,
+ "gpu_h": 0.0,
+ "not_run": []
+}

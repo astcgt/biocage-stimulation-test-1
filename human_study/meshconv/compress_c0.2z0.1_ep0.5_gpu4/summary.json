@@ -1,0 +1,80 @@
+{
+ "test": "compress",
+ "d": 1.0,
+ "completed_time": 3.03239403,
+ "distraction_force_N": 957.185361743,
+ "clamp_after_release_N": 97.65339842404379,
+ "retained_distraction_mm": 0.613894465556,
+ "capacity_lower_bound_N": 67.4636511412,
+ "functional_failure": {
+  "type": "functional failure (solver stopped before any endpoint)",
+  "time": 3.0323939323425293,
+  "disp_mm": -0.09718209803300004,
+  "F_N": 67.4636511412,
+  "height_loss_mm": 0.09718209803300004,
+  "peak_compressive_strain": -0.39947015047073364,
+  "where": "cage_mix_0.25"
+ },
+ "curve": [
+  {
+   "t": 3.0,
+   "disp_mm": 0.0,
+   "F_N": -0.00110037824918,
+   "cage_damage_frac": 1.7661505106107056e-05,
+   "bone_yield_frac": 0.0,
+   "cage_axial_N": 97.65339842404379
+  },
+  {
+   "t": 3.005000114440918,
+   "disp_mm": -0.015000000000000013,
+   "F_N": 12.4765549361,
+   "cage_damage_frac": 1.7661505106107056e-05,
+   "bone_yield_frac": 0.0,
+   "cage_axial_N": 101.99220388688349
+  },
+  {
+   "t": 3.010999917984009,
+   "disp_mm": -0.03300000000000003,
+   "F_N": 26.2928274343,
+   "cage_damage_frac": 3.532568602011553e-05,
+   "bone_yield_frac": 0.0,
+   "cage_axial_N": 107.32631252305262
+  },
+  {
+   "t": 3.0178000926971436,
+   "disp_mm": -0.0534,
+   "F_N": 40.6200415679,
+   "cage_damage_frac": 0.00014037896722113324,
+   "bone_yield_frac": 0.0,
+   "cage_axial_N": 113.44673805194347
+  },
+  {
+   "t": 3.025239944458008,
+   "disp_mm": -0.07572000000000001,
+   "F_N": 54.9095478643,
+   "cage_damage_frac": 0.00028070291543322507,
+   "bone_yield_frac": 0.0,
+   "cage_axial_N": 120.17866641763051
+  },
+  {
+   "t": 3.0323939323425293,
+   "disp_mm": -0.09718209803300004,
+   "F_N": 67.4636511412,
+   "cage_damage_frac": 0.0005840192300607661,
+   "bone_yield_frac": 0.0,
+   "cage_axial_N": 126.51975375124462
+  }
+ ],
+ "endpoints": {
+  "a_cage_damage_15pct": null,
+  "b_bone_yield_10pct": null,
+  "c_height_loss_gt_d": null,
+  "d_peak_force": null
+ },
+ "damage_10pct": null,
+ "damage_20pct": null,
+ "capacity_N": null,
+ "failure_mode": null,
+ "max_force_N": 67.4636511412,
+ "stiffness_N_per_mm": 723.9902459082126
+}

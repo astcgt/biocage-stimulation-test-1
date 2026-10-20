@@ -1,0 +1,44 @@
+started case_A_iso_dtol on cores 85..248
+started case_A_iso_retry on cores 21..247
+started case_A_push_ant on cores 33..242
+started case_A_push_post on cores 5..223
+finished case_A_push_ant: {'exit': -15, 'normal': False, 'wall_s': 310.6, 'cores': 16, 'core_h': 1.381}
+finished case_A_iso_dtol: {'exit': -15, 'normal': False, 'wall_s': 881.3, 'cores': 16, 'core_h': 3.917}
+finished case_A_iso_retry: {'exit': -15, 'normal': False, 'wall_s': 881.3, 'cores': 16, 'core_h': 3.917}
+finished case_A_push_post: {'exit': -15, 'normal': False, 'wall_s': 4485.6, 'cores': 16, 'core_h': 19.936}
+{
+ "cases": {
+  "case_A_push_ant": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 310.6,
+   "cores": 16,
+   "core_h": 1.381
+  },
+  "case_A_iso_dtol": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 881.3,
+   "cores": 16,
+   "core_h": 3.917
+  },
+  "case_A_iso_retry": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 881.3,
+   "cores": 16,
+   "core_h": 3.917
+  },
+  "case_A_push_post": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 4485.6,
+   "cores": 16,
+   "core_h": 19.936
+  }
+ },
+ "batch_wall_s": 4495.7,
+ "total_core_h": 29.151,
+ "gpu_h": 0.0,
+ "not_run": []
+}

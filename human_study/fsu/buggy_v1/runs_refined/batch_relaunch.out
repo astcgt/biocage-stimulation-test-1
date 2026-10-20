@@ -1,0 +1,48 @@
+only 4 of 6 cases fit on idle cores now; running those
+started flex_pos_y on cores 0..249
+started flex_neg_y on cores 19..247
+started lb_pos_x on cores 30..239
+started lb_neg_x on cores 26..200
+finished flex_pos_y: {'exit': 0, 'normal': True, 'wall_s': 410.7, 'cores': 16, 'core_h': 1.825}
+finished lb_pos_x: {'exit': 0, 'normal': True, 'wall_s': 530.8, 'cores': 16, 'core_h': 2.359}
+finished lb_neg_x: {'exit': 0, 'normal': True, 'wall_s': 550.8, 'cores': 16, 'core_h': 2.448}
+finished flex_neg_y: {'exit': 0, 'normal': True, 'wall_s': 600.9, 'cores': 16, 'core_h': 2.671}
+{
+ "cases": {
+  "flex_pos_y": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 410.7,
+   "cores": 16,
+   "core_h": 1.825
+  },
+  "lb_pos_x": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 530.8,
+   "cores": 16,
+   "core_h": 2.359
+  },
+  "lb_neg_x": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 550.8,
+   "cores": 16,
+   "core_h": 2.448
+  },
+  "flex_neg_y": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 600.9,
+   "cores": 16,
+   "core_h": 2.671
+  }
+ },
+ "batch_wall_s": 610.9,
+ "total_core_h": 9.303,
+ "gpu_h": 0.0,
+ "not_run": [
+  "ar_pos_z",
+  "ar_neg_z"
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "pot_mm": 5.0,
+ "blocks": {
+  "C3_3": {
+   "deformable": 7671,
+   "potted": 6293
+  },
+  "C3_4": {
+   "deformable": 6909,
+   "potted": 5092
+  },
+  "C4_3": {
+   "deformable": 7600,
+   "potted": 6867
+  },
+  "C4_4": {
+   "deformable": 7215,
+   "potted": 5310
+  },
+  "hex_mat10": 100,
+  "hex_mat11": 100,
+  "hex_mat12": 100,
+  "hex_mat13": 100,
+  "hex_mat14": 100,
+  "hex_mat15": 100,
+  "hex_mat16": 100,
+  "hex_mat17": 100,
+  "hex_mat18": 100,
+  "hex_mat5": 960,
+  "hex_mat8": 1300,
+  "hex_mat9": 100
+ },
+ "C3_pot_com": [
+  20.702,
+  0.154,
+  94.997
+ ],
+ "C4_pot_com": [
+  13.92,
+  0.026,
+  71.121
+ ],
+ "node_id_map": "old C0C7 ids renumbered consecutively in sorted order",
+ "herron_ref_length_mm": 145.7119036,
+ "nodes": 14575,
+ "elements": 56217,
+ "discrete_sets": [
+  "ALL 34",
+  "FCC 34",
+  "Flaval 34",
+  "IS 34",
+  "PLL 34"
+ ],
+ "contacts": [
+  "C34_L_FC",
+  "C34_R_FC"
+ ]
+}

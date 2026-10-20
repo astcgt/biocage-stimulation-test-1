@@ -1,0 +1,128 @@
+{
+ "params": {
+  "fsu": "human_study/fsu/C34_fsu_refined.feb",
+  "fsu_info": "human_study/fsu/C34_fsu_refined.json",
+  "frame": "human_study/frame_c3c4.json",
+  "cage_npz": "human_study/cage_test/cage_A_d1_both_mix.npz",
+  "test": "compress",
+  "d": 1.0,
+  "E_hard": 400,
+  "E_soft": 4,
+  "sig_hard": 25,
+  "sig_soft": 15,
+  "theta": 0.3,
+  "mu": 0.35,
+  "compress_mm": 3.0,
+  "contact_mode": "global",
+  "penalty": 10.0,
+  "mu_ramp": 0.3,
+  "cage_mat": "gent",
+  "nu_soft": 0.45,
+  "contact_type": "node",
+  "fric_penalty": 100.0
+ },
+ "cage": {
+  "footprint_area_mm2": 92.83,
+  "window_area_mm2": 55.39,
+  "window_frac": 0.597,
+  "n_perimeters": 3,
+  "wall_mm": 1.2,
+  "design": "A",
+  "d_mm": 1.0,
+  "gradient": "both",
+  "fabrication": "mix",
+  "K_layers": 26,
+  "n_nodes": 65259,
+  "n_hex": 60086,
+  "n_cage": 24310,
+  "n_biodisc": 35776,
+  "height_mm_min_mean_max": [
+   3.95,
+   5.105,
+   6.317
+  ],
+  "cage_volume_mm3": 190.9,
+  "phi_hist": {
+   "0.0": 7436,
+   "0.25": 1298,
+   "0.5": 8316,
+   "0.75": 832,
+   "1.0": 6428
+  },
+  "interleave_hard_frac": 0.478
+ },
+ "materials": {
+  "29": {
+   "group": [
+    "biodisc"
+   ],
+   "E": 0.03,
+   "nu": 0.45,
+   "strength": null,
+   "phi": null,
+   "n_elem": 35776
+  },
+  "30": {
+   "group": [
+    "mix",
+    "0.0"
+   ],
+   "E": 4.0,
+   "nu": 0.45,
+   "strength": 15.0,
+   "phi": 0.0,
+   "n_elem": 7436
+  },
+  "31": {
+   "group": [
+    "mix",
+    "0.25"
+   ],
+   "E": 5.672516737171577,
+   "nu": 0.425,
+   "strength": 17.5,
+   "phi": 0.25,
+   "n_elem": 1298
+  },
+  "32": {
+   "group": [
+    "mix",
+    "0.5"
+   ],
+   "E": 399.9163827508612,
+   "nu": 0.4,
+   "strength": 20.0,
+   "phi": 0.5,
+   "n_elem": 8316
+  },
+  "33": {
+   "group": [
+    "mix",
+    "0.75"
+   ],
+   "E": 399.99999968834214,
+   "nu": 0.375,
+   "strength": 22.5,
+   "phi": 0.75,
+   "n_elem": 832
+  },
+  "34": {
+   "group": [
+    "mix",
+    "1.0"
+   ],
+   "E": 400.0,
+   "nu": 0.35,
+   "strength": 25.0,
+   "phi": 1.0,
+   "n_elem": 6428
+  }
+ },
+ "removed_disc_elements": 1789,
+ "orphans": 1354,
+ "cage_node_id_offset": 27751,
+ "release_hold_nodes": [
+  28674,
+  29259
+ ]
+}

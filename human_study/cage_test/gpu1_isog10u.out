@@ -1,0 +1,2 @@
+started human_study/cage_test/case_A_iso_g10u_gpu1 on GPU 1, cores 42..90
+{'exit': 1, 'normal': False, 'wall_s': 2727.4, 'gpu': 1, 'cores': 16, 'core_h': 12.122, 'gpu_h': 0.758}

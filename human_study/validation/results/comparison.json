@@ -1,0 +1,122 @@
+{
+ "flexion": {
+  "C0-C7_one_direction": {
+   "ours_deg": 42.3,
+   "herron_deg": 43,
+   "diff_pct": -1.6
+  }
+ },
+ "extension": {
+  "C0-C7_one_direction": {
+   "ours_deg": 64.36,
+   "herron_deg": 63,
+   "diff_pct": 2.2
+  },
+  "facet_force_C3C4": {
+   "ours_N": 56.4,
+   "herron_N": 57,
+   "diff_pct": -1.1
+  }
+ },
+ "lateral_bending": {
+  "C0-C7_one_direction": {
+   "ours_deg": 30.22,
+   "herron_deg": 28.0,
+   "diff_pct": 7.9
+  },
+  "C0-C1_total_ROM": {
+   "ours_deg": 7.29,
+   "herron_deg": 6,
+   "diff_pct": 21.5
+  },
+  "C1-C2_total_ROM": {
+   "ours_deg": 11.35,
+   "herron_deg": 11,
+   "diff_pct": 3.2
+  },
+  "C2-C3_total_ROM": {
+   "ours_deg": 10.4,
+   "herron_deg": 10,
+   "diff_pct": 4.0
+  },
+  "C3-C7_total_ROM": {
+   "ours_deg": 28.11,
+   "herron_deg": 28,
+   "diff_pct": 0.4
+  },
+  "C3-C4_total_ROM": {
+   "ours_deg": 7.82,
+   "herron_deg": null,
+   "diff_pct": null
+  },
+  "facet_force_C3C4": {
+   "ours_N": 27.5,
+   "herron_N": 27,
+   "diff_pct": 1.7
+  }
+ },
+ "axial_rotation": {
+  "C0-C7_one_direction": {
+   "ours_deg": 50.19,
+   "herron_deg": 54.0,
+   "diff_pct": -7.0
+  },
+  "C0-C1_total_ROM": {
+   "ours_deg": 16.29,
+   "herron_deg": 19,
+   "diff_pct": -14.2
+  },
+  "C1-C2_total_ROM": {
+   "ours_deg": 33.97,
+   "herron_deg": 38,
+   "diff_pct": -10.6
+  },
+  "C2-C3_total_ROM": {
+   "ours_deg": 9.21,
+   "herron_deg": 10,
+   "diff_pct": -7.9
+  },
+  "C3-C7_total_ROM": {
+   "ours_deg": 38.11,
+   "herron_deg": 34,
+   "diff_pct": 12.1
+  },
+  "C3-C4_total_ROM": {
+   "ours_deg": 10.39,
+   "herron_deg": null,
+   "diff_pct": null
+  },
+  "facet_force_C3C4": {
+   "ours_N": 45.0,
+   "herron_N": 45,
+   "diff_pct": -0.1
+  }
+ },
+ "flexion_extension": {
+  "C0-C1_total_ROM": {
+   "ours_deg": 18.02,
+   "herron_deg": 18,
+   "diff_pct": 0.1
+  },
+  "C1-C2_total_ROM": {
+   "ours_deg": 28.68,
+   "herron_deg": 29,
+   "diff_pct": -1.1
+  },
+  "C2-C3_total_ROM": {
+   "ours_deg": 11.75,
+   "herron_deg": 12,
+   "diff_pct": -2.1
+  },
+  "C3-C7_total_ROM": {
+   "ours_deg": 48.2,
+   "herron_deg": 48,
+   "diff_pct": 0.4
+  },
+  "C3-C4_total_ROM": {
+   "ours_deg": 13.21,
+   "herron_deg": null,
+   "diff_pct": null
+  }
+ }
+}

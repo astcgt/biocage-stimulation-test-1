@@ -1,0 +1,194 @@
+{
+ "test": "compress",
+ "d": 1.0,
+ "completed_time": 3.12353849,
+ "distraction_force_N": 957.185361743,
+ "clamp_after_release_N": 148.93991976285218,
+ "retained_distraction_mm": 0.677779341433,
+ "contact_layer_crush_after_release": 0.20481283422459892,
+ "capacity_lower_bound_N": null,
+ "functional_failure": null,
+ "curve": [
+  {
+   "t": 3.0,
+   "disp_mm": 0.0,
+   "F_N": 0.000401181530096,
+   "cage_damage_frac": 0.0008217495256567355,
+   "bone_yield_frac": 0.00043795283354053913,
+   "cage_axial_N": 148.93991976285218,
+   "contact_layer_crush_frac": 0.20481283422459892
+  },
+  {
+   "t": 3.005000114440918,
+   "disp_mm": -0.015000000000000013,
+   "F_N": 22.7959282165,
+   "cage_damage_frac": 0.0011086427888986796,
+   "bone_yield_frac": 0.0011275857972059416,
+   "cage_axial_N": 157.73677544181325,
+   "contact_layer_crush_frac": 0.24438502673796791
+  },
+  {
+   "t": 3.009842872619629,
+   "disp_mm": -0.02952845067300003,
+   "F_N": 43.6185978939,
+   "cage_damage_frac": 0.0018345367915382398,
+   "bone_yield_frac": 0.0027677656794496703,
+   "cage_axial_N": 166.21435595826642,
+   "contact_layer_crush_frac": 0.25989304812834224
+  },
+  {
+   "t": 3.015294313430786,
+   "disp_mm": -0.04588307002500003,
+   "F_N": 65.4775490588,
+   "cage_damage_frac": 0.00249132807995311,
+   "bone_yield_frac": 0.006642565090612909,
+   "cage_axial_N": 175.91628828163846,
+   "contact_layer_crush_frac": 0.26844919786096255
+  },
+  {
+   "t": 3.0209054946899414,
+   "disp_mm": -0.06271661957300001,
+   "F_N": 86.724483188,
+   "cage_damage_frac": 0.0037942687668761927,
+   "bone_yield_frac": 0.00991264768813322,
+   "cage_axial_N": 185.9236626481814,
+   "contact_layer_crush_frac": 0.2786096256684492
+  },
+  {
+   "t": 3.0272529125213623,
+   "disp_mm": -0.08175882033199999,
+   "F_N": 109.847113224,
+   "cage_damage_frac": 0.005069574482073634,
+   "bone_yield_frac": 0.016277360463711355,
+   "cage_axial_N": 197.37781816391455,
+   "contact_layer_crush_frac": 0.2839572192513369
+  },
+  {
+   "t": 3.034031391143799,
+   "disp_mm": -0.102094413843,
+   "F_N": 131.651727905,
+   "cage_damage_frac": 0.006781804534714252,
+   "bone_yield_frac": 0.026683011095399348,
+   "cage_axial_N": 209.8106316929366,
+   "contact_layer_crush_frac": 0.29572192513368983
+  },
+  {
+   "t": 3.0411901473999023,
+   "disp_mm": -0.12357073580099998,
+   "F_N": 154.032253148,
+   "cage_damage_frac": 0.008696002651446533,
+   "bone_yield_frac": 0.04131352059282086,
+   "cage_axial_N": 222.9850200701798,
+   "contact_layer_crush_frac": 0.31016042780748665
+  },
+  {
+   "t": 3.0486843585968018,
+   "disp_mm": -0.146053141477,
+   "F_N": 174.737160993,
+   "cage_damage_frac": 0.012349618938000757,
+   "bone_yield_frac": 0.06018647585606851,
+   "cage_axial_N": 236.74419462577296,
+   "contact_layer_crush_frac": 0.32620320855614976
+  },
+  {
+   "t": 3.0563642978668213,
+   "disp_mm": -0.16909314449800006,
+   "F_N": 196.601511226,
+   "cage_damage_frac": 0.022345877190422588,
+   "bone_yield_frac": 0.08202503523794005,
+   "cage_axial_N": 250.91105742615173,
+   "contact_layer_crush_frac": 0.3481283422459893
+  },
+  {
+   "t": 3.06404447555542,
+   "disp_mm": -0.192133147519,
+   "F_N": 217.412777892,
+   "cage_damage_frac": 0.036946226080258174,
+   "bone_yield_frac": 0.11457306094713557,
+   "cage_axial_N": 264.9289441048515,
+   "contact_layer_crush_frac": 0.3802139037433155
+  },
+  {
+   "t": 3.071998119354248,
+   "disp_mm": -0.215994666745,
+   "F_N": 235.88474265,
+   "cage_damage_frac": 0.05521444262137565,
+   "bone_yield_frac": 0.15196643015823993,
+   "cage_axial_N": 279.4702746736979,
+   "contact_layer_crush_frac": 0.41497326203208557
+  },
+  {
+   "t": 3.080193519592285,
+   "disp_mm": -0.240580735341,
+   "F_N": 257.653481594,
+   "cage_damage_frac": 0.07683392334979572,
+   "bone_yield_frac": 0.19524924638773677,
+   "cage_axial_N": 294.1581879564126,
+   "contact_layer_crush_frac": 0.4390374331550802
+  },
+  {
+   "t": 3.08860182762146,
+   "disp_mm": -0.265805831856,
+   "F_N": 279.763776788,
+   "cage_damage_frac": 0.09865705392232571,
+   "bone_yield_frac": 0.2482702456415761,
+   "cage_axial_N": 309.34521223315147,
+   "contact_layer_crush_frac": 0.46042780748663104
+  },
+  {
+   "t": 3.097198247909546,
+   "disp_mm": -0.291594529275,
+   "F_N": 296.136984202,
+   "cage_damage_frac": 0.11467633474751554,
+   "bone_yield_frac": 0.2943506406130721,
+   "cage_axial_N": 324.1867590654966,
+   "contact_layer_crush_frac": 0.46844919786096256
+  },
+  {
+   "t": 3.10589861869812,
+   "disp_mm": -0.317695588739,
+   "F_N": 319.043352939,
+   "cage_damage_frac": 0.1292329333482042,
+   "bone_yield_frac": 0.3432296114606748,
+   "cage_axial_N": 339.50423923228254,
+   "contact_layer_crush_frac": 0.4764705882352941
+  },
+  {
+   "t": 3.1146445274353027,
+   "disp_mm": -0.34393349454,
+   "F_N": 337.157770232,
+   "cage_damage_frac": 0.14315102903766966,
+   "bone_yield_frac": 0.38626218548807945,
+   "cage_axial_N": 354.5193203667053,
+   "contact_layer_crush_frac": 0.48877005347593583
+  },
+  {
+   "t": 3.1235384941101074,
+   "disp_mm": -0.370615455325,
+   "F_N": 357.673609214,
+   "cage_damage_frac": 0.15790267006181166,
+   "bone_yield_frac": 0.43309689931900325,
+   "cage_axial_N": 370.06654605883807,
+   "contact_layer_crush_frac": 0.49732620320855614
+  }
+ ],
+ "endpoints": {
+  "a_cage_damage_15pct": {
+   "F_N": 357.673609214,
+   "disp_mm": -0.370615455325
+  },
+  "b_bone_yield_10pct": {
+   "F_N": 217.412777892,
+   "disp_mm": -0.192133147519
+  },
+  "c_height_loss_gt_d": null,
+  "e_contact_layer_crush_50pct": null,
+  "d_peak_force": null
+ },
+ "damage_10pct": 296.136984202,
+ "damage_20pct": null,
+ "capacity_N": 217.412777892,
+ "failure_mode": "b_bone_yield_10pct",
+ "max_force_N": 357.673609214,
+ "stiffness_N_per_mm": 1381.0884863297363
+}

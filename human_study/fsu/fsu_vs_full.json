@@ -1,0 +1,65 @@
+{
+ "flexion_extension": {
+  "C3C4_total_ROM_fsu": 13.04,
+  "C3C4_total_ROM_full": 13.21,
+  "diff_pct": -1.3,
+  "facet_flex_pos_y_fsu_N": {
+   "L": 0.0,
+   "R": 0.0
+  },
+  "facet_flex_pos_y_full_N": {
+   "L": 0.0,
+   "R": 0.0
+  },
+  "facet_flex_neg_y_fsu_N": {
+   "L": 59.4,
+   "R": 58.9
+  },
+  "facet_flex_neg_y_full_N": {
+   "L": 56.4,
+   "R": 56.3
+  }
+ },
+ "lateral_bending": {
+  "C3C4_total_ROM_fsu": 8.18,
+  "C3C4_total_ROM_full": 7.82,
+  "diff_pct": 4.7,
+  "facet_lb_pos_x_fsu_N": {
+   "L": 0.0,
+   "R": 35.8
+  },
+  "facet_lb_pos_x_full_N": {
+   "L": 0.0,
+   "R": 27.6
+  },
+  "facet_lb_neg_x_fsu_N": {
+   "L": 35.3,
+   "R": 0.0
+  },
+  "facet_lb_neg_x_full_N": {
+   "L": 27.3,
+   "R": 0.0
+  }
+ },
+ "axial_rotation": {
+  "C3C4_total_ROM_fsu": 10.35,
+  "C3C4_total_ROM_full": 10.39,
+  "diff_pct": -0.5,
+  "facet_ar_pos_z_fsu_N": {
+   "L": 0.0,
+   "R": 40.8
+  },
+  "facet_ar_pos_z_full_N": {
+   "L": 0.0,
+   "R": 45.2
+  },
+  "facet_ar_neg_z_fsu_N": {
+   "L": 40.4,
+   "R": 0.0
+  },
+  "facet_ar_neg_z_full_N": {
+   "L": 44.7,
+   "R": 0.0
+  }
+ }
+}

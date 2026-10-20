@@ -1,0 +1,2 @@
+started human_study/meshconv/compress_z0.1_g10u_gpu4 on GPU 4, cores 8..102
+{'exit': -15, 'normal': False, 'wall_s': 1774.3, 'gpu': 4, 'cores': 16, 'core_h': 7.886, 'gpu_h': 0.493}

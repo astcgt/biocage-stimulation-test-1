@@ -1,0 +1,112 @@
+{
+ "test": "compress",
+ "d": 1.0,
+ "completed_time": 3.005,
+ "distraction_force_N": 957.185361743,
+ "clamp_after_release_N": 198.91727645836488,
+ "retained_distraction_mm": 0.713161863007,
+ "contact_layer_crush_after_release": 0.10213903743315508,
+ "friction_demand": [
+  {
+   "t": 3.0,
+   "bot_excess_shear_N": -50.53932416855026,
+   "bot_slip_area_frac": 0.3453833167902445,
+   "bot_tension_area_frac": 0.0,
+   "bot_safety_factor": 4.551071856327587,
+   "bot_normal_N": 185.06130395648506,
+   "bot_shear_N": 14.232132216219506,
+   "bot_cop_eccentricity": 0.21117058914238193,
+   "top_excess_shear_N": -57.51376087875363,
+   "top_slip_area_frac": 0.20403207517638555,
+   "top_tension_area_frac": 0.0,
+   "top_safety_factor": 9.251109388138309,
+   "top_normal_N": 184.24053860389145,
+   "top_shear_N": 6.970427632608374,
+   "top_cop_eccentricity": 0.1652106294280807
+  },
+  {
+   "t": 3.005000114440918,
+   "bot_excess_shear_N": -52.66798210086806,
+   "bot_slip_area_frac": 0.35125861703042427,
+   "bot_tension_area_frac": 0.0,
+   "bot_safety_factor": 4.31260684042353,
+   "bot_normal_N": 195.90639277784655,
+   "bot_shear_N": 15.899255371378228,
+   "bot_cop_eccentricity": 0.20802320248109957,
+   "top_excess_shear_N": -62.08429469929237,
+   "top_slip_area_frac": 0.21190687395193453,
+   "top_tension_area_frac": 0.0,
+   "top_safety_factor": 8.819695286339432,
+   "top_normal_N": 200.067920538914,
+   "top_shear_N": 7.939477489327513,
+   "top_cop_eccentricity": 0.17209079291948662
+  }
+ ],
+ "friction_demand_after_release": {
+  "bot_excess_shear_N": -50.53932416855026,
+  "bot_slip_area_frac": 0.3453833167902445,
+  "bot_tension_area_frac": 0.0,
+  "bot_safety_factor": 4.551071856327587,
+  "bot_normal_N": 185.06130395648506,
+  "bot_shear_N": 14.232132216219506,
+  "bot_cop_eccentricity": 0.21117058914238193,
+  "top_excess_shear_N": -57.51376087875363,
+  "top_slip_area_frac": 0.20403207517638555,
+  "top_tension_area_frac": 0.0,
+  "top_safety_factor": 9.251109388138309,
+  "top_normal_N": 184.24053860389145,
+  "top_shear_N": 6.970427632608374,
+  "top_cop_eccentricity": 0.1652106294280807
+ },
+ "min_safety_factor": 4.31260684042353,
+ "t_min_safety_factor": 3.005000114440918,
+ "max_slip_area_frac": 0.35125861703042427,
+ "mu_used": 0.35,
+ "max_cop_eccentricity": 0.21117058914238193,
+ "max_tension_area_frac": 0.0,
+ "max_excess_shear_N": -50.53932416855026,
+ "slip_time_frac": 0.0,
+ "capacity_lower_bound_N": 32.7801273567,
+ "functional_failure": {
+  "type": "functional failure (solver stopped before any endpoint)",
+  "time": 3.005000114440918,
+  "disp_mm": -0.014999999999000035,
+  "F_N": 32.7801273567,
+  "height_loss_mm": 0.014999999999000035,
+  "peak_compressive_strain": -0.3477244973182678,
+  "where": "cage_mix_0.25"
+ },
+ "curve": [
+  {
+   "t": 3.0,
+   "disp_mm": 0.0,
+   "F_N": 0.000650200266595,
+   "cage_damage_frac": 0.0,
+   "bone_yield_frac": 0.00043795283354053913,
+   "cage_axial_N": 198.91727645836488,
+   "contact_layer_crush_frac": 0.10213903743315508
+  },
+  {
+   "t": 3.005000114440918,
+   "disp_mm": -0.014999999999000035,
+   "F_N": 32.7801273567,
+   "cage_damage_frac": 0.0,
+   "bone_yield_frac": 0.0015292305806611731,
+   "cage_axial_N": 211.76807504066417,
+   "contact_layer_crush_frac": 0.14385026737967915
+  }
+ ],
+ "endpoints": {
+  "a_cage_damage_15pct": null,
+  "b_bone_yield_10pct": null,
+  "c_height_loss_gt_d": null,
+  "e_contact_layer_crush_50pct": null,
+  "d_peak_force": null
+ },
+ "damage_10pct": null,
+ "damage_20pct": null,
+ "capacity_N": null,
+ "failure_mode": null,
+ "max_force_N": 32.7801273567,
+ "stiffness_N_per_mm": null
+}

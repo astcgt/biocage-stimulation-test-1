@@ -1,0 +1,62 @@
+started flex_pos_y on cores 15..152
+started flex_neg_y on cores 136..171
+started lb_pos_x on cores 0..187
+started lb_neg_x on cores 30..228
+started ar_pos_z on cores 2..199
+started ar_neg_z on cores 157..197
+finished flex_pos_y: {'exit': 0, 'normal': True, 'wall_s': 282.3, 'cores': 4, 'core_h': 0.314}
+finished lb_pos_x: {'exit': 0, 'normal': True, 'wall_s': 322.4, 'cores': 4, 'core_h': 0.358}
+finished lb_neg_x: {'exit': 0, 'normal': True, 'wall_s': 342.5, 'cores': 4, 'core_h': 0.381}
+finished flex_neg_y: {'exit': 0, 'normal': True, 'wall_s': 372.5, 'cores': 4, 'core_h': 0.414}
+finished ar_pos_z: {'exit': 0, 'normal': True, 'wall_s': 372.5, 'cores': 4, 'core_h': 0.414}
+finished ar_neg_z: {'exit': 0, 'normal': True, 'wall_s': 442.5, 'cores': 4, 'core_h': 0.492}
+{
+ "cases": {
+  "flex_pos_y": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 282.3,
+   "cores": 4,
+   "core_h": 0.314
+  },
+  "lb_pos_x": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 322.4,
+   "cores": 4,
+   "core_h": 0.358
+  },
+  "lb_neg_x": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 342.5,
+   "cores": 4,
+   "core_h": 0.381
+  },
+  "flex_neg_y": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 372.5,
+   "cores": 4,
+   "core_h": 0.414
+  },
+  "ar_pos_z": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 372.5,
+   "cores": 4,
+   "core_h": 0.414
+  },
+  "ar_neg_z": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 442.5,
+   "cores": 4,
+   "core_h": 0.492
+  }
+ },
+ "batch_wall_s": 452.6,
+ "total_core_h": 2.373,
+ "gpu_h": 0.0,
+ "not_run": []
+}

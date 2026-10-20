@@ -1,0 +1,4 @@
+kill 4043290 human_study/cage_test/case_A_push_post_ref_gpu3
+human_study/cage_test/case_A_push_post_ref_gpu3 expelled
+kill 4042897 human_study/cage_test/case_A_push_ant_ref_gpu4
+human_study/cage_test/case_A_push_ant_ref_gpu4 stalled

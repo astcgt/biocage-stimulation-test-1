@@ -1,0 +1,22 @@
+{
+ "fsu": "human_study/fsu/C34_fsu_refined.feb",
+ "fsu_info": "human_study/fsu/C34_fsu_refined.json",
+ "frame": "human_study/frame_c3c4.json",
+ "cage_npz": "human_study/cage_test/cage_A_d1_both_mix.npz",
+ "test": "compress",
+ "d": 1.0,
+ "E_hard": 400,
+ "E_soft": 4,
+ "sig_hard": 25,
+ "sig_soft": 15,
+ "theta": 0.3,
+ "mu": 0.35,
+ "compress_mm": 3.0,
+ "contact_mode": "global",
+ "penalty": 10.0,
+ "mu_ramp": 0.3,
+ "cage_mat": "gent",
+ "nu_soft": 0.45,
+ "contact_type": "node",
+ "fric_penalty": 1.0
+}

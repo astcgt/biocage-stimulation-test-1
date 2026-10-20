@@ -1,0 +1,81 @@
+{
+ "test": "iso",
+ "d": 1.0,
+ "completed_time": 3.25,
+ "distraction_force_N": 957.185361743,
+ "clamp_after_release_N": 148.93991976285218,
+ "retained_distraction_mm": 0.677779341433,
+ "contact_layer_crush_after_release": 0.20481283422459892,
+ "slip_after_insertion_mm": 0.21565901366302048,
+ "slip_history": [
+  [
+   3.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0
+  ],
+  [
+   3.04167,
+   -0.00031,
+   -0.01422,
+   -0.00181,
+   0.01422
+  ],
+  [
+   3.08333,
+   -0.00121,
+   -0.02819,
+   -0.00617,
+   0.02822
+  ],
+  [
+   3.125,
+   -0.00279,
+   -0.04179,
+   -0.01303,
+   0.04188
+  ],
+  [
+   3.16667,
+   -0.00492,
+   -0.05522,
+   -0.02176,
+   0.05544
+  ],
+  [
+   3.20833,
+   -0.00783,
+   -0.06798,
+   -0.03209,
+   0.06842
+  ],
+  [
+   3.25,
+   -0.01096,
+   -0.08064,
+   -0.04334,
+   0.08138
+  ]
+ ],
+ "iso_levels": [
+  {
+   "level": 1.0,
+   "cycles": [],
+   "ratchet_mm_per_cycle": null,
+   "slipped": false
+  }
+ ],
+ "slip_level": null,
+ "max_slip_mm": 0.21565901366302043,
+ "no_slip_up_to_level": 1.0,
+ "functional_failure_slip": {
+  "type": "solver stopped before the protocol finished (Q40)",
+  "time": 3.25,
+  "phase": "ramp to ISO start pose (fraction 0.25)",
+  "slip_at_stop_mm": 0.21565901366302043,
+  "contact_layer_crush_frac": 0.3090909090909091,
+  "min_principal_stretch": 0.39516693353652954,
+  "where": "cage_mix_0.25"
+ }
+}

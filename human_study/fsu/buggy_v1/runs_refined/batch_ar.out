@@ -1,0 +1,26 @@
+started ar_pos_z on cores 10..140
+started ar_neg_z on cores 42..255
+finished ar_neg_z: {'exit': 0, 'normal': True, 'wall_s': 350.5, 'cores': 16, 'core_h': 1.558}
+finished ar_pos_z: {'exit': 0, 'normal': True, 'wall_s': 360.5, 'cores': 16, 'core_h': 1.602}
+{
+ "cases": {
+  "ar_neg_z": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 350.5,
+   "cores": 16,
+   "core_h": 1.558
+  },
+  "ar_pos_z": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 360.5,
+   "cores": 16,
+   "core_h": 1.602
+  }
+ },
+ "batch_wall_s": 370.6,
+ "total_core_h": 3.16,
+ "gpu_h": 0.0,
+ "not_run": []
+}

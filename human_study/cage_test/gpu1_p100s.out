@@ -1,0 +1,2 @@
+started human_study/cage_test/case_A_compress_ref_p100s_gpu1 on GPU 1, cores 0..63
+{'exit': 1, 'normal': False, 'wall_s': 113.1, 'gpu': 1, 'cores': 16, 'core_h': 0.503, 'gpu_h': 0.031}

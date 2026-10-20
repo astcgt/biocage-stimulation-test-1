@@ -1,0 +1,17 @@
+started flex_pos_y on cores 14..56
+finished flex_pos_y: {'exit': 0, 'normal': True, 'wall_s': 62.1, 'cores': 8, 'core_h': 0.138}
+{
+ "cases": {
+  "flex_pos_y": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 62.1,
+   "cores": 8,
+   "core_h": 0.138
+  }
+ },
+ "batch_wall_s": 72.1,
+ "total_core_h": 0.138,
+ "gpu_h": 0.0,
+ "not_run": []
+}

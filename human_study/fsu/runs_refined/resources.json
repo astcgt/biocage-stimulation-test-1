@@ -1,0 +1,50 @@
+{
+ "cases": {
+  "flex_pos_y": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 462.4,
+   "cores": 1,
+   "core_h": 0.128
+  },
+  "ar_neg_z": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 522.5,
+   "cores": 1,
+   "core_h": 0.145
+  },
+  "lb_pos_x": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 562.5,
+   "cores": 1,
+   "core_h": 0.156
+  },
+  "ar_pos_z": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 572.5,
+   "cores": 1,
+   "core_h": 0.159
+  },
+  "lb_neg_x": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 582.5,
+   "cores": 1,
+   "core_h": 0.162
+  },
+  "flex_neg_y": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 672.6,
+   "cores": 1,
+   "core_h": 0.187
+  }
+ },
+ "batch_wall_s": 682.6,
+ "total_core_h": 0.937,
+ "gpu_h": 0.0,
+ "not_run": []
+}

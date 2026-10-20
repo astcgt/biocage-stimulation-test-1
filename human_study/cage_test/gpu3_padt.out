@@ -1,0 +1,2 @@
+started human_study/cage_test/case_A_push_ant_g10u_dt_gpu3 on GPU 3, cores 12..143
+{'exit': -15, 'normal': False, 'wall_s': 4751.7, 'gpu': 3, 'cores': 16, 'core_h': 21.119, 'gpu_h': 1.32}

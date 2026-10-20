@@ -1,0 +1,39 @@
+{
+ "source": "Herron et al. 2020 J Biomech pre-proof (doi 10.1016/j.jbiomech.2020.110077), 26 y.o. model (red), read by eye from the supplied PDF figures",
+ "reading_uncertainty": "about +/-2 deg for rotations (Fig 3: 10 deg grid; Fig 4: 10-20 deg grid) and +/-5 N for facet force (Fig 5: 20 N grid)",
+ "moment_Nm": 1.5,
+ "fig3_C0C7_total_rotation_deg_at_1p5Nm": {
+  "flexion": 43,
+  "extension": 63,
+  "lateral_bending_right": 28,
+  "lateral_bending_left": 28,
+  "axial_rotation_right": 56,
+  "axial_rotation_left": 52
+ },
+ "fig4_level_rotation_deg_at_1p5Nm": {
+  "lateral_bending": {
+   "C0-C1": 6,
+   "C1-C2": 11,
+   "C2-C3": 10,
+   "C3-C7": 28
+  },
+  "axial_rotation": {
+   "C0-C1": 19,
+   "C1-C2": 38,
+   "C2-C3": 10,
+   "C3-C7": 34
+  },
+  "flexion_extension": {
+   "C0-C1": 18,
+   "C1-C2": 29,
+   "C2-C3": 12,
+   "C3-C7": 48
+  }
+ },
+ "fig5_facet_force_N_C3C4_at_1p5Nm": {
+  "extension": 57,
+  "lateral_bending": 27,
+  "axial_rotation": 45
+ },
+ "notes": "Fig 4 bars are TOTAL range of motion over both directions (flexion+extension, left+right): their level sums equal the Fig 3 two-direction totals (FE 18+29+12+48=107 vs 43+63=106; LB 55 vs 56; AR 101 vs 108). Panel D is therefore flexion+extension, not extension only. Only 1.5 N m panels (D-F) are used. Facet forces (Fig 5): extension = mean of L and R facets; LB and AR = loaded facet, averaged over the left and right cases."
+}

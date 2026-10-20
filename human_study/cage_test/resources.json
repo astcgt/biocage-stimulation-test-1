@@ -1,0 +1,22 @@
+{
+ "cases": {
+  "case_A_push_ant_gent": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 5367.0,
+   "cores": 16,
+   "core_h": 23.853
+  },
+  "case_A_push_post_gent": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 5367.0,
+   "cores": 16,
+   "core_h": 23.853
+  }
+ },
+ "batch_wall_s": 5377.0,
+ "total_core_h": 47.706,
+ "gpu_h": 0.0,
+ "not_run": []
+}

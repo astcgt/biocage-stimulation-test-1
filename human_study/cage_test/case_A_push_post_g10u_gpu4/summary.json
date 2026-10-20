@@ -1,0 +1,66 @@
+{
+ "test": "push_post",
+ "d": 1.0,
+ "completed_time": 3.037305,
+ "distraction_force_N": 957.185361743,
+ "clamp_after_release_N": 148.93991976285218,
+ "retained_distraction_mm": 0.677779341433,
+ "contact_layer_crush_after_release": 0.20481283422459892,
+ "slip_after_insertion_mm": 0.21565901366302295,
+ "slip_history": [
+  [
+   3.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0
+  ],
+  [
+   3.01,
+   -0.0009,
+   -1e-05,
+   -0.00188,
+   0.0009
+  ],
+  [
+   3.02,
+   -0.00172,
+   -2e-05,
+   -0.00373,
+   0.00172
+  ],
+  [
+   3.02809,
+   -0.00259,
+   -4e-05,
+   -0.00534,
+   0.00259
+  ],
+  [
+   3.03406,
+   -0.00349,
+   -5e-05,
+   -0.00667,
+   0.00349
+  ],
+  [
+   3.0373,
+   -0.00443,
+   -6e-05,
+   -0.00762,
+   0.00443
+  ]
+ ],
+ "push_curve": [],
+ "push_out_force_N": null,
+ "push_reached_mm": 0.0,
+ "functional_failure_slip": {
+  "type": "solver stopped before the protocol finished (Q40)",
+  "time": 3.0373051166534424,
+  "phase": "preload",
+  "slip_at_stop_mm": 0.21565901366302295,
+  "contact_layer_crush_frac": 0.2427807486631016,
+  "min_principal_stretch": 0.4748893976211548,
+  "where": "cage_mix_0.25"
+ }
+}

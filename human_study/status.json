@@ -1,0 +1,36 @@
+{
+ "note": "weights = rough share of total effort/compute; done_frac updated as steps progress",
+ "project_eta": "3-5 days; screening = bonded interface + friction demand (Q47-Q51); A vs B ISO compared; capacity test still unstable",
+ "steps": [
+  {
+   "name": "1 validate Herron C0-C7",
+   "weight": 5,
+   "done_frac": 1.0
+  },
+  {
+   "name": "2 build FSU + cage/ACDR pipeline",
+   "weight": 15,
+   "done_frac": 0.85
+  },
+  {
+   "name": "3 mesh convergence + FSU vs full",
+   "weight": 10,
+   "done_frac": 0.7
+  },
+  {
+   "name": "4 scheduler + active learning setup",
+   "weight": 10,
+   "done_frac": 0.35
+  },
+  {
+   "name": "5 active-learning runs (<=150 pts x 2 tests)",
+   "weight": 50,
+   "done_frac": 0.0
+  },
+  {
+   "name": "6 59/64 y.o. checks, figures, report",
+   "weight": 10,
+   "done_frac": 0.0
+  }
+ ]
+}

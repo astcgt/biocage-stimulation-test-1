@@ -1,0 +1,17 @@
+started case_A_push_ant on cores 10..140
+finished case_A_push_ant: {'exit': -15, 'normal': False, 'wall_s': 4164.9, 'cores': 16, 'core_h': 18.511}
+{
+ "cases": {
+  "case_A_push_ant": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 4164.9,
+   "cores": 16,
+   "core_h": 18.511
+  }
+ },
+ "batch_wall_s": 4174.9,
+ "total_core_h": 18.511,
+ "gpu_h": 0.0,
+ "not_run": []
+}

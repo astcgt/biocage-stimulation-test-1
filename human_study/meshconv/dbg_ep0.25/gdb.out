@@ -1,0 +1,181 @@
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+[New Thread 0x1555432f76c0 (LWP 4124819)]
+[New Thread 0x1554fb2f5740 (LWP 4124820)]
+[New Thread 0x1554b3ffe7c0 (LWP 4124822)]
+[New Thread 0x15546bffe840 (LWP 4124824)]
+[New Thread 0x155423ffe8c0 (LWP 4124826)]
+[New Thread 0x1553dbffe940 (LWP 4124837)]
+[New Thread 0x15539bffc9c0 (LWP 4124838)]
+[New Thread 0x155353ffea40 (LWP 4124839)]
+[New Thread 0x15530bffeac0 (LWP 4124840)]
+[New Thread 0x1552c3ffeb40 (LWP 4124841)]
+[New Thread 0x155273ffebc0 (LWP 4124855)]
+[New Thread 0x155233ffcc40 (LWP 4124856)]
+[New Thread 0x1551ebffecc0 (LWP 4124857)]
+[New Thread 0x1551a3ffed40 (LWP 4124858)]
+[New Thread 0x155163ffcdc0 (LWP 4124860)]
+
+Thread 1 "febio4" received signal SIGSEGV, Segmentation fault.
+0x000015555538ef53 in binarySearch(std::vector<vec2d, std::allocator<vec2d> > const&, double) () from third_party/FEBio/cbuild/bin/../lib/libfecore.so
+
+Thread 16 (Thread 0x155163ffcdc0 (LWP 4124860) "openmp_worker"):
+#0  __kmp_wait_template<kmp_flag_64<false, true>, true, false, true> (this_thr=0x15554367a000, flag=0x155163ffbb60, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:608
+#1  kmp_flag_64<false, true>::wait (this=0x155163ffbb60, this_thr=0x15554367a000, final_spin=1, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:964
+#2  0x000015554ca7f137 in __kmp_hyper_barrier_release (bt=bt@entry=bs_forkjoin_barrier, this_thr=this_thr@entry=0x15554367a000, gtid=gtid@entry=15, tid=tid@entry=-2, propagate_icvs=propagate_icvs@entry=1, itt_sync_obj=itt_sync_obj@entry=0x0) at ../../src/kmp_barrier.cpp:1214
+#3  0x000015554ca82c6d in __kmp_fork_barrier (gtid=15, tid=-2) at ../../src/kmp_barrier.cpp:2569
+#4  0x000015554cacfebd in __kmp_launch_thread (this_thr=0x15554367a000) at ../../src/kmp_runtime.cpp:6705
+#5  0x000015554cb51322 in __kmp_launch_worker (thr=0x15554367a000) at ../../src/z_Linux_util.cpp:743
+#6  0x0000155554d0dac3 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#7  0x0000155554d9fa40 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 15 (Thread 0x1551a3ffed40 (LWP 4124858) "openmp_worker"):
+#0  0x000015554ca84cfe in __kmp_wait_template<kmp_flag_64<false, true>, true, false, true> (this_thr=0x155543675000, flag=0x1551a3ffdb20, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:680
+#1  kmp_flag_64<false, true>::wait (this=0x1551a3ffdb20, this_thr=0x155543675000, final_spin=1, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:964
+#2  0x000015554ca7f137 in __kmp_hyper_barrier_release (bt=bt@entry=bs_forkjoin_barrier, this_thr=this_thr@entry=0x155543675000, gtid=gtid@entry=14, tid=tid@entry=-2, propagate_icvs=propagate_icvs@entry=1, itt_sync_obj=itt_sync_obj@entry=0x0) at ../../src/kmp_barrier.cpp:1214
+#3  0x000015554ca82c6d in __kmp_fork_barrier (gtid=14, tid=-2) at ../../src/kmp_barrier.cpp:2569
+#4  0x000015554cacfebd in __kmp_launch_thread (this_thr=0x155543675000) at ../../src/kmp_runtime.cpp:6705
+#5  0x000015554cb51322 in __kmp_launch_worker (thr=0x155543675000) at ../../src/z_Linux_util.cpp:743
+#6  0x0000155554d0dac3 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#7  0x0000155554d9fa40 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 14 (Thread 0x1551ebffecc0 (LWP 4124857) "openmp_worker"):
+#0  0x000015554ca84cfe in __kmp_wait_template<kmp_flag_64<false, true>, true, false, true> (this_thr=0x155543672000, flag=0x1551ebffdae0, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:680
+#1  kmp_flag_64<false, true>::wait (this=0x1551ebffdae0, this_thr=0x155543672000, final_spin=1, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:964
+#2  0x000015554ca7f137 in __kmp_hyper_barrier_release (bt=bt@entry=bs_forkjoin_barrier, this_thr=this_thr@entry=0x155543672000, gtid=gtid@entry=13, tid=tid@entry=-2, propagate_icvs=propagate_icvs@entry=1, itt_sync_obj=itt_sync_obj@entry=0x0) at ../../src/kmp_barrier.cpp:1214
+#3  0x000015554ca82c6d in __kmp_fork_barrier (gtid=13, tid=-2) at ../../src/kmp_barrier.cpp:2569
+#4  0x000015554cacfebd in __kmp_launch_thread (this_thr=0x155543672000) at ../../src/kmp_runtime.cpp:6705
+#5  0x000015554cb51322 in __kmp_launch_worker (thr=0x155543672000) at ../../src/z_Linux_util.cpp:743
+#6  0x0000155554d0dac3 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#7  0x0000155554d9fa40 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 13 (Thread 0x155233ffcc40 (LWP 4124856) "openmp_worker"):
+#0  0x000015554ca84cfe in __kmp_wait_template<kmp_flag_64<false, true>, true, false, true> (this_thr=0x15554366d000, flag=0x155233ffbaa0, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:680
+#1  kmp_flag_64<false, true>::wait (this=0x155233ffbaa0, this_thr=0x15554366d000, final_spin=1, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:964
+#2  0x000015554ca7f137 in __kmp_hyper_barrier_release (bt=bt@entry=bs_forkjoin_barrier, this_thr=this_thr@entry=0x15554366d000, gtid=gtid@entry=12, tid=tid@entry=-2, propagate_icvs=propagate_icvs@entry=1, itt_sync_obj=itt_sync_obj@entry=0x0) at ../../src/kmp_barrier.cpp:1214
+#3  0x000015554ca82c6d in __kmp_fork_barrier (gtid=12, tid=-2) at ../../src/kmp_barrier.cpp:2569
+#4  0x000015554cacfebd in __kmp_launch_thread (this_thr=0x15554366d000) at ../../src/kmp_runtime.cpp:6705
+#5  0x000015554cb51322 in __kmp_launch_worker (thr=0x15554366d000) at ../../src/z_Linux_util.cpp:743
+#6  0x0000155554d0dac3 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#7  0x0000155554d9fa40 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 12 (Thread 0x155273ffebc0 (LWP 4124855) "openmp_worker"):
+#0  0x0000155554d81c9b in sched_yield () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x000015554ca84c3e in __kmp_wait_template<kmp_flag_64<false, true>, true, false, true> (this_thr=0x15554366a000, flag=0x155273ffda60, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:608
+#2  kmp_flag_64<false, true>::wait (this=0x155273ffda60, this_thr=0x15554366a000, final_spin=1, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:964
+#3  0x000015554ca7f137 in __kmp_hyper_barrier_release (bt=bt@entry=bs_forkjoin_barrier, this_thr=this_thr@entry=0x15554366a000, gtid=gtid@entry=11, tid=tid@entry=-2, propagate_icvs=propagate_icvs@entry=1, itt_sync_obj=itt_sync_obj@entry=0x0) at ../../src/kmp_barrier.cpp:1214
+#4  0x000015554ca82c6d in __kmp_fork_barrier (gtid=11, tid=-2) at ../../src/kmp_barrier.cpp:2569
+#5  0x000015554cacfebd in __kmp_launch_thread (this_thr=0x15554366a000) at ../../src/kmp_runtime.cpp:6705
+#6  0x000015554cb51322 in __kmp_launch_worker (thr=0x15554366a000) at ../../src/z_Linux_util.cpp:743
+#7  0x0000155554d0dac3 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 11 (Thread 0x1552c3ffeb40 (LWP 4124841) "openmp_worker"):
+#0  __kmp_wait_template<kmp_flag_64<false, true>, true, false, true> (this_thr=0x155543665000, flag=0x1552c3ffda20, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:612
+#1  kmp_flag_64<false, true>::wait (this=0x1552c3ffda20, this_thr=0x155543665000, final_spin=1, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:964
+#2  0x000015554ca7f137 in __kmp_hyper_barrier_release (bt=bt@entry=bs_forkjoin_barrier, this_thr=this_thr@entry=0x155543665000, gtid=gtid@entry=10, tid=tid@entry=-2, propagate_icvs=propagate_icvs@entry=1, itt_sync_obj=itt_sync_obj@entry=0x0) at ../../src/kmp_barrier.cpp:1214
+#3  0x000015554ca82c6d in __kmp_fork_barrier (gtid=10, tid=-2) at ../../src/kmp_barrier.cpp:2569
+#4  0x000015554cacfebd in __kmp_launch_thread (this_thr=0x155543665000) at ../../src/kmp_runtime.cpp:6705
+#5  0x000015554cb51322 in __kmp_launch_worker (thr=0x155543665000) at ../../src/z_Linux_util.cpp:743
+#6  0x0000155554d0dac3 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#7  0x0000155554d9fa40 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 10 (Thread 0x15530bffeac0 (LWP 4124840) "openmp_worker"):
+#0  __kmp_wait_template<kmp_flag_64<false, true>, true, false, true> (this_thr=0x155543662000, flag=0x15530bffd9e0, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:608
+#1  kmp_flag_64<false, true>::wait (this=0x15530bffd9e0, this_thr=0x155543662000, final_spin=1, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:964
+#2  0x000015554ca7f137 in __kmp_hyper_barrier_release (bt=bt@entry=bs_forkjoin_barrier, this_thr=this_thr@entry=0x155543662000, gtid=gtid@entry=9, tid=tid@entry=-2, propagate_icvs=propagate_icvs@entry=1, itt_sync_obj=itt_sync_obj@entry=0x0) at ../../src/kmp_barrier.cpp:1214
+#3  0x000015554ca82c6d in __kmp_fork_barrier (gtid=9, tid=-2) at ../../src/kmp_barrier.cpp:2569
+#4  0x000015554cacfebd in __kmp_launch_thread (this_thr=0x155543662000) at ../../src/kmp_runtime.cpp:6705
+#5  0x000015554cb51322 in __kmp_launch_worker (thr=0x155543662000) at ../../src/z_Linux_util.cpp:743
+#6  0x0000155554d0dac3 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#7  0x0000155554d9fa40 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 9 (Thread 0x155353ffea40 (LWP 4124839) "openmp_worker"):
+#0  0x000015554ca84bfb in __kmp_wait_template<kmp_flag_64<false, true>, true, false, true> (this_thr=0x15554365d000, flag=0x155353ffd9a0, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:608
+#1  kmp_flag_64<false, true>::wait (this=0x155353ffd9a0, this_thr=0x15554365d000, final_spin=1, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:964
+#2  0x000015554ca7f137 in __kmp_hyper_barrier_release (bt=bt@entry=bs_forkjoin_barrier, this_thr=this_thr@entry=0x15554365d000, gtid=gtid@entry=8, tid=tid@entry=-2, propagate_icvs=propagate_icvs@entry=1, itt_sync_obj=itt_sync_obj@entry=0x0) at ../../src/kmp_barrier.cpp:1214
+#3  0x000015554ca82c6d in __kmp_fork_barrier (gtid=8, tid=-2) at ../../src/kmp_barrier.cpp:2569
+#4  0x000015554cacfebd in __kmp_launch_thread (this_thr=0x15554365d000) at ../../src/kmp_runtime.cpp:6705
+#5  0x000015554cb51322 in __kmp_launch_worker (thr=0x15554365d000) at ../../src/z_Linux_util.cpp:743
+#6  0x0000155554d0dac3 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#7  0x0000155554d9fa40 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 8 (Thread 0x15539bffc9c0 (LWP 4124838) "openmp_worker"):
+#0  0x000015554ca84cfe in __kmp_wait_template<kmp_flag_64<false, true>, true, false, true> (this_thr=0x15554365a000, flag=0x15539bffb960, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:680
+#1  kmp_flag_64<false, true>::wait (this=0x15539bffb960, this_thr=0x15554365a000, final_spin=1, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:964
+#2  0x000015554ca7f137 in __kmp_hyper_barrier_release (bt=bt@entry=bs_forkjoin_barrier, this_thr=this_thr@entry=0x15554365a000, gtid=gtid@entry=7, tid=tid@entry=-2, propagate_icvs=propagate_icvs@entry=1, itt_sync_obj=itt_sync_obj@entry=0x0) at ../../src/kmp_barrier.cpp:1214
+#3  0x000015554ca82c6d in __kmp_fork_barrier (gtid=7, tid=-2) at ../../src/kmp_barrier.cpp:2569
+#4  0x000015554cacfebd in __kmp_launch_thread (this_thr=0x15554365a000) at ../../src/kmp_runtime.cpp:6705
+#5  0x000015554cb51322 in __kmp_launch_worker (thr=0x15554365a000) at ../../src/z_Linux_util.cpp:743
+#6  0x0000155554d0dac3 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#7  0x0000155554d9fa40 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 7 (Thread 0x1553dbffe940 (LWP 4124837) "openmp_worker"):
+#0  0x000015554ca84cfe in __kmp_wait_template<kmp_flag_64<false, true>, true, false, true> (this_thr=0x155543655000, flag=0x1553dbffd920, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:680
+#1  kmp_flag_64<false, true>::wait (this=0x1553dbffd920, this_thr=0x155543655000, final_spin=1, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:964
+#2  0x000015554ca7f137 in __kmp_hyper_barrier_release (bt=bt@entry=bs_forkjoin_barrier, this_thr=this_thr@entry=0x155543655000, gtid=gtid@entry=6, tid=tid@entry=-2, propagate_icvs=propagate_icvs@entry=1, itt_sync_obj=itt_sync_obj@entry=0x0) at ../../src/kmp_barrier.cpp:1214
+#3  0x000015554ca82c6d in __kmp_fork_barrier (gtid=6, tid=-2) at ../../src/kmp_barrier.cpp:2569
+#4  0x000015554cacfebd in __kmp_launch_thread (this_thr=0x155543655000) at ../../src/kmp_runtime.cpp:6705
+#5  0x000015554cb51322 in __kmp_launch_worker (thr=0x155543655000) at ../../src/z_Linux_util.cpp:743
+#6  0x0000155554d0dac3 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#7  0x0000155554d9fa40 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 6 (Thread 0x155423ffe8c0 (LWP 4124826) "openmp_worker"):
+#0  0x0000155554d81c9b in sched_yield () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x000015554ca84c3e in __kmp_wait_template<kmp_flag_64<false, true>, true, false, true> (this_thr=0x155543652000, flag=0x155423ffd8e0, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:608
+#2  kmp_flag_64<false, true>::wait (this=0x155423ffd8e0, this_thr=0x155543652000, final_spin=1, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:964
+#3  0x000015554ca7f137 in __kmp_hyper_barrier_release (bt=bt@entry=bs_forkjoin_barrier, this_thr=this_thr@entry=0x155543652000, gtid=gtid@entry=5, tid=tid@entry=-2, propagate_icvs=propagate_icvs@entry=1, itt_sync_obj=itt_sync_obj@entry=0x0) at ../../src/kmp_barrier.cpp:1214
+#4  0x000015554ca82c6d in __kmp_fork_barrier (gtid=5, tid=-2) at ../../src/kmp_barrier.cpp:2569
+#5  0x000015554cacfebd in __kmp_launch_thread (this_thr=0x155543652000) at ../../src/kmp_runtime.cpp:6705
+#6  0x000015554cb51322 in __kmp_launch_worker (thr=0x155543652000) at ../../src/z_Linux_util.cpp:743
+#7  0x0000155554d0dac3 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 5 (Thread 0x15546bffe840 (LWP 4124824) "openmp_worker"):
+#0  0x000015554ca84bf9 in __kmp_wait_template<kmp_flag_64<false, true>, true, false, true> (this_thr=0x15554364d000, flag=0x15546bffd8a0, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:608
+#1  kmp_flag_64<false, true>::wait (this=0x15546bffd8a0, this_thr=0x15554364d000, final_spin=1, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:964
+#2  0x000015554ca7f137 in __kmp_hyper_barrier_release (bt=bt@entry=bs_forkjoin_barrier, this_thr=this_thr@entry=0x15554364d000, gtid=gtid@entry=4, tid=tid@entry=-2, propagate_icvs=propagate_icvs@entry=1, itt_sync_obj=itt_sync_obj@entry=0x0) at ../../src/kmp_barrier.cpp:1214
+#3  0x000015554ca82c6d in __kmp_fork_barrier (gtid=4, tid=-2) at ../../src/kmp_barrier.cpp:2569
+#4  0x000015554cacfebd in __kmp_launch_thread (this_thr=0x15554364d000) at ../../src/kmp_runtime.cpp:6705
+#5  0x000015554cb51322 in __kmp_launch_worker (thr=0x15554364d000) at ../../src/z_Linux_util.cpp:743
+#6  0x0000155554d0dac3 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#7  0x0000155554d9fa40 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 4 (Thread 0x1554b3ffe7c0 (LWP 4124822) "openmp_worker"):
+#0  0x000015554ca84bfe in __kmp_wait_template<kmp_flag_64<false, true>, true, false, true> (this_thr=0x15554364a000, flag=0x1554b3ffd860, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:608
+#1  kmp_flag_64<false, true>::wait (this=0x1554b3ffd860, this_thr=0x15554364a000, final_spin=1, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:964
+#2  0x000015554ca7f137 in __kmp_hyper_barrier_release (bt=bt@entry=bs_forkjoin_barrier, this_thr=this_thr@entry=0x15554364a000, gtid=gtid@entry=3, tid=tid@entry=-2, propagate_icvs=propagate_icvs@entry=1, itt_sync_obj=itt_sync_obj@entry=0x0) at ../../src/kmp_barrier.cpp:1214
+#3  0x000015554ca82c6d in __kmp_fork_barrier (gtid=3, tid=-2) at ../../src/kmp_barrier.cpp:2569
+#4  0x000015554cacfebd in __kmp_launch_thread (this_thr=0x15554364a000) at ../../src/kmp_runtime.cpp:6705
+#5  0x000015554cb51322 in __kmp_launch_worker (thr=0x15554364a000) at ../../src/z_Linux_util.cpp:743
+#6  0x0000155554d0dac3 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#7  0x0000155554d9fa40 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 3 (Thread 0x1554fb2f5740 (LWP 4124820) "openmp_worker"):
+#0  __kmp_wait_template<kmp_flag_64<false, true>, true, false, true> (this_thr=0x155543645000, flag=0x1554fb2f4820, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:670
+#1  kmp_flag_64<false, true>::wait (this=0x1554fb2f4820, this_thr=0x155543645000, final_spin=1, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:964
+#2  0x000015554ca7f137 in __kmp_hyper_barrier_release (bt=bt@entry=bs_forkjoin_barrier, this_thr=this_thr@entry=0x155543645000, gtid=gtid@entry=2, tid=tid@entry=-2, propagate_icvs=propagate_icvs@entry=1, itt_sync_obj=itt_sync_obj@entry=0x0) at ../../src/kmp_barrier.cpp:1214
+#3  0x000015554ca82c6d in __kmp_fork_barrier (gtid=2, tid=-2) at ../../src/kmp_barrier.cpp:2569
+#4  0x000015554cacfebd in __kmp_launch_thread (this_thr=0x155543645000) at ../../src/kmp_runtime.cpp:6705
+#5  0x000015554cb51322 in __kmp_launch_worker (thr=0x155543645000) at ../../src/z_Linux_util.cpp:743
+#6  0x0000155554d0dac3 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#7  0x0000155554d9fa40 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 2 (Thread 0x1555432f76c0 (LWP 4124819) "openmp_worker"):
+#0  0x000015554ca84cfe in __kmp_wait_template<kmp_flag_64<false, true>, true, false, true> (this_thr=0x155543642000, flag=0x1555432f67e0, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:680
+#1  kmp_flag_64<false, true>::wait (this=0x1555432f67e0, this_thr=0x155543642000, final_spin=1, itt_sync_obj=0x0) at ../../src/kmp_wait_release.h:964
+#2  0x000015554ca7f137 in __kmp_hyper_barrier_release (bt=bt@entry=bs_forkjoin_barrier, this_thr=this_thr@entry=0x155543642000, gtid=gtid@entry=1, tid=tid@entry=-2, propagate_icvs=propagate_icvs@entry=1, itt_sync_obj=itt_sync_obj@entry=0x0) at ../../src/kmp_barrier.cpp:1214
+#3  0x000015554ca82c6d in __kmp_fork_barrier (gtid=1, tid=-2) at ../../src/kmp_barrier.cpp:2569
+#4  0x000015554cacfebd in __kmp_launch_thread (this_thr=0x155543642000) at ../../src/kmp_runtime.cpp:6705
+#5  0x000015554cb51322 in __kmp_launch_worker (thr=0x155543642000) at ../../src/z_Linux_util.cpp:743
+#6  0x0000155554d0dac3 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#7  0x0000155554d9fa40 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 1 (Thread 0x15554cf21e40 (LWP 4124447) "febio4"):
+#0  0x000015555538ef53 in binarySearch(std::vector<vec2d, std::allocator<vec2d> > const&, double) () from third_party/FEBio/cbuild/bin/../lib/libfecore.so
+#1  0x000015555538fac6 in PointCurve::value(double) const () from third_party/FEBio/cbuild/bin/../lib/libfecore.so
+#2  0x000015554d619d49 in FENonlinearSpringMaterial::Force(FEDiscreteMaterialPoint&) () from third_party/FEBio/cbuild/bin/../lib/../lib/libfebiomech.so
+#3  0x000015554d4c1e27 in FEDiscreteElasticDomain::Update(FETimeInfo const&) () from third_party/FEBio/cbuild/bin/../lib/../lib/libfebiomech.so
+#4  0x00001555552a54cd in FEMesh::Update(FETimeInfo const&) () from third_party/FEBio/cbuild/bin/../lib/libfecore.so
+#5  0x00001555552b4129 in FEModel::Update() () from third_party/FEBio/cbuild/bin/../lib/libfecore.so
+#6  0x000015555529344c in FELineSearch::UpdateModel(std::vector<double, std::allocator<double> >&, std::vector<double, std::allocator<double> >&, double) () from third_party/FEBio/cbuild/bin/../lib/libfecore.so
+#7  0x00001555552935ba in FELineSearch::DoLineSearch(double) () from third_party/FEBio/cbuild/bin/../lib/libfecore.so
+rip            0x15555538ef53      0x15555538ef53 <binarySearch(std::vector<vec2d, std::allocator<vec2d> > const&, double)+51>

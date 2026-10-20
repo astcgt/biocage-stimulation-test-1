@@ -1,0 +1,22 @@
+{
+ "cases": {
+  "flex_pos_y": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 2034.4,
+   "cores": 8,
+   "core_h": 4.521
+  },
+  "flex_neg_y": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 2354.7,
+   "cores": 8,
+   "core_h": 5.233
+  }
+ },
+ "batch_wall_s": 2364.7,
+ "total_core_h": 9.754,
+ "gpu_h": 0.0,
+ "not_run": []
+}
