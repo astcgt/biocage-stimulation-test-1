@@ -385,3 +385,6 @@ Decisions agreed with the PI during the review sessions. Anything not listed is 
   over-severe protocol). For active learning, failures are scored continuously: ISO completion fraction before functional
   failure + min SF / tipping before failure. Frictionless compression abandoned (in-plane drift, no convergence).
   Cage mesh convergence (Z 0.1 mm) re-run with the screening model.
+- Q52 (PI 2026-10-21): screening ISO (bonded, history-free hyperelastic model) runs ONE cycle per level, all 9 levels x1.00..x3.00
+  (h14 'iso_cycles': 1); cycles 2-3 would repeat cycle 1 exactly in the bonded model. Validation (full sliding model) keeps
+  3 cycles per level.

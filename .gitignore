@@ -2,6 +2,8 @@ __pycache__/
 *.pyc
 *.vtu.tmp
 results/**/frames.npz
+pig_study/results/**/frames.npz
+pig_study/*.stl
 third_party/
 febio_cudss/*.so*
 # BIOCAGE human study: large run outputs and third-party model data stay local
