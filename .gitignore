@@ -19,3 +19,6 @@ human_study/queue/
 human_study/.cpu_launch.lock
 human_study/**/*.dmp
 *.dmp
+human_study/al/cases/
+human_study/al/meshes/
+human_study/al_init.out

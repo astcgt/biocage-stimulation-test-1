@@ -403,3 +403,16 @@ Decisions agreed with the PI during the review sessions. Anything not listed is 
   Q53 (PI 2026-10-21): screening uses the 0.2 mm cage mesh (fair relative comparison, absolute SF ~5-10 % optimistic, crushing
   slightly late); the final best designs are re-run with Z 0.1 mm (together with the 0.25 mm endplate, Q46).
 - Mesh convergence study complete for screening purposes -> next: active-learning setup.
+- ACTIVE LEARNING started 2026-10-21 07:29 (scripts/6_active_learning/h22_active_learning.py; state human_study/al/points.json):
+  * design: A/B x axial/radial/both x mix/interleave (12 combos) x d 0.5-1.5 mm; material inputs E_hard 250-900, E_soft 1.5-12 MPa
+    (log), theta 0.20-0.40; post-processing worst cases: mu = 0.2 (range 0.2-0.5), strengths hard 15 / soft 3 MPa.
+  * each point: ISO (bonded, Gent, 9 levels x1.00-x3.00, one cycle each = t 3 -> 13) + compression; meshes 0.2 mm cage / 0.5 mm
+    endplate (Q46, Q53).
+  * dislocation score y = ISO completion fraction before the first of: SF(mu 0.2) < 1, CoP eccentricity >= 1 (tipping),
+    functional failure (solver stop / soft layer crushed); completing designs get y = 1 + 0.5 tanh(minSF - 1).
+    capacity C = first compression endpoint force, else Q40 lower bound. Constraint C >= 150 N (Q49).
+  * surrogates: two MixedSingleTaskGP (y, log C); candidates 12 combos x 21 d values; robust score = min over 64 Sobol material
+    samples of (mean + 1 std) (optimistic-robust), feasibility by the same rule on log C; chosen designs simulated at their
+    worst predicted material sample (max-min robust search); batch = (idle GPUs + 16-core CPU slots within memory) / 2 points.
+  * initial 48 Sobol points (4 per combo); stop at 150 points or < 2 % change of the best robust feasible score over 3 batches.
+  * Synthetic test: GP fit ~6 min per batch; recovers the planted trends and worst material corner.

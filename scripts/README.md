@@ -12,6 +12,7 @@ exact usage.
 3_cage_case    cage hex mesh  ->  one FEBio case per (design, test)   [distract -> insert/seat -> release -> test]
 4_postprocess  capacity endpoints, slip / friction demand, tipping  ->  summary.json in the case folder
 5_compute      run cases on CPU / GPU, scheduler, checkpoints, monitoring
+6_active_learning  design screening loop (Sobol start, GP surrogates, robust batch selection)
 common         shared modules (geometry / frame, .xplt reader)
 ```
 
@@ -70,6 +71,12 @@ common         shared modules (geometry / frame, .xplt reader)
 | `kill_febio.sh` | Stop this user's FEBio run in one exact case folder (`scripts/5_compute/kill_febio.sh cage_test/<case>`). |
 | `gpu_sampler.py`, `cpu_sampler.py` | Resource sampling (GPU idle detection, CPU use per run). |
 | `progress_report.py`, `my_usage.sh`, `my_usage_gpu.sh` | One-line progress report; live resource view. |
+
+## 6_active_learning/
+
+| File | Purpose |
+|---|---|
+| `h22_active_learning.py` | Active-learning screening: builds / queues design points, scores dislocation and capacity, fits GPs, proposes batches. See `6_active_learning/README.md`. |
 
 ## Typical use
 
