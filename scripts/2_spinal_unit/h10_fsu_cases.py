@@ -9,7 +9,7 @@ from scipy.spatial import cKDTree
 
 fsu, fsu_info, trk_json, out = sys.argv[1:5]
 os.makedirs(out, exist_ok=True)
-src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'h05_prepare_c0c7.py')).read()
+src = open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '1_validation', 'h05_prepare_c0c7.py')).read()
 ns = {'ET': ET, 'np': np}; exec(src[src.index('def convert'):src.index('def vertebra_nodes')], ns)
 REF = json.load(open(fsu_info))['herron_ref_length_mm']
 trk = json.load(open(trk_json))

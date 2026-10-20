@@ -7,7 +7,7 @@ usage: python progress_report.py [--json]
 import os, re, sys, glob, time, json
 import xml.etree.ElementTree as ET
 
-P = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+P = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # project root (scripts/<stage>/file)
 STATUS = os.path.join(P, 'human_study', 'status.json')
 
 

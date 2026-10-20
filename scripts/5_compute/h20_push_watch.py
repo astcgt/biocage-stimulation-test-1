@@ -9,7 +9,7 @@ usage: python h20_push_watch.py <case_dir> [<case_dir> ...]
 """
 import os, sys, time, json, subprocess, numpy as np
 
-P = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+P = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # project root (scripts/<stage>/file)
 STALL_MIN, T_PUSH = 20, 3.2
 
 
@@ -46,7 +46,7 @@ while cases:
         if reason:
             json.dump(dict(reason=reason, t=float(ts[-1]), push_mm=float(d[-1]), F_peak_N=float(F[k]), d_peak_mm=float(d[k]),
                            F_last_N=float(F[-1]), when=time.strftime('%Y-%m-%d %H:%M')), open(os.path.join(c, 'stop_reason.json'), 'w'), indent=1)
-            subprocess.run([os.path.join(P, 'scripts/kill_febio.sh'), os.path.relpath(c, os.path.join(P, 'human_study'))])
-            time.sleep(5); subprocess.run(['python', os.path.join(P, 'scripts/h15_post_case.py'), c], stdout=subprocess.DEVNULL)
+            subprocess.run([os.path.join(P, 'scripts/5_compute/kill_febio.sh'), os.path.relpath(c, os.path.join(P, 'human_study'))])
+            time.sleep(5); subprocess.run(['python', os.path.join(P, 'scripts/4_postprocess/h15_post_case.py'), c], stdout=subprocess.DEVNULL)
             print(c, reason, flush=True); cases.remove(c)
     time.sleep(60)

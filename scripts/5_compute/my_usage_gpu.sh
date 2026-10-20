@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Quick view of this user's top CPU processes and GPU processes (nvidia-smi) for the BIOCAGE runs.
 
 echo "=== CPU (My Processes) ==="
 ps -u "$USER" -o pid,pcpu,comm --sort=-pcpu | head -7

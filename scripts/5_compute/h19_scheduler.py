@@ -8,10 +8,12 @@ Every 60 s:
   (written by gpu_sampler.py) average < 10 % utilisation, it has >= MEM_NEED_MB free now and none of my runs is on it
   (one worker per GPU). An idle GPU takes the next job via h18_run_gpu_case.py (cuDSS + idle CPU cores).
   If no GPU is idle but >= 16 idle unclaimed cores exist, the next job runs on CPU via h06_run_cpu_batch.py.
+On start, interrupted jobs (in queue/running but without a live FEBio process) are re-queued and resume from their
+checkpoint (runners write <case>.dmp every 5 converged steps and restart with 'febio4 -r').
 Log: human_study/scheduler.log.   usage: python h19_scheduler.py
 """
 import os, sys, time, json, glob, csv, shutil, subprocess
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path[:0] = [os.path.dirname(os.path.abspath(__file__)), os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'common')]
 from h06_run_cpu_batch import cpu_busy, claimed_cores, P
 
 IDLE_MIN, UTIL_MAX, MEM_NEED_MB = 15, 10.0, int(1.5 * 7000)   # cage case peak ~7 GB on GPU (measured 2026-10-20)
@@ -63,9 +65,9 @@ def gpu_state():
 def launch(job, gpu=None):
     spec = json.load(open(job)); name = os.path.basename(job)[:-4]; case = spec['case_dir']; cores = spec.get('cores', 16)
     if gpu is not None:
-        cmd = ['python', 'scripts/h18_run_gpu_case.py', str(gpu), case, str(cores)]
+        cmd = ['python', 'scripts/5_compute/h18_run_gpu_case.py', str(gpu), case, str(cores)]
     else:
-        cmd = ['python', 'scripts/h06_run_cpu_batch.py', '--cores', str(cores), os.path.dirname(case.rstrip('/')),
+        cmd = ['python', 'scripts/5_compute/h06_run_cpu_batch.py', '--cores', str(cores), os.path.dirname(case.rstrip('/')),
                os.path.basename(case.rstrip('/'))]
     out = open(os.path.join(RUN, name + '.out'), 'w')
     p = subprocess.Popen(cmd, cwd=P, stdout=out, stderr=subprocess.STDOUT, start_new_session=True)   # survive scheduler restarts
@@ -74,9 +76,39 @@ def launch(job, gpu=None):
     return p
 
 
+def febio_cwds():
+    """Working directories of this user's running FEBio processes."""
+    out = set()
+    for pid in os.listdir('/proc'):
+        if not pid.isdigit(): continue
+        try:
+            if os.stat(f'/proc/{pid}').st_uid != os.getuid(): continue
+            if b'febio4' not in open(f'/proc/{pid}/cmdline', 'rb').read(): continue
+            out.add(os.path.realpath(os.readlink(f'/proc/{pid}/cwd')))
+        except OSError:
+            pass
+    return out
+
+
+def resume_orphans():
+    """After a restart of the scheduler (or of the whole server), put jobs that were running but whose FEBio process is gone
+    back in the queue; the runners then continue them from their checkpoint (<case>.dmp) instead of starting over."""
+    alive = febio_cwds()
+    for j in glob.glob(os.path.join(RUN, '*.job')):
+        case = os.path.realpath(os.path.join(P, json.load(open(j))['case_dir']))
+        if any(c == case or c.startswith(case + '_gpu') for c in alive): continue      # still running (detached child)
+        name = os.path.basename(j)[:-4]
+        logs = glob.glob(os.path.join(case, '*.log')) + glob.glob(os.path.join(case + '_gpu*', '*.log'))
+        if any(any(k in open(l, errors='ignore').read()[-4000:] for k in ('N O R M A L', 'E R R O R')) for l in logs):
+            os.replace(j, os.path.join(DONE, time.strftime('%H%M%S_') + name + '.job')); log(f'archived stale {name} (already ended)')
+            continue
+        os.replace(j, os.path.join(Q, name + '.job')); log(f'requeued interrupted {name} (resumes from checkpoint)')
+
+
 def main():
     running = {}
     log('scheduler start')
+    resume_orphans()
     while True:
       try:
         for name, p in list(running.items()):

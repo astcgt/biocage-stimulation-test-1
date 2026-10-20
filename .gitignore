@@ -17,3 +17,5 @@ human_study/**/*.xplt.*
 human_study/**/stderr.log
 human_study/queue/
 human_study/.cpu_launch.lock
+human_study/**/*.dmp
+*.dmp

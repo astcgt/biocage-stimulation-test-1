@@ -13,7 +13,7 @@ new node indices for every original surface node (unchanged coordinates).
 usage: python h16_remesh_bone.py <fsu.feb> <frame.json> <C3|C4> <out.npz> [h_target=0.5]
 """
 import os, sys, json, numpy as np
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path[:0] = [os.path.dirname(os.path.abspath(__file__)), os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'common')]
 from cage_geom import Endplates
 from shapely import vectorized
 

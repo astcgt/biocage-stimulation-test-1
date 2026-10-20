@@ -32,7 +32,7 @@ done < <(nvidia-smi --query-compute-apps=pid,gpu_uuid,used_memory --format=csv,n
 [ $mine = 0 ] && echo "  none"
 
 echo "--- progress"
-python3 scripts/progress_report.py
+python3 scripts/5_compute/progress_report.py
 echo "--- cumulative (ledger, finished batches only)"
 python3 - <<'EOF'
 import json

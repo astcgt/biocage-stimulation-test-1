@@ -22,7 +22,7 @@ params: fsu, fsu_info, frame, cage_npz, test, d, E_hard, E_soft, sig_hard, sig_s
 """
 import sys, os, json, copy, xml.etree.ElementTree as ET
 import numpy as np
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path[:0] = [os.path.dirname(os.path.abspath(__file__)), os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'common')]
 from cage_geom import Endplates, Frame
 import shapely.geometry as sg
 from shapely import vectorized
@@ -49,7 +49,7 @@ def nu_of_phi(phi): return NU_SOFT + phi * (NU_HARD - NU_SOFT)
 
 
 # ---------------------------------------------------------------- base model
-src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'h05_prepare_c0c7.py')).read()
+src = open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '1_validation', 'h05_prepare_c0c7.py')).read()
 ns = {'ET': ET, 'np': np}; exec(src[src.index('def convert'):src.index('def vertebra_nodes')], ns)
 root = ET.parse(prm['fsu']).getroot()
 info = json.load(open(prm['fsu_info'])); REFINED = bool(info.get('refined'))

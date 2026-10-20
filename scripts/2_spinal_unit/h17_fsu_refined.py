@@ -8,7 +8,7 @@ Writes <out.feb> and <out.json> (incl. refined endplate triangles by node id, fo
 usage: python h17_fsu_refined.py <fsu.feb> <fsu.json> <frame.json> <C3.npz> <C4.npz> <out.feb>
 """
 import sys, os, json, copy, xml.etree.ElementTree as ET, numpy as np
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path[:0] = [os.path.dirname(os.path.abspath(__file__)), os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'common')]
 from cage_geom import Frame
 
 fsu, fsu_info, frame, c3n, c4n, out = sys.argv[1:7]

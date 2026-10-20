@@ -4,7 +4,7 @@ moment-rotation curves, comparison with Herron 2020 (26 y.o.) digitised values, 
 usage: python h07_validation_post.py <runs_dir> <herron_digitised.json> <out_dir>
 """
 import sys, os, json, numpy as np
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path[:0] = [os.path.dirname(os.path.abspath(__file__)), os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'common')]
 import xplt
 import matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot as plt
 from scipy.spatial.transform import Rotation

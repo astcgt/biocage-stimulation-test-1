@@ -22,7 +22,7 @@ usage: python h12_cage_mesh.py <fsu.feb> <frame.json> <design A|B> <d_mm> <grad 
 import sys, json, numpy as np
 import shapely.geometry as sg
 from shapely import vectorized
-sys.path.insert(0, __import__('os').path.dirname(__import__('os').path.abspath(__file__)))
+import os; sys.path[:0] = [os.path.dirname(os.path.abspath(__file__)), os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'common')]
 from cage_geom import Endplates
 
 fsu, frame, design, d, grad, fab, out = sys.argv[1], sys.argv[2], sys.argv[3], float(sys.argv[4]), sys.argv[5], sys.argv[6], sys.argv[7]

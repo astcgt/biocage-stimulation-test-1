@@ -6,7 +6,7 @@ usage: python h06_run_cpu_batch.py [--cores N] <batch_dir> <case1> [<case2> ...]
 """
 import sys, os, time, json, glob, subprocess
 
-P = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+P = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # project root (scripts/<stage>/file)
 FEBIO = os.path.join(P, 'third_party/FEBio/cbuild/bin/febio4')
 LIBS = os.path.join(P, 'third_party/mkl/lib')
 CORES_PER_CASE, RESERVE = 16, 0   # PI 2026-10-20: no reserved cores, use every idle core
@@ -22,6 +22,20 @@ def cpu_busy(dt=3.0):
         return out
     a = snap(); time.sleep(dt); b = snap()
     return {c: 1 - (b[c][1] - a[c][1]) / max(1, b[c][0] - a[c][0]) for c in a}
+
+
+DUMP_STRIDE = 5          # checkpoint (FEBio restart file <case>.dmp) every 5 converged time steps (PI 2026-10-21)
+
+
+def febio_args(d, feb):
+    """FEBio arguments for case dir d: resume from the checkpoint if a previous run of this case stopped before finishing
+    (restart file present, log without a termination line), otherwise start from the input file. Both write checkpoints."""
+    dmp = os.path.join(d, feb[:-4] + '.dmp'); log = os.path.join(d, feb[:-4] + '.log')
+    ended = os.path.exists(log) and any(k in open(log, errors='ignore').read()[-4000:] for k in ('N O R M A L', 'E R R O R'))
+    ckpt = ['-dump=1', f'-dump_stride={DUMP_STRIDE}']
+    if os.path.exists(dmp) and not ended:
+        return ['-r', os.path.basename(dmp), '-silent'] + ckpt, True
+    return ['-i', feb, '-silent'] + ckpt, False
 
 
 def claimed_cores():
@@ -63,11 +77,13 @@ def main():
         d = os.path.join(batch, case); feb = os.path.basename(glob.glob(os.path.join(d, '*.feb'))[0])
         env = dict(os.environ, OMP_NUM_THREADS=str(CORES_PER_CASE), MKL_NUM_THREADS=str(CORES_PER_CASE),
                    LD_LIBRARY_PATH=LIBS, KMP_STACKSIZE='1G', OMP_STACKSIZE='1G')
-        cmd = ['prlimit', '--stack=unlimited', 'taskset', '-c', ','.join(map(str, cores)), FEBIO, '-i', feb, '-silent']
-        open(os.path.join(d, 'started_at'), 'w').write(str(time.time()))
+        fargs, resumed = febio_args(d, feb)
+        cmd = ['prlimit', '--stack=unlimited', 'taskset', '-c', ','.join(map(str, cores)), FEBIO] + fargs
+        if not (resumed and os.path.exists(os.path.join(d, 'started_at'))):   # keep the original start time on resume
+            open(os.path.join(d, 'started_at'), 'w').write(str(time.time()))
         procs[case] = (subprocess.Popen(cmd, cwd=d, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT),
                        time.time(), cores)
-        print(f'started {case} on cores {cores[0]}..{cores[-1]}', flush=True)
+        print(f'{"resumed" if resumed else "started"} {case} on cores {cores[0]}..{cores[-1]}', flush=True)
     time.sleep(2); fcntl.flock(lock, fcntl.LOCK_UN)
     res = {}
     while procs:

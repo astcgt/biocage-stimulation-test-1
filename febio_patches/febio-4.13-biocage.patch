@@ -1,3 +1,33 @@
+diff --git a/FEBioMech/FEBioMechPlot.cpp b/FEBioMech/FEBioMechPlot.cpp
+index 5503f62..9d65d92 100644
+--- a/FEBioMech/FEBioMechPlot.cpp
++++ b/FEBioMech/FEBioMechPlot.cpp
+@@ -915,6 +915,7 @@ public:
+ //! Store the average stresses for each element. 
+ bool FEPlotElementStress::Save(FEDomain& dom, FEDataStream& a)
+ {
++	if (dom.GetMaterial() == nullptr) return false;   // BIOCAGE patch: guard (domain without material, e.g. after restart)
+ 	FEDomainParameter* var = nullptr;
+ 	FESolidMaterial* pme = dom.GetMaterial()->ExtractProperty<FESolidMaterial>();
+ 	if (pme)
+diff --git a/FEBioMech/FERigidSolidDomain.cpp b/FEBioMech/FERigidSolidDomain.cpp
+index ed7102a..49310ac 100644
+--- a/FEBioMech/FERigidSolidDomain.cpp
++++ b/FEBioMech/FERigidSolidDomain.cpp
+@@ -68,6 +68,13 @@ void FERigidSolidDomain::Serialize(DumpStream& ar)
+ {
+ 	// we bypass FEDomain::Serialize since we don't need to serialize anything for the rigid solids
+ 	FEMeshPartition::Serialize(ar);
++	// BIOCAGE patch 2026-10-21: restore the material pointer on restart (it was left null, and plotting element data of
++	// the rigid domain then dereferenced it -> segfault after 'febio4 -r')
++	if (ar.IsShallow() == false)
++	{
++		if (ar.IsSaving()) { FEMaterial* mat = GetMaterial(); ar << mat; }
++		else { FEMaterial* pmat = nullptr; ar >> pmat; SetMaterial(pmat); }
++	}
+ }
+ 
+ void FERigidSolidDomain::PreSolveUpdate(const FETimeInfo& timeInfo)
 diff --git a/FEBioMech/FESolidSolver2.cpp b/FEBioMech/FESolidSolver2.cpp
 index ec546a6..24dc56f 100644
 --- a/FEBioMech/FESolidSolver2.cpp

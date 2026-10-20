@@ -6,8 +6,8 @@ with the same lock file. Writes started_at and, when done, resources.json in the
 usage: python h18_run_gpu_case.py <gpu_index> <case_dir> [cores=16]
 """
 import sys, os, time, json, glob, shutil, subprocess, fcntl
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from h06_run_cpu_batch import cpu_busy, claimed_cores, P, FEBIO, RESERVE
+sys.path[:0] = [os.path.dirname(os.path.abspath(__file__)), os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'common')]
+from h06_run_cpu_batch import cpu_busy, claimed_cores, P, FEBIO, RESERVE, febio_args
 
 gpu, src = int(sys.argv[1]), sys.argv[2].rstrip('/'); ncores = int(sys.argv[3]) if len(sys.argv) > 3 else 16
 dst = f'{src}_gpu{gpu}'
@@ -23,11 +23,13 @@ libs = ':'.join([os.path.join(P, 'third_party/mkl/lib'), os.path.join(P, 'third_
 env = dict(os.environ, CUDA_VISIBLE_DEVICES=str(gpu), OMP_NUM_THREADS=str(ncores), MKL_NUM_THREADS=str(ncores),
            LD_LIBRARY_PATH=libs, KMP_STACKSIZE='1G', OMP_STACKSIZE='1G')
 feb = os.path.basename(glob.glob(os.path.join(dst, '*.feb'))[0])
-cmd = ['prlimit', '--stack=unlimited', 'taskset', '-c', ','.join(map(str, cores)), FEBIO, '-i', feb, '-silent',
-       '-cnf', os.path.join(P, 'febio_cudss/febio_cudss.xml')]
-t0 = time.time(); open(os.path.join(dst, 'started_at'), 'w').write(str(t0))
+fargs, resumed = febio_args(dst, feb)     # resume from the checkpoint (<case>.dmp) if a previous run was interrupted
+cmd = ['prlimit', '--stack=unlimited', 'taskset', '-c', ','.join(map(str, cores)), FEBIO] + fargs + \
+      ['-cnf', os.path.join(P, 'febio_cudss/febio_cudss.xml')]
+t0 = time.time()
+if not os.path.exists(os.path.join(dst, 'started_at')) or not resumed: open(os.path.join(dst, 'started_at'), 'w').write(str(t0))
 p = subprocess.Popen(cmd, cwd=dst, env=env, stdout=subprocess.DEVNULL, stderr=open(os.path.join(dst, 'stderr.log'), 'w'))
-print(f'started {dst} on GPU {gpu}, cores {cores[0]}..{cores[-1]}', flush=True)
+print(f'{"resumed" if resumed else "started"} {dst} on GPU {gpu}, cores {cores[0]}..{cores[-1]}', flush=True)
 time.sleep(2); fcntl.flock(lock, fcntl.LOCK_UN)
 p.wait(); wall = time.time() - t0
 txt = open(glob.glob(os.path.join(dst, '*.log'))[0]).read()

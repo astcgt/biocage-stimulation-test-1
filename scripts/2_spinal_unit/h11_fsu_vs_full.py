@@ -3,7 +3,7 @@ total ROM (both directions) about each axis and C3-4 facet contact force (Herron
 usage: python h11_fsu_vs_full.py <fsu_runs> <full_runs> <full_results.json> <out.json>
 """
 import sys, os, json, numpy as np
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path[:0] = [os.path.dirname(os.path.abspath(__file__)), os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'common')]
 import xplt
 from scipy.spatial.transform import Rotation
 fsu, full, full_res, out = sys.argv[1:5]

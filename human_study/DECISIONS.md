@@ -388,3 +388,11 @@ Decisions agreed with the PI during the review sessions. Anything not listed is 
 - Q52 (PI 2026-10-21): screening ISO (bonded, history-free hyperelastic model) runs ONE cycle per level, all 9 levels x1.00..x3.00
   (h14 'iso_cycles': 1); cycles 2-3 would repeat cycle 1 exactly in the bonded model. Validation (full sliding model) keeps
   3 cycles per level.
+- 2026-10-21 ~04:24 the Jupyter service was stopped (restarted 04:48): every process incl. tmux died (z-mesh convergence runs lost
+  after 2 min). PI: write checkpoints so interrupted runs need not restart from zero.
+- Checkpointing (2026-10-21): runners (h06 CPU, h18 GPU) call FEBio with -dump=1 -dump_stride=5 (restart file <case>.dmp every
+  5 converged time steps) and, if a case dir holds a .dmp and its log has no termination line, resume with 'febio4 -r <case>.dmp';
+  the scheduler (h19) re-queues interrupted jobs on start. FEBio patch 4 (FEBioMech/FERigidSolidDomain.cpp +
+  FEBioMechPlot.cpp): rigid domains now save/restore their material pointer on restart (it was null -> segfault when plotting
+  stress after 'febio4 -r'), plus a null guard in the stress plot. Verified: refined FSU flex_pos_y killed (SIGKILL) mid-run and
+  resumed -> final state identical to the uninterrupted run within 4e-7 (direct) / 7e-10 (via h06), plot complete (26 states).

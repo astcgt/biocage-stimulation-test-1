@@ -12,7 +12,7 @@ Outputs (summary.json): distraction force, clamp force after release (cage-endpl
 usage: python h15_post_case.py <case_dir>
 """
 import sys, os, json, numpy as np, xml.etree.ElementTree as ET
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path[:0] = [os.path.dirname(os.path.abspath(__file__)), os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'common')]
 import xplt
 from cage_geom import Endplates
 import shapely.geometry as sg
