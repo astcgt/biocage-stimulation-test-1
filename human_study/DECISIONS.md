@@ -396,3 +396,10 @@ Decisions agreed with the PI during the review sessions. Anything not listed is 
   FEBioMechPlot.cpp): rigid domains now save/restore their material pointer on restart (it was null -> segfault when plotting
   stress after 'febio4 -r'), plus a null guard in the stress plot. Verified: refined FSU flex_pos_y killed (SIGKILL) mid-run and
   resumed -> final state identical to the uninterrupted run within 4e-7 (direct) / 7e-10 (via h06), plot complete (26 states).
+- Cage mesh convergence with the screening model (design A, bonded, Gent; cage 0.2 mm vs Z 0.1 mm): clamp 198.9 / 205.7 N (+3.4 %),
+  retained 0.713 / 0.717 mm (+0.6 %), ISO min SF 4.44 / 4.22 (-4.9 %), bottom SF 4.55 / 4.22 (-7.3 %); crush-timing metrics earlier
+  with the finer mesh (crush after release 10 / 13 %, ISO completion 9 / 4 %, capacity lower bound 32.8 / 27.8 N). Design A fails
+  the screening criteria with both meshes.
+  Q53 (PI 2026-10-21): screening uses the 0.2 mm cage mesh (fair relative comparison, absolute SF ~5-10 % optimistic, crushing
+  slightly late); the final best designs are re-run with Z 0.1 mm (together with the 0.25 mm endplate, Q46).
+- Mesh convergence study complete for screening purposes -> next: active-learning setup.
