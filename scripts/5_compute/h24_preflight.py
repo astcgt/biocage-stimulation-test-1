@@ -105,7 +105,7 @@ def check(cd):
     want = dict(S['common'])
     for prefix, v in S['classes'].items():
         if rel.startswith(prefix): want.update(v)
-    defaults = dict(insert_mode='overlap', biodisc=True)
+    defaults = dict(insert_mode='overlap', biodisc=True, annulus_remnant=True)
     for k, v in want.items():
         got = prm.get(k, defaults.get(k))
         if got != v: err.append(f'setting {k} = {got!r}, current setting {v!r}')

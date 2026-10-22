@@ -12,10 +12,27 @@
     "E_soft": 1.715,
     "theta": 0.288
    },
-   "status": "queued",
+   "status": "done",
    "cases": {
     "iso": "human_study/al/cases/p000_iso",
     "compress": "human_study/al/cases/p000_compress"
+   },
+   "res": {
+    "y": 0.0,
+    "iso_completion": 0.0,
+    "iso_failure": "functional failure",
+    "iso_t_fail": 1.93126801,
+    "min_sf_mu02": null,
+    "max_tension": null,
+    "max_cop": null,
+    "C": 0.0,
+    "capacity_mode": null,
+    "clamp_N": null,
+    "retained_mm": null
+   },
+   "ran_in": {
+    "iso": "human_study/al/cases/p000_iso_gpu3",
+    "compress": "human_study/al/cases/p000_compress_gpu5"
    }
   },
   {
@@ -118,9 +135,26 @@
     "E_soft": 11.146,
     "theta": 0.34
    },
-   "status": "queued",
+   "status": "done",
    "cases": {
     "iso": "human_study/al/cases/p004_iso",
+    "compress": "human_study/al/cases/p004_compress"
+   },
+   "res": {
+    "y": 0.0,
+    "iso_completion": 0.0,
+    "iso_failure": "functional failure",
+    "iso_t_fail": 1.43143471,
+    "min_sf_mu02": null,
+    "max_tension": null,
+    "max_cop": null,
+    "C": 0.0,
+    "capacity_mode": null,
+    "clamp_N": null,
+    "retained_mm": null
+   },
+   "ran_in": {
+    "iso": "human_study/al/cases/p004_iso_gpu4",
     "compress": "human_study/al/cases/p004_compress"
    }
   },
@@ -469,10 +503,27 @@
     "E_soft": 7.438,
     "theta": 0.229
    },
-   "status": "queued",
+   "status": "done",
    "cases": {
     "iso": "human_study/al/cases/p015_iso",
     "compress": "human_study/al/cases/p015_compress"
+   },
+   "res": {
+    "y": 0.0,
+    "iso_completion": 0.0,
+    "iso_failure": "functional failure",
+    "iso_t_fail": 1.52314153,
+    "min_sf_mu02": null,
+    "max_tension": null,
+    "max_cop": null,
+    "C": 0.0,
+    "capacity_mode": null,
+    "clamp_N": null,
+    "retained_mm": null
+   },
+   "ran_in": {
+    "iso": "human_study/al/cases/p015_iso",
+    "compress": "human_study/al/cases/p015_compress_gpu5"
    }
   },
   {

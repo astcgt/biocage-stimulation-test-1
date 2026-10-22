@@ -575,3 +575,9 @@ Decisions agreed with the PI during the review sessions. Anything not listed is 
   Verified identical (up to node-set order) to the diagnostic 'noAnnulus' model (39 N for 1 mm distraction, cadaver order).
   Gap library rebuilt for this surgery model (human_study/gaplib_noann). Consequences: all earlier clamp / capacity / AL
   numbers (with remnant) are superseded; the d range is to be reviewed against the new distraction forces.
+- 2026-10-22 22:35 annulus-released gap library (gaplib_noann, 11 runs NORMAL): distraction force at t 1 = 9 / 12 / 17 / 23 /
+  30 / 39 / 48 / 57 / 68 / 81 / 95 N for d 0.5-1.5 (was 53 ... 4447 N); cadaver order (1.7 mm @ 44 N intact; ours still has
+  the C3-pot rotations fixed). The endplates no longer deform during distraction (gap loss 0.000 mm at every d; the remnant
+  was what pulled them in) -> real gap = nominal gap + d, so the screening model v2 builds the cage on the nominal gap (no
+  gap library needed). v2 = annulus released + expand insertion + no biodisc + wall pins + release_dtmax 0.1 (settings class
+  human_study/al/v2_test); tests p037 / p036 / p011-ISO started 22:35.
