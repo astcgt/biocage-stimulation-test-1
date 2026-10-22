@@ -19,6 +19,7 @@ import h24_preflight
 
 IDLE_MIN, UTIL_MAX, MEM_NEED_MB = 15, 10.0, int(1.5 * 7000)   # cage case peak ~7 GB on GPU (measured 2026-10-20)
 MAX_PER_GPU, SHARE_UTIL_MAX = 3, 50.0                         # my runs barely load a GPU (< 25 %, 2026-10-22)
+CPU_LAUNCH_MAX = 8                                              # CPU jobs launched per 60 s pass
 RESERVE_H = 12                                                  # backfill may pass the head job for at most this long
 Q = os.path.join(P, 'human_study/queue'); RUN = os.path.join(Q, 'running'); DONE = os.path.join(Q, 'done')
 SAMPLES = os.path.join(P, 'human_study/gpu_samples.csv'); LOG = os.path.join(P, 'human_study/scheduler.log')
@@ -47,12 +48,12 @@ def gpu_state():
     rows = list(csv.reader(open(SAMPLES)))
     now = {int(r[0]): (int(r[1]), int(r[2]), int(r[3])) for r in (l.split(', ') for l in subprocess.run(
         ['nvidia-smi', '--query-gpu=index,utilization.gpu,memory.used,memory.total', '--format=csv,noheader,nounits'],
-        capture_output=True, text=True).stdout.strip().splitlines())}
+        capture_output=True, text=True, timeout=60).stdout.strip().splitlines())}
     uuid = dict(l.split(', ') for l in subprocess.run(['nvidia-smi', '--query-gpu=uuid,index', '--format=csv,noheader'],
-                                                      capture_output=True, text=True).stdout.strip().splitlines())
+                                                      capture_output=True, text=True, timeout=60).stdout.strip().splitlines())
     mine = {}
     for l in subprocess.run(['nvidia-smi', '--query-compute-apps=gpu_uuid,pid', '--format=csv,noheader'],
-                            capture_output=True, text=True).stdout.strip().splitlines():
+                            capture_output=True, text=True, timeout=60).stdout.strip().splitlines():
         u, pid = l.split(', ')
         try:
             if os.stat(f'/proc/{pid}').st_uid == os.getuid(): mine[int(uuid[u])] = mine.get(int(uuid[u]), 0) + 1
@@ -164,8 +165,11 @@ def main():
                 jobs.remove(j); free -= json.load(open(j)).get('cores', 16)
                 running[os.path.basename(j)[:-4]] = launch(j, g); time.sleep(20)
             if jobs:
-                j = first_fit(jobs, lambda sp: free >= sp.get('cores', 16) and mem_free_gb() >= sp.get('mem_gb', 8) + 4)
-                if j is not None: jobs.remove(j); running[os.path.basename(j)[:-4]] = launch(j); time.sleep(20)
+                for _ in range(CPU_LAUNCH_MAX):            # several CPU launches per pass: fill an idle machine in minutes
+                    j = first_fit(jobs, lambda sp: free >= sp.get('cores', 16) and mem_free_gb() >= sp.get('mem_gb', 8) + 4)
+                    if j is None: break
+                    jobs.remove(j); free -= json.load(open(j)).get('cores', 16)
+                    running[os.path.basename(j)[:-4]] = launch(j); time.sleep(20)
       except Exception:                     # never die: a crash used to take the launched runs with it
         import traceback; log('ERROR ' + traceback.format_exc().replace('\n', ' | '))
       time.sleep(60)

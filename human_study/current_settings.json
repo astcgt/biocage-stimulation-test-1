@@ -46,6 +46,14 @@
    "biodisc": false,
    "release_dtmax": 0.1,
    "annulus_remnant": false
+  },
+  "human_study/al_v2/cases/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false
   }
  }
 }

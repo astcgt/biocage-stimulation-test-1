@@ -32,7 +32,10 @@ import numpy as np
 from concurrent.futures import ProcessPoolExecutor
 
 HERE = os.path.dirname(os.path.abspath(__file__)); P = os.path.dirname(os.path.dirname(HERE))
-AL = os.path.join(P, 'human_study', 'al'); os.makedirs(AL, exist_ok=True)
+AL = os.path.join(P, 'human_study', 'al_v2'); os.makedirs(AL, exist_ok=True)   # v2 screening model (2026-10-23); v1 kept in human_study/al
+MESHES = os.path.join(P, 'human_study', 'al', 'meshes')                         # cage meshes are unchanged in v2 (nominal gap) -> shared cache
+V2 = dict(insert_mode='expand', shrink=0.8, biodisc=False, release_dtmax=0.1, annulus_remnant=False)   # DECISIONS 2026-10-22/23
+JOB = 'al_v2p'
 STATE = os.path.join(AL, 'points.json'); LOG = os.path.join(AL, 'al.log')
 QUEUE = os.path.join(P, 'human_study', 'queue')
 JOB_CORES = 8   # FEBio here averages ~2.5 busy cores per run (measured 2026-10-22), so 16 pinned cores left most of them idle
@@ -66,7 +69,7 @@ def save(st):
 
 # ------------------------------------------------------------------ building cases
 def mesh_path(design, grad, fab, d):
-    return os.path.join(AL, 'meshes', f'cage_{design}_{grad}_{fab}_d{d:.3f}.npz')
+    return os.path.join(MESHES, f'cage_{design}_{grad}_{fab}_d{d:.3f}.npz')
 
 
 def build_point(pt):
@@ -80,20 +83,20 @@ def build_point(pt):
     out = {}
     for test in ('iso', 'compress'):
         prm = dict(tmpl); prm.update(cage_npz=os.path.relpath(mp, P), test=test, d=x['d'], E_hard=x['E_hard'], E_soft=x['E_soft'],
-                                     theta=x['theta'], sig_hard=SIG_HARD, sig_soft=SIG_SOFT, mu=MU_SIM, iso_max_level=3.0, iso_cycles=1)
+                                     theta=x['theta'], sig_hard=SIG_HARD, sig_soft=SIG_SOFT, mu=MU_SIM, iso_max_level=3.0, iso_cycles=1, **V2)
         cdir = os.path.join(AL, 'cases', f"p{pt['id']:03d}_{test}"); os.makedirs(os.path.dirname(cdir), exist_ok=True)
         pj = cdir + '_params.json'; json.dump(prm, open(pj, 'w'), indent=1)
         if not os.path.exists(os.path.join(cdir, 'case.feb')):
             subprocess.run(['python', os.path.join(P, 'scripts/3_cage_case/h14_build_case.py'), pj, cdir], cwd=P, check=True,
                            stdout=subprocess.DEVNULL)
-        job = os.path.join(QUEUE, f"al_p{pt['id']:03d}_{test}.job")
+        job = os.path.join(QUEUE, f"{JOB}{pt['id']:03d}_{test}.job")
         if not os.path.exists(job):
             json.dump(dict(case_dir=os.path.relpath(cdir, P), cores=JOB_CORES, mem_gb=8, host_mem_gb_gpu=4), open(job, 'w'))
         out[test] = os.path.relpath(cdir, P)
     return pt['id'], out
 
 
-def build_and_queue(st, ids, workers=6):
+def build_and_queue(st, ids, workers=16):
     pts = {p['id']: p for p in st['points']}
     with ProcessPoolExecutor(workers) as ex:
         for pid, cases in ex.map(build_point, [pts[i] for i in ids]):
@@ -225,7 +228,7 @@ def batch_size():
 
 def waiting_jobs():
     """AL jobs queued but not yet started by the scheduler."""
-    return len(glob.glob(os.path.join(QUEUE, 'al_p*.job')))
+    return len(glob.glob(os.path.join(QUEUE, JOB + '*.job')))
 
 
 def cmd_next():

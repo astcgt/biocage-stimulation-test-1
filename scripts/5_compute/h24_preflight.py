@@ -186,7 +186,7 @@ def daemon():
             for j in sorted(glob.glob(os.path.join(Q, '*.job')), key=os.path.getmtime):
                 cd = os.path.join(P, json.load(open(j))['case_dir'])
                 if not valid(cd): todo.append((j, cd))
-            with ThreadPoolExecutor(3) as ex:
+            with ThreadPoolExecutor(12) as ex:
                 for (j, cd), r in zip(todo, ex.map(lambda t: check(t[1]), todo)):
                     name = os.path.basename(j)[:-4]
                     if r['ok']: log(f'{name}: OK' + (f" (warnings: {'; '.join(r['warnings'])})" if r['warnings'] else ''))

@@ -32,7 +32,7 @@ def febio_args(d, feb):
     (restart file present, log without a termination line), otherwise start from the input file. Both write checkpoints."""
     dmp = os.path.join(d, feb[:-4] + '.dmp'); log = os.path.join(d, feb[:-4] + '.log')
     ended = os.path.exists(log) and any(k in open(log, errors='ignore').read()[-4000:] for k in ('N O R M A L', 'E R R O R'))
-    ckpt = ['-dump=1', f'-dump_stride={DUMP_STRIDE}']
+    ckpt = ['-dump=1', f'-dump_stride={DUMP_STRIDE}', '-output_negative_jacobians=50']   # inverted element ids in the log (failure analysis, h26)
     if os.path.exists(dmp) and not ended:
         return ['-r', os.path.basename(dmp), '-silent'] + ckpt, True
     return ['-i', feb, '-silent'] + ckpt, False

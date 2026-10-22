@@ -590,3 +590,9 @@ Decisions agreed with the PI during the review sessions. Anything not listed is 
   to human_study/al_v2 (v1 kept in human_study/al), job prefix al_v2p, cases built with V2 = expand insertion (shrink 0.8),
   no biodisc, wall pins, release_dtmax 0.1, annulus remnant released; meshes shared (nominal gap). Same 48 Sobol points
   re-initialised (96 cases queued); settings class human_study/al_v2/cases/. Build workers 16, preflight daemon 12 threads.
+- 2026-10-23 04:45 PI: analyse the ISO-start failure automatically once enough v2 ISO runs end. Runners (h06/h18) now pass
+  -output_negative_jacobians=50 (inverted element ids in every case.log from now on); scripts/4_postprocess/
+  h26_iso_failure_analysis.py summarises stop phase / time, clamp, rotations, inverted tissues, soft-layer compression and
+  design factors into human_study/al_v2/iso_analysis/report.md. First run started (17 ISO runs already ended); automatic
+  re-runs at 24 and 48 ended ISO runs (session cron). Scheduler fixes: nvidia-smi timeouts (a hung call froze launching),
+  up to 8 CPU launches per pass.
