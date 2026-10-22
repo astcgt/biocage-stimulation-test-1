@@ -569,3 +569,9 @@ Decisions agreed with the PI during the review sessions. Anything not listed is 
   Options for the PI: (a) calibrate the remnant's tensile response to axial-distraction data, (b) treat the remnant as
   released / resected in the surgery model (no annulus), (c) restrict d to the low-force range, (d) free the C3-pot rotations
   during distraction (3.4x softer, but the segment tilts 4.6 deg). AL re-run waits for this decision.
+- 2026-10-22 22:05 PI DECISION (supersedes "Kept: lateral/posterior annulus remnants", 2026-10-20): in the surgery model the
+  posterolateral annulus remnant is treated as released / resected (h14 'annulus_remnant': False -> remnant hexes and their
+  endplate ties removed, nodes left unconnected fixed; facet cartilage, facet contact, capsules, flavum, interspinous kept).
+  Verified identical (up to node-set order) to the diagnostic 'noAnnulus' model (39 N for 1 mm distraction, cadaver order).
+  Gap library rebuilt for this surgery model (human_study/gaplib_noann). Consequences: all earlier clamp / capacity / AL
+  numbers (with remnant) are superseded; the d range is to be reviewed against the new distraction forces.

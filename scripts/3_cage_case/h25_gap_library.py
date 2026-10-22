@@ -6,7 +6,7 @@ d 1.5), so a cage built on the undeformed endplates + d is oversized by a d-depe
 not involve the cage (no contact, cage fixed), so the deformed endplates depend on d only: one distraction-only FEBio run
 per d on a grid, then h12 interpolates the endplate displacements linearly in d.
 
-usage: python h25_gap_library.py build     # cases in human_study/gaplib/d*/ (distraction only, fine steps)
+usage: python h25_gap_library.py build [noann]    # cases in human_study/gaplib/d*/ (distraction only, fine steps)
        python h25_gap_library.py run       # start them in tmux (biocage_gaplib_*), after a preflight check
        python h25_gap_library.py collect   # -> human_study/gaplib/gaplib.npz (d, ids_top/bot, U_top/bot [nd, n, 3])
 """
@@ -14,7 +14,8 @@ import os, sys, json, subprocess, glob
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__)); P = os.path.dirname(os.path.dirname(HERE))
-OUT = os.path.join(P, 'human_study', 'gaplib'); D_GRID = np.round(np.arange(0.5, 1.501, 0.1), 2)
+VARIANT = sys.argv[2] if len(sys.argv) > 2 else ''            # 'noann': annulus remnant released (PI 2026-10-22)
+OUT = os.path.join(P, 'human_study', 'gaplib' + ('_' + VARIANT if VARIANT else '')); D_GRID = np.round(np.arange(0.5, 1.501, 0.1), 2)
 TEMPLATE = os.path.join(P, 'human_study', 'cage_test', 'params_A_iso_tied2.json')
 
 
@@ -31,6 +32,7 @@ def build():
         prm = dict(tmpl); prm.update(cage_npz=os.path.relpath(mesh, P), test='compress', d=float(d), E_hard=400.0, E_soft=4.0,
                                      theta=0.3, sig_hard=15.0, sig_soft=3.0, mu=0.35, iso_max_level=3.0, iso_cycles=1,
                                      biodisc=False, only_distract=True, distract_dt=0.025)
+        if VARIANT == 'noann': prm['annulus_remnant'] = False
         json.dump(prm, open(cd + '_params.json', 'w'), indent=1)
         subprocess.run(['python', os.path.join(HERE, 'h14_build_case.py'), cd + '_params.json', cd], cwd=P, check=True,
                        stdout=subprocess.DEVNULL)

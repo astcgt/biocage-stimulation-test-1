@@ -436,7 +436,12 @@ ET.SubElement(lf, 'node_data', data='ux;uy;uz', file='cage_nodes.txt', delim=','
 ET.SubElement(lf, 'node_data', data='ux;uy;uz', file='C4_endplate_nodes.txt', delim=',').text = ','.join(map(str, ep.bot_ids))
 ET.SubElement(lf, 'node_data', data='Rx;Ry;Rz', file='push_reaction.txt', delim=',').text = ','.join(
     str(cage_ids[i]) for i in (cz['post'] if test == 'push_ant' else cz['ant'] if test == 'push_post' else cz['post'][:5]))
-DROP = prm.get('diag_drop', [])                     # distraction-stiffness diagnosis only: remove a tissue component
+DROP = list(prm.get('diag_drop', []))               # distraction-stiffness diagnosis: remove a tissue component
+if prm.get('annulus_remnant', True) is False:
+    # PI 2026-10-22: the posterolateral annulus remnant is treated as released / resected in the surgery model (it carried
+    # ~96 % of the distraction force, ~50-100x stiffer than cadaver data); facet cartilage (mat 5) and ligaments stay
+    DROP += [eb.get('name') for eb in geo.findall('Elements')
+             if eb.get('name', '').startswith('disc_or_facet') and eb.get('name') != 'disc_or_facet_mat5'] + ['tie_disc_C3', 'tie_disc_C4']
 if DROP:
     for name in DROP:
         for ch in list(disc):                       # ligament springs: material + set

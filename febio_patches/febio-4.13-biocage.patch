@@ -10,6 +10,74 @@ index 5503f62..9d65d92 100644
  	FEDomainParameter* var = nullptr;
  	FESolidMaterial* pme = dom.GetMaterial()->ExtractProperty<FESolidMaterial>();
  	if (pme)
+diff --git a/FEBioMech/FEConstPrestrain.h b/FEBioMech/FEConstPrestrain.h
+index 3e8ccef..6d8c62e 100644
+--- a/FEBioMech/FEConstPrestrain.h
++++ b/FEBioMech/FEConstPrestrain.h
+@@ -52,6 +52,10 @@ public:
+ 
+ 	void Initialize(const mat3d& F, FEMaterialPoint& mp) override;
+ 
++	// BIOCAGE patch 5b: det of the current (ramped) prestrain for a constant F0, so the uncoupled wrapper's volumetric term
++	// uses this time step's value instead of the one from the previous stress evaluation; -1 if F0 is not constant
++	double CurrentJp() const { return m_Fp.isConst() ? (mat3dd(1.0) * (1.0 - m_ramp) + const_cast<FEParamMat3d&>(m_Fp).constValue() * m_ramp).det() : -1.0; }
++
+ protected:
+ 	double			m_ramp;
+ 	FEParamMat3d	m_Fp;
+diff --git a/FEBioMech/FEPreStrainUncoupledElastic.cpp b/FEBioMech/FEPreStrainUncoupledElastic.cpp
+index bcb35a4..929beb6 100644
+--- a/FEBioMech/FEPreStrainUncoupledElastic.cpp
++++ b/FEBioMech/FEPreStrainUncoupledElastic.cpp
+@@ -25,6 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.*/
+ #include "stdafx.h"
+ #include "FEPreStrainUncoupledElastic.h"
++#include "FEConstPrestrain.h"
+ 
+ BEGIN_FECORE_CLASS(FEPreStrainUncoupledElastic, FEUncoupledMaterial)
+ 	ADD_PROPERTY(m_mat, "elastic");
+@@ -83,6 +84,7 @@ mat3ds FEPreStrainUncoupledElastic::DevStress(FEMaterialPoint& mp)
+ 
+ 	// get the pre-strain deformation gradient
+ 	mat3d Fp = PrestrainGradient(mp);
++	m_Jp = Fp.det();
+ 
+ 	// pre-multiply the pre-strain
+ 	ep.m_F = ep.m_F*Fp;
+@@ -126,3 +128,11 @@ tens4ds FEPreStrainUncoupledElastic::DevTangent(FEMaterialPoint& mp)
+ 	// return spatial tangent
+ 	return c;
+ }
++
++//-----------------------------------------------------------------------------
++double FEPreStrainUncoupledElastic::Jp() const
++{
++	FEConstPrestrainGradient* g = dynamic_cast<FEConstPrestrainGradient*>(m_Fp);
++	double jp = (g ? g->CurrentJp() : -1.0);
++	return (jp > 0 ? jp : m_Jp);
++}
+diff --git a/FEBioMech/FEPreStrainUncoupledElastic.h b/FEBioMech/FEPreStrainUncoupledElastic.h
+index 1f07d73..5a96751 100644
+--- a/FEBioMech/FEPreStrainUncoupledElastic.h
++++ b/FEBioMech/FEPreStrainUncoupledElastic.h
+@@ -55,6 +55,16 @@ public:
+ 	//! spatial tangent
+ 	tens4ds DevTangent(FEMaterialPoint& mp) override;
+ 
++	// BIOCAGE patch 5: volumetric response about the prestrained volume (elastic J = J * Jp); the stock wrapper applied the
++	// prestrain to the deviatoric part only, so a prestrain with det != 1 could change shape but never volume.
++	double U(double J) override { return FEUncoupledMaterial::U(J * Jp()); }
++	double UJ(double J) override { return FEUncoupledMaterial::UJ(J * Jp()); }
++	double UJJ(double J) override { double jp = Jp(); return jp * FEUncoupledMaterial::UJJ(J * jp); }
++
++private:
++	double Jp() const;	// current prestrain det (patch 5b: from the gradient's ramp; else the last DevStress value)
++	double m_Jp = 1.0;	// det of the prestrain gradient at the last DevStress call
++
+ protected:
+ 	//! calculate prestrain deformation gradient
+ 	mat3d PrestrainGradient(FEMaterialPoint& mp);
 diff --git a/FEBioMech/FERigidSolidDomain.cpp b/FEBioMech/FERigidSolidDomain.cpp
 index ed7102a..49310ac 100644
 --- a/FEBioMech/FERigidSolidDomain.cpp
