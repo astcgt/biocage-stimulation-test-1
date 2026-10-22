@@ -581,3 +581,12 @@ Decisions agreed with the PI during the review sessions. Anything not listed is 
   was what pulled them in) -> real gap = nominal gap + d, so the screening model v2 builds the cage on the nominal gap (no
   gap library needed). v2 = annulus released + expand insertion + no biodisc + wall pins + release_dtmax 0.1 (settings class
   human_study/al/v2_test); tests p037 / p036 / p011-ISO started 22:35.
+- 2026-10-23 04:20 v2 tests: p037 compress: distraction 12 N, clamp 18.4 N, retained 0.68 mm, C 277 N (bone yield, endpoint
+  reached); p036 compress (d 1.48): distraction 93 N, clamp 115 N, retained 1.57 mm, C 230 N (bone yield) -> the compression
+  test now works over the whole d range. p011 ISO (B, d 1.43): passes insertion and release (clamp 21 N) but fails at the very
+  start of ISO (t 3.00; inverted: 1835 C3 cortical tets + 1617 soft-line hexes) -> ISO-start failure still to be diagnosed.
+  (The tests had ended ~23:00; the 23:19 report did not run and the machine idled until 04:15 - a monitoring lapse.)
+- 2026-10-23 04:20 PI ("use the resources, the tuning looks good"): FULL SWITCH to the v2 screening model. h22 now writes
+  to human_study/al_v2 (v1 kept in human_study/al), job prefix al_v2p, cases built with V2 = expand insertion (shrink 0.8),
+  no biodisc, wall pins, release_dtmax 0.1, annulus remnant released; meshes shared (nominal gap). Same 48 Sobol points
+  re-initialised (96 cases queued); settings class human_study/al_v2/cases/. Build workers 16, preflight daemon 12 threads.
