@@ -16,12 +16,15 @@ Surrogates: two mixed-categorical GPs (BoTorch). Next batch: candidates = 12 com
 min over a Sobol set of material samples of (mean + BETA*std) (optimistic-robust), feasibility by the same rule on log C;
 the chosen designs are simulated at their worst predicted material sample (max-min robust search).
 Initial batch: 48 Sobol points (each combination 4x). Stop: 150 points, or < 2 % improvement of the best feasible robust
-score over 3 consecutive batches.
+score over 3 consecutive checkpoints taken every HIST_EVERY new results (the old "3 batches" at the batch-0 size).
+Asynchronous (2026-10-22, after Alvi et al. 2019, PLAyBOOK): runtimes range from 2 h to > 16 h, so the loop no longer waits
+for a whole batch. Whenever fewer than MIN_WAITING AL jobs are waiting in the queue it proposes enough points to fill the free
+slots, with the points still running excluded from the proposal neighbourhood (local penalisation of busy locations).
 
 usage: python h22_active_learning.py init         # create the initial batch, build and queue its cases
        python h22_active_learning.py collect      # post-process finished points
        python h22_active_learning.py next         # fit surrogates, propose / build / queue the next batch
-       python h22_active_learning.py loop         # collect + next whenever a batch is finished (run in tmux)
+       python h22_active_learning.py loop         # collect + next whenever the queue runs low (async; run in tmux)
        python h22_active_learning.py status
 """
 import os, sys, json, time, glob, math, subprocess, itertools
@@ -32,6 +35,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); P = os.path.dirname(os.path.d
 AL = os.path.join(P, 'human_study', 'al'); os.makedirs(AL, exist_ok=True)
 STATE = os.path.join(AL, 'points.json'); LOG = os.path.join(AL, 'al.log')
 QUEUE = os.path.join(P, 'human_study', 'queue')
+JOB_CORES = 8   # FEBio here averages ~2.5 busy cores per run (measured 2026-10-22), so 16 pinned cores left most of them idle
 TEMPLATE = os.path.join(P, 'human_study', 'cage_test', 'params_A_iso_tied2.json')
 
 DESIGNS, GRADS, FABS = ('A', 'B'), ('axial', 'radial', 'both'), ('mix', 'interleave')
@@ -43,6 +47,8 @@ SIG_HARD, SIG_SOFT = 15.0, 3.0                    # strength lower bounds (robus
 CAP_MIN = 150.0                                   # Q49
 T_ISO0, T_ISO1 = 3.0, 13.0                        # ISO protocol window (ramp + 9 levels x 1 cycle)
 N_INIT, N_MAX, BETA = 48, 150, 1.0
+MIN_WAITING, HIST_EVERY = 2, 8                   # async proposal trigger; stop-criterion checkpoint spacing
+HOLD = os.path.join(AL, 'HOLD_PROPOSALS')          # if this file exists: collect results but propose no new points (model change pending)
 
 
 def log(msg):
@@ -82,7 +88,7 @@ def build_point(pt):
                            stdout=subprocess.DEVNULL)
         job = os.path.join(QUEUE, f"al_p{pt['id']:03d}_{test}.job")
         if not os.path.exists(job):
-            json.dump(dict(case_dir=os.path.relpath(cdir, P), cores=16, mem_gb=8, host_mem_gb_gpu=4), open(job, 'w'))
+            json.dump(dict(case_dir=os.path.relpath(cdir, P), cores=JOB_CORES, mem_gb=8, host_mem_gb_gpu=4), open(job, 'w'))
         out[test] = os.path.relpath(cdir, P)
     return pt['id'], out
 
@@ -208,17 +214,23 @@ def robust_table(my, mc, n_u=64):
 
 
 def batch_size():
-    """Idle GPUs + CPU slots (16 cores) within the memory cap, as two jobs per point (PI Q34)."""
+    """Idle GPUs + CPU slots (JOB_CORES cores) within the memory cap, as two jobs per point (PI Q34)."""
     sys.path.insert(0, os.path.join(P, 'scripts/5_compute'))
     import h19_scheduler as h; from h06_run_cpu_batch import cpu_busy, claimed_cores
     g = sum(1 for s in h.gpu_state().values() if s['idle'])
     b = cpu_busy(); c = sum(1 for k, v in b.items() if v < 0.10 and k not in claimed_cores())
-    slots = min(g + c // 16, int(h.mem_free_gb() // 6))
-    return max(2, slots // 2)
+    slots = min(g + c // JOB_CORES, int(h.mem_free_gb() // 6))
+    return max(1, slots // 2)
+
+
+def waiting_jobs():
+    """AL jobs queued but not yet started by the scheduler."""
+    return len(glob.glob(os.path.join(QUEUE, 'al_p*.job')))
 
 
 def cmd_next():
     st = load(); done = [p for p in st['points'] if p.get('status') == 'done']
+    if st.get('next_after', 0) > time.time(): return True                  # last proposal found nothing new: wait
     if len(st['points']) >= N_MAX: log('next: point budget reached (150)'); return False
     if len(done) < 8: log('next: not enough results yet'); return False
     X = [encode(p['x']) for p in done]
@@ -227,15 +239,24 @@ def cmd_next():
     rows = robust_table(my, mc)
     feas = [r for r in rows if r['ucb_logC'] >= math.log(CAP_MIN)] or rows
     best = max((r['mean_y'] for r in rows if r['mean_logC'] >= math.log(CAP_MIN)), default=None)
-    st.setdefault('history', []).append(dict(n_done=len(done), best_robust_feasible_y=best, time=time.strftime('%Y-%m-%d %H:%M')))
-    h = [x['best_robust_feasible_y'] for x in st['history'] if x['best_robust_feasible_y'] is not None]
+    hist = st.setdefault('history', [])
+    if not hist or len(done) >= hist[-1]['n_done'] + HIST_EVERY:
+        hist.append(dict(n_done=len(done), best_robust_feasible_y=best, time=time.strftime('%Y-%m-%d %H:%M')))
+    h = [x['best_robust_feasible_y'] for x in hist if x['best_robust_feasible_y'] is not None]
     if len(h) >= 4 and all(abs(h[-1] - v) <= 0.02 * max(abs(h[-1]), 1e-6) for v in h[-4:-1]):
-        log(f'next: stop - best feasible robust score {h[-1]:.3f} changed < 2 % over 3 batches'); save(st); return False
-    q = min(batch_size(), N_MAX - len(st['points'])); chosen = []
-    for r in sorted(feas, key=lambda r: -r['ucb_y']):                       # greedy, keep chosen designs apart
+        log(f'next: stop - best feasible robust score {h[-1]:.3f} changed < 2 % over 3 checkpoints'); save(st); return False
+    q = min(batch_size(), N_MAX - len(st['points']))
+    chosen = [dict(combo=COMBOS.index((p['x']['design'], p['x']['grad'], p['x']['fab'])), du=encode(p['x'])[3])
+              for p in st['points'] if p.get('status') in ('new', 'queued')]          # busy locations
+    n_busy = len(chosen)
+    for r in sorted(feas, key=lambda r: -r['ucb_y']):                       # greedy, keep designs apart from chosen and busy ones
         if any(r['combo'] == c['combo'] and abs(r['du'] - c['du']) < 0.15 for c in chosen): continue
         chosen.append(r)
-        if len(chosen) >= q: break
+        if len(chosen) >= n_busy + q: break
+    chosen = chosen[n_busy:]
+    if not chosen:
+        st['next_after'] = time.time() + 1800; save(st); log('next: every candidate is near a running point; retry in 30 min')
+        return True
     bno = len(st['batches']); n0 = len(st['points']); ids = []
     for k, r in enumerate(chosen):
         u = [r['du']] + r['worst_u']
@@ -256,13 +277,15 @@ def cmd_status():
 
 
 def cmd_loop():
-    log('loop start')
+    log('loop start (asynchronous)'); stopped = False
     while True:
         try:
             cmd_collect(); st = load()
             pending = [p for p in st['points'] if p.get('status') in ('new', 'queued')]
-            if not pending:
-                if not cmd_next(): log('loop: finished (stop criterion or budget)'); break
+            n_done = sum(p.get('status') == 'done' for p in st['points'])
+            if not stopped and n_done >= 8 and waiting_jobs() < MIN_WAITING and not os.path.exists(HOLD):
+                stopped = not cmd_next()
+            if stopped and not pending: log('loop: finished (stop criterion or budget)'); break
         except Exception:
             import traceback; log('ERROR ' + traceback.format_exc().replace('\n', ' | '))
         time.sleep(300)

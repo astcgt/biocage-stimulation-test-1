@@ -1,12 +1,12 @@
 """Hybrid GPU + CPU scheduler for queued FEBio cases (PI 2026-10-20: grab every idle resource, no reserve).
 
 Queue: human_study/queue/*.job (JSON {"case_dir": ..., "cores": 16, "cpu_only": false, "mem_gb": 8, "host_mem_gb_gpu": 4});
-oldest first. A job starts only if the account cgroup memory headroom covers its estimate + 4 GB. A job moves to queue/running/ when
+oldest first, only jobs with a valid preflight check (h24), backfilled (a later job may start when the oldest does not fit). A job starts only if the account cgroup memory headroom covers its estimate + 4 GB. A job moves to queue/running/ when
 launched and to queue/done/ when its process exits.
 Every 60 s:
   GPU g (all GPUs on the node) is idle when its last IDLE_MIN one-minute samples in human_study/gpu_samples.csv
-  (written by gpu_sampler.py) average < 10 % utilisation, it has >= MEM_NEED_MB free now and none of my runs is on it
-  (one worker per GPU). An idle GPU takes the next job via h18_run_gpu_case.py (cuDSS + idle CPU cores).
+  (written by gpu_sampler.py) average < 10 % utilisation, it has >= MEM_NEED_MB free now and none of my runs is on it.
+  A GPU already running my jobs takes up to MAX_PER_GPU of them while it averages < SHARE_UTIL_MAX % (2026-10-22). An idle GPU takes the next job via h18_run_gpu_case.py (cuDSS + idle CPU cores).
   If no GPU is idle but >= 16 idle unclaimed cores exist, the next job runs on CPU via h06_run_cpu_batch.py.
 On start, interrupted jobs (in queue/running but without a live FEBio process) are re-queued and resume from their
 checkpoint (runners write <case>.dmp every 5 converged steps and restart with 'febio4 -r').
@@ -15,8 +15,11 @@ Log: human_study/scheduler.log.   usage: python h19_scheduler.py
 import os, sys, time, json, glob, csv, shutil, subprocess
 sys.path[:0] = [os.path.dirname(os.path.abspath(__file__)), os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'common')]
 from h06_run_cpu_batch import cpu_busy, claimed_cores, P
+import h24_preflight
 
 IDLE_MIN, UTIL_MAX, MEM_NEED_MB = 15, 10.0, int(1.5 * 7000)   # cage case peak ~7 GB on GPU (measured 2026-10-20)
+MAX_PER_GPU, SHARE_UTIL_MAX = 3, 50.0                         # my runs barely load a GPU (< 25 %, 2026-10-22)
+RESERVE_H = 12                                                  # backfill may pass the head job for at most this long
 Q = os.path.join(P, 'human_study/queue'); RUN = os.path.join(Q, 'running'); DONE = os.path.join(Q, 'done')
 SAMPLES = os.path.join(P, 'human_study/gpu_samples.csv'); LOG = os.path.join(P, 'human_study/scheduler.log')
 for d in (Q, RUN, DONE): os.makedirs(d, exist_ok=True)
@@ -26,7 +29,7 @@ CG = '/sys/fs/cgroup' + open('/proc/self/cgroup').read().strip().split(':')[-1]
 
 
 def mem_free_gb():
-    """Headroom under this account's cgroup memory limit (64 GiB on this server; found 2026-10-20 after an OOM kill)."""
+    """Headroom under this account's cgroup memory limit (64 GiB until 2026-10-21, now 128 GiB; read live each check)."""
     try:
         lim = open(CG + '/memory.max').read().strip()
         st = dict(l.split() for l in open(CG + '/memory.stat'))
@@ -47,18 +50,20 @@ def gpu_state():
         capture_output=True, text=True).stdout.strip().splitlines())}
     uuid = dict(l.split(', ') for l in subprocess.run(['nvidia-smi', '--query-gpu=uuid,index', '--format=csv,noheader'],
                                                       capture_output=True, text=True).stdout.strip().splitlines())
-    mine = set()
+    mine = {}
     for l in subprocess.run(['nvidia-smi', '--query-compute-apps=gpu_uuid,pid', '--format=csv,noheader'],
                             capture_output=True, text=True).stdout.strip().splitlines():
         u, pid = l.split(', ')
         try:
-            if os.stat(f'/proc/{pid}').st_uid == os.getuid(): mine.add(int(uuid[u]))
+            if os.stat(f'/proc/{pid}').st_uid == os.getuid(): mine[int(uuid[u])] = mine.get(int(uuid[u]), 0) + 1
         except OSError: pass
     out = {}
     for g, (util, used, tot) in now.items():
         hist = [int(r[2]) for r in rows if int(r[1]) == g][-IDLE_MIN:]
-        idle = len(hist) >= IDLE_MIN and sum(hist) / len(hist) < UTIL_MAX and tot - used >= MEM_NEED_MB and g not in mine
-        out[g] = dict(idle=idle, mean_util=round(sum(hist) / max(1, len(hist)), 1), free_mb=tot - used, mine=g in mine)
+        mean = sum(hist) / max(1, len(hist)); n = mine.get(g, 0)
+        idle = len(hist) >= IDLE_MIN and tot - used >= MEM_NEED_MB and (
+            mean < UTIL_MAX if n == 0 else (n < MAX_PER_GPU and mean < SHARE_UTIL_MAX))   # share a GPU only among my runs
+        out[g] = dict(idle=idle, mean_util=round(mean, 1), free_mb=tot - used, mine=n)
     return out
 
 
@@ -105,6 +110,33 @@ def resume_orphans():
         os.replace(j, os.path.join(Q, name + '.job')); log(f'requeued interrupted {name} (resumes from checkpoint)')
 
 
+def reap_adopted(running):
+    """Jobs in queue/running/ that this scheduler instance did not launch (they survived a restart) are archived once their
+    FEBio process is gone; exit '?' lets the watchdog requeue them if FEBio never terminated."""
+    alive = febio_cwds()
+    for j in glob.glob(os.path.join(RUN, '*.job')):
+        name = os.path.basename(j)[:-4]
+        if name in running: continue
+        case = os.path.realpath(os.path.join(P, json.load(open(j))['case_dir']))
+        if any(c == case or c.startswith(case + '_gpu') for c in alive): continue
+        for ext in ('.job', '.out'):
+            src = os.path.join(RUN, name + ext)
+            if os.path.exists(src): os.replace(src, os.path.join(DONE, time.strftime('%H%M%S_') + name + ext))
+        log(f'finished {name} exit=? (adopted after a scheduler restart)')
+
+
+def first_fit(jobs, fits):
+    """Backfill (2026-10-22): the oldest queued job that fits the free cores / memory now, instead of waiting until the head
+    of the queue fits (a 60 GB case at the head used to block every 8 GB case behind it). A head job that has waited
+    RESERVE_H hours gets a reservation: nothing may pass it, so memory drains until it fits."""
+    for k, j in enumerate(jobs):
+        sp = json.load(open(j))
+        if not h24_preflight.valid(os.path.join(P, sp['case_dir'])): continue    # not (or no longer) preflight-checked
+        if fits(sp): return j
+        if k == 0 and time.time() - os.path.getmtime(j) > RESERVE_H * 3600: return None
+    return None
+
+
 def main():
     running = {}
     log('scheduler start')
@@ -120,19 +152,20 @@ def main():
                     src = os.path.join(RUN, name + ext)
                     if os.path.exists(src): os.replace(src, os.path.join(DONE, time.strftime('%H%M%S_') + name + ext))
                 log(f'finished {name} exit={p.returncode}'); del running[name]
+        reap_adopted(running)
         jobs = sorted(glob.glob(os.path.join(Q, '*.job')), key=os.path.getmtime)
         if jobs:
             st = gpu_state()
-            for g in sorted(g for g, s in st.items() if s['idle']):
-                gj = [j for j in jobs if not json.load(open(j)).get('cpu_only')]       # cpu_only: too big for GPU memory
-                if not gj: break
-                if mem_free_gb() < json.load(open(gj[0])).get('host_mem_gb_gpu', 4) + 4: break   # host-RAM headroom
-                jobs.remove(gj[0]); running[os.path.basename(gj[0])[:-4]] = launch(gj[0], g); time.sleep(20)
+            b = cpu_busy(); c = claimed_cores(); free = sum(1 for k, v in b.items() if v < 0.10 and k not in c)
+            for g in sorted(g for g, s in st.items() if s['idle']):           # GPU runs need idle cores too (h18)
+                j = first_fit(jobs, lambda sp: not sp.get('cpu_only') and free >= sp.get('cores', 16)
+                              and mem_free_gb() >= sp.get('host_mem_gb_gpu', 4) + 4)
+                if j is None: break                                                    # cpu_only: too big for GPU memory
+                jobs.remove(j); free -= json.load(open(j)).get('cores', 16)
+                running[os.path.basename(j)[:-4]] = launch(j, g); time.sleep(20)
             if jobs:
-                b = cpu_busy(); c = claimed_cores(); free = sum(1 for k, v in b.items() if v < 0.10 and k not in c)
-                spec = json.load(open(jobs[0]))
-                if free >= spec.get('cores', 16) and mem_free_gb() >= spec.get('mem_gb', 8) + 4:
-                    j = jobs.pop(0); running[os.path.basename(j)[:-4]] = launch(j); time.sleep(20)
+                j = first_fit(jobs, lambda sp: free >= sp.get('cores', 16) and mem_free_gb() >= sp.get('mem_gb', 8) + 4)
+                if j is not None: jobs.remove(j); running[os.path.basename(j)[:-4]] = launch(j); time.sleep(20)
       except Exception:                     # never die: a crash used to take the launched runs with it
         import traceback; log('ERROR ' + traceback.format_exc().replace('\n', ' | '))
       time.sleep(60)

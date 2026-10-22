@@ -416,3 +416,156 @@ Decisions agreed with the PI during the review sessions. Anything not listed is 
     worst predicted material sample (max-min robust search); batch = (idle GPUs + 16-core CPU slots within memory) / 2 points.
   * initial 48 Sobol points (4 per combo); stop at 150 points or < 2 % change of the best robust feasible score over 3 batches.
   * Synthetic test: GP fit ~6 min per batch; recovers the planted trends and worst material corner.
+- 2026-10-21 08:40: the admin raised the account memory cap from 64 to 128 GiB (online, no restart; all runs survived). CPU cores
+  are now the binding resource. The full 0.1 mm cage mesh-convergence case (screening model, compression, ~1.5 M equations,
+  CPU-only) is queued last (after the active-learning batch) as an in-plane resolution check complementing Q53.
+- 2026-10-22 00:10: memory (not cores) was binding: 15 runs used ~108 of 128 GiB, 43 GB of it the 0.1 mm meshconv case (stuck
+  retrying t=1.68 for 2.5 h). Paused it (checkpoint 10-21 20:20) and requeued it behind AL batch 0, as planned above. FEBio runs
+  average ~2.5 busy cores, so AL jobs now pin 8 cores instead of 16 (h22 JOB_CORES) to fit more runs at once.
+- 2026-10-22 (PI: "implement" async AL, memory-aware scheduling, multi-fidelity):
+  * Async AL (h22, after Alvi et al. 2019 PLAyBOOK): no waiting for a whole batch; when < 2 AL jobs wait in the queue the loop
+    proposes points for the free slots, keeping proposals away (same combo, |d_u| < 0.15) from points still running. Stop rule
+    unchanged in spirit: < 2 % change of the best robust feasible score over 3 checkpoints taken every 8 new results.
+  * Scheduler (h19): first-fit backfill (a later job may start when the oldest does not fit; a head job waiting > 12 h gets a
+    reservation); up to 3 of my jobs per GPU while it averages < 50 % utilisation (GPU runs need ~3.3 GB host RAM vs 5-8 GB on
+    CPU); GPU launches also require idle cores; jobs that survive a scheduler restart are archived when their FEBio ends.
+  * Multi-fidelity (PI choice): low fidelity = endplate 1.0 mm (convergence: clamp / retention / cage damage within ~1-2 % of
+    0.5 mm; bone-yield capacity not converged -> C may be biased, the multi-fidelity GP learns the offset). High fidelity = the
+    current screening model. Pilot first: points 37, 41, 10 re-run at 1.0 mm (human_study/al/mf_pilot) to measure the time saved
+    and the y / C offset before the multi-fidelity GP and cost-aware acquisition are switched on.
+  * Noted: all 15 finished points end in ERROR termination; 11 stop at the start of ISO (t 3.0-3.6, soft-layer crush, as
+    agreed = functional failure), but 4 (p011, p031, p035, p036) stop during insertion/release (t 1.0-1.6) and score y = 0,
+    C = 0 without the test having started -> to discuss with the PI.
+- 2026-10-22 02:50 insertion failures explained: during distraction the stretched annulus / ligaments pull the C4 endplate up
+  into the cage space (max rise 0.005 mm at d 0.5, 0.10-0.14 at d 1.0-1.1, 0.20-0.31 at d 1.24-1.48; C3 side not logged).
+  h12 builds the cage on the undeformed endplates + d, so at contact activation (t = 1) the cage overlaps the bone by up to
+  ~0.3 mm -> inversions (p011, p031, p035, p036 fail at t 1.0-1.6; p000, p003, p004, p015 crawl). Smaller d also carries a
+  hidden press fit (<= 0.14 mm) that grows with d.
+  PI proposal: shrink the cage, insert, let it spring back. h14 insert_mode 'expand': natural cage height ramps to 0.8 x design
+  during distraction (prestrain gradient, stress-free, pinned on its mid plane) and back to 1.0 during seating; full contact
+  penalty from t = 1 (no overlap), seat lowering 0. Final state = cage at design height pressed into the real gap (same as
+  compress-then-release for this history-free model, without passing through a crushed state).
+  FEBio patch 5 (FEPreStrainUncoupledElastic): the stock uncoupled prestrain wrapper applied Fp to the deviatoric part only, so
+  volume could not change (single-hex test: target z 0.80 gave z 0.862 and x, y +7.7 %; the first expand runs bulged
+  sideways into the endplate rims and failed at t 1.009). Patched U/UJ/UJJ to use J*Jp -> hex test z 0.800, x = y = 1.000.
+  Identical to the stock build whenever no prestrain is used. Old lib kept as libfebiomech.so.pre_prestrainpatch.
+- Multi-fidelity pilot (endplate 1.0 vs 0.5 mm, same points): p037 y 0.013 -> 0.017, C 272 -> 328 N (bone-yield endpoint,
+  +21 %, as in the convergence study), clamp 63.6 -> 64.0 N; p010 y 0.062 -> 0.056, C 71 -> 72 N (cage damage), clamp 29.1 ->
+  29.1 N. Wall time ~1-3x shorter (iso 0.6-1.2 h vs 3.8-5.1 h, but the old runs shared busier CPUs). p041 pending.
+- 2026-10-22 03:45 expand test, run 2 (patched lib): p037 (d 0.59) passes distraction and is into seating (t 1.41) with no
+  failed step; p036 (d 1.48) blew up during distraction (t 0.66, up to 2909 inverted elements, no contact active). Cause: the
+  3 seating pins (+-1 mm from the footprint centre) all lie in the window, i.e. in the 0.03 MPa biodisc, so the free,
+  shrinking cage was held only by jelly. Expand-mode pins moved to cage-wall nodes (left / right / front, mid plane); p036
+  rebuilt and restarted 03:47 (p037 left running for comparison).
+  NOTE for the PI: the old (overlap) mode uses the same centre-based picks for the seating pins and the release in-plane hold
+  ('cage_hold'), so in all AL runs these constraints act on biodisc nodes, not on the cage; the bonded (tied) interface holds
+  the cage from release on, so the effect is probably small, but it should be fixed in the re-run.
+- 2026-10-22 04:30 expand test p037 (run 2, old centre pins) failed at t 1.82: FEBio -output_negative_jacobians -> all 240
+  inverted elements are biodisc (window filler) elements, i.e. the jelly-pin problem again; rebuilt with the wall pins and
+  restarted. p036 with wall pins passes its old blow-up point (t 0.66). Third test added: p011 ISO (design B, d 1.43, failed
+  at t 1.27 with the old insertion).
+- Stuck old-mode cases (p000, p003, p004, p015, p038; t 1.3-1.9, dt 5e-4-3e-3, 14-31 failed steps, inversions): soft contact
+  layers are NOT crushed at their last converged state (min principal Lagrange strain -0.04 to -0.13; p000 -0.30 at the
+  crush threshold) -> not the agreed physical functional failure but a numerical stall from the insertion overlap.
+  Plan (PI 2026-10-22): debug expand until the test cases pass all stages, then switch every case to expand.
+- 2026-10-22 04:50 PREFLIGHT (PI: check model and run conditions before simulating): scripts/5_compute/h24_preflight.py +
+  human_study/current_settings.json. A case may run only if a rebuild with the current h14 is byte-identical, its params match
+  the current settings for its class, pins / prestrain / curves are as intended, FEBio passes the patch-5 one-hex test, and
+  any checkpoint comes from the same case.feb (launched_feb.sha256 written by h06 / h18 at a fresh start). h19 launches only
+  preflight-valid jobs; daemon in tmux biocage_preflight (watchdog-managed); failures -> queue/failed/, log preflight.log.
+- Error census (55 terminated AL runs, ALL ended in ERROR, none NORMAL): 38 at the very start of the test step (t 3.00-3.6),
+  17 during insertion (overlap, see above). Replays from checkpoints with -output_negative_jacobians: p021_compress (B): all
+  119 inverted elements are biodisc (0.03 MPa window filler sharing nodes with the cage wall); p041_iso (A): 31 soft (0 %)
+  interleave lines + 9 hard elements, mostly inner layers (material distortion, closer to the agreed functional failure).
+  p039, p042 replays pending. Biodisc handling put to the PI: (a) one ring smaller + contact, (b) drop from screening
+  (load share < ~1 N vs 30-300 N clamp, identical for all designs), (c) keep.
+- FEBio patch 5b: the uncoupled prestrain volumetric term took Jp from the previous stress evaluation (one increment late at
+  each step start -> pressure mismatch ~K ln(1.025) in the hard core; p036, E_hard/E_soft 380x, failed in distraction even
+  with wall pins). FEConstPrestrainGradient::CurrentJp() now gives the current det for a constant F0. One-hex test still
+  z 0.800, x = y = 1.000. Expand tests p036, p037, p011 restarted 05:05 on 5b via the preflight-gated launcher.
+- 2026-10-22 05:20 PI: screening model WITHOUT the biodisc (h14 'biodisc': False; its nodes fixed, its faces removed from the
+  contact surfaces); applied to the expand tests now (settings class expand_test), to the AL with the full switch.
+- Solver-work census (all AL logs, stiffness factorizations): distraction 5 %, insertion 56 % (33 % on failed attempts),
+  release 18 %, test 21 %; ~80 % of wall time is the linear solver. PI-approved order, each tested alone against p037
+  (expand, no biodisc) and adopted only if the results barely change, then the full switch and re-run:
+    1. release step max dt 0.02 -> 0.1 (h14 'release_dtmax'; path-independent screening model, only the end state matters)
+    2. symmetric contact stiffness (h14 'contact_symmetric': 1; frictionless normal contact in the tied screening model)
+    3. dtol 0.001 -> 0.005 (h14 'dtol')
+  Options added with defaults = current settings (rebuilds of AL and expand cases byte-identical).
+- 2026-10-22 ~05:17-11:33 every process (incl. tmux, watchdog, the 50-min report schedule) was killed again (Jupyter service stop; host not rebooted). Recovered 11:33: watchdog restarted all daemons, interrupted AL jobs requeued to resume from checkpoints (after preflight), expand tests restarted fresh. ~6 h lost.
+- 2026-10-22 12:30 expand tests (patch 5b, wall pins, no biodisc), all three ended in ERROR:
+  * p037 (A axial interleave, d 0.59) passed distraction, insertion and release for the first time and stopped early in
+    compression (t 3.10, as most old runs). Old vs expand: distraction force 81.4 / 81.5 N, clamp after release 63.6 / 103.0 N
+    (+62 %), retained 0.53 / 0.61 mm, capacity (bone yield) 272 / 251 N. The clamp change must be explained before any switch;
+    variant p037 expand WITH biodisc running (human_study/al/expand_variants/p037bio_compress) to separate the biodisc effect.
+  * Inverted elements (FEBio -output_negative_jacobians): p037 70 % soft (0 %) interleave lines + 24 % hard, mostly inner
+    layers; p011 ISO (B, d 1.43) failed at t 1.98 (end of the spring-back, i.e. when the press fit builds) with 82 % soft lines.
+    -> with the biodisc gone, the dominant error is the explicit soft interleave lines.
+  * p036 (d 1.48) failed in distraction (t 0.57-0.66): inverted elements are C3 cortical bone across the whole vertebra +
+    disc/facet near the cage edge, not the cage; forces equal to the old run up to t 0.47; the old run also had distraction
+    failures at t 0.47 / 0.82 but recovered -> large-d distraction is fragile in itself. h14 'distract_dt' option (default
+    0.1, unchanged); p036 relaunched with 0.025.
+  Open PI questions: cage height definition (nominal gap + d, so the press fit grows with d, vs. the real distracted gap) and
+  how to treat soft-interleave-line inversion.
+- 2026-10-22 13:25 human_study/al/HOLD_PROPOSALS: the async AL loop collects results but proposes no new points until the new screening model is validated (they would be built with the old model and re-run); batch 0 continues.
+- 2026-10-22 14:20 speed-option variants of p037 (expand, no biodisc) started side by side, each one change vs the baseline expand_test/p037_compress: p037rel01 (release dtmax 0.1), p037sym (symmetric contact stiffness), p037dtol005 (dtol 0.005); human_study/al/expand_variants/. Batch 0 queue empty (30/48 done, 22 running).
+- 2026-10-22 15:15 speed options vs baseline p037 (expand, no biodisc), up to the end of release (t 3):
+  * clamp after release: base 102.998795 N; release_dtmax 0.1: 102.998795; symmetric contact: 102.998796; dtol 0.005:
+    102.998797 (all within 1e-8 relative); capacity (bone yield) 250.527 / 250.529 / 250.522 N -> results unchanged.
+  * stiffness factorizations to t 3: base 88 (release 53 steps); release_dtmax 0.1: 50 (release 15 steps, -43 %); symmetric:
+    88 (benefit, if any, is time per factorization: pending wall-time comparison on equal load); dtol 0.005: 82.
+  * expand_test/p036 (d 1.48, fine distraction) passed distraction but has been stuck at t 1.929 (end of the spring-back,
+    press fit building, as p011) for ~1 h; p037bio (expand WITH biodisc) in release at t 2.75, no failed step, slower.
+- 2026-10-22 16:10 p037 clamp decomposition: old (overlap insertion, biodisc) 63.6 N; expand + biodisc 103.03 N; expand without
+  biodisc 103.00 N -> biodisc effect 0.03 %; the +62 % comes entirely from the insertion method. Suspected cause (not verified:
+  the plotted 'contact gap' is 0 everywhere, i.e. positive gaps only): the old seating ran with a 1e-3..1e-1 penalty, so the
+  cage could sink into the endplates before the tie formed at t 2, effectively shortening the cage.
+- Speed options, wall time: all three variants ended in the usual early-compression ERROR, so total times are not comparable
+  (ran under different load); symmetric contact and dtol 0.005 show no clear gain -> not adopted (simpler to keep defaults);
+  release_dtmax 0.1 (-43 % factorizations to t 3, identical results) proposed for adoption.
+- expand_test/p036 (d 1.48) stuck at t 1.93 (end of the spring-back) for 2.5 h; p011 failed at the same point -> large d means a
+  large press fit with the nominal cage height (open PI question).
+- 2026-10-22 17:10 AUTO (no reply since 12:35; PI fallback rule: physiological first): cage height = the REAL gap after
+  distraction (surgeons size the cage with trial spacers after distracting), not the undeformed gap + d (press fit grows with
+  d; p011 and p036 failed / stuck exactly when the press fit builds; old clamp also suspect). Implementation: gap library
+  (scripts/3_cage_case/h25_gap_library.py) = distraction-only runs at d 0.5-1.5 step 0.1 (cage fixed, out of contact,
+  distract_dt 0.025) recording the C3 / C4 endplate node displacements at t 1; h12 optional arg gaplib.npz builds the faces on
+  the deformed endplates (linear in d; Endplates(disp=...)). Interleave soft-line inversion: option (c) (re-assess after the
+  gap fix). release_dtmax 0.1: adopted for the new model (identical results, -43 % work); symmetric contact / dtol 0.005 not.
+  Preflight now regenerates the cage mesh with the current h12 and compares the arrays (was: mtime rule).
+- 2026-10-22 18:10 gap library done (11 distraction-only runs, all NORMAL, no failed step): gap loss (C3 drop + C4 rise, max)
+  0.006 / 0.15 / 0.53 mm at d 0.5 / 1.0 / 1.5 (C3 and C4 deform about equally) = the old oversize of the nominal cage.
+  New screening model under test (human_study/al/gap_test, settings class gap_test): cage on the real distracted gap (h12 +
+  gaplib), expand insertion (shrink 0.8), no biodisc, wall pins, release_dtmax 0.1, distract_dt 0.025; tests p037 compress,
+  p036 compress (d 1.48), p011 ISO (B, d 1.43). Old expand p036 (stuck 5.5 h at t 1.93) stopped.
+- 2026-10-22 19:05 gap-model tests: p037 passes all preparation stages, clamp 102.8 N (expand 103.0; gap loss at d 0.59 only
+  0.006 mm), capacity 249.6 N (bone yield), stops early in compression like before (1294 inverted: soft 0 % + hard lines).
+  p036 (d 1.48) passes distraction + insertion + release for the first time (< 1 h), clamp after release 1135 N, cage damage
+  15 % already reached -> physical overload, not a numerical artefact. p011 ISO (B, d 1.43) passes insertion, crushes its soft
+  interleave lines in release (6018 inverted soft elements) under the large clamp.
+  PLAUSIBILITY FLAG for the PI: distraction force at the end of distraction rises steeply with d: 55 / 81 / 484 / 898 / 1454 /
+  4277 N at d 0.51 / 0.59 / 0.87 / 0.99 / 1.10 / 1.48 mm. The upper values look far above intraoperative distraction forces
+  (to be checked against the literature) -> either the d range (Q?, 0.5-1.5 mm) is too large for this FSU or its tensile
+  soft-tissue response is too stiff (ALL/PLL already removed). Needs a PI decision before the AL re-run.
+- 2026-10-22 19:55 LITERATURE CHECK of the distraction stiffness (critical): cadaver C3-C4 axial distraction (intact disc)
+  1.7 mm @ 44 N, 2.7 mm @ 89 N (Frank et al. 1996, intraoperative retractor technique); 12 cadavers ~2.1-2.4 mm @ 89 N
+  (Neurosurgery 1996); disc-unit tensile failure ~569 N. This model (after discectomy, ALL/PLL removed, i.e. it should be
+  SOFTER) needs 484 N for 0.87 mm and 4277 N for 1.48 mm -> ~50-100x too stiff in axial distraction. The large-d clamp /
+  cage overload is therefore very likely a model artefact. The validation (step 1, Herron C0-C7) covered moments, not axial
+  tension. Candidates: C3-pot kinematics (x, y and rotations fixed during distraction), facet capsules / contact, the tied
+  disc remnant, ligament springs. Gap-model tests p036 / p011 ended in ERROR after the overload (expected given the above).
+  -> AL re-run on hold until the PI decides; non-destructive diagnosis of the load path started.
+- 2026-10-22 20:50 correction + diagnosis: distraction force at t 1 (Fz, column 10 of C3pot.txt): 53 / 321 / 957 / 2037 / 4447 N
+  at d 0.5 / 0.8 / 1.0 / 1.2 / 1.5 (gap library, fixed C3-pot kinematics); an interim reading of column 11 (Mx) as Fz was
+  wrong. Free C3-pot kinematics at d 1.0 (only z prescribed): 282 N (C3 tilts 4.6 deg, shifts 0.6 mm) -> the fixed kinematics
+  stiffen ~3.4x, but even free the model is far stiffer than cadaver data (1.7 mm @ 44 N). Component-removal runs at d 1.0
+  (h14 'diag_drop', gaplib_diag/): no FCC springs, no flavum, no interspinous, no facet contact, no annulus remnant (+ ties).
+- 2026-10-22 21:35 LOAD-PATH DIAGNOSIS (d 1.0, fixed C3-pot kinematics, distraction force at t 0.5 / 0.75 / 1.0):
+  base 53 / 230 / 957 N; no FCC springs 45 / 212 / 922; no flavum 52 / 229 / 956; no interspinous 52 / 228 / 955;
+  no facet contact 53 / 230 / 957; NO ANNULUS REMNANT (+ its endplate ties) 9 / 20 / 39 N; free C3-pot kinematics 19 / 55 / 282.
+  -> ~96 % of the distraction force is carried by the annulus remnant (posterolateral ring left by the ACDR discectomy,
+  Herron fibre-reinforced solid mixtures, tied to the endplates). Without it the segment needs 39 N for 1 mm, the order of
+  the cadaver data (1.7 mm @ 44 N, intact disc). The Herron annulus was validated in bending, not axial tension.
+  Options for the PI: (a) calibrate the remnant's tensile response to axial-distraction data, (b) treat the remnant as
+  released / resected in the surgery model (no annulus), (c) restrict d to the low-force range, (d) free the C3-pot rotations
+  during distraction (3.4x softer, but the segment tilts 4.6 deg). AL re-run waits for this decision.

@@ -1,0 +1,115 @@
+{
+ "params": {
+  "fsu": "human_study/fsu/C34_fsu_refined.feb",
+  "fsu_info": "human_study/fsu/C34_fsu_refined.json",
+  "frame": "human_study/frame_c3c4.json",
+  "cage_npz": "human_study/gaplib/d1.10_cage.npz",
+  "test": "compress",
+  "d": 1.1,
+  "E_hard": 400.0,
+  "E_soft": 4.0,
+  "sig_hard": 15.0,
+  "sig_soft": 3.0,
+  "theta": 0.3,
+  "mu": 0.0,
+  "compress_mm": 3.0,
+  "iso_max_level": 3.0,
+  "iso_cycles": 1,
+  "contact_mode": "global",
+  "penalty": 10.0,
+  "mu_ramp": 0.3,
+  "cage_mat": "gent",
+  "nu_soft": 0.45,
+  "contact_type": "tied",
+  "biodisc": false,
+  "only_distract": true,
+  "distract_dt": 0.025,
+  "mu_true": 0.35
+ },
+ "cage": {
+  "H_mm": 0.2,
+  "HZ_mm": 0.2,
+  "footprint_area_mm2": 92.83,
+  "window_area_mm2": 55.39,
+  "window_frac": 0.597,
+  "gaplib": null,
+  "n_perimeters": 3,
+  "wall_mm": 1.2,
+  "design": "A",
+  "d_mm": 1.1,
+  "gradient": "axial",
+  "fabrication": "mix",
+  "K_layers": 26,
+  "n_nodes": 65259,
+  "n_hex": 60086,
+  "n_cage": 24310,
+  "n_biodisc": 35776,
+  "height_mm_min_mean_max": [
+   4.05,
+   5.205,
+   6.417
+  ],
+  "cage_volume_mm3": 194.7,
+  "phi_hist": {
+   "0.0": 0,
+   "0.25": 1870,
+   "0.5": 1980,
+   "0.75": 1976,
+   "1.0": 18484
+  },
+  "interleave_hard_frac": 0.869
+ },
+ "materials": {
+  "29": {
+   "group": [
+    "mix",
+    "0.25"
+   ],
+   "E": 5.672516737171577,
+   "nu": 0.425,
+   "strength": 6.0,
+   "phi": 0.25,
+   "n_elem": 1870
+  },
+  "30": {
+   "group": [
+    "mix",
+    "0.5"
+   ],
+   "E": 399.9163827508612,
+   "nu": 0.4,
+   "strength": 9.0,
+   "phi": 0.5,
+   "n_elem": 1980
+  },
+  "31": {
+   "group": [
+    "mix",
+    "0.75"
+   ],
+   "E": 399.99999968834214,
+   "nu": 0.375,
+   "strength": 12.0,
+   "phi": 0.75,
+   "n_elem": 1976
+  },
+  "32": {
+   "group": [
+    "mix",
+    "1.0"
+   ],
+   "E": 400.0,
+   "nu": 0.35,
+   "strength": 15.0,
+   "phi": 1.0,
+   "n_elem": 18484
+  }
+ },
+ "removed_disc_elements": 1789,
+ "orphans": 36346,
+ "cage_node_id_offset": 27751,
+ "release_hold_nodes": [
+  28057,
+  29953
+ ]
+}

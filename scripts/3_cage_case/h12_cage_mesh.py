@@ -17,7 +17,7 @@ Fabrication: 'mix' = element phi as blend fraction; 'interleave' = contour-follo
 each perimeter per layer all-hard or all-soft, hard if (perimeter + layer) mod 4 < 4*phi.
 Output: npz with frame/global node coords, hex connectivity, region (0 cage, 1 biodisc), phi, hard (interleave flag),
 top/bottom face quads and the anterior/posterior wall node sets (push-out).
-usage: python h12_cage_mesh.py <fsu.feb> <frame.json> <design A|B> <d_mm> <grad axial|radial|both> <fab mix|interleave> <out.npz> [H=0.2] [HZ=H]
+usage: python h12_cage_mesh.py <fsu.feb> <frame.json> <design A|B> <d_mm> <grad axial|radial|both> <fab mix|interleave> <out.npz> [H=0.2] [HZ=H] [gaplib.npz]
 """
 import sys, json, numpy as np
 import shapely.geometry as sg
@@ -28,7 +28,15 @@ from cage_geom import Endplates
 fsu, frame, design, d, grad, fab, out = sys.argv[1], sys.argv[2], sys.argv[3], float(sys.argv[4]), sys.argv[5], sys.argv[6], sys.argv[7]
 H = float(sys.argv[8]) if len(sys.argv) > 8 else 0.2      # in-plane element size (mesh convergence)
 HZ = float(sys.argv[9]) if len(sys.argv) > 9 else H       # through-thickness element size (z-only refinement: H 0.2, HZ 0.1)
-ep = Endplates(fsu, frame)
+GAPLIB = sys.argv[10] if len(sys.argv) > 10 else None   # h25 gap library: cage faces on the REAL distracted endplates (PI 2026-10-22)
+if GAPLIB:
+    L = np.load(GAPLIB); dg = L['d']
+    w = np.interp(d, dg, np.arange(len(dg))); k0 = int(min(np.floor(w), len(dg) - 2)); a_ = w - k0      # linear in d
+    disp = {s_: {int(i): (1 - a_) * L[f'U_{s_}'][k0, j] + a_ * L[f'U_{s_}'][k0 + 1, j] for j, i in enumerate(L[f'ids_{s_}'])}
+            for s_ in ('top', 'bot')}
+    ep = Endplates(fsu, frame, disp)
+else:
+    ep = Endplates(fsu, frame)
 LINE = 0.4                  # nozzle / extrusion line width (mm)
 fp = ep.footprint
 B_HALF_WIDTH = 3.5          # design B: generic planar cage between the uncinate processes, |Y| <= 3.5 mm (PI Q37)
@@ -54,7 +62,7 @@ perim = np.clip((dout // LINE).astype(int), 0, N_PERIM - 1)          # 0 = outer
 
 # --- face surfaces at node positions
 xn, yn = np.meshgrid(x0 + np.arange(nx + 1) * H, y0 + np.arange(ny + 1) * H, indexing='ij')
-zt = ep.z_top(xn.ravel(), yn.ravel()).reshape(xn.shape) + d
+zt = ep.z_top(xn.ravel(), yn.ravel()).reshape(xn.shape) + (0.0 if GAPLIB else d)   # library positions include the lift
 zb = ep.z_bot(xn.ravel(), yn.ravel()).reshape(xn.shape)
 if design == 'B':
     m = vectorized.contains(fp.buffer(0.3), xn, yn)
@@ -116,7 +124,7 @@ post = np.where(onb & (Q[:, 0] < cx) & (np.abs(Q[:, 1] - fp.centroid.y) < 0.5 * 
 ant = np.where(onb & (Q[:, 0] > cx) & (np.abs(Q[:, 1] - fp.centroid.y) < 0.5 * (b[3] - b[1]) * 0.6))[0]
 G = ep.F.back(Q)
 info = dict(H_mm=H, HZ_mm=HZ, footprint_area_mm2=round(fp.area, 2), window_area_mm2=round(win.area, 2), window_frac=round(win.area / fp.area, 3),
-            n_perimeters=N_PERIM, wall_mm=round(N_PERIM * LINE, 2), design=design, d_mm=d, gradient=grad, fabrication=fab, K_layers=K, n_nodes=len(Q), n_hex=len(hexes),
+            gaplib=GAPLIB, n_perimeters=N_PERIM, wall_mm=round(N_PERIM * LINE, 2), design=design, d_mm=d, gradient=grad, fabrication=fab, K_layers=K, n_nodes=len(Q), n_hex=len(hexes),
             n_cage=int((region == 0).sum()), n_biodisc=int((region == 1).sum()),
             height_mm_min_mean_max=[round(float(hgt[used].min()), 3), round(float(hgt[used].mean()), 3), round(float(hgt[used].max()), 3)],
             cage_volume_mm3=round(float((region == 0).sum() * H * H * np.mean(hgt[used]) / K), 1),

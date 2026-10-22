@@ -38,6 +38,12 @@ def febio_args(d, feb):
     return ['-i', feb, '-silent'] + ckpt, False
 
 
+def record_launch(d, feb):
+    """sha256 of the case.feb a fresh run starts from: preflight (h24) refuses to resume a checkpoint of another build."""
+    import hashlib
+    open(os.path.join(d, 'launched_feb.sha256'), 'w').write(hashlib.sha256(open(os.path.join(d, feb), 'rb').read()).hexdigest())
+
+
 def claimed_cores():
     """Cores pinned to this user's running FEBio processes (a just-started run is not yet visible as busy load)."""
     out = set()
@@ -78,6 +84,7 @@ def main():
         env = dict(os.environ, OMP_NUM_THREADS=str(CORES_PER_CASE), MKL_NUM_THREADS=str(CORES_PER_CASE),
                    LD_LIBRARY_PATH=LIBS, KMP_STACKSIZE='1G', OMP_STACKSIZE='1G')
         fargs, resumed = febio_args(d, feb)
+        if not resumed: record_launch(d, feb)
         cmd = ['prlimit', '--stack=unlimited', 'taskset', '-c', ','.join(map(str, cores)), FEBIO] + fargs
         if not (resumed and os.path.exists(os.path.join(d, 'started_at'))):   # keep the original start time on resume
             open(os.path.join(d, 'started_at'), 'w').write(str(time.time()))

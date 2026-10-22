@@ -1,15 +1,15 @@
 {
  "cases": {
-  "compress_ep0.25_g10u": {
-   "exit": -15,
+  "compress_c0.1_tied": {
+   "exit": -9,
    "normal": false,
-   "wall_s": 8520.2,
+   "wall_s": 31956.6,
    "cores": 16,
-   "core_h": 37.867
+   "core_h": 142.029
   }
  },
- "batch_wall_s": 8530.2,
- "total_core_h": 37.867,
+ "batch_wall_s": 31966.6,
+ "total_core_h": 142.029,
  "gpu_h": 0.0,
  "not_run": []
 }

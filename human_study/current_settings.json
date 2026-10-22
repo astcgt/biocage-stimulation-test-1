@@ -1,0 +1,43 @@
+{
+ "note": "Study-wide model settings every case must match before it may run (checked by scripts/5_compute/h24_preflight.py). Edit together with DECISIONS.md; every queued case is re-checked when this file changes.",
+ "common": {
+  "frame": "human_study/frame_c3c4.json",
+  "contact_type": "tied",
+  "contact_mode": "global",
+  "cage_mat": "gent",
+  "penalty": 10.0,
+  "nu_soft": 0.45,
+  "mu": 0.35,
+  "mu_ramp": 0.3,
+  "iso_max_level": 3.0,
+  "iso_cycles": 1,
+  "compress_mm": 3.0,
+  "sig_hard": 15.0,
+  "sig_soft": 3.0
+ },
+ "classes": {
+  "human_study/al/cases/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "overlap"
+  },
+  "human_study/al/mf_pilot/": {
+   "fsu": "human_study/meshconv/C34_fsu_ep1.0.feb",
+   "insert_mode": "overlap"
+  },
+  "human_study/al/expand_test/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false
+  },
+  "human_study/al/gap_test/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "distract_dt": 0.025,
+   "cage_gaplib": "human_study/gaplib/gaplib.npz"
+  }
+ }
+}

@@ -32,7 +32,9 @@ class Frame:
 
 
 class Endplates:
-    def __init__(self, feb, frame_json):
+    def __init__(self, feb, frame_json, disp=None):
+        """disp: optional {'top': {node_id: u}, 'bot': {node_id: u}} frame-coordinate displacements of the endplate nodes
+        (e.g. the real distracted state from the gap library, h25); the face surfaces then follow the deformed endplates."""
         self.root, self.X, self.blocks = load_feb(feb)
         self.F = Frame(frame_json)
         disc = [k for k, (t, m, E) in self.blocks.items() if t == 'hex8' and k.startswith('disc_or_facet') and k != 'disc_or_facet_mat5']
@@ -42,6 +44,9 @@ class Endplates:
         c4 = set(np.unique(np.vstack([self.blocks[k][2] for k in self.blocks if k.startswith('C4_')])))
         self.top_ids = np.array(sorted(dn & c3)); self.bot_ids = np.array(sorted(dn & c4))
         T = self.F.to(np.array([self.X[i] for i in self.top_ids])); B = self.F.to(np.array([self.X[i] for i in self.bot_ids]))
+        if disp is not None:
+            T = T + np.array([disp['top'].get(int(i), np.zeros(3)) for i in self.top_ids])
+            B = B + np.array([disp['bot'].get(int(i), np.zeros(3)) for i in self.bot_ids])
         self.T, self.B = T, B
         self._zt = LinearNDInterpolator(T[:, :2], T[:, 2]); self._zt_n = NearestNDInterpolator(T[:, :2], T[:, 2])
         self._zb = LinearNDInterpolator(B[:, :2], B[:, 2]); self._zb_n = NearestNDInterpolator(B[:, :2], B[:, 2])

@@ -1,0 +1,23 @@
+{
+ "fsu": "human_study/meshconv/C34_fsu_ep1.0.feb",
+ "fsu_info": "human_study/meshconv/C34_fsu_ep1.0.json",
+ "frame": "human_study/frame_c3c4.json",
+ "cage_npz": "human_study/al/meshes/cage_B_both_mix_d0.510.npz",
+ "test": "iso",
+ "d": 0.51,
+ "E_hard": 543.87,
+ "E_soft": 10.369,
+ "sig_hard": 15.0,
+ "sig_soft": 3.0,
+ "theta": 0.269,
+ "mu": 0.35,
+ "compress_mm": 3.0,
+ "iso_max_level": 3.0,
+ "iso_cycles": 1,
+ "contact_mode": "global",
+ "penalty": 10.0,
+ "mu_ramp": 0.3,
+ "cage_mat": "gent",
+ "nu_soft": 0.45,
+ "contact_type": "tied"
+}

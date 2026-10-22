@@ -1,6 +1,6 @@
 {
  "note": "weights = rough share of total effort/compute; done_frac updated as steps progress",
- "project_eta": "3-5 days; checkpoint/resume added (server stop at 04:24 killed all runs); cage Z-mesh convergence running; active learning next",
+ "project_eta": "AL 16/150 points (10-22 02:55); insertion overlap found -> expand insertion + FEBio patch 5 under test; if adopted, finished points are re-run",
  "steps": [
   {
    "name": "1 validate Herron C0-C7",
@@ -10,22 +10,22 @@
   {
    "name": "2 build FSU + cage/ACDR pipeline",
    "weight": 15,
-   "done_frac": 0.85
+   "done_frac": 1.0
   },
   {
    "name": "3 mesh convergence + FSU vs full",
    "weight": 10,
-   "done_frac": 0.7
+   "done_frac": 1.0
   },
   {
    "name": "4 scheduler + active learning setup",
    "weight": 10,
-   "done_frac": 0.45
+   "done_frac": 1.0
   },
   {
    "name": "5 active-learning runs (<=150 pts x 2 tests)",
    "weight": 50,
-   "done_frac": 0.0
+   "done_frac": 0.107
   },
   {
    "name": "6 59/64 y.o. checks, figures, report",
