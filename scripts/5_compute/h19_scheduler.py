@@ -131,7 +131,8 @@ def first_fit(jobs, fits):
     of the queue fits (a 60 GB case at the head used to block every 8 GB case behind it). A head job that has waited
     RESERVE_H hours gets a reservation: nothing may pass it, so memory drains until it fits."""
     for k, j in enumerate(jobs):
-        sp = json.load(open(j))
+        try: sp = json.load(open(j))
+        except (OSError, ValueError): continue      # moved meanwhile (preflight -> queue/failed); one pass used to abort
         if not h24_preflight.valid(os.path.join(P, sp['case_dir'])): continue    # not (or no longer) preflight-checked
         if fits(sp): return j
         if k == 0 and time.time() - os.path.getmtime(j) > RESERVE_H * 3600: return None

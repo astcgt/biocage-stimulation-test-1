@@ -596,3 +596,48 @@ Decisions agreed with the PI during the review sessions. Anything not listed is 
   design factors into human_study/al_v2/iso_analysis/report.md. First run started (17 ISO runs already ended); automatic
   re-runs at 24 and 48 ended ISO runs (session cron). Scheduler fixes: nvidia-smi timeouts (a hung call froze launching),
   up to 8 CPU launches per pass.
+- 2026-10-23 05:10 first ISO-stop analysis (19 v2 ISO runs, human_study/al_v2/iso_analysis/report.md):
+  * 7 runs (and their compression twins) stop at the LAST INSERTION STEP (t 1.909, d 1.11-1.38; p036 at 1.48 passed): replay
+    of p000 with element output -> all 580 inverted elements are the outermost 25 % cage layer (top 375 / bottom 205), i.e. the
+    soft contact layer is crushed when the springing-back cage first meets the faceted endplate (0.2 mm cage grid vs 0.5 mm
+    endplate triangles) -> numerical. AL: points that stop before the test (t < 3) are now 'invalid' (kept out of the GP;
+    p000, p003, p012, p020, p031 corrected). Fix under test: h14 'insert_dt' 0.01 (p000, p012 in al_v2/diag).
+  * 12 runs stop early in ISO (t 3.00-4.05, completion <= 10 %, C3 rotation 0.5-5.7 deg at the stop) with the soft contact
+    layer at min principal strain -0.25 ... -0.35 (crush threshold -0.30, Gent lock ~-0.4) and clamp 9-32 N vs ISO axial
+    100-150 N -> consistent with the agreed functional failure (soft surface layers crushed under the ISO load), as seen on
+    2026-10-21; element-level confirmation pending (runs started after 04:40 log inverted ids).
+- 2026-10-23 05:40 ISO-stop analysis #2 (34 v2 ISO runs, auto-trigger at 24): 7 stop at the last insertion step (numerical,
+  fix under test); 27 stop early in ISO (completion median 3.7 %, max 20.7 %, C3 rotation 0.5-6.5 deg at the stop). Inverted
+  elements (runs with ids): cage soft 12661 (87 %), cage hard/mix 1370, C3 cortical 530, C4 cortical 16. Contact-layer min
+  principal strain -0.19 ... -0.39 but only 0-2 % of contact elements beyond -0.30 -> not a whole-layer crush: the ISO moment
+  tilts the load onto the cage edge and a few soft edge elements invert, which ends the run. Factor signal: gradient radial
+  (soft inside, hard edge) lasts longest (mean t_end 3.40) vs both 3.22 vs axial 2.86; the three furthest runs are A radial
+  mix; design, fabrication, E_soft, clamp ~no correlation. So y currently measures "first soft edge element inverts", not
+  slip / tipping. Options put to the PI (no setting changed): (a) keep, (b) strain-fraction criterion, (c) let ISO run further
+  (finer soft-layer mesh or lower Gent Jm, Q45), (d) review the ISO load start (100 N + moments vs clamp 7-100 N).
+- 2026-10-23 06:00 PI: the BIOCAGE's purpose is TEMPORARY SUPPORT AND FIXATION while the biodisc matures in vivo (not a
+  permanent motion-preserving disc, not a fusion device). Note: the screening ISO step is ISO 18192-1 (motion-preserving disc
+  wear test), displacement-controlled - C3 is driven to LB 6 deg / AR -4 deg + 100 N in a 1 s ramp, then FE 7.5 / LB 6 / AR 4
+  deg x levels 1-3; all ISO stops so far occur inside that 1 s ramp (typically ~1.8 deg LB, ~30 N). Test protocol / AL
+  objective to be revisited with the PI in the light of the device purpose.
+- 2026-10-23 06:35 insertion fix confirmed: with h14 'insert_dt' 0.01 (fine steps for the final spring-back contact) p012 and
+  p000 pass the step where they failed at t 1.909 (p012 into compression, p000 into release). Adopted into v2 (h22 V2 +
+  settings class al_v2/cases); the 7 invalid points (0, 3, 12, 16, 20, 24, 31) rebuilt and requeued (old run dirs kept as
+  *_invalid_<HHMM>). AL loop restarted so its proposals use the new settings (the running proposal had the old state).
+- 2026-10-23 07:52 AL proposal took > 67 min (262 torch threads = one per core, fighting ~200 cores of FEBio runs); h22 now caps torch at AL_THREADS = 8 (env, default 8); loop restarted (37 threads).
+- 2026-10-23 08:20 ISO-stop analysis #3 (43 valid v2 ISO runs; the 7 re-run points now pass insertion -> 0 insertion stops):
+  all 43 stop early in ISO (completion median 3.7 %, max 20.8 %; 7 within the first 2 %). Inverted elements: cage soft 82010
+  (82 %), cage hard/mix 12278 (12 %), C3 cortical 5573 (6 %). Mean stop time: design A 3.72 vs B 3.33; gradient radial 3.75 >
+  axial 3.45 > both 3.34; fabrication mix 3.66 > interleave 3.37; corr with E_hard +0.30, clamp +0.35, E_soft +0.02, d +0.01.
+  Furthest runs (t ~4-5.1, i.e. into the first ISO cycle): A radial mix (p38, p14, p2, p26), A axial mix d 1.48 (p36, clamp
+  115 N). Same mechanism as #2 (a few soft edge elements invert under the imposed rotation); the ranking (A, radial, mix, stiffer
+  hard phase, higher clamp) is physically consistent. Options to the PI unchanged; protocol question (purpose = temporary
+  fixation) pending.
+- 2026-10-23 11:34 Jupyter stopped again (~09:13-11:34, all processes killed); watchdog restored. 7 batch-0 cases built before insert_dt was adopted could not resume (preflight: settings mismatch, correct) -> rebuilt with the current v2 settings and restarted fresh (p011c, p015c, p032c, p038c, p038i, p043i, p044c; old dirs in al_v2/cases_invalid). Scheduler: a job file moved by preflight during a pass aborted the whole pass -> first_fit now skips vanished files.
+- 2026-10-23 12:00 PI DECISION: replace the ISO 18192-1 screening test by a test closer to the patient's daily life during
+  recovery (device purpose = temporary support and fixation while the biodisc matures). Default values proposed and used
+  (PI gave none): 'physio' test (h14) = follower load 100 N (fixed-direction axial force through the ICR, ramp t 3-3.5, held)
+  + pure moments 1.5 N m one direction at a time (flexion, extension, right LB, left LB, left AR, right AR; 0.5 s up / 0.5 s
+  down each, t 3.5-9.5); C3 pot free in rotation and in-plane translation (moment control). h15 reports per direction: ROM
+  at the peak moment, max cage slip, min anti-slip SF, max CoP eccentricity, completion. ISO kept for the final best designs.
+  Test version on p037, p014, p011 (al_v2/physio_test, preflight OK) running; AL switch after the PI has seen it.

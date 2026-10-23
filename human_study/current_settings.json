@@ -53,7 +53,17 @@
    "shrink": 0.8,
    "biodisc": false,
    "release_dtmax": 0.1,
-   "annulus_remnant": false
+   "annulus_remnant": false,
+   "insert_dt": 0.01
+  },
+  "human_study/al_v2/physio_test/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01
   }
  }
 }

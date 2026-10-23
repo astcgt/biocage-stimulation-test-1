@@ -157,7 +157,7 @@ def check(cd):
         if not ok: err.append('FEBio lacks patch 5: ' + msg)
     # 5. checkpoints
     feb_sha = sha(os.path.join(cd, 'case.feb'))
-    for d in [cd] + sorted(glob.glob(cd + '_gpu*')):
+    for d in [cd] + sorted(g for g in glob.glob(cd + '_gpu*') if re.search(r'_gpu\d+$', g)):
         if not glob.glob(os.path.join(d, '*.dmp')): continue
         lf = os.path.join(d, 'launched_feb.sha256')
         if not os.path.exists(lf): warn.append(f'{os.path.basename(d)}: checkpoint of unknown build (pre-preflight run)')

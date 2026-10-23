@@ -1,0 +1,19 @@
+{
+ "test": "iso",
+ "d": 1.244,
+ "completed_time": 1.9,
+ "distraction_force_N": 61.8140328309,
+ "clamp_after_release_N": null,
+ "retained_distraction_mm": null,
+ "contact_layer_crush_after_release": null,
+ "friction_demand": [],
+ "functional_failure_slip": {
+  "type": "solver stopped before the protocol finished (Q40)",
+  "time": 1.899999976158142,
+  "phase": "ramp to ISO start pose (fraction -1.10)",
+  "slip_at_stop_mm": null,
+  "contact_layer_crush_frac": 0.0,
+  "min_principal_stretch": 0.9756011366844177,
+  "where": "cage_soft_0.0"
+ }
+}

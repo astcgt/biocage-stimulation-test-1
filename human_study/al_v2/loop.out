@@ -1,0 +1,84 @@
+10-23 05:08:22 loop start (asynchronous)
+10-23 05:09:16 point 6: y 0.037 (functional failure) C 101 N
+10-23 05:09:17 collect: 1 new results
+10-23 05:14:17 point 16: INVALID (stopped before the test: {'iso': 2.0, 'compress': 2.0})
+10-23 05:15:04 point 18: y 0.024 (functional failure) C 49 N
+10-23 05:16:00 point 22: y 0.053 (functional failure) C 58 N
+10-23 05:16:00 collect: 3 new results
+10-23 05:21:00 point 24: INVALID (stopped before the test: {'iso': 2.0, 'compress': 2.0})
+10-23 05:21:00 collect: 1 new results
+10-23 05:26:01 collect: 0 new results
+10-23 05:32:03 point 19: y 0.066 (functional failure) C 73 N
+10-23 05:32:55 point 23: y 0.009 (functional failure) C 13 N
+10-23 05:32:55 collect: 2 new results
+10-23 05:39:01 point 4: y 0.032 (functional failure) C 164 N
+10-23 05:40:03 point 21: y 0.039 (functional failure) C 61 N
+10-23 05:41:00 point 30: y 0.021 (functional failure) C 101 N
+10-23 05:41:01 collect: 3 new results
+10-23 05:46:56 point 25: y 0.008 (slip) C 207 N
+10-23 05:48:11 point 29: y 0.013 (tipping) C 264 N
+10-23 05:48:11 collect: 2 new results
+10-23 05:54:40 point 2: y 0.000 (tipping) C 235 N
+10-23 05:55:38 point 34: y 0.049 (functional failure) C 66 N
+10-23 05:55:38 collect: 2 new results
+10-23 06:02:12 point 14: y 0.000 (tipping) C 281 N
+10-23 06:03:11 point 17: y 0.017 (tipping) C 229 N
+10-23 06:04:06 point 27: y 0.046 (slip) C 177 N
+10-23 06:04:44 point 35: y 0.011 (functional failure) C 14 N
+10-23 06:05:36 point 37: y 0.004 (slip) C 277 N
+10-23 06:05:36 collect: 5 new results
+10-23 06:35:44 loop start (asynchronous)
+10-23 06:35:44 point 24: INVALID (stopped before the test: {'iso': 2.0, 'compress': 2.0})
+10-23 06:36:06 loop start (asynchronous)
+10-23 06:36:32 point 28: y 0.029 (tipping) C 174 N
+10-23 06:36:52 point 33: y 0.021 (functional failure) C 26 N
+10-23 06:37:23 point 39: y 0.025 (tipping) C 241 N
+10-23 06:37:48 point 40: y 0.017 (functional failure) C 189 N
+10-23 06:38:17 point 41: y 0.017 (tipping) C 233 N
+10-23 06:38:42 point 42: y 0.017 (functional failure) C 45 N
+10-23 06:39:05 point 45: y 0.027 (functional failure) C 36 N
+10-23 06:39:27 point 47: y 0.014 (functional failure) C 20 N
+10-23 06:39:27 collect: 8 new results
+10-23 06:44:27 collect: 0 new results
+10-23 07:52:05 loop start (asynchronous)
+10-23 07:52:05 collect: 0 new results
+10-23 07:53:53 next: batch 1 with 5 points (best robust feasible y so far 0.04114873826073006)
+10-23 07:55:03 built and queued point 48
+10-23 07:55:08 built and queued point 49
+10-23 07:55:08 built and queued point 50
+10-23 07:55:08 built and queued point 51
+10-23 07:55:08 built and queued point 52
+10-23 08:01:03 point 31: y 0.028 (functional failure) C 95 N
+10-23 08:02:13 point 36: y 0.008 (slip) C 230 N
+10-23 08:02:13 collect: 2 new results
+10-23 08:03:59 next: batch 2 with 5 points (best robust feasible y so far 0.025058768751277716)
+10-23 08:05:33 built and queued point 53
+10-23 08:05:42 built and queued point 54
+10-23 08:05:45 built and queued point 55
+10-23 08:05:45 built and queued point 56
+10-23 08:05:45 built and queued point 57
+10-23 08:12:01 point 20: y 0.037 (functional failure) C 44 N
+10-23 08:13:37 point 24: y 0.013 (slip) C 269 N
+10-23 08:13:38 collect: 2 new results
+10-23 08:20:25 point 3: y 0.037 (tipping) C 225 N
+10-23 08:20:25 collect: 1 new results
+10-23 08:24:37 next: batch 3 with 1 points (best robust feasible y so far 0.017144148000283303)
+10-23 08:26:55 built and queued point 58
+10-23 08:33:26 point 26: y 0.000 (tipping) C 299 N
+10-23 08:34:32 point 46: y 0.060 (functional failure) C 74 N
+10-23 08:34:32 collect: 2 new results
+10-23 08:36:47 next: batch 4 with 1 points (best robust feasible y so far 0.018318278684161252)
+10-23 08:38:57 built and queued point 59
+10-23 08:45:23 point 0: y 0.017 (functional failure) C 210 N
+10-23 08:45:23 collect: 1 new results
+10-23 08:52:54 point 7: y 0.051 (functional failure) C 96 N
+10-23 08:53:59 point 16: y 0.013 (functional failure) C 141 N
+10-23 08:53:59 collect: 2 new results
+10-23 08:56:26 next: batch 5 with 3 points (best robust feasible y so far 0.02404160480199972)
+10-23 08:58:19 built and queued point 60
+10-23 08:58:26 built and queued point 61
+10-23 08:58:26 built and queued point 62
+10-23 09:05:06 point 12: y 0.019 (functional failure) C 238 N
+10-23 09:05:07 collect: 1 new results
+10-23 09:07:10 next: batch 6 with 1 points (best robust feasible y so far 0.02291627126961102)
+10-23 09:09:20 built and queued point 63

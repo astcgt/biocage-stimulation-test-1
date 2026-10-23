@@ -1,0 +1,15 @@
+{
+ "cases": {
+  "p057_compress": {
+   "exit": 1,
+   "normal": false,
+   "wall_s": 1746.3,
+   "cores": 8,
+   "core_h": 3.881
+  }
+ },
+ "batch_wall_s": 1756.3,
+ "total_core_h": 3.881,
+ "gpu_h": 0.0,
+ "not_run": []
+}

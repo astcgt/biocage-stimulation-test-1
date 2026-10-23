@@ -27,14 +27,14 @@ usage: python h22_active_learning.py init         # create the initial batch, bu
        python h22_active_learning.py loop         # collect + next whenever the queue runs low (async; run in tmux)
        python h22_active_learning.py status
 """
-import os, sys, json, time, glob, math, subprocess, itertools
+import os, sys, re, json, time, glob, math, subprocess, itertools
 import numpy as np
 from concurrent.futures import ProcessPoolExecutor
 
 HERE = os.path.dirname(os.path.abspath(__file__)); P = os.path.dirname(os.path.dirname(HERE))
 AL = os.path.join(P, 'human_study', 'al_v2'); os.makedirs(AL, exist_ok=True)   # v2 screening model (2026-10-23); v1 kept in human_study/al
 MESHES = os.path.join(P, 'human_study', 'al', 'meshes')                         # cage meshes are unchanged in v2 (nominal gap) -> shared cache
-V2 = dict(insert_mode='expand', shrink=0.8, biodisc=False, release_dtmax=0.1, annulus_remnant=False)   # DECISIONS 2026-10-22/23
+V2 = dict(insert_mode='expand', shrink=0.8, biodisc=False, release_dtmax=0.1, annulus_remnant=False, insert_dt=0.01)   # DECISIONS 2026-10-22/23
 JOB = 'al_v2p'
 STATE = os.path.join(AL, 'points.json'); LOG = os.path.join(AL, 'al.log')
 QUEUE = os.path.join(P, 'human_study', 'queue')
@@ -50,6 +50,7 @@ SIG_HARD, SIG_SOFT = 15.0, 3.0                    # strength lower bounds (robus
 CAP_MIN = 150.0                                   # Q49
 T_ISO0, T_ISO1 = 3.0, 13.0                        # ISO protocol window (ramp + 9 levels x 1 cycle)
 N_INIT, N_MAX, BETA = 48, 150, 1.0
+AL_THREADS = int(os.environ.get('AL_THREADS', 8))  # torch threads for the surrogates
 MIN_WAITING, HIST_EVERY = 2, 8                   # async proposal trigger; stop-criterion checkpoint spacing
 HOLD = os.path.join(AL, 'HOLD_PROPOSALS')          # if this file exists: collect results but propose no new points (model change pending)
 
@@ -132,7 +133,7 @@ def cmd_init():
 # ------------------------------------------------------------------ collecting results
 def ended_dir(case):
     """Return the folder (case or its _gpuN copy) whose FEBio log has terminated, else None."""
-    for d in [os.path.join(P, case)] + sorted(glob.glob(os.path.join(P, case) + '_gpu*')):
+    for d in [os.path.join(P, case)] + sorted(g for g in glob.glob(os.path.join(P, case) + '_gpu*') if re.search(r'_gpu\d+$', g)):
         lg = os.path.join(d, 'case.log')
         if os.path.exists(lg) and any(k in open(lg, errors='ignore').read()[-4000:] for k in ('N O R M A L', 'E R R O R')):
             return d
@@ -171,6 +172,14 @@ def cmd_collect():
         if p.get('status') != 'queued': continue
         dirs = {t: ended_dir(c) for t, c in p['cases'].items()}
         if not all(dirs.values()): continue
+        t_end = {t: max([float(v) for v in re.findall(r'beginning time step \d+ : ([0-9.e+-]+)', open(os.path.join(d, 'case.log'), errors='ignore').read())] or [0.0])
+                 for t, d in dirs.items()}
+        if min(t_end.values()) < T_ISO0 - 1e-6:
+            # stopped before the test began (insertion / release): a model failure, not a design result -> kept out of the
+            # surrogates until re-run (2026-10-23; e.g. the soft contact layer inverting at the last insertion step)
+            p.update(status='invalid', invalid_reason={t: f'stopped at t {v:.3f} before the test' for t, v in t_end.items()},
+                     ran_in={t: os.path.relpath(d, P) for t, d in dirs.items()}); n += 1
+            log(f"point {p['id']}: INVALID (stopped before the test: {t_end})"); continue
         res = {}
         for t, d in dirs.items():
             subprocess.run(['python', os.path.join(P, 'scripts/4_postprocess/h15_post_case.py'), d], cwd=P, stdout=subprocess.DEVNULL)
@@ -185,6 +194,7 @@ def cmd_collect():
 # ------------------------------------------------------------------ surrogate + proposal
 def fit_gp(X, y):
     import torch
+    torch.set_num_threads(AL_THREADS)               # default = all 256 cores -> 262 threads fighting the FEBio runs (2026-10-23)
     from botorch.models import MixedSingleTaskGP
     from botorch.fit import fit_gpytorch_mll
     from gpytorch.mlls import ExactMarginalLogLikelihood

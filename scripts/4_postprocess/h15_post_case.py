@@ -223,7 +223,7 @@ def slip_history():
         v = rel.mean(0); out.append([tt, v[0], v[1], v[2], float(np.hypot(v[0], v[1]))])
     return np.array(out)
 
-if test in ('iso', 'push_ant', 'push_post') and t[-1] > T_TEST:
+if test in ('iso', 'physio', 'push_ant', 'push_post') and t[-1] > T_TEST:
     sh = slip_history(); s0 = sh[np.argmin(abs(sh[:, 0] - T_TEST))]
     rel = sh.copy(); rel[:, 1:4] -= s0[1:4]; rel[:, 4] = np.hypot(rel[:, 1], rel[:, 2])
     res['slip_after_insertion_mm'] = float(s0[4])
@@ -243,6 +243,21 @@ if test == 'iso' and t[-1] > T_TEST:
     first_slip = next((p['level'] for p in per_level if p['slipped']), None)
     res.update(iso_levels=per_level, slip_level=first_slip, max_slip_mm=float(rel[:, 4].max()),
                no_slip_up_to_level=max([p['level'] for p in per_level if not p['slipped'] and all(c['complete'] for c in p['cycles'])], default=None))
+if test == 'physio' and t[-1] > T_TEST:
+    # per loading direction: C3 rotation at the peak moment (range of motion), max cage slip, min anti-slip SF (mu 0.2 is
+    # applied in h22), max centre-of-pressure eccentricity and tension area, and whether the window was completed
+    sch = json.load(open(os.path.join(cd, 'physio_schedule.json'))); fdl = res.get('friction_demand', [])
+    per = []
+    for w in sch['windows']:
+        mrel = (rel[:, 0] >= w['t0'] - 1e-6) & (rel[:, 0] <= w['t1'] + 1e-6)
+        kp = int(np.argmin(abs(t - w['t_peak']))); dof = {'Rx': 5, 'Ry': 6, 'Rz': 7}[w['dof']]
+        fw = [r for r in fdl if w['t0'] - 1e-6 <= r['t'] <= w['t1'] + 1e-6]
+        per.append(dict(name=w['name'], complete=bool(t[-1] >= w['t1'] - 1e-3),
+                        rom_deg=float(np.degrees(rb[kp, dof])) if t[-1] >= w['t_peak'] - 1e-3 else None,
+                        max_slip_mm=float(rel[mrel, 4].max()) if mrel.any() else None,
+                        min_sf=min([min(r.get('top_safety_factor', 1e9), r.get('bot_safety_factor', 1e9)) for r in fw], default=None),
+                        max_cop=max([max(r.get('top_cop_eccentricity', 0), r.get('bot_cop_eccentricity', 0)) for r in fw], default=None)))
+    res.update(physio_windows=per, max_slip_mm=float(rel[:, 4].max()))
 if test in ('push_ant', 'push_post') and t[-1] > T_TEST:
     rx = read_log('push_reaction.txt'); times = np.unique(rx[:, 0])
     Fpush = np.array([[tt, abs(rx[rx[:, 0] == tt, 2].sum())] for tt in times])
@@ -251,7 +266,7 @@ if test in ('push_ant', 'push_post') and t[-1] > T_TEST:
     res.update(push_curve=np.c_[disp, pr[:, 1]].round(4).tolist(), push_out_force_N=float(pr[:, 1].max()) if len(pr) else None,
                push_reached_mm=float(disp.max()) if len(pr) else 0.0)
 # Q40 for the slip tests: run stopped with an error before the protocol finished -> functional-failure annotation
-if test in ('iso', 'push_ant', 'push_post') and 'E R R O R' in open(os.path.join(cd, 'case.log'), errors='ignore').read():
+if test in ('iso', 'physio', 'push_ant', 'push_post') and 'E R R O R' in open(os.path.join(cd, 'case.log'), errors='ignore').read():
     k = len(states) - 1; tk = float(st_t[k])
     E_ = states[k]['elem'].get('Lagrange strain', {}); worst = (1.0, None)
     for i, (n, m, Eb) in enumerate(blocks):
@@ -262,7 +277,8 @@ if test in ('iso', 'push_ant', 'push_post') and 'E R R O R' in open(os.path.join
         lam = np.sqrt(np.clip(np.linalg.eigvalsh(C)[:, 0], 0, None)).min()
         if lam < worst[0]: worst = (float(lam), n)
     phase = ('ramp to ISO start pose (fraction %.2f)' % (tk - 3.0) if test == 'iso' and tk < 4.0 else
-             'ISO cycling' if test == 'iso' else 'preload' if tk < 3.2 else 'push')
+             'ISO cycling' if test == 'iso' else ('follower load' if tk < 3.5 else 'moment ' + str(int(tk - 3.5))) if test == 'physio'
+             else 'preload' if tk < 3.2 else 'push')
     res['functional_failure_slip'] = dict(type='solver stopped before the protocol finished (Q40)', time=tk, phase=phase,
                                           slip_at_stop_mm=res.get('max_slip_mm', res.get('slip_after_insertion_mm')),
                                           contact_layer_crush_frac=float(contact_crush(k)), min_principal_stretch=worst[0],

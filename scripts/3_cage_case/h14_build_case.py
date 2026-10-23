@@ -364,7 +364,8 @@ else:
 # step 2: insert + seat (t 1..2): cage pinned (statically determinate), contacts on, C3 pot lowered by SEAT mm
 SEAT = prm.get('seat_mm', 0.0 if INSERT == 'expand' else 0.02 if CONTACT_MODE == 'global' else 0.1)      # C3 lowering during seating; small (0.02) for stiff contact penalties
 lc('seat', [(1, 0), (2, 1), (100, 1)])
-s2 = ET.SubElement(root, 'Step', name='insert_seat'); control(s2, 10, 0.1, 0.1)
+INS_DT = prm.get('insert_dt', 0.1)                 # insertion time step (fine steps for the final spring-back contact)
+s2 = ET.SubElement(root, 'Step', name='insert_seat'); control(s2, int(round(1 / INS_DT)), INS_DT, INS_DT)
 if CONTACT_MODE == 'per_step': contacts(s2)
 b2 = ET.SubElement(s2, 'Boundary')
 ET.SubElement(b2, 'fix', bc='x,y,z', node_set='pin1'); ET.SubElement(b2, 'fix', bc='y,z', node_set='pin2')
@@ -414,6 +415,26 @@ elif test == 'iso':
           force=[('z', lcs['Fz'], 1.0)])
     json.dump(dict(levels=levels.tolist(), cycles=ncyc, points_per_cycle=npc, t_level_start=[4.0 + i * ncyc for i in range(len(levels))]),
               open(os.path.join(out, 'iso_schedule.json'), 'w'))
+elif test == 'physio':
+    # PI 2026-10-23: physiological loading for a TEMPORARY fixation device (holds the biodisc while it matures), instead of the
+    # ISO 18192-1 wear kinematics: follower load (fixed-direction axial force through the ICR) ramped to FL in t 3-3.5 and held,
+    # then pure moments of +-M one direction at a time, each 1 s (0.5 up, 0.5 down): flexion (+My), extension (-My), right LB
+    # (+Mx), left LB (-Mx), left AR (+Mz), right AR (-Mz). C3 pot free in rotation and in-plane translation (moment control).
+    M, FL = prm.get('physio_moment_Nmm', 1500.0), prm.get('physio_follower_N', 100.0)
+    seq = [('Ry', 1, 'flexion'), ('Ry', -1, 'extension'), ('Rx', 1, 'LB_right'), ('Rx', -1, 'LB_left'), ('Rz', 1, 'AR_left'), ('Rz', -1, 'AR_right')]
+    T0 = 3.5; t_end = T0 + len(seq)
+    for dof in ('Rx', 'Ry', 'Rz'):
+        pts = [(3.0, 0.0), (T0, 0.0)]
+        for i, (dd, sg, _) in enumerate(seq):
+            ts = T0 + i
+            if dd == dof: pts += [(ts + 0.5, float(sg)), (ts + 1.0, 0.0)]
+        pts.append((t_end + 100, 0.0)); lc('M' + dof, sorted(set(pts)))
+    lc('follower', [(3.0, 0.0), (T0, 1.0), (t_end + 100, 1.0)])
+    control(s3, int(round((t_end - 3.0) / 0.05)), 0.05, 0.05)
+    rigid(s3, force=[('z', lcs['follower'], -FL), ('Rx', lcs['MRx'], M), ('Ry', lcs['MRy'], M), ('Rz', lcs['MRz'], M)])
+    json.dump(dict(moment_Nmm=M, follower_N=FL, t_follower=[3.0, T0],
+                   windows=[dict(name=n, dof=dd, sign=sg, t0=T0 + i, t_peak=T0 + i + 0.5, t1=T0 + i + 1.0) for i, (dd, sg, n) in enumerate(seq)]),
+              open(os.path.join(out, 'physio_schedule.json'), 'w'), indent=1)
 else:
     # push-out (ASTM draft F04.25.02.02 style): 100 N axial preload on C3 (z force), C3 other DOFs fixed; cage pushed
     # through its posterior (push_ant: towards anterior) or anterior (push_post: towards posterior) wall nodes, 3 mm

@@ -1,0 +1,1875 @@
+[
+ {
+  "id": 0,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "mix",
+   "d": 1.197,
+   "E_hard": 489.24,
+   "E_soft": 1.715,
+   "theta": 0.288
+  },
+  "dir": "human_study/al_v2/cases/p000_iso_gpu3",
+  "t_end": 3.17023,
+  "phase": "iso",
+  "iso_completion": 0.01702300000000001,
+  "clamp_N": 51.11353927049798,
+  "retained_mm": 1.12147351401,
+  "rot_deg_at_stop": [
+   0.9995917186837295,
+   0.03490659423165271,
+   -0.6660567523300622
+  ],
+  "moment_Nmm_at_stop": [
+   728.600342639,
+   600.212240464,
+   9.14829043658
+  ],
+  "Fz_at_stop": -10.51478213,
+  "inverted": {
+   "cage hard/mix": 100,
+   "cage soft": 1427
+  },
+  "n_inverted_ids": 1527,
+  "soft": {
+   "contact": [
+    -0.3876904547214508,
+    0.0058823529411764705
+   ],
+   "inner": [
+    -0.0151066267862916,
+    0.0
+   ]
+  },
+  "compress_C": null
+ },
+ {
+  "id": 1,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "interleave",
+   "d": 0.867,
+   "E_hard": 450.7,
+   "E_soft": 9.1,
+   "theta": 0.361
+  },
+  "dir": "human_study/al_v2/cases/p001_iso_gpu1",
+  "t_end": 3.41013,
+  "phase": "iso",
+  "iso_completion": 0.04101300000000001,
+  "clamp_N": 31.44283806084362,
+  "retained_mm": 0.890348544073,
+  "rot_deg_at_stop": [
+   2.441263953389491,
+   0.08525101663080556,
+   -1.6266844852659492
+  ],
+  "moment_Nmm_at_stop": [
+   2792.03411137,
+   522.704022448,
+   -279.013118528
+  ],
+  "Fz_at_stop": -40.4722988615,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.2877161204814911,
+    0.0
+   ],
+   "inner": [
+    -0.3722858130931854,
+    0.0008835154615205766
+   ]
+  },
+  "compress_C": 293.849251406
+ },
+ {
+  "id": 2,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 0.747,
+   "E_hard": 802.67,
+   "E_soft": 3.672,
+   "theta": 0.238
+  },
+  "dir": "human_study/al_v2/cases/p002_iso_gpu2",
+  "t_end": 4.04489,
+  "phase": "iso",
+  "iso_completion": 0.10448899999999997,
+  "clamp_N": 31.838496248199395,
+  "retained_mm": 0.846742378242,
+  "rot_deg_at_stop": [
+   5.715622950856502,
+   2.1661540967356014,
+   -3.753328477251284
+  ],
+  "moment_Nmm_at_stop": [
+   7710.93822341,
+   3235.60134246,
+   -5276.4601224
+  ],
+  "Fz_at_stop": -127.521995829,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.19110462069511414,
+    0.0
+   ],
+   "inner": [
+    -0.34162667393684387,
+    4.861448711716091e-05
+   ]
+  },
+  "compress_C": 235.106342415
+ },
+ {
+  "id": 4,
+  "x": {
+   "design": "A",
+   "grad": "both",
+   "fab": "mix",
+   "d": 1.443,
+   "E_hard": 728.71,
+   "E_soft": 11.146,
+   "theta": 0.34
+  },
+  "dir": "human_study/al_v2/cases/p004_iso",
+  "t_end": 3.32493,
+  "phase": "iso",
+  "iso_completion": 0.032493000000000015,
+  "clamp_N": 96.52350634281504,
+  "retained_mm": 1.47752933879,
+  "rot_deg_at_stop": [
+   1.9310294565445982,
+   0.06743319340205638,
+   -1.2867005442748953
+  ],
+  "moment_Nmm_at_stop": [
+   2100.53739293,
+   1157.72708309,
+   -160.037880477
+  ],
+  "Fz_at_stop": -23.1314601792,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.3917808532714844,
+    0.006951871657754011
+   ],
+   "inner": [
+    -0.16471707820892334,
+    0.0
+   ]
+  },
+  "compress_C": 163.65275546
+ },
+ {
+  "id": 5,
+  "x": {
+   "design": "A",
+   "grad": "both",
+   "fab": "interleave",
+   "d": 0.614,
+   "E_hard": 302.59,
+   "E_soft": 2.43,
+   "theta": 0.21
+  },
+  "dir": "human_study/al_v2/cases/p005_iso_gpu5",
+  "t_end": 3.20875,
+  "phase": "iso",
+  "iso_completion": 0.020875000000000022,
+  "clamp_N": 14.418884555762403,
+  "retained_mm": 0.630947323538,
+  "rot_deg_at_stop": [
+   1.2407326213581595,
+   0.0433274399480733,
+   -0.8267358811073706
+  ],
+  "moment_Nmm_at_stop": [
+   233.632773376,
+   128.335435747,
+   -5.37161879412
+  ],
+  "Fz_at_stop": -22.847325316,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.27654844522476196,
+    0.0
+   ],
+   "inner": [
+    -0.3476859927177429,
+    0.001166747690811862
+   ]
+  },
+  "compress_C": 94.4576663566
+ },
+ {
+  "id": 6,
+  "x": {
+   "design": "B",
+   "grad": "axial",
+   "fab": "mix",
+   "d": 0.986,
+   "E_hard": 636.45,
+   "E_soft": 4.551,
+   "theta": 0.39
+  },
+  "dir": "human_study/al_v2/cases/p006_iso_gpu5",
+  "t_end": 3.36801,
+  "phase": "iso",
+  "iso_completion": 0.03680099999999999,
+  "clamp_N": 26.909082835626894,
+  "retained_mm": 0.85705079711,
+  "rot_deg_at_stop": [
+   2.1941696698225295,
+   0.07662227378312139,
+   -1.4620384473326242
+  ],
+  "moment_Nmm_at_stop": [
+   636.177337683,
+   323.500196268,
+   58.7048534559
+  ],
+  "Fz_at_stop": -32.2527280803,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.296471506357193,
+    0.0
+   ],
+   "inner": [
+    -0.3414405584335327,
+    9.500285008550257e-05
+   ]
+  },
+  "compress_C": 100.581091878
+ },
+ {
+  "id": 8,
+  "x": {
+   "design": "B",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 1.06,
+   "E_hard": 849.03,
+   "E_soft": 4.844,
+   "theta": 0.219
+  },
+  "dir": "human_study/al_v2/cases/p008_iso_gpu3",
+  "t_end": 3.29139,
+  "phase": "iso",
+  "iso_completion": 0.02913899999999998,
+  "clamp_N": 28.45789970059184,
+  "retained_mm": 0.878614423312,
+  "rot_deg_at_stop": [
+   1.726567514087474,
+   0.060293208218309226,
+   -1.1504616631192084
+  ],
+  "moment_Nmm_at_stop": [
+   518.88674739,
+   311.43685669,
+   60.4690771155
+  ],
+  "Fz_at_stop": -26.8314343564,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.3058870732784271,
+    0.0009025270758122744
+   ],
+   "inner": [
+    -0.32713836431503296,
+    0.00036101083032490973
+   ]
+  },
+  "compress_C": 62.8319535017
+ },
+ {
+  "id": 9,
+  "x": {
+   "design": "B",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 0.888,
+   "E_hard": 259.81,
+   "E_soft": 3.213,
+   "theta": 0.33
+  },
+  "dir": "human_study/al_v2/cases/p009_iso_gpu2",
+  "t_end": 3.28778,
+  "phase": "iso",
+  "iso_completion": 0.028778000000000015,
+  "clamp_N": 11.96113129621739,
+  "retained_mm": 0.608052586508,
+  "rot_deg_at_stop": [
+   1.7187322459256795,
+   0.06001959398050606,
+   -1.1452407982711643
+  ],
+  "moment_Nmm_at_stop": [
+   147.231277468,
+   93.504444495,
+   25.6946169261
+  ],
+  "Fz_at_stop": -28.6102222714,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.2994655966758728,
+    0.0
+   ],
+   "inner": [
+    -0.30967798829078674,
+    0.00019000570017100514
+   ]
+  },
+  "compress_C": 35.8462010743
+ },
+ {
+  "id": 10,
+  "x": {
+   "design": "B",
+   "grad": "both",
+   "fab": "mix",
+   "d": 0.51,
+   "E_hard": 543.87,
+   "E_soft": 10.369,
+   "theta": 0.269
+  },
+  "dir": "human_study/al_v2/cases/p010_iso_gpu1",
+  "t_end": 3.59041,
+  "phase": "iso",
+  "iso_completion": 0.05904099999999999,
+  "clamp_N": 8.713653851716067,
+  "retained_mm": 0.486824070093,
+  "rot_deg_at_stop": [
+   3.526095460531475,
+   0.12313425687985789,
+   -2.3495389637194504
+  ],
+  "moment_Nmm_at_stop": [
+   689.081868861,
+   218.451025695,
+   -23.8094117086
+  ],
+  "Fz_at_stop": -57.8936772142,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.3525835871696472,
+    0.004512635379061372
+   ],
+   "inner": [
+    -0.3034414052963257,
+    0.00021235931195582927
+   ]
+  },
+  "compress_C": 73.6854118698
+ },
+ {
+  "id": 11,
+  "x": {
+   "design": "B",
+   "grad": "both",
+   "fab": "interleave",
+   "d": 1.43,
+   "E_hard": 422.24,
+   "E_soft": 2.002,
+   "theta": 0.38
+  },
+  "dir": "human_study/al_v2/cases/p011_iso_gpu4",
+  "t_end": 3.00379,
+  "phase": "iso",
+  "iso_completion": 0.000378999999999996,
+  "clamp_N": 20.29168716921322,
+  "retained_mm": 0.765840588187,
+  "rot_deg_at_stop": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "moment_Nmm_at_stop": [
+   -0.166325043709,
+   235.230912755,
+   0.0153937819614
+  ],
+  "Fz_at_stop": -8.04991497794e-05,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.25418519973754883,
+    0.0
+   ],
+   "inner": [
+    -0.2818813920021057,
+    0.0
+   ]
+  },
+  "compress_C": null
+ },
+ {
+  "id": 13,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "interleave",
+   "d": 0.625,
+   "E_hard": 381.22,
+   "E_soft": 6.87,
+   "theta": 0.279
+  },
+  "dir": "human_study/al_v2/cases/p013_iso_gpu6",
+  "t_end": 3.32899,
+  "phase": "iso",
+  "iso_completion": 0.03289900000000001,
+  "clamp_N": 20.32657622681813,
+  "retained_mm": 0.715711399305,
+  "rot_deg_at_stop": [
+   1.9537474501522187,
+   0.06822652508913939,
+   -1.3018381977404583
+  ],
+  "moment_Nmm_at_stop": [
+   1601.53226121,
+   289.798836378,
+   -176.638165937
+  ],
+  "Fz_at_stop": -26.6110051775,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.25371047854423523,
+    0.0
+   ],
+   "inner": [
+    -0.3097630739212036,
+    0.00014584346135148275
+   ]
+  },
+  "compress_C": 281.782920262
+ },
+ {
+  "id": 14,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 0.755,
+   "E_hard": 682.49,
+   "E_soft": 1.608,
+   "theta": 0.321
+  },
+  "dir": "human_study/al_v2/cases/p014_iso",
+  "t_end": 5.07477,
+  "phase": "iso",
+  "iso_completion": 0.207477,
+  "clamp_N": 31.703852179332838,
+  "retained_mm": 0.853777556924,
+  "rot_deg_at_stop": [
+   6.504891055041393,
+   4.40997746960068,
+   -4.200800404738659
+  ],
+  "moment_Nmm_at_stop": [
+   11961.9371179,
+   6801.09279316,
+   -3389.15729442
+  ],
+  "Fz_at_stop": -124.80761128,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.21711143851280212,
+    0.0
+   ],
+   "inner": [
+    -0.26678839325904846,
+    0.0
+   ]
+  },
+  "compress_C": 280.902935975
+ },
+ {
+  "id": 15,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 1.176,
+   "E_hard": 336.48,
+   "E_soft": 7.438,
+   "theta": 0.229
+  },
+  "dir": "human_study/al_v2/cases/p015_iso_gpu3",
+  "t_end": 4.01602,
+  "phase": "iso",
+  "iso_completion": 0.10160200000000001,
+  "clamp_N": 65.16258965485416,
+  "retained_mm": 1.23379871877,
+  "rot_deg_at_stop": [
+   5.894926172207092,
+   0.9404627942231572,
+   -3.9072826595483865
+  ],
+  "moment_Nmm_at_stop": [
+   5101.73570927,
+   2001.20467334,
+   -1060.70755506
+  ],
+  "Fz_at_stop": -104.910803266,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.29500612616539,
+    0.0
+   ],
+   "inner": [
+    -0.344626247882843,
+    0.011978609625668449
+   ]
+  },
+  "compress_C": null
+ },
+ {
+  "id": 17,
+  "x": {
+   "design": "A",
+   "grad": "both",
+   "fab": "interleave",
+   "d": 0.803,
+   "E_hard": 328.4,
+   "E_soft": 5.197,
+   "theta": 0.256
+  },
+  "dir": "human_study/al_v2/cases/p017_iso_gpu1",
+  "t_end": 3.33712,
+  "phase": "iso",
+  "iso_completion": 0.033712000000000006,
+  "clamp_N": 28.030718718584616,
+  "retained_mm": 0.846231965314,
+  "rot_deg_at_stop": [
+   1.9991834373617297,
+   0.06981318846330542,
+   -1.332113504665854
+  ],
+  "moment_Nmm_at_stop": [
+   1104.79964962,
+   361.853322313,
+   -68.4556489413
+  ],
+  "Fz_at_stop": -29.9191091967,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.1134924441576004,
+    0.0
+   ],
+   "inner": [
+    -0.39866602420806885,
+    0.0013020227853987444
+   ]
+  },
+  "compress_C": 229.218139994
+ },
+ {
+  "id": 18,
+  "x": {
+   "design": "B",
+   "grad": "axial",
+   "fab": "mix",
+   "d": 0.673,
+   "E_hard": 586.42,
+   "E_soft": 2.131,
+   "theta": 0.345
+  },
+  "dir": "human_study/al_v2/cases/p018_iso",
+  "t_end": 3.23904,
+  "phase": "iso",
+  "iso_completion": 0.023904000000000016,
+  "clamp_N": 11.157954954933894,
+  "retained_mm": 0.565802720214,
+  "rot_deg_at_stop": [
+   1.4227348032943343,
+   0.04968311116393397,
+   -0.9480091769500554
+  ],
+  "moment_Nmm_at_stop": [
+   180.801903141,
+   90.3282156459,
+   27.9235489611
+  ],
+  "Fz_at_stop": -20.4345909444,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.2899920642375946,
+    0.0
+   ],
+   "inner": [
+    -0.3364717364311218,
+    0.00010028078620136381
+   ]
+  },
+  "compress_C": 48.9748676542
+ },
+ {
+  "id": 19,
+  "x": {
+   "design": "B",
+   "grad": "axial",
+   "fab": "interleave",
+   "d": 1.251,
+   "E_hard": 391.33,
+   "E_soft": 9.772,
+   "theta": 0.206
+  },
+  "dir": "human_study/al_v2/cases/p019_iso",
+  "t_end": 3.6609,
+  "phase": "iso",
+  "iso_completion": 0.06608999999999998,
+  "clamp_N": 48.26022167346922,
+  "retained_mm": 1.10903956687,
+  "rot_deg_at_stop": [
+   3.9474952916003634,
+   0.13784989791300517,
+   -2.6303298082893276
+  ],
+  "moment_Nmm_at_stop": [
+   1748.632945,
+   835.105456213,
+   -46.4137154002
+  ],
+  "Fz_at_stop": -66.6003835306,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.3232101500034332,
+    0.015342960288808664
+   ],
+   "inner": [
+    -0.3248337209224701,
+    0.0034381983840467596
+   ]
+  },
+  "compress_C": 73.2244156725
+ },
+ {
+  "id": 20,
+  "x": {
+   "design": "B",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 1.383,
+   "E_hard": 530.98,
+   "E_soft": 6.466,
+   "theta": 0.245
+  },
+  "dir": "human_study/al_v2/cases/p020_iso_gpu1",
+  "t_end": 3.37154,
+  "phase": "iso",
+  "iso_completion": 0.037154,
+  "clamp_N": 48.29210688735254,
+  "retained_mm": 1.11139632454,
+  "rot_deg_at_stop": [
+   2.2138616694556803,
+   0.07730993518318593,
+   -1.4751597938543946
+  ],
+  "moment_Nmm_at_stop": [
+   888.157295047,
+   545.609158142,
+   63.8392550386
+  ],
+  "Fz_at_stop": -38.7360852571,
+  "inverted": {
+   "cage soft": 3018,
+   "C3 cortical": 3
+  },
+  "n_inverted_ids": 3021,
+  "soft": {
+   "contact": [
+    -0.3263871371746063,
+    0.011732851985559567
+   ],
+   "inner": [
+    -0.322691947221756,
+    0.0020629190304280558
+   ]
+  },
+  "compress_C": null
+ },
+ {
+  "id": 21,
+  "x": {
+   "design": "B",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 0.556,
+   "E_hard": 415.21,
+   "E_soft": 4.188,
+   "theta": 0.304
+  },
+  "dir": "human_study/al_v2/cases/p021_iso",
+  "t_end": 3.39413,
+  "phase": "iso",
+  "iso_completion": 0.03941300000000001,
+  "clamp_N": 6.989719490193257,
+  "retained_mm": 0.42297355685,
+  "rot_deg_at_stop": [
+   2.3502797021895825,
+   0.08207376908186112,
+   -1.5660590581672553
+  ],
+  "moment_Nmm_at_stop": [
+   95.9090275888,
+   30.5569560226,
+   8.45696164325
+  ],
+  "Fz_at_stop": -43.9361537878,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.323176771402359,
+    0.002707581227436823
+   ],
+   "inner": [
+    -0.36433690786361694,
+    0.0006370779358674878
+   ]
+  },
+  "compress_C": 61.1724243736
+ },
+ {
+  "id": 22,
+  "x": {
+   "design": "B",
+   "grad": "both",
+   "fab": "mix",
+   "d": 0.934,
+   "E_hard": 871.27,
+   "E_soft": 7.974,
+   "theta": 0.295
+  },
+  "dir": "human_study/al_v2/cases/p022_iso_gpu3",
+  "t_end": 3.53643,
+  "phase": "iso",
+  "iso_completion": 0.05364300000000002,
+  "clamp_N": 26.87061006619215,
+  "retained_mm": 0.857154865628,
+  "rot_deg_at_stop": [
+   3.206182086517954,
+   0.11196260936881089,
+   -2.136371468489038
+  ],
+  "moment_Nmm_at_stop": [
+   1021.7988525,
+   433.366160163,
+   18.4902628102
+  ],
+  "Fz_at_stop": -51.6909639902,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.3692636787891388,
+    0.009025270758122744
+   ],
+   "inner": [
+    -0.3181566298007965,
+    0.0022800684020520615
+   ]
+  },
+  "compress_C": 57.6640344388
+ },
+ {
+  "id": 23,
+  "x": {
+   "design": "B",
+   "grad": "both",
+   "fab": "interleave",
+   "d": 1.013,
+   "E_hard": 263.39,
+   "E_soft": 1.502,
+   "theta": 0.354
+  },
+  "dir": "human_study/al_v2/cases/p023_iso_gpu4",
+  "t_end": 3.08781,
+  "phase": "iso",
+  "iso_completion": 0.008781000000000016,
+  "clamp_N": 10.205399718590622,
+  "retained_mm": 0.570098932121,
+  "rot_deg_at_stop": [
+   0.5144114282958898,
+   0.01796368523272872,
+   -0.3427671507174989
+  ],
+  "moment_Nmm_at_stop": [
+   1.695377087,
+   73.123758011,
+   8.29302351744
+  ],
+  "Fz_at_stop": -11.2780151495,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.26124832034111023,
+    0.0
+   ],
+   "inner": [
+    -0.3039923906326294,
+    9.500285008550257e-05
+   ]
+  },
+  "compress_C": 12.5166406647
+ },
+ {
+  "id": 24,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "mix",
+   "d": 1.11,
+   "E_hard": 624.96,
+   "E_soft": 8.482,
+   "theta": 0.313
+  },
+  "dir": "human_study/al_v2/cases/p024_iso_gpu2",
+  "t_end": 3.40571,
+  "phase": "iso",
+  "iso_completion": 0.040571,
+  "clamp_N": 47.53771366130669,
+  "retained_mm": 1.08098989282,
+  "rot_deg_at_stop": [
+   2.4134703130808957,
+   0.08428043903745785,
+   -1.608164782216759
+  ],
+  "moment_Nmm_at_stop": [
+   2447.20566269,
+   744.342760672,
+   -205.175477144
+  ],
+  "Fz_at_stop": -43.8487688691,
+  "inverted": {
+   "cage hard/mix": 11,
+   "cage soft": 1754,
+   "C3 cortical": 119
+  },
+  "n_inverted_ids": 1884,
+  "soft": {
+   "contact": [
+    -0.38142886757850647,
+    0.03689839572192513
+   ],
+   "inner": [
+    -0.039658986032009125,
+    0.0
+   ]
+  },
+  "compress_C": null
+ },
+ {
+  "id": 25,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "interleave",
+   "d": 0.939,
+   "E_hard": 353.02,
+   "E_soft": 1.835,
+   "theta": 0.237
+  },
+  "dir": "human_study/al_v2/cases/p025_iso_gpu4",
+  "t_end": 3.26639,
+  "phase": "iso",
+  "iso_completion": 0.02663899999999999,
+  "clamp_N": 43.06243968794165,
+  "retained_mm": 1.01190591957,
+  "rot_deg_at_stop": [
+   1.5827851886304,
+   0.05527220694500422,
+   -1.054655358458394
+  ],
+  "moment_Nmm_at_stop": [
+   1457.6700599,
+   454.412850314,
+   -87.0300344824
+  ],
+  "Fz_at_stop": -24.4960995764,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.2878405749797821,
+    0.0
+   ],
+   "inner": [
+    -0.35486146807670593,
+    0.0014415252266914672
+   ]
+  },
+  "compress_C": 206.737131308
+ },
+ {
+  "id": 26,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 0.567,
+   "E_hard": 737.02,
+   "E_soft": 6.018,
+   "theta": 0.363
+  },
+  "dir": "human_study/al_v2/cases/p026_iso_gpu6",
+  "t_end": 4.03779,
+  "phase": "iso",
+  "iso_completion": 0.10377900000000002,
+  "clamp_N": 14.630901549453364,
+  "retained_mm": 0.600696607291,
+  "rot_deg_at_stop": [
+   5.7666744996105175,
+   1.8540388002736077,
+   -3.7959850758872893
+  ],
+  "moment_Nmm_at_stop": [
+   11035.4803315,
+   3248.69126802,
+   -2742.55696994
+  ],
+  "Fz_at_stop": -115.929798925,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.20010192692279816,
+    0.0
+   ],
+   "inner": [
+    -0.32883724570274353,
+    5.0929462694168576e-05
+   ]
+  },
+  "compress_C": null
+ },
+ {
+  "id": 27,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 1.49,
+   "E_hard": 311.54,
+   "E_soft": 3.449,
+   "theta": 0.287
+  },
+  "dir": "human_study/al_v2/cases/p027_iso_gpu2",
+  "t_end": 3.57782,
+  "phase": "iso",
+  "iso_completion": 0.057782,
+  "clamp_N": 100.91546015962693,
+  "retained_mm": 1.50438039987,
+  "rot_deg_at_stop": [
+   3.4566445125848384,
+   0.1207089706215985,
+   -2.3032617967793394
+  ],
+  "moment_Nmm_at_stop": [
+   2827.7453993,
+   1386.83749358,
+   -320.28215596
+  ],
+  "Fz_at_stop": -59.9324385365,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.2660045325756073,
+    0.0
+   ],
+   "inner": [
+    -0.34304574131965637,
+    0.0006993006993006993
+   ]
+  },
+  "compress_C": 176.895061006
+ },
+ {
+  "id": 28,
+  "x": {
+   "design": "A",
+   "grad": "both",
+   "fab": "mix",
+   "d": 1.371,
+   "E_hard": 786.21,
+   "E_soft": 2.285,
+   "theta": 0.265
+  },
+  "dir": "human_study/al_v2/cases/p028_iso_gpu5",
+  "t_end": 3.41639,
+  "phase": "iso",
+  "iso_completion": 0.04163899999999998,
+  "clamp_N": 88.27177042630694,
+  "retained_mm": 1.41807800677,
+  "rot_deg_at_stop": [
+   2.476261303098839,
+   0.08647315389204875,
+   -1.6500042273681874
+  ],
+  "moment_Nmm_at_stop": [
+   2683.72986204,
+   1102.95757346,
+   -265.044758215
+  ],
+  "Fz_at_stop": -46.8929898403,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.3361843228340149,
+    0.014973262032085561
+   ],
+   "inner": [
+    -0.19257323443889618,
+    0.0
+   ]
+  },
+  "compress_C": 173.530001416
+ },
+ {
+  "id": 29,
+  "x": {
+   "design": "A",
+   "grad": "both",
+   "fab": "interleave",
+   "d": 0.701,
+   "E_hard": 280.61,
+   "E_soft": 11.842,
+   "theta": 0.384
+  },
+  "dir": "human_study/al_v2/cases/p029_iso_gpu2",
+  "t_end": 3.60654,
+  "phase": "iso",
+  "iso_completion": 0.060653999999999986,
+  "clamp_N": 21.611459210473395,
+  "retained_mm": 0.755017283115,
+  "rot_deg_at_stop": [
+   3.623953864798084,
+   0.1265515557088237,
+   -2.414744836995199
+  ],
+  "moment_Nmm_at_stop": [
+   2333.58910248,
+   562.398793444,
+   -244.734478804
+  ],
+  "Fz_at_stop": -60.3855555843,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.318278044462204,
+    0.0005347593582887701
+   ],
+   "inner": [
+    -0.34057536721229553,
+    0.0006319883325230918
+   ]
+  },
+  "compress_C": 263.557511205
+ },
+ {
+  "id": 30,
+  "x": {
+   "design": "B",
+   "grad": "axial",
+   "fab": "mix",
+   "d": 0.821,
+   "E_hard": 503.56,
+   "E_soft": 2.818,
+   "theta": 0.215
+  },
+  "dir": "human_study/al_v2/cases/p030_iso_gpu5",
+  "t_end": 3.21212,
+  "phase": "iso",
+  "iso_completion": 0.02121200000000001,
+  "clamp_N": 16.379446016009158,
+  "retained_mm": 0.683277504436,
+  "rot_deg_at_stop": [
+   1.2494896483503648,
+   0.04363324278956589,
+   -0.8325709404168751
+  ],
+  "moment_Nmm_at_stop": [
+   250.529047533,
+   120.446266771,
+   39.4198753023
+  ],
+  "Fz_at_stop": -25.5393481712,
+  "inverted": {},
+  "n_inverted_ids": 0,
+  "soft": {
+   "contact": [
+    -0.28081372380256653,
+    0.0
+   ],
+   "inner": [
+    -0.3667392432689667,
+    0.0003800114003420103
+   ]
+  },
+  "compress_C": 100.677570622
+ },
+ {
+  "id": 31,
+  "x": {
+   "design": "B",
+   "grad": "axial",
+   "fab": "interleave",
+   "d": 1.244,
+   "E_hard": 455.97,
+   "E_soft": 4.245,
+   "theta": 0.335
+  },
+  "dir": "human_study/al_v2/cases/p031_iso_gpu2",
+  "t_end": 3.28842,
+  "phase": "iso",
+  "iso_completion": 0.02884199999999999,
+  "clamp_N": 34.73159852605795,
+  "retained_mm": 0.955099172961,
+  "rot_deg_at_stop": [
+   1.7083931192025237,
+   0.05965854286864282,
+   -1.1383515403467581
+  ],
+  "moment_Nmm_at_stop": [
+   585.391524013,
+   410.482759576,
+   70.5338883529
+  ],
+  "Fz_at_stop": -20.690299685,
+  "inverted": {
+   "cage soft": 1333
+  },
+  "n_inverted_ids": 1333,
+  "soft": {
+   "contact": [
+    -0.28759440779685974,
+    0.0
+   ],
+   "inner": [
+    -0.32501721382141113,
+    0.00017190991920233798
+   ]
+  },
+  "compress_C": 95.0353297952
+ },
+ {
+  "id": 32,
+  "x": {
+   "design": "B",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 1.22,
+   "E_hard": 827.74,
+   "E_soft": 10.008,
+   "theta": 0.353
+  },
+  "dir": "human_study/al_v2/cases/p032_iso_gpu3",
+  "t_end": 3.44431,
+  "phase": "iso",
+  "iso_completion": 0.04443100000000002,
+  "clamp_N": 44.22007236731018,
+  "retained_mm": 1.06370841525,
+  "rot_deg_at_stop": [
+   2.6463467252682054,
+   0.09241268170673164,
+   -1.7633370429466675
+  ],
+  "moment_Nmm_at_stop": [
+   1125.49589212,
+   636.082724478,
+   42.2532112435
+  ],
+  "Fz_at_stop": -42.7011818885,
+  "inverted": {
+   "cage soft": 2102
+  },
+  "n_inverted_ids": 2102,
+  "soft": {
+   "contact": [
+    -0.32390037178993225,
+    0.002707581227436823
+   ],
+   "inner": [
+    -0.31712645292282104,
+    0.0008595495960116899
+   ]
+  },
+  "compress_C": null
+ },
+ {
+  "id": 33,
+  "x": {
+   "design": "B",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 0.829,
+   "E_hard": 288.57,
+   "E_soft": 2.013,
+   "theta": 0.298
+  },
+  "dir": "human_study/al_v2/cases/p033_iso_gpu4",
+  "t_end": 3.20655,
+  "phase": "iso",
+  "iso_completion": 0.020655,
+  "clamp_N": 9.057943801757892,
+  "retained_mm": 0.522468648306,
+  "rot_deg_at_stop": [
+   1.2378168373854879,
+   0.04322561828817908,
+   -0.8247930102673126
+  ],
+  "moment_Nmm_at_stop": [
+   76.3028126542,
+   55.6032382193,
+   19.0090448792
+  ],
+  "Fz_at_stop": -20.6473800428,
+  "inverted": {
+   "cage hard/mix": 5700,
+   "cage soft": 21005,
+   "C3 cortical": 667,
+   "C3 trabecular": 3
+  },
+  "n_inverted_ids": 27375,
+  "soft": {
+   "contact": [
+    -0.29342764616012573,
+    0.0
+   ],
+   "inner": [
+    -0.3064531981945038,
+    0.00019000570017100514
+   ]
+  },
+  "compress_C": 25.8642412834
+ },
+ {
+  "id": 34,
+  "x": {
+   "design": "B",
+   "grad": "both",
+   "fab": "mix",
+   "d": 0.709,
+   "E_hard": 475.04,
+   "E_soft": 5.153,
+   "theta": 0.303
+  },
+  "dir": "human_study/al_v2/cases/p034_iso_gpu4",
+  "t_end": 3.48776,
+  "phase": "iso",
+  "iso_completion": 0.04877600000000002,
+  "clamp_N": 14.653134597126902,
+  "retained_mm": 0.650173750424,
+  "rot_deg_at_stop": [
+   2.9152542880639984,
+   0.1018031628450454,
+   -1.9425178970993462
+  ],
+  "moment_Nmm_at_stop": [
+   579.072982134,
+   205.841599649,
+   21.9185961531
+  ],
+  "Fz_at_stop": -46.4754892601,
+  "inverted": {
+   "cage soft": 5468,
+   "C3 cortical": 407,
+   "C3 trabecular": 9,
+   "C4 cortical": 16
+  },
+  "n_inverted_ids": 5900,
+  "soft": {
+   "contact": [
+    -0.3299742043018341,
+    0.015342960288808664
+   ],
+   "inner": [
+    -0.33739548921585083,
+    0.004412354592860008
+   ]
+  },
+  "compress_C": 66.1961577209
+ },
+ {
+  "id": 35,
+  "x": {
+   "design": "B",
+   "grad": "both",
+   "fab": "interleave",
+   "d": 1.348,
+   "E_hard": 445.88,
+   "E_soft": 3.126,
+   "theta": 0.248
+  },
+  "dir": "human_study/al_v2/cases/p035_iso",
+  "t_end": 3.11449,
+  "phase": "iso",
+  "iso_completion": 0.011448999999999997,
+  "clamp_N": 22.60861334876958,
+  "retained_mm": 0.832593518798,
+  "rot_deg_at_stop": [
+   0.6743603259185069,
+   0.023549236976195216,
+   -0.4493457080392462
+  ],
+  "moment_Nmm_at_stop": [
+   -52.3237949507,
+   210.505714306,
+   26.0576426464
+  ],
+  "Fz_at_stop": -14.535305575,
+  "inverted": {
+   "cage soft": 3197,
+   "cage hard/mix": 1370,
+   "C3 cortical": 123
+  },
+  "n_inverted_ids": 4690,
+  "soft": {
+   "contact": [
+    -0.26610442996025085,
+    0.0
+   ],
+   "inner": [
+    -0.36995255947113037,
+    0.00034381983840467596
+   ]
+  },
+  "compress_C": 14.084237451
+ },
+ {
+  "id": 36,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "mix",
+   "d": 1.482,
+   "E_hard": 642.51,
+   "E_soft": 1.697,
+   "theta": 0.2
+  },
+  "dir": "human_study/al_v2/cases/p036_iso_gpu2",
+  "t_end": 5.00772,
+  "phase": "iso",
+  "iso_completion": 0.200772,
+  "clamp_N": 115.06815871478403,
+  "retained_mm": 1.57224160837,
+  "rot_deg_at_stop": [
+   6.10502441016477,
+   0.44693489122104874,
+   -4.0598034176035345
+  ],
+  "moment_Nmm_at_stop": [
+   45006.6861059,
+   25002.3622151,
+   16301.0708881
+  ],
+  "Fz_at_stop": 1300.45169063,
+  "inverted": {
+   "cage soft": 400,
+   "cage hard/mix": 54,
+   "C3 trabecular": 18,
+   "C4 cortical": 1,
+   "C3 cortical": 300
+  },
+  "n_inverted_ids": 773,
+  "soft": {
+   "contact": [
+    -0.20348037779331207,
+    0.0
+   ],
+   "inner": [
+    -0.2256747931241989,
+    0.0
+   ]
+  },
+  "compress_C": 230.321851163
+ },
+ {
+  "id": 37,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "interleave",
+   "d": 0.59,
+   "E_hard": 371.76,
+   "E_soft": 7.296,
+   "theta": 0.349
+  },
+  "dir": "human_study/al_v2/cases/p037_iso",
+  "t_end": 3.3576,
+  "phase": "iso",
+  "iso_completion": 0.035760000000000014,
+  "clamp_N": 18.37552499846765,
+  "retained_mm": 0.681537820006,
+  "rot_deg_at_stop": [
+   2.1264042015621114,
+   0.07425584591097031,
+   -1.4168843640500872
+  ],
+  "moment_Nmm_at_stop": [
+   1860.48883129,
+   251.918712093,
+   -170.014905941
+  ],
+  "Fz_at_stop": -37.6115132426,
+  "inverted": {
+   "cage soft": 640,
+   "cage hard/mix": 334,
+   "C3 cortical": 14
+  },
+  "n_inverted_ids": 988,
+  "soft": {
+   "contact": [
+    -0.23822394013404846,
+    0.0
+   ],
+   "inner": [
+    -0.3711337447166443,
+    0.0013612056392805056
+   ]
+  },
+  "compress_C": 277.334818744
+ },
+ {
+  "id": 38,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 0.962,
+   "E_hard": 720.96,
+   "E_soft": 3.771,
+   "theta": 0.25
+  },
+  "dir": "human_study/al_v2/cases/p038_iso_gpu6",
+  "t_end": 5.08186,
+  "phase": "iso",
+  "iso_completion": 0.20818599999999998,
+  "clamp_N": 37.93556975788099,
+  "retained_mm": 0.965029722511,
+  "rot_deg_at_stop": [
+   6.367407127108706,
+   4.776133041244118,
+   -4.098921827239988
+  ],
+  "moment_Nmm_at_stop": [
+   11919.5508992,
+   7544.47945786,
+   -3253.51060875
+  ],
+  "Fz_at_stop": -124.180912535,
+  "inverted": {
+   "cage soft": 10253,
+   "cage hard/mix": 1,
+   "C3 cortical": 2590
+  },
+  "n_inverted_ids": 12844,
+  "soft": {
+   "contact": [
+    -0.2104581743478775,
+    0.0
+   ],
+   "inner": [
+    -0.23894521594047546,
+    0.0
+   ]
+  },
+  "compress_C": null
+ },
+ {
+  "id": 39,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 1.102,
+   "E_hard": 293.79,
+   "E_soft": 6.961,
+   "theta": 0.399
+  },
+  "dir": "human_study/al_v2/cases/p039_iso",
+  "t_end": 3.75379,
+  "phase": "iso",
+  "iso_completion": 0.075379,
+  "clamp_N": 57.03492671014937,
+  "retained_mm": 1.16001407125,
+  "rot_deg_at_stop": [
+   4.498162734068189,
+   0.1570796740424372,
+   -2.9972553854938746
+  ],
+  "moment_Nmm_at_stop": [
+   3801.98771435,
+   1186.29347579,
+   -490.876415879
+  ],
+  "Fz_at_stop": -81.801168342,
+  "inverted": {
+   "cage hard/mix": 1300,
+   "cage soft": 1243
+  },
+  "n_inverted_ids": 2543,
+  "soft": {
+   "contact": [
+    -0.2066226452589035,
+    0.0
+   ],
+   "inner": [
+    -0.3389572203159332,
+    0.0016488413547237077
+   ]
+  },
+  "compress_C": 240.740082532
+ },
+ {
+  "id": 40,
+  "x": {
+   "design": "A",
+   "grad": "both",
+   "fab": "mix",
+   "d": 1.021,
+   "E_hard": 548.97,
+   "E_soft": 3.536,
+   "theta": 0.334
+  },
+  "dir": "human_study/al_v2/cases/p040_iso_gpu6",
+  "t_end": 3.17045,
+  "phase": "iso",
+  "iso_completion": 0.017045000000000022,
+  "clamp_N": 39.152402345565385,
+  "retained_mm": 0.987074559453,
+  "rot_deg_at_stop": [
+   0.9995917186837295,
+   0.03490659423165271,
+   -0.6660567523300622
+  ],
+  "moment_Nmm_at_stop": [
+   580.221118708,
+   376.381970954,
+   16.860630795
+  ],
+  "Fz_at_stop": -22.0363710501,
+  "inverted": {
+   "cage soft": 1472
+  },
+  "n_inverted_ids": 1472,
+  "soft": {
+   "contact": [
+    -0.36057400703430176,
+    0.006417112299465241
+   ],
+   "inner": [
+    -0.16143491864204407,
+    0.0
+   ]
+  },
+  "compress_C": 189.418385007
+ },
+ {
+  "id": 41,
+  "x": {
+   "design": "A",
+   "grad": "both",
+   "fab": "interleave",
+   "d": 0.91,
+   "E_hard": 435.34,
+   "E_soft": 5.688,
+   "theta": 0.217
+  },
+  "dir": "human_study/al_v2/cases/p041_iso_gpu2",
+  "t_end": 3.40766,
+  "phase": "iso",
+  "iso_completion": 0.04076599999999999,
+  "clamp_N": 37.705207278396635,
+  "retained_mm": 0.959013215383,
+  "rot_deg_at_stop": [
+   2.4337409036067656,
+   0.08498830532434228,
+   -1.6216716605166919
+  ],
+  "moment_Nmm_at_stop": [
+   1930.03826282,
+   525.404137639,
+   -150.548201974
+  ],
+  "Fz_at_stop": -39.7018576224,
+  "inverted": {
+   "cage soft": 2074,
+   "cage hard/mix": 1816,
+   "C3 cortical": 386
+  },
+  "n_inverted_ids": 4276,
+  "soft": {
+   "contact": [
+    -0.15808330476284027,
+    0.0
+   ],
+   "inner": [
+    -0.4095805883407593,
+    0.0024180423157405253
+   ]
+  },
+  "compress_C": 233.24692493
+ },
+ {
+  "id": 42,
+  "x": {
+   "design": "B",
+   "grad": "axial",
+   "fab": "mix",
+   "d": 0.532,
+   "E_hard": 840.11,
+   "E_soft": 1.821,
+   "theta": 0.384
+  },
+  "dir": "human_study/al_v2/cases/p042_iso_gpu5",
+  "t_end": 3.17045,
+  "phase": "iso",
+  "iso_completion": 0.017045000000000022,
+  "clamp_N": 7.785839734331622,
+  "retained_mm": 0.451857964731,
+  "rot_deg_at_stop": [
+   0.9995917186837295,
+   0.03490659423165271,
+   -0.6660567523300622
+  ],
+  "moment_Nmm_at_stop": [
+   93.1594106408,
+   152.323932051,
+   21.1163984346
+  ],
+  "Fz_at_stop": 0.582676422905,
+  "inverted": {
+   "cage soft": 1894
+  },
+  "n_inverted_ids": 1894,
+  "soft": {
+   "contact": [
+    -0.26260697841644287,
+    0.0
+   ],
+   "inner": [
+    -0.34284138679504395,
+    0.00010617965597791463
+   ]
+  },
+  "compress_C": 44.7239741301
+ },
+ {
+  "id": 44,
+  "x": {
+   "design": "B",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 1.275,
+   "E_hard": 703.7,
+   "E_soft": 4.793,
+   "theta": 0.282
+  },
+  "dir": "human_study/al_v2/cases/p044_iso",
+  "t_end": 3.41281,
+  "phase": "iso",
+  "iso_completion": 0.04128099999999999,
+  "clamp_N": 38.3217553423586,
+  "retained_mm": 0.99690149921,
+  "rot_deg_at_stop": [
+   2.468209860120992,
+   0.0861919906453781,
+   -1.6446393190167685
+  ],
+  "moment_Nmm_at_stop": [
+   944.731674942,
+   503.696397317,
+   55.6307837254
+  ],
+  "Fz_at_stop": -40.0061785538,
+  "inverted": {
+   "cage soft": 9350,
+   "C3 cortical": 586,
+   "C3 trabecular": 162
+  },
+  "n_inverted_ids": 10098,
+  "soft": {
+   "contact": [
+    -0.33490607142448425,
+    0.04693140794223827
+   ],
+   "inner": [
+    -0.33248192071914673,
+    0.012893243940175348
+   ]
+  },
+  "compress_C": null
+ },
+ {
+  "id": 45,
+  "x": {
+   "design": "B",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 0.665,
+   "E_hard": 339.62,
+   "E_soft": 2.575,
+   "theta": 0.367
+  },
+  "dir": "human_study/al_v2/cases/p045_iso",
+  "t_end": 3.26933,
+  "phase": "iso",
+  "iso_completion": 0.026933000000000006,
+  "clamp_N": 7.868902968873633,
+  "retained_mm": 0.471150013511,
+  "rot_deg_at_stop": [
+   1.5986299975444775,
+   0.05582552116820681,
+   -1.065213211000511
+  ],
+  "moment_Nmm_at_stop": [
+   58.630858496,
+   14.1550033982,
+   15.0913191028
+  ],
+  "Fz_at_stop": -30.395173741,
+  "inverted": {
+   "cage soft": 2447,
+   "cage hard/mix": 587
+  },
+  "n_inverted_ids": 3034,
+  "soft": {
+   "contact": [
+    -0.2951841354370117,
+    0.0
+   ],
+   "inner": [
+    -0.31415462493896484,
+    0.0005014039310068191
+   ]
+  },
+  "compress_C": 36.1781101347
+ },
+ {
+  "id": 46,
+  "x": {
+   "design": "B",
+   "grad": "both",
+   "fab": "mix",
+   "d": 0.795,
+   "E_hard": 561.93,
+   "E_soft": 10.65,
+   "theta": 0.232
+  },
+  "dir": "human_study/al_v2/cases/p046_iso",
+  "t_end": 3.60174,
+  "phase": "iso",
+  "iso_completion": 0.06017399999999999,
+  "clamp_N": 18.77801606512265,
+  "retained_mm": 0.727396795266,
+  "rot_deg_at_stop": [
+   3.594938189536735,
+   0.1255383036144242,
+   -2.3954108568585335
+  ],
+  "moment_Nmm_at_stop": [
+   996.691323321,
+   408.677153404,
+   -20.7009528776
+  ],
+  "Fz_at_stop": -61.8281135736,
+  "inverted": {
+   "cage soft": 5377,
+   "C3 cortical": 378,
+   "C3 trabecular": 4
+  },
+  "n_inverted_ids": 5759,
+  "soft": {
+   "contact": [
+    -0.32488948106765747,
+    0.00631768953068592
+   ],
+   "inner": [
+    -0.34877482056617737,
+    0.002707581227436823
+   ]
+  },
+  "compress_C": null
+ },
+ {
+  "id": 47,
+  "x": {
+   "design": "B",
+   "grad": "both",
+   "fab": "interleave",
+   "d": 1.153,
+   "E_hard": 377.2,
+   "E_soft": 2.457,
+   "theta": 0.317
+  },
+  "dir": "human_study/al_v2/cases/p047_iso_gpu2",
+  "t_end": 3.13918,
+  "phase": "iso",
+  "iso_completion": 0.013918000000000008,
+  "clamp_N": 14.813794579216912,
+  "retained_mm": 0.681359131594,
+  "rot_deg_at_stop": [
+   0.8285097605266619,
+   0.028932266531658438,
+   -0.5520599161229955
+  ],
+  "moment_Nmm_at_stop": [
+   169.070246152,
+   132.776947356,
+   23.0990079992
+  ],
+  "Fz_at_stop": -13.4383304224,
+  "inverted": {
+   "cage hard/mix": 1005,
+   "cage soft": 7556
+  },
+  "n_inverted_ids": 8561,
+  "soft": {
+   "contact": [
+    -0.26910433173179626,
+    0.0
+   ],
+   "inner": [
+    -0.2869659960269928,
+    0.0
+   ]
+  },
+  "compress_C": 20.2727825414
+ }
+]
