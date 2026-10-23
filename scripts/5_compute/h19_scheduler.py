@@ -18,7 +18,7 @@ from h06_run_cpu_batch import cpu_busy, claimed_cores, P
 import h24_preflight
 
 IDLE_MIN, UTIL_MAX, MEM_NEED_MB = 15, 10.0, int(1.5 * 7000)   # cage case peak ~7 GB on GPU (measured 2026-10-20)
-MAX_PER_GPU, SHARE_UTIL_MAX = 3, 50.0                         # my runs barely load a GPU (< 25 %, 2026-10-22)
+MAX_PER_GPU, SHARE_UTIL_MAX = 5, 60.0                         # my runs barely load a GPU (< 25 %, 2026-10-22)
 CPU_LAUNCH_MAX = 8                                              # CPU jobs launched per 60 s pass
 RESERVE_H = 12                                                  # backfill may pass the head job for at most this long
 Q = os.path.join(P, 'human_study/queue'); RUN = os.path.join(Q, 'running'); DONE = os.path.join(Q, 'done')

@@ -38,7 +38,7 @@ V2 = dict(insert_mode='expand', shrink=0.8, biodisc=False, release_dtmax=0.1, an
 JOB = 'al_v2p'
 STATE = os.path.join(AL, 'points.json'); LOG = os.path.join(AL, 'al.log')
 QUEUE = os.path.join(P, 'human_study', 'queue')
-JOB_CORES = 8   # FEBio here averages ~2.5 busy cores per run (measured 2026-10-22), so 16 pinned cores left most of them idle
+JOB_CORES = 4   # FEBio averages ~2.5 busy cores per run; memory (128 GB cap), not cores, bounds concurrency (2026-10-23)
 TEMPLATE = os.path.join(P, 'human_study', 'cage_test', 'params_A_iso_tied2.json')
 
 DESIGNS, GRADS, FABS = ('A', 'B'), ('axial', 'radial', 'both'), ('mix', 'interleave')

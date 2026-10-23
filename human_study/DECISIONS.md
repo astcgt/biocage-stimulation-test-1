@@ -641,3 +641,7 @@ Decisions agreed with the PI during the review sessions. Anything not listed is 
   down each, t 3.5-9.5); C3 pot free in rotation and in-plane translation (moment control). h15 reports per direction: ROM
   at the peak moment, max cage slip, min anti-slip SF, max CoP eccentricity, completion. ISO kept for the final best designs.
   Test version on p037, p014, p011 (al_v2/physio_test, preflight OK) running; AL switch after the PI has seen it.
+- 2026-10-23 12:45 PI: "no idle resources". Measured: FEBio runs use ~2.6 GB RAM and ~2.5 busy cores each (load 28 with 240
+  cores pinned) -> memory (128 GB cap) is the real limit. New AL jobs pin 4 cores (h22 JOB_CORES 8 -> 4); up to 5 of my jobs
+  per GPU (h19 MAX_PER_GPU 3 -> 5, share util < 60 %). The new 'physio' test is pre-run for all 44 done points (speculative,
+  uses otherwise idle capacity; usable as soon as the PI approves the test switch): jobs al_v2pXXX_physio, 4 cores, 4 GB.
