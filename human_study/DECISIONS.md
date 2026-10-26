@@ -756,3 +756,16 @@ constraints = surgery-compatible + no nerve / bone harm; maximum freedom otherwi
   may be considered (oblique, staged, ...); the 53-60 % compression needed for a front slide-in and the permanent-set risk of
   hard PLCL must be faced: analyst to research surgical distraction / endplate preparation practice; (e) commit the work
   (author austonliuyi only, no Claude attribution).
+- 2026-10-26 insertion feasibility (analyst, for PI): native C3-C4 gap in the footprint 2.95-5.30 mm (concave endplates, tallest
+  in the middle). A contour-matched cage (design A, all AL designs) slid in from anterior WITHOUT compression needs an extra
+  transient parallel distraction of 2.35 mm beyond the final distraction d (total 2.85-3.85 mm over native for d 0.5-1.5);
+  without it the tallest column must be compressed 35-41 %. Hard PLCL 85:15 yield strain ~5 % (25 MPa / ~400 MPa, no direct
+  data) -> the 'expand' insertion (natural height 0.8 x) is not physically possible for the hard core; it is a numerical
+  convenience. Literature: surgeons distract with Caspar pins / trial spacers until a snug fit; final disc-height gain >= 2 mm
+  (over-distraction) raises adjacent-segment ossification and subsidence (Sci Rep 2023, s41598-023-44998-4; Frontiers 2023 FE);
+  ACDR practice removes osteophytes and checks parallel endplates (PMC5435629). Open PI / surgeon questions: maximum TRANSIENT
+  intraoperative distraction for insertion; whether endplate preparation (anterior lip / osteophyte removal, flattening the
+  concavity with curettes) is part of the procedure. Insertion options for evo (PI: any feasible method): (1) transient extra
+  distraction, (2) endplate preparation, (3) hard core inside the insertable envelope + compliant PLCL 50:50 parts that compress
+  elastically and refill the concavity, (4) rotate-in / oblique paths. Note: the concavity that blocks insertion also blocks
+  expulsion (geometric interlock) - a fixation mechanism worth keeping.
