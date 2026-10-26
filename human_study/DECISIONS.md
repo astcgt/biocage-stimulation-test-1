@@ -772,3 +772,9 @@ constraints = surgery-compatible + no nerve / bone harm; maximum freedom otherwi
 - 2026-10-26 The free-form evolution study (evo) moved to its own repository biocage-evo
   (/raid/jupyter-alz.ee09/projects/claude-work/biocage-evo, private GitHub astcgt/biocage-evo); its decisions continue in
   biocage-evo/docs/DECISIONS.md. Removed here: scripts/7_evo/, human_study/evo/ (history kept in both repos).
+- 2026-10-26 physio reruns with the FIXED load curves (al_v2/physio_fix, GPU copies *_gpuN, ~14 min each): p062 and p063 (A axial
+  mix) complete ALL six directions (the left-LB stall was caused by the combined-loading bug); ROM flexion 1.71 / 1.57, extension
+  -2.30 / -2.36, LB +-1.35 / +-1.31 (left-right symmetric, confirms the fix), AR +-1.80 / +-1.84 deg. Anti-slip SF at mu 0.35:
+  flexion 1.84 / 1.67, extension 2.07 / 2.08, AR 1.87-2.04, LB 0.67-0.70 -> lateral bending is the slip direction
+  (mu_req ~0.5). p014 (A radial mix) ERROR TERMINATION in extension (t 4.95). The physio AL has not been started.
+- 2026-10-26 PI: use the idle resources. physio_v3 = physio test with the fixed curves for all 148 finished v2 AL points (scripts/6_active_learning/h28_physio_prerun.py, re-runnable, settings class = physio_test); data needed whatever AL objective is chosen. The AL loop itself is not restarted with a new objective (PI: wait for real-friction results).
