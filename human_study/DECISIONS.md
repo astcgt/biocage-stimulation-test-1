@@ -769,3 +769,6 @@ constraints = surgery-compatible + no nerve / bone harm; maximum freedom otherwi
   distraction, (2) endplate preparation, (3) hard core inside the insertable envelope + compliant PLCL 50:50 parts that compress
   elastically and refill the concavity, (4) rotate-in / oblique paths. Note: the concavity that blocks insertion also blocks
   expulsion (geometric interlock) - a fixation mechanism worth keeping.
+- 2026-10-26 The free-form evolution study (evo) moved to its own repository biocage-evo
+  (/raid/jupyter-alz.ee09/projects/claude-work/biocage-evo, private GitHub astcgt/biocage-evo); its decisions continue in
+  biocage-evo/docs/DECISIONS.md. Removed here: scripts/7_evo/, human_study/evo/ (history kept in both repos).

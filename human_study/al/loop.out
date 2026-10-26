@@ -1478,3 +1478,7 @@
 10-26 11:03:18 collect: 0 new results
 10-26 11:03:18 next: point budget reached (150)
 10-26 11:03:18 loop: finished (stop criterion or budget)
+10-26 11:08:20 loop start (asynchronous)
+10-26 11:08:20 collect: 0 new results
+10-26 11:08:20 next: point budget reached (150)
+10-26 11:08:20 loop: finished (stop criterion or budget)

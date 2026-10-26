@@ -20,3 +20,5 @@ Finite-element studies of the BIOCAGE cervical cage (graded PLCL hard/soft polym
 - FEBio modifications: `febio_patches/README.md`
 
 Third-party data (the Herron FEBio model from SimTK) is not redistributed here.
+
+Note 2026-10-26: the free-form evolutionary design study moved to the separate repository `biocage-evo`.
