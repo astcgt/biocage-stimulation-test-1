@@ -92,7 +92,7 @@ def build_point(pt):
                            stdout=subprocess.DEVNULL)
         job = os.path.join(QUEUE, f"{JOB}{pt['id']:03d}_{test}.job")
         if not os.path.exists(job):
-            json.dump(dict(case_dir=os.path.relpath(cdir, P), cores=JOB_CORES, mem_gb=8, host_mem_gb_gpu=4), open(job, 'w'))
+            json.dump(dict(case_dir=os.path.relpath(cdir, P), cores=JOB_CORES, mem_gb=4, host_mem_gb_gpu=3), open(job, 'w'))
         out[test] = os.path.relpath(cdir, P)
     return pt['id'], out
 
@@ -262,13 +262,16 @@ def cmd_next():
     chosen = [dict(combo=COMBOS.index((p['x']['design'], p['x']['grad'], p['x']['fab'])), du=encode(p['x'])[3])
               for p in st['points'] if p.get('status') in ('new', 'queued')]          # busy locations
     n_busy = len(chosen)
-    for r in sorted(feas, key=lambda r: -r['ucb_y']):                       # greedy, keep designs apart from chosen and busy ones
-        if any(r['combo'] == c['combo'] and abs(r['du'] - c['du']) < 0.15 for c in chosen): continue
-        chosen.append(r)
-        if len(chosen) >= n_busy + q: break
-    chosen = chosen[n_busy:]
+    for sep in (0.15, 0.07):                        # 0.07 when the busy points leave no candidate at 0.15 (2026-10-23)
+        sel = list(chosen[:n_busy])
+        for r in sorted(feas, key=lambda r: -r['ucb_y']):                   # greedy, keep designs apart from chosen and busy ones
+            if any(r['combo'] == c['combo'] and abs(r['du'] - c['du']) < sep for c in sel): continue
+            sel.append(r)
+            if len(sel) >= n_busy + q: break
+        if len(sel) > n_busy: break
+    chosen = sel[n_busy:]
     if not chosen:
-        st['next_after'] = time.time() + 1800; save(st); log('next: every candidate is near a running point; retry in 30 min')
+        st['next_after'] = time.time() + 600; save(st); log('next: every candidate is near a running point; retry in 10 min')
         return True
     bno = len(st['batches']); n0 = len(st['points']); ids = []
     for k, r in enumerate(chosen):

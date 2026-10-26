@@ -1,0 +1,15 @@
+{
+ "id": "F-0002",
+ "round": 1,
+ "target": "data hygiene: human_study/al_v2/cases/p*_physio*/, human_study/evo/method/fl_*.json, METHODS_COMPARISON.md section A, DECISIONS.md:718-721, ISSUES.md I-002, PLAN.md:45 (L1 calibration source)",
+ "severity": "major",
+ "claim": "The physio results known to be invalid (F-0001) are still in place with no invalid / superseded marker, and documents still quote them as findings. The planned L1 calibration source is exactly these runs. Provenance by git hash cannot tell pre-fix from post-fix builds because the fix sits in an uncommitted working tree. This is the data mix-up the PI asked to prevent.",
+ "evidence": "roles/redteam/r0001_audit.py: 76 physio summary.json and 76 e02 files, 0 of each carry any 'invalid' / 'superseded' marker. METHODS_COMPARISON.md:18-25 still shows the p062 / p063 / p000 table and explains the twist as 'cervical coupled axial rotation driven by the facets' (wrong cause, F-0001). ISSUES.md:6 (I-002) still lists 'flexion 0.24 / extension 0.23 / LB ~0.5 vs 0.37 / 0.57 / ~2' as open numbers. DECISIONS.md:719-721 keeps 'twist up to ~1 N m ... coupled axial rotation' without a pointer to line 735. PLAN.md:45: L1 posterior-element springs 'calibrated on the existing FEBio physio runs'. git status at round start: scripts/3_cage_case/h14_build_case.py modified, HEAD b990b35 -> a run built today from the fixed h14 and one built on 2026-10-23 with the bug both point to the same commit (GOVERNANCE.md:53 provenance rule relies on the git hash).",
+ "how_to_reproduce": "python -I human_study/evo/roles/redteam/r0001_audit.py (lines 'with an invalid/superseded marker'); read the cited lines.",
+ "fix_options": [
+  {"option": "Write an 'invalid_reason' + 'superseded_by' field into each affected summary.json / fl_*.json (or a sidecar INVALID.json per case dir) and make every reader (h22, e02 post-processing, L1 calibration) refuse files carrying it", "cost": "~1 h", "risk": "low"},
+  {"option": "Strike through / annotate METHODS_COMPARISON.md section A, DECISIONS.md:719-721 and I-002 with 'invalid: combined loading (F-0001), re-run pending'", "cost": "15 min", "risk": "none"},
+  {"option": "Provenance: record the sha256 of the builder scripts (h14 etc.) and of the launched .feb (launched_feb.sha256 already exists) plus 'git diff --stat' dirtiness, not only the commit hash; commit fixes before launching runs", "cost": "~1 h", "risk": "low"}
+ ],
+ "summary_zh": "已知錯誤的生理負荷結果（共 76 個案例，以及 76 個摩擦分析檔）仍留在原處，沒有任何「無效」標記。方法比較文件、決策紀錄與待辦清單 I-002 仍在引用這些數字，其中一份文件還把扭矩錯誤地解釋為「小面關節帶動的耦合旋轉」。計畫中快速篩選模型的後方彈簧，正打算用這批錯誤的資料來校正。另外，修正尚未提交到版本控制，所以只看版本編號，分不出哪些模擬是修正前跑的、哪些是修正後跑的。這正是主持人要求避免的資料混淆。建議：替每個無效檔案加上無效標記，並讓所有讀取程式拒絕讀取這類檔案；修正文件內容；先提交修正再開始模擬。"
+}

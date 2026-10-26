@@ -1,0 +1,170 @@
+{
+ "test": "physio",
+ "d": 0.821,
+ "completed_time": 3.07943626,
+ "distraction_force_N": 24.4723826718,
+ "clamp_after_release_N": 15.609896094551042,
+ "retained_distraction_mm": 0.668576903512,
+ "contact_layer_crush_after_release": 0.0,
+ "friction_demand": [
+  {
+   "t": 3.0,
+   "bot_excess_shear_N": -3.6851959263246243,
+   "bot_slip_area_frac": 0.003610108322900399,
+   "bot_tension_area_frac": 0.0,
+   "bot_safety_factor": 3.5610872501325272,
+   "bot_normal_N": 14.640327046141232,
+   "bot_shear_N": 1.4389185398248063,
+   "bot_cop_eccentricity": 0.00300149423125259,
+   "top_excess_shear_N": -3.2908844870947,
+   "top_slip_area_frac": 0.018050541883084126,
+   "top_tension_area_frac": 0.0,
+   "top_safety_factor": 2.8031180536783267,
+   "top_normal_N": 14.617120286283773,
+   "top_shear_N": 1.8251076131046204,
+   "top_cop_eccentricity": 0.008372933984409298
+  },
+  {
+   "t": 3.049999952316284,
+   "bot_excess_shear_N": -3.74714381979708,
+   "bot_slip_area_frac": 0.10288808567500707,
+   "bot_tension_area_frac": 0.0,
+   "bot_safety_factor": 4.8389075505994885,
+   "bot_normal_N": 13.49497204147256,
+   "bot_shear_N": 0.9760963947183154,
+   "bot_cop_eccentricity": 0.426863329334309,
+   "top_excess_shear_N": -0.6776432701758983,
+   "top_slip_area_frac": 0.5451263550226139,
+   "top_tension_area_frac": 0.0830324927868213,
+   "top_safety_factor": 1.1735428013644367,
+   "top_normal_N": 13.092585400185845,
+   "top_shear_N": 3.904761619889147,
+   "top_cop_eccentricity": 0.60828858214348
+  },
+  {
+   "t": 3.0794363021850586,
+   "bot_excess_shear_N": -6.059503649198998,
+   "bot_slip_area_frac": 0.0,
+   "bot_tension_area_frac": 0.0,
+   "bot_safety_factor": 11.578570096852665,
+   "bot_normal_N": 18.949465654763205,
+   "bot_shear_N": 0.5728093299681231,
+   "bot_cop_eccentricity": 0.2574302429222084,
+   "top_excess_shear_N": -1.7145123675235574,
+   "top_slip_area_frac": 0.4620938647583315,
+   "top_tension_area_frac": 0.0,
+   "top_safety_factor": 1.3634829940684057,
+   "top_normal_N": 18.37545944877635,
+   "top_shear_N": 4.716898439548165,
+   "top_cop_eccentricity": 0.3877724924582871
+  }
+ ],
+ "friction_demand_after_release": {
+  "bot_excess_shear_N": -3.6851959263246243,
+  "bot_slip_area_frac": 0.003610108322900399,
+  "bot_tension_area_frac": 0.0,
+  "bot_safety_factor": 3.5610872501325272,
+  "bot_normal_N": 14.640327046141232,
+  "bot_shear_N": 1.4389185398248063,
+  "bot_cop_eccentricity": 0.00300149423125259,
+  "top_excess_shear_N": -3.2908844870947,
+  "top_slip_area_frac": 0.018050541883084126,
+  "top_tension_area_frac": 0.0,
+  "top_safety_factor": 2.8031180536783267,
+  "top_normal_N": 14.617120286283773,
+  "top_shear_N": 1.8251076131046204,
+  "top_cop_eccentricity": 0.008372933984409298
+ },
+ "min_safety_factor": 1.1735428013644367,
+ "t_min_safety_factor": 3.049999952316284,
+ "max_slip_area_frac": 0.5451263550226139,
+ "mu_used": 0.35,
+ "max_cop_eccentricity": 0.60828858214348,
+ "max_tension_area_frac": 0.0830324927868213,
+ "max_excess_shear_N": -0.6776432701758983,
+ "slip_time_frac": 0.0,
+ "slip_after_insertion_mm": 0.0006516530346373683,
+ "slip_history": [
+  [
+   3.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0
+  ],
+  [
+   3.05,
+   0.04679,
+   -0.00011,
+   0.01055,
+   0.04679
+  ],
+  [
+   3.07944,
+   0.0545,
+   -6e-05,
+   -0.01441,
+   0.0545
+  ]
+ ],
+ "physio_windows": [
+  {
+   "name": "flexion",
+   "complete": false,
+   "rom_deg": null,
+   "max_slip_mm": null,
+   "min_sf": null,
+   "max_cop": null
+  },
+  {
+   "name": "extension",
+   "complete": false,
+   "rom_deg": null,
+   "max_slip_mm": null,
+   "min_sf": null,
+   "max_cop": null
+  },
+  {
+   "name": "LB_right",
+   "complete": false,
+   "rom_deg": null,
+   "max_slip_mm": null,
+   "min_sf": null,
+   "max_cop": null
+  },
+  {
+   "name": "LB_left",
+   "complete": false,
+   "rom_deg": null,
+   "max_slip_mm": null,
+   "min_sf": null,
+   "max_cop": null
+  },
+  {
+   "name": "AR_left",
+   "complete": false,
+   "rom_deg": null,
+   "max_slip_mm": null,
+   "min_sf": null,
+   "max_cop": null
+  },
+  {
+   "name": "AR_right",
+   "complete": false,
+   "rom_deg": null,
+   "max_slip_mm": null,
+   "min_sf": null,
+   "max_cop": null
+  }
+ ],
+ "max_slip_mm": 0.054498703794153336,
+ "functional_failure_slip": {
+  "type": "solver stopped before the protocol finished (Q40)",
+  "time": 3.0794363021850586,
+  "phase": "follower load",
+  "slip_at_stop_mm": 0.054498703794153336,
+  "contact_layer_crush_frac": 0.0,
+  "min_principal_stretch": 0.7108006477355957,
+  "where": "cage_mix_0.0"
+ }
+}

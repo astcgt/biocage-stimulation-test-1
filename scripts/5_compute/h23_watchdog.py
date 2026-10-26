@@ -55,7 +55,8 @@ def requeue_failed():
     busy = {os.path.basename(f)[:-4] for f in glob.glob(os.path.join(Q, '*.job')) + glob.glob(os.path.join(Q, 'running', '*.job'))}
     tries = json.load(open(RETRY)) if os.path.exists(RETRY) else {}
     for name, ex in last.items():
-        if not name.startswith('al_') or ex == '0' or name in busy or tries.get(name, 0) >= MAX_RETRY: continue
+        # exit 0 without a termination line = FEBio killed (e.g. OOM) but the wrapper exited cleanly (2026-10-25; v2 only)
+        if not name.startswith('al_') or (ex == '0' and not name.startswith('al_v2')) or name in busy or tries.get(name, 0) >= MAX_RETRY: continue
         js = sorted(glob.glob(os.path.join(Q, 'done', f'*_{name}.job')))
         if not js or terminated(json.load(open(js[-1]))['case_dir']): continue
         shutil.copy(js[-1], os.path.join(Q, name + '.job')); tries[name] = tries.get(name, 0) + 1
@@ -63,11 +64,41 @@ def requeue_failed():
     json.dump(tries, open(RETRY, 'w'))
 
 
+STALL = os.path.join(P, 'human_study/watchdog_stall.json'); STALL_MIN, STALL_DT = 45, 0.005
+
+
+def stop_stalled():
+    """2026-10-23: a run whose simulated time advanced < STALL_DT within STALL_MIN minutes is stopped and its log is closed
+    with an ERROR TERMINATION line (as FEBio would after max retries), so the AL treats it like any other stop (a test
+    stopped after its endpoint is truncated there; a stop before t 3 makes the point 'invalid'). Auto-stepping lets some runs
+    crawl for hours in retry loops while holding a memory slot."""
+    try: hist = json.load(open(STALL))
+    except (OSError, ValueError): hist = {}
+    now = time.time(); seen = {}
+    for pid in subprocess.run(['pgrep', '-u', str(os.getuid()), 'febio4'], capture_output=True, text=True).stdout.split():
+        try: cwd = os.readlink(f'/proc/{pid}/cwd')
+        except OSError: continue
+        lg = os.path.join(cwd, 'case.log')
+        if not os.path.exists(lg): continue
+        with open(lg, 'rb') as fh:
+            fh.seek(max(0, os.path.getsize(lg) - 200000)); tail = fh.read().decode(errors='ignore')
+        m = re.findall(r'beginning time step \d+ : ([0-9.e+-]+)', tail)
+        if not m: continue
+        t = max(float(v) for v in m); h = hist.get(cwd)
+        if h is None or t > h['t'] + STALL_DT: h = dict(t=t, since=now)
+        seen[cwd] = h
+        if now - h['since'] > STALL_MIN * 60:
+            subprocess.run(['kill', pid])
+            with open(lg, 'a') as fh: fh.write(f'\n\n E R R O R   T E R M I N A T I O N   (watchdog: stalled at t {t:.4f} for {STALL_MIN} min)\n')
+            log(f'stopped stalled run {os.path.relpath(cwd, P)} at t {t:.4f}'); seen.pop(cwd)
+    json.dump(seen, open(STALL, 'w'))
+
+
 if __name__ == '__main__':
     log('watchdog start')
     while True:
         try:
-            ensure_daemons(); requeue_failed()
+            ensure_daemons(); requeue_failed(); stop_stalled()
         except Exception:
             import traceback; log('ERROR ' + traceback.format_exc().replace('\n', ' | '))
         time.sleep(PERIOD)

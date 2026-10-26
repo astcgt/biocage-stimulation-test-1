@@ -1,15 +1,15 @@
 {
  "cases": {
-  "p057_compress": {
-   "exit": 1,
+  "p080_physio": {
+   "exit": -15,
    "normal": false,
-   "wall_s": 1746.3,
-   "cores": 8,
-   "core_h": 3.881
+   "wall_s": 37298.2,
+   "cores": 4,
+   "core_h": 41.442
   }
  },
- "batch_wall_s": 1756.3,
- "total_core_h": 3.881,
+ "batch_wall_s": 37308.3,
+ "total_core_h": 41.442,
  "gpu_h": 0.0,
  "not_run": []
 }

@@ -1,0 +1,4670 @@
+[
+ {
+  "id": 0,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "mix",
+   "d": 1.197,
+   "E_hard": 489.24,
+   "E_soft": 1.715,
+   "theta": 0.288
+  },
+  "dir": "human_study/al_v2/cases/p000_physio_gpu4",
+  "t_end": 4.58795,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 1.9263482168927308,
+    "max_slip_mm": 0.1538390447243342,
+    "min_sf": 1.5043519317963994,
+    "max_cop": 0.5823670701660179,
+    "min_sf_mu02": 0.8596296753122282
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.045131826313812747,
+    "min_sf": 1.786325155952576,
+    "max_cop": 0.5612416481480911,
+    "min_sf_mu02": 1.0207572319729008
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 210.145268881,
+  "clamp": 51.11353927049798
+ },
+ {
+  "id": 1,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "interleave",
+   "d": 0.867,
+   "E_hard": 450.7,
+   "E_soft": 9.1,
+   "theta": 0.361
+  },
+  "dir": "human_study/al_v2/cases/p001_physio_gpu5",
+  "t_end": 4.76256,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 2.1002334381615633,
+    "max_slip_mm": 0.07579904229916296,
+    "min_sf": 1.3373244369314043,
+    "max_cop": 0.879314904100222,
+    "min_sf_mu02": 0.7641853925322312
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.038983635043565494,
+    "min_sf": 1.1202273625603165,
+    "max_cop": 1.2690595985772297,
+    "min_sf_mu02": 0.640129921463038
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 293.849251406,
+  "clamp": 27.80009568288858
+ },
+ {
+  "id": 2,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 0.747,
+   "E_hard": 802.67,
+   "E_soft": 3.672,
+   "theta": 0.238
+  },
+  "dir": "human_study/al_v2/cases/p002_physio",
+  "t_end": 4.96279,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 1.4279239899304095,
+    "max_slip_mm": 0.0365485759827078,
+    "min_sf": 1.0445209258470067,
+    "max_cop": 1.41436006421041,
+    "min_sf_mu02": 0.5968691004840039
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.032710813134845,
+    "min_sf": 1.0058617676657586,
+    "max_cop": 2.7050427196691627,
+    "min_sf_mu02": 0.5747781529518622
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 235.106342415,
+  "clamp": 20.769055855875575
+ },
+ {
+  "id": 3,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 1.325,
+   "E_hard": 285.86,
+   "E_soft": 5.672,
+   "theta": 0.311
+  },
+  "dir": "human_study/al_v2/cases/p003_physio",
+  "t_end": 4.49182,
+  "n_complete": 0,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": false,
+    "rom_deg": 1.7462477056849912,
+    "max_slip_mm": 0.17418600964507303,
+    "min_sf": 1.427580557985604,
+    "max_cop": 0.5005325566673148,
+    "min_sf_mu02": 0.8157603188489166
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 225.29343026,
+  "clamp": 66.36956690370155
+ },
+ {
+  "id": 4,
+  "x": {
+   "design": "A",
+   "grad": "both",
+   "fab": "mix",
+   "d": 1.443,
+   "E_hard": 728.71,
+   "E_soft": 11.146,
+   "theta": 0.34
+  },
+  "dir": "human_study/al_v2/cases/p004_physio",
+  "t_end": 4.64182,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 1.0561588886301372,
+    "max_slip_mm": 0.11529583078280312,
+    "min_sf": 1.5883729354192413,
+    "max_cop": 0.5938718016891019,
+    "min_sf_mu02": 0.9076416773824237
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.02514950969773546,
+    "min_sf": 1.691482293789405,
+    "max_cop": 0.8444015163925802,
+    "min_sf_mu02": 0.966561310736803
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 163.65275546,
+  "clamp": 81.08434152899986
+ },
+ {
+  "id": 5,
+  "x": {
+   "design": "A",
+   "grad": "both",
+   "fab": "interleave",
+   "d": 0.614,
+   "E_hard": 302.59,
+   "E_soft": 2.43,
+   "theta": 0.21
+  },
+  "dir": "human_study/al_v2/cases/p005_physio_gpu3",
+  "t_end": 3.42321,
+  "n_complete": 0,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 94.4576663566,
+  "clamp": 11.856518316295297
+ },
+ {
+  "id": 6,
+  "x": {
+   "design": "B",
+   "grad": "axial",
+   "fab": "mix",
+   "d": 0.986,
+   "E_hard": 636.45,
+   "E_soft": 4.551,
+   "theta": 0.39
+  },
+  "dir": "human_study/al_v2/cases/p006_physio_gpu2",
+  "t_end": 3.1276,
+  "n_complete": 0,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 100.581091878,
+  "clamp": 22.591965656247407
+ },
+ {
+  "id": 7,
+  "x": {
+   "design": "B",
+   "grad": "axial",
+   "fab": "interleave",
+   "d": 1.063,
+   "E_hard": 360.51,
+   "E_soft": 2.631,
+   "theta": 0.261
+  },
+  "dir": "human_study/al_v2/cases/p007_physio_gpu1",
+  "t_end": 3.05,
+  "n_complete": 0,
+  "windows": [],
+  "C": 95.6451951157,
+  "clamp": 21.420393524186775
+ },
+ {
+  "id": 8,
+  "x": {
+   "design": "B",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 1.06,
+   "E_hard": 849.03,
+   "E_soft": 4.844,
+   "theta": 0.219
+  },
+  "dir": "human_study/al_v2/cases/p008_physio_gpu3",
+  "t_end": 3.12077,
+  "n_complete": 0,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 62.8319535017,
+  "clamp": 27.301379256061065
+ },
+ {
+  "id": 9,
+  "x": {
+   "design": "B",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 0.888,
+   "E_hard": 259.81,
+   "E_soft": 3.213,
+   "theta": 0.33
+  },
+  "dir": "human_study/al_v2/cases/p009_physio_gpu2",
+  "t_end": 3.05,
+  "n_complete": 0,
+  "windows": [],
+  "C": 35.8462010743,
+  "clamp": 11.554448340033916
+ },
+ {
+  "id": 10,
+  "x": {
+   "design": "B",
+   "grad": "both",
+   "fab": "mix",
+   "d": 0.51,
+   "E_hard": 543.87,
+   "E_soft": 10.369,
+   "theta": 0.269
+  },
+  "dir": "human_study/al_v2/cases/p010_physio_gpu1",
+  "t_end": 3.2,
+  "n_complete": 0,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 73.6854118698,
+  "clamp": 8.3267283447667
+ },
+ {
+  "id": 11,
+  "x": {
+   "design": "B",
+   "grad": "both",
+   "fab": "interleave",
+   "d": 1.43,
+   "E_hard": 422.24,
+   "E_soft": 2.002,
+   "theta": 0.38
+  },
+  "dir": "human_study/al_v2/cases/p011_physio_gpu2",
+  "t_end": 3.05,
+  "n_complete": 0,
+  "windows": [],
+  "C": 1.82640033811,
+  "clamp": 19.935479665191973
+ },
+ {
+  "id": 12,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "mix",
+   "d": 1.298,
+   "E_hard": 578.64,
+   "E_soft": 3.939,
+   "theta": 0.371
+  },
+  "dir": "human_study/al_v2/cases/p012_physio",
+  "t_end": 4.60882,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 1.6360891647791378,
+    "max_slip_mm": 0.14331566382973462,
+    "min_sf": 1.523391396890398,
+    "max_cop": 0.5409799198491064,
+    "min_sf_mu02": 0.8705093696516562
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.04891204307524047,
+    "min_sf": 1.866254759380405,
+    "max_cop": 0.6584981163546997,
+    "min_sf_mu02": 1.0664312910745173
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 237.58014563,
+  "clamp": 60.48449728822179
+ },
+ {
+  "id": 13,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "interleave",
+   "d": 0.625,
+   "E_hard": 381.22,
+   "E_soft": 6.87,
+   "theta": 0.279
+  },
+  "dir": "human_study/al_v2/cases/p013_physio_gpu6",
+  "t_end": 4.6896,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 2.69888465145905,
+    "max_slip_mm": 0.08259967647706888,
+    "min_sf": 1.3606200646840785,
+    "max_cop": 0.9807332783795909,
+    "min_sf_mu02": 0.7774971798194735
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.032998877118566125,
+    "min_sf": 1.0124907102300307,
+    "max_cop": 0.950333228076519,
+    "min_sf_mu02": 0.5785661201314461
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 281.782920262,
+  "clamp": 13.706186529956819
+ },
+ {
+  "id": 14,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 0.755,
+   "E_hard": 682.49,
+   "E_soft": 1.608,
+   "theta": 0.321
+  },
+  "dir": "human_study/al_v2/cases/p014_physio_gpu2",
+  "t_end": 4.91598,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 1.5302845385637742,
+    "max_slip_mm": 0.042583935977513004,
+    "min_sf": 1.0609765291318614,
+    "max_cop": 1.3485574725827874,
+    "min_sf_mu02": 0.6062723023610637
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.03396047714491758,
+    "min_sf": 1.0156202366656404,
+    "max_cop": 2.33895708087757,
+    "min_sf_mu02": 0.5803544209517946
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 280.902935975,
+  "clamp": 21.18464018139568
+ },
+ {
+  "id": 15,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 1.176,
+   "E_hard": 336.48,
+   "E_soft": 7.438,
+   "theta": 0.229
+  },
+  "dir": "human_study/al_v2/cases/p015_physio",
+  "t_end": 4.55,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 1.859374436990496,
+    "max_slip_mm": 0.14472672467306705,
+    "min_sf": 1.402658199641501,
+    "max_cop": 0.6085001993981731,
+    "min_sf_mu02": 0.801518971223715
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.02396887853371072,
+    "min_sf": 1.4051811318450946,
+    "max_cop": 0.43941176635861073,
+    "min_sf_mu02": 0.8029606467686256
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 231.180964081,
+  "clamp": 53.2935671934356
+ },
+ {
+  "id": 16,
+  "x": {
+   "design": "A",
+   "grad": "both",
+   "fab": "mix",
+   "d": 1.129,
+   "E_hard": 671.33,
+   "E_soft": 3.003,
+   "theta": 0.395
+  },
+  "dir": "human_study/al_v2/cases/p016_physio",
+  "t_end": 3.79607,
+  "n_complete": 0,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.12204644894015156,
+    "min_sf": 2.0018182808837492,
+    "max_cop": 0.4509475444321205,
+    "min_sf_mu02": 1.1438961605049995
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 140.920105233,
+  "clamp": 43.953009379431805
+ },
+ {
+  "id": 17,
+  "x": {
+   "design": "A",
+   "grad": "both",
+   "fab": "interleave",
+   "d": 0.803,
+   "E_hard": 328.4,
+   "E_soft": 5.197,
+   "theta": 0.256
+  },
+  "dir": "human_study/al_v2/cases/p017_physio_gpu1",
+  "t_end": 4.51451,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 3.150831042799635,
+    "max_slip_mm": 0.18055776018737704,
+    "min_sf": 1.3938954201078082,
+    "max_cop": 0.7253209789129414,
+    "min_sf_mu02": 0.7965116686330334
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.027837613080627585,
+    "min_sf": 1.378061713084444,
+    "max_cop": 0.37013157242085465,
+    "min_sf_mu02": 0.7874638360482537
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 229.218139994,
+  "clamp": 22.344630386497528
+ },
+ {
+  "id": 18,
+  "x": {
+   "design": "B",
+   "grad": "axial",
+   "fab": "mix",
+   "d": 0.673,
+   "E_hard": 586.42,
+   "E_soft": 2.131,
+   "theta": 0.345
+  },
+  "dir": "human_study/al_v2/cases/p018_physio",
+  "t_end": 3.08923,
+  "n_complete": 0,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 48.9748676542,
+  "clamp": 9.259691930295197
+ },
+ {
+  "id": 19,
+  "x": {
+   "design": "B",
+   "grad": "axial",
+   "fab": "interleave",
+   "d": 1.251,
+   "E_hard": 391.33,
+   "E_soft": 9.772,
+   "theta": 0.206
+  },
+  "dir": "human_study/al_v2/cases/p019_physio",
+  "t_end": 3.16364,
+  "n_complete": 0,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 73.2244156725,
+  "clamp": 43.41335878437295
+ },
+ {
+  "id": 20,
+  "x": {
+   "design": "B",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 1.383,
+   "E_hard": 530.98,
+   "E_soft": 6.466,
+   "theta": 0.245
+  },
+  "dir": "human_study/al_v2/cases/p020_physio_gpu4",
+  "t_end": 3.05,
+  "n_complete": 0,
+  "windows": [],
+  "C": 44.0551635646,
+  "clamp": 48.29210688735254
+ },
+ {
+  "id": 21,
+  "x": {
+   "design": "B",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 0.556,
+   "E_hard": 415.21,
+   "E_soft": 4.188,
+   "theta": 0.304
+  },
+  "dir": "human_study/al_v2/cases/p021_physio",
+  "t_end": 3.05879,
+  "n_complete": 0,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 61.1724243736,
+  "clamp": 6.982876176051832
+ },
+ {
+  "id": 22,
+  "x": {
+   "design": "B",
+   "grad": "both",
+   "fab": "mix",
+   "d": 0.934,
+   "E_hard": 871.27,
+   "E_soft": 7.974,
+   "theta": 0.295
+  },
+  "dir": "human_study/al_v2/cases/p022_physio_gpu5",
+  "t_end": 3.17521,
+  "n_complete": 0,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 57.6640344388,
+  "clamp": 22.472337614047344
+ },
+ {
+  "id": 23,
+  "x": {
+   "design": "B",
+   "grad": "both",
+   "fab": "interleave",
+   "d": 1.013,
+   "E_hard": 263.39,
+   "E_soft": 1.502,
+   "theta": 0.354
+  },
+  "dir": "human_study/al_v2/cases/p023_physio_gpu6",
+  "t_end": 2.0,
+  "n_complete": 0,
+  "windows": [],
+  "C": 12.5166406647,
+  "clamp": null
+ },
+ {
+  "id": 24,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "mix",
+   "d": 1.11,
+   "E_hard": 624.96,
+   "E_soft": 8.482,
+   "theta": 0.313
+  },
+  "dir": "human_study/al_v2/cases/p024_physio_gpu2",
+  "t_end": 4.68505,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 1.7027910096814534,
+    "max_slip_mm": 0.10923943486414633,
+    "min_sf": 1.4014616262122817,
+    "max_cop": 0.6809924845843457,
+    "min_sf_mu02": 0.8008352149784468
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.044767219510528845,
+    "min_sf": 1.5752944577154033,
+    "max_cop": 0.9266972067598481,
+    "min_sf_mu02": 0.9001682615516592
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 269.251494753,
+  "clamp": 47.53771366130669
+ },
+ {
+  "id": 25,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "interleave",
+   "d": 0.939,
+   "E_hard": 353.02,
+   "E_soft": 1.835,
+   "theta": 0.237
+  },
+  "dir": "human_study/al_v2/cases/p025_physio_gpu3",
+  "t_end": 4.69331,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 2.3552338454437107,
+    "max_slip_mm": 0.0997264594177038,
+    "min_sf": 1.3804967377073925,
+    "max_cop": 0.6933007271119908,
+    "min_sf_mu02": 0.7888552786899387
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.05209563248965275,
+    "min_sf": 1.0955880471312576,
+    "max_cop": 1.0173012073708205,
+    "min_sf_mu02": 0.626050312646433
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 206.737131308,
+  "clamp": 32.28457988504898
+ },
+ {
+  "id": 26,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 0.567,
+   "E_hard": 737.02,
+   "E_soft": 6.018,
+   "theta": 0.363
+  },
+  "dir": "human_study/al_v2/cases/p026_physio_gpu3",
+  "t_end": 5.00047,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 1.660122573256117,
+    "max_slip_mm": 0.037741251608852944,
+    "min_sf": 0.9753928460770085,
+    "max_cop": 1.7046406501968647,
+    "min_sf_mu02": 0.5573673406154335
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.03800506523899568,
+    "min_sf": 0.9236923241169085,
+    "max_cop": 2.9267566464000403,
+    "min_sf_mu02": 0.5278241852096621
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 299.295531439,
+  "clamp": 11.415155282051424
+ },
+ {
+  "id": 27,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 1.49,
+   "E_hard": 311.54,
+   "E_soft": 3.449,
+   "theta": 0.287
+  },
+  "dir": "human_study/al_v2/cases/p027_physio_gpu5",
+  "t_end": 3.45,
+  "n_complete": 0,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 176.895061006,
+  "clamp": 85.05701747465544
+ },
+ {
+  "id": 28,
+  "x": {
+   "design": "A",
+   "grad": "both",
+   "fab": "mix",
+   "d": 1.371,
+   "E_hard": 786.21,
+   "E_soft": 2.285,
+   "theta": 0.265
+  },
+  "dir": "human_study/al_v2/cases/p028_physio_gpu4",
+  "t_end": 4.65,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 1.1515446844791266,
+    "max_slip_mm": 0.11098858161680662,
+    "min_sf": 1.5948244991863731,
+    "max_cop": 0.5725085829692077,
+    "min_sf_mu02": 0.9113282852493563
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.023583954954536968,
+    "min_sf": 1.6401402286028584,
+    "max_cop": 0.8539709228624512,
+    "min_sf_mu02": 0.9372229877730621
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 173.530001416,
+  "clamp": 73.32220529330085
+ },
+ {
+  "id": 29,
+  "x": {
+   "design": "A",
+   "grad": "both",
+   "fab": "interleave",
+   "d": 0.701,
+   "E_hard": 280.61,
+   "E_soft": 11.842,
+   "theta": 0.384
+  },
+  "dir": "human_study/al_v2/cases/p029_physio_gpu4",
+  "t_end": 4.46937,
+  "n_complete": 0,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": false,
+    "rom_deg": 3.327998703455451,
+    "max_slip_mm": 0.18268017081463617,
+    "min_sf": 1.480751816104706,
+    "max_cop": 0.7792982840353381,
+    "min_sf_mu02": 0.8461438949169748
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 263.557511205,
+  "clamp": 16.595890480311372
+ },
+ {
+  "id": 30,
+  "x": {
+   "design": "B",
+   "grad": "axial",
+   "fab": "mix",
+   "d": 0.821,
+   "E_hard": 503.56,
+   "E_soft": 2.818,
+   "theta": 0.215
+  },
+  "dir": "human_study/al_v2/cases/p030_physio",
+  "t_end": 3.1113,
+  "n_complete": 0,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 100.677570622,
+  "clamp": 15.609896094551042
+ },
+ {
+  "id": 31,
+  "x": {
+   "design": "B",
+   "grad": "axial",
+   "fab": "interleave",
+   "d": 1.244,
+   "E_hard": 455.97,
+   "E_soft": 4.245,
+   "theta": 0.335
+  },
+  "dir": "human_study/al_v2/cases/p031_physio_gpu5",
+  "t_end": 3.05,
+  "n_complete": 0,
+  "windows": [],
+  "C": 95.0353297952,
+  "clamp": 34.73159852605795
+ },
+ {
+  "id": 32,
+  "x": {
+   "design": "B",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 1.22,
+   "E_hard": 827.74,
+   "E_soft": 10.008,
+   "theta": 0.353
+  },
+  "dir": "human_study/al_v2/cases/p032_physio_gpu3",
+  "t_end": 3.17065,
+  "n_complete": 0,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 49.2369464633,
+  "clamp": 41.92482382849842
+ },
+ {
+  "id": 33,
+  "x": {
+   "design": "B",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 0.829,
+   "E_hard": 288.57,
+   "E_soft": 2.013,
+   "theta": 0.298
+  },
+  "dir": "human_study/al_v2/cases/p033_physio_gpu6",
+  "t_end": 3.05,
+  "n_complete": 0,
+  "windows": [],
+  "C": 25.8642412834,
+  "clamp": 8.593910863252301
+ },
+ {
+  "id": 34,
+  "x": {
+   "design": "B",
+   "grad": "both",
+   "fab": "mix",
+   "d": 0.709,
+   "E_hard": 475.04,
+   "E_soft": 5.153,
+   "theta": 0.303
+  },
+  "dir": "human_study/al_v2/cases/p034_physio_gpu2",
+  "t_end": 3.13937,
+  "n_complete": 0,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 66.1961577209,
+  "clamp": 11.959745615855741
+ },
+ {
+  "id": 35,
+  "x": {
+   "design": "B",
+   "grad": "both",
+   "fab": "interleave",
+   "d": 1.348,
+   "E_hard": 445.88,
+   "E_soft": 3.126,
+   "theta": 0.248
+  },
+  "dir": "human_study/al_v2/cases/p035_physio_gpu6",
+  "t_end": 3.05,
+  "n_complete": 0,
+  "windows": [],
+  "C": 14.084237451,
+  "clamp": 20.897868944758997
+ },
+ {
+  "id": 36,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "mix",
+   "d": 1.482,
+   "E_hard": 642.51,
+   "E_soft": 1.697,
+   "theta": 0.2
+  },
+  "dir": "human_study/al_v2/cases/p036_physio_gpu2",
+  "t_end": 4.9,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 0.44172920564990614,
+    "max_slip_mm": 0.03247456388568943,
+    "min_sf": 1.381616337495816,
+    "max_cop": 0.9066024821126639,
+    "min_sf_mu02": 0.7894950499976092
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.037211039714832875,
+    "min_sf": 1.6214236364220662,
+    "max_cop": 2.102257508722904,
+    "min_sf_mu02": 0.9265277922411809
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 230.321851163,
+  "clamp": 92.41633486186339
+ },
+ {
+  "id": 37,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "interleave",
+   "d": 0.59,
+   "E_hard": 371.76,
+   "E_soft": 7.296,
+   "theta": 0.349
+  },
+  "dir": "human_study/al_v2/cases/p037_physio_gpu1",
+  "t_end": 4.68692,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 2.7525474860405357,
+    "max_slip_mm": 0.08340309044914718,
+    "min_sf": 1.3485464654729042,
+    "max_cop": 1.0069220654802762,
+    "min_sf_mu02": 0.7705979802702311
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.03410713856729621,
+    "min_sf": 1.00918749666084,
+    "max_cop": 0.9323565744251828,
+    "min_sf_mu02": 0.5766785695204801
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 277.334818744,
+  "clamp": 12.265447063918616
+ },
+ {
+  "id": 38,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 0.962,
+   "E_hard": 720.96,
+   "E_soft": 3.771,
+   "theta": 0.25
+  },
+  "dir": "human_study/al_v2/cases/p038_physio",
+  "t_end": 4.9,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 1.2484826243129281,
+    "max_slip_mm": 0.04180674593070186,
+    "min_sf": 1.1875441695209195,
+    "max_cop": 1.0802506981245388,
+    "min_sf_mu02": 0.6785966682976683
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.030946287830637693,
+    "min_sf": 1.1534569640566539,
+    "max_cop": 2.149320005252499,
+    "min_sf_mu02": 0.6591182651752309
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 284.290264082,
+  "clamp": 36.423808583617635
+ },
+ {
+  "id": 39,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 1.102,
+   "E_hard": 293.79,
+   "E_soft": 6.961,
+   "theta": 0.399
+  },
+  "dir": "human_study/al_v2/cases/p039_physio_gpu2",
+  "t_end": 4.53489,
+  "n_complete": 0,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": false,
+    "rom_deg": 2.1437915575382545,
+    "max_slip_mm": 0.16093015273664826,
+    "min_sf": 1.411488702616163,
+    "max_cop": 0.6370911653520431,
+    "min_sf_mu02": 0.8065649729235219
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 240.740082532,
+  "clamp": 46.38425223568984
+ },
+ {
+  "id": 40,
+  "x": {
+   "design": "A",
+   "grad": "both",
+   "fab": "mix",
+   "d": 1.021,
+   "E_hard": 548.97,
+   "E_soft": 3.536,
+   "theta": 0.334
+  },
+  "dir": "human_study/al_v2/cases/p040_physio_gpu4",
+  "t_end": 4.5384,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 2.4654408077462167,
+    "max_slip_mm": 0.18128236706585799,
+    "min_sf": 1.6766428942387905,
+    "max_cop": 0.67144643957003,
+    "min_sf_mu02": 0.9580816538507376
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.026572621094272893,
+    "min_sf": 1.599066645102909,
+    "max_cop": 0.3907118781241801,
+    "min_sf_mu02": 0.9137523686302338
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 189.418385007,
+  "clamp": 36.34101260641455
+ },
+ {
+  "id": 41,
+  "x": {
+   "design": "A",
+   "grad": "both",
+   "fab": "interleave",
+   "d": 0.91,
+   "E_hard": 435.34,
+   "E_soft": 5.688,
+   "theta": 0.217
+  },
+  "dir": "human_study/al_v2/cases/p041_physio_gpu1",
+  "t_end": 4.56012,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 2.5932232367321286,
+    "max_slip_mm": 0.13976694921255,
+    "min_sf": 1.2996097200824963,
+    "max_cop": 0.7128620896513426,
+    "min_sf_mu02": 0.7426341257614265
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.01781747985800674,
+    "min_sf": 1.2020088592167797,
+    "max_cop": 0.48085611630551256,
+    "min_sf_mu02": 0.6868622052667314
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 233.24692493,
+  "clamp": 29.983708212530633
+ },
+ {
+  "id": 42,
+  "x": {
+   "design": "B",
+   "grad": "axial",
+   "fab": "mix",
+   "d": 0.532,
+   "E_hard": 840.11,
+   "E_soft": 1.821,
+   "theta": 0.384
+  },
+  "dir": "human_study/al_v2/cases/p042_physio_gpu1",
+  "t_end": 3.10591,
+  "n_complete": 0,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 44.7239741301,
+  "clamp": 6.381403195000949
+ },
+ {
+  "id": 43,
+  "x": {
+   "design": "B",
+   "grad": "axial",
+   "fab": "interleave",
+   "d": 1.391,
+   "E_hard": 252.3,
+   "E_soft": 8.837,
+   "theta": 0.267
+  },
+  "dir": "human_study/al_v2/cases/p043_physio_gpu2",
+  "t_end": 3.05,
+  "n_complete": 0,
+  "windows": [],
+  "C": 70.6319981085,
+  "clamp": 50.9431154127083
+ },
+ {
+  "id": 44,
+  "x": {
+   "design": "B",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 1.275,
+   "E_hard": 703.7,
+   "E_soft": 4.793,
+   "theta": 0.282
+  },
+  "dir": "human_study/al_v2/cases/p044_physio_gpu5",
+  "t_end": 3.05,
+  "n_complete": 0,
+  "windows": [],
+  "C": 48.6276603179,
+  "clamp": 38.536466788801455
+ },
+ {
+  "id": 45,
+  "x": {
+   "design": "B",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 0.665,
+   "E_hard": 339.62,
+   "E_soft": 2.575,
+   "theta": 0.367
+  },
+  "dir": "human_study/al_v2/cases/p045_physio_gpu3",
+  "t_end": 3.05,
+  "n_complete": 0,
+  "windows": [],
+  "C": 36.1781101347,
+  "clamp": 7.207696644973135
+ },
+ {
+  "id": 46,
+  "x": {
+   "design": "B",
+   "grad": "both",
+   "fab": "mix",
+   "d": 0.795,
+   "E_hard": 561.93,
+   "E_soft": 10.65,
+   "theta": 0.232
+  },
+  "dir": "human_study/al_v2/cases/p046_physio_gpu5",
+  "t_end": 3.2,
+  "n_complete": 0,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 74.2250678842,
+  "clamp": 18.224252676962497
+ },
+ {
+  "id": 47,
+  "x": {
+   "design": "B",
+   "grad": "both",
+   "fab": "interleave",
+   "d": 1.153,
+   "E_hard": 377.2,
+   "E_soft": 2.457,
+   "theta": 0.317
+  },
+  "dir": "human_study/al_v2/cases/p047_physio_gpu3",
+  "t_end": 3.05,
+  "n_complete": 0,
+  "windows": [],
+  "C": 20.2727825414,
+  "clamp": 14.537881274409921
+ },
+ {
+  "id": 48,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 1.5,
+   "E_hard": 814.96,
+   "E_soft": 1.674,
+   "theta": 0.388
+  },
+  "dir": "human_study/al_v2/cases/p048_physio_gpu6",
+  "t_end": 4.65,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 0.6267848367120328,
+    "max_slip_mm": 0.0668762870216126,
+    "min_sf": 1.301679888973168,
+    "max_cop": 0.8264894875482115,
+    "min_sf_mu02": 0.743817079413239
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.01719717949591868,
+    "min_sf": 1.3691549442234239,
+    "max_cop": 1.022539136407377,
+    "min_sf_mu02": 0.7823742538419565
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 149.840413978,
+  "clamp": 94.0961081194003
+ },
+ {
+  "id": 49,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "interleave",
+   "d": 1.5,
+   "E_hard": 814.96,
+   "E_soft": 1.674,
+   "theta": 0.388
+  },
+  "dir": "human_study/al_v2/cases/p049_physio",
+  "t_end": 4.72873,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 0.6994311892813941,
+    "max_slip_mm": 0.05195635335076768,
+    "min_sf": 1.3370053572691663,
+    "max_cop": 0.7077954345658886,
+    "min_sf_mu02": 0.7640030612966664
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.017984876820657254,
+    "min_sf": 1.437997640068894,
+    "max_cop": 1.4881635038029406,
+    "min_sf_mu02": 0.8217129371822252
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 227.709526651,
+  "clamp": 90.069937538526
+ },
+ {
+  "id": 50,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 1.5,
+   "E_hard": 814.96,
+   "E_soft": 1.674,
+   "theta": 0.388
+  },
+  "dir": "human_study/al_v2/cases/p050_physio_gpu1",
+  "t_end": 4.85,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 0.41650632671190785,
+    "max_slip_mm": 0.03750107457618067,
+    "min_sf": 1.3909496380204447,
+    "max_cop": 0.9275851132059795,
+    "min_sf_mu02": 0.7948283645831113
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.031678258181837664,
+    "min_sf": 1.4973563194218742,
+    "max_cop": 1.9062741580513731,
+    "min_sf_mu02": 0.8556321825267853
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 219.525048244,
+  "clamp": 95.53475945064974
+ },
+ {
+  "id": 51,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 0.5,
+   "E_hard": 328.15,
+   "E_soft": 11.864,
+   "theta": 0.383
+  },
+  "dir": "human_study/al_v2/cases/p051_physio_gpu1",
+  "t_end": 4.61108,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 3.0037400050274483,
+    "max_slip_mm": 0.12146149289762044,
+    "min_sf": 1.1477231120580875,
+    "max_cop": 1.163082389774681,
+    "min_sf_mu02": 0.6558417783189072
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.03422752498541022,
+    "min_sf": 0.9798054735881895,
+    "max_cop": 0.7125385075733537,
+    "min_sf_mu02": 0.559888842050394
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 288.912401556,
+  "clamp": 9.133201385386574
+ },
+ {
+  "id": 52,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 1.0,
+   "E_hard": 328.15,
+   "E_soft": 11.864,
+   "theta": 0.383
+  },
+  "dir": "human_study/al_v2/cases/p052_physio",
+  "t_end": 4.57404,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 2.1705315021170044,
+    "max_slip_mm": 0.1368739277545305,
+    "min_sf": 1.3460695925685358,
+    "max_cop": 0.7357617281553683,
+    "min_sf_mu02": 0.7691826243248777
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.023644371245390712,
+    "min_sf": 1.2600103851288058,
+    "max_cop": 0.519868384608407,
+    "min_sf_mu02": 0.7200059343593177
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 273.586076246,
+  "clamp": 38.14307862735162
+ },
+ {
+  "id": 53,
+  "x": {
+   "design": "A",
+   "grad": "both",
+   "fab": "interleave",
+   "d": 1.5,
+   "E_hard": 502.46,
+   "E_soft": 1.572,
+   "theta": 0.261
+  },
+  "dir": "human_study/al_v2/cases/p053_physio_gpu2",
+  "t_end": 3.05,
+  "n_complete": 0,
+  "windows": [],
+  "C": 48.3378878322,
+  "clamp": 75.82207437836345
+ },
+ {
+  "id": 55,
+  "x": {
+   "design": "A",
+   "grad": "both",
+   "fab": "interleave",
+   "d": 1.3,
+   "E_hard": 814.96,
+   "E_soft": 1.674,
+   "theta": 0.388
+  },
+  "dir": "human_study/al_v2/cases/p055_physio",
+  "t_end": 3.05,
+  "n_complete": 0,
+  "windows": [],
+  "C": 49.835929798,
+  "clamp": 58.88950665945286
+ },
+ {
+  "id": 56,
+  "x": {
+   "design": "A",
+   "grad": "both",
+   "fab": "interleave",
+   "d": 1.15,
+   "E_hard": 814.96,
+   "E_soft": 1.674,
+   "theta": 0.388
+  },
+  "dir": "human_study/al_v2/cases/p056_physio_gpu1",
+  "t_end": 4.43627,
+  "n_complete": 0,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": false,
+    "rom_deg": 2.2445420646927468,
+    "max_slip_mm": 0.11845569697297981,
+    "min_sf": 1.268052475580885,
+    "max_cop": 0.5694238803419471,
+    "min_sf_mu02": 0.7246014146176486
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 97.2871162731,
+  "clamp": 46.27145240042413
+ },
+ {
+  "id": 57,
+  "x": {
+   "design": "A",
+   "grad": "both",
+   "fab": "mix",
+   "d": 1.3,
+   "E_hard": 814.96,
+   "E_soft": 1.674,
+   "theta": 0.388
+  },
+  "dir": "human_study/al_v2/cases/p057_physio",
+  "t_end": 3.05,
+  "n_complete": 0,
+  "windows": [],
+  "C": 61.283152074,
+  "clamp": 54.43228382427284
+ },
+ {
+  "id": 58,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "mix",
+   "d": 1.5,
+   "E_hard": 814.96,
+   "E_soft": 1.674,
+   "theta": 0.388
+  },
+  "dir": "human_study/al_v2/cases/p058_physio",
+  "t_end": 3.05,
+  "n_complete": 0,
+  "windows": [],
+  "C": 62.6180357825,
+  "clamp": 75.99998643796647
+ },
+ {
+  "id": 60,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 0.65,
+   "E_hard": 328.15,
+   "E_soft": 11.864,
+   "theta": 0.383
+  },
+  "dir": "human_study/al_v2/cases/p060_physio",
+  "t_end": 4.59241,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 2.7683011781124365,
+    "max_slip_mm": 0.12559835207480827,
+    "min_sf": 1.1958907875661542,
+    "max_cop": 1.0225365466347924,
+    "min_sf_mu02": 0.6833661643235167
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.025845421589097306,
+    "min_sf": 1.0623017845530018,
+    "max_cop": 0.6193061651776237,
+    "min_sf_mu02": 0.607029591173144
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 282.635782359,
+  "clamp": 14.833963286934942
+ },
+ {
+  "id": 61,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 0.8,
+   "E_hard": 328.15,
+   "E_soft": 11.864,
+   "theta": 0.383
+  },
+  "dir": "human_study/al_v2/cases/p061_physio_gpu6",
+  "t_end": 4.58637,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 2.5136916131766376,
+    "max_slip_mm": 0.12868794209489154,
+    "min_sf": 1.2459891097470668,
+    "max_cop": 0.8917387281095198,
+    "min_sf_mu02": 0.711993776998324
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.02289296703181306,
+    "min_sf": 1.142128269231731,
+    "max_cop": 0.5577461938938302,
+    "min_sf_mu02": 0.6526447252752748
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 278.829206935,
+  "clamp": 23.153900143398275
+ },
+ {
+  "id": 62,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "mix",
+   "d": 0.5,
+   "E_hard": 649.53,
+   "E_soft": 8.194,
+   "theta": 0.219
+  },
+  "dir": "human_study/al_v2/cases/p062_physio",
+  "t_end": 7.03542,
+  "n_complete": 3,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 1.6992465136484376,
+    "max_slip_mm": 0.03354389700513075,
+    "min_sf": 0.9641311155837752,
+    "max_cop": 1.8625871616755245,
+    "min_sf_mu02": 0.5509320660478716
+   },
+   {
+    "name": "extension",
+    "complete": true,
+    "rom_deg": -2.1181910161338493,
+    "max_slip_mm": 0.03672889503768699,
+    "min_sf": 0.7087596205427854,
+    "max_cop": 3.0961183896447024,
+    "min_sf_mu02": 0.4050054974530203
+   },
+   {
+    "name": "LB_right",
+    "complete": true,
+    "rom_deg": 1.2130636738144116,
+    "max_slip_mm": 0.013772427005610119,
+    "min_sf": 0.6647126683342116,
+    "max_cop": 1.7377974388978261,
+    "min_sf_mu02": 0.3798358104766924
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.005328312354016214,
+    "min_sf": 0.7212390650946174,
+    "max_cop": 2.2893331484681556,
+    "min_sf_mu02": 0.4121366086254957
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 321.926766473,
+  "clamp": 9.222108032670786
+ },
+ {
+  "id": 63,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "mix",
+   "d": 0.65,
+   "E_hard": 649.53,
+   "E_soft": 8.194,
+   "theta": 0.219
+  },
+  "dir": "human_study/al_v2/cases/p063_physio_gpu3",
+  "t_end": 6.99635,
+  "n_complete": 3,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 1.5640188141755094,
+    "max_slip_mm": 0.03453095819918818,
+    "min_sf": 1.0258358957733713,
+    "max_cop": 1.544101636754214,
+    "min_sf_mu02": 0.5861919404419266
+   },
+   {
+    "name": "extension",
+    "complete": true,
+    "rom_deg": -2.246280132783071,
+    "max_slip_mm": 0.03821835334820778,
+    "min_sf": 0.7393563957462165,
+    "max_cop": 3.1206172225407123,
+    "min_sf_mu02": 0.42248936899783807
+   },
+   {
+    "name": "LB_right",
+    "complete": true,
+    "rom_deg": 1.1440299756440955,
+    "max_slip_mm": 0.01428640752204237,
+    "min_sf": 0.6855490844993893,
+    "max_cop": 1.585955764699532,
+    "min_sf_mu02": 0.3917423339996511
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.005535565546125747,
+    "min_sf": 0.7846642769707147,
+    "max_cop": 1.968328671539246,
+    "min_sf_mu02": 0.44837958684040846
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 317.49296073,
+  "clamp": 15.331021481162777
+ },
+ {
+  "id": 66,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "mix",
+   "d": 1.3,
+   "E_hard": 649.53,
+   "E_soft": 8.194,
+   "theta": 0.219
+  },
+  "dir": "human_study/al_v2/cases/p066_physio",
+  "t_end": 4.95,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 0.737700460631587,
+    "max_slip_mm": 0.03479232373667454,
+    "min_sf": 1.327047178066199,
+    "max_cop": 0.7573292035515248,
+    "min_sf_mu02": 0.7583126731806853
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.038679607129050914,
+    "min_sf": 1.4864023698023432,
+    "max_cop": 2.380433993118003,
+    "min_sf_mu02": 0.8493727827441961
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 300.995306889,
+  "clamp": 68.63524492162928
+ },
+ {
+  "id": 67,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "mix",
+   "d": 1.15,
+   "E_hard": 649.53,
+   "E_soft": 8.194,
+   "theta": 0.219
+  },
+  "dir": "human_study/al_v2/cases/p067_physio",
+  "t_end": 4.95,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 0.9640379133721565,
+    "max_slip_mm": 0.035436356792752616,
+    "min_sf": 1.3141129468445885,
+    "max_cop": 0.837073459619623,
+    "min_sf_mu02": 0.7509216839111935
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.0360288282556181,
+    "min_sf": 1.3712280479759764,
+    "max_cop": 2.407041756283031,
+    "min_sf_mu02": 0.7835588845577008
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 303.795602317,
+  "clamp": 53.54025254879398
+ },
+ {
+  "id": 68,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 1.5,
+   "E_hard": 814.96,
+   "E_soft": 1.674,
+   "theta": 0.388
+  },
+  "dir": "human_study/al_v2/cases/p068_physio_gpu6",
+  "t_end": 4.85,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 0.41650632671190785,
+    "max_slip_mm": 0.037501074576163404,
+    "min_sf": 1.3909496379618305,
+    "max_cop": 0.9275851132059816,
+    "min_sf_mu02": 0.7948283645496175
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.031678258181828414,
+    "min_sf": 1.4973563194502575,
+    "max_cop": 1.9062741581109668,
+    "min_sf_mu02": 0.8556321825430044
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 219.525048243,
+  "clamp": 95.53475945064974
+ },
+ {
+  "id": 69,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "interleave",
+   "d": 1.35,
+   "E_hard": 480.98,
+   "E_soft": 10.61,
+   "theta": 0.34
+  },
+  "dir": "human_study/al_v2/cases/p069_physio_gpu2",
+  "t_end": 4.75521,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 1.0937063681988881,
+    "max_slip_mm": 0.07884959440175981,
+    "min_sf": 1.398518640426979,
+    "max_cop": 0.5929650880834436,
+    "min_sf_mu02": 0.7991535088154166
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.029525746024055347,
+    "min_sf": 1.5060506059173735,
+    "max_cop": 1.3183457839041641,
+    "min_sf_mu02": 0.8606003462384992
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 261.485993879,
+  "clamp": 70.5909804517352
+ },
+ {
+  "id": 72,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 0.65,
+   "E_hard": 328.15,
+   "E_soft": 11.864,
+   "theta": 0.383
+  },
+  "dir": "human_study/al_v2/cases/p072_physio_gpu6",
+  "t_end": 4.59241,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 2.7683011781124365,
+    "max_slip_mm": 0.12559835207481743,
+    "min_sf": 1.195890787567477,
+    "max_cop": 1.0225365466347924,
+    "min_sf_mu02": 0.6833661643242726
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.02584542159226441,
+    "min_sf": 1.0623017845503824,
+    "max_cop": 0.6193061651783502,
+    "min_sf_mu02": 0.6070295911716471
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 282.63578236,
+  "clamp": 14.833963286934942
+ },
+ {
+  "id": 73,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "interleave",
+   "d": 1.0,
+   "E_hard": 376.75,
+   "E_soft": 11.142,
+   "theta": 0.266
+  },
+  "dir": "human_study/al_v2/cases/p073_physio",
+  "t_end": 4.72701,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 2.043762012837443,
+    "max_slip_mm": 0.10209706198158168,
+    "min_sf": 1.3261379796000086,
+    "max_cop": 0.7249748654110946,
+    "min_sf_mu02": 0.757793131200005
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.04526119484383636,
+    "min_sf": 1.2690486002154657,
+    "max_cop": 1.0775449494468963,
+    "min_sf_mu02": 0.725170628694552
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 294.028798528,
+  "clamp": 37.327105277550835
+ },
+ {
+  "id": 74,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 1.3,
+   "E_hard": 814.96,
+   "E_soft": 1.674,
+   "theta": 0.388
+  },
+  "dir": "human_study/al_v2/cases/p074_physio",
+  "t_end": 4.9,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 0.7257774330789223,
+    "max_slip_mm": 0.03820237145913842,
+    "min_sf": 1.3753680708127556,
+    "max_cop": 0.7657384973168275,
+    "min_sf_mu02": 0.7859246118930032
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.032624117609913635,
+    "min_sf": 1.3753680708127556,
+    "max_cop": 2.1449555967814873,
+    "min_sf_mu02": 0.7859246118930032
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 222.845544015,
+  "clamp": 69.16594395907512
+ },
+ {
+  "id": 75,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 0.5,
+   "E_hard": 328.15,
+   "E_soft": 11.864,
+   "theta": 0.383
+  },
+  "dir": "human_study/al_v2/cases/p075_physio_gpu5",
+  "t_end": 4.60234,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 3.003739675181375,
+    "max_slip_mm": 0.12146148374416006,
+    "min_sf": 1.147723820066147,
+    "max_cop": 1.1630830909493108,
+    "min_sf_mu02": 0.6558421828949412
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.03033838288625747,
+    "min_sf": 0.9950964916946528,
+    "max_cop": 0.6801553130898279,
+    "min_sf_mu02": 0.5686265666826588
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 288.912426664,
+  "clamp": 9.133198631110398
+ },
+ {
+  "id": 78,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 0.95,
+   "E_hard": 814.96,
+   "E_soft": 1.674,
+   "theta": 0.388
+  },
+  "dir": "human_study/al_v2/cases/p078_physio_gpu3",
+  "t_end": 4.95,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 1.1981782766491982,
+    "max_slip_mm": 0.03764140142538004,
+    "min_sf": 1.169737862537167,
+    "max_cop": 1.126512674669804,
+    "min_sf_mu02": 0.6684216357355242
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.03183960961104747,
+    "min_sf": 1.139565063362132,
+    "max_cop": 2.4829118761167406,
+    "min_sf_mu02": 0.6511800362069325
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 230.786128695,
+  "clamp": 35.37658110652333
+ },
+ {
+  "id": 79,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 0.75,
+   "E_hard": 876.2,
+   "E_soft": 2.54,
+   "theta": 0.345
+  },
+  "dir": "human_study/al_v2/cases/p079_physio_gpu6",
+  "t_end": 5.01158,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 1.365913333032102,
+    "max_slip_mm": 0.033724992028200645,
+    "min_sf": 1.045971795077618,
+    "max_cop": 1.4395209096218808,
+    "min_sf_mu02": 0.5976981686157817
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.03468248528569573,
+    "min_sf": 1.0082069720591975,
+    "max_cop": 3.1316114859661903,
+    "min_sf_mu02": 0.5761182697481129
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 246.423842502,
+  "clamp": 20.63552041470962
+ },
+ {
+  "id": 80,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "interleave",
+   "d": 1.35,
+   "E_hard": 680.88,
+   "E_soft": 1.721,
+   "theta": 0.309
+  },
+  "dir": "human_study/al_v2/cases/p080_physio",
+  "t_end": 4.60783,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 1.1461182539307482,
+    "max_slip_mm": 0.07602668694522574,
+    "min_sf": 1.317675995814473,
+    "max_cop": 0.5424571218730756,
+    "min_sf_mu02": 0.7529577118939847
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.016183974432408765,
+    "min_sf": 1.5021206260104258,
+    "max_cop": 0.7522299051396231,
+    "min_sf_mu02": 0.858354643434529
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 231.779258587,
+  "clamp": 66.81686201744341
+ },
+ {
+  "id": 81,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "mix",
+   "d": 0.5,
+   "E_hard": 777.1,
+   "E_soft": 4.12,
+   "theta": 0.281
+  },
+  "dir": "human_study/al_v2/cases/p081_physio_gpu2",
+  "t_end": 4.99029,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 1.6842066630872867,
+    "max_slip_mm": 0.03534264484976463,
+    "min_sf": 0.9428841388625913,
+    "max_cop": 1.8670682807104408,
+    "min_sf_mu02": 0.5387909364929094
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.03581800070987808,
+    "min_sf": 0.8933494352726925,
+    "max_cop": 3.002750431072097,
+    "min_sf_mu02": 0.5104853915843958
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 311.498910148,
+  "clamp": 9.673153373763558
+ },
+ {
+  "id": 82,
+  "x": {
+   "design": "A",
+   "grad": "radial",
+   "fab": "interleave",
+   "d": 1.2,
+   "E_hard": 888.53,
+   "E_soft": 7.38,
+   "theta": 0.373
+  },
+  "dir": "human_study/al_v2/cases/p082_physio_gpu4",
+  "t_end": 4.75,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 1.0844484941607737,
+    "max_slip_mm": 0.05971548889685569,
+    "min_sf": 1.2569953233927085,
+    "max_cop": 0.7360125103690046,
+    "min_sf_mu02": 0.7182830419386907
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.024522366695808033,
+    "min_sf": 1.222835092063512,
+    "max_cop": 1.308284101033334,
+    "min_sf_mu02": 0.6987629097505784
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 218.106587391,
+  "clamp": 58.54447274292473
+ },
+ {
+  "id": 85,
+  "x": {
+   "design": "A",
+   "grad": "axial",
+   "fab": "interleave",
+   "d": 1.0,
+   "E_hard": 888.53,
+   "E_soft": 7.38,
+   "theta": 0.373
+  },
+  "dir": "human_study/al_v2/cases/p085_physio_gpu1",
+  "t_end": 4.82568,
+  "n_complete": 1,
+  "windows": [
+   {
+    "name": "flexion",
+    "complete": true,
+    "rom_deg": 1.7847465921404957,
+    "max_slip_mm": 0.07191842233378373,
+    "min_sf": 1.3416203827635165,
+    "max_cop": 0.783698099330132,
+    "min_sf_mu02": 0.7666402187220095
+   },
+   {
+    "name": "extension",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": 0.048198711926885636,
+    "min_sf": 1.130497045478166,
+    "max_cop": 1.6994978241860959,
+    "min_sf_mu02": 0.6459983117018092
+   },
+   {
+    "name": "LB_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "LB_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_left",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   },
+   {
+    "name": "AR_right",
+    "complete": false,
+    "rom_deg": null,
+    "max_slip_mm": null,
+    "min_sf": null,
+    "max_cop": null,
+    "min_sf_mu02": null
+   }
+  ],
+  "C": 265.194763399,
+  "clamp": 37.88055555653566
+ }
+]

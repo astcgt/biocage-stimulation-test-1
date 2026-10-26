@@ -1,0 +1,194 @@
+{
+ "test": "physio",
+ "d": 1.22,
+ "completed_time": 3.12857631,
+ "distraction_force_N": 59.2075811827,
+ "clamp_after_release_N": 41.92482382849842,
+ "retained_distraction_mm": 1.03766004377,
+ "contact_layer_crush_after_release": 0.0,
+ "friction_demand": [
+  {
+   "t": 3.0,
+   "bot_excess_shear_N": -10.214372889299073,
+   "bot_slip_area_frac": 0.18411552368542927,
+   "bot_tension_area_frac": 0.0,
+   "bot_safety_factor": 3.7746785318586435,
+   "bot_normal_N": 39.701869829438365,
+   "bot_shear_N": 3.681281551004355,
+   "bot_cop_eccentricity": 0.058162603787036464,
+   "top_excess_shear_N": -8.70148945021596,
+   "top_slip_area_frac": 0.20577617355407182,
+   "top_tension_area_frac": 0.0,
+   "top_safety_factor": 2.691195281614926,
+   "top_normal_N": 39.56188789924436,
+   "top_shear_N": 5.145171314519567,
+   "top_cop_eccentricity": 0.06573413867678793
+  },
+  {
+   "t": 3.049999952316284,
+   "bot_excess_shear_N": -4.822828101714758,
+   "bot_slip_area_frac": 0.5252707575030684,
+   "bot_tension_area_frac": 0.2996389888626215,
+   "bot_safety_factor": 2.420895160475848,
+   "bot_normal_N": 23.47727492201488,
+   "bot_shear_N": 3.394218120990451,
+   "bot_cop_eccentricity": 0.9366151838419655,
+   "top_excess_shear_N": -0.9422605393839483,
+   "top_slip_area_frac": 0.6245487366580252,
+   "top_tension_area_frac": 0.35740072209068713,
+   "top_safety_factor": 1.1226992204808366,
+   "top_normal_N": 24.6334123607442,
+   "top_shear_N": 7.679433786876521,
+   "top_cop_eccentricity": 1.3142099388027808
+  },
+  {
+   "t": 3.0880980491638184,
+   "bot_excess_shear_N": -7.137311120856125,
+   "bot_slip_area_frac": 0.45126353727211066,
+   "bot_tension_area_frac": 0.19494584827221711,
+   "bot_safety_factor": 3.5664648301669857,
+   "bot_normal_N": 28.33800107924761,
+   "bot_shear_N": 2.780989256880539,
+   "bot_cop_eccentricity": 0.6238284047736808,
+   "top_excess_shear_N": -1.4806289380409012,
+   "top_slip_area_frac": 0.5920577621518601,
+   "top_tension_area_frac": 0.25992779731025883,
+   "top_safety_factor": 1.1710314271305025,
+   "top_normal_N": 28.964819046999132,
+   "top_shear_N": 8.657057728408795,
+   "top_cop_eccentricity": 0.8690824214804941
+  },
+  {
+   "t": 3.1285762786865234,
+   "bot_excess_shear_N": -10.23629112828323,
+   "bot_slip_area_frac": 0.22021660690565067,
+   "bot_tension_area_frac": 0.0,
+   "bot_safety_factor": 5.7830950875642,
+   "bot_normal_N": 35.361111136571715,
+   "bot_shear_N": 2.140097769516868,
+   "bot_cop_eccentricity": 0.44054122772952864,
+   "top_excess_shear_N": -2.3845814923006703,
+   "top_slip_area_frac": 0.5776173288979783,
+   "top_tension_area_frac": 0.1119133592949164,
+   "top_safety_factor": 1.2458220483094147,
+   "top_normal_N": 34.52862658205105,
+   "top_shear_N": 9.700437811417196,
+   "top_cop_eccentricity": 0.62045742729995
+  }
+ ],
+ "friction_demand_after_release": {
+  "bot_excess_shear_N": -10.214372889299073,
+  "bot_slip_area_frac": 0.18411552368542927,
+  "bot_tension_area_frac": 0.0,
+  "bot_safety_factor": 3.7746785318586435,
+  "bot_normal_N": 39.701869829438365,
+  "bot_shear_N": 3.681281551004355,
+  "bot_cop_eccentricity": 0.058162603787036464,
+  "top_excess_shear_N": -8.70148945021596,
+  "top_slip_area_frac": 0.20577617355407182,
+  "top_tension_area_frac": 0.0,
+  "top_safety_factor": 2.691195281614926,
+  "top_normal_N": 39.56188789924436,
+  "top_shear_N": 5.145171314519567,
+  "top_cop_eccentricity": 0.06573413867678793
+ },
+ "min_safety_factor": 1.1226992204808366,
+ "t_min_safety_factor": 3.049999952316284,
+ "max_slip_area_frac": 0.6245487366580252,
+ "mu_used": 0.35,
+ "max_cop_eccentricity": 1.3142099388027808,
+ "max_tension_area_frac": 0.35740072209068713,
+ "max_excess_shear_N": -0.9422605393839483,
+ "slip_time_frac": 0.0,
+ "slip_after_insertion_mm": 0.0014606757076073094,
+ "slip_history": [
+  [
+   3.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0
+  ],
+  [
+   3.05,
+   0.02193,
+   -0.0001,
+   0.04472,
+   0.02193
+  ],
+  [
+   3.0881,
+   0.0273,
+   -9e-05,
+   0.02754,
+   0.0273
+  ],
+  [
+   3.12858,
+   0.03238,
+   -8e-05,
+   0.01043,
+   0.03238
+  ]
+ ],
+ "physio_windows": [
+  {
+   "name": "flexion",
+   "complete": false,
+   "rom_deg": null,
+   "max_slip_mm": null,
+   "min_sf": null,
+   "max_cop": null
+  },
+  {
+   "name": "extension",
+   "complete": false,
+   "rom_deg": null,
+   "max_slip_mm": null,
+   "min_sf": null,
+   "max_cop": null
+  },
+  {
+   "name": "LB_right",
+   "complete": false,
+   "rom_deg": null,
+   "max_slip_mm": null,
+   "min_sf": null,
+   "max_cop": null
+  },
+  {
+   "name": "LB_left",
+   "complete": false,
+   "rom_deg": null,
+   "max_slip_mm": null,
+   "min_sf": null,
+   "max_cop": null
+  },
+  {
+   "name": "AR_left",
+   "complete": false,
+   "rom_deg": null,
+   "max_slip_mm": null,
+   "min_sf": null,
+   "max_cop": null
+  },
+  {
+   "name": "AR_right",
+   "complete": false,
+   "rom_deg": null,
+   "max_slip_mm": null,
+   "min_sf": null,
+   "max_cop": null
+  }
+ ],
+ "max_slip_mm": 0.03237889999281559,
+ "functional_failure_slip": {
+  "type": "solver stopped before the protocol finished (Q40)",
+  "time": 3.1285762786865234,
+  "phase": "follower load",
+  "slip_at_stop_mm": 0.03237889999281559,
+  "contact_layer_crush_frac": 0.0,
+  "min_principal_stretch": 0.7384746670722961,
+  "where": "cage_mix_0.0"
+ }
+}

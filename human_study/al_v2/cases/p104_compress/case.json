@@ -1,0 +1,107 @@
+{
+ "params": {
+  "fsu": "human_study/fsu/C34_fsu_refined.feb",
+  "fsu_info": "human_study/fsu/C34_fsu_refined.json",
+  "frame": "human_study/frame_c3c4.json",
+  "cage_npz": "human_study/al/meshes/cage_A_radial_mix_d0.950.npz",
+  "test": "compress",
+  "d": 0.95,
+  "E_hard": 466.46,
+  "E_soft": 1.924,
+  "sig_hard": 15.0,
+  "sig_soft": 3.0,
+  "theta": 0.365,
+  "mu": 0.0,
+  "compress_mm": 3.0,
+  "iso_max_level": 3.0,
+  "iso_cycles": 1,
+  "contact_mode": "global",
+  "penalty": 10.0,
+  "mu_ramp": 0.3,
+  "cage_mat": "gent",
+  "nu_soft": 0.45,
+  "contact_type": "tied",
+  "insert_mode": "expand",
+  "shrink": 0.8,
+  "biodisc": false,
+  "release_dtmax": 0.1,
+  "annulus_remnant": false,
+  "insert_dt": 0.01,
+  "mu_true": 0.35
+ },
+ "cage": {
+  "H_mm": 0.2,
+  "HZ_mm": 0.2,
+  "footprint_area_mm2": 92.83,
+  "window_area_mm2": 55.39,
+  "window_frac": 0.597,
+  "gaplib": null,
+  "n_perimeters": 3,
+  "wall_mm": 1.2,
+  "design": "A",
+  "d_mm": 0.95,
+  "gradient": "radial",
+  "fabrication": "mix",
+  "K_layers": 25,
+  "n_nodes": 62842,
+  "n_hex": 57775,
+  "n_cage": 23375,
+  "n_biodisc": 34400,
+  "height_mm_min_mean_max": [
+   3.9,
+   5.055,
+   6.267
+  ],
+  "cage_volume_mm3": 189.0,
+  "phi_hist": {
+   "0.0": 7150,
+   "0.25": 0,
+   "0.5": 7875,
+   "0.75": 0,
+   "1.0": 8350
+  },
+  "interleave_hard_frac": 0.532
+ },
+ "materials": {
+  "29": {
+   "group": [
+    "mix",
+    "0.0"
+   ],
+   "E": 1.924,
+   "nu": 0.45,
+   "strength": 3.0,
+   "phi": 0.0,
+   "n_elem": 7150
+  },
+  "30": {
+   "group": [
+    "mix",
+    "0.5"
+   ],
+   "E": 463.47422062185564,
+   "nu": 0.4,
+   "strength": 9.0,
+   "phi": 0.5,
+   "n_elem": 7875
+  },
+  "31": {
+   "group": [
+    "mix",
+    "1.0"
+   ],
+   "E": 466.46,
+   "nu": 0.35,
+   "strength": 15.0,
+   "phi": 1.0,
+   "n_elem": 8350
+  }
+ },
+ "removed_disc_elements": 1789,
+ "orphans": 35050,
+ "cage_node_id_offset": 27751,
+ "release_hold_nodes": [
+  28057,
+  29953
+ ]
+}

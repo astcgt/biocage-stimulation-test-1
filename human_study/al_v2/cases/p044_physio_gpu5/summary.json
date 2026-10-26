@@ -1,0 +1,60 @@
+{
+ "test": "physio",
+ "d": 1.275,
+ "completed_time": 3.0,
+ "distraction_force_N": 65.3430164544,
+ "clamp_after_release_N": 38.536466788801455,
+ "retained_distraction_mm": 0.999350137452,
+ "contact_layer_crush_after_release": 0.0,
+ "friction_demand": [
+  {
+   "t": 3.0,
+   "bot_excess_shear_N": -8.94036613572399,
+   "bot_slip_area_frac": 0.1913357403290344,
+   "bot_tension_area_frac": 0.0,
+   "bot_safety_factor": 3.6143874781413854,
+   "bot_normal_N": 35.31441486896593,
+   "bot_shear_N": 3.4196790684140876,
+   "bot_cop_eccentricity": 0.03721616040384604,
+   "top_excess_shear_N": -7.721212162720028,
+   "top_slip_area_frac": 0.19855595755759992,
+   "top_tension_area_frac": 0.0,
+   "top_safety_factor": 2.67221989287497,
+   "top_normal_N": 35.25301363302621,
+   "top_shear_N": 4.617342608839144,
+   "top_cop_eccentricity": 0.045032417010994884
+  }
+ ],
+ "friction_demand_after_release": {
+  "bot_excess_shear_N": -8.94036613572399,
+  "bot_slip_area_frac": 0.1913357403290344,
+  "bot_tension_area_frac": 0.0,
+  "bot_safety_factor": 3.6143874781413854,
+  "bot_normal_N": 35.31441486896593,
+  "bot_shear_N": 3.4196790684140876,
+  "bot_cop_eccentricity": 0.03721616040384604,
+  "top_excess_shear_N": -7.721212162720028,
+  "top_slip_area_frac": 0.19855595755759992,
+  "top_tension_area_frac": 0.0,
+  "top_safety_factor": 2.67221989287497,
+  "top_normal_N": 35.25301363302621,
+  "top_shear_N": 4.617342608839144,
+  "top_cop_eccentricity": 0.045032417010994884
+ },
+ "min_safety_factor": 2.67221989287497,
+ "t_min_safety_factor": 3.0,
+ "max_slip_area_frac": 0.19855595755759992,
+ "mu_used": 0.35,
+ "max_cop_eccentricity": 0.045032417010994884,
+ "max_tension_area_frac": 0.0,
+ "max_excess_shear_N": -7.721212162720028,
+ "functional_failure_slip": {
+  "type": "solver stopped before the protocol finished (Q40)",
+  "time": 3.0,
+  "phase": "follower load",
+  "slip_at_stop_mm": null,
+  "contact_layer_crush_frac": 0.0,
+  "min_principal_stretch": 0.7354491353034973,
+  "where": "cage_mix_0.0"
+ }
+}

@@ -1,6 +1,6 @@
 {
  "note": "weights = rough share of total effort/compute; done_frac updated as steps progress",
- "project_eta": "AL 16/150 points (10-22 02:55); insertion overlap found -> expand insertion + FEBio patch 5 under test; if adopted, finished points are re-run",
+ "project_eta": "ISO AL v2 finished 10-25 (148 done, 2 invalid). PI 10-25: AL re-run with the physio test -> starts after the left-LB stall test (al_v2/lb_test) and the objective choice; physio AL 0/150 not yet counted in step 5",
  "steps": [
   {
    "name": "1 validate Herron C0-C7",
@@ -25,7 +25,7 @@
   {
    "name": "5 active-learning runs (<=150 pts x 2 tests)",
    "weight": 50,
-   "done_frac": 0.107
+   "done_frac": 0.987
   },
   {
    "name": "6 59/64 y.o. checks, figures, report",

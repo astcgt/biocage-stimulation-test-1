@@ -1,0 +1,60 @@
+{
+ "test": "physio",
+ "d": 1.3,
+ "completed_time": 3.0,
+ "distraction_force_N": 68.3222475548,
+ "clamp_after_release_N": 54.43228382427284,
+ "retained_distraction_mm": 1.15305430162,
+ "contact_layer_crush_after_release": 0.0,
+ "friction_demand": [
+  {
+   "t": 3.0,
+   "bot_excess_shear_N": -13.211567538945019,
+   "bot_slip_area_frac": 0.3496074225472914,
+   "bot_tension_area_frac": 0.0,
+   "bot_safety_factor": 3.8760235891304604,
+   "bot_normal_N": 50.872171090545336,
+   "bot_shear_N": 4.593692342745846,
+   "bot_cop_eccentricity": 0.142238708508986,
+   "top_excess_shear_N": -16.806567097058412,
+   "top_slip_area_frac": 0.15240755636021622,
+   "top_tension_area_frac": 0.0,
+   "top_safety_factor": 14.691973653211683,
+   "top_normal_N": 51.525837012234206,
+   "top_shear_N": 1.2274758572235602,
+   "top_cop_eccentricity": 0.11541947460309059
+  }
+ ],
+ "friction_demand_after_release": {
+  "bot_excess_shear_N": -13.211567538945019,
+  "bot_slip_area_frac": 0.3496074225472914,
+  "bot_tension_area_frac": 0.0,
+  "bot_safety_factor": 3.8760235891304604,
+  "bot_normal_N": 50.872171090545336,
+  "bot_shear_N": 4.593692342745846,
+  "bot_cop_eccentricity": 0.142238708508986,
+  "top_excess_shear_N": -16.806567097058412,
+  "top_slip_area_frac": 0.15240755636021622,
+  "top_tension_area_frac": 0.0,
+  "top_safety_factor": 14.691973653211683,
+  "top_normal_N": 51.525837012234206,
+  "top_shear_N": 1.2274758572235602,
+  "top_cop_eccentricity": 0.11541947460309059
+ },
+ "min_safety_factor": 3.8760235891304604,
+ "t_min_safety_factor": 3.0,
+ "max_slip_area_frac": 0.3496074225472914,
+ "mu_used": 0.35,
+ "max_cop_eccentricity": 0.142238708508986,
+ "max_tension_area_frac": 0.0,
+ "max_excess_shear_N": -13.211567538945019,
+ "functional_failure_slip": {
+  "type": "solver stopped before the protocol finished (Q40)",
+  "time": 3.0,
+  "phase": "follower load",
+  "slip_at_stop_mm": null,
+  "contact_layer_crush_frac": 0.0,
+  "min_principal_stretch": 0.644133985042572,
+  "where": "cage_mix_0.25"
+ }
+}

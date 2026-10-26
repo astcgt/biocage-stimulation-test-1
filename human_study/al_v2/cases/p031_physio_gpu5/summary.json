@@ -1,0 +1,60 @@
+{
+ "test": "physio",
+ "d": 1.244,
+ "completed_time": 3.0,
+ "distraction_force_N": 61.8140328309,
+ "clamp_after_release_N": 34.73159852605795,
+ "retained_distraction_mm": 0.955099172961,
+ "contact_layer_crush_after_release": 0.0,
+ "friction_demand": [
+  {
+   "t": 3.0,
+   "bot_excess_shear_N": -7.945799937382956,
+   "bot_slip_area_frac": 0.05415162446269032,
+   "bot_tension_area_frac": 0.0,
+   "bot_safety_factor": 3.4477625040364055,
+   "bot_normal_N": 31.976994784313703,
+   "bot_shear_N": 3.2461482371268393,
+   "bot_cop_eccentricity": 0.0033422890528468393,
+   "top_excess_shear_N": -7.380462505822325,
+   "top_slip_area_frac": 0.03610108250423522,
+   "top_tension_area_frac": 0.0,
+   "top_safety_factor": 2.9355626862865374,
+   "top_normal_N": 31.981560553249132,
+   "top_shear_N": 3.8130836878148697,
+   "top_cop_eccentricity": 0.01970603888718321
+  }
+ ],
+ "friction_demand_after_release": {
+  "bot_excess_shear_N": -7.945799937382956,
+  "bot_slip_area_frac": 0.05415162446269032,
+  "bot_tension_area_frac": 0.0,
+  "bot_safety_factor": 3.4477625040364055,
+  "bot_normal_N": 31.976994784313703,
+  "bot_shear_N": 3.2461482371268393,
+  "bot_cop_eccentricity": 0.0033422890528468393,
+  "top_excess_shear_N": -7.380462505822325,
+  "top_slip_area_frac": 0.03610108250423522,
+  "top_tension_area_frac": 0.0,
+  "top_safety_factor": 2.9355626862865374,
+  "top_normal_N": 31.981560553249132,
+  "top_shear_N": 3.8130836878148697,
+  "top_cop_eccentricity": 0.01970603888718321
+ },
+ "min_safety_factor": 2.9355626862865374,
+ "t_min_safety_factor": 3.0,
+ "max_slip_area_frac": 0.05415162446269032,
+ "mu_used": 0.35,
+ "max_cop_eccentricity": 0.01970603888718321,
+ "max_tension_area_frac": 0.0,
+ "max_excess_shear_N": -7.380462505822325,
+ "functional_failure_slip": {
+  "type": "solver stopped before the protocol finished (Q40)",
+  "time": 3.0,
+  "phase": "follower load",
+  "slip_at_stop_mm": null,
+  "contact_layer_crush_frac": 0.0,
+  "min_principal_stretch": 0.7532552480697632,
+  "where": "cage_soft_0.0"
+ }
+}

@@ -1,0 +1,15 @@
+{
+ "id": "F-0004",
+ "round": 1,
+ "target": "gpufe_verify/VERIFICATION.md gates 1 / 1b / 1c vs the production solver scripts/7_evo/gpufe/newton.py",
+ "severity": "major",
+ "claim": "All recorded gate passes were obtained with the dynamic-relaxation solver (solver.Solver), which the digest calls 'superseded for large models'. The production solver the PI accepted (GPU Newton with fixed approximate friction tangent) has no recorded pass. In its first real use (gate 2) it hit the iteration limit in every load step (converged = False) and the run simply continued. Its line search also accepts steps that raise the residual about 10^4-fold.",
+ "evidence": "gate1_patch.py:98, gate1b_equilibrium.py:56, gate1c_friction.py:62 all instantiate slv.Solver (solver.py, dynamic relaxation); gate1b_report.json:2 title 'GPU dynamic relaxation vs FEBio Newton'; the *_newton folders in gate1b/ (neo_hex_bend_newton, gent_newton, ortho_tet_bend_newton) are not in gate1b_report.json. DECISIONS.md:726 + board/r0001/digest.md:7-10: production = newton.py. gpufe_verify/gate2/diag.log:63,124,185 '[step] ... iters 60 conv False' for t 0.1, 0.2, 0.3 and the next step starts anyway; flex_pos_y_gpu.json 'converged': false x3. newton.py:197-217 returns converged = False without raising or cutting the step. newton.py:205 'if gnew < gn or a < 0.02: break' accepts the last trial even when it is worse: diag.log:9-10 a 0.016 -> |g| 2.0e-4 -> 3.6e+0. (Note: the near-zero rotation at t <= 0.3 is correct, the moment curve LC1 starts at t 1 in human_study/fsu/runs_refined/flex_pos_y/fsu.feb; GPU vs FEBio rotation rate agree within ~8 %, roles/redteam/r0001_gate2.py - not a finding.)",
+ "how_to_reproduce": "grep -n 'slv.Solver\\|NewtonSolver' scripts/7_evo/gpufe/gate*.py; grep -n 'conv False' human_study/evo/gpufe_verify/gate2/diag.log; python -I human_study/evo/roles/redteam/r0001_gate2.py",
+ "fix_options": [
+  {"option": "Re-run gates 1b and 1c (and the new stick-memory gate of F-0003) with NewtonSolver and record the solver class + options + git / file hashes in every gate report; VERIFICATION.md states which solver passed which gate", "cost": "~1 h compute + edits", "risk": "low"},
+  {"option": "Hard rule in the driver: an unconverged increment is cut (halve dt, as FEBio max_retries) or the run fails; never continue silently; line search must not accept a residual increase (fall back to a refactorisation / smaller step)", "cost": "~2 h", "risk": "low"},
+  {"option": "Fix the tangent (pressure follower, facet, tie terms) before gate 2 so convergence is quadratic; then compare iteration counts to FEBio", "cost": "1-2 days", "risk": "medium"}
+ ],
+ "summary_zh": "目前所有「通過」的 GPU 驗證關卡，用的都是舊的動態鬆弛求解器。主持人已核准實際要用的是 GPU 牛頓法求解器，但它還沒有任何通過驗證的紀錄。它第一次正式使用（第 2 關，完整脊椎節段）時，每一個負荷步都跑滿 60 次迭代仍未收斂，程式卻照樣繼續往下算。它的步長搜尋也會接受讓誤差變大約一萬倍的步驟。建議：用牛頓法求解器重跑所有關卡；未收斂時必須縮小步長或停止，不能默默繼續。"
+}

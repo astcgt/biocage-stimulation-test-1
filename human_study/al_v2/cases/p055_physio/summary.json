@@ -1,0 +1,60 @@
+{
+ "test": "physio",
+ "d": 1.3,
+ "completed_time": 3.0,
+ "distraction_force_N": 68.3186778615,
+ "clamp_after_release_N": 58.88950665945286,
+ "retained_distraction_mm": 1.19167282234,
+ "contact_layer_crush_after_release": 0.0,
+ "friction_demand": [
+  {
+   "t": 3.0,
+   "bot_excess_shear_N": -9.621634369754705,
+   "bot_slip_area_frac": 0.6097359456257686,
+   "bot_tension_area_frac": 0.011814351180705828,
+   "bot_safety_factor": 2.080490249643244,
+   "bot_normal_N": 52.932893850774626,
+   "bot_shear_N": 8.904878478016414,
+   "bot_cop_eccentricity": 0.03716971140900753,
+   "top_excess_shear_N": -17.520285146227252,
+   "top_slip_area_frac": 0.19545458908361327,
+   "top_tension_area_frac": 0.0,
+   "top_safety_factor": 12.726118937594832,
+   "top_normal_N": 54.326885568889054,
+   "top_shear_N": 1.4941248028839176,
+   "top_cop_eccentricity": 0.017133646042020157
+  }
+ ],
+ "friction_demand_after_release": {
+  "bot_excess_shear_N": -9.621634369754705,
+  "bot_slip_area_frac": 0.6097359456257686,
+  "bot_tension_area_frac": 0.011814351180705828,
+  "bot_safety_factor": 2.080490249643244,
+  "bot_normal_N": 52.932893850774626,
+  "bot_shear_N": 8.904878478016414,
+  "bot_cop_eccentricity": 0.03716971140900753,
+  "top_excess_shear_N": -17.520285146227252,
+  "top_slip_area_frac": 0.19545458908361327,
+  "top_tension_area_frac": 0.0,
+  "top_safety_factor": 12.726118937594832,
+  "top_normal_N": 54.326885568889054,
+  "top_shear_N": 1.4941248028839176,
+  "top_cop_eccentricity": 0.017133646042020157
+ },
+ "min_safety_factor": 2.080490249643244,
+ "t_min_safety_factor": 3.0,
+ "max_slip_area_frac": 0.6097359456257686,
+ "mu_used": 0.35,
+ "max_cop_eccentricity": 0.03716971140900753,
+ "max_tension_area_frac": 0.011814351180705828,
+ "max_excess_shear_N": -9.621634369754705,
+ "functional_failure_slip": {
+  "type": "solver stopped before the protocol finished (Q40)",
+  "time": 3.0,
+  "phase": "follower load",
+  "slip_at_stop_mm": null,
+  "contact_layer_crush_frac": 0.0,
+  "min_principal_stretch": 0.6625919938087463,
+  "where": "cage_soft_0.0"
+ }
+}

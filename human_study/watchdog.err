@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/raid/jupyter-alz.ee09/projects/claude-work/biocage stimulation test 1/scripts/5_compute/h23_watchdog.py", line 103, in <module>
+    import traceback; log('ERROR ' + traceback.format_exc().replace('\n', ' | '))
+KeyboardInterrupt

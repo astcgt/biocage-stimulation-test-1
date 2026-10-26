@@ -1,0 +1,60 @@
+{
+ "test": "physio",
+ "d": 1.5,
+ "completed_time": 3.0,
+ "distraction_force_N": 95.3110061897,
+ "clamp_after_release_N": 75.82207437836345,
+ "retained_distraction_mm": 1.33526720991,
+ "contact_layer_crush_after_release": 0.0,
+ "friction_demand": [
+  {
+   "t": 3.0,
+   "bot_excess_shear_N": -11.45701912565758,
+   "bot_slip_area_frac": 0.669591278924112,
+   "bot_tension_area_frac": 0.07343082635610035,
+   "bot_safety_factor": 1.9477295212509036,
+   "bot_normal_N": 67.27408996586703,
+   "bot_shear_N": 12.088912362395883,
+   "bot_cop_eccentricity": 0.0918327981105677,
+   "top_excess_shear_N": -22.272827810388975,
+   "top_slip_area_frac": 0.24462508285317752,
+   "top_tension_area_frac": 0.0020815098202232422,
+   "top_safety_factor": 12.034492948280594,
+   "top_normal_N": 69.40371704791659,
+   "top_shear_N": 2.01847315638183,
+   "top_cop_eccentricity": 0.07554939225404136
+  }
+ ],
+ "friction_demand_after_release": {
+  "bot_excess_shear_N": -11.45701912565758,
+  "bot_slip_area_frac": 0.669591278924112,
+  "bot_tension_area_frac": 0.07343082635610035,
+  "bot_safety_factor": 1.9477295212509036,
+  "bot_normal_N": 67.27408996586703,
+  "bot_shear_N": 12.088912362395883,
+  "bot_cop_eccentricity": 0.0918327981105677,
+  "top_excess_shear_N": -22.272827810388975,
+  "top_slip_area_frac": 0.24462508285317752,
+  "top_tension_area_frac": 0.0020815098202232422,
+  "top_safety_factor": 12.034492948280594,
+  "top_normal_N": 69.40371704791659,
+  "top_shear_N": 2.01847315638183,
+  "top_cop_eccentricity": 0.07554939225404136
+ },
+ "min_safety_factor": 1.9477295212509036,
+ "t_min_safety_factor": 3.0,
+ "max_slip_area_frac": 0.669591278924112,
+ "mu_used": 0.35,
+ "max_cop_eccentricity": 0.0918327981105677,
+ "max_tension_area_frac": 0.07343082635610035,
+ "max_excess_shear_N": -11.45701912565758,
+ "functional_failure_slip": {
+  "type": "solver stopped before the protocol finished (Q40)",
+  "time": 3.0,
+  "phase": "follower load",
+  "slip_at_stop_mm": null,
+  "contact_layer_crush_frac": 0.0,
+  "min_principal_stretch": 0.5990530252456665,
+  "where": "cage_soft_0.0"
+ }
+}

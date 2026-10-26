@@ -1,0 +1,60 @@
+{
+ "test": "physio",
+ "d": 1.5,
+ "completed_time": 3.0,
+ "distraction_force_N": 95.3117956401,
+ "clamp_after_release_N": 75.99998643796647,
+ "retained_distraction_mm": 1.33992146748,
+ "contact_layer_crush_after_release": 0.0053475935828877,
+ "friction_demand": [
+  {
+   "t": 3.0,
+   "bot_excess_shear_N": -20.89872903450143,
+   "bot_slip_area_frac": 0.04542189014394223,
+   "bot_tension_area_frac": 0.0,
+   "bot_safety_factor": 5.366995135066871,
+   "bot_normal_N": 73.38382152496615,
+   "bot_shear_N": 4.785608499236721,
+   "bot_cop_eccentricity": 0.1285435173223106,
+   "top_excess_shear_N": -23.315158993153908,
+   "top_slip_area_frac": 0.008648970442910894,
+   "top_tension_area_frac": 0.0,
+   "top_safety_factor": 12.016743247318773,
+   "top_normal_N": 72.66142169798383,
+   "top_shear_N": 2.1163386011404315,
+   "top_cop_eccentricity": 0.10356252094472848
+  }
+ ],
+ "friction_demand_after_release": {
+  "bot_excess_shear_N": -20.89872903450143,
+  "bot_slip_area_frac": 0.04542189014394223,
+  "bot_tension_area_frac": 0.0,
+  "bot_safety_factor": 5.366995135066871,
+  "bot_normal_N": 73.38382152496615,
+  "bot_shear_N": 4.785608499236721,
+  "bot_cop_eccentricity": 0.1285435173223106,
+  "top_excess_shear_N": -23.315158993153908,
+  "top_slip_area_frac": 0.008648970442910894,
+  "top_tension_area_frac": 0.0,
+  "top_safety_factor": 12.016743247318773,
+  "top_normal_N": 72.66142169798383,
+  "top_shear_N": 2.1163386011404315,
+  "top_cop_eccentricity": 0.10356252094472848
+ },
+ "min_safety_factor": 5.366995135066871,
+ "t_min_safety_factor": 3.0,
+ "max_slip_area_frac": 0.04542189014394223,
+ "mu_used": 0.35,
+ "max_cop_eccentricity": 0.1285435173223106,
+ "max_tension_area_frac": 0.0,
+ "max_excess_shear_N": -20.89872903450143,
+ "functional_failure_slip": {
+  "type": "solver stopped before the protocol finished (Q40)",
+  "time": 3.0,
+  "phase": "follower load",
+  "slip_at_stop_mm": null,
+  "contact_layer_crush_frac": 0.0053475935828877,
+  "min_principal_stretch": 0.6292192935943604,
+  "where": "cage_mix_0.25"
+ }
+}

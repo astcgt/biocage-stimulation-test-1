@@ -1,0 +1,15 @@
+{
+ "cases": {
+  "p014e_dt01": {
+   "exit": 1,
+   "normal": false,
+   "wall_s": 6577.1,
+   "cores": 4,
+   "core_h": 7.308
+  }
+ },
+ "batch_wall_s": 6587.1,
+ "total_core_h": 7.308,
+ "gpu_h": 0.0,
+ "not_run": []
+}

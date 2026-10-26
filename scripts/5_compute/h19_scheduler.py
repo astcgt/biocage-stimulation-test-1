@@ -19,6 +19,7 @@ import h24_preflight
 
 IDLE_MIN, UTIL_MAX, MEM_NEED_MB = 15, 10.0, int(1.5 * 7000)   # cage case peak ~7 GB on GPU (measured 2026-10-20)
 MAX_PER_GPU, SHARE_UTIL_MAX = 5, 60.0                         # my runs barely load a GPU (< 25 %, 2026-10-22)
+MEM_HEADROOM = 16   # GB kept free under the cgroup cap: runs grow while they run; +4 gave 4 OOM kills at 47 runs (2026-10-23)
 CPU_LAUNCH_MAX = 8                                              # CPU jobs launched per 60 s pass
 RESERVE_H = 12                                                  # backfill may pass the head job for at most this long
 Q = os.path.join(P, 'human_study/queue'); RUN = os.path.join(Q, 'running'); DONE = os.path.join(Q, 'done')
@@ -161,13 +162,13 @@ def main():
             b = cpu_busy(); c = claimed_cores(); free = sum(1 for k, v in b.items() if v < 0.10 and k not in c)
             for g in sorted(g for g, s in st.items() if s['idle']):           # GPU runs need idle cores too (h18)
                 j = first_fit(jobs, lambda sp: not sp.get('cpu_only') and free >= sp.get('cores', 16)
-                              and mem_free_gb() >= sp.get('host_mem_gb_gpu', 4) + 4)
+                              and mem_free_gb() >= sp.get('host_mem_gb_gpu', 4) + MEM_HEADROOM)
                 if j is None: break                                                    # cpu_only: too big for GPU memory
                 jobs.remove(j); free -= json.load(open(j)).get('cores', 16)
                 running[os.path.basename(j)[:-4]] = launch(j, g); time.sleep(20)
             if jobs:
                 for _ in range(CPU_LAUNCH_MAX):            # several CPU launches per pass: fill an idle machine in minutes
-                    j = first_fit(jobs, lambda sp: free >= sp.get('cores', 16) and mem_free_gb() >= sp.get('mem_gb', 8) + 4)
+                    j = first_fit(jobs, lambda sp: free >= sp.get('cores', 16) and mem_free_gb() >= sp.get('mem_gb', 8) + MEM_HEADROOM)
                     if j is None: break
                     jobs.remove(j); free -= json.load(open(j)).get('cores', 16)
                     running[os.path.basename(j)[:-4]] = launch(j); time.sleep(20)

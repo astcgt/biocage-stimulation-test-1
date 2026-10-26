@@ -397,10 +397,27 @@
     "E_soft": 2.002,
     "theta": 0.38
    },
-   "status": "queued",
+   "status": "done",
    "cases": {
     "iso": "human_study/al_v2/cases/p011_iso",
     "compress": "human_study/al_v2/cases/p011_compress"
+   },
+   "res": {
+    "y": 0.0,
+    "iso_completion": 0.0,
+    "iso_failure": "functional failure",
+    "iso_t_fail": 3.0,
+    "min_sf_mu02": 1.4730032873382521,
+    "max_tension": 0.04693140775938333,
+    "max_cop": 0.169652534853869,
+    "C": 1.82640033811,
+    "capacity_mode": "lower bound (Q40)",
+    "clamp_N": 19.935479665191973,
+    "retained_mm": 0.759427455962
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p011_iso_gpu4",
+    "compress": "human_study/al_v2/cases/p011_compress_gpu4"
    }
   },
   {
@@ -520,10 +537,27 @@
     "E_soft": 7.438,
     "theta": 0.229
    },
-   "status": "queued",
+   "status": "done",
    "cases": {
     "iso": "human_study/al_v2/cases/p015_iso",
     "compress": "human_study/al_v2/cases/p015_compress"
+   },
+   "res": {
+    "y": 0.025,
+    "iso_completion": 0.025,
+    "iso_failure": "tipping",
+    "iso_t_fail": 3.25,
+    "min_sf_mu02": 1.2614760856116383,
+    "max_tension": 0.531189056410834,
+    "max_cop": 1.7431671901119523,
+    "C": 231.180964081,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 53.2935671934356,
+    "retained_mm": 1.13094399887
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p015_iso_gpu3",
+    "compress": "human_study/al_v2/cases/p015_compress_gpu5"
    }
   },
   {
@@ -1098,9 +1132,26 @@
     "E_soft": 10.008,
     "theta": 0.353
    },
-   "status": "queued",
+   "status": "done",
    "cases": {
     "iso": "human_study/al_v2/cases/p032_iso",
+    "compress": "human_study/al_v2/cases/p032_compress"
+   },
+   "res": {
+    "y": 0.044123794000000015,
+    "iso_completion": 0.044123794000000015,
+    "iso_failure": "functional failure",
+    "iso_t_fail": 3.44123794,
+    "min_sf_mu02": 1.4683494946391034,
+    "max_tension": 0.03790613699646401,
+    "max_cop": 0.3242429621410688,
+    "C": 49.2369464633,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 41.92482382849842,
+    "retained_mm": 1.03766004377
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p032_iso_gpu3",
     "compress": "human_study/al_v2/cases/p032_compress"
    }
   },
@@ -1291,9 +1342,26 @@
     "E_soft": 3.771,
     "theta": 0.25
    },
-   "status": "queued",
+   "status": "done",
    "cases": {
     "iso": "human_study/al_v2/cases/p038_iso",
+    "compress": "human_study/al_v2/cases/p038_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.8008161025999692,
+    "max_tension": 0.5133370868198462,
+    "max_cop": 92.65319668483534,
+    "C": 284.290264082,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 36.423808583617635,
+    "retained_mm": 0.955288759709
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p038_iso_gpu1",
     "compress": "human_study/al_v2/cases/p038_compress"
    }
   },
@@ -1449,10 +1517,27 @@
     "E_soft": 8.837,
     "theta": 0.267
    },
-   "status": "queued",
+   "status": "done",
    "cases": {
     "iso": "human_study/al_v2/cases/p043_iso",
     "compress": "human_study/al_v2/cases/p043_compress"
+   },
+   "res": {
+    "y": 0.08002654800000002,
+    "iso_completion": 0.08002654800000002,
+    "iso_failure": "functional failure",
+    "iso_t_fail": 3.80026548,
+    "min_sf_mu02": 1.4862643331139926,
+    "max_tension": 0.014440432623412665,
+    "max_cop": 0.37066830769853387,
+    "C": 70.6319981085,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 54.00975695942261,
+    "retained_mm": 1.17299523351
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p043_iso_gpu6",
+    "compress": "human_study/al_v2/cases/p043_compress_gpu1"
    }
   },
   {
@@ -1467,8 +1552,25 @@
     "E_soft": 4.793,
     "theta": 0.282
    },
-   "status": "queued",
+   "status": "done",
    "cases": {
+    "iso": "human_study/al_v2/cases/p044_iso",
+    "compress": "human_study/al_v2/cases/p044_compress"
+   },
+   "res": {
+    "y": 0.04115363300000001,
+    "iso_completion": 0.04115363300000001,
+    "iso_failure": "functional failure",
+    "iso_t_fail": 3.41153633,
+    "min_sf_mu02": 1.5100722418895787,
+    "max_tension": 0.03429602867466148,
+    "max_cop": 0.2645336205346901,
+    "C": 48.6276603179,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 38.536466788801455,
+    "retained_mm": 0.999350137452
+   },
+   "ran_in": {
     "iso": "human_study/al_v2/cases/p044_iso",
     "compress": "human_study/al_v2/cases/p044_compress"
    }
@@ -1590,7 +1692,7 @@
     "E_soft": 1.674,
     "theta": 0.388
    },
-   "status": "queued",
+   "status": "done",
    "acq": {
     "ucb_y": 0.04578257860349173,
     "mean_y": 0.04114873826073006,
@@ -1599,6 +1701,23 @@
    "cases": {
     "iso": "human_study/al_v2/cases/p048_iso",
     "compress": "human_study/al_v2/cases/p048_compress"
+   },
+   "res": {
+    "y": 0.016666674613952638,
+    "iso_completion": 0.016666674613952638,
+    "iso_failure": "tipping",
+    "iso_t_fail": 3.1666667461395264,
+    "min_sf_mu02": 1.2920112000570827,
+    "max_tension": 0.5123155369074659,
+    "max_cop": 2.503133730038848,
+    "C": 149.840413978,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 94.09608546587654,
+    "retained_mm": 1.45749091347
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p048_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p048_compress_gpu1"
    }
   },
   {
@@ -1613,7 +1732,7 @@
     "E_soft": 1.674,
     "theta": 0.388
    },
-   "status": "queued",
+   "status": "done",
    "acq": {
     "ucb_y": 0.03009788060374228,
     "mean_y": 0.024580460721072,
@@ -1622,6 +1741,23 @@
    "cases": {
     "iso": "human_study/al_v2/cases/p049_iso",
     "compress": "human_study/al_v2/cases/p049_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 0.8541369806855402,
+    "max_tension": 0.34186763589479363,
+    "max_cop": 1.142611281295206,
+    "C": 227.709526651,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 90.069937538526,
+    "retained_mm": 1.44975551638
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p049_iso_gpu6",
+    "compress": "human_study/al_v2/cases/p049_compress_gpu3"
    }
   },
   {
@@ -1636,7 +1772,7 @@
     "E_soft": 1.674,
     "theta": 0.388
    },
-   "status": "queued",
+   "status": "done",
    "acq": {
     "ucb_y": 0.02604567833848508,
     "mean_y": 0.019745584434301668,
@@ -1645,6 +1781,23 @@
    "cases": {
     "iso": "human_study/al_v2/cases/p050_iso",
     "compress": "human_study/al_v2/cases/p050_compress"
+   },
+   "res": {
+    "y": 0.0125,
+    "iso_completion": 0.0125,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.125,
+    "min_sf_mu02": 0.8217315775714498,
+    "max_tension": 0.5040708288922603,
+    "max_cop": 33.393239731362925,
+    "C": 219.525048244,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 95.53475945064974,
+    "retained_mm": 1.47281423702
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p050_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p050_compress_gpu2"
    }
   },
   {
@@ -1659,7 +1812,7 @@
     "E_soft": 11.864,
     "theta": 0.383
    },
-   "status": "queued",
+   "status": "done",
    "acq": {
     "ucb_y": 0.024992775537047592,
     "mean_y": 0.020079499903477755,
@@ -1668,6 +1821,23 @@
    "cases": {
     "iso": "human_study/al_v2/cases/p051_iso",
     "compress": "human_study/al_v2/cases/p051_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "tipping",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 1.0194208530163755,
+    "max_tension": 0.5087853346163095,
+    "max_cop": 3.38175745370292,
+    "C": 288.912401556,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 9.133209167718817,
+    "retained_mm": 0.495661934499
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p051_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p051_compress_gpu2"
    }
   },
   {
@@ -1682,7 +1852,7 @@
     "E_soft": 11.864,
     "theta": 0.383
    },
-   "status": "queued",
+   "status": "done",
    "acq": {
     "ucb_y": 0.02399655899506908,
     "mean_y": 0.02188201461583293,
@@ -1691,6 +1861,23 @@
    "cases": {
     "iso": "human_study/al_v2/cases/p052_iso",
     "compress": "human_study/al_v2/cases/p052_compress"
+   },
+   "res": {
+    "y": 0.0125,
+    "iso_completion": 0.0125,
+    "iso_failure": "tipping",
+    "iso_t_fail": 3.125,
+    "min_sf_mu02": 1.2945676279895117,
+    "max_tension": 0.5091703775074332,
+    "max_cop": 2.221807248592624,
+    "C": 273.586076246,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 38.143078535683564,
+    "retained_mm": 0.970174037482
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p052_iso_gpu2",
+    "compress": "human_study/al_v2/cases/p052_compress_gpu3"
    }
   },
   {
@@ -1705,7 +1892,7 @@
     "E_soft": 1.572,
     "theta": 0.261
    },
-   "status": "queued",
+   "status": "done",
    "acq": {
     "ucb_y": 0.03719851380462445,
     "mean_y": 0.03033307932073244,
@@ -1714,6 +1901,23 @@
    "cases": {
     "iso": "human_study/al_v2/cases/p053_iso",
     "compress": "human_study/al_v2/cases/p053_compress"
+   },
+   "res": {
+    "y": 0.0015834519999999852,
+    "iso_completion": 0.0015834519999999852,
+    "iso_failure": "functional failure",
+    "iso_t_fail": 3.01583452,
+    "min_sf_mu02": 1.1109160911891343,
+    "max_tension": 0.08143861237777092,
+    "max_cop": 0.10951516619518219,
+    "C": 48.3378878322,
+    "capacity_mode": "lower bound (Q40)",
+    "clamp_N": 75.82101085532362,
+    "retained_mm": 1.33526820502
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p053_iso_gpu2",
+    "compress": "human_study/al_v2/cases/p053_compress_gpu6"
    }
   },
   {
@@ -1728,7 +1932,7 @@
     "E_soft": 1.572,
     "theta": 0.261
    },
-   "status": "queued",
+   "status": "invalid",
    "acq": {
     "ucb_y": 0.03228660581313143,
     "mean_y": 0.026302836342781334,
@@ -1736,6 +1940,14 @@
    },
    "cases": {
     "iso": "human_study/al_v2/cases/p054_iso",
+    "compress": "human_study/al_v2/cases/p054_compress"
+   },
+   "invalid_reason": {
+    "iso": "stopped at t 3.455 before the test",
+    "compress": "stopped at t 2.970 before the test"
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p054_iso_gpu4",
     "compress": "human_study/al_v2/cases/p054_compress"
    }
   },
@@ -1751,7 +1963,7 @@
     "E_soft": 1.674,
     "theta": 0.388
    },
-   "status": "queued",
+   "status": "done",
    "acq": {
     "ucb_y": 0.03001071434758818,
     "mean_y": 0.023172271223031275,
@@ -1759,6 +1971,23 @@
    },
    "cases": {
     "iso": "human_study/al_v2/cases/p055_iso",
+    "compress": "human_study/al_v2/cases/p055_compress"
+   },
+   "res": {
+    "y": 0.009269972000000015,
+    "iso_completion": 0.009269972000000015,
+    "iso_failure": "functional failure",
+    "iso_t_fail": 3.09269972,
+    "min_sf_mu02": 1.1085529816010682,
+    "max_tension": 0.0686469544308105,
+    "max_cop": 0.4353929338212663,
+    "C": 49.835929798,
+    "capacity_mode": "lower bound (Q40)",
+    "clamp_N": 58.88950665945286,
+    "retained_mm": 1.19167282234
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p055_iso_gpu5",
     "compress": "human_study/al_v2/cases/p055_compress"
    }
   },
@@ -1774,7 +2003,7 @@
     "E_soft": 1.674,
     "theta": 0.388
    },
-   "status": "queued",
+   "status": "done",
    "acq": {
     "ucb_y": 0.024196172732238903,
     "mean_y": 0.01750704503958676,
@@ -1782,6 +2011,23 @@
    },
    "cases": {
     "iso": "human_study/al_v2/cases/p056_iso",
+    "compress": "human_study/al_v2/cases/p056_compress"
+   },
+   "res": {
+    "y": 0.02047611200000001,
+    "iso_completion": 0.02047611200000001,
+    "iso_failure": "functional failure",
+    "iso_t_fail": 3.20476112,
+    "min_sf_mu02": 1.035012572366169,
+    "max_tension": 0.31523553536609444,
+    "max_cop": 0.8966374419122842,
+    "C": 97.2871162731,
+    "capacity_mode": "lower bound (Q40)",
+    "clamp_N": 46.27145240042413,
+    "retained_mm": 1.06512078648
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p056_iso_gpu3",
     "compress": "human_study/al_v2/cases/p056_compress"
    }
   },
@@ -1837,13 +2083,30 @@
     "E_soft": 1.674,
     "theta": 0.388
    },
-   "status": "queued",
+   "status": "done",
    "acq": {
     "ucb_y": 0.019250532111795775,
     "mean_y": 0.012792113570398023,
     "ucb_logC": 5.413125453131233
    },
    "cases": {
+    "iso": "human_study/al_v2/cases/p058_iso",
+    "compress": "human_study/al_v2/cases/p058_compress"
+   },
+   "res": {
+    "y": 0.00909090899999998,
+    "iso_completion": 0.00909090899999998,
+    "iso_failure": "functional failure",
+    "iso_t_fail": 3.09090909,
+    "min_sf_mu02": 2.5836321608992106,
+    "max_tension": 0.001242781550128331,
+    "max_cop": 0.2683630464192531,
+    "C": 62.6180357825,
+    "capacity_mode": "e_contact_layer_crush_50pct",
+    "clamp_N": 75.99998643796647,
+    "retained_mm": 1.33992146748
+   },
+   "ran_in": {
     "iso": "human_study/al_v2/cases/p058_iso",
     "compress": "human_study/al_v2/cases/p058_compress"
    }
@@ -1860,13 +2123,21 @@
     "E_soft": 1.674,
     "theta": 0.388
    },
-   "status": "queued",
+   "status": "invalid",
    "acq": {
     "ucb_y": 0.01759524202924003,
     "mean_y": 0.011886668095338693,
     "ucb_logC": 5.265095658710111
    },
    "cases": {
+    "iso": "human_study/al_v2/cases/p059_iso",
+    "compress": "human_study/al_v2/cases/p059_compress"
+   },
+   "invalid_reason": {
+    "iso": "stopped at t 2.927 before the test",
+    "compress": "stopped at t 2.425 before the test"
+   },
+   "ran_in": {
     "iso": "human_study/al_v2/cases/p059_iso",
     "compress": "human_study/al_v2/cases/p059_compress"
    }
@@ -1883,7 +2154,7 @@
     "E_soft": 11.864,
     "theta": 0.383
    },
-   "status": "queued",
+   "status": "done",
    "acq": {
     "ucb_y": 0.026998134665718928,
     "mean_y": 0.01971256239557872,
@@ -1892,6 +2163,23 @@
    "cases": {
     "iso": "human_study/al_v2/cases/p060_iso",
     "compress": "human_study/al_v2/cases/p060_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 0.9757229624328724,
+    "max_tension": 0.5017055088317587,
+    "max_cop": 2.9647471722807595,
+    "C": 282.635782359,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 14.833963286934942,
+    "retained_mm": 0.642132450164
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p060_iso",
+    "compress": "human_study/al_v2/cases/p060_compress_gpu6"
    }
   },
   {
@@ -1906,7 +2194,7 @@
     "E_soft": 11.864,
     "theta": 0.383
    },
-   "status": "queued",
+   "status": "done",
    "acq": {
     "ucb_y": 0.026452674991659545,
     "mean_y": 0.020478498518049105,
@@ -1915,6 +2203,23 @@
    "cases": {
     "iso": "human_study/al_v2/cases/p061_iso",
     "compress": "human_study/al_v2/cases/p061_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "tipping",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 1.1525975626359968,
+    "max_tension": 0.4986846669457104,
+    "max_cop": 2.6490082563725332,
+    "C": 278.829206935,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 23.153900143398275,
+    "retained_mm": 0.785571956457
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p061_iso",
+    "compress": "human_study/al_v2/cases/p061_compress_gpu5"
    }
   },
   {
@@ -1929,7 +2234,7 @@
     "E_soft": 8.194,
     "theta": 0.219
    },
-   "status": "queued",
+   "status": "done",
    "acq": {
     "ucb_y": 0.020885377939648134,
     "mean_y": 0.010889393949918324,
@@ -1938,6 +2243,23 @@
    "cases": {
     "iso": "human_study/al_v2/cases/p062_iso",
     "compress": "human_study/al_v2/cases/p062_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.3406083976172658,
+    "max_tension": 0.5706078367717979,
+    "max_cop": 20.214228550019893,
+    "C": 321.926766473,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 9.222108032670786,
+    "retained_mm": 0.501577486264
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p062_iso",
+    "compress": "human_study/al_v2/cases/p062_compress_gpu4"
    }
   },
   {
@@ -1952,7 +2274,7 @@
     "E_soft": 8.194,
     "theta": 0.219
    },
-   "status": "queued",
+   "status": "done",
    "acq": {
     "ucb_y": 0.017142751186525307,
     "mean_y": 0.009161254173796929,
@@ -1961,6 +2283,3463 @@
    "cases": {
     "iso": "human_study/al_v2/cases/p063_iso",
     "compress": "human_study/al_v2/cases/p063_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.37657217600496967,
+    "max_tension": 0.5089206747106376,
+    "max_cop": 15.80742463405175,
+    "C": 317.49296073,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 15.331021481162777,
+    "retained_mm": 0.651509187404
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p063_iso",
+    "compress": "human_study/al_v2/cases/p063_compress_gpu1"
+   }
+  },
+  {
+   "id": 64,
+   "batch": 7,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 1.35,
+    "E_hard": 814.96,
+    "E_soft": 1.674,
+    "theta": 0.388
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.01843887781727252,
+    "mean_y": 0.016280330005401848,
+    "ucb_logC": 5.245312755695605
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p064_iso",
+    "compress": "human_study/al_v2/cases/p064_compress"
+   },
+   "res": {
+    "y": 0.0125,
+    "iso_completion": 0.0125,
+    "iso_failure": "tipping",
+    "iso_t_fail": 3.125,
+    "min_sf_mu02": 1.2658391334214756,
+    "max_tension": 0.5735716071266524,
+    "max_cop": 2.891520292252928,
+    "C": 199.139479442,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 74.86940915786121,
+    "retained_mm": 1.31823015376
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p064_iso_gpu4",
+    "compress": "human_study/al_v2/cases/p064_compress_gpu1"
+   }
+  },
+  {
+   "id": 65,
+   "batch": 7,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "mix",
+    "d": 0.8,
+    "E_hard": 736.59,
+    "E_soft": 5.904,
+    "theta": 0.249
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.01538058588054889,
+    "mean_y": 0.008888284116876402,
+    "ucb_logC": 5.359515517816389
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p065_iso",
+    "compress": "human_study/al_v2/cases/p065_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.5507964855449513,
+    "max_tension": 0.5080128879236694,
+    "max_cop": 7.863199859899829,
+    "C": 344.352267183,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 23.635323362843792,
+    "retained_mm": 0.794910385229
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p065_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p065_compress_gpu2"
+   }
+  },
+  {
+   "id": 66,
+   "batch": 8,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "mix",
+    "d": 1.3,
+    "E_hard": 649.53,
+    "E_soft": 8.194,
+    "theta": 0.219
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.01364053051432939,
+    "mean_y": 0.00829212108176107,
+    "ucb_logC": 5.022297164371256
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p066_iso",
+    "compress": "human_study/al_v2/cases/p066_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.9078904968117087,
+    "max_tension": 0.48711386885244246,
+    "max_cop": 7.832372454885124,
+    "C": 300.995306889,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 68.63524492162928,
+    "retained_mm": 1.28183824598
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p066_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p066_compress_gpu3"
+   }
+  },
+  {
+   "id": 67,
+   "batch": 8,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "mix",
+    "d": 1.15,
+    "E_hard": 649.53,
+    "E_soft": 8.194,
+    "theta": 0.219
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.011308473294859147,
+    "mean_y": 0.00707896643286449,
+    "ucb_logC": 5.119937732701405
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p067_iso",
+    "compress": "human_study/al_v2/cases/p067_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.7226008907106449,
+    "max_tension": 0.48792605968710573,
+    "max_cop": 391.7312988986427,
+    "C": 303.795602317,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 53.54025254879398,
+    "retained_mm": 1.14052462284
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p067_iso_gpu2",
+    "compress": "human_study/al_v2/cases/p067_compress_gpu5"
+   }
+  },
+  {
+   "id": 68,
+   "batch": 9,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 1.5,
+    "E_hard": 814.96,
+    "E_soft": 1.674,
+    "theta": 0.388
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.013917095455114157,
+    "mean_y": 0.01241108235213696,
+    "ucb_logC": 5.111224103367132
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p068_iso",
+    "compress": "human_study/al_v2/cases/p068_compress"
+   },
+   "res": {
+    "y": 0.0125,
+    "iso_completion": 0.0125,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.125,
+    "min_sf_mu02": 0.8217315775714498,
+    "max_tension": 0.5040708288922603,
+    "max_cop": 33.393239731362925,
+    "C": 219.525048243,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 95.53475945064974,
+    "retained_mm": 1.47281423702
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p068_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p068_compress_gpu5"
+   }
+  },
+  {
+   "id": 69,
+   "batch": 9,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 1.35,
+    "E_hard": 480.98,
+    "E_soft": 10.61,
+    "theta": 0.34
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.01331281221345326,
+    "mean_y": 0.005807085861261567,
+    "ucb_logC": 5.512603127968744
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p069_iso",
+    "compress": "human_study/al_v2/cases/p069_compress"
+   },
+   "res": {
+    "y": 0.016666674613952638,
+    "iso_completion": 0.016666674613952638,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.1666667461395264,
+    "min_sf_mu02": 0.9177905664686076,
+    "max_tension": 0.4262183744208246,
+    "max_cop": 2.2752429162979153,
+    "C": 261.485993879,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 70.5909804517352,
+    "retained_mm": 1.30718581818
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p069_iso_gpu2",
+    "compress": "human_study/al_v2/cases/p069_compress_gpu6"
+   }
+  },
+  {
+   "id": 70,
+   "batch": 10,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 1.2,
+    "E_hard": 480.98,
+    "E_soft": 10.61,
+    "theta": 0.34
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.010347008881644987,
+    "mean_y": 0.0046661875582362025,
+    "ucb_logC": 5.490880435935382
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p070_iso",
+    "compress": "human_study/al_v2/cases/p070_compress"
+   },
+   "res": {
+    "y": 0.0125,
+    "iso_completion": 0.0125,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.125,
+    "min_sf_mu02": 0.9316067823855395,
+    "max_tension": 0.4356925499597554,
+    "max_cop": 2.332433583602108,
+    "C": 248.124509869,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 54.971378868812806,
+    "retained_mm": 1.1668980667
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p070_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p070_compress"
+   }
+  },
+  {
+   "id": 71,
+   "batch": 10,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 1.15,
+    "E_hard": 814.96,
+    "E_soft": 1.674,
+    "theta": 0.388
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.009516321217485035,
+    "mean_y": 0.00503414326772653,
+    "ucb_logC": 5.1691441231557995
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p071_iso",
+    "compress": "human_study/al_v2/cases/p071_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.9702353386377559,
+    "max_tension": 0.4989143646079667,
+    "max_cop": 8.42726777029302,
+    "C": 225.475121397,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 53.532760682072166,
+    "retained_mm": 1.13848721433
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p071_iso_gpu6",
+    "compress": "human_study/al_v2/cases/p071_compress_gpu2"
+   }
+  },
+  {
+   "id": 72,
+   "batch": 11,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 0.65,
+    "E_hard": 328.15,
+    "E_soft": 11.864,
+    "theta": 0.383
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.007554187591843007,
+    "mean_y": 0.006621829261363796,
+    "ucb_logC": 5.041557738866631
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p072_iso",
+    "compress": "human_study/al_v2/cases/p072_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 0.9757229624328457,
+    "max_tension": 0.505830084576934,
+    "max_cop": 2.969640482835017,
+    "C": 282.63578236,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 14.833963286934942,
+    "retained_mm": 0.642132450164
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p072_iso_gpu3",
+    "compress": "human_study/al_v2/cases/p072_compress"
+   }
+  },
+  {
+   "id": 73,
+   "batch": 11,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 1.0,
+    "E_hard": 376.75,
+    "E_soft": 11.142,
+    "theta": 0.266
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.0071142298990236235,
+    "mean_y": 0.0036457016179383232,
+    "ucb_logC": 5.170867094444117
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p073_iso",
+    "compress": "human_study/al_v2/cases/p073_compress"
+   },
+   "res": {
+    "y": 0.0125,
+    "iso_completion": 0.0125,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.125,
+    "min_sf_mu02": 0.8861778712724284,
+    "max_tension": 0.43462049176096046,
+    "max_cop": 2.466351652315181,
+    "C": 294.028798528,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 37.327105277550835,
+    "retained_mm": 0.97295440411
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p073_iso_gpu4",
+    "compress": "human_study/al_v2/cases/p073_compress"
+   }
+  },
+  {
+   "id": 74,
+   "batch": 12,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 1.3,
+    "E_hard": 814.96,
+    "E_soft": 1.674,
+    "theta": 0.388
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.011384011207392412,
+    "mean_y": 0.00819944469412177,
+    "ucb_logC": 5.17887507943922
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p074_iso",
+    "compress": "human_study/al_v2/cases/p074_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 0.8037212771995789,
+    "max_tension": 0.5101896635461902,
+    "max_cop": 42.04838524639162,
+    "C": 222.845544015,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 69.16594395907512,
+    "retained_mm": 1.28196581592
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p074_iso_gpu4",
+    "compress": "human_study/al_v2/cases/p074_compress"
+   }
+  },
+  {
+   "id": 75,
+   "batch": 12,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 0.5,
+    "E_hard": 328.15,
+    "E_soft": 11.864,
+    "theta": 0.383
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.006490579050458688,
+    "mean_y": 0.005183923752831769,
+    "ucb_logC": 5.182176086036312
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p075_iso",
+    "compress": "human_study/al_v2/cases/p075_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "tipping",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 1.0194142903125185,
+    "max_tension": 0.5087853346163095,
+    "max_cop": 3.3817556468006686,
+    "C": 288.912426664,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 9.133196063191557,
+    "retained_mm": 0.495661742527
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p075_iso_gpu5",
+    "compress": "human_study/al_v2/cases/p075_compress_gpu4"
+   }
+  },
+  {
+   "id": 76,
+   "batch": 13,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "mix",
+    "d": 0.5,
+    "E_hard": 847.05,
+    "E_soft": 6.566,
+    "theta": 0.255
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.005511816781331541,
+    "mean_y": 0.0033689379084692675,
+    "ucb_logC": 5.156967088931005
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p076_iso",
+    "compress": "human_study/al_v2/cases/p076_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.4240642686883159,
+    "max_tension": 0.5246326249811151,
+    "max_cop": 9.465614849444197,
+    "C": 347.027072638,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 9.407118832319746,
+    "retained_mm": 0.499789021424
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p076_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p076_compress"
+   }
+  },
+  {
+   "id": 77,
+   "batch": 13,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "mix",
+    "d": 0.65,
+    "E_hard": 847.05,
+    "E_soft": 6.566,
+    "theta": 0.255
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.005471308677203111,
+    "mean_y": 0.0032849859401027776,
+    "ucb_logC": 5.11296827715995
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p077_iso",
+    "compress": "human_study/al_v2/cases/p077_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.481116750321866,
+    "max_tension": 0.5091422393546847,
+    "max_cop": 7.590777883185942,
+    "C": 340.406475551,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 15.89152675681353,
+    "retained_mm": 0.655479416223
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p077_iso",
+    "compress": "human_study/al_v2/cases/p077_compress"
+   }
+  },
+  {
+   "id": 78,
+   "batch": 14,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 0.95,
+    "E_hard": 814.96,
+    "E_soft": 1.674,
+    "theta": 0.388
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.005421948098653458,
+    "mean_y": 0.0014470962233816623,
+    "ucb_logC": 5.1547939419547975
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p078_iso",
+    "compress": "human_study/al_v2/cases/p078_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.7388480308544026,
+    "max_tension": 0.5134008298611257,
+    "max_cop": 190.50961763977813,
+    "C": 230.786128695,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 35.37658110652333,
+    "retained_mm": 0.943981067215
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p078_iso",
+    "compress": "human_study/al_v2/cases/p078_compress"
+   }
+  },
+  {
+   "id": 79,
+   "batch": 15,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 0.75,
+    "E_hard": 876.2,
+    "E_soft": 2.54,
+    "theta": 0.345
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.0013091346221492533,
+    "mean_y": -0.0011469299649289333,
+    "ucb_logC": 5.2274093555904955
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p079_iso",
+    "compress": "human_study/al_v2/cases/p079_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.557506765979674,
+    "max_tension": 0.5297317071401854,
+    "max_cop": Infinity,
+    "C": 246.423842502,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 20.635520409032132,
+    "retained_mm": 0.74807524272
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p079_iso_gpu3",
+    "compress": "human_study/al_v2/cases/p079_compress_gpu5"
+   }
+  },
+  {
+   "id": 80,
+   "batch": 16,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 1.35,
+    "E_hard": 680.88,
+    "E_soft": 1.721,
+    "theta": 0.309
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.013095203578696889,
+    "mean_y": 0.008552825143033505,
+    "ucb_logC": 5.542160026162815
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p080_iso",
+    "compress": "human_study/al_v2/cases/p080_compress"
+   },
+   "res": {
+    "y": 0.010984848000000014,
+    "iso_completion": 0.010984848000000014,
+    "iso_failure": "functional failure",
+    "iso_t_fail": 3.10984848,
+    "min_sf_mu02": 1.3153261548116275,
+    "max_tension": 0.12740589752454232,
+    "max_cop": 0.6835794927102852,
+    "C": 231.779258587,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 66.8168618171555,
+    "retained_mm": 1.27780369864
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p080_iso_gpu2",
+    "compress": "human_study/al_v2/cases/p080_compress_gpu2"
+   }
+  },
+  {
+   "id": 81,
+   "batch": 16,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 0.5,
+    "E_hard": 777.1,
+    "E_soft": 4.12,
+    "theta": 0.281
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.0012643345876674535,
+    "mean_y": -0.002129736443237589,
+    "ucb_logC": 5.39808981455738
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p081_iso",
+    "compress": "human_study/al_v2/cases/p081_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.44813631361254724,
+    "max_tension": 0.5210977019833452,
+    "max_cop": 18.098377366510167,
+    "C": 311.498910148,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 9.673153373754223,
+    "retained_mm": 0.504114422537
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p081_iso_gpu4",
+    "compress": "human_study/al_v2/cases/p081_compress_gpu5"
+   }
+  },
+  {
+   "id": 82,
+   "batch": 17,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 1.2,
+    "E_hard": 888.53,
+    "E_soft": 7.38,
+    "theta": 0.373
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.02131992154542345,
+    "mean_y": 0.013523313599936087,
+    "ucb_logC": 5.445575918682864
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p082_iso",
+    "compress": "human_study/al_v2/cases/p082_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "tipping",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 1.1742847893434865,
+    "max_tension": 0.5947112263767701,
+    "max_cop": 4.220971696290819,
+    "C": 218.106587391,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 58.54447274284979,
+    "retained_mm": 1.17958618303
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p082_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p082_compress_gpu2"
+   }
+  },
+  {
+   "id": 83,
+   "batch": 18,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 1.0,
+    "E_hard": 576.06,
+    "E_soft": 10.346,
+    "theta": 0.358
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.014299311307413078,
+    "mean_y": 0.009116919024109011,
+    "ucb_logC": 5.050136617272419
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p083_iso",
+    "compress": "human_study/al_v2/cases/p083_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "tipping",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 1.165150205742969,
+    "max_tension": 0.5713724129070998,
+    "max_cop": 3.6377581189379375,
+    "C": 257.184611875,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 39.40961380915905,
+    "retained_mm": 0.982099719046
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p083_iso_gpu3",
+    "compress": "human_study/al_v2/cases/p083_compress_gpu3"
+   }
+  },
+  {
+   "id": 84,
+   "batch": 19,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 1.5,
+    "E_hard": 814.96,
+    "E_soft": 1.674,
+    "theta": 0.388
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.013369300009507923,
+    "mean_y": 0.012473908057314638,
+    "ucb_logC": 5.272777228391888
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p084_iso",
+    "compress": "human_study/al_v2/cases/p084_compress"
+   },
+   "res": {
+    "y": 0.0125,
+    "iso_completion": 0.0125,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.125,
+    "min_sf_mu02": 0.8217315775707988,
+    "max_tension": 0.5040708288922603,
+    "max_cop": 33.39323973283284,
+    "C": 219.525048244,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 95.53475945064974,
+    "retained_mm": 1.47281423702
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p084_iso_gpu4",
+    "compress": "human_study/al_v2/cases/p084_compress_gpu5"
+   }
+  },
+  {
+   "id": 85,
+   "batch": 20,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 1.0,
+    "E_hard": 888.53,
+    "E_soft": 7.38,
+    "theta": 0.373
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.00938263849966027,
+    "mean_y": 0.0060354253769453695,
+    "ucb_logC": 5.410184065848116
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p085_iso",
+    "compress": "human_study/al_v2/cases/p085_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 0.9250748490448811,
+    "max_tension": 0.47334727748453953,
+    "max_cop": 2.8576682078914692,
+    "C": 265.194763399,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 37.88055555653566,
+    "retained_mm": 0.977813752798
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p085_iso_gpu4",
+    "compress": "human_study/al_v2/cases/p085_compress_gpu5"
+   }
+  },
+  {
+   "id": 86,
+   "batch": 21,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 0.8,
+    "E_hard": 576.06,
+    "E_soft": 10.346,
+    "theta": 0.358
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.009215577378283279,
+    "mean_y": 0.005507383460611219,
+    "ucb_logC": 5.1331544307458286
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p086_iso",
+    "compress": "human_study/al_v2/cases/p086_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 0.9192891488547666,
+    "max_tension": 0.5326714091303892,
+    "max_cop": 4.464709771585349,
+    "C": 262.822438921,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 23.579875349844404,
+    "retained_mm": 0.791571836256
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p086_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p086_compress_gpu2"
+   }
+  },
+  {
+   "id": 87,
+   "batch": 22,
+   "x": {
+    "design": "A",
+    "grad": "both",
+    "fab": "mix",
+    "d": 0.5,
+    "E_hard": 814.96,
+    "E_soft": 1.674,
+    "theta": 0.388
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.010118103024675218,
+    "mean_y": -0.0007557036012858058,
+    "ucb_logC": 5.137509112546036
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p087_iso",
+    "compress": "human_study/al_v2/cases/p087_compress"
+   },
+   "res": {
+    "y": 0.019146013259887695,
+    "iso_completion": 0.019146013259887695,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.191460132598877,
+    "min_sf_mu02": 0.998621836322595,
+    "max_tension": 0.2890927794009628,
+    "max_cop": 0.8697995157399039,
+    "C": 82.1610083746,
+    "capacity_mode": "lower bound (Q40)",
+    "clamp_N": 8.808415539155709,
+    "retained_mm": 0.47559528863
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p087_iso_gpu2",
+    "compress": "human_study/al_v2/cases/p087_compress_gpu3"
+   }
+  },
+  {
+   "id": 88,
+   "batch": 23,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 1.2,
+    "E_hard": 888.53,
+    "E_soft": 7.38,
+    "theta": 0.373
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.00957121163851918,
+    "mean_y": 0.008409303919033252,
+    "ucb_logC": 5.236524641475606
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p088_iso",
+    "compress": "human_study/al_v2/cases/p088_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "tipping",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 1.174284789625127,
+    "max_tension": 0.5936456047876211,
+    "max_cop": 4.26906087204764,
+    "C": 218.106587391,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 58.54447273332153,
+    "retained_mm": 1.17958618303
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p088_iso_gpu3",
+    "compress": "human_study/al_v2/cases/p088_compress_gpu2"
+   }
+  },
+  {
+   "id": 89,
+   "batch": 23,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 1.5,
+    "E_hard": 814.96,
+    "E_soft": 1.674,
+    "theta": 0.388
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.009485973269066013,
+    "mean_y": 0.008330650754422351,
+    "ucb_logC": 5.452531237479152
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p089_iso",
+    "compress": "human_study/al_v2/cases/p089_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 0.8541369806858785,
+    "max_tension": 0.3472672086644147,
+    "max_cop": 1.1712194875937743,
+    "C": 227.709526651,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 90.069937538526,
+    "retained_mm": 1.44975551638
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p089_iso_gpu2",
+    "compress": "human_study/al_v2/cases/p089_compress_gpu4"
+   }
+  },
+  {
+   "id": 90,
+   "batch": 24,
+   "x": {
+    "design": "A",
+    "grad": "both",
+    "fab": "mix",
+    "d": 0.65,
+    "E_hard": 814.96,
+    "E_soft": 1.674,
+    "theta": 0.388
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.0076205574467575945,
+    "mean_y": -0.0012072527298552307,
+    "ucb_logC": 5.012326503011759
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p090_iso",
+    "compress": "human_study/al_v2/cases/p090_compress"
+   },
+   "res": {
+    "y": 0.016666667000000013,
+    "iso_completion": 0.016666667000000013,
+    "iso_failure": "functional failure",
+    "iso_t_fail": 3.16666667,
+    "min_sf_mu02": 1.4787781370311066,
+    "max_tension": 0.23679664935315137,
+    "max_cop": 0.7596003919423667,
+    "C": 94.1761878096,
+    "capacity_mode": "lower bound (Q40)",
+    "clamp_N": 13.128870149821598,
+    "retained_mm": 0.604780870414
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p090_iso_gpu4",
+    "compress": "human_study/al_v2/cases/p090_compress_gpu5"
+   }
+  },
+  {
+   "id": 91,
+   "batch": 25,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 1.0,
+    "E_hard": 814.96,
+    "E_soft": 1.674,
+    "theta": 0.388
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.008653216280148684,
+    "mean_y": 0.004482398246635875,
+    "ucb_logC": 5.160809633777725
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p091_iso",
+    "compress": "human_study/al_v2/cases/p091_compress"
+   },
+   "res": {
+    "y": 0.01368457300000001,
+    "iso_completion": 0.01368457300000001,
+    "iso_failure": "functional failure",
+    "iso_t_fail": 3.13684573,
+    "min_sf_mu02": 1.1901558240423649,
+    "max_tension": 0.2794284975519065,
+    "max_cop": 0.9622480452393547,
+    "C": 101.391874444,
+    "capacity_mode": "lower bound (Q40)",
+    "clamp_N": 35.374210466699424,
+    "retained_mm": 0.950149135473
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p091_iso_gpu4",
+    "compress": "human_study/al_v2/cases/p091_compress_gpu6"
+   }
+  },
+  {
+   "id": 92,
+   "batch": 25,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 0.65,
+    "E_hard": 576.06,
+    "E_soft": 10.346,
+    "theta": 0.358
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.007505170588849891,
+    "mean_y": 0.003870224417660554,
+    "ucb_logC": 5.468566744044164
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p092_iso",
+    "compress": "human_study/al_v2/cases/p092_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.9820738661072166,
+    "max_tension": 0.5195297792700287,
+    "max_cop": 4.990820630280118,
+    "C": 266.654347519,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 14.959790450387105,
+    "retained_mm": 0.645718626257
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p092_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p092_compress_gpu5"
+   }
+  },
+  {
+   "id": 93,
+   "batch": 26,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 0.5,
+    "E_hard": 576.06,
+    "E_soft": 10.346,
+    "theta": 0.358
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.005671471982810211,
+    "mean_y": 0.003227078391656528,
+    "ucb_logC": 5.672048774339294
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p093_iso",
+    "compress": "human_study/al_v2/cases/p093_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.8242570550959214,
+    "max_tension": 0.5437845754431423,
+    "max_cop": 6.079197919404548,
+    "C": 272.110740709,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 9.244999941498454,
+    "retained_mm": 0.498722254934
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p093_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p093_compress_gpu6"
+   }
+  },
+  {
+   "id": 94,
+   "batch": 26,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "mix",
+    "d": 1.0,
+    "E_hard": 787.95,
+    "E_soft": 11.297,
+    "theta": 0.209
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.0051484476574387775,
+    "mean_y": 0.0037148557027738838,
+    "ucb_logC": 5.328115145179196
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p094_iso",
+    "compress": "human_study/al_v2/cases/p094_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.5159741950105714,
+    "max_tension": 0.5103519966226392,
+    "max_cop": 13.268432590200543,
+    "C": 348.457041379,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 39.5141392796943,
+    "retained_mm": 0.993459903947
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p094_iso_gpu5",
+    "compress": "human_study/al_v2/cases/p094_compress_gpu1"
+   }
+  },
+  {
+   "id": 95,
+   "batch": 27,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 1.3,
+    "E_hard": 675.65,
+    "E_soft": 3.299,
+    "theta": 0.215
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.009612891134878107,
+    "mean_y": 0.007488704501760859,
+    "ucb_logC": 5.438114706913614
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p095_iso",
+    "compress": "human_study/al_v2/cases/p095_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 0.8981379761725637,
+    "max_tension": 0.5062874762539007,
+    "max_cop": 33.023433145284045,
+    "C": 200.382883032,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 68.81603002713835,
+    "retained_mm": 1.27968889163
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p095_iso_gpu2",
+    "compress": "human_study/al_v2/cases/p095_compress_gpu4"
+   }
+  },
+  {
+   "id": 96,
+   "batch": 27,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 0.8,
+    "E_hard": 466.46,
+    "E_soft": 1.924,
+    "theta": 0.365
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.005905754488104412,
+    "mean_y": 0.002363063493190553,
+    "ucb_logC": 5.198901033766488
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p096_iso",
+    "compress": "human_study/al_v2/cases/p096_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.8905208724623513,
+    "max_tension": 0.42087523377540015,
+    "max_cop": 2.2777797455311672,
+    "C": 215.153734952,
+    "capacity_mode": "lower bound (Q40)",
+    "clamp_N": 22.968947425774317,
+    "retained_mm": 0.782799952676
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p096_iso_gpu3",
+    "compress": "human_study/al_v2/cases/p096_compress_gpu5"
+   }
+  },
+  {
+   "id": 97,
+   "batch": 28,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 1.5,
+    "E_hard": 466.46,
+    "E_soft": 1.924,
+    "theta": 0.365
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.013042719802191783,
+    "mean_y": 0.012136337095636045,
+    "ucb_logC": 5.40505466232586
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p097_iso",
+    "compress": "human_study/al_v2/cases/p097_compress"
+   },
+   "res": {
+    "y": 0.016666674613952638,
+    "iso_completion": 0.016666674613952638,
+    "iso_failure": "tipping",
+    "iso_t_fail": 3.1666667461395264,
+    "min_sf_mu02": 1.0363694100688214,
+    "max_tension": 0.47053878355237905,
+    "max_cop": 3.6365339026625843,
+    "C": 203.984454711,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 92.95459597699099,
+    "retained_mm": 1.45870405143
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p097_iso_gpu2",
+    "compress": "human_study/al_v2/cases/p097_compress_gpu4"
+   }
+  },
+  {
+   "id": 98,
+   "batch": 29,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 1.35,
+    "E_hard": 814.96,
+    "E_soft": 1.674,
+    "theta": 0.388
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.009320308614153776,
+    "mean_y": 0.007053452429036183,
+    "ucb_logC": 5.306884307157823
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p098_iso",
+    "compress": "human_study/al_v2/cases/p098_compress"
+   },
+   "res": {
+    "y": 0.008333332999999988,
+    "iso_completion": 0.008333332999999988,
+    "iso_failure": "functional failure",
+    "iso_t_fail": 3.08333333,
+    "min_sf_mu02": 1.3112011309737663,
+    "max_tension": 0.047060300992834085,
+    "max_cop": 0.5743638999676158,
+    "C": 119.232752072,
+    "capacity_mode": "lower bound (Q40)",
+    "clamp_N": 67.0257331943567,
+    "retained_mm": 1.27924193825
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p098_iso_gpu3",
+    "compress": "human_study/al_v2/cases/p098_compress_gpu1"
+   }
+  },
+  {
+   "id": 99,
+   "batch": 30,
+   "x": {
+    "design": "A",
+    "grad": "both",
+    "fab": "interleave",
+    "d": 0.85,
+    "E_hard": 288.72,
+    "E_soft": 4.914,
+    "theta": 0.207
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.014236747894233714,
+    "mean_y": 0.010122227767966015,
+    "ucb_logC": 5.030079544486596
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p099_iso",
+    "compress": "human_study/al_v2/cases/p099_compress"
+   },
+   "res": {
+    "y": 0.020833325386047364,
+    "iso_completion": 0.020833325386047364,
+    "iso_failure": "tipping",
+    "iso_t_fail": 3.2083332538604736,
+    "min_sf_mu02": 1.0925102436151304,
+    "max_tension": 0.35277596122751764,
+    "max_cop": 1.3109083725738844,
+    "C": 218.000654599,
+    "capacity_mode": "lower bound (Q40)",
+    "clamp_N": 25.099599992489416,
+    "retained_mm": 0.815617537721
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p099_iso_gpu5",
+    "compress": "human_study/al_v2/cases/p099_compress_gpu2"
+   }
+  },
+  {
+   "id": 100,
+   "batch": 30,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 0.8,
+    "E_hard": 576.06,
+    "E_soft": 10.346,
+    "theta": 0.358
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.009182544174499489,
+    "mean_y": 0.008213478920185714,
+    "ucb_logC": 5.2657338641299996
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p100_iso",
+    "compress": "human_study/al_v2/cases/p100_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 0.9192891488547655,
+    "max_tension": 0.5305747547306745,
+    "max_cop": 4.296527939650583,
+    "C": 262.822438921,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 23.579875349844404,
+    "retained_mm": 0.791571836256
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p100_iso_gpu4",
+    "compress": "human_study/al_v2/cases/p100_compress_gpu6"
+   }
+  },
+  {
+   "id": 101,
+   "batch": 31,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 1.1,
+    "E_hard": 787.95,
+    "E_soft": 11.297,
+    "theta": 0.209
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.010808171822307,
+    "mean_y": 0.008763564988004966,
+    "ucb_logC": 5.201526663673829
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p101_iso",
+    "compress": "human_study/al_v2/cases/p101_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "tipping",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 1.0998012203606704,
+    "max_tension": 0.5818878765461212,
+    "max_cop": 4.647102447388494,
+    "C": 207.118379433,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 48.90173982651381,
+    "retained_mm": 1.08225126638
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p101_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p101_compress"
+   }
+  },
+  {
+   "id": 102,
+   "batch": 31,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 0.5,
+    "E_hard": 480.98,
+    "E_soft": 10.61,
+    "theta": 0.34
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.005532511434993276,
+    "mean_y": 0.0022493555122638266,
+    "ucb_logC": 5.305185707085903
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p102_iso",
+    "compress": "human_study/al_v2/cases/p102_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.6497358516487689,
+    "max_tension": 0.4921698241458312,
+    "max_cop": 5.033960265798509,
+    "C": 292.937194374,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 9.24431714298111,
+    "retained_mm": 0.498867749774
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p102_iso_gpu3",
+    "compress": "human_study/al_v2/cases/p102_compress"
+   }
+  },
+  {
+   "id": 103,
+   "batch": 32,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 0.65,
+    "E_hard": 442.6,
+    "E_soft": 3.704,
+    "theta": 0.259
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.005080488514640734,
+    "mean_y": 0.003355730307842598,
+    "ucb_logC": 5.097469891206903
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p103_iso",
+    "compress": "human_study/al_v2/cases/p103_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.693484115695999,
+    "max_tension": 0.41092749135928486,
+    "max_cop": 3.1006810165726306,
+    "C": 269.420474218,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 14.605456099924004,
+    "retained_mm": 0.641056609162
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p103_iso_gpu5",
+    "compress": "human_study/al_v2/cases/p103_compress"
+   }
+  },
+  {
+   "id": 104,
+   "batch": 33,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 0.95,
+    "E_hard": 466.46,
+    "E_soft": 1.924,
+    "theta": 0.365
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.004482915778604021,
+    "mean_y": 0.0003828321205659978,
+    "ucb_logC": 5.456604189141171
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p104_iso",
+    "compress": "human_study/al_v2/cases/p104_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 0.7584623564102602,
+    "max_tension": 0.504573068341897,
+    "max_cop": 28.652429160881816,
+    "C": 269.419830828,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 34.86417885404548,
+    "retained_mm": 0.939149509903
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p104_iso",
+    "compress": "human_study/al_v2/cases/p104_compress_gpu2"
+   }
+  },
+  {
+   "id": 105,
+   "batch": 34,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "mix",
+    "d": 0.5,
+    "E_hard": 787.95,
+    "E_soft": 11.297,
+    "theta": 0.209
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.005026764405067368,
+    "mean_y": 0.003101764355085289,
+    "ucb_logC": 5.444701781490933
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p105_iso",
+    "compress": "human_study/al_v2/cases/p105_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.3020030386664461,
+    "max_tension": 0.5232775990899103,
+    "max_cop": 29.308493570506034,
+    "C": 362.208733398,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 9.493677214518037,
+    "retained_mm": 0.5037843492
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p105_iso_gpu3",
+    "compress": "human_study/al_v2/cases/p105_compress_gpu1"
+   }
+  },
+  {
+   "id": 106,
+   "batch": 35,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 0.85,
+    "E_hard": 504.41,
+    "E_soft": 4.285,
+    "theta": 0.233
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.005429552069550433,
+    "mean_y": 0.0029163295833605097,
+    "ucb_logC": 5.103445498428414
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p106_iso",
+    "compress": "human_study/al_v2/cases/p106_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.8669145293432592,
+    "max_tension": 0.3945080539961899,
+    "max_cop": 2.8864025566417615,
+    "C": 308.454591183,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 26.619016360101405,
+    "retained_mm": 0.836736873233
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p106_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p106_compress_gpu2"
+   }
+  },
+  {
+   "id": 107,
+   "batch": 36,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 1.3,
+    "E_hard": 466.46,
+    "E_soft": 1.924,
+    "theta": 0.365
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.00859829798411826,
+    "mean_y": 0.005014547745256372,
+    "ucb_logC": 5.316561210907783
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p107_iso",
+    "compress": "human_study/al_v2/cases/p107_compress"
+   },
+   "res": {
+    "y": 0.0125,
+    "iso_completion": 0.0125,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.125,
+    "min_sf_mu02": 0.9522867207986764,
+    "max_tension": 0.49476820349962697,
+    "max_cop": 20.186688925118702,
+    "C": 206.719162647,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 67.69102533685822,
+    "retained_mm": 1.27214636936
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p107_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p107_compress_gpu3"
+   }
+  },
+  {
+   "id": 108,
+   "batch": 36,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 1.45,
+    "E_hard": 814.96,
+    "E_soft": 1.674,
+    "theta": 0.388
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.008590612576840512,
+    "mean_y": 0.008122457613729053,
+    "ucb_logC": 5.232997730091484
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p108_iso",
+    "compress": "human_study/al_v2/cases/p108_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 0.8735295370410792,
+    "max_tension": 0.37330877233614795,
+    "max_cop": 1.4073775243183264,
+    "C": 220.042140566,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 83.57283830887648,
+    "retained_mm": 1.40292531252
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p108_iso_gpu2",
+    "compress": "human_study/al_v2/cases/p108_compress_gpu4"
+   }
+  },
+  {
+   "id": 109,
+   "batch": 37,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 1.5,
+    "E_hard": 787.95,
+    "E_soft": 11.297,
+    "theta": 0.209
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.012660747948743617,
+    "mean_y": 0.011807093705037722,
+    "ucb_logC": 5.074958152791677
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p109_iso",
+    "compress": "human_study/al_v2/cases/p109_compress"
+   },
+   "res": {
+    "y": 0.0125,
+    "iso_completion": 0.0125,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.125,
+    "min_sf_mu02": 0.8233453930097656,
+    "max_tension": 0.5081991629762035,
+    "max_cop": 34.010244359372805,
+    "C": 217.335856608,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 95.41479219966588,
+    "retained_mm": 1.4723831949
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p109_iso_gpu2",
+    "compress": "human_study/al_v2/cases/p109_compress_gpu4"
+   }
+  },
+  {
+   "id": 110,
+   "batch": 37,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "mix",
+    "d": 1.05,
+    "E_hard": 787.95,
+    "E_soft": 11.297,
+    "theta": 0.209
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.004779081302994409,
+    "mean_y": 0.004021679738734204,
+    "ucb_logC": 5.071265806677465
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p110_iso",
+    "compress": "human_study/al_v2/cases/p110_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.5464790729111624,
+    "max_tension": 0.5067884830168489,
+    "max_cop": 12.58893143178778,
+    "C": 346.726933552,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 44.246035730710645,
+    "retained_mm": 1.04298286302
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p110_iso_gpu3",
+    "compress": "human_study/al_v2/cases/p110_compress_gpu2"
+   }
+  },
+  {
+   "id": 111,
+   "batch": 38,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "mix",
+    "d": 0.65,
+    "E_hard": 848.27,
+    "E_soft": 2.237,
+    "theta": 0.226
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.00438791199143221,
+    "mean_y": 0.0016214553894594655,
+    "ucb_logC": 5.384218816077086
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p111_iso",
+    "compress": "human_study/al_v2/cases/p111_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.36008865126659934,
+    "max_tension": 0.5278130917480799,
+    "max_cop": 18.470774953844575,
+    "C": 344.651079758,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 15.183013964471128,
+    "retained_mm": 0.650394476414
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p111_iso_gpu2",
+    "compress": "human_study/al_v2/cases/p111_compress_gpu4"
+   }
+  },
+  {
+   "id": 112,
+   "batch": 38,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 0.65,
+    "E_hard": 525.03,
+    "E_soft": 6.993,
+    "theta": 0.396
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.0011999402551444152,
+    "mean_y": -0.0031008434071850798,
+    "ucb_logC": 5.511680386814213
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p112_iso",
+    "compress": "human_study/al_v2/cases/p112_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.6275906675481924,
+    "max_tension": 0.5204247897190521,
+    "max_cop": 163.03844353249477,
+    "C": 300.350658589,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 15.367036625175444,
+    "retained_mm": 0.650414209335
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p112_iso_gpu3",
+    "compress": "human_study/al_v2/cases/p112_compress_gpu5"
+   }
+  },
+  {
+   "id": 113,
+   "batch": 39,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 0.5,
+    "E_hard": 525.03,
+    "E_soft": 6.993,
+    "theta": 0.396
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 3.4569877208936485e-05,
+    "mean_y": -0.005254548161697233,
+    "ucb_logC": 5.73213133056294
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p113_iso",
+    "compress": "human_study/al_v2/cases/p113_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.5381761486252216,
+    "max_tension": 0.5165661309728556,
+    "max_cop": 13.52860173259769,
+    "C": 306.202212433,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 9.55452728563704,
+    "retained_mm": 0.502560509824
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p113_iso_gpu4",
+    "compress": "human_study/al_v2/cases/p113_compress_gpu5"
+   }
+  },
+  {
+   "id": 114,
+   "batch": 40,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 0.5,
+    "E_hard": 480.98,
+    "E_soft": 10.61,
+    "theta": 0.34
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.004384155579921417,
+    "mean_y": 0.0037063374526266468,
+    "ucb_logC": 5.622345736634826
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p114_iso",
+    "compress": "human_study/al_v2/cases/p114_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.8809523254682065,
+    "max_tension": 0.5212479401490127,
+    "max_cop": 4.881335041692013,
+    "C": 283.966218857,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 9.253873078627636,
+    "retained_mm": 0.498271130183
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p114_iso_gpu5",
+    "compress": "human_study/al_v2/cases/p114_compress_gpu6"
+   }
+  },
+  {
+   "id": 115,
+   "batch": 41,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 1.45,
+    "E_hard": 888.53,
+    "E_soft": 7.38,
+    "theta": 0.373
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.013091800658606772,
+    "mean_y": 0.008858402840554482,
+    "ucb_logC": 5.019757039119937
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p115_iso",
+    "compress": "human_study/al_v2/cases/p115_compress"
+   },
+   "res": {
+    "y": 0.0125,
+    "iso_completion": 0.0125,
+    "iso_failure": "tipping",
+    "iso_t_fail": 3.125,
+    "min_sf_mu02": 1.2814552889838764,
+    "max_tension": 0.5343500222816556,
+    "max_cop": 3.3968674082571657,
+    "C": 163.080674017,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 87.79931402100473,
+    "retained_mm": 1.41411993026
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p115_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p115_compress"
+   }
+  },
+  {
+   "id": 116,
+   "batch": 41,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 1.4,
+    "E_hard": 814.96,
+    "E_soft": 1.674,
+    "theta": 0.388
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.010255667877774474,
+    "mean_y": 0.009506741790467996,
+    "ucb_logC": 5.082774860603996
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p116_iso",
+    "compress": "human_study/al_v2/cases/p116_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 0.8963873621292578,
+    "max_tension": 0.5052169761402039,
+    "max_cop": 36.92734810542459,
+    "C": 221.434179755,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 82.01337390690784,
+    "retained_mm": 1.37851507243
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p116_iso_gpu6",
+    "compress": "human_study/al_v2/cases/p116_compress"
+   }
+  },
+  {
+   "id": 117,
+   "batch": 42,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 0.65,
+    "E_hard": 576.06,
+    "E_soft": 10.346,
+    "theta": 0.358
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.006018458180445869,
+    "mean_y": 0.005417331417157457,
+    "ucb_logC": 5.509965613557663
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p117_iso",
+    "compress": "human_study/al_v2/cases/p117_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.9820738671100581,
+    "max_tension": 0.520525832279299,
+    "max_cop": 5.011598220876105,
+    "C": 266.654347517,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 14.95979044218976,
+    "retained_mm": 0.645718626261
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p117_iso_gpu3",
+    "compress": "human_study/al_v2/cases/p117_compress_gpu3"
+   }
+  },
+  {
+   "id": 118,
+   "batch": 42,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 0.85,
+    "E_hard": 463.6,
+    "E_soft": 5.254,
+    "theta": 0.344
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.005125164514834649,
+    "mean_y": 0.0036020044066060863,
+    "ucb_logC": 5.157475361799357
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p118_iso",
+    "compress": "human_study/al_v2/cases/p118_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.9153920507967341,
+    "max_tension": 0.41211057082646324,
+    "max_cop": 3.055315805684121,
+    "C": 320.041412511,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 26.547691776437983,
+    "retained_mm": 0.836418326216
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p118_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p118_compress_gpu5"
+   }
+  },
+  {
+   "id": 119,
+   "batch": 43,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 0.6,
+    "E_hard": 384.9,
+    "E_soft": 3.792,
+    "theta": 0.238
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.0040102452825799256,
+    "mean_y": 0.00210710633625949,
+    "ucb_logC": 5.564146898908848
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p119_iso",
+    "compress": "human_study/al_v2/cases/p119_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.7096491368283203,
+    "max_tension": 0.40718868753963294,
+    "max_cop": 2.943689396889957,
+    "C": 238.377361793,
+    "capacity_mode": "lower bound (Q40)",
+    "clamp_N": 12.417218443820826,
+    "retained_mm": 0.591849600792
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p119_iso_gpu6",
+    "compress": "human_study/al_v2/cases/p119_compress"
+   }
+  },
+  {
+   "id": 120,
+   "batch": 44,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 1.0,
+    "E_hard": 888.53,
+    "E_soft": 7.38,
+    "theta": 0.373
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.009606398470041452,
+    "mean_y": 0.00874505338904698,
+    "ucb_logC": 5.251420382200012
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p120_iso",
+    "compress": "human_study/al_v2/cases/p120_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 0.9491759060763825,
+    "max_tension": 0.5926212367738742,
+    "max_cop": 5.141344727803775,
+    "C": 224.154875144,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 40.03746114595384,
+    "retained_mm": 0.988014980844
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p120_iso_gpu2",
+    "compress": "human_study/al_v2/cases/p120_compress_gpu6"
+   }
+  },
+  {
+   "id": 121,
+   "batch": 44,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 1.25,
+    "E_hard": 888.53,
+    "E_soft": 7.38,
+    "theta": 0.373
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.009196478621382505,
+    "mean_y": 0.008308936442700258,
+    "ucb_logC": 5.304150298485543
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p121_iso",
+    "compress": "human_study/al_v2/cases/p121_compress"
+   },
+   "res": {
+    "y": 0.0125,
+    "iso_completion": 0.0125,
+    "iso_failure": "tipping",
+    "iso_t_fail": 3.125,
+    "min_sf_mu02": 1.0654176285980237,
+    "max_tension": 0.5873201228713224,
+    "max_cop": 3.9754310938241226,
+    "C": 217.174489985,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 63.76203834898028,
+    "retained_mm": 1.22719416177
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p121_iso_gpu3",
+    "compress": "human_study/al_v2/cases/p121_compress"
+   }
+  },
+  {
+   "id": 122,
+   "batch": 45,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "mix",
+    "d": 0.5,
+    "E_hard": 675.65,
+    "E_soft": 3.299,
+    "theta": 0.215
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.005026155300925863,
+    "mean_y": 0.0037888805436480186,
+    "ucb_logC": 5.547245694442777
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p122_iso",
+    "compress": "human_study/al_v2/cases/p122_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.3365742001877091,
+    "max_tension": 0.6063610831573558,
+    "max_cop": 21.314336356618412,
+    "C": 328.118404354,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 9.186226755131344,
+    "retained_mm": 0.501495966815
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p122_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p122_compress_gpu2"
+   }
+  },
+  {
+   "id": 123,
+   "batch": 46,
+   "x": {
+    "design": "A",
+    "grad": "both",
+    "fab": "interleave",
+    "d": 0.95,
+    "E_hard": 328.15,
+    "E_soft": 11.864,
+    "theta": 0.383
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.013807726899432639,
+    "mean_y": 0.009857212438664463,
+    "ucb_logC": 5.024635586201498
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p123_iso",
+    "compress": "human_study/al_v2/cases/p123_compress"
+   },
+   "res": {
+    "y": 0.016666674613952638,
+    "iso_completion": 0.016666674613952638,
+    "iso_failure": "tipping",
+    "iso_t_fail": 3.1666667461395264,
+    "min_sf_mu02": 1.1812781768971519,
+    "max_tension": 0.40627085794014794,
+    "max_cop": 1.7893865932786985,
+    "C": 254.20611158,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 32.77104338195445,
+    "retained_mm": 0.91749639174
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p123_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p123_compress_gpu2"
+   }
+  },
+  {
+   "id": 124,
+   "batch": 47,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "mix",
+    "d": 1.05,
+    "E_hard": 649.53,
+    "E_soft": 8.194,
+    "theta": 0.219
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.0047507643013178155,
+    "mean_y": 0.004024821550863896,
+    "ucb_logC": 5.060212606641906
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p124_iso",
+    "compress": "human_study/al_v2/cases/p124_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.6357165076989975,
+    "max_tension": 0.5192131008087961,
+    "max_cop": 4812.458971919966,
+    "C": 307.567523006,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 43.85322713200511,
+    "retained_mm": 1.04028907138
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p124_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p124_compress_gpu3"
+   }
+  },
+  {
+   "id": 125,
+   "batch": 47,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 0.75,
+    "E_hard": 675.65,
+    "E_soft": 3.299,
+    "theta": 0.215
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.0017996454965776595,
+    "mean_y": -0.0002962651464245951,
+    "ucb_logC": 5.457790560662297
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p125_iso",
+    "compress": "human_study/al_v2/cases/p125_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.6193463123711872,
+    "max_tension": 0.5092827951724342,
+    "max_cop": 17.751546984870256,
+    "C": 279.099594279,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 21.034151708151946,
+    "retained_mm": 0.749446048529
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p125_iso_gpu2",
+    "compress": "human_study/al_v2/cases/p125_compress_gpu2"
+   }
+  },
+  {
+   "id": 126,
+   "batch": 48,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 0.85,
+    "E_hard": 389.67,
+    "E_soft": 1.547,
+    "theta": 0.332
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.004988442807995463,
+    "mean_y": 0.004061010093671396,
+    "ucb_logC": 5.167949805549891
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p126_iso",
+    "compress": "human_study/al_v2/cases/p126_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 0.707063524745748,
+    "max_tension": 0.4123527694349232,
+    "max_cop": 2.0459015562610734,
+    "C": 209.472233787,
+    "capacity_mode": "lower bound (Q40)",
+    "clamp_N": 25.882600970453492,
+    "retained_mm": 0.827277994737
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p126_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p126_compress_gpu3"
+   }
+  },
+  {
+   "id": 127,
+   "batch": 49,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 1.5,
+    "E_hard": 814.96,
+    "E_soft": 1.674,
+    "theta": 0.388
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.01292328019226088,
+    "mean_y": 0.012405248430325928,
+    "ucb_logC": 5.0770699763146965
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p127_iso",
+    "compress": "human_study/al_v2/cases/p127_compress"
+   },
+   "res": {
+    "y": 0.0125,
+    "iso_completion": 0.0125,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.125,
+    "min_sf_mu02": 0.821731577570832,
+    "max_tension": 0.5040708288922603,
+    "max_cop": 33.393239731373754,
+    "C": 219.525048244,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 95.53475945064974,
+    "retained_mm": 1.47281423702
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p127_iso_gpu6",
+    "compress": "human_study/al_v2/cases/p127_compress"
+   }
+  },
+  {
+   "id": 128,
+   "batch": 49,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 1.3,
+    "E_hard": 675.65,
+    "E_soft": 3.299,
+    "theta": 0.215
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.009259405716643234,
+    "mean_y": 0.00835029019324588,
+    "ucb_logC": 5.178407246021008
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p128_iso",
+    "compress": "human_study/al_v2/cases/p128_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 0.8981379761725585,
+    "max_tension": 0.5062874762539007,
+    "max_cop": 33.023433145284045,
+    "C": 200.382883032,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 68.81603002713835,
+    "retained_mm": 1.27968889163
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p128_iso_gpu4",
+    "compress": "human_study/al_v2/cases/p128_compress"
+   }
+  },
+  {
+   "id": 129,
+   "batch": 49,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 0.9,
+    "E_hard": 576.06,
+    "E_soft": 10.346,
+    "theta": 0.358
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.008415118712470814,
+    "mean_y": 0.0077880758758387975,
+    "ucb_logC": 5.278196305588011
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p129_iso",
+    "compress": "human_study/al_v2/cases/p129_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "tipping",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 1.0249721782509231,
+    "max_tension": 0.5357998490475002,
+    "max_cop": 4.095664483003546,
+    "C": 259.784150726,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 30.564486562052622,
+    "retained_mm": 0.887619383473
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p129_iso_gpu5",
+    "compress": "human_study/al_v2/cases/p129_compress"
+   }
+  },
+  {
+   "id": 130,
+   "batch": 50,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 1.05,
+    "E_hard": 675.65,
+    "E_soft": 3.299,
+    "theta": 0.215
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.005140526438684922,
+    "mean_y": 0.0036968512132729784,
+    "ucb_logC": 5.455295696127566
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p130_iso",
+    "compress": "human_study/al_v2/cases/p130_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.9529638803687169,
+    "max_tension": 0.5074167617324427,
+    "max_cop": 52.44281494446343,
+    "C": 270.785699928,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 44.1365090457129,
+    "retained_mm": 1.03946647144
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p130_iso_gpu5",
+    "compress": "human_study/al_v2/cases/p130_compress"
+   }
+  },
+  {
+   "id": 131,
+   "batch": 50,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "mix",
+    "d": 0.9,
+    "E_hard": 848.27,
+    "E_soft": 2.237,
+    "theta": 0.226
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.004702486247504216,
+    "mean_y": 0.003808934018796539,
+    "ucb_logC": 5.340275770328266
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p131_iso",
+    "compress": "human_study/al_v2/cases/p131_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.4743705965221913,
+    "max_tension": 0.5217310920511639,
+    "max_cop": 13.435212606160007,
+    "C": 338.630007381,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 30.90612603046029,
+    "retained_mm": 0.89518127502
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p131_iso_gpu4",
+    "compress": "human_study/al_v2/cases/p131_compress_gpu6"
+   }
+  },
+  {
+   "id": 132,
+   "batch": 51,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 0.9,
+    "E_hard": 675.65,
+    "E_soft": 3.299,
+    "theta": 0.215
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.0034759849281590332,
+    "mean_y": 0.001589529238402023,
+    "ucb_logC": 5.449327348655561
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p132_iso",
+    "compress": "human_study/al_v2/cases/p132_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.7659154454771187,
+    "max_tension": 0.5143867089424474,
+    "max_cop": 101.47492804965458,
+    "C": 274.715142424,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 31.003485768210748,
+    "retained_mm": 0.894085343158
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p132_iso_gpu3",
+    "compress": "human_study/al_v2/cases/p132_compress_gpu5"
+   }
+  },
+  {
+   "id": 133,
+   "batch": 51,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 0.5,
+    "E_hard": 680.88,
+    "E_soft": 1.721,
+    "theta": 0.309
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.002176037248390943,
+    "mean_y": -0.00015403709975765623,
+    "ucb_logC": 5.663647320956152
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p133_iso",
+    "compress": "human_study/al_v2/cases/p133_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.4947876068741446,
+    "max_tension": 0.5199699567360658,
+    "max_cop": 14.88788988717982,
+    "C": 288.154838839,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 9.256435680482623,
+    "retained_mm": 0.501172050711
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p133_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p133_compress_gpu4"
+   }
+  },
+  {
+   "id": 134,
+   "batch": 52,
+   "x": {
+    "design": "A",
+    "grad": "both",
+    "fab": "interleave",
+    "d": 0.95,
+    "E_hard": 328.15,
+    "E_soft": 11.864,
+    "theta": 0.383
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.01727318005077122,
+    "mean_y": 0.016359039494614352,
+    "ucb_logC": 5.010793581025261
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p134_iso",
+    "compress": "human_study/al_v2/cases/p134_compress"
+   },
+   "res": {
+    "y": 0.016666674613952638,
+    "iso_completion": 0.016666674613952638,
+    "iso_failure": "tipping",
+    "iso_t_fail": 3.1666667461395264,
+    "min_sf_mu02": 1.1812781768971519,
+    "max_tension": 0.40001869464138723,
+    "max_cop": 1.7566107545339427,
+    "C": 254.20611158,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 32.77104338195445,
+    "retained_mm": 0.91749639174
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p134_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p134_compress_gpu2"
+   }
+  },
+  {
+   "id": 135,
+   "batch": 53,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "mix",
+    "d": 0.5,
+    "E_hard": 736.59,
+    "E_soft": 5.904,
+    "theta": 0.249
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.004969335138592596,
+    "mean_y": 0.00405057808608086,
+    "ucb_logC": 5.546134482634712
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p135_iso",
+    "compress": "human_study/al_v2/cases/p135_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.4102677992718522,
+    "max_tension": 0.5243907280499475,
+    "max_cop": 10.266022260362345,
+    "C": 349.067141296,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 9.397236395833724,
+    "retained_mm": 0.500154127412
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p135_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p135_compress_gpu2"
+   }
+  },
+  {
+   "id": 136,
+   "batch": 54,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 1.4,
+    "E_hard": 626.44,
+    "E_soft": 2.011,
+    "theta": 0.378
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.009112362899661747,
+    "mean_y": 0.00697861159550589,
+    "ucb_logC": 5.114649796099269
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p136_iso",
+    "compress": "human_study/al_v2/cases/p136_compress"
+   },
+   "res": {
+    "y": 0.0125,
+    "iso_completion": 0.0125,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.125,
+    "min_sf_mu02": 0.7711331795366638,
+    "max_tension": 0.3278213272025465,
+    "max_cop": 1.0907274583772861,
+    "C": 228.702174594,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 76.17665549498504,
+    "retained_mm": 1.34765115839
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p136_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p136_compress_gpu2"
+   }
+  },
+  {
+   "id": 137,
+   "batch": 55,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 0.9,
+    "E_hard": 433.22,
+    "E_soft": 8.601,
+    "theta": 0.399
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.005589530233060748,
+    "mean_y": 0.0047021371132514225,
+    "ucb_logC": 5.131961447435
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p137_iso",
+    "compress": "human_study/al_v2/cases/p137_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 0.72035471590369,
+    "max_tension": 0.44604422885942674,
+    "max_cop": 3.262189965688643,
+    "C": 294.268988474,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 30.157766128896693,
+    "retained_mm": 0.885500687732
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p137_iso_gpu3",
+    "compress": "human_study/al_v2/cases/p137_compress_gpu5"
+   }
+  },
+  {
+   "id": 138,
+   "batch": 55,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 0.75,
+    "E_hard": 433.22,
+    "E_soft": 8.601,
+    "theta": 0.399
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.0042555098134812105,
+    "mean_y": 0.0029464592049573066,
+    "ucb_logC": 5.3480468466197735
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p138_iso",
+    "compress": "human_study/al_v2/cases/p138_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.761136318492005,
+    "max_tension": 0.4555551310897771,
+    "max_cop": 3.5558361159012715,
+    "C": 279.524604122,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 20.106320890187618,
+    "retained_mm": 0.740712903691
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p138_iso_gpu2",
+    "compress": "human_study/al_v2/cases/p138_compress_gpu4"
+   }
+  },
+  {
+   "id": 139,
+   "batch": 56,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "mix",
+    "d": 0.65,
+    "E_hard": 847.05,
+    "E_soft": 6.566,
+    "theta": 0.255
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.004813311944001199,
+    "mean_y": 0.004045205380329958,
+    "ucb_logC": 5.5054795249235955
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p139_iso",
+    "compress": "human_study/al_v2/cases/p139_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.4811167503215139,
+    "max_tension": 0.51330922640234,
+    "max_cop": 8.03409037146766,
+    "C": 340.406475551,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 15.89152675681353,
+    "retained_mm": 0.655479416223
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p139_iso_gpu4",
+    "compress": "human_study/al_v2/cases/p139_compress_gpu5"
+   }
+  },
+  {
+   "id": 140,
+   "batch": 57,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 1.15,
+    "E_hard": 787.95,
+    "E_soft": 11.297,
+    "theta": 0.209
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.00958944940051377,
+    "mean_y": 0.008502408811716437,
+    "ucb_logC": 5.208465761375827
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p140_iso",
+    "compress": "human_study/al_v2/cases/p140_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "tipping",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 1.156997810969522,
+    "max_tension": 0.5746101837977634,
+    "max_cop": 4.318842459358895,
+    "C": 205.619133776,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 53.52238620867178,
+    "retained_mm": 1.13039108023
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p140_iso_gpu5",
+    "compress": "human_study/al_v2/cases/p140_compress_gpu1"
+   }
+  },
+  {
+   "id": 141,
+   "batch": 58,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 1.5,
+    "E_hard": 814.96,
+    "E_soft": 1.674,
+    "theta": 0.388
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.008753281062420343,
+    "mean_y": 0.00817490912288272,
+    "ucb_logC": 5.442676406789084
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p141_iso",
+    "compress": "human_study/al_v2/cases/p141_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 0.8541369806858785,
+    "max_tension": 0.34798466018330454,
+    "max_cop": 1.2259604674157236,
+    "C": 227.709526651,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 90.069937538526,
+    "retained_mm": 1.44975551638
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p141_iso_gpu3",
+    "compress": "human_study/al_v2/cases/p141_compress_gpu4"
+   }
+  },
+  {
+   "id": 142,
+   "batch": 58,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 0.8,
+    "E_hard": 576.06,
+    "E_soft": 10.346,
+    "theta": 0.358
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.007735453561528974,
+    "mean_y": 0.007212515239031587,
+    "ucb_logC": 5.1463395356382975
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p142_iso",
+    "compress": "human_study/al_v2/cases/p142_compress"
+   },
+   "res": {
+    "y": 0.008333325386047363,
+    "iso_completion": 0.008333325386047363,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0833332538604736,
+    "min_sf_mu02": 0.9192891488548208,
+    "max_tension": 0.5273191820588056,
+    "max_cop": 4.399005875755218,
+    "C": 262.822438921,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 23.579875349844404,
+    "retained_mm": 0.791571836256
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p142_iso_gpu2",
+    "compress": "human_study/al_v2/cases/p142_compress_gpu4"
+   }
+  },
+  {
+   "id": 143,
+   "batch": 59,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 0.65,
+    "E_hard": 576.06,
+    "E_soft": 10.346,
+    "theta": 0.358
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.005815730195854053,
+    "mean_y": 0.005353581751146811,
+    "ucb_logC": 5.3183152499304125
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p143_iso",
+    "compress": "human_study/al_v2/cases/p143_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.9820738681357849,
+    "max_tension": 0.5255280547845592,
+    "max_cop": 5.029993994816567,
+    "C": 266.654347518,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 14.959790451023384,
+    "retained_mm": 0.645718626258
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p143_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p143_compress_gpu2"
+   }
+  },
+  {
+   "id": 144,
+   "batch": 60,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 0.55,
+    "E_hard": 433.22,
+    "E_soft": 8.601,
+    "theta": 0.399
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.004650558702130108,
+    "mean_y": 0.003053744172466167,
+    "ucb_logC": 5.244173633064243
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p144_iso",
+    "compress": "human_study/al_v2/cases/p144_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.7451691128908362,
+    "max_tension": 0.48161446610389236,
+    "max_cop": 4.187615166485874,
+    "C": 316.786496851,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 10.629721788604758,
+    "retained_mm": 0.545810785847
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p144_iso_gpu2",
+    "compress": "human_study/al_v2/cases/p144_compress_gpu4"
+   }
+  },
+  {
+   "id": 145,
+   "batch": 60,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "interleave",
+    "d": 0.5,
+    "E_hard": 576.06,
+    "E_soft": 10.346,
+    "theta": 0.358
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.004289239137722285,
+    "mean_y": 0.004161184785960226,
+    "ucb_logC": 5.460531084831359
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p145_iso",
+    "compress": "human_study/al_v2/cases/p145_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.8242574814954273,
+    "max_tension": 0.5254157371329126,
+    "max_cop": 5.845651361423502,
+    "C": 272.110805668,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 9.245082528166739,
+    "retained_mm": 0.498722298555
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p145_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p145_compress_gpu3"
+   }
+  },
+  {
+   "id": 146,
+   "batch": 61,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "mix",
+    "d": 1.15,
+    "E_hard": 847.05,
+    "E_soft": 6.566,
+    "theta": 0.255
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.004924678356702608,
+    "mean_y": 0.003956802066502854,
+    "ucb_logC": 5.071706933378308
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p146_iso",
+    "compress": "human_study/al_v2/cases/p146_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.9456517218133806,
+    "max_tension": 0.49216242776698005,
+    "max_cop": 5.624001883412166,
+    "C": 265.416079603,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 52.934995762703686,
+    "retained_mm": 1.13617222875
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p146_iso_gpu1",
+    "compress": "human_study/al_v2/cases/p146_compress_gpu5"
+   }
+  },
+  {
+   "id": 147,
+   "batch": 61,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 0.75,
+    "E_hard": 542.32,
+    "E_soft": 7.89,
+    "theta": 0.278
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.003920054217147098,
+    "mean_y": 0.002470204584627985,
+    "ucb_logC": 5.2972037506230745
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p147_iso",
+    "compress": "human_study/al_v2/cases/p147_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.668693560152832,
+    "max_tension": 0.4523215942008491,
+    "max_cop": 4.106645733016439,
+    "C": 309.25837196,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 20.2106449225053,
+    "retained_mm": 0.742191455256
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p147_iso_gpu2",
+    "compress": "human_study/al_v2/cases/p147_compress_gpu3"
+   }
+  },
+  {
+   "id": 148,
+   "batch": 62,
+   "x": {
+    "design": "A",
+    "grad": "radial",
+    "fab": "mix",
+    "d": 0.65,
+    "E_hard": 847.05,
+    "E_soft": 6.566,
+    "theta": 0.255
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.0020943612256864898,
+    "mean_y": 0.00026932260738837636,
+    "ucb_logC": 5.459989151115076
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p148_iso",
+    "compress": "human_study/al_v2/cases/p148_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.49974598754326394,
+    "max_tension": 0.5159527519031909,
+    "max_cop": Infinity,
+    "C": 321.953347075,
+    "capacity_mode": "a_cage_damage_15pct",
+    "clamp_N": 15.265816171152132,
+    "retained_mm": 0.65084096855
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p148_iso_gpu5",
+    "compress": "human_study/al_v2/cases/p148_compress_gpu6"
+   }
+  },
+  {
+   "id": 149,
+   "batch": 63,
+   "x": {
+    "design": "A",
+    "grad": "axial",
+    "fab": "interleave",
+    "d": 0.9,
+    "E_hard": 542.32,
+    "E_soft": 7.89,
+    "theta": 0.278
+   },
+   "status": "done",
+   "acq": {
+    "ucb_y": 0.005609870895768886,
+    "mean_y": 0.0039565936704367595,
+    "ucb_logC": 5.151074480955065
+   },
+   "cases": {
+    "iso": "human_study/al_v2/cases/p149_iso",
+    "compress": "human_study/al_v2/cases/p149_compress"
+   },
+   "res": {
+    "y": 0.0041666746139526365,
+    "iso_completion": 0.0041666746139526365,
+    "iso_failure": "slip",
+    "iso_t_fail": 3.0416667461395264,
+    "min_sf_mu02": 0.8825835556365149,
+    "max_tension": 0.4438681021512387,
+    "max_cop": 3.591416921681205,
+    "C": 326.783958687,
+    "capacity_mode": "b_bone_yield_10pct",
+    "clamp_N": 30.324920302305387,
+    "retained_mm": 0.886928129502
+   },
+   "ran_in": {
+    "iso": "human_study/al_v2/cases/p149_iso_gpu3",
+    "compress": "human_study/al_v2/cases/p149_compress_gpu4"
    }
   }
  ],
@@ -2076,6 +5855,491 @@
    ],
    "created": "2026-10-23 09:07",
    "best_robust_feasible_y": 0.02291627126961102
+  },
+  {
+   "batch": 7,
+   "ids": [
+    64,
+    65
+   ],
+   "created": "2026-10-23 12:41",
+   "best_robust_feasible_y": 0.016280330005401848
+  },
+  {
+   "batch": 8,
+   "ids": [
+    66,
+    67
+   ],
+   "created": "2026-10-23 16:22",
+   "best_robust_feasible_y": null
+  },
+  {
+   "batch": 9,
+   "ids": [
+    68,
+    69
+   ],
+   "created": "2026-10-23 16:30",
+   "best_robust_feasible_y": 0.006174399301924854
+  },
+  {
+   "batch": 10,
+   "ids": [
+    70,
+    71
+   ],
+   "created": "2026-10-23 16:38",
+   "best_robust_feasible_y": 0.006174399301924854
+  },
+  {
+   "batch": 11,
+   "ids": [
+    72,
+    73
+   ],
+   "created": "2026-10-23 16:46",
+   "best_robust_feasible_y": 0.006174399301924854
+  },
+  {
+   "batch": 12,
+   "ids": [
+    74,
+    75
+   ],
+   "created": "2026-10-23 16:53",
+   "best_robust_feasible_y": 0.006174399301924854
+  },
+  {
+   "batch": 13,
+   "ids": [
+    76,
+    77
+   ],
+   "created": "2026-10-23 17:01",
+   "best_robust_feasible_y": 0.006174399301924854
+  },
+  {
+   "batch": 14,
+   "ids": [
+    78
+   ],
+   "created": "2026-10-23 17:18",
+   "best_robust_feasible_y": 0.006174399301924854
+  },
+  {
+   "batch": 15,
+   "ids": [
+    79
+   ],
+   "created": "2026-10-23 17:25",
+   "best_robust_feasible_y": 0.006174399301924854
+  },
+  {
+   "batch": 16,
+   "ids": [
+    80,
+    81
+   ],
+   "created": "2026-10-23 17:33",
+   "best_robust_feasible_y": 0.008578278474458434
+  },
+  {
+   "batch": 17,
+   "ids": [
+    82
+   ],
+   "created": "2026-10-23 18:19",
+   "best_robust_feasible_y": 0.013926481060737048
+  },
+  {
+   "batch": 18,
+   "ids": [
+    83
+   ],
+   "created": "2026-10-23 18:28",
+   "best_robust_feasible_y": 0.010757103055922259
+  },
+  {
+   "batch": 19,
+   "ids": [
+    84
+   ],
+   "created": "2026-10-23 18:37",
+   "best_robust_feasible_y": 0.011714688955034532
+  },
+  {
+   "batch": 20,
+   "ids": [
+    85
+   ],
+   "created": "2026-10-23 18:50",
+   "best_robust_feasible_y": 0.012488914218158002
+  },
+  {
+   "batch": 21,
+   "ids": [
+    86
+   ],
+   "created": "2026-10-23 18:57",
+   "best_robust_feasible_y": 0.012488914218158002
+  },
+  {
+   "batch": 22,
+   "ids": [
+    87
+   ],
+   "created": "2026-10-23 19:33",
+   "best_robust_feasible_y": 0.012484138363109142
+  },
+  {
+   "batch": 23,
+   "ids": [
+    88,
+    89
+   ],
+   "created": "2026-10-23 19:40",
+   "best_robust_feasible_y": 0.012484138363109142
+  },
+  {
+   "batch": 24,
+   "ids": [
+    90
+   ],
+   "created": "2026-10-23 19:48",
+   "best_robust_feasible_y": 0.012484138363109142
+  },
+  {
+   "batch": 25,
+   "ids": [
+    91,
+    92
+   ],
+   "created": "2026-10-23 19:57",
+   "best_robust_feasible_y": 0.012464610659225113
+  },
+  {
+   "batch": 26,
+   "ids": [
+    93,
+    94
+   ],
+   "created": "2026-10-23 20:03",
+   "best_robust_feasible_y": 0.012464610659225113
+  },
+  {
+   "batch": 27,
+   "ids": [
+    95,
+    96
+   ],
+   "created": "2026-10-23 20:11",
+   "best_robust_feasible_y": 0.011996053876892496
+  },
+  {
+   "batch": 28,
+   "ids": [
+    97
+   ],
+   "created": "2026-10-23 20:31",
+   "best_robust_feasible_y": 0.012136337095636045
+  },
+  {
+   "batch": 29,
+   "ids": [
+    98
+   ],
+   "created": "2026-10-23 20:38",
+   "best_robust_feasible_y": 0.012214166706919646
+  },
+  {
+   "batch": 30,
+   "ids": [
+    99,
+    100
+   ],
+   "created": "2026-10-23 20:45",
+   "best_robust_feasible_y": 0.011767837422094335
+  },
+  {
+   "batch": 31,
+   "ids": [
+    101,
+    102
+   ],
+   "created": "2026-10-23 20:54",
+   "best_robust_feasible_y": 0.012276550629399478
+  },
+  {
+   "batch": 32,
+   "ids": [
+    103
+   ],
+   "created": "2026-10-23 21:02",
+   "best_robust_feasible_y": 0.012276550629399478
+  },
+  {
+   "batch": 33,
+   "ids": [
+    104
+   ],
+   "created": "2026-10-23 21:09",
+   "best_robust_feasible_y": 0.012276550629399478
+  },
+  {
+   "batch": 34,
+   "ids": [
+    105
+   ],
+   "created": "2026-10-23 21:17",
+   "best_robust_feasible_y": 0.012427985990955015
+  },
+  {
+   "batch": 35,
+   "ids": [
+    106
+   ],
+   "created": "2026-10-23 21:35",
+   "best_robust_feasible_y": 0.012427416042306455
+  },
+  {
+   "batch": 36,
+   "ids": [
+    107,
+    108
+   ],
+   "created": "2026-10-23 21:55",
+   "best_robust_feasible_y": 0.008335835940666763
+  },
+  {
+   "batch": 37,
+   "ids": [
+    109,
+    110
+   ],
+   "created": "2026-10-23 22:04",
+   "best_robust_feasible_y": 0.008663191392200642
+  },
+  {
+   "batch": 38,
+   "ids": [
+    111,
+    112
+   ],
+   "created": "2026-10-23 22:11",
+   "best_robust_feasible_y": 0.008663191392200642
+  },
+  {
+   "batch": 39,
+   "ids": [
+    113
+   ],
+   "created": "2026-10-23 22:19",
+   "best_robust_feasible_y": 0.008663191392200642
+  },
+  {
+   "batch": 40,
+   "ids": [
+    114
+   ],
+   "created": "2026-10-23 22:27",
+   "best_robust_feasible_y": 0.008337379873341549
+  },
+  {
+   "batch": 41,
+   "ids": [
+    115,
+    116
+   ],
+   "created": "2026-10-23 22:34",
+   "best_robust_feasible_y": 0.008337379873341549
+  },
+  {
+   "batch": 42,
+   "ids": [
+    117,
+    118
+   ],
+   "created": "2026-10-23 22:44",
+   "best_robust_feasible_y": 0.008418368226223157
+  },
+  {
+   "batch": 43,
+   "ids": [
+    119
+   ],
+   "created": "2026-10-23 22:52",
+   "best_robust_feasible_y": 0.007859463084259994
+  },
+  {
+   "batch": 44,
+   "ids": [
+    120,
+    121
+   ],
+   "created": "2026-10-23 22:59",
+   "best_robust_feasible_y": 0.007859463084259994
+  },
+  {
+   "batch": 45,
+   "ids": [
+    122
+   ],
+   "created": "2026-10-23 23:06",
+   "best_robust_feasible_y": 0.012425609158274313
+  },
+  {
+   "batch": 46,
+   "ids": [
+    123
+   ],
+   "created": "2026-10-23 23:14",
+   "best_robust_feasible_y": 0.007484838950478736
+  },
+  {
+   "batch": 47,
+   "ids": [
+    124,
+    125
+   ],
+   "created": "2026-10-23 23:22",
+   "best_robust_feasible_y": 0.0076560705278823325
+  },
+  {
+   "batch": 48,
+   "ids": [
+    126
+   ],
+   "created": "2026-10-23 23:29",
+   "best_robust_feasible_y": 0.007766617139236454
+  },
+  {
+   "batch": 49,
+   "ids": [
+    127,
+    128,
+    129
+   ],
+   "created": "2026-10-23 23:36",
+   "best_robust_feasible_y": 0.007722721603643051
+  },
+  {
+   "batch": 50,
+   "ids": [
+    130,
+    131
+   ],
+   "created": "2026-10-23 23:43",
+   "best_robust_feasible_y": 0.007722721603643051
+  },
+  {
+   "batch": 51,
+   "ids": [
+    132,
+    133
+   ],
+   "created": "2026-10-23 23:54",
+   "best_robust_feasible_y": 0.007553546433053069
+  },
+  {
+   "batch": 52,
+   "ids": [
+    134
+   ],
+   "created": "2026-10-24 00:01",
+   "best_robust_feasible_y": 0.012300305457874677
+  },
+  {
+   "batch": 53,
+   "ids": [
+    135
+   ],
+   "created": "2026-10-24 00:08",
+   "best_robust_feasible_y": 0.008374724971447105
+  },
+  {
+   "batch": 54,
+   "ids": [
+    136
+   ],
+   "created": "2026-10-24 00:16",
+   "best_robust_feasible_y": 0.007915471845890431
+  },
+  {
+   "batch": 55,
+   "ids": [
+    137,
+    138
+   ],
+   "created": "2026-10-24 00:24",
+   "best_robust_feasible_y": 0.008346053597046531
+  },
+  {
+   "batch": 56,
+   "ids": [
+    139
+   ],
+   "created": "2026-10-24 00:31",
+   "best_robust_feasible_y": 0.011409662776445222
+  },
+  {
+   "batch": 57,
+   "ids": [
+    140
+   ],
+   "created": "2026-10-24 00:38",
+   "best_robust_feasible_y": 0.011409662776445222
+  },
+  {
+   "batch": 58,
+   "ids": [
+    141,
+    142
+   ],
+   "created": "2026-10-24 00:45",
+   "best_robust_feasible_y": 0.011409662776445222
+  },
+  {
+   "batch": 59,
+   "ids": [
+    143
+   ],
+   "created": "2026-10-24 00:54",
+   "best_robust_feasible_y": 0.012198675963516408
+  },
+  {
+   "batch": 60,
+   "ids": [
+    144,
+    145
+   ],
+   "created": "2026-10-24 01:02",
+   "best_robust_feasible_y": 0.012400839732354917
+  },
+  {
+   "batch": 61,
+   "ids": [
+    146,
+    147
+   ],
+   "created": "2026-10-24 01:12",
+   "best_robust_feasible_y": 0.010203188452617893
+  },
+  {
+   "batch": 62,
+   "ids": [
+    148
+   ],
+   "created": "2026-10-24 01:19",
+   "best_robust_feasible_y": 0.010203188452617893
+  },
+  {
+   "batch": 63,
+   "ids": [
+    149
+   ],
+   "created": "2026-10-24 01:29",
+   "best_robust_feasible_y": 0.009556547319942293
   }
  ],
  "history": [
@@ -2088,6 +6352,46 @@
    "n_done": 41,
    "best_robust_feasible_y": 0.02404160480199972,
    "time": "2026-10-23 08:56"
+  },
+  {
+   "n_done": 59,
+   "best_robust_feasible_y": null,
+   "time": "2026-10-23 16:21"
+  },
+  {
+   "n_done": 67,
+   "best_robust_feasible_y": 0.012488914218158002,
+   "time": "2026-10-23 18:50"
+  },
+  {
+   "n_done": 76,
+   "best_robust_feasible_y": 0.011996053876892496,
+   "time": "2026-10-23 20:11"
+  },
+  {
+   "n_done": 84,
+   "best_robust_feasible_y": 0.012276550629399478,
+   "time": "2026-10-23 20:54"
+  },
+  {
+   "n_done": 92,
+   "best_robust_feasible_y": 0.008663191392200642,
+   "time": "2026-10-23 22:04"
+  },
+  {
+   "n_done": 101,
+   "best_robust_feasible_y": 0.0076560705278823325,
+   "time": "2026-10-23 23:22"
+  },
+  {
+   "n_done": 109,
+   "best_robust_feasible_y": 0.008374724971447105,
+   "time": "2026-10-24 00:08"
+  },
+  {
+   "n_done": 121,
+   "best_robust_feasible_y": 0.010203188452617893,
+   "time": "2026-10-24 01:12"
   }
  ]
 }

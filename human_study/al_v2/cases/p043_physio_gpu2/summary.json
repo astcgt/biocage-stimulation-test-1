@@ -1,0 +1,60 @@
+{
+ "test": "physio",
+ "d": 1.391,
+ "completed_time": 3.0,
+ "distraction_force_N": 80.0647425758,
+ "clamp_after_release_N": 50.9431154127083,
+ "retained_distraction_mm": 1.14014207035,
+ "contact_layer_crush_after_release": 0.0,
+ "friction_demand": [
+  {
+   "t": 3.0,
+   "bot_excess_shear_N": -12.37226298221957,
+   "bot_slip_area_frac": 0.05415162446049457,
+   "bot_tension_area_frac": 0.0,
+   "bot_safety_factor": 3.8286554378673765,
+   "bot_normal_N": 47.84618698184996,
+   "bot_shear_N": 4.373902461427914,
+   "bot_cop_eccentricity": 0.006886234323409962,
+   "top_excess_shear_N": -10.522844656580048,
+   "top_slip_area_frac": 0.021660649880822516,
+   "top_tension_area_frac": 0.0,
+   "top_safety_factor": 2.699358493885262,
+   "top_normal_N": 47.757399892426456,
+   "top_shear_N": 6.192245305769209,
+   "top_cop_eccentricity": 0.015770852291032908
+  }
+ ],
+ "friction_demand_after_release": {
+  "bot_excess_shear_N": -12.37226298221957,
+  "bot_slip_area_frac": 0.05415162446049457,
+  "bot_tension_area_frac": 0.0,
+  "bot_safety_factor": 3.8286554378673765,
+  "bot_normal_N": 47.84618698184996,
+  "bot_shear_N": 4.373902461427914,
+  "bot_cop_eccentricity": 0.006886234323409962,
+  "top_excess_shear_N": -10.522844656580048,
+  "top_slip_area_frac": 0.021660649880822516,
+  "top_tension_area_frac": 0.0,
+  "top_safety_factor": 2.699358493885262,
+  "top_normal_N": 47.757399892426456,
+  "top_shear_N": 6.192245305769209,
+  "top_cop_eccentricity": 0.015770852291032908
+ },
+ "min_safety_factor": 2.699358493885262,
+ "t_min_safety_factor": 3.0,
+ "max_slip_area_frac": 0.05415162446049457,
+ "mu_used": 0.35,
+ "max_cop_eccentricity": 0.015770852291032908,
+ "max_tension_area_frac": 0.0,
+ "max_excess_shear_N": -10.522844656580048,
+ "functional_failure_slip": {
+  "type": "solver stopped before the protocol finished (Q40)",
+  "time": 3.0,
+  "phase": "follower load",
+  "slip_at_stop_mm": null,
+  "contact_layer_crush_frac": 0.0,
+  "min_principal_stretch": 0.8031503558158875,
+  "where": "cage_soft_0.0"
+ }
+}

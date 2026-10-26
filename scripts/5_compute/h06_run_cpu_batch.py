@@ -44,14 +44,19 @@ def record_launch(d, feb):
     open(os.path.join(d, 'launched_feb.sha256'), 'w').write(hashlib.sha256(open(os.path.join(d, feb), 'rb').read()).hexdigest())
 
 
+CLAIM_S = 300   # 2026-10-23: only runs younger than this claim their pinned cores; older runs are judged by measured load
+                # (an 8-core run uses ~2.5 cores, so its idle pinned cores used to block new launches at load 20 / 256)
+
+
 def claimed_cores():
-    """Cores pinned to this user's running FEBio processes (a just-started run is not yet visible as busy load)."""
-    out = set()
+    """Cores pinned to this user's FEBio processes that started < CLAIM_S ago (not yet visible as busy load)."""
+    out = set(); hz = os.sysconf('SC_CLK_TCK'); up = float(open('/proc/uptime').read().split()[0])
     for p in os.listdir('/proc'):
         if not p.isdigit(): continue
         try:
             if os.stat(f'/proc/{p}').st_uid != os.getuid(): continue
             if b'febio4' not in open(f'/proc/{p}/cmdline', 'rb').read(): continue
+            if up - int(open(f'/proc/{p}/stat').read().rsplit(')', 1)[1].split()[19]) / hz > CLAIM_S: continue
             aff = os.sched_getaffinity(int(p))
             if len(aff) < os.cpu_count(): out |= aff
         except (OSError, ProcessLookupError):

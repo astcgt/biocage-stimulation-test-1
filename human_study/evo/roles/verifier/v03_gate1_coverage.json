@@ -1,0 +1,26 @@
+{
+ "F": {
+  "J": 1.098213,
+  "rotation_deg": 2.057521868314021
+ },
+ "fiber0_In": {
+  "min": 1.162657582733408,
+  "max": 1.1626575827347871,
+  "compressed": false,
+  "stretched": true
+ },
+ "fiber1_In": {
+  "min": 0.9687116480346313,
+  "max": 0.9687116480361077,
+  "compressed": true,
+  "stretched": false
+ },
+ "gent_t0.5": {
+  "ramp": 1.0,
+  "I1t_minus3_over_Jm": 0.21093974433150897
+ },
+ "gent_t1.0": {
+  "ramp": 0.3,
+  "I1t_minus3_over_Jm": 0.06730969630165301
+ }
+}

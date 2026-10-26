@@ -645,3 +645,114 @@ Decisions agreed with the PI during the review sessions. Anything not listed is 
   cores pinned) -> memory (128 GB cap) is the real limit. New AL jobs pin 4 cores (h22 JOB_CORES 8 -> 4); up to 5 of my jobs
   per GPU (h19 MAX_PER_GPU 3 -> 5, share util < 60 %). The new 'physio' test is pre-run for all 44 done points (speculative,
   uses otherwise idle capacity; usable as soon as the PI approves the test switch): jobs al_v2pXXX_physio, 4 cores, 4 GB.
+- 2026-10-23 12:55 h06.claimed_cores: only FEBio runs younger than 5 min claim their pinned cores (older runs are judged by measured load); with 8-core pins but ~2.5 busy cores per run, idle-unclaimed cores were 4 at load 21 / 256 -> 65 after the change.
+- 2026-10-23 13:15 memory over-packed after the claim change: 51 runs, 5 GB free, 4 OOM kills (cgroup oom_kill 2 -> 6; killed runs resume from checkpoints via the watchdog). h19 now keeps MEM_HEADROOM = 16 GB free (was 4) before launching.
+- 2026-10-23 14:20 physio test status: p014 (A radial mix) passes follower load + flexion (1.53 deg at 1.5 N m), stalls near
+  the extension peak (t 4.91) with inverted FACET CARTILAGE elements (6, mat 5) - facets loaded in extension, numerical.
+  p037 (A axial interleave) reaches peak flexion (2.75 deg) and stalls at t 4.04-4.08 with 1135 inverted soft interleave
+  lines + 154 hard -> the interleave soft lines fail already at 1.5 N m flexion (same edge mechanism as in ISO, now under a
+  physiological moment). p011 (B both interleave) stalls at the start (t 3.01-3.03, follower ramp + freed C3 rotations) with
+  956 inverted soft lines. -> interleave soft lines are the weak point; facet cartilage inversion in extension needs a fix.
+- 2026-10-23 15:07 AL stalled at 47 done for ~2 h: compression runs past their capacity endpoint crawl in auto-stepper retry loops (e.g. p062 at t 3.419, p063 3.410, p052 3.326 unchanged for > 15 min) holding memory slots, and 26 of 39 slots were physio pre-runs. h23 watchdog: a run whose simulated time advances < 0.005 within 45 min is stopped and its log closed with an ERROR TERMINATION line (equivalent to FEBio giving up after max retries; result truncated there; stops before t 3 -> 'invalid'). physio test p011 (B both interleave) ended in ERROR at the follower-load start (soft lines).
+- 2026-10-23 17:22 AL jobs now declare mem_gb 4 (was 8; measured ~2.6 GB per run) so the 16 GB headroom rule does not leave ~20 GB idle.
+- 2026-10-23 17:45 AL proposal blocked ('every candidate is near a running point', 30 min cooldown) while ~35 GB were free: h22 retries with a 0.07 d-separation when 0.15 leaves no candidate, cooldown 10 min. physio pre-runs queued for the 18 newly done points.
+- 2026-10-23 18:45 physio summary (h27, 42 ended runs): NO run passes the 2nd window (extension); 14 complete flexion only,
+  all design B complete 0 windows (stop at the follower-load start). Flexion at 1.5 N m: C3 rotation 0.4-3.3 deg, min anti-slip
+  SF at mu 0.2 = 0.56-0.91 (< 1 -> slip predicted in flexion for every A design that got there). The extension stop is the
+  facet-cartilage inversion seen in p014 -> blocks the protocol for every design; numerical, design-independent. Testing facet
+  contact variants on p014 (h14 'facet_contact' overrides, default unchanged): pure penalty (laugon 0) and single pass
+  (two_pass 0), queued first (al_v2/facet_test).
+- 2026-10-23 18:45 cgroup oom_kill 6 -> 8 at ~18:35: not FEBio runs (no requeue) but my h27 physio summary running 8 h15 post-processings in parallel next to ~40 runs; h27 now uses 2 workers. FEBio peak RSS up to ~5 GB per run.
+- 2026-10-23 21:00 AUTO (no reply since 14:20; PI fallback rule): (b) interleave soft lines failing under the physiological
+  1.5 N m moment COUNT as functional failure (consistent with the agreed soft-layer-crush definition); (c) friction worst case
+  stays mu = 0.2 (existing decision, not changed). (a) extension stall at ~-1.2 N m: not decided yet - test p014 with the
+  extension moment capped at 1.0 N m (h14 'physio_scale', default unchanged; al_v2/facet_test/p014_ext1) to see whether the
+  remaining four directions (LB, AR) complete. Facet variants (pure penalty, single pass) removed the inversions but also
+  stall at -1.2 N m (C3 rotation linear, -2.1 deg; numerical, not instability).
+- 2026-10-25 12:05 Jupyter service was down 10-24 ~11:06 -> 10-25 11:48 (~25 h; no runs lost, the queue was empty except the
+  items below); daemons restarted by the watchdog at 11:51. AL v2 (ISO screening) reached the 150-point budget on 10-24 01:29;
+  144 done, best robust feasible y 0.0096. Leftovers found and fixed: points 64 / 65 had status 'new' and truncated compress
+  case.feb files (build killed by the 10-23 outage; preflight crashed on the XML) -> rebuilt and queued; p070_iso and
+  p071_compress were killed at 10-23 18:33 (the cgroup OOM kills) but the wrapper reported exit 0, so the watchdog never
+  requeued them -> requeued; h23 now also requeues v2 jobs with exit 0 and no FEBio termination line. Points 54 / 59 stay
+  invalid (stop before the test even with insert_dt 0.01). All 76 physio pre-runs have ended.
+- 2026-10-25 12:05 physio results (h27, 76 runs): windows completed 0: 35, 1: 39, 3: 2; design B 0 windows in every run (stops
+  at the follower-load start); A 0.87. p062 and p063 (A axial mix, d 0.50 / 0.65) pass extension at the full 1.5 N m (-2.1 /
+  -2.3 deg) and right LB (+1.2 / +1.1 deg) -> the extension stall is not universal. p014_ext1 (extension capped at 1.0 N m)
+  also completes flexion, extension (-1.76 deg) and right LB (+1.23 deg). All three then stall in LEFT LB (t 6.68-7.03, i.e.
+  after the moment reverses from right to left LB; zero line-search steps, p062 / p014_ext1 without inverted elements ->
+  numerical contact convergence, not a material failure). Min anti-slip SF at mu 0.2 in every completed window < 1 (0.38-0.91).
+- 2026-10-25 12:25 PI: (1) YES, the AL is re-run with the physio test (replaces ISO screening); (2) YES, numerical fixes for
+  the left-LB stall may be tried (test conditions unchanged). h14 new optional params 'physio_dt' (default 0.05) and
+  'physio_ctrl' (Control / time_stepper overrides for the physio step); default build byte-identical (checked on p062).
+  Left-LB variants, one change each vs base, on p062 (full 1.5 N m) and p014_ext1 (al_v2/lb_test, jobs diag_lb_*):
+  dt01 (dt 0.01), newton (max_ups 0 = full Newton), nols (lstol 0 = no line search), laug0 (facet laugon 0), combo
+  (dt 0.02 + full Newton + facet laugon 0). The physio AL starts after this test, otherwise every point would stop at left LB
+  and be re-run.
+- 2026-10-25 12:25 slip, quantified (76 physio runs; contact is tied in screening, slip judged by the whole-face friction demand
+  |T| / N at the peak moment, so 'max slip mm' in tied runs is not a real slip): friction coefficient needed to hold, mu_req =
+  0.35 / SF_sim: flexion (41 runs) 0.21-0.37, median 0.26 (0 hold at mu 0.2, 38 hold at 0.35); extension 0.47-0.49 and right LB
+  0.51-0.53 (only the 3 runs that got there, incl. p014_ext1). -> with friction alone at mu 0.2 every design slips in every
+  direction tested. Consequence for the AL objective: the ISO score (completion until the first SF < 1 at mu 0.2) stopped all
+  150 v2 points at the first slip (y 0.004-0.017), i.e. the ISO AL could only rank designs by how early they slip; the
+  physio AL needs an objective that stays informative when every design slips at mu 0.2 (proposal to the PI: maximise the
+  minimum SF over the 6 directions = minimise mu_req).
+
+## Free-form evolutionary design (evo), PI 2026-10-25
+Goal (PI): PLCL-only BIOCAGE, shape and material grown freely (evolution-like) to go beyond human-imagined designs; minimum
+constraints = surgery-compatible + no nerve / bone harm; maximum freedom otherwise. Plan: `human_study/evo/PLAN.md`.
+- Roles: four adversarial AI roles (Claude, headless) + a computational engine (evolution + simulation):
+  designer (free ideation / mutation), verifier (reliability + reproducibility of the evaluation pipeline),
+  safety guard (minimum purpose + nerve / bone safety), red team (finds and amplifies holes in all others, reports options).
+- Space: STRICTLY inside the disc space (inset footprint, between the endplates); no bone penetration (no teeth / keels / screws),
+  nothing protruding out of the disc space. Fixation must come from shape + friction.
+- Material: every voxel = void or any PLCL 85:15 / 50:50 blend fraction phi in [0, 1] (Duan 2021 sigmoid as in the AL),
+  print resolution 0.4 mm line / 0.2 mm layer.
+- Biodisc space: the 60 % central-window rule is dropped for evo; replaced by (a) a low floor on the biodisc (void) volume and
+  (b) the void must connect both endplates; volume is an objective -> trade-off chart (biodisc space vs fixation) for the PI.
+- Insertion: one piece, from anterior, may be compressed during insertion and spring back (as the 'expand' insertion, shrink 0.8).
+- Fixation score: minimise the friction coefficient needed to hold, worst of the 6 physiological directions (mu_req = max over
+  flexion / extension / left-right LB / left-right AR); no hard pass mark.
+- Compute: about half of CPU / GPU for evo, half for the physio AL.
+- 2026-10-25 PI: avoid CPU-bound simulation where a credible GPU method close to reality exists; main goal = no slip-out,
+  checked smartly; compare methods first (human_study/evo/METHODS_COMPARISON.md). New e02 (scripts/7_evo/e02_friction_limit.py):
+  friction limit with twist (linear program) on tied runs. p062: force ratio 0.35-0.52 vs friction limit 0.75-2.15 (twist up to
+  ~1 N m on the glued face in lateral bending, coupled axial rotation) -> the current force ratio is optimistic, the limit
+  pessimistic; real friction simulation needed to decide. Proposal: own GPU explicit solver (TLED) on the same FEBio mesh,
+  verified against FEBio in 5 gates. Batch on all 76 physio runs: tmux biocage_evo_e02 -> human_study/evo/method/.
+- 2026-10-25 PI: evo slip-out failure = cage centre translation relative to the bone > 1 mm (as the earlier 1 mm relative-slip limit); also record ratcheting over cycles.
+- 2026-10-26 PI asked how the four roles are managed (independent, cooperating, supervising, no data mixing): proposal human_study/evo/GOVERNANCE.md (IV&V, separation of duties, blackboard, structured JSON hand-overs, blinding, provenance, enforced per-role tool permissions). Pending PI comments.
+- 2026-10-26 PI answers (evo):
+  (1) solver core accepted: GPU Newton (cuDSS) + explicit friction return mapping (pure explicit DR too slow for bone vs nucleus);
+  (2) three-tier evaluation accepted (fast screen < 1 min, full GPU 10-30 min for the front runners, FEBio for finalists);
+  (3) friction coefficient PLCL-bone for the real-friction check: from literature (analyst to search and propose);
+  (4) 6 directions x 3 cycles for ratcheting: enough;
+  (5) S1-S9 values: PI asked for a plainer explanation (pending);
+  (6) twist in flexion / extension (I-001): define precisely, search literature, analyse, propose fixes before using the numbers;
+  (7) AL objective: wait for the real-friction GPU results before changing it;
+  (8) start verifier, safety guard, red team now (designer later);
+  (9) all roles on claude-opus-5-5, observe for one day.
+- 2026-10-26 BUG FOUND (I-001, while analysing the 'twist in flexion'): h14 physio moment curves lacked the window-start
+  point (ts, 0), so each moment ramped from t 3.5 instead of starting at its own window: at the flexion peak C3 also carried
+  Rx 299 / Rz 166 N mm, at the right-LB peak Rz 833 N mm (p062 C3pot.txt). Every physio run so far (76 AL pre-runs,
+  physio_test, facet_test, lb_test) had COMBINED loading instead of the agreed one-direction pure moments (Wilke 1998 /
+  Panjabi testing convention). Fixed in h14 (pts += (ts, 0)); other tests unchanged. Consequences: physio ROM, stalls
+  (extension / left LB), slip safety factors and the e02 twist numbers are invalid and must be re-run; the physio AL had not
+  started (queue empty), no compute lost. Cage-mesh / model symmetry checked: surfaces mirror within 0.01 mm, bone tet meshes
+  not mirrored (node offsets 0.04-0.6 mm) - only a small numerical asymmetry expected.
+- 2026-10-26 physio reruns with the fixed curves queued: human_study/al_v2/physio_fix/{p062,p063,p014} (settings class = physio_test, preflight OK) to quantify the bug's effect before the physio AL.
+- 2026-10-26 PI (evo constraints):
+  friction coefficient for the real-friction check: mu = 0.3 main (smooth polymer, wet), sensitivity 0.2 / 0.45; every
+  design also reports the mu needed to hold (no PLCL-bone measurement in the literature; coupon test recommended);
+  S4 biodisc space floor = 50 % of the disc-space volume (was proposed 30 %); S5 printability: keep 0.4 mm / 45 deg overhang;
+  S9 replaced: the test goal is NO slip-out in ANY direction (cage-centre translation > 1 mm relative to C3 or C4 = fail,
+  6 directions x 3 cycles, ratcheting recorded); posterior migration (toward the cord) is absolutely unacceptable
+  (reported separately; any posterior net translation is flagged even below 1 mm).
+- 2026-10-26 red-team F-0002: pre-fix physio results marked INVALID (al_v2/PHYSIO_INVALID_2026-10-26.md, copies in physio_analysis/ and evo/method/; METHODS_COMPARISON.md section A and ISSUES.md I-002 flagged).
+- 2026-10-26 PI (evo): (a) posterior limit 0.5 mm net migration toward the cord and minimum posterior push-out 135 N (safety guard
+  proposal, Moroney 1988 max cervical AP shear) accepted; (b) biodisc maturation / support period: from the lab's previous work
+  (Lintz 2021 dissertation, human_study/evo/PRIOR_FAILURES_Lintz2021.md): >= 16 weeks main, 26 weeks sensitivity; (c) no
+  radiographic marker for now, imaging follow-up assumed possible (out of scope); (d) insertion: any feasible insertion method
+  may be considered (oblique, staged, ...); the 53-60 % compression needed for a front slide-in and the permanent-set risk of
+  hard PLCL must be faced: analyst to research surgical distraction / endplate preparation practice; (e) commit the work
+  (author austonliuyi only, no Claude attribution).

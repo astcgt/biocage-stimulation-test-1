@@ -1,0 +1,60 @@
+{
+ "test": "physio",
+ "d": 1.383,
+ "completed_time": 3.0,
+ "distraction_force_N": 78.9893730709,
+ "clamp_after_release_N": 48.29210688735254,
+ "retained_distraction_mm": 1.11139632454,
+ "contact_layer_crush_after_release": 0.0,
+ "friction_demand": [
+  {
+   "t": 3.0,
+   "bot_excess_shear_N": -11.28721772533102,
+   "bot_slip_area_frac": 0.1805054153625289,
+   "bot_tension_area_frac": 0.0,
+   "bot_safety_factor": 3.653782233551976,
+   "bot_normal_N": 44.40135621166736,
+   "bot_shear_N": 4.253256948752556,
+   "bot_cop_eccentricity": 0.013856917537132297,
+   "top_excess_shear_N": -9.628785923001551,
+   "top_slip_area_frac": 0.202166066186139,
+   "top_tension_area_frac": 0.0,
+   "top_safety_factor": 2.6356872449079165,
+   "top_normal_N": 44.32993500824491,
+   "top_shear_N": 5.886691329884166,
+   "top_cop_eccentricity": 0.006128059099323428
+  }
+ ],
+ "friction_demand_after_release": {
+  "bot_excess_shear_N": -11.28721772533102,
+  "bot_slip_area_frac": 0.1805054153625289,
+  "bot_tension_area_frac": 0.0,
+  "bot_safety_factor": 3.653782233551976,
+  "bot_normal_N": 44.40135621166736,
+  "bot_shear_N": 4.253256948752556,
+  "bot_cop_eccentricity": 0.013856917537132297,
+  "top_excess_shear_N": -9.628785923001551,
+  "top_slip_area_frac": 0.202166066186139,
+  "top_tension_area_frac": 0.0,
+  "top_safety_factor": 2.6356872449079165,
+  "top_normal_N": 44.32993500824491,
+  "top_shear_N": 5.886691329884166,
+  "top_cop_eccentricity": 0.006128059099323428
+ },
+ "min_safety_factor": 2.6356872449079165,
+ "t_min_safety_factor": 3.0,
+ "max_slip_area_frac": 0.202166066186139,
+ "mu_used": 0.35,
+ "max_cop_eccentricity": 0.013856917537132297,
+ "max_tension_area_frac": 0.0,
+ "max_excess_shear_N": -9.628785923001551,
+ "functional_failure_slip": {
+  "type": "solver stopped before the protocol finished (Q40)",
+  "time": 3.0,
+  "phase": "follower load",
+  "slip_at_stop_mm": null,
+  "contact_layer_crush_frac": 0.0,
+  "min_principal_stretch": 0.7454049587249756,
+  "where": "cage_mix_0.0"
+ }
+}

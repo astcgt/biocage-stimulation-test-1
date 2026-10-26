@@ -423,14 +423,21 @@ elif test == 'physio':
     M, FL = prm.get('physio_moment_Nmm', 1500.0), prm.get('physio_follower_N', 100.0)
     seq = [('Ry', 1, 'flexion'), ('Ry', -1, 'extension'), ('Rx', 1, 'LB_right'), ('Rx', -1, 'LB_left'), ('Rz', 1, 'AR_left'), ('Rz', -1, 'AR_right')]
     T0 = 3.5; t_end = T0 + len(seq)
+    SC = prm.get('physio_scale', {})                 # per-direction moment factor, e.g. {'extension': 0.67} (2026-10-23 test)
     for dof in ('Rx', 'Ry', 'Rz'):
         pts = [(3.0, 0.0), (T0, 0.0)]
-        for i, (dd, sg, _) in enumerate(seq):
+        for i, (dd, sg, nm) in enumerate(seq):
             ts = T0 + i
-            if dd == dof: pts += [(ts + 0.5, float(sg)), (ts + 1.0, 0.0)]
+            # (ts, 0) is needed: without it the curve ramped from the previous zero point, so LB and AR moments grew during
+            # flexion / extension (combined loading in every physio run before 2026-10-26, found by e02 / I-001)
+            if dd == dof: pts += [(ts, 0.0), (ts + 0.5, float(sg) * SC.get(nm, 1.0)), (ts + 1.0, 0.0)]
         pts.append((t_end + 100, 0.0)); lc('M' + dof, sorted(set(pts)))
     lc('follower', [(3.0, 0.0), (T0, 1.0), (t_end + 100, 1.0)])
-    control(s3, int(round((t_end - 3.0) / 0.05)), 0.05, 0.05)
+    DT = prm.get('physio_dt', 0.05)                  # step size / dtmax (left-LB stall test, 2026-10-25)
+    control(s3, int(round((t_end - 3.0) / DT)), DT, DT)
+    for k, v in prm.get('physio_ctrl', {}).items():  # solver overrides, e.g. {'max_ups': 0, 'lstol': 0} (2026-10-25 test)
+        e = s3.find('Control').find(k) if s3.find('Control').find(k) is not None else s3.find('Control/time_stepper').find(k)
+        e.text = str(v)
     rigid(s3, force=[('z', lcs['follower'], -FL), ('Rx', lcs['MRx'], M), ('Ry', lcs['MRy'], M), ('Rz', lcs['MRz'], M)])
     json.dump(dict(moment_Nmm=M, follower_N=FL, t_follower=[3.0, T0],
                    windows=[dict(name=n, dof=dd, sign=sg, t0=T0 + i, t_peak=T0 + i + 0.5, t1=T0 + i + 1.0) for i, (dd, sg, n) in enumerate(seq)]),
@@ -457,6 +464,13 @@ ET.SubElement(lf, 'node_data', data='ux;uy;uz', file='cage_nodes.txt', delim=','
 ET.SubElement(lf, 'node_data', data='ux;uy;uz', file='C4_endplate_nodes.txt', delim=',').text = ','.join(map(str, ep.bot_ids))
 ET.SubElement(lf, 'node_data', data='Rx;Ry;Rz', file='push_reaction.txt', delim=',').text = ','.join(
     str(cage_ids[i]) for i in (cz['post'] if test == 'push_ant' else cz['ant'] if test == 'push_post' else cz['post'][:5]))
+FACET = prm.get('facet_contact', {})                 # overrides for the Herron facet contacts (extension: cartilage inversion, 2026-10-23)
+for c in root.iter('contact'):
+    if c.get('name') in ('C34_L_FC', 'C34_R_FC'):
+        for k, v in FACET.items():
+            e = c.find(k)
+            if e is None: e = ET.SubElement(c, k)
+            e.text = str(v)
 DROP = list(prm.get('diag_drop', []))               # distraction-stiffness diagnosis: remove a tissue component
 if prm.get('annulus_remnant', True) is False:
     # PI 2026-10-22: the posterolateral annulus remnant is treated as released / resected in the surgery model (it carried

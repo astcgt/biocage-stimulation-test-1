@@ -1,0 +1,1 @@
+PI decisions since round 1 (2026-10-26): mu 0.3 main (0.2 / 0.45 sensitivity); S4 floor 50 %; S5 kept; S9 = no slip-out in any direction (> 1 mm = fail), posterior migration absolutely unacceptable; physio load-curve bug found and fixed (DECISIONS.md 2026-10-26), physio reruns in human_study/al_v2/physio_fix/.
