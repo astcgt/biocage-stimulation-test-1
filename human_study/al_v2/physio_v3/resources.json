@@ -1,0 +1,15 @@
+{
+ "cases": {
+  "p091": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 36718.4,
+   "cores": 4,
+   "core_h": 40.798
+  }
+ },
+ "batch_wall_s": 36728.4,
+ "total_core_h": 40.798,
+ "gpu_h": 0.0,
+ "not_run": []
+}

@@ -1534,3 +1534,1315 @@
 10-26 21:12:04 collect: 0 new results
 10-26 21:12:04 next: point budget reached (150)
 10-26 21:12:04 loop: finished (stop criterion or budget)
+10-26 21:17:08 loop start (asynchronous)
+10-26 21:17:08 collect: 0 new results
+10-26 21:17:08 next: point budget reached (150)
+10-26 21:17:08 loop: finished (stop criterion or budget)
+10-26 21:22:12 loop start (asynchronous)
+10-26 21:22:12 collect: 0 new results
+10-26 21:22:12 next: point budget reached (150)
+10-26 21:22:12 loop: finished (stop criterion or budget)
+10-26 21:27:18 loop start (asynchronous)
+10-26 21:27:18 collect: 0 new results
+10-26 21:27:18 next: point budget reached (150)
+10-26 21:27:18 loop: finished (stop criterion or budget)
+10-26 21:32:27 loop start (asynchronous)
+10-26 21:32:27 collect: 0 new results
+10-26 21:32:27 next: point budget reached (150)
+10-26 21:32:27 loop: finished (stop criterion or budget)
+10-26 21:37:37 loop start (asynchronous)
+10-26 21:37:37 collect: 0 new results
+10-26 21:37:37 next: point budget reached (150)
+10-26 21:37:37 loop: finished (stop criterion or budget)
+10-26 21:42:50 loop start (asynchronous)
+10-26 21:42:50 collect: 0 new results
+10-26 21:42:50 next: point budget reached (150)
+10-26 21:42:50 loop: finished (stop criterion or budget)
+10-26 21:48:00 loop start (asynchronous)
+10-26 21:48:00 collect: 0 new results
+10-26 21:48:00 next: point budget reached (150)
+10-26 21:48:00 loop: finished (stop criterion or budget)
+10-26 21:53:10 loop start (asynchronous)
+10-26 21:53:11 collect: 0 new results
+10-26 21:53:11 next: point budget reached (150)
+10-26 21:53:11 loop: finished (stop criterion or budget)
+10-26 21:58:22 loop start (asynchronous)
+10-26 21:58:22 collect: 0 new results
+10-26 21:58:22 next: point budget reached (150)
+10-26 21:58:22 loop: finished (stop criterion or budget)
+10-26 22:03:35 loop start (asynchronous)
+10-26 22:03:35 collect: 0 new results
+10-26 22:03:35 next: point budget reached (150)
+10-26 22:03:35 loop: finished (stop criterion or budget)
+10-26 22:08:45 loop start (asynchronous)
+10-26 22:08:46 collect: 0 new results
+10-26 22:08:46 next: point budget reached (150)
+10-26 22:08:46 loop: finished (stop criterion or budget)
+10-26 22:13:55 loop start (asynchronous)
+10-26 22:13:55 collect: 0 new results
+10-26 22:13:55 next: point budget reached (150)
+10-26 22:13:55 loop: finished (stop criterion or budget)
+10-26 22:19:06 loop start (asynchronous)
+10-26 22:19:06 collect: 0 new results
+10-26 22:19:06 next: point budget reached (150)
+10-26 22:19:06 loop: finished (stop criterion or budget)
+10-26 22:24:16 loop start (asynchronous)
+10-26 22:24:16 collect: 0 new results
+10-26 22:24:16 next: point budget reached (150)
+10-26 22:24:16 loop: finished (stop criterion or budget)
+10-26 22:29:26 loop start (asynchronous)
+10-26 22:29:26 collect: 0 new results
+10-26 22:29:26 next: point budget reached (150)
+10-26 22:29:26 loop: finished (stop criterion or budget)
+10-26 22:34:35 loop start (asynchronous)
+10-26 22:34:35 collect: 0 new results
+10-26 22:34:35 next: point budget reached (150)
+10-26 22:34:35 loop: finished (stop criterion or budget)
+10-26 22:39:43 loop start (asynchronous)
+10-26 22:39:43 collect: 0 new results
+10-26 22:39:43 next: point budget reached (150)
+10-26 22:39:43 loop: finished (stop criterion or budget)
+10-26 22:44:52 loop start (asynchronous)
+10-26 22:44:52 collect: 0 new results
+10-26 22:44:52 next: point budget reached (150)
+10-26 22:44:52 loop: finished (stop criterion or budget)
+10-26 22:50:03 loop start (asynchronous)
+10-26 22:50:03 collect: 0 new results
+10-26 22:50:03 next: point budget reached (150)
+10-26 22:50:03 loop: finished (stop criterion or budget)
+10-26 22:55:11 loop start (asynchronous)
+10-26 22:55:11 collect: 0 new results
+10-26 22:55:11 next: point budget reached (150)
+10-26 22:55:11 loop: finished (stop criterion or budget)
+10-26 23:00:19 loop start (asynchronous)
+10-26 23:00:19 collect: 0 new results
+10-26 23:00:19 next: point budget reached (150)
+10-26 23:00:19 loop: finished (stop criterion or budget)
+10-26 23:05:28 loop start (asynchronous)
+10-26 23:05:28 collect: 0 new results
+10-26 23:05:28 next: point budget reached (150)
+10-26 23:05:28 loop: finished (stop criterion or budget)
+10-26 23:10:37 loop start (asynchronous)
+10-26 23:10:37 collect: 0 new results
+10-26 23:10:37 next: point budget reached (150)
+10-26 23:10:37 loop: finished (stop criterion or budget)
+10-26 23:15:45 loop start (asynchronous)
+10-26 23:15:45 collect: 0 new results
+10-26 23:15:45 next: point budget reached (150)
+10-26 23:15:45 loop: finished (stop criterion or budget)
+10-26 23:20:51 loop start (asynchronous)
+10-26 23:20:51 collect: 0 new results
+10-26 23:20:51 next: point budget reached (150)
+10-26 23:20:51 loop: finished (stop criterion or budget)
+10-26 23:25:57 loop start (asynchronous)
+10-26 23:25:57 collect: 0 new results
+10-26 23:25:57 next: point budget reached (150)
+10-26 23:25:57 loop: finished (stop criterion or budget)
+10-26 23:31:03 loop start (asynchronous)
+10-26 23:31:03 collect: 0 new results
+10-26 23:31:03 next: point budget reached (150)
+10-26 23:31:03 loop: finished (stop criterion or budget)
+10-26 23:36:09 loop start (asynchronous)
+10-26 23:36:09 collect: 0 new results
+10-26 23:36:09 next: point budget reached (150)
+10-26 23:36:09 loop: finished (stop criterion or budget)
+10-26 23:41:15 loop start (asynchronous)
+10-26 23:41:15 collect: 0 new results
+10-26 23:41:15 next: point budget reached (150)
+10-26 23:41:15 loop: finished (stop criterion or budget)
+10-26 23:46:21 loop start (asynchronous)
+10-26 23:46:21 collect: 0 new results
+10-26 23:46:21 next: point budget reached (150)
+10-26 23:46:21 loop: finished (stop criterion or budget)
+10-26 23:51:27 loop start (asynchronous)
+10-26 23:51:27 collect: 0 new results
+10-26 23:51:27 next: point budget reached (150)
+10-26 23:51:27 loop: finished (stop criterion or budget)
+10-26 23:56:35 loop start (asynchronous)
+10-26 23:56:36 collect: 0 new results
+10-26 23:56:36 next: point budget reached (150)
+10-26 23:56:36 loop: finished (stop criterion or budget)
+10-27 00:01:42 loop start (asynchronous)
+10-27 00:01:42 collect: 0 new results
+10-27 00:01:42 next: point budget reached (150)
+10-27 00:01:42 loop: finished (stop criterion or budget)
+10-27 00:06:48 loop start (asynchronous)
+10-27 00:06:48 collect: 0 new results
+10-27 00:06:48 next: point budget reached (150)
+10-27 00:06:48 loop: finished (stop criterion or budget)
+10-27 00:11:54 loop start (asynchronous)
+10-27 00:11:54 collect: 0 new results
+10-27 00:11:54 next: point budget reached (150)
+10-27 00:11:54 loop: finished (stop criterion or budget)
+10-27 00:17:03 loop start (asynchronous)
+10-27 00:17:03 collect: 0 new results
+10-27 00:17:03 next: point budget reached (150)
+10-27 00:17:03 loop: finished (stop criterion or budget)
+10-27 00:22:10 loop start (asynchronous)
+10-27 00:22:10 collect: 0 new results
+10-27 00:22:10 next: point budget reached (150)
+10-27 00:22:10 loop: finished (stop criterion or budget)
+10-27 00:27:20 loop start (asynchronous)
+10-27 00:27:20 collect: 0 new results
+10-27 00:27:20 next: point budget reached (150)
+10-27 00:27:20 loop: finished (stop criterion or budget)
+10-27 00:32:27 loop start (asynchronous)
+10-27 00:32:27 collect: 0 new results
+10-27 00:32:27 next: point budget reached (150)
+10-27 00:32:27 loop: finished (stop criterion or budget)
+10-27 00:37:34 loop start (asynchronous)
+10-27 00:37:34 collect: 0 new results
+10-27 00:37:34 next: point budget reached (150)
+10-27 00:37:34 loop: finished (stop criterion or budget)
+10-27 00:42:41 loop start (asynchronous)
+10-27 00:42:41 collect: 0 new results
+10-27 00:42:41 next: point budget reached (150)
+10-27 00:42:41 loop: finished (stop criterion or budget)
+10-27 00:47:51 loop start (asynchronous)
+10-27 00:47:51 collect: 0 new results
+10-27 00:47:51 next: point budget reached (150)
+10-27 00:47:51 loop: finished (stop criterion or budget)
+10-27 00:53:00 loop start (asynchronous)
+10-27 00:53:00 collect: 0 new results
+10-27 00:53:00 next: point budget reached (150)
+10-27 00:53:00 loop: finished (stop criterion or budget)
+10-27 00:58:10 loop start (asynchronous)
+10-27 00:58:10 collect: 0 new results
+10-27 00:58:10 next: point budget reached (150)
+10-27 00:58:10 loop: finished (stop criterion or budget)
+10-27 01:03:19 loop start (asynchronous)
+10-27 01:03:19 collect: 0 new results
+10-27 01:03:19 next: point budget reached (150)
+10-27 01:03:19 loop: finished (stop criterion or budget)
+10-27 01:08:28 loop start (asynchronous)
+10-27 01:08:28 collect: 0 new results
+10-27 01:08:28 next: point budget reached (150)
+10-27 01:08:28 loop: finished (stop criterion or budget)
+10-27 01:13:37 loop start (asynchronous)
+10-27 01:13:37 collect: 0 new results
+10-27 01:13:37 next: point budget reached (150)
+10-27 01:13:37 loop: finished (stop criterion or budget)
+10-27 01:18:45 loop start (asynchronous)
+10-27 01:18:45 collect: 0 new results
+10-27 01:18:45 next: point budget reached (150)
+10-27 01:18:45 loop: finished (stop criterion or budget)
+10-27 01:23:53 loop start (asynchronous)
+10-27 01:23:53 collect: 0 new results
+10-27 01:23:53 next: point budget reached (150)
+10-27 01:23:53 loop: finished (stop criterion or budget)
+10-27 01:29:02 loop start (asynchronous)
+10-27 01:29:02 collect: 0 new results
+10-27 01:29:02 next: point budget reached (150)
+10-27 01:29:02 loop: finished (stop criterion or budget)
+10-27 01:34:12 loop start (asynchronous)
+10-27 01:34:12 collect: 0 new results
+10-27 01:34:13 next: point budget reached (150)
+10-27 01:34:13 loop: finished (stop criterion or budget)
+10-27 01:39:20 loop start (asynchronous)
+10-27 01:39:20 collect: 0 new results
+10-27 01:39:20 next: point budget reached (150)
+10-27 01:39:20 loop: finished (stop criterion or budget)
+10-27 01:44:29 loop start (asynchronous)
+10-27 01:44:29 collect: 0 new results
+10-27 01:44:29 next: point budget reached (150)
+10-27 01:44:29 loop: finished (stop criterion or budget)
+10-27 01:49:36 loop start (asynchronous)
+10-27 01:49:36 collect: 0 new results
+10-27 01:49:36 next: point budget reached (150)
+10-27 01:49:36 loop: finished (stop criterion or budget)
+10-27 01:54:44 loop start (asynchronous)
+10-27 01:54:44 collect: 0 new results
+10-27 01:54:44 next: point budget reached (150)
+10-27 01:54:44 loop: finished (stop criterion or budget)
+10-27 01:59:53 loop start (asynchronous)
+10-27 01:59:53 collect: 0 new results
+10-27 01:59:53 next: point budget reached (150)
+10-27 01:59:53 loop: finished (stop criterion or budget)
+10-27 02:05:01 loop start (asynchronous)
+10-27 02:05:01 collect: 0 new results
+10-27 02:05:01 next: point budget reached (150)
+10-27 02:05:01 loop: finished (stop criterion or budget)
+10-27 02:10:07 loop start (asynchronous)
+10-27 02:10:08 collect: 0 new results
+10-27 02:10:08 next: point budget reached (150)
+10-27 02:10:08 loop: finished (stop criterion or budget)
+10-27 02:15:14 loop start (asynchronous)
+10-27 02:15:14 collect: 0 new results
+10-27 02:15:14 next: point budget reached (150)
+10-27 02:15:14 loop: finished (stop criterion or budget)
+10-27 02:20:21 loop start (asynchronous)
+10-27 02:20:22 collect: 0 new results
+10-27 02:20:22 next: point budget reached (150)
+10-27 02:20:22 loop: finished (stop criterion or budget)
+10-27 02:25:28 loop start (asynchronous)
+10-27 02:25:28 collect: 0 new results
+10-27 02:25:28 next: point budget reached (150)
+10-27 02:25:28 loop: finished (stop criterion or budget)
+10-27 02:30:35 loop start (asynchronous)
+10-27 02:30:35 collect: 0 new results
+10-27 02:30:35 next: point budget reached (150)
+10-27 02:30:35 loop: finished (stop criterion or budget)
+10-27 02:35:43 loop start (asynchronous)
+10-27 02:35:43 collect: 0 new results
+10-27 02:35:43 next: point budget reached (150)
+10-27 02:35:43 loop: finished (stop criterion or budget)
+10-27 02:40:49 loop start (asynchronous)
+10-27 02:40:49 collect: 0 new results
+10-27 02:40:49 next: point budget reached (150)
+10-27 02:40:49 loop: finished (stop criterion or budget)
+10-27 02:45:59 loop start (asynchronous)
+10-27 02:45:59 collect: 0 new results
+10-27 02:45:59 next: point budget reached (150)
+10-27 02:45:59 loop: finished (stop criterion or budget)
+10-27 02:51:05 loop start (asynchronous)
+10-27 02:51:05 collect: 0 new results
+10-27 02:51:05 next: point budget reached (150)
+10-27 02:51:05 loop: finished (stop criterion or budget)
+10-27 02:56:12 loop start (asynchronous)
+10-27 02:56:12 collect: 0 new results
+10-27 02:56:12 next: point budget reached (150)
+10-27 02:56:12 loop: finished (stop criterion or budget)
+10-27 03:01:19 loop start (asynchronous)
+10-27 03:01:19 collect: 0 new results
+10-27 03:01:19 next: point budget reached (150)
+10-27 03:01:19 loop: finished (stop criterion or budget)
+10-27 03:06:26 loop start (asynchronous)
+10-27 03:06:26 collect: 0 new results
+10-27 03:06:26 next: point budget reached (150)
+10-27 03:06:26 loop: finished (stop criterion or budget)
+10-27 03:11:33 loop start (asynchronous)
+10-27 03:11:33 collect: 0 new results
+10-27 03:11:33 next: point budget reached (150)
+10-27 03:11:33 loop: finished (stop criterion or budget)
+10-27 03:16:40 loop start (asynchronous)
+10-27 03:16:40 collect: 0 new results
+10-27 03:16:40 next: point budget reached (150)
+10-27 03:16:40 loop: finished (stop criterion or budget)
+10-27 03:21:48 loop start (asynchronous)
+10-27 03:21:48 collect: 0 new results
+10-27 03:21:48 next: point budget reached (150)
+10-27 03:21:48 loop: finished (stop criterion or budget)
+10-27 03:26:56 loop start (asynchronous)
+10-27 03:26:56 collect: 0 new results
+10-27 03:26:56 next: point budget reached (150)
+10-27 03:26:56 loop: finished (stop criterion or budget)
+10-27 03:32:05 loop start (asynchronous)
+10-27 03:32:05 collect: 0 new results
+10-27 03:32:05 next: point budget reached (150)
+10-27 03:32:05 loop: finished (stop criterion or budget)
+10-27 03:37:12 loop start (asynchronous)
+10-27 03:37:12 collect: 0 new results
+10-27 03:37:12 next: point budget reached (150)
+10-27 03:37:12 loop: finished (stop criterion or budget)
+10-27 03:42:21 loop start (asynchronous)
+10-27 03:42:21 collect: 0 new results
+10-27 03:42:21 next: point budget reached (150)
+10-27 03:42:21 loop: finished (stop criterion or budget)
+10-27 03:47:28 loop start (asynchronous)
+10-27 03:47:28 collect: 0 new results
+10-27 03:47:28 next: point budget reached (150)
+10-27 03:47:28 loop: finished (stop criterion or budget)
+10-27 03:52:39 loop start (asynchronous)
+10-27 03:52:39 collect: 0 new results
+10-27 03:52:39 next: point budget reached (150)
+10-27 03:52:39 loop: finished (stop criterion or budget)
+10-27 03:57:48 loop start (asynchronous)
+10-27 03:57:48 collect: 0 new results
+10-27 03:57:48 next: point budget reached (150)
+10-27 03:57:48 loop: finished (stop criterion or budget)
+10-27 04:02:56 loop start (asynchronous)
+10-27 04:02:56 collect: 0 new results
+10-27 04:02:56 next: point budget reached (150)
+10-27 04:02:56 loop: finished (stop criterion or budget)
+10-27 04:08:04 loop start (asynchronous)
+10-27 04:08:04 collect: 0 new results
+10-27 04:08:04 next: point budget reached (150)
+10-27 04:08:04 loop: finished (stop criterion or budget)
+10-27 04:13:11 loop start (asynchronous)
+10-27 04:13:11 collect: 0 new results
+10-27 04:13:11 next: point budget reached (150)
+10-27 04:13:11 loop: finished (stop criterion or budget)
+10-27 04:18:19 loop start (asynchronous)
+10-27 04:18:19 collect: 0 new results
+10-27 04:18:19 next: point budget reached (150)
+10-27 04:18:19 loop: finished (stop criterion or budget)
+10-27 04:23:27 loop start (asynchronous)
+10-27 04:23:27 collect: 0 new results
+10-27 04:23:27 next: point budget reached (150)
+10-27 04:23:27 loop: finished (stop criterion or budget)
+10-27 04:28:33 loop start (asynchronous)
+10-27 04:28:33 collect: 0 new results
+10-27 04:28:34 next: point budget reached (150)
+10-27 04:28:34 loop: finished (stop criterion or budget)
+10-27 04:33:40 loop start (asynchronous)
+10-27 04:33:40 collect: 0 new results
+10-27 04:33:40 next: point budget reached (150)
+10-27 04:33:40 loop: finished (stop criterion or budget)
+10-27 04:38:47 loop start (asynchronous)
+10-27 04:38:47 collect: 0 new results
+10-27 04:38:47 next: point budget reached (150)
+10-27 04:38:47 loop: finished (stop criterion or budget)
+10-27 04:43:52 loop start (asynchronous)
+10-27 04:43:52 collect: 0 new results
+10-27 04:43:52 next: point budget reached (150)
+10-27 04:43:52 loop: finished (stop criterion or budget)
+10-27 04:48:57 loop start (asynchronous)
+10-27 04:48:57 collect: 0 new results
+10-27 04:48:57 next: point budget reached (150)
+10-27 04:48:57 loop: finished (stop criterion or budget)
+10-27 04:54:02 loop start (asynchronous)
+10-27 04:54:02 collect: 0 new results
+10-27 04:54:02 next: point budget reached (150)
+10-27 04:54:02 loop: finished (stop criterion or budget)
+10-27 04:59:07 loop start (asynchronous)
+10-27 04:59:07 collect: 0 new results
+10-27 04:59:07 next: point budget reached (150)
+10-27 04:59:07 loop: finished (stop criterion or budget)
+10-27 05:04:11 loop start (asynchronous)
+10-27 05:04:11 collect: 0 new results
+10-27 05:04:11 next: point budget reached (150)
+10-27 05:04:11 loop: finished (stop criterion or budget)
+10-27 05:09:14 loop start (asynchronous)
+10-27 05:09:14 collect: 0 new results
+10-27 05:09:14 next: point budget reached (150)
+10-27 05:09:14 loop: finished (stop criterion or budget)
+10-27 05:14:17 loop start (asynchronous)
+10-27 05:14:17 collect: 0 new results
+10-27 05:14:17 next: point budget reached (150)
+10-27 05:14:17 loop: finished (stop criterion or budget)
+10-27 05:19:20 loop start (asynchronous)
+10-27 05:19:20 collect: 0 new results
+10-27 05:19:20 next: point budget reached (150)
+10-27 05:19:20 loop: finished (stop criterion or budget)
+10-27 05:24:22 loop start (asynchronous)
+10-27 05:24:22 collect: 0 new results
+10-27 05:24:22 next: point budget reached (150)
+10-27 05:24:22 loop: finished (stop criterion or budget)
+10-27 05:29:25 loop start (asynchronous)
+10-27 05:29:25 collect: 0 new results
+10-27 05:29:25 next: point budget reached (150)
+10-27 05:29:25 loop: finished (stop criterion or budget)
+10-27 05:34:27 loop start (asynchronous)
+10-27 05:34:27 collect: 0 new results
+10-27 05:34:27 next: point budget reached (150)
+10-27 05:34:27 loop: finished (stop criterion or budget)
+10-27 05:39:30 loop start (asynchronous)
+10-27 05:39:30 collect: 0 new results
+10-27 05:39:30 next: point budget reached (150)
+10-27 05:39:30 loop: finished (stop criterion or budget)
+10-27 05:44:32 loop start (asynchronous)
+10-27 05:44:32 collect: 0 new results
+10-27 05:44:32 next: point budget reached (150)
+10-27 05:44:32 loop: finished (stop criterion or budget)
+10-27 05:49:35 loop start (asynchronous)
+10-27 05:49:35 collect: 0 new results
+10-27 05:49:35 next: point budget reached (150)
+10-27 05:49:35 loop: finished (stop criterion or budget)
+10-27 05:54:37 loop start (asynchronous)
+10-27 05:54:37 collect: 0 new results
+10-27 05:54:37 next: point budget reached (150)
+10-27 05:54:37 loop: finished (stop criterion or budget)
+10-27 05:59:40 loop start (asynchronous)
+10-27 05:59:40 collect: 0 new results
+10-27 05:59:40 next: point budget reached (150)
+10-27 05:59:40 loop: finished (stop criterion or budget)
+10-27 06:04:42 loop start (asynchronous)
+10-27 06:04:42 collect: 0 new results
+10-27 06:04:42 next: point budget reached (150)
+10-27 06:04:42 loop: finished (stop criterion or budget)
+10-27 06:09:44 loop start (asynchronous)
+10-27 06:09:44 collect: 0 new results
+10-27 06:09:44 next: point budget reached (150)
+10-27 06:09:44 loop: finished (stop criterion or budget)
+10-27 06:14:47 loop start (asynchronous)
+10-27 06:14:47 collect: 0 new results
+10-27 06:14:47 next: point budget reached (150)
+10-27 06:14:47 loop: finished (stop criterion or budget)
+10-27 06:19:49 loop start (asynchronous)
+10-27 06:19:49 collect: 0 new results
+10-27 06:19:49 next: point budget reached (150)
+10-27 06:19:49 loop: finished (stop criterion or budget)
+10-27 06:24:52 loop start (asynchronous)
+10-27 06:24:52 collect: 0 new results
+10-27 06:24:52 next: point budget reached (150)
+10-27 06:24:52 loop: finished (stop criterion or budget)
+10-27 06:29:54 loop start (asynchronous)
+10-27 06:29:54 collect: 0 new results
+10-27 06:29:54 next: point budget reached (150)
+10-27 06:29:54 loop: finished (stop criterion or budget)
+10-27 06:34:56 loop start (asynchronous)
+10-27 06:34:56 collect: 0 new results
+10-27 06:34:56 next: point budget reached (150)
+10-27 06:34:56 loop: finished (stop criterion or budget)
+10-27 06:39:59 loop start (asynchronous)
+10-27 06:39:59 collect: 0 new results
+10-27 06:39:59 next: point budget reached (150)
+10-27 06:39:59 loop: finished (stop criterion or budget)
+10-27 06:45:01 loop start (asynchronous)
+10-27 06:45:01 collect: 0 new results
+10-27 06:45:01 next: point budget reached (150)
+10-27 06:45:01 loop: finished (stop criterion or budget)
+10-27 06:50:04 loop start (asynchronous)
+10-27 06:50:04 collect: 0 new results
+10-27 06:50:04 next: point budget reached (150)
+10-27 06:50:04 loop: finished (stop criterion or budget)
+10-27 06:55:06 loop start (asynchronous)
+10-27 06:55:06 collect: 0 new results
+10-27 06:55:06 next: point budget reached (150)
+10-27 06:55:06 loop: finished (stop criterion or budget)
+10-27 07:00:08 loop start (asynchronous)
+10-27 07:00:08 collect: 0 new results
+10-27 07:00:08 next: point budget reached (150)
+10-27 07:00:08 loop: finished (stop criterion or budget)
+10-27 07:05:11 loop start (asynchronous)
+10-27 07:05:11 collect: 0 new results
+10-27 07:05:11 next: point budget reached (150)
+10-27 07:05:11 loop: finished (stop criterion or budget)
+10-27 07:10:13 loop start (asynchronous)
+10-27 07:10:13 collect: 0 new results
+10-27 07:10:13 next: point budget reached (150)
+10-27 07:10:13 loop: finished (stop criterion or budget)
+10-27 07:15:16 loop start (asynchronous)
+10-27 07:15:16 collect: 0 new results
+10-27 07:15:16 next: point budget reached (150)
+10-27 07:15:16 loop: finished (stop criterion or budget)
+10-27 07:20:18 loop start (asynchronous)
+10-27 07:20:18 collect: 0 new results
+10-27 07:20:18 next: point budget reached (150)
+10-27 07:20:18 loop: finished (stop criterion or budget)
+10-27 07:25:21 loop start (asynchronous)
+10-27 07:25:21 collect: 0 new results
+10-27 07:25:21 next: point budget reached (150)
+10-27 07:25:21 loop: finished (stop criterion or budget)
+10-27 07:30:23 loop start (asynchronous)
+10-27 07:30:23 collect: 0 new results
+10-27 07:30:23 next: point budget reached (150)
+10-27 07:30:23 loop: finished (stop criterion or budget)
+10-27 07:35:26 loop start (asynchronous)
+10-27 07:35:26 collect: 0 new results
+10-27 07:35:26 next: point budget reached (150)
+10-27 07:35:26 loop: finished (stop criterion or budget)
+10-27 07:40:28 loop start (asynchronous)
+10-27 07:40:28 collect: 0 new results
+10-27 07:40:28 next: point budget reached (150)
+10-27 07:40:28 loop: finished (stop criterion or budget)
+10-27 07:45:31 loop start (asynchronous)
+10-27 07:45:31 collect: 0 new results
+10-27 07:45:31 next: point budget reached (150)
+10-27 07:45:31 loop: finished (stop criterion or budget)
+10-27 07:50:33 loop start (asynchronous)
+10-27 07:50:33 collect: 0 new results
+10-27 07:50:33 next: point budget reached (150)
+10-27 07:50:33 loop: finished (stop criterion or budget)
+10-27 07:55:36 loop start (asynchronous)
+10-27 07:55:36 collect: 0 new results
+10-27 07:55:36 next: point budget reached (150)
+10-27 07:55:36 loop: finished (stop criterion or budget)
+10-27 08:00:38 loop start (asynchronous)
+10-27 08:00:38 collect: 0 new results
+10-27 08:00:38 next: point budget reached (150)
+10-27 08:00:38 loop: finished (stop criterion or budget)
+10-27 08:05:41 loop start (asynchronous)
+10-27 08:05:41 collect: 0 new results
+10-27 08:05:41 next: point budget reached (150)
+10-27 08:05:41 loop: finished (stop criterion or budget)
+10-27 08:10:43 loop start (asynchronous)
+10-27 08:10:43 collect: 0 new results
+10-27 08:10:43 next: point budget reached (150)
+10-27 08:10:43 loop: finished (stop criterion or budget)
+10-27 08:15:46 loop start (asynchronous)
+10-27 08:15:46 collect: 0 new results
+10-27 08:15:46 next: point budget reached (150)
+10-27 08:15:46 loop: finished (stop criterion or budget)
+10-27 08:20:48 loop start (asynchronous)
+10-27 08:20:48 collect: 0 new results
+10-27 08:20:48 next: point budget reached (150)
+10-27 08:20:48 loop: finished (stop criterion or budget)
+10-27 08:25:51 loop start (asynchronous)
+10-27 08:25:51 collect: 0 new results
+10-27 08:25:51 next: point budget reached (150)
+10-27 08:25:51 loop: finished (stop criterion or budget)
+10-27 08:30:53 loop start (asynchronous)
+10-27 08:30:53 collect: 0 new results
+10-27 08:30:53 next: point budget reached (150)
+10-27 08:30:53 loop: finished (stop criterion or budget)
+10-27 08:35:55 loop start (asynchronous)
+10-27 08:35:56 collect: 0 new results
+10-27 08:35:56 next: point budget reached (150)
+10-27 08:35:56 loop: finished (stop criterion or budget)
+10-27 08:40:58 loop start (asynchronous)
+10-27 08:40:58 collect: 0 new results
+10-27 08:40:58 next: point budget reached (150)
+10-27 08:40:58 loop: finished (stop criterion or budget)
+10-27 08:46:01 loop start (asynchronous)
+10-27 08:46:01 collect: 0 new results
+10-27 08:46:01 next: point budget reached (150)
+10-27 08:46:01 loop: finished (stop criterion or budget)
+10-27 08:51:03 loop start (asynchronous)
+10-27 08:51:03 collect: 0 new results
+10-27 08:51:03 next: point budget reached (150)
+10-27 08:51:03 loop: finished (stop criterion or budget)
+10-27 08:56:06 loop start (asynchronous)
+10-27 08:56:06 collect: 0 new results
+10-27 08:56:06 next: point budget reached (150)
+10-27 08:56:06 loop: finished (stop criterion or budget)
+10-27 09:01:08 loop start (asynchronous)
+10-27 09:01:08 collect: 0 new results
+10-27 09:01:08 next: point budget reached (150)
+10-27 09:01:08 loop: finished (stop criterion or budget)
+10-27 09:06:11 loop start (asynchronous)
+10-27 09:06:11 collect: 0 new results
+10-27 09:06:11 next: point budget reached (150)
+10-27 09:06:11 loop: finished (stop criterion or budget)
+10-27 09:11:13 loop start (asynchronous)
+10-27 09:11:13 collect: 0 new results
+10-27 09:11:13 next: point budget reached (150)
+10-27 09:11:13 loop: finished (stop criterion or budget)
+10-27 09:16:15 loop start (asynchronous)
+10-27 09:16:15 collect: 0 new results
+10-27 09:16:15 next: point budget reached (150)
+10-27 09:16:15 loop: finished (stop criterion or budget)
+10-27 09:21:18 loop start (asynchronous)
+10-27 09:21:18 collect: 0 new results
+10-27 09:21:18 next: point budget reached (150)
+10-27 09:21:18 loop: finished (stop criterion or budget)
+10-27 09:26:20 loop start (asynchronous)
+10-27 09:26:21 collect: 0 new results
+10-27 09:26:21 next: point budget reached (150)
+10-27 09:26:21 loop: finished (stop criterion or budget)
+10-27 09:31:23 loop start (asynchronous)
+10-27 09:31:23 collect: 0 new results
+10-27 09:31:23 next: point budget reached (150)
+10-27 09:31:23 loop: finished (stop criterion or budget)
+10-27 09:36:26 loop start (asynchronous)
+10-27 09:36:26 collect: 0 new results
+10-27 09:36:26 next: point budget reached (150)
+10-27 09:36:26 loop: finished (stop criterion or budget)
+10-27 09:41:28 loop start (asynchronous)
+10-27 09:41:28 collect: 0 new results
+10-27 09:41:28 next: point budget reached (150)
+10-27 09:41:28 loop: finished (stop criterion or budget)
+10-27 09:46:31 loop start (asynchronous)
+10-27 09:46:31 collect: 0 new results
+10-27 09:46:31 next: point budget reached (150)
+10-27 09:46:31 loop: finished (stop criterion or budget)
+10-27 09:51:33 loop start (asynchronous)
+10-27 09:51:33 collect: 0 new results
+10-27 09:51:33 next: point budget reached (150)
+10-27 09:51:33 loop: finished (stop criterion or budget)
+10-27 09:56:36 loop start (asynchronous)
+10-27 09:56:36 collect: 0 new results
+10-27 09:56:36 next: point budget reached (150)
+10-27 09:56:36 loop: finished (stop criterion or budget)
+10-27 10:01:38 loop start (asynchronous)
+10-27 10:01:38 collect: 0 new results
+10-27 10:01:38 next: point budget reached (150)
+10-27 10:01:38 loop: finished (stop criterion or budget)
+10-27 10:06:41 loop start (asynchronous)
+10-27 10:06:41 collect: 0 new results
+10-27 10:06:41 next: point budget reached (150)
+10-27 10:06:41 loop: finished (stop criterion or budget)
+10-27 10:11:43 loop start (asynchronous)
+10-27 10:11:43 collect: 0 new results
+10-27 10:11:43 next: point budget reached (150)
+10-27 10:11:43 loop: finished (stop criterion or budget)
+10-27 10:16:46 loop start (asynchronous)
+10-27 10:16:46 collect: 0 new results
+10-27 10:16:46 next: point budget reached (150)
+10-27 10:16:46 loop: finished (stop criterion or budget)
+10-27 10:21:48 loop start (asynchronous)
+10-27 10:21:48 collect: 0 new results
+10-27 10:21:48 next: point budget reached (150)
+10-27 10:21:48 loop: finished (stop criterion or budget)
+10-27 10:26:51 loop start (asynchronous)
+10-27 10:26:51 collect: 0 new results
+10-27 10:26:51 next: point budget reached (150)
+10-27 10:26:51 loop: finished (stop criterion or budget)
+10-27 10:31:53 loop start (asynchronous)
+10-27 10:31:53 collect: 0 new results
+10-27 10:31:53 next: point budget reached (150)
+10-27 10:31:53 loop: finished (stop criterion or budget)
+10-27 10:36:56 loop start (asynchronous)
+10-27 10:36:56 collect: 0 new results
+10-27 10:36:56 next: point budget reached (150)
+10-27 10:36:56 loop: finished (stop criterion or budget)
+10-27 10:41:59 loop start (asynchronous)
+10-27 10:41:59 collect: 0 new results
+10-27 10:41:59 next: point budget reached (150)
+10-27 10:41:59 loop: finished (stop criterion or budget)
+10-27 10:47:01 loop start (asynchronous)
+10-27 10:47:01 collect: 0 new results
+10-27 10:47:01 next: point budget reached (150)
+10-27 10:47:01 loop: finished (stop criterion or budget)
+10-27 10:52:04 loop start (asynchronous)
+10-27 10:52:04 collect: 0 new results
+10-27 10:52:04 next: point budget reached (150)
+10-27 10:52:04 loop: finished (stop criterion or budget)
+10-27 10:57:06 loop start (asynchronous)
+10-27 10:57:06 collect: 0 new results
+10-27 10:57:06 next: point budget reached (150)
+10-27 10:57:06 loop: finished (stop criterion or budget)
+10-27 11:02:09 loop start (asynchronous)
+10-27 11:02:09 collect: 0 new results
+10-27 11:02:09 next: point budget reached (150)
+10-27 11:02:09 loop: finished (stop criterion or budget)
+10-27 11:07:11 loop start (asynchronous)
+10-27 11:07:11 collect: 0 new results
+10-27 11:07:11 next: point budget reached (150)
+10-27 11:07:11 loop: finished (stop criterion or budget)
+10-27 11:12:14 loop start (asynchronous)
+10-27 11:12:14 collect: 0 new results
+10-27 11:12:14 next: point budget reached (150)
+10-27 11:12:14 loop: finished (stop criterion or budget)
+10-27 11:17:16 loop start (asynchronous)
+10-27 11:17:16 collect: 0 new results
+10-27 11:17:16 next: point budget reached (150)
+10-27 11:17:16 loop: finished (stop criterion or budget)
+10-27 11:22:19 loop start (asynchronous)
+10-27 11:22:19 collect: 0 new results
+10-27 11:22:19 next: point budget reached (150)
+10-27 11:22:19 loop: finished (stop criterion or budget)
+10-27 11:27:21 loop start (asynchronous)
+10-27 11:27:21 collect: 0 new results
+10-27 11:27:21 next: point budget reached (150)
+10-27 11:27:21 loop: finished (stop criterion or budget)
+10-27 11:32:24 loop start (asynchronous)
+10-27 11:32:24 collect: 0 new results
+10-27 11:32:24 next: point budget reached (150)
+10-27 11:32:24 loop: finished (stop criterion or budget)
+10-27 11:37:26 loop start (asynchronous)
+10-27 11:37:26 collect: 0 new results
+10-27 11:37:26 next: point budget reached (150)
+10-27 11:37:26 loop: finished (stop criterion or budget)
+10-27 11:42:29 loop start (asynchronous)
+10-27 11:42:29 collect: 0 new results
+10-27 11:42:29 next: point budget reached (150)
+10-27 11:42:29 loop: finished (stop criterion or budget)
+10-27 11:47:31 loop start (asynchronous)
+10-27 11:47:31 collect: 0 new results
+10-27 11:47:31 next: point budget reached (150)
+10-27 11:47:31 loop: finished (stop criterion or budget)
+10-27 11:52:34 loop start (asynchronous)
+10-27 11:52:34 collect: 0 new results
+10-27 11:52:34 next: point budget reached (150)
+10-27 11:52:34 loop: finished (stop criterion or budget)
+10-27 11:57:36 loop start (asynchronous)
+10-27 11:57:36 collect: 0 new results
+10-27 11:57:36 next: point budget reached (150)
+10-27 11:57:36 loop: finished (stop criterion or budget)
+10-27 12:02:39 loop start (asynchronous)
+10-27 12:02:39 collect: 0 new results
+10-27 12:02:39 next: point budget reached (150)
+10-27 12:02:39 loop: finished (stop criterion or budget)
+10-27 12:07:42 loop start (asynchronous)
+10-27 12:07:42 collect: 0 new results
+10-27 12:07:42 next: point budget reached (150)
+10-27 12:07:42 loop: finished (stop criterion or budget)
+10-27 12:12:44 loop start (asynchronous)
+10-27 12:12:44 collect: 0 new results
+10-27 12:12:44 next: point budget reached (150)
+10-27 12:12:44 loop: finished (stop criterion or budget)
+10-27 12:17:47 loop start (asynchronous)
+10-27 12:17:47 collect: 0 new results
+10-27 12:17:47 next: point budget reached (150)
+10-27 12:17:47 loop: finished (stop criterion or budget)
+10-27 12:22:49 loop start (asynchronous)
+10-27 12:22:49 collect: 0 new results
+10-27 12:22:49 next: point budget reached (150)
+10-27 12:22:49 loop: finished (stop criterion or budget)
+10-27 12:27:52 loop start (asynchronous)
+10-27 12:27:52 collect: 0 new results
+10-27 12:27:52 next: point budget reached (150)
+10-27 12:27:52 loop: finished (stop criterion or budget)
+10-27 12:32:54 loop start (asynchronous)
+10-27 12:32:54 collect: 0 new results
+10-27 12:32:54 next: point budget reached (150)
+10-27 12:32:54 loop: finished (stop criterion or budget)
+10-27 12:37:57 loop start (asynchronous)
+10-27 12:37:57 collect: 0 new results
+10-27 12:37:57 next: point budget reached (150)
+10-27 12:37:57 loop: finished (stop criterion or budget)
+10-27 12:43:00 loop start (asynchronous)
+10-27 12:43:00 collect: 0 new results
+10-27 12:43:00 next: point budget reached (150)
+10-27 12:43:00 loop: finished (stop criterion or budget)
+10-27 12:48:02 loop start (asynchronous)
+10-27 12:48:02 collect: 0 new results
+10-27 12:48:02 next: point budget reached (150)
+10-27 12:48:02 loop: finished (stop criterion or budget)
+10-27 12:53:04 loop start (asynchronous)
+10-27 12:53:05 collect: 0 new results
+10-27 12:53:05 next: point budget reached (150)
+10-27 12:53:05 loop: finished (stop criterion or budget)
+10-27 12:58:07 loop start (asynchronous)
+10-27 12:58:07 collect: 0 new results
+10-27 12:58:07 next: point budget reached (150)
+10-27 12:58:07 loop: finished (stop criterion or budget)
+10-27 13:03:09 loop start (asynchronous)
+10-27 13:03:09 collect: 0 new results
+10-27 13:03:09 next: point budget reached (150)
+10-27 13:03:09 loop: finished (stop criterion or budget)
+10-27 13:08:12 loop start (asynchronous)
+10-27 13:08:12 collect: 0 new results
+10-27 13:08:12 next: point budget reached (150)
+10-27 13:08:12 loop: finished (stop criterion or budget)
+10-27 13:13:14 loop start (asynchronous)
+10-27 13:13:14 collect: 0 new results
+10-27 13:13:14 next: point budget reached (150)
+10-27 13:13:14 loop: finished (stop criterion or budget)
+10-27 13:18:17 loop start (asynchronous)
+10-27 13:18:17 collect: 0 new results
+10-27 13:18:17 next: point budget reached (150)
+10-27 13:18:17 loop: finished (stop criterion or budget)
+10-27 13:23:19 loop start (asynchronous)
+10-27 13:23:19 collect: 0 new results
+10-27 13:23:19 next: point budget reached (150)
+10-27 13:23:19 loop: finished (stop criterion or budget)
+10-27 13:28:22 loop start (asynchronous)
+10-27 13:28:22 collect: 0 new results
+10-27 13:28:22 next: point budget reached (150)
+10-27 13:28:22 loop: finished (stop criterion or budget)
+10-27 13:33:24 loop start (asynchronous)
+10-27 13:33:24 collect: 0 new results
+10-27 13:33:24 next: point budget reached (150)
+10-27 13:33:24 loop: finished (stop criterion or budget)
+10-27 13:38:27 loop start (asynchronous)
+10-27 13:38:27 collect: 0 new results
+10-27 13:38:27 next: point budget reached (150)
+10-27 13:38:27 loop: finished (stop criterion or budget)
+10-27 13:43:29 loop start (asynchronous)
+10-27 13:43:29 collect: 0 new results
+10-27 13:43:29 next: point budget reached (150)
+10-27 13:43:29 loop: finished (stop criterion or budget)
+10-27 13:48:32 loop start (asynchronous)
+10-27 13:48:32 collect: 0 new results
+10-27 13:48:32 next: point budget reached (150)
+10-27 13:48:32 loop: finished (stop criterion or budget)
+10-27 13:53:34 loop start (asynchronous)
+10-27 13:53:34 collect: 0 new results
+10-27 13:53:34 next: point budget reached (150)
+10-27 13:53:34 loop: finished (stop criterion or budget)
+10-27 13:58:37 loop start (asynchronous)
+10-27 13:58:37 collect: 0 new results
+10-27 13:58:37 next: point budget reached (150)
+10-27 13:58:37 loop: finished (stop criterion or budget)
+10-27 14:03:39 loop start (asynchronous)
+10-27 14:03:39 collect: 0 new results
+10-27 14:03:39 next: point budget reached (150)
+10-27 14:03:39 loop: finished (stop criterion or budget)
+10-27 14:08:42 loop start (asynchronous)
+10-27 14:08:42 collect: 0 new results
+10-27 14:08:42 next: point budget reached (150)
+10-27 14:08:42 loop: finished (stop criterion or budget)
+10-27 14:13:44 loop start (asynchronous)
+10-27 14:13:44 collect: 0 new results
+10-27 14:13:44 next: point budget reached (150)
+10-27 14:13:44 loop: finished (stop criterion or budget)
+10-27 14:18:47 loop start (asynchronous)
+10-27 14:18:47 collect: 0 new results
+10-27 14:18:47 next: point budget reached (150)
+10-27 14:18:47 loop: finished (stop criterion or budget)
+10-27 14:23:49 loop start (asynchronous)
+10-27 14:23:49 collect: 0 new results
+10-27 14:23:49 next: point budget reached (150)
+10-27 14:23:49 loop: finished (stop criterion or budget)
+10-27 14:28:52 loop start (asynchronous)
+10-27 14:28:52 collect: 0 new results
+10-27 14:28:52 next: point budget reached (150)
+10-27 14:28:52 loop: finished (stop criterion or budget)
+10-27 14:33:54 loop start (asynchronous)
+10-27 14:33:54 collect: 0 new results
+10-27 14:33:54 next: point budget reached (150)
+10-27 14:33:54 loop: finished (stop criterion or budget)
+10-27 14:38:57 loop start (asynchronous)
+10-27 14:38:57 collect: 0 new results
+10-27 14:38:57 next: point budget reached (150)
+10-27 14:38:57 loop: finished (stop criterion or budget)
+10-27 14:43:59 loop start (asynchronous)
+10-27 14:43:59 collect: 0 new results
+10-27 14:43:59 next: point budget reached (150)
+10-27 14:43:59 loop: finished (stop criterion or budget)
+10-27 14:49:02 loop start (asynchronous)
+10-27 14:49:02 collect: 0 new results
+10-27 14:49:02 next: point budget reached (150)
+10-27 14:49:02 loop: finished (stop criterion or budget)
+10-27 14:54:04 loop start (asynchronous)
+10-27 14:54:04 collect: 0 new results
+10-27 14:54:04 next: point budget reached (150)
+10-27 14:54:04 loop: finished (stop criterion or budget)
+10-27 14:59:07 loop start (asynchronous)
+10-27 14:59:07 collect: 0 new results
+10-27 14:59:07 next: point budget reached (150)
+10-27 14:59:07 loop: finished (stop criterion or budget)
+10-27 15:04:09 loop start (asynchronous)
+10-27 15:04:09 collect: 0 new results
+10-27 15:04:09 next: point budget reached (150)
+10-27 15:04:09 loop: finished (stop criterion or budget)
+10-27 15:09:12 loop start (asynchronous)
+10-27 15:09:12 collect: 0 new results
+10-27 15:09:12 next: point budget reached (150)
+10-27 15:09:12 loop: finished (stop criterion or budget)
+10-27 15:14:14 loop start (asynchronous)
+10-27 15:14:14 collect: 0 new results
+10-27 15:14:14 next: point budget reached (150)
+10-27 15:14:14 loop: finished (stop criterion or budget)
+10-27 15:19:16 loop start (asynchronous)
+10-27 15:19:16 collect: 0 new results
+10-27 15:19:16 next: point budget reached (150)
+10-27 15:19:16 loop: finished (stop criterion or budget)
+10-27 15:24:19 loop start (asynchronous)
+10-27 15:24:19 collect: 0 new results
+10-27 15:24:19 next: point budget reached (150)
+10-27 15:24:19 loop: finished (stop criterion or budget)
+10-27 15:29:21 loop start (asynchronous)
+10-27 15:29:21 collect: 0 new results
+10-27 15:29:21 next: point budget reached (150)
+10-27 15:29:21 loop: finished (stop criterion or budget)
+10-27 15:34:24 loop start (asynchronous)
+10-27 15:34:24 collect: 0 new results
+10-27 15:34:24 next: point budget reached (150)
+10-27 15:34:24 loop: finished (stop criterion or budget)
+10-27 15:39:26 loop start (asynchronous)
+10-27 15:39:26 collect: 0 new results
+10-27 15:39:26 next: point budget reached (150)
+10-27 15:39:26 loop: finished (stop criterion or budget)
+10-27 15:44:29 loop start (asynchronous)
+10-27 15:44:29 collect: 0 new results
+10-27 15:44:29 next: point budget reached (150)
+10-27 15:44:29 loop: finished (stop criterion or budget)
+10-27 15:49:31 loop start (asynchronous)
+10-27 15:49:31 collect: 0 new results
+10-27 15:49:31 next: point budget reached (150)
+10-27 15:49:31 loop: finished (stop criterion or budget)
+10-27 15:54:34 loop start (asynchronous)
+10-27 15:54:34 collect: 0 new results
+10-27 15:54:34 next: point budget reached (150)
+10-27 15:54:34 loop: finished (stop criterion or budget)
+10-27 15:59:36 loop start (asynchronous)
+10-27 15:59:36 collect: 0 new results
+10-27 15:59:36 next: point budget reached (150)
+10-27 15:59:36 loop: finished (stop criterion or budget)
+10-27 16:04:39 loop start (asynchronous)
+10-27 16:04:39 collect: 0 new results
+10-27 16:04:39 next: point budget reached (150)
+10-27 16:04:39 loop: finished (stop criterion or budget)
+10-27 16:09:42 loop start (asynchronous)
+10-27 16:09:42 collect: 0 new results
+10-27 16:09:42 next: point budget reached (150)
+10-27 16:09:42 loop: finished (stop criterion or budget)
+10-27 16:14:44 loop start (asynchronous)
+10-27 16:14:44 collect: 0 new results
+10-27 16:14:44 next: point budget reached (150)
+10-27 16:14:44 loop: finished (stop criterion or budget)
+10-27 16:19:47 loop start (asynchronous)
+10-27 16:19:47 collect: 0 new results
+10-27 16:19:47 next: point budget reached (150)
+10-27 16:19:47 loop: finished (stop criterion or budget)
+10-27 16:24:49 loop start (asynchronous)
+10-27 16:24:49 collect: 0 new results
+10-27 16:24:49 next: point budget reached (150)
+10-27 16:24:49 loop: finished (stop criterion or budget)
+10-27 16:29:52 loop start (asynchronous)
+10-27 16:29:52 collect: 0 new results
+10-27 16:29:52 next: point budget reached (150)
+10-27 16:29:52 loop: finished (stop criterion or budget)
+10-27 16:34:54 loop start (asynchronous)
+10-27 16:34:54 collect: 0 new results
+10-27 16:34:54 next: point budget reached (150)
+10-27 16:34:54 loop: finished (stop criterion or budget)
+10-27 16:39:56 loop start (asynchronous)
+10-27 16:39:56 collect: 0 new results
+10-27 16:39:56 next: point budget reached (150)
+10-27 16:39:56 loop: finished (stop criterion or budget)
+10-27 16:44:59 loop start (asynchronous)
+10-27 16:44:59 collect: 0 new results
+10-27 16:44:59 next: point budget reached (150)
+10-27 16:44:59 loop: finished (stop criterion or budget)
+10-27 16:50:01 loop start (asynchronous)
+10-27 16:50:02 collect: 0 new results
+10-27 16:50:02 next: point budget reached (150)
+10-27 16:50:02 loop: finished (stop criterion or budget)
+10-27 16:55:04 loop start (asynchronous)
+10-27 16:55:04 collect: 0 new results
+10-27 16:55:04 next: point budget reached (150)
+10-27 16:55:04 loop: finished (stop criterion or budget)
+10-27 17:00:06 loop start (asynchronous)
+10-27 17:00:07 collect: 0 new results
+10-27 17:00:07 next: point budget reached (150)
+10-27 17:00:07 loop: finished (stop criterion or budget)
+10-27 17:05:09 loop start (asynchronous)
+10-27 17:05:09 collect: 0 new results
+10-27 17:05:09 next: point budget reached (150)
+10-27 17:05:09 loop: finished (stop criterion or budget)
+10-27 17:10:11 loop start (asynchronous)
+10-27 17:10:11 collect: 0 new results
+10-27 17:10:11 next: point budget reached (150)
+10-27 17:10:11 loop: finished (stop criterion or budget)
+10-27 17:15:14 loop start (asynchronous)
+10-27 17:15:14 collect: 0 new results
+10-27 17:15:14 next: point budget reached (150)
+10-27 17:15:14 loop: finished (stop criterion or budget)
+10-27 17:20:16 loop start (asynchronous)
+10-27 17:20:16 collect: 0 new results
+10-27 17:20:16 next: point budget reached (150)
+10-27 17:20:16 loop: finished (stop criterion or budget)
+10-27 17:25:19 loop start (asynchronous)
+10-27 17:25:19 collect: 0 new results
+10-27 17:25:19 next: point budget reached (150)
+10-27 17:25:19 loop: finished (stop criterion or budget)
+10-27 17:30:21 loop start (asynchronous)
+10-27 17:30:21 collect: 0 new results
+10-27 17:30:21 next: point budget reached (150)
+10-27 17:30:21 loop: finished (stop criterion or budget)
+10-27 17:35:24 loop start (asynchronous)
+10-27 17:35:24 collect: 0 new results
+10-27 17:35:24 next: point budget reached (150)
+10-27 17:35:24 loop: finished (stop criterion or budget)
+10-27 17:40:26 loop start (asynchronous)
+10-27 17:40:26 collect: 0 new results
+10-27 17:40:26 next: point budget reached (150)
+10-27 17:40:26 loop: finished (stop criterion or budget)
+10-27 17:45:29 loop start (asynchronous)
+10-27 17:45:29 collect: 0 new results
+10-27 17:45:29 next: point budget reached (150)
+10-27 17:45:29 loop: finished (stop criterion or budget)
+10-27 17:50:31 loop start (asynchronous)
+10-27 17:50:31 collect: 0 new results
+10-27 17:50:31 next: point budget reached (150)
+10-27 17:50:31 loop: finished (stop criterion or budget)
+10-27 17:55:34 loop start (asynchronous)
+10-27 17:55:34 collect: 0 new results
+10-27 17:55:34 next: point budget reached (150)
+10-27 17:55:34 loop: finished (stop criterion or budget)
+10-27 18:00:36 loop start (asynchronous)
+10-27 18:00:36 collect: 0 new results
+10-27 18:00:36 next: point budget reached (150)
+10-27 18:00:36 loop: finished (stop criterion or budget)
+10-27 18:05:39 loop start (asynchronous)
+10-27 18:05:39 collect: 0 new results
+10-27 18:05:39 next: point budget reached (150)
+10-27 18:05:39 loop: finished (stop criterion or budget)
+10-27 18:10:41 loop start (asynchronous)
+10-27 18:10:41 collect: 0 new results
+10-27 18:10:41 next: point budget reached (150)
+10-27 18:10:41 loop: finished (stop criterion or budget)
+10-27 18:15:43 loop start (asynchronous)
+10-27 18:15:43 collect: 0 new results
+10-27 18:15:43 next: point budget reached (150)
+10-27 18:15:43 loop: finished (stop criterion or budget)
+10-27 18:20:46 loop start (asynchronous)
+10-27 18:20:46 collect: 0 new results
+10-27 18:20:46 next: point budget reached (150)
+10-27 18:20:46 loop: finished (stop criterion or budget)
+10-27 18:25:48 loop start (asynchronous)
+10-27 18:25:48 collect: 0 new results
+10-27 18:25:48 next: point budget reached (150)
+10-27 18:25:48 loop: finished (stop criterion or budget)
+10-27 18:30:51 loop start (asynchronous)
+10-27 18:30:51 collect: 0 new results
+10-27 18:30:51 next: point budget reached (150)
+10-27 18:30:51 loop: finished (stop criterion or budget)
+10-27 18:35:53 loop start (asynchronous)
+10-27 18:35:53 collect: 0 new results
+10-27 18:35:53 next: point budget reached (150)
+10-27 18:35:53 loop: finished (stop criterion or budget)
+10-27 18:40:56 loop start (asynchronous)
+10-27 18:40:56 collect: 0 new results
+10-27 18:40:56 next: point budget reached (150)
+10-27 18:40:56 loop: finished (stop criterion or budget)
+10-27 18:45:58 loop start (asynchronous)
+10-27 18:45:58 collect: 0 new results
+10-27 18:45:58 next: point budget reached (150)
+10-27 18:45:58 loop: finished (stop criterion or budget)
+10-27 18:51:00 loop start (asynchronous)
+10-27 18:51:00 collect: 0 new results
+10-27 18:51:00 next: point budget reached (150)
+10-27 18:51:00 loop: finished (stop criterion or budget)
+10-27 18:56:03 loop start (asynchronous)
+10-27 18:56:03 collect: 0 new results
+10-27 18:56:03 next: point budget reached (150)
+10-27 18:56:03 loop: finished (stop criterion or budget)
+10-27 19:01:05 loop start (asynchronous)
+10-27 19:01:05 collect: 0 new results
+10-27 19:01:05 next: point budget reached (150)
+10-27 19:01:05 loop: finished (stop criterion or budget)
+10-27 19:06:08 loop start (asynchronous)
+10-27 19:06:08 collect: 0 new results
+10-27 19:06:08 next: point budget reached (150)
+10-27 19:06:08 loop: finished (stop criterion or budget)
+10-27 19:11:10 loop start (asynchronous)
+10-27 19:11:10 collect: 0 new results
+10-27 19:11:10 next: point budget reached (150)
+10-27 19:11:10 loop: finished (stop criterion or budget)
+10-27 19:16:13 loop start (asynchronous)
+10-27 19:16:13 collect: 0 new results
+10-27 19:16:13 next: point budget reached (150)
+10-27 19:16:13 loop: finished (stop criterion or budget)
+10-27 19:21:15 loop start (asynchronous)
+10-27 19:21:15 collect: 0 new results
+10-27 19:21:15 next: point budget reached (150)
+10-27 19:21:15 loop: finished (stop criterion or budget)
+10-27 19:26:18 loop start (asynchronous)
+10-27 19:26:18 collect: 0 new results
+10-27 19:26:18 next: point budget reached (150)
+10-27 19:26:18 loop: finished (stop criterion or budget)
+10-27 19:31:20 loop start (asynchronous)
+10-27 19:31:20 collect: 0 new results
+10-27 19:31:20 next: point budget reached (150)
+10-27 19:31:20 loop: finished (stop criterion or budget)
+10-27 19:36:23 loop start (asynchronous)
+10-27 19:36:23 collect: 0 new results
+10-27 19:36:23 next: point budget reached (150)
+10-27 19:36:23 loop: finished (stop criterion or budget)
+10-27 19:41:25 loop start (asynchronous)
+10-27 19:41:25 collect: 0 new results
+10-27 19:41:25 next: point budget reached (150)
+10-27 19:41:25 loop: finished (stop criterion or budget)
+10-27 19:46:28 loop start (asynchronous)
+10-27 19:46:28 collect: 0 new results
+10-27 19:46:28 next: point budget reached (150)
+10-27 19:46:28 loop: finished (stop criterion or budget)
+10-27 19:51:30 loop start (asynchronous)
+10-27 19:51:30 collect: 0 new results
+10-27 19:51:30 next: point budget reached (150)
+10-27 19:51:30 loop: finished (stop criterion or budget)
+10-27 19:56:33 loop start (asynchronous)
+10-27 19:56:33 collect: 0 new results
+10-27 19:56:33 next: point budget reached (150)
+10-27 19:56:33 loop: finished (stop criterion or budget)
+10-27 20:01:35 loop start (asynchronous)
+10-27 20:01:35 collect: 0 new results
+10-27 20:01:35 next: point budget reached (150)
+10-27 20:01:35 loop: finished (stop criterion or budget)
+10-27 20:06:38 loop start (asynchronous)
+10-27 20:06:38 collect: 0 new results
+10-27 20:06:38 next: point budget reached (150)
+10-27 20:06:38 loop: finished (stop criterion or budget)
+10-27 20:11:40 loop start (asynchronous)
+10-27 20:11:40 collect: 0 new results
+10-27 20:11:40 next: point budget reached (150)
+10-27 20:11:40 loop: finished (stop criterion or budget)
+10-27 20:16:43 loop start (asynchronous)
+10-27 20:16:43 collect: 0 new results
+10-27 20:16:43 next: point budget reached (150)
+10-27 20:16:43 loop: finished (stop criterion or budget)
+10-27 20:21:45 loop start (asynchronous)
+10-27 20:21:45 collect: 0 new results
+10-27 20:21:45 next: point budget reached (150)
+10-27 20:21:45 loop: finished (stop criterion or budget)
+10-27 20:26:47 loop start (asynchronous)
+10-27 20:26:48 collect: 0 new results
+10-27 20:26:48 next: point budget reached (150)
+10-27 20:26:48 loop: finished (stop criterion or budget)
+10-27 20:31:50 loop start (asynchronous)
+10-27 20:31:50 collect: 0 new results
+10-27 20:31:50 next: point budget reached (150)
+10-27 20:31:50 loop: finished (stop criterion or budget)
+10-27 20:36:52 loop start (asynchronous)
+10-27 20:36:52 collect: 0 new results
+10-27 20:36:52 next: point budget reached (150)
+10-27 20:36:52 loop: finished (stop criterion or budget)
+10-27 20:41:55 loop start (asynchronous)
+10-27 20:41:55 collect: 0 new results
+10-27 20:41:55 next: point budget reached (150)
+10-27 20:41:55 loop: finished (stop criterion or budget)
+10-27 20:46:57 loop start (asynchronous)
+10-27 20:46:57 collect: 0 new results
+10-27 20:46:57 next: point budget reached (150)
+10-27 20:46:57 loop: finished (stop criterion or budget)
+10-27 20:52:00 loop start (asynchronous)
+10-27 20:52:00 collect: 0 new results
+10-27 20:52:00 next: point budget reached (150)
+10-27 20:52:00 loop: finished (stop criterion or budget)
+10-27 20:57:02 loop start (asynchronous)
+10-27 20:57:02 collect: 0 new results
+10-27 20:57:02 next: point budget reached (150)
+10-27 20:57:02 loop: finished (stop criterion or budget)
+10-27 21:02:05 loop start (asynchronous)
+10-27 21:02:05 collect: 0 new results
+10-27 21:02:05 next: point budget reached (150)
+10-27 21:02:05 loop: finished (stop criterion or budget)
+10-27 21:07:07 loop start (asynchronous)
+10-27 21:07:07 collect: 0 new results
+10-27 21:07:07 next: point budget reached (150)
+10-27 21:07:07 loop: finished (stop criterion or budget)
+10-27 21:12:10 loop start (asynchronous)
+10-27 21:12:10 collect: 0 new results
+10-27 21:12:10 next: point budget reached (150)
+10-27 21:12:10 loop: finished (stop criterion or budget)
+10-27 21:17:12 loop start (asynchronous)
+10-27 21:17:12 collect: 0 new results
+10-27 21:17:12 next: point budget reached (150)
+10-27 21:17:12 loop: finished (stop criterion or budget)
+10-27 21:22:15 loop start (asynchronous)
+10-27 21:22:15 collect: 0 new results
+10-27 21:22:15 next: point budget reached (150)
+10-27 21:22:15 loop: finished (stop criterion or budget)
+10-27 21:27:17 loop start (asynchronous)
+10-27 21:27:17 collect: 0 new results
+10-27 21:27:17 next: point budget reached (150)
+10-27 21:27:17 loop: finished (stop criterion or budget)
+10-27 21:32:20 loop start (asynchronous)
+10-27 21:32:20 collect: 0 new results
+10-27 21:32:20 next: point budget reached (150)
+10-27 21:32:20 loop: finished (stop criterion or budget)
+10-27 21:37:22 loop start (asynchronous)
+10-27 21:37:22 collect: 0 new results
+10-27 21:37:22 next: point budget reached (150)
+10-27 21:37:22 loop: finished (stop criterion or budget)
+10-27 21:42:25 loop start (asynchronous)
+10-27 21:42:25 collect: 0 new results
+10-27 21:42:25 next: point budget reached (150)
+10-27 21:42:25 loop: finished (stop criterion or budget)
+10-27 21:47:27 loop start (asynchronous)
+10-27 21:47:27 collect: 0 new results
+10-27 21:47:27 next: point budget reached (150)
+10-27 21:47:27 loop: finished (stop criterion or budget)
+10-27 21:52:29 loop start (asynchronous)
+10-27 21:52:29 collect: 0 new results
+10-27 21:52:29 next: point budget reached (150)
+10-27 21:52:29 loop: finished (stop criterion or budget)
+10-27 21:57:32 loop start (asynchronous)
+10-27 21:57:32 collect: 0 new results
+10-27 21:57:32 next: point budget reached (150)
+10-27 21:57:32 loop: finished (stop criterion or budget)
+10-27 22:02:34 loop start (asynchronous)
+10-27 22:02:34 collect: 0 new results
+10-27 22:02:34 next: point budget reached (150)
+10-27 22:02:34 loop: finished (stop criterion or budget)
+10-27 22:07:37 loop start (asynchronous)
+10-27 22:07:37 collect: 0 new results
+10-27 22:07:37 next: point budget reached (150)
+10-27 22:07:37 loop: finished (stop criterion or budget)
+10-27 22:12:39 loop start (asynchronous)
+10-27 22:12:39 collect: 0 new results
+10-27 22:12:39 next: point budget reached (150)
+10-27 22:12:39 loop: finished (stop criterion or budget)
+10-27 22:17:42 loop start (asynchronous)
+10-27 22:17:42 collect: 0 new results
+10-27 22:17:42 next: point budget reached (150)
+10-27 22:17:42 loop: finished (stop criterion or budget)
+10-27 22:22:44 loop start (asynchronous)
+10-27 22:22:44 collect: 0 new results
+10-27 22:22:44 next: point budget reached (150)
+10-27 22:22:44 loop: finished (stop criterion or budget)
+10-27 22:27:47 loop start (asynchronous)
+10-27 22:27:47 collect: 0 new results
+10-27 22:27:47 next: point budget reached (150)
+10-27 22:27:47 loop: finished (stop criterion or budget)
+10-27 22:32:49 loop start (asynchronous)
+10-27 22:32:49 collect: 0 new results
+10-27 22:32:49 next: point budget reached (150)
+10-27 22:32:49 loop: finished (stop criterion or budget)
+10-27 22:37:52 loop start (asynchronous)
+10-27 22:37:52 collect: 0 new results
+10-27 22:37:52 next: point budget reached (150)
+10-27 22:37:52 loop: finished (stop criterion or budget)
+10-27 22:42:54 loop start (asynchronous)
+10-27 22:42:54 collect: 0 new results
+10-27 22:42:54 next: point budget reached (150)
+10-27 22:42:54 loop: finished (stop criterion or budget)
+10-27 22:47:57 loop start (asynchronous)
+10-27 22:47:57 collect: 0 new results
+10-27 22:47:57 next: point budget reached (150)
+10-27 22:47:57 loop: finished (stop criterion or budget)
+10-27 22:52:59 loop start (asynchronous)
+10-27 22:52:59 collect: 0 new results
+10-27 22:52:59 next: point budget reached (150)
+10-27 22:52:59 loop: finished (stop criterion or budget)
+10-27 22:58:02 loop start (asynchronous)
+10-27 22:58:02 collect: 0 new results
+10-27 22:58:02 next: point budget reached (150)
+10-27 22:58:02 loop: finished (stop criterion or budget)
+10-27 23:03:05 loop start (asynchronous)
+10-27 23:03:05 collect: 0 new results
+10-27 23:03:05 next: point budget reached (150)
+10-27 23:03:05 loop: finished (stop criterion or budget)
+10-27 23:08:07 loop start (asynchronous)
+10-27 23:08:07 collect: 0 new results
+10-27 23:08:07 next: point budget reached (150)
+10-27 23:08:07 loop: finished (stop criterion or budget)
+10-27 23:13:10 loop start (asynchronous)
+10-27 23:13:10 collect: 0 new results
+10-27 23:13:10 next: point budget reached (150)
+10-27 23:13:10 loop: finished (stop criterion or budget)
+10-27 23:18:12 loop start (asynchronous)
+10-27 23:18:12 collect: 0 new results
+10-27 23:18:12 next: point budget reached (150)
+10-27 23:18:12 loop: finished (stop criterion or budget)
+10-27 23:23:15 loop start (asynchronous)
+10-27 23:23:15 collect: 0 new results
+10-27 23:23:15 next: point budget reached (150)
+10-27 23:23:15 loop: finished (stop criterion or budget)
+10-27 23:28:18 loop start (asynchronous)
+10-27 23:28:18 collect: 0 new results
+10-27 23:28:18 next: point budget reached (150)
+10-27 23:28:18 loop: finished (stop criterion or budget)
+10-27 23:33:20 loop start (asynchronous)
+10-27 23:33:20 collect: 0 new results
+10-27 23:33:20 next: point budget reached (150)
+10-27 23:33:20 loop: finished (stop criterion or budget)
+10-27 23:38:23 loop start (asynchronous)
+10-27 23:38:23 collect: 0 new results
+10-27 23:38:23 next: point budget reached (150)
+10-27 23:38:23 loop: finished (stop criterion or budget)
+10-27 23:43:25 loop start (asynchronous)
+10-27 23:43:25 collect: 0 new results
+10-27 23:43:25 next: point budget reached (150)
+10-27 23:43:25 loop: finished (stop criterion or budget)
+10-27 23:48:28 loop start (asynchronous)
+10-27 23:48:28 collect: 0 new results
+10-27 23:48:28 next: point budget reached (150)
+10-27 23:48:28 loop: finished (stop criterion or budget)
+10-27 23:53:30 loop start (asynchronous)
+10-27 23:53:30 collect: 0 new results
+10-27 23:53:30 next: point budget reached (150)
+10-27 23:53:30 loop: finished (stop criterion or budget)
+10-27 23:58:33 loop start (asynchronous)
+10-27 23:58:33 collect: 0 new results
+10-27 23:58:33 next: point budget reached (150)
+10-27 23:58:33 loop: finished (stop criterion or budget)
+10-28 00:03:36 loop start (asynchronous)
+10-28 00:03:36 collect: 0 new results
+10-28 00:03:36 next: point budget reached (150)
+10-28 00:03:36 loop: finished (stop criterion or budget)
+10-28 00:08:38 loop start (asynchronous)
+10-28 00:08:38 collect: 0 new results
+10-28 00:08:38 next: point budget reached (150)
+10-28 00:08:38 loop: finished (stop criterion or budget)
+10-28 00:13:41 loop start (asynchronous)
+10-28 00:13:41 collect: 0 new results
+10-28 00:13:41 next: point budget reached (150)
+10-28 00:13:41 loop: finished (stop criterion or budget)
+10-28 00:18:43 loop start (asynchronous)
+10-28 00:18:43 collect: 0 new results
+10-28 00:18:43 next: point budget reached (150)
+10-28 00:18:43 loop: finished (stop criterion or budget)
+10-28 00:23:46 loop start (asynchronous)
+10-28 00:23:46 collect: 0 new results
+10-28 00:23:46 next: point budget reached (150)
+10-28 00:23:46 loop: finished (stop criterion or budget)
+10-28 00:28:48 loop start (asynchronous)
+10-28 00:28:48 collect: 0 new results
+10-28 00:28:48 next: point budget reached (150)
+10-28 00:28:48 loop: finished (stop criterion or budget)
+10-28 00:33:51 loop start (asynchronous)
+10-28 00:33:51 collect: 0 new results
+10-28 00:33:51 next: point budget reached (150)
+10-28 00:33:51 loop: finished (stop criterion or budget)
+10-28 00:38:53 loop start (asynchronous)
+10-28 00:38:54 collect: 0 new results
+10-28 00:38:54 next: point budget reached (150)
+10-28 00:38:54 loop: finished (stop criterion or budget)
+10-28 00:43:56 loop start (asynchronous)
+10-28 00:43:56 collect: 0 new results
+10-28 00:43:56 next: point budget reached (150)
+10-28 00:43:56 loop: finished (stop criterion or budget)
+10-28 00:48:59 loop start (asynchronous)
+10-28 00:48:59 collect: 0 new results
+10-28 00:48:59 next: point budget reached (150)
+10-28 00:48:59 loop: finished (stop criterion or budget)
+10-28 00:54:01 loop start (asynchronous)
+10-28 00:54:01 collect: 0 new results
+10-28 00:54:01 next: point budget reached (150)
+10-28 00:54:01 loop: finished (stop criterion or budget)
