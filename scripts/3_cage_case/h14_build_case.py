@@ -453,6 +453,14 @@ elif test == 'physio_rot':
     M, FL = prm.get('physio_moment_Nmm', 1500.0), prm.get('physio_follower_N', 100.0)
     TH = dict(flexion=0.1009, extension=0.1286, LB_right=0.0713, LB_left=0.0717, AR_left=0.0905, AR_right=0.0907)  # rad
     TH.update(prm.get('physio_rot_rad', {})); F = prm.get('physio_rot_factor', 1.0)
+    _rig = {e.get('id') for e in root.find('Material') if e.get('type') == 'rigid body' and e.get('id') == '2'}
+    _vol, _cen = [], []; nodes_xyz = {int(n.get('id')): n.text.split(',') for n in geo.find('Nodes')}   # model frame
+    for eb in geo.findall('Elements'):
+        if eb.get('mat') in _rig:
+            for e in eb:
+                Pn = np.array([[float(v) for v in nodes_xyz[int(i)]] for i in e.text.split(',')[:4]])
+                _vol.append(abs(np.linalg.det((Pn[1:] - Pn[0]).T)) / 6); _cen.append(Pn.mean(0))
+    C3COM = (np.array(_cen) * np.array(_vol)[:, None]).sum(0) / sum(_vol)
     seq = [('Ry', 1, 'flexion'), ('Ry', -1, 'extension'), ('Rx', 1, 'LB_right'), ('Rx', -1, 'LB_left'), ('Rz', 1, 'AR_left'), ('Rz', -1, 'AR_right')]
     T0 = 3.5; DT = prm.get('physio_dt', 0.05)
     lc('follower', [(3.0, 0.0), (T0, 1.0), (T0 + len(seq) + 100, 1.0)])
@@ -465,7 +473,18 @@ elif test == 'physio_rot':
         ET.SubElement(si, 'Boundary')
         lc('rot_' + nm, [(ts, 0.0), (ts + 0.5, 1.0), (ts + 1.0, 0.0)])
         control(si, int(round(1.0 / DT)), DT, DT)
-        rigid(si, presc=[(dd, lcs['rot_' + nm], float(sg) * TH[nm] * F, True)], force=[('z', lcs['follower'], -FL)])
+        rigid(si, force=[('z', lcs['follower'], -FL)])
+        # FEBio does not allow a rigid body with one rotation prescribed and the others free ("Rigid body rotations cannot
+        # mix prescribed and free components"): the main rotation is driven through a generic rigid joint between C4
+        # (body a, material 1, fixed) and C3 (body b, material 2) with only that relative rotation prescribed (Lagrange
+        # multiplier); C3 itself stays free in all 6 dofs. FEGenericRigidJoint: c = (Qa e_I).(Qb e_J) - cos(pi/2 + d),
+        # with body a fixed this gives the C3 rotation about the axis = d (absolute from t 0; the follower load leaves
+        # ~0.002 rad, 2 % of the window rotation, measured on physio_v3).
+        cs = ET.SubElement(si, 'Constraints')
+        cj = ET.SubElement(cs, 'constraint', type='generic rigid joint', name='drive_' + nm)
+        for k, v in (('laugon', 2), ('body_a', 1), ('body_b', 2), ('joint', ','.join(f'{c:.6g}' for c in C3COM))):
+            ET.SubElement(cj, k).text = str(v)
+        ET.SubElement(cj, 'prescribe_' + dd, lc=lcs['rot_' + nm]).text = f'{float(sg) * TH[nm] * F:.6g}'
     json.dump(dict(control='rotation', target_moment_Nmm=M, follower_N=FL, t_follower=[3.0, T0], rot_rad={k: v * F for k, v in TH.items()},
                    windows=[dict(name=n, dof=dd, sign=sg, t0=T0 + i, t_peak=T0 + i + 0.5, t1=T0 + i + 1.0) for i, (dd, sg, n) in enumerate(seq)]),
               open(os.path.join(out, 'physio_schedule.json'), 'w'), indent=1)

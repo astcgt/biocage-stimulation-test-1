@@ -783,3 +783,4 @@ constraints = surgery-compatible + no nerve / bone harm; maximum freedom otherwi
   post-processing takes the state where the reaction moment reaches 1.5 N m. Reason: 135 / 148 physio_v3 (moment control)
   stalled at facet contact onset, mostly in extension. Cases human_study/al_v2/physio_rot/ (jobs physrot_*), built by
   h28 (now parametrised: test / out dir / job prefix / ids); watchdog re-queues physrot_*.
+- 10-28 22:43 physrot_* (rigid-prescribed version, rejected by FEBio: mixed prescribed/free rotations) unqueued / killed and moved to queue/failed; rebuilt with a generic rigid joint
