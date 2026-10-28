@@ -2,7 +2,7 @@
 
 Every 5 min:
   1. restarts gpu_sampler / h19 scheduler / h24 preflight daemon / h22 AL loop in their tmux sessions if their process is gone;
-  2. re-queues AL and physio pre-run jobs (al_*, physv3_*, physfix_*, physrot_*) that left queue/running without FEBio terminating (no 'N O R M A L' / 'E R R O R' in any case.log,
+  2. re-queues AL and physio pre-run jobs (al_*, physv3_*, physfix_*, physrot*_*) that left queue/running without FEBio terminating (no 'N O R M A L' / 'E R R O R' in any case.log,
      e.g. a runner that died at launch) and are neither queued nor running again; at most MAX_RETRY times per job.
 The scheduler itself polls for idle GPUs / CPU cores every 60 s.  Log: human_study/watchdog.log.
 usage: python h23_watchdog.py
@@ -56,7 +56,7 @@ def requeue_failed():
     tries = json.load(open(RETRY)) if os.path.exists(RETRY) else {}
     for name, ex in last.items():
         # exit 0 without a termination line = FEBio killed (e.g. OOM) but the wrapper exited cleanly (2026-10-25; v2 only)
-        if not name.startswith(('al_', 'physv3_', 'physfix_', 'physrot_')) or (ex == '0' and name.startswith('al_') and not name.startswith('al_v2')) or name in busy or tries.get(name, 0) >= MAX_RETRY: continue
+        if not name.startswith(('al_', 'physv3_', 'physfix_', 'physrot')) or (ex == '0' and name.startswith('al_') and not name.startswith('al_v2')) or name in busy or tries.get(name, 0) >= MAX_RETRY: continue
         js = sorted(glob.glob(os.path.join(Q, 'done', f'*_{name}.job')))
         if not js or terminated(json.load(open(js[-1]))['case_dir']): continue
         shutil.copy(js[-1], os.path.join(Q, name + '.job')); tries[name] = tries.get(name, 0) + 1

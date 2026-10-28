@@ -4,8 +4,9 @@ The physio runs before 2026-10-26 had combined loading (h14 bug, al_v2/PHYSIO_IN
 compress case parameters are reused with test = 'physio'; cases go to human_study/al_v2/physio_v3/pXXX (settings class
 'human_study/al_v2/physio_v3/' = physio_test class). Already built / queued / finished cases are skipped, so the script can be
 re-run at any time (e.g. after a server restart).
-usage: python h28_physio_prerun.py [workers] [test] [out_subdir] [job_prefix] [ids]
+usage: python h28_physio_prerun.py [workers] [test] [out_subdir] [job_prefix] [ids|all] [prev_subdir|-] [overrides json]
   default: physio, al_v2/physio_v3, physv3_ ; 2026-10-28 rotation control: physio_rot al_v2/physio_rot physrot_ [p062,p001]
+  2026-10-29 second pass: physio_rot al_v2/physio_rot_r2 physrot2_ all al_v2/physio_rot (windows below target, larger amplitude)
 """
 import os, sys, json, glob, subprocess
 from concurrent.futures import ProcessPoolExecutor
@@ -14,7 +15,9 @@ HERE = os.path.dirname(os.path.abspath(__file__)); P = os.path.dirname(os.path.d
 TEST = sys.argv[2] if len(sys.argv) > 2 else 'physio'
 OUT = os.path.join(P, 'human_study', sys.argv[3] if len(sys.argv) > 3 else 'al_v2/physio_v3'); QUEUE = os.path.join(P, 'human_study/queue')
 PREFIX = sys.argv[4] if len(sys.argv) > 4 else 'physv3_'
-ONLY = set(sys.argv[5].split(',')) if len(sys.argv) > 5 else None
+ONLY = set(sys.argv[5].split(',')) if len(sys.argv) > 5 and sys.argv[5] != 'all' else None
+PREV = os.path.join(P, 'human_study', sys.argv[6]) if len(sys.argv) > 6 and sys.argv[6] != '-' else None   # physio_rot second pass
+EXTRA = json.loads(sys.argv[7]) if len(sys.argv) > 7 else {}       # parameter overrides (e.g. facet sensitivity)
 H14 = os.path.join(P, 'scripts/3_cage_case/h14_build_case.py'); H24 = os.path.join(P, 'scripts/5_compute/h24_preflight.py')
 
 
@@ -43,6 +46,32 @@ def rot_targets(name):
     return out
 
 
+def rot_retarget(name, prev, base):
+    """second pass (2026-10-29): windows whose driving moment stayed below the target in the previous physio_rot run of this
+    design (al_v2/physio_rot) get a larger amplitude, extrapolated with the tangent of the moment-rotation curve at the last
+    up-ramp point (the curve stiffens, so this undershoots less than a secant and overshoots little) x 1.15; windows that
+    reached the target, or have no data (run stopped earlier), keep their amplitude."""
+    out = dict(base)
+    for d in sorted(glob.glob(os.path.join(prev, name)) + glob.glob(os.path.join(prev, name + '_gpu*'))):
+        sf, df = os.path.join(d, 'physio_schedule.json'), os.path.join(d, 'drive.txt')
+        if not (os.path.exists(sf) and os.path.exists(df)): continue
+        sch = json.load(open(sf)); amp = sch['rot_rad']; Mt = sch['target_moment_Nmm']; col = dict(Rx=4, Ry=5, Rz=6)
+        rows, t = [], None
+        for line in open(df):
+            if line.startswith('*Time'): t = float(line.split('=')[1]); rows.append((t, {}))
+            elif line[:1].isdigit() and t is not None: v = line.split(','); rows[-1][1][int(v[0])] = [float(a) for a in v]
+        for i, w in enumerate(sch['windows']):
+            up = [(amp[w['name']] * (tt - w['t0']) / (w['t_peak'] - w['t0']), abs(dd[i + 1][col[w['dof']]]))
+                  for tt, dd in rows if (i + 1) in dd and w['t0'] + 1e-9 < tt <= w['t_peak'] + 1e-9]
+            if not up or any(m >= Mt for _, m in up): out[w['name']] = amp[w['name']]; continue
+            if max(th for th, _ in up) < 0.95 * amp[w['name']]: out[w['name']] = amp[w['name']]; continue   # stopped inside the ramp
+            (t1, m1), (t2, m2) = up[-2], up[-1]; k = (m2 - m1) / (t2 - t1) if len(up) > 1 and t2 > t1 else 0
+            new = t2 + 1.15 * (Mt - m2) / k if k > 0 else 2.0 * amp[w['name']]
+            out[w['name']] = min(max(new, 1.1 * amp[w['name']]), 2.5 * amp[w['name']])
+        break
+    return out
+
+
 def queued_or_done(name):
     for sub in ('', 'running', 'done'):
         d = os.path.join(QUEUE, sub)
@@ -58,7 +87,10 @@ def one(pid):
     prm = json.load(open(src)); prm['test'] = TEST
     cur = json.load(open(os.path.join(P, 'human_study/current_settings.json')))   # current study settings win (older points
     prm.update(cur['common']); prm.update(cur['classes'][os.path.relpath(OUT, P) + '/'])   # lack e.g. insert_dt)
-    if TEST == 'physio_rot': prm['physio_rot_rad'] = rot_targets(name)
+    if TEST == 'physio_rot':
+        prm['physio_rot_rad'] = rot_targets(name)
+        if PREV: prm['physio_rot_rad'] = rot_retarget(name, PREV, prm['physio_rot_rad'])
+    prm.update(EXTRA)
     pj = os.path.join(OUT, f'{name}_params.json'); json.dump(prm, open(pj, 'w'), indent=1)
     for attempt in (0, 1):
         if attempt or not os.path.exists(os.path.join(cd, 'case.feb')):

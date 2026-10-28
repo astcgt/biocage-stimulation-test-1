@@ -789,3 +789,24 @@ constraints = surgery-compatible + no nerve / bone harm; maximum freedom otherwi
   (cage ROM 0.25-0.71 x intact) and inverted cage elements (p001 at t 3.80); (2) FEBio patch (output only):
   FEGenericRigidJoint records the force / moment it applies to body B (m_F, m_M were never set), logged as drive.txt
   (rigid_connector_data); e03 takes the state where the driving moment reaches 1.5 N m. Pilots p062, p001, p005.
+- 2026-10-29 06:40 physio_rot pilots (p062, p001: extension t 4.87 / 4.83; p005: follower step t 3.39) failed with "Max nr of
+  reformations". FEBio warned "Rigid connectors require non-symmetric stiffness matrix": the global stiffness was stored
+  symmetric (solver default), dropping the non-symmetric terms of the Lagrange-multiplier joint and the sliding-elastic
+  facet / cage contacts. h14 physio_rot now writes symmetric_stiffness 0 in the follower and window steps (param
+  physio_rot_symmetric, default 0; insertion steps unchanged, so insertion = physio_v3). Checked on a small model: the tag
+  is accepted, the warning is gone, cuDSS solves the general matrix. Old pilots -> al_v2/physio_rot_invalid_symstiff/.
+  drive.txt (rigid_connector_data) still logs literal 0 in the full model although it works on small test models; the
+  joint moment is in case.log ("=== rigid connector #k ... Lagrange m."; p062 flexion: 376 / 1026 / 1746 N mm at
+  t 3.6 / 3.8 / 4.0, so the 1.15 x amplitude passes 1.5 N m as intended). Post-processing must read case.log until fixed.
+  Relaunched: p062, p001, p005, p002, p003, p004, p006, p007 (8 x 4 cores = the 32-core cgroup quota).
+- 2026-10-29 h19 scheduler caps launches at the cgroup CPU quota (cpu.max = 32 cores; the host has 256): free cores =
+  min(idle host cores, quota - cores of my running jobs). Before, it counted idle host cores and could oversubscribe.
+- 2026-10-29 07:30 symmetric_stiffness 0 fixed the extension stall: p062, p001, p002 ran all 6 windows (t 9.5). e04 on these
+  (biocage-evo results/method/e04_rot): mu_squeeze <= 0.136 (lateral bending), one-face slip bound <= 0.25 mm. p001 reached
+  1.5 N m only in flexion (fallback amplitudes too small for a stiff design). p005 / p006 / p007 (E_soft 2.4-4.6 MPa or
+  design B) inverted at the start of flexion (t 3.54-3.62): cage soft layers (p005, p006), C3 cortical bone (p007).
+  Queued: all remaining designs (physrot_, 105 jobs); second pass h28 'physio_rot al_v2/physio_rot_r2 physrot2_ all
+  al_v2/physio_rot' for windows below the target (tangent extrapolation x 1.15, capped 2.5 x), p001 first; facet
+  sensitivity (PI: can the facets be isolated for slip-out?) on p062, p002: no facet contact (physrotF0_, amplitude x 1.3),
+  facet cartilage E 30 instead of 10 MPa (physrotF3_). Run the second pass for all designs when the first pass ends.
+  Anterior muscle springs and the reduced (equivalent-spring) model: agreed with the PI, after the facet result.

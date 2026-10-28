@@ -464,7 +464,12 @@ elif test == 'physio_rot':
     seq = [('Ry', 1, 'flexion'), ('Ry', -1, 'extension'), ('Rx', 1, 'LB_right'), ('Rx', -1, 'LB_left'), ('Rz', 1, 'AR_left'), ('Rz', -1, 'AR_right')]
     T0 = 3.5; DT = prm.get('physio_dt', 0.05)
     lc('follower', [(3.0, 0.0), (T0, 1.0), (T0 + len(seq) + 100, 1.0)])
+    # 2026-10-29: the Lagrange-multiplier joint and the sliding-elastic facet / cage contacts need a NON-symmetric global
+    # stiffness (FEBio warns "Rigid connectors require non-symmetric stiffness matrix"); the solver default (symmetric)
+    # dropped those terms and the pilots stalled at facet contact onset in extension (p062 t 4.87, p001 t 4.83)
+    SYMG = prm.get('physio_rot_symmetric', 0)
     control(s3, int(round((T0 - 3.0) / DT)), DT, DT)
+    ET.SubElement(s3.find('Control'), 'symmetric_stiffness').text = str(SYMG)
     rigid(s3, force=[('z', lcs['follower'], -FL)])
     for i, (dd, sg, nm) in enumerate(seq):
         ts = T0 + i
@@ -473,6 +478,7 @@ elif test == 'physio_rot':
         ET.SubElement(si, 'Boundary')
         lc('rot_' + nm, [(ts, 0.0), (ts + 0.5, 1.0), (ts + 1.0, 0.0)])
         control(si, int(round(1.0 / DT)), DT, DT)
+        ET.SubElement(si.find('Control'), 'symmetric_stiffness').text = str(SYMG)
         rigid(si, force=[('z', lcs['follower'], -FL)])
         # FEBio does not allow a rigid body with one rotation prescribed and the others free ("Rigid body rotations cannot
         # mix prescribed and free components"): the main rotation is driven through a generic rigid joint between C4
@@ -519,6 +525,9 @@ for c in root.iter('contact'):
             e = c.find(k)
             if e is None: e = ET.SubElement(c, k)
             e.text = str(v)
+if 'facet_E' in prm:                                 # facet sensitivity (PI 2026-10-29: can the facets be isolated for slip-out?)
+    for m in root.find('Material'):
+        if m.get('name') == 'FC': m.find('E').text = f"{prm['facet_E']:.6g}"          # Herron facet cartilage, E 10 MPa
 DROP = list(prm.get('diag_drop', []))               # distraction-stiffness diagnosis: remove a tissue component
 if prm.get('annulus_remnant', True) is False:
     # PI 2026-10-22: the posterolateral annulus remnant is treated as released / resected in the surgery model (it carried

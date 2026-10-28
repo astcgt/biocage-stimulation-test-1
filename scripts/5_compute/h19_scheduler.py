@@ -41,6 +41,25 @@ def mem_free_gb():
         return 1e9
 
 
+def cpu_quota():
+    """Cores this account may use (cgroup cpu.max, 32 since 2026-10; the host has 256): launching past it only throttles
+    every run of mine (found by the foreman, 2026-10-29)."""
+    try:
+        q, per = open(CG + '/cpu.max').read().split()
+        return int(q) // int(per) if q != 'max' else os.cpu_count()
+    except (OSError, ValueError):
+        return os.cpu_count()
+
+
+def running_cores():
+    """Cores claimed by my jobs in queue/running/ (job spec 'cores')."""
+    n = 0
+    for j in glob.glob(os.path.join(RUN, '*.job')):
+        try: n += json.load(open(j)).get('cores', 16)
+        except (OSError, ValueError): pass
+    return n
+
+
 def log(msg):
     with open(LOG, 'a') as f: f.write(time.strftime('%m-%d %H:%M:%S ') + msg + '\n')
 
@@ -160,6 +179,7 @@ def main():
         if jobs:
             st = gpu_state()
             b = cpu_busy(); c = claimed_cores(); free = sum(1 for k, v in b.items() if v < 0.10 and k not in c)
+            free = min(free, cpu_quota() - running_cores())   # idle host cores are not mine past the cgroup CPU quota
             for g in sorted(g for g, s in st.items() if s['idle']):           # GPU runs need idle cores too (h18)
                 j = first_fit(jobs, lambda sp: not sp.get('cpu_only') and free >= sp.get('cores', 16)
                               and mem_free_gb() >= sp.get('host_mem_gb_gpu', 4) + MEM_HEADROOM)
