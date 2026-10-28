@@ -442,6 +442,33 @@ elif test == 'physio':
     json.dump(dict(moment_Nmm=M, follower_N=FL, t_follower=[3.0, T0],
                    windows=[dict(name=n, dof=dd, sign=sg, t0=T0 + i, t_peak=T0 + i + 0.5, t1=T0 + i + 1.0) for i, (dd, sg, n) in enumerate(seq)]),
               open(os.path.join(out, 'physio_schedule.json'), 'w'), indent=1)
+elif test == 'physio_rot':
+    # PI 2026-10-28: the physio windows under ROTATION control: under moment control both FEBio and the GPU solver stall at
+    # facet contact onset (soft neutral zone -> huge predictor; 135 / 148 physio_v3 runs stalled in extension). Same
+    # follower load (t 3-3.5, rotations free), then one step per window: the main rotation of the C3 pot prescribed relative
+    # to the step start, 0 -> theta -> 0 (0.5 s up, 0.5 s down), the other rotations and the in-plane translations free.
+    # theta = the intact segment's rotation at the target moment (FEBio reference, snapshot fsu_intact), x physio_rot_factor:
+    # a cage stiffens the segment, so the reaction moment passes the target before theta; post-processing takes the state
+    # where the reaction moment reaches the target (physio_schedule.json: target_moment_Nmm).
+    M, FL = prm.get('physio_moment_Nmm', 1500.0), prm.get('physio_follower_N', 100.0)
+    TH = dict(flexion=0.1009, extension=0.1286, LB_right=0.0713, LB_left=0.0717, AR_left=0.0905, AR_right=0.0907)  # rad
+    TH.update(prm.get('physio_rot_rad', {})); F = prm.get('physio_rot_factor', 1.0)
+    seq = [('Ry', 1, 'flexion'), ('Ry', -1, 'extension'), ('Rx', 1, 'LB_right'), ('Rx', -1, 'LB_left'), ('Rz', 1, 'AR_left'), ('Rz', -1, 'AR_right')]
+    T0 = 3.5; DT = prm.get('physio_dt', 0.05)
+    lc('follower', [(3.0, 0.0), (T0, 1.0), (T0 + len(seq) + 100, 1.0)])
+    control(s3, int(round((T0 - 3.0) / DT)), DT, DT)
+    rigid(s3, force=[('z', lcs['follower'], -FL)])
+    for i, (dd, sg, nm) in enumerate(seq):
+        ts = T0 + i
+        si = ET.SubElement(root, 'Step', name='physio_' + nm)
+        if CONTACT_MODE == 'per_step': contacts(si)
+        ET.SubElement(si, 'Boundary')
+        lc('rot_' + nm, [(ts, 0.0), (ts + 0.5, 1.0), (ts + 1.0, 0.0)])
+        control(si, int(round(1.0 / DT)), DT, DT)
+        rigid(si, presc=[(dd, lcs['rot_' + nm], float(sg) * TH[nm] * F, True)], force=[('z', lcs['follower'], -FL)])
+    json.dump(dict(control='rotation', target_moment_Nmm=M, follower_N=FL, t_follower=[3.0, T0], rot_rad={k: v * F for k, v in TH.items()},
+                   windows=[dict(name=n, dof=dd, sign=sg, t0=T0 + i, t_peak=T0 + i + 0.5, t1=T0 + i + 1.0) for i, (dd, sg, n) in enumerate(seq)]),
+              open(os.path.join(out, 'physio_schedule.json'), 'w'), indent=1)
 else:
     # push-out (ASTM draft F04.25.02.02 style): 100 N axial preload on C3 (z force), C3 other DOFs fixed; cage pushed
     # through its posterior (push_ant: towards anterior) or anterior (push_post: towards posterior) wall nodes, 3 mm

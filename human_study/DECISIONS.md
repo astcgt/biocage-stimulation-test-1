@@ -778,3 +778,8 @@ constraints = surgery-compatible + no nerve / bone harm; maximum freedom otherwi
   flexion 1.84 / 1.67, extension 2.07 / 2.08, AR 1.87-2.04, LB 0.67-0.70 -> lateral bending is the slip direction
   (mu_req ~0.5). p014 (A radial mix) ERROR TERMINATION in extension (t 4.95). The physio AL has not been started.
 - 2026-10-26 PI: use the idle resources. physio_v3 = physio test with the fixed curves for all 148 finished v2 AL points (scripts/6_active_learning/h28_physio_prerun.py, re-runnable, settings class = physio_test); data needed whatever AL objective is chosen. The AL loop itself is not restarted with a new objective (PI: wait for real-friction results).
+- 2026-10-28 PI (via evo): physio windows under rotation control (h14 test 'physio_rot': follower step, then one step per
+  window with the main C3 rotation prescribed relative to the step start, 0 -> intact ROM at 1.5 N m -> 0, other dofs free);
+  post-processing takes the state where the reaction moment reaches 1.5 N m. Reason: 135 / 148 physio_v3 (moment control)
+  stalled at facet contact onset, mostly in extension. Cases human_study/al_v2/physio_rot/ (jobs physrot_*), built by
+  h28 (now parametrised: test / out dir / job prefix / ids); watchdog re-queues physrot_*.
