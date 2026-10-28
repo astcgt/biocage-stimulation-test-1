@@ -7,7 +7,7 @@ re-run at any time (e.g. after a server restart).
 usage: python h28_physio_prerun.py [workers] [test] [out_subdir] [job_prefix] [ids]
   default: physio, al_v2/physio_v3, physv3_ ; 2026-10-28 rotation control: physio_rot al_v2/physio_rot physrot_ [p062,p001]
 """
-import os, sys, json, subprocess
+import os, sys, json, glob, subprocess
 from concurrent.futures import ProcessPoolExecutor
 
 HERE = os.path.dirname(os.path.abspath(__file__)); P = os.path.dirname(os.path.dirname(HERE))
@@ -16,6 +16,31 @@ OUT = os.path.join(P, 'human_study', sys.argv[3] if len(sys.argv) > 3 else 'al_v
 PREFIX = sys.argv[4] if len(sys.argv) > 4 else 'physv3_'
 ONLY = set(sys.argv[5].split(',')) if len(sys.argv) > 5 else None
 H14 = os.path.join(P, 'scripts/3_cage_case/h14_build_case.py'); H24 = os.path.join(P, 'scripts/5_compute/h24_preflight.py')
+
+
+INTACT = dict(flexion=0.1009, extension=0.1286, LB_right=0.0713, LB_left=0.0717, AR_left=0.0905, AR_right=0.0907)  # rad at 1.5 N m
+RATIO_MED = dict(flexion=0.38, extension=0.28, LB_right=0.30, LB_left=0.30, AR_left=0.33, AR_right=0.33)  # cage / intact, physio_v3
+
+
+def rot_targets(name):
+    """physio_rot (2026-10-28): per-window rotation amplitude for this design. Driving to the intact ROM overshot 1.5 N m
+    ~3x (cage ROM = 0.25-0.71 x intact) and inverted cage elements (p001). Use 1.15 x the rotation this design reached at
+    the moment-control peak (physio_v3 C3pot.txt, absolute rotation), else 1.4 x the median cage / intact ratio x intact."""
+    ax = dict(flexion=5, extension=5, LB_right=4, LB_left=4, AR_left=6, AR_right=6)   # id, x, y, z, thx, thy, thz
+    out = {k: 1.4 * RATIO_MED[k] * INTACT[k] for k in INTACT}
+    v3 = os.path.join(P, 'human_study/al_v2/physio_v3')
+    for d in sorted(glob.glob(os.path.join(v3, name)) + glob.glob(os.path.join(v3, name + '_gpu*'))):
+        f, sf = os.path.join(d, 'C3pot.txt'), os.path.join(d, 'physio_schedule.json')
+        if not (os.path.exists(f) and os.path.exists(sf)): continue
+        rows, t = {}, None
+        for line in open(f):
+            if line.startswith('*Time'): t = float(line.split('=')[1])
+            elif line[:1].isdigit(): rows[t] = [float(a) for a in line.split(',')]
+        for w in json.load(open(sf))['windows']:
+            ts = [x for x in rows if w['t0'] - 1e-6 <= x <= w['t_peak'] + 0.03]
+            if ts and max(ts) >= w['t_peak'] - 0.03:
+                out[w['name']] = 1.15 * abs(rows[min(ts, key=lambda x: abs(x - w['t_peak']))][ax[w['name']]])
+    return out
 
 
 def queued_or_done(name):
@@ -33,6 +58,7 @@ def one(pid):
     prm = json.load(open(src)); prm['test'] = TEST
     cur = json.load(open(os.path.join(P, 'human_study/current_settings.json')))   # current study settings win (older points
     prm.update(cur['common']); prm.update(cur['classes'][os.path.relpath(OUT, P) + '/'])   # lack e.g. insert_dt)
+    if TEST == 'physio_rot': prm['physio_rot_rad'] = rot_targets(name)
     pj = os.path.join(OUT, f'{name}_params.json'); json.dump(prm, open(pj, 'w'), indent=1)
     for attempt in (0, 1):
         if attempt or not os.path.exists(os.path.join(cd, 'case.feb')):

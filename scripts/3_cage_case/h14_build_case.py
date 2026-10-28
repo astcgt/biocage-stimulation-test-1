@@ -508,6 +508,8 @@ ET.SubElement(lf, 'rigid_body_data', data='x;y;z;thx;thy;thz;Fx;Fy;Fz;Mx;My;Mz',
 ET.SubElement(lf, 'node_data', data='ux;uy;uz', file='cage_nodes.txt', delim=',').text = ','.join(
     str(cage_ids[i]) for i in np.unique(np.r_[TOP.ravel(), BOT.ravel()])[::7])
 ET.SubElement(lf, 'node_data', data='ux;uy;uz', file='C4_endplate_nodes.txt', delim=',').text = ','.join(map(str, ep.bot_ids))
+if test == 'physio_rot':                             # driving joints (one per window, in step order): force / moment on C3
+    ET.SubElement(lf, 'rigid_connector_data', data='RCFx;RCFy;RCFz;RCMx;RCMy;RCMz', file='drive.txt', delim=',').text = '1,2,3,4,5,6'
 ET.SubElement(lf, 'node_data', data='Rx;Ry;Rz', file='push_reaction.txt', delim=',').text = ','.join(
     str(cage_ids[i]) for i in (cz['post'] if test == 'push_ant' else cz['ant'] if test == 'push_post' else cz['post'][:5]))
 FACET = prm.get('facet_contact', {})                 # overrides for the Herron facet contacts (extension: cartilage inversion, 2026-10-23)

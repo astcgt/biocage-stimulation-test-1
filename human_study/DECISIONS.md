@@ -784,3 +784,8 @@ constraints = surgery-compatible + no nerve / bone harm; maximum freedom otherwi
   stalled at facet contact onset, mostly in extension. Cases human_study/al_v2/physio_rot/ (jobs physrot_*), built by
   h28 (now parametrised: test / out dir / job prefix / ids); watchdog re-queues physrot_*.
 - 10-28 22:43 physrot_* (rigid-prescribed version, rejected by FEBio: mixed prescribed/free rotations) unqueued / killed and moved to queue/failed; rebuilt with a generic rigid joint
+- 2026-10-28 23:15 physio_rot fixes: (1) rotation amplitude per design = 1.15 x the rotation it reached at the moment-control
+  peak in physio_v3 (else 1.4 x median cage / intact ratio x intact ROM): driving to the intact ROM overshot 1.5 N m ~3x
+  (cage ROM 0.25-0.71 x intact) and inverted cage elements (p001 at t 3.80); (2) FEBio patch (output only):
+  FEGenericRigidJoint records the force / moment it applies to body B (m_F, m_M were never set), logged as drive.txt
+  (rigid_connector_data); e03 takes the state where the driving moment reaches 1.5 N m. Pilots p062, p001, p005.
