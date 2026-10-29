@@ -528,6 +528,19 @@ for c in root.iter('contact'):
 if 'facet_E' in prm:                                 # facet sensitivity (PI 2026-10-29: can the facets be isolated for slip-out?)
     for m in root.find('Material'):
         if m.get('name') == 'FC': m.find('E').text = f"{prm['facet_E']:.6g}"          # Herron facet cartilage, E 10 MPa
+DYN = prm.get('physio_dynamic')                      # PI 2026-10-30: slow dynamic analysis approximating the static solution
+if DYN and test.startswith('physio'):
+    # artificial mass (one uniform density, t / mm^3; real tissue ~1e-9) + generalized-alpha numerical damping (rhoi) in the
+    # follower and window steps only (insertion stays static = the static runs). The mass adds ~ m / dt^2 to every direction,
+    # so a soft direction no longer gives a huge Newton step; the loads are slow, so inertia stays small (checked against
+    # the static runs of the same designs, and with the inertial force logged per step).
+    for m in root.find('Material'):
+        for dn in m.iter('density'): dn.text = f"{DYN.get('density', 1e-6):.6g}"
+        if m.find('density') is None: ET.SubElement(m, 'density').text = f"{DYN.get('density', 1e-6):.6g}"
+    for st_ in root.findall('Step'):
+        if not st_.get('name', '').startswith('physio'): continue
+        ctl = st_.find('Control'); ctl.find('analysis').set('type', 'dynamic')
+        ET.SubElement(ctl, 'rhoi').text = str(DYN.get('rhoi', 0.0))
 DROP = list(prm.get('diag_drop', []))               # distraction-stiffness diagnosis: remove a tissue component
 if prm.get('annulus_remnant', True) is False:
     # PI 2026-10-22: the posterolateral annulus remnant is treated as released / resected in the surgery model (it carried

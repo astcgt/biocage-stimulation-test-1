@@ -810,3 +810,10 @@ constraints = surgery-compatible + no nerve / bone harm; maximum freedom otherwi
   sensitivity (PI: can the facets be isolated for slip-out?) on p062, p002: no facet contact (physrotF0_, amplitude x 1.3),
   facet cartilage E 30 instead of 10 MPa (physrotF3_). Run the second pass for all designs when the first pass ends.
   Anterior muscle springs and the reduced (equivalent-spring) model: agreed with the PI, after the facet result.
+- 2026-10-30 PI: (1) designs with > 30 % local soft compression (worst element) at the last converged state are
+  unacceptable: 48 designs. (2) slow dynamic analysis for the rest: h14 param physio_dynamic {density 1e-6 t/mm^3 (all
+  materials, ~1000 x tissue), rhoi 0 (generalized-alpha, maximal high-frequency damping)}, follower + window steps only.
+  Validation vs static (e04): p062 / p002 mu_squeeze within 0.002, slip bound within 0.02 mm; p093 / p100 (static failed in
+  flexion) completed. Queued 61 designs (physrotD_, al_v2/physio_rot_dyn, amplitudes from pass 1 / pass 2);
+  h29_rot_chain.py queues the next dynamic pass (physrotD2_, al_v2/physio_rot_dyn2) for windows below the target when
+  the pass ends (no idle queue between passes; in resume_all.sh).
