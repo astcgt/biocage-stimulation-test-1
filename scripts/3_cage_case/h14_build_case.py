@@ -528,8 +528,15 @@ for c in root.iter('contact'):
 if 'facet_E' in prm:                                 # facet sensitivity (PI 2026-10-29: can the facets be isolated for slip-out?)
     for m in root.find('Material'):
         if m.get('name') == 'FC': m.find('E').text = f"{prm['facet_E']:.6g}"          # Herron facet cartilage, E 10 MPa
-DYN = prm.get('physio_dynamic')                      # PI 2026-10-30: slow dynamic analysis approximating the static solution
-if DYN and test.startswith('physio'):
+INSERTION_STEPS = ('distract', 'insert_seat', 'release')
+NONSYM = prm.get('nonsym')                          # procedure validation 2026-10-30 (ISO / push-out / friction contact):
+if NONSYM:                                          # non-symmetric global stiffness in the test steps ('test') or in every
+    for st_ in root.findall('Step'):                # step ('all'); friction and rigid connectors have non-symmetric terms
+        if NONSYM == 'test' and st_.get('name') in INSERTION_STEPS: continue
+        ctl = st_.find('Control')
+        if ctl.find('symmetric_stiffness') is None: ET.SubElement(ctl, 'symmetric_stiffness').text = '0'
+DYN = prm.get('physio_dynamic') or prm.get('test_dynamic')   # PI 2026-10-30: slow dynamic analysis approximating the static
+if DYN and (test.startswith('physio') or prm.get('test_dynamic')):   # solution; test_dynamic: the same for any test (validation)
     # artificial mass (one uniform density, t / mm^3; real tissue ~1e-9) + generalized-alpha numerical damping (rhoi) in the
     # follower and window steps only (insertion stays static = the static runs). The mass adds ~ m / dt^2 to every direction,
     # so a soft direction no longer gives a huge Newton step; the loads are slow, so inertia stays small (checked against
@@ -538,7 +545,7 @@ if DYN and test.startswith('physio'):
         for dn in m.iter('density'): dn.text = f"{DYN.get('density', 1e-6):.6g}"
         if m.find('density') is None: ET.SubElement(m, 'density').text = f"{DYN.get('density', 1e-6):.6g}"
     for st_ in root.findall('Step'):
-        if not st_.get('name', '').startswith('physio'): continue
+        if st_.get('name') in INSERTION_STEPS: continue
         ctl = st_.find('Control'); ctl.find('analysis').set('type', 'dynamic')
         ET.SubElement(ctl, 'rhoi').text = str(DYN.get('rhoi', 0.0))
 DROP = list(prm.get('diag_drop', []))               # distraction-stiffness diagnosis: remove a tissue component
@@ -574,4 +581,6 @@ np.savez_compressed(os.path.join(out, 'cage_elems.npz'), block=np.array([b for b
 json.dump(dict(params=prm, cage=cinfo, materials=mat_table, removed_disc_elements=removed, orphans=len(orphans),
                cage_node_id_offset=int(n0), release_hold_nodes=hold),
           open(os.path.join(out, 'case.json'), 'w'), indent=1)
+if prm.get('physio_split') and test == 'physio_rot':   # PI 2026-10-31: one insertion run + 6 independent window restarts
+    import subprocess; subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'h30_split_windows.py'), out], check=True)
 print(json.dumps(dict(removed_disc_elements=removed, orphans=len(orphans), materials=len(mat_table)), indent=1))

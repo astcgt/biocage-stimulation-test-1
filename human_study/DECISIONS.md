@@ -817,3 +817,33 @@ constraints = surgery-compatible + no nerve / bone harm; maximum freedom otherwi
   flexion) completed. Queued 61 designs (physrotD_, al_v2/physio_rot_dyn, amplitudes from pass 1 / pass 2);
   h29_rot_chain.py queues the next dynamic pass (physrotD2_, al_v2/physio_rot_dyn2) for windows below the target when
   the pass ends (no idle queue between passes; in resume_all.sh).
+- 2026-10-30 user: the top priority is the simulation environment and procedure validation (feasibility of every protocol test).
+  Diagnosis of the 2 failed physio_rot_dyn runs: p023 (B both interleave, E_soft 1.50, E_hard 263) and p053 (A both interleave,
+  d 1.50, E_soft 1.57) stop in insertion (t 1.99 / 3.00) in every physio version -> design failures before the test (p023: cage
+  inversions through the whole height + C4 cortical; p053: 88 % in the top 4 layers against C3 + C3 cortical, at the end of
+  release); with p054 / p059 these are the only 4 of 150 points that stop before t 3 (E_soft median 1.57 vs 5.2) -> invalid.
+  Validation pilots on p062 / p002 (the two designs that pass all 6 physio_rot windows), human_study/proc_val/, jobs val_*
+  (queued first; watchdog re-queues val_): h14 new optional params 'nonsym' ('test' | 'all': symmetric_stiffness 0 in those
+  steps) and 'test_dynamic' (= physio_dynamic for any test); defaults byte-identical (checked on physio_rot_dyn, physio_rot,
+  physio_v3, cases iso / compress). (1) ISO 18192-1, 1 level x 3 cycles, tied: iso_ns (nonsym test), iso_nsdyn (+ slow
+  dynamic). (2) push-out with REAL friction (sliding-elastic, mu 0.35, nonsym all, dynamic test): push_ant, push_post; push_post
+  static (nonsym all) on p062. (3) physio_rot dynamic with real friction (mu 0.35, nonsym all) on p062, p002.
+- 2026-10-31 01:40 validation pilots (proc_val, 11 runs) ended. ISO 1 level x 3 cycles: p002 COMPLETES (t 7.0) both static
+  nonsym and dynamic -> first ISO cycles ever completed; p062 stops (static t 3.04, no inverted elements = convergence;
+  dynamic t 4.95, inverted C3 cortical 879 + cage mix_0.25 251). Push-out with real friction (mu 0.35): p062 push_post
+  dynamic COMPLETES 3 mm: peak 93 N at 1.10 mm, 80 N at 3 mm (< 135 N posterior guard; rim not in contact, conservative);
+  p062 push_post static stops t 3.26 (no inversion -> dynamic needed); push_ant p062 t 3.42 (no inversion), p002 t 3.21
+  (soft cage 476 inverted); push_post p002 t 3.37 (soft cage 109). physio_rot dynamic with real friction: p062 COMPLETES
+  all 6 windows (t 9.5); p002 stops in LB_left (t 6.76; C3 cortical 1571 + soft cage 511 inverted). Analysis pending
+  (e04 on friction run vs tied, push curves).
+- 2026-10-31 PI: soft-PLCL compression rule replaces "worst element <= 30 %": sustained (after insertion + release + 100 N
+  follower, t 3.5) <= 15 %, peak (windows, up to the state where the driving moment reaches 1.5 N m) <= 25 %, measured as
+  the worst 1 % (99th percentile) of 1 - minimum principal stretch over the cage elements containing soft PLCL
+  (biocage-evo methods/e05_compression.py). Interim: no compression-set data for bulk PLCL in the literature (rubber-spring
+  / elastomeric-bearing practice, PLCL 70:30 stress relaxation ~30 %, Peerlinck 2023); to be replaced by bench data
+  (stepwise 10-40 % compression in PBS 37 C, residual strain at 1 h / 24 h, after 4 / 8 weeks aging). Height loss and
+  posterior bulge are the safety agent's checks. All designs are re-judged with this rule (the 58 "> 30 %" verdicts lapse).
+- 2026-10-31 PI: windows run independently: h14 param physio_split -> h30 writes the insertion run (case.feb, step-end plot
+  states, -dump=2) + w_<window>/restart.feb (FEBio restart 2.0: archive ../case.dmp + one window step, rotation curve at
+  t 3.5-4.5); h06 / h18 run h31_split_run.py (insertion, then each window restart; needs the same -cnf; the window dir gets
+  a copy of case.xplt). Test p062 flexion: mu_squeeze 0.0259 vs 0.0261 sequential, slip bound 0.1155 vs 0.1154 mm.

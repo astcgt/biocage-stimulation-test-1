@@ -14,6 +14,10 @@ dst = f'{src}_gpu{gpu}'
 os.makedirs(dst, exist_ok=True)
 for f in glob.glob(os.path.join(src, '*')):                  # inputs only: feb, schedules, element tables
     if f.endswith(('.feb', '.json', '.npz')) and os.path.isfile(f): shutil.copy2(f, dst)
+for w in glob.glob(os.path.join(src, 'w_*')):                # h30 split case: the window restart inputs
+    os.makedirs(os.path.join(dst, os.path.basename(w)), exist_ok=True)
+    for f in glob.glob(os.path.join(w, '*')):
+        if f.endswith(('.feb', '.json', '.npz')): shutil.copy2(f, os.path.join(dst, os.path.basename(w)))
 lock = open(os.path.join(P, 'human_study', '.cpu_launch.lock'), 'w'); fcntl.flock(lock, fcntl.LOCK_EX)
 busy = cpu_busy(); idle = sorted(busy, key=busy.get)
 usable = [c for c in idle[:len(idle) - RESERVE] if busy[c] < 0.10 and c not in claimed_cores()]
@@ -28,6 +32,9 @@ fargs, resumed = febio_args(dst, feb)     # resume from the checkpoint (<case>.d
 if not resumed: record_launch(dst, feb)
 cmd = ['prlimit', '--stack=unlimited', 'taskset', '-c', ','.join(map(str, cores)), FEBIO] + fargs + \
       ['-cnf', os.path.join(P, 'febio_cudss/febio_cudss.xml')]
+if os.path.exists(os.path.join(dst, 'split.json')):          # h30 split case: insertion run + independent window restarts
+    cmd = cmd[:5] + [sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'h31_split_run.py'), os.path.abspath(dst),
+                     '-cnf', os.path.join(P, 'febio_cudss/febio_cudss.xml')]
 t0 = time.time()
 if not os.path.exists(os.path.join(dst, 'started_at')) or not resumed: open(os.path.join(dst, 'started_at'), 'w').write(str(t0))
 p = subprocess.Popen(cmd, cwd=dst, env=env, stdout=subprocess.DEVNULL, stderr=open(os.path.join(dst, 'stderr.log'), 'w'))

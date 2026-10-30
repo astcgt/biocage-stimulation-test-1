@@ -136,6 +136,87 @@
    "release_dtmax": 0.1,
    "annulus_remnant": false,
    "insert_dt": 0.01
+  },
+  "human_study/proc_val/iso_ns/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "iso_cycles": 3,
+   "iso_max_level": 1.0
+  },
+  "human_study/proc_val/iso_nsdyn/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "iso_cycles": 3,
+   "iso_max_level": 1.0
+  },
+  "human_study/proc_val/fric_push_ant/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic"
+  },
+  "human_study/proc_val/fric_push_post/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic"
+  },
+  "human_study/proc_val/fric_push_post_static/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic"
+  },
+  "human_study/proc_val/fric_physrot_p062/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic"
+  },
+  "human_study/proc_val/fric_physrot_p002/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic"
+  },
+  "human_study/al_v2/physio_rot_split_test/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01
   }
  }
 }

@@ -33,6 +33,8 @@ def febio_args(d, feb):
     dmp = os.path.join(d, feb[:-4] + '.dmp'); log = os.path.join(d, feb[:-4] + '.log')
     ended = os.path.exists(log) and any(k in open(log, errors='ignore').read()[-4000:] for k in ('N O R M A L', 'E R R O R'))
     ckpt = ['-dump=1', f'-dump_stride={DUMP_STRIDE}', '-output_negative_jacobians=50']   # inverted element ids in the log (failure analysis, h26)
+    if os.path.exists(os.path.join(d, 'split.json')):   # h30 split case: dump the end state of every step (window restarts start from it)
+        ckpt = ['-dump=2', '-output_negative_jacobians=50']
     if os.path.exists(dmp) and not ended:
         return ['-r', os.path.basename(dmp), '-silent'] + ckpt, True
     return ['-i', feb, '-silent'] + ckpt, False
@@ -91,6 +93,8 @@ def main():
         fargs, resumed = febio_args(d, feb)
         if not resumed: record_launch(d, feb)
         cmd = ['prlimit', '--stack=unlimited', 'taskset', '-c', ','.join(map(str, cores)), FEBIO] + fargs
+        if os.path.exists(os.path.join(d, 'split.json')):   # h30 split case: insertion run + independent window restarts
+            cmd = cmd[:5] + [sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'h31_split_run.py'), os.path.abspath(d)]
         if not (resumed and os.path.exists(os.path.join(d, 'started_at'))):   # keep the original start time on resume
             open(os.path.join(d, 'started_at'), 'w').write(str(time.time()))
         procs[case] = (subprocess.Popen(cmd, cwd=d, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT),
