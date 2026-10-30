@@ -23,3 +23,14 @@ for w in json.load(open(os.path.join(d, 'split.json')))['windows']:
     shutil.copy(os.path.join(d, 'case.xplt'), wd)           # the restart reopens the plot file named in the archive
     subprocess.run([FEBIO, '-r', 'restart.feb', '-o', 'case.log', '-silent', '-output_negative_jacobians=50'] + extra,
                    cwd=wd, stdout=subprocess.DEVNULL)
+    # dynamic window that failed before its first converged step (seen in flexion/extension, 2026-10-31): one static retry
+    lg = open(os.path.join(wd, 'case.log'), errors='ignore').read()
+    if 'E R R O R' in lg[-4000:] and 'converged at time' not in lg and 'type="dynamic"' in open(os.path.join(wd, 'restart.feb')).read():
+        os.rename(os.path.join(wd, 'case.log'), os.path.join(wd, 'case_dyn_fail.log'))
+        rs = open(os.path.join(wd, 'restart.feb')).read().replace('<analysis type="dynamic" />', '<analysis type="static" />')
+        open(os.path.join(wd, 'restart_static.feb'), 'w').write(rs)
+        for f in os.listdir(wd):
+            if f.endswith(('.xplt', '.txt')): os.remove(os.path.join(wd, f))
+        shutil.copy(os.path.join(d, 'case.xplt'), wd)
+        subprocess.run([FEBIO, '-r', 'restart_static.feb', '-o', 'case.log', '-silent', '-output_negative_jacobians=50'] + extra,
+                       cwd=wd, stdout=subprocess.DEVNULL)

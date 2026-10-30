@@ -22,6 +22,7 @@ MAX_PER_GPU, SHARE_UTIL_MAX = 5, 60.0                         # my runs barely l
 MEM_HEADROOM = 16   # GB kept free under the cgroup cap: runs grow while they run; +4 gave 4 OOM kills at 47 runs (2026-10-23)
 CPU_LAUNCH_MAX = 8                                              # CPU jobs launched per 60 s pass
 RESERVE_H = 12                                                  # backfill may pass the head job for at most this long
+CPU_OVERCOMMIT = 1.0  # restored 2026-10-31 06:10: deleted .dmp checkpoints of terminated runs (252 GB), /raid 240 GB free. PAUSE foreman 2026-10-31 05:57: /raid 0 MB free; 4 runs exit=1 05:54:45; restore 1.0 at /raid >= 15 GB. foreman 2026-10-31 04:57: kept 1.0 at /raid 12 GB: physrotS runs are ~0.4 GB (p033 420 MB; test p062 1.3 GB), disk drops ~2 GB/h with 8 running; new pause rule: 0 if /raid < 5 GB. foreman 2026-10-30 16:55: /raid freed to 56 GB; 16 pass-2 runs x ~2.7 GB = ~43 GB, so max 8 x 4-core runs (32 cores = quota, avoids the 90% throttling seen at 1.5); pause (0) again if /raid < 15 GB. PAUSE foreman 2026-10-30 10:55: /raid 3.1 GB free, running p061 needs ~1 GB more; no launches until disk is freed. Was 0.125 (10:00): /raid 7-8 GB free, pass-2 runs 2.5-2.8 GB: at most 1 x 4-core run so an hourly check can stop launches before the disk fills (was 0.25 at 08:55); restore 1.5 once disk is freed. Was: claimed cores may reach 1.5 x the cgroup quota: 10 x 4-core GPU runs used 22-25 of 32 cores, 0 throttling (foreman 2026-10-29 08:50; was 1.25)
 Q = os.path.join(P, 'human_study/queue'); RUN = os.path.join(Q, 'running'); DONE = os.path.join(Q, 'done')
 SAMPLES = os.path.join(P, 'human_study/gpu_samples.csv'); LOG = os.path.join(P, 'human_study/scheduler.log')
 for d in (Q, RUN, DONE): os.makedirs(d, exist_ok=True)
@@ -179,7 +180,7 @@ def main():
         if jobs:
             st = gpu_state()
             b = cpu_busy(); c = claimed_cores(); free = sum(1 for k, v in b.items() if v < 0.10 and k not in c)
-            free = min(free, cpu_quota() - running_cores())   # idle host cores are not mine past the cgroup CPU quota
+            free = min(free, int(cpu_quota() * CPU_OVERCOMMIT) - running_cores())   # idle host cores are not mine past the cgroup CPU quota
             for g in sorted(g for g, s in st.items() if s['idle']):           # GPU runs need idle cores too (h18)
                 j = first_fit(jobs, lambda sp: not sp.get('cpu_only') and free >= sp.get('cores', 16)
                               and mem_free_gb() >= sp.get('host_mem_gb_gpu', 4) + MEM_HEADROOM)

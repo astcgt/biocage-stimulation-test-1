@@ -847,3 +847,30 @@ constraints = surgery-compatible + no nerve / bone harm; maximum freedom otherwi
   states, -dump=2) + w_<window>/restart.feb (FEBio restart 2.0: archive ../case.dmp + one window step, rotation curve at
   t 3.5-4.5); h06 / h18 run h31_split_run.py (insertion, then each window restart; needs the same -cnf; the window dir gets
   a copy of case.xplt). Test p062 flexion: mu_squeeze 0.0259 vs 0.0261 sequential, slip bound 0.1155 vs 0.1154 mm.
+- 2026-10-31 user: equivalent contact-skin prototype started; NO homogenisation of the cage interior (the evo agents need the
+  material layout resolved). Design: replace only the outermost cage element layer (0.2 mm) by a per-node law (parameters
+  from the material under each node, so the in-plane material map and the surface geometry stay); interior unchanged.
+  Failure diagnosis of the 6 failed proc_val pilots (scratch where.py / first.py): terminal cause = cage inversion in 2
+  (p062 ISO dyn, p002 push_ant; layers 0-1 from the surface), contact convergence without inversion in 4; the C3 cortical
+  inversions in p062 ISO / p002 friction physio lie 10-13 mm from the cage (facet region), recovered by step cuts, not terminal.
+  Step 1, patch calibration (scripts/3_cage_case/h32_eqlaw_patch.py, human_study/eqlaw/patch_soft (E 3.67, G 1.27, k 12.2,
+  Jm 0.7) and patch_mix025 (G 106, k 671)): bonded plane-strain strip t 0.2 mm, w 0.4 / 1.2 / 3.0 mm, all reach 40 %
+  compression without inversion. Apparent modulus at small strain (soft) 7.2 / 11.1 / 12.9 MPa = 2.0 / 3.0 / 3.5 E, tending to
+  the confined modulus K + 4G/3 = 13.9 MPa. Tilted platen (0 -> 40 % over 3 mm): the LOCAL (Winkler) law from the strip interior
+  reproduces the FE base pressure within 1-4 % except within ~1-2 t of the free edges (+12 % at the low end, -8 / -10 % at
+  40 %); total force within 2 %. -> at t 0.2 mm the response is local; a Pasternak (neighbour-coupling) term is not needed
+  (corrects the earlier estimate); edge effects are confined to ~0.2-0.4 mm. Bonded corners give singular edge pressure
+  (2x centre). Next: facet-like indentation patch (0.5 mm faceted rigid surface) to reproduce the inversion mechanism, then
+  the FEBio implementation (normal + diagonal springs for shear, contact on a skin surface; the 'expand' shrink of the
+  removed 0.2 mm moved into the core prestrain so the cage height history is unchanged).
+- 2026-10-31 06:30 split runs, BUG + fix: the restart LoadData redefinition of each window's rotation curve did not act (FEBio
+  restart redefines curves by load-controller index, not by file id): in every window except flexion (curve already at
+  3.5-4.5) the joint moment stayed constant (p062 split test: LB_left Mx 1.7 N mm throughout, extension My -80 N mm), so the
+  rotation was never applied; the "split = sequential" check had covered flexion only. The physrotS_ / physio_rot_split
+  results (40 designs) are INVALID except their insertion state (sustained compression) and flexion. Fix (h30): every window
+  curve is moved to t 3.5-4.0-4.5 in the insertion run itself, so the dump holds it; restart.feb has no LoadData. Windows stop
+  at the peak (t 4.0, half the steps): the unload tail is not used and its near-zero-load end failed the relative energy norm.
+  h31: a dynamic window failing before its first converged step gets one static retry (restart_static.feb). Rebuilt as
+  al_v2/physio_rot_split2 (prefix physrotT_, 38 designs; p049 / p141 left out: sustained compression 40 %, fail). p062 first
+  (all 6 windows compared with sequential before the results are used). Disk: /raid reached 0 MB at 05:54 (4 runs lost);
+  .dmp checkpoints of terminated runs deleted (252 GB; not in physio_rot_split*), launches restored.
