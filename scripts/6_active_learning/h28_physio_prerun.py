@@ -51,18 +51,32 @@ def rot_retarget(name, prev, base):
     design (al_v2/physio_rot) get a larger amplitude, extrapolated with the tangent of the moment-rotation curve at the last
     up-ramp point (the curve stiffens, so this undershoots less than a secant and overshoots little) x 1.15; windows that
     reached the target, or have no data (run stopped earlier), keep their amplitude."""
-    out = dict(base)
-    for d in sorted(glob.glob(os.path.join(prev, name)) + glob.glob(os.path.join(prev, name + '_gpu*'))):
-        sf, df = os.path.join(d, 'physio_schedule.json'), os.path.join(d, 'drive.txt')
-        if not (os.path.exists(sf) and os.path.exists(df)): continue
-        sch = json.load(open(sf)); amp = sch['rot_rad']; Mt = sch['target_moment_Nmm']; col = dict(Rx=4, Ry=5, Rz=6)
+    out = dict(base); col = dict(Rx=4, Ry=5, Rz=6)
+    def drive(df):
         rows, t = [], None
         for line in open(df):
             if line.startswith('*Time'): t = float(line.split('=')[1]); rows.append((t, {}))
             elif line[:1].isdigit() and t is not None: v = line.split(','); rows[-1][1][int(v[0])] = [float(a) for a in v]
-        for i, w in enumerate(sch['windows']):
-            up = [(amp[w['name']] * (tt - w['t0']) / (w['t_peak'] - w['t0']), abs(dd[i + 1][col[w['dof']]]))
-                  for tt, dd in rows if (i + 1) in dd and w['t0'] + 1e-9 < tt <= w['t_peak'] + 1e-9]
+        return rows
+    for d in sorted(glob.glob(os.path.join(prev, name)) + glob.glob(os.path.join(prev, name + '_gpu*'))):
+        sf = os.path.join(d, 'physio_schedule.json')
+        if not os.path.exists(sf): continue
+        sch = json.load(open(sf)); amp = sch['rot_rad']; Mt = sch['target_moment_Nmm']
+        if os.path.exists(os.path.join(d, 'split.json')):      # split run (h30): one restart per window, joint 1, its own schedule
+            curves = []
+            for w in sch['windows']:
+                wd = os.path.join(d, 'w_' + w['name']); wsf, wdf = os.path.join(wd, 'physio_schedule.json'), os.path.join(wd, 'drive.txt')
+                if not (os.path.exists(wsf) and os.path.exists(wdf)): curves.append((w, [])); continue
+                ww = json.load(open(wsf))['windows'][0]
+                curves.append((ww, [(amp[w['name']] * (tt - ww['t0']) / (ww['t_peak'] - ww['t0']), abs(dd[1][col[ww['dof']]]))
+                                    for tt, dd in drive(wdf) if 1 in dd and ww['t0'] + 1e-9 < tt <= ww['t_peak'] + 1e-9]))
+        else:
+            df = os.path.join(d, 'drive.txt')
+            if not os.path.exists(df): continue
+            rows = drive(df)
+            curves = [(w, [(amp[w['name']] * (tt - w['t0']) / (w['t_peak'] - w['t0']), abs(dd[i + 1][col[w['dof']]]))
+                           for tt, dd in rows if (i + 1) in dd and w['t0'] + 1e-9 < tt <= w['t_peak'] + 1e-9]) for i, w in enumerate(sch['windows'])]
+        for w, up in curves:
             if not up or any(m >= Mt for _, m in up): out[w['name']] = amp[w['name']]; continue
             if max(th for th, _ in up) < 0.95 * amp[w['name']]: out[w['name']] = amp[w['name']]; continue   # stopped inside the ramp
             (t1, m1), (t2, m2) = up[-2], up[-1]; k = (m2 - m1) / (t2 - t1) if len(up) > 1 and t2 > t1 else 0

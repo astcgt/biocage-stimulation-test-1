@@ -890,3 +890,17 @@ constraints = surgery-compatible + no nerve / bone harm; maximum freedom otherwi
   be decided: inversion under the 100 N follower load = compression failure?). h31 static retry: 6 of 7 first-step dynamic
   failures completed (p027 AR_right failed both). Post-processing: biocage-evo ops/collect_split.py (e04 + e05 per window,
   merged verdicts in results/method/split/).
+- 2026-10-31 10:40 (split2 batch ended 09:30; review day). (1) Post-processing gap: the e04/e05 batches of earlier sessions
+  globbed only p*_gpu* dirs, so 18 CPU-run cases (6 complete sequential runs) were never evaluated; computed now. collect_split
+  (biocage-evo) now AGGREGATES verdicts from every per-run result file (explicit invalid-set list, source recorded per value,
+  manual_overrides.json for p049/p141 insertion state from split v1 = same design point, sustained 39.6 %) instead of
+  merging into hand-made intermediates; crash on sustained = None fixed. (2) Merged verdicts: 62 pass, 62 fail
+  (compression), 24 open (12 invert under the follower load; 12 with a window below 1.5 N m), 2 invalid; mu_req < 0.17 for
+  every evaluable design, lateral bending governs (67/68); best p048 0.076. (3) AL set: 150 points = 133 unique designs (12
+  duplicate groups: GP acquisition clamped at the bounds); report unique counts. (4) Queued: second pass physrotU_
+  (al_v2/physio_rot_split3; h28 rot_retarget now reads split runs w_*/drive.txt) for the 12 open designs; real-friction check
+  physrotFr_ (al_v2/physio_fric: contact_type elastic mu 0.35, nonsym all, dynamic, split) on p062 p048 p125 p060 p115 p109
+  p084; settings classes added. (5) Documents: human_study/PROGRESS_REPORT_2026-10-31.md (read first in new sessions);
+  biocage-evo paper/LITERATURE.md, paper/ABSTRACT_OUTLINE.md, paper/figures (F1-F7), docs/RISKS.md,
+  docs/IDEAS_ARCHITECTURE.md, docs/DESIGNER_KICKOFF.md, roles/prompts/designer.md (DRAFT). (6) The 29-agent review workflow
+  hit the account usage limit (4 of 29 completed); the review was finished inline. Rule: small agent fan-out, inline synthesis.
