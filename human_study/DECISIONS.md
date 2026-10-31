@@ -916,3 +916,9 @@ constraints = surgery-compatible + no nerve / bone harm; maximum freedom otherwi
 - 2026-10-31 12:35 third pass (physrotV_, al_v2/physio_rot_split4) ended: p036 p051 p082 p093 p113 reach 1.5 N m in all
   six windows -> pass. Verdicts 73 pass / 63 fail / 12 open (= the 12 follower-load inversions). The screen of the human
   design families is complete except for those 12 and the real-friction check (physrotFr_, running).
+- 2026-10-31 12:45 degradation SENSITIVITY sweep queued to use the idle slots (exploration, not a verdict rule; PI may cancel):
+  five passing designs spanning E_soft (p048 1.67, p097 1.92, p062 8.19, p115 7.38, p109 11.3 MPa) rebuilt with E_soft x 0.5
+  (physrotG5_, al_v2/physio_degr050) and x 0.2 (physrotG2_, physio_degr020), the three stiffest also x 0.1 (physrotG1_,
+  physio_degr010); split2 protocol and amplitudes; E_soft below the agreed 1.5-12 MPa range on purpose (literature: CL-rich
+  PLCL loses half its molecular weight in 18-32 days). Question: does fixation (mu_req) or the compression rule fail first
+  as the compliant phase softens?
