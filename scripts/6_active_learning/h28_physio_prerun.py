@@ -70,6 +70,7 @@ def rot_retarget(name, prev, base):
                 ww = json.load(open(wsf))['windows'][0]
                 curves.append((ww, [(amp[w['name']] * (tt - ww['t0']) / (ww['t_peak'] - ww['t0']), abs(dd[1][col[ww['dof']]]))
                                     for tt, dd in drive(wdf) if 1 in dd and ww['t0'] + 1e-9 < tt <= ww['t_peak'] + 1e-9]))
+            if not any(up for _, up in curves): continue       # the build dir (never run) precedes the _gpuN copy: skip it (bug found 2026-10-31)
         else:
             df = os.path.join(d, 'drive.txt')
             if not os.path.exists(df): continue

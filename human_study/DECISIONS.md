@@ -908,3 +908,8 @@ constraints = surgery-compatible + no nerve / bone harm; maximum freedom otherwi
   Verdicts (collect_split, split2 + split3): 68 pass, 63 fail, 17 open (12 follower-load inversions + p036 p051 p082 p093
   p113 still below 1.5 N m in >= 1 direction). p068 p100 p101 p112 p117 -> pass; p003 p015 -> fail (compression at the
   split3 evaluated states). Third pass for the 5 pending (amplitude x 1.3-1.5) to be queued after the friction batch.
+- 2026-10-31 11:50 CORRECTION to the second pass: for the 5 designs whose previous run was a split run (p036 p051 p082 p093
+  p113) h28 rot_retarget visited the never-run build dir (no w_*/drive.txt) before the _gpuN copy and kept the amplitudes
+  (ratio 1.00), so their second pass repeated the first; the 7 designs with sequential previous runs were retargeted
+  correctly (5 -> pass). Fixed (skip dirs without window drive data); third pass physrotV_ (al_v2/physio_rot_split4, prev
+  split3) queued for the 5 with the enlarged amplitudes printed above in scheduler.log order.
