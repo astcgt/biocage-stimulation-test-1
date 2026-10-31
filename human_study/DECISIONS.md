@@ -874,3 +874,19 @@ constraints = surgery-compatible + no nerve / bone harm; maximum freedom otherwi
   al_v2/physio_rot_split2 (prefix physrotT_, 38 designs; p049 / p141 left out: sustained compression 40 %, fail). p062 first
   (all 6 windows compared with sequential before the results are used). Disk: /raid reached 0 MB at 05:54 (4 runs lost);
   .dmp checkpoints of terminated runs deleted (252 GB; not in physio_rot_split*), launches restored.
+- 2026-10-31 disk full (99 %): user approved deleting .xplt/.dmp (201 files, 177 GB) in the invalid dirs al_v2/physio_rot_invalid_*, cases_invalid, physio_test, facet_test, lb_test, cases/*physio*; feb/log/txt kept (al_v2/INVALID_OUTPUTS_PURGED_2026-10-31.md). Also removed 204 GB of stale git tmp_pack_* garbage (10-20/21). Folder rename to biocage_stimulation_test_oct2026 scheduled after the physrotT (split2) batch ends and the daemons are stopped, no symlink.
+- 2026-10-31 user approved: deleted .xplt in early test / pilot dirs (cage_test, gaplib [superseded by gaplib_noann], al_v2/diag, al_v2/physio_rot_split_test, al_v2/physio_rot_r2_p001try); feb/log/txt/json kept.
+- 2026-10-31 user approved: deleted .dmp restart files of finished runs (all of human_study except al_v2/physio_rot_split*, proc_val and running / queued jobs).
+- 2026-10-31 watchdog_retries.json had been truncated to 0 bytes by the full disk (watchdog crashed every cycle since ~05:54: no requeue / stall checks); restored from HEAD -> the watchdog then requeued 7 superseded physrotS_ (bad-curve split v1) jobs and physrot2_p001; unqueued to queue/cancelled_stale_requeue/, retry counts set to MAX.
+- 2026-10-31 08:30 split2 validation, p062 (CPU, all 6 windows vs the sequential run; mu_squeeze / slip bound mm / M at
+  target): flexion 0.0259/0.1155/1558 vs 0.0261/0.1154/1557, LB_right 0.1355/0.0744 vs 0.1361/0.0745, LB_left 0.1355/0.0741 vs
+  0.1361/0.0742 (within 1 %); extension 0.0117/0.1464/1693 vs 0.0134/0.1339/1552, AR_left 0.0742/0.2090/1580 vs
+  0.0743/0.2006/1502, AR_right 0.0736/0.2134/1634 vs 0.0742/0.2017/1506: the slip-bound ratio equals the moment ratio at the
+  target-crossing step (1.09 / 1.05 / 1.08), i.e. sampling of the first step past the target, not a different response; the
+  split windows start from the neutral implanted state (no previous-window history). Accepted; split results replace the
+  sequential ones. 12 designs (p009 p011 p021 p023 p033 p035 p045 p047 p053 p055 p057 p058) fail the insertion run at the
+  same point as in every earlier version (static physio_rot, physio_rot_dyn, first split): negative Jacobians in the
+  follower-load step t 3.0-3.4 (p023 / p053 at t 2.0, insertion): not computable in any mode, stay "open" (verdict rule to
+  be decided: inversion under the 100 N follower load = compression failure?). h31 static retry: 6 of 7 first-step dynamic
+  failures completed (p027 AR_right failed both). Post-processing: biocage-evo ops/collect_split.py (e04 + e05 per window,
+  merged verdicts in results/method/split/).
