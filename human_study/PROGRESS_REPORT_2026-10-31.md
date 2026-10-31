@@ -157,3 +157,11 @@ before production batches; ask the PI before assuming an undecided parameter.
   p036, p093, p113 extension at 1427-1479 N mm; p082 AR_left 1487; p051 LB/AR 856-981). p068 p100 p101 p112 p117 became
   pass; p003 and p015 became fail (their evaluated states from split3 exceed the compression rule). Figures F1-F7 and the
   PI report regenerated. Next: a third pass for the 5 (amplitude x 1.3-1.5; check why p051's moment barely rose).
+
+## Addendum 12:35: third pass finished; screen of the human families complete
+- Second-pass bug: for designs whose previous run was a split run, h28 rot_retarget visited the never-run build dir first
+  and kept the amplitudes; fixed (skip dirs without window drive data). Third pass physrotV_ (al_v2/physio_rot_split4):
+  p036 p051 p082 p093 p113 all six windows reached 1.5 N m.
+- Merged verdicts now **73 pass, 63 fail, 12 open**; the 12 open are exactly the follower-load inversion cases (verdict rule
+  pending PI). Every computable design has six evaluated directions. Figures and the PI report (version 3) regenerated.
+- Still running: the real-friction check physrotFr_ (7 designs); compare with `biocage-evo/ops/fric_compare.py` when done.

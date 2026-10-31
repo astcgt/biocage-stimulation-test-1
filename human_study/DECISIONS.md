@@ -913,3 +913,6 @@ constraints = surgery-compatible + no nerve / bone harm; maximum freedom otherwi
   (ratio 1.00), so their second pass repeated the first; the 7 designs with sequential previous runs were retargeted
   correctly (5 -> pass). Fixed (skip dirs without window drive data); third pass physrotV_ (al_v2/physio_rot_split4, prev
   split3) queued for the 5 with the enlarged amplitudes printed above in scheduler.log order.
+- 2026-10-31 12:35 third pass (physrotV_, al_v2/physio_rot_split4) ended: p036 p051 p082 p093 p113 reach 1.5 N m in all
+  six windows -> pass. Verdicts 73 pass / 63 fail / 12 open (= the 12 follower-load inversions). The screen of the human
+  design families is complete except for those 12 and the real-friction check (physrotFr_, running).
