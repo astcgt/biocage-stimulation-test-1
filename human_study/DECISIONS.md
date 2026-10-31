@@ -904,3 +904,7 @@ constraints = surgery-compatible + no nerve / bone harm; maximum freedom otherwi
   biocage-evo paper/LITERATURE.md, paper/ABSTRACT_OUTLINE.md, paper/figures (F1-F7), docs/RISKS.md,
   docs/IDEAS_ARCHITECTURE.md, docs/DESIGNER_KICKOFF.md, roles/prompts/designer.md (DRAFT). (6) The 29-agent review workflow
   hit the account usage limit (4 of 29 completed); the review was finished inline. Rule: small agent fan-out, inline synthesis.
+- 2026-10-31 11:40 second pass (physrotU_, al_v2/physio_rot_split3) ended: 12/12 insertions and 72/72 windows normal.
+  Verdicts (collect_split, split2 + split3): 68 pass, 63 fail, 17 open (12 follower-load inversions + p036 p051 p082 p093
+  p113 still below 1.5 N m in >= 1 direction). p068 p100 p101 p112 p117 -> pass; p003 p015 -> fail (compression at the
+  split3 evaluated states). Third pass for the 5 pending (amplitude x 1.3-1.5) to be queued after the friction batch.

@@ -148,3 +148,12 @@ cd /raid/jupyter-alz.ee09/projects/claude-work/biocage-evo && python ops/collect
 Rules that still apply: h24 preflight before any FEBio run (h28 does it); commits authored by austonliuyi only, no Claude
 trailer; reply to the PI in Traditional Chinese; do not homogenise the cage interior; validation of the simulation environment
 before production batches; ask the PI before assuming an undecided parameter.
+
+## Addendum 11:40: second pass finished
+- physrotU_ (al_v2/physio_rot_split3, 12 designs, retargeted amplitudes): all 12 insertions and 72 windows ended normally
+  (11:32). collect_split now scans split2 AND split3 (file tag `<set>__<design dir>__<window>` for sets after split2;
+  ORDER prefers split3).
+- Merged verdicts now **68 pass, 63 fail, 17 open** (12 non-computable + 5 still below 1.5 N m in one or more directions:
+  p036, p093, p113 extension at 1427-1479 N mm; p082 AR_left 1487; p051 LB/AR 856-981). p068 p100 p101 p112 p117 became
+  pass; p003 and p015 became fail (their evaluated states from split3 exceed the compression rule). Figures F1-F7 and the
+  PI report regenerated. Next: a third pass for the 5 (amplitude x 1.3-1.5; check why p051's moment barely rose).
