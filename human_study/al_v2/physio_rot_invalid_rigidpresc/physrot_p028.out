@@ -1,0 +1,2 @@
+started human_study/al_v2/physio_rot/p028_gpu1 on GPU 1, cores 86..113
+{'exit': -15, 'normal': False, 'wall_s': 108.0, 'gpu': 1, 'cores': 4, 'core_h': 0.12, 'gpu_h': 0.03}

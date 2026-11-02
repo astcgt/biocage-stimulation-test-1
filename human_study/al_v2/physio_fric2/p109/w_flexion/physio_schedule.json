@@ -1,0 +1,28 @@
+{
+ "control": "rotation",
+ "target_moment_Nmm": 1500.0,
+ "follower_N": 100.0,
+ "t_follower": [
+  3.0,
+  3.5
+ ],
+ "rot_rad": {
+  "flexion": 0.0085182771862605,
+  "extension": 0.050411199999999996,
+  "LB_right": 0.059892,
+  "LB_left": 0.047077475681435596,
+  "AR_left": 0.08362199999999999,
+  "AR_right": 0.09425095434377144
+ },
+ "windows": [
+  {
+   "name": "flexion",
+   "dof": "Ry",
+   "sign": 1,
+   "t0": 3.5,
+   "t_peak": 4.0,
+   "t1": 4.0
+  }
+ ],
+ "split": true
+}

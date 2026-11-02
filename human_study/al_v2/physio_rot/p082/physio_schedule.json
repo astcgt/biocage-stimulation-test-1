@@ -1,0 +1,67 @@
+{
+ "control": "rotation",
+ "target_moment_Nmm": 1500.0,
+ "follower_N": 100.0,
+ "t_follower": [
+  3.0,
+  3.5
+ ],
+ "rot_rad": {
+  "flexion": 0.02187395480176,
+  "extension": 0.050411199999999996,
+  "LB_right": 0.029946,
+  "LB_left": 0.030114,
+  "AR_left": 0.041810999999999994,
+  "AR_right": 0.0419034
+ },
+ "windows": [
+  {
+   "name": "flexion",
+   "dof": "Ry",
+   "sign": 1,
+   "t0": 3.5,
+   "t_peak": 4.0,
+   "t1": 4.5
+  },
+  {
+   "name": "extension",
+   "dof": "Ry",
+   "sign": -1,
+   "t0": 4.5,
+   "t_peak": 5.0,
+   "t1": 5.5
+  },
+  {
+   "name": "LB_right",
+   "dof": "Rx",
+   "sign": 1,
+   "t0": 5.5,
+   "t_peak": 6.0,
+   "t1": 6.5
+  },
+  {
+   "name": "LB_left",
+   "dof": "Rx",
+   "sign": -1,
+   "t0": 6.5,
+   "t_peak": 7.0,
+   "t1": 7.5
+  },
+  {
+   "name": "AR_left",
+   "dof": "Rz",
+   "sign": 1,
+   "t0": 7.5,
+   "t_peak": 8.0,
+   "t1": 8.5
+  },
+  {
+   "name": "AR_right",
+   "dof": "Rz",
+   "sign": -1,
+   "t0": 8.5,
+   "t_peak": 9.0,
+   "t1": 9.5
+  }
+ ]
+}

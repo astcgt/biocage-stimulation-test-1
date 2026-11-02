@@ -1,0 +1,17 @@
+started p002 on cores 42..80
+finished p002: {'exit': -15, 'normal': False, 'wall_s': 662.5, 'cores': 4, 'core_h': 0.736}
+{
+ "cases": {
+  "p002": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 662.5,
+   "cores": 4,
+   "core_h": 0.736
+  }
+ },
+ "batch_wall_s": 672.6,
+ "total_core_h": 0.736,
+ "gpu_h": 0.0,
+ "not_run": []
+}

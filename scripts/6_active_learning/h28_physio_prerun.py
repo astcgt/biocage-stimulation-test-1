@@ -46,16 +46,56 @@ def rot_targets(name):
     return out
 
 
+def despike(up, Mt, REL=1.0, ABS=0.15, FIRST=3.0):
+    """[(theta, |M|)] -> the same without isolated spikes (2026-11-02, T02; same rule as biocage-evo e03.filter_rows, on the
+    rotation axis): a point is dropped when its |M| differs from what its neighbours predict (interpolation between the
+    previous kept point and the next raw point; extrapolation of the last two kept points for the last one) by more than
+    max(ABS x target, REL x predicted), or when a first point exceeds FIRST x target. Such spikes (p100 LB_right 171 -> 6798 ->
+    438 N mm) used to count as 'target reached' and froze the amplitude."""
+    pts = [(th, m) for th, m in up if th > 0]; out = []
+    for n, (th, m) in enumerate(pts):
+        if not out: bad = m > FIRST * Mt
+        else:
+            ta, ma = out[-1]; preds = []
+            if n + 1 < len(pts): tn, mn = pts[n + 1]; preds.append(ma + (mn - ma) * (th - ta) / (tn - ta))
+            if len(out) >= 2: tb, mb = out[-2]; preds.append(ma + (ma - mb) / (ta - tb) * (th - ta))
+            else: preds.append(ma * th / ta)
+            bad = all(abs(m - p) > max(ABS * Mt, REL * abs(p)) for p in preds)
+        if not bad: out.append((th, m))
+    return out
+
+
 def rot_retarget(name, prev, base):
     """second pass (2026-10-29): windows whose driving moment stayed below the target in the previous physio_rot run of this
     design (al_v2/physio_rot) get a larger amplitude, extrapolated with the tangent of the moment-rotation curve at the last
     up-ramp point (the curve stiffens, so this undershoots less than a secant and overshoots little) x 1.15; windows that
     reached the target, or have no data (run stopped earlier), keep their amplitude."""
     out = dict(base); col = dict(Rx=4, Ry=5, Rz=6)
-    def drive(df):
-        rows, t = [], None
+    def drive(df, Mt, t_min):
+        # rows closer than 1e-4 to the previous one are dropped (2026-11-02, T02): the step controller lands on a must point /
+        # step end with whatever remains as one step, and in a slow-dynamic analysis that micro-step reports a spurious
+        # moment (p060 LB_left: 864 -> -295270 N mm at dt 2e-6), which used to count as "target reached" here.
+        # 2026-11-02 evening (NUM-14, same rule as biocage-evo e03.filter_rows): rows whose driven rigid body is not in
+        # quasi-static balance - C3pot.txt |M_rb| > 2 % of the target - are dropped too; a retried step's joint moment carries
+        # that inertial residual (p062 extension 1360 vs 1535; p052 extension 2532 vs 734 would have frozen the amplitude as
+        # "reached"). The force residual is not a criterion (smooth metrics at 2-7 N off the follower).
+        bad, c3 = set(), os.path.join(os.path.dirname(df), 'C3pot.txt')
+        if os.path.exists(c3):
+            rb, t = {}, None
+            for line in open(c3, errors='ignore'):
+                if line.startswith('*Time'): t = float(line.split('=')[1])
+                elif line[:1].isdigit() and t is not None and t > t_min:
+                    v = line.split(',')
+                    if len(v) >= 13: rb[t] = [float(a) for a in v[7:13]]
+            bad = {t for t, r in rb.items() if (r[3] ** 2 + r[4] ** 2 + r[5] ** 2) ** 0.5 > 0.02 * Mt}
+        rows, t, tp = [], None, None
         for line in open(df):
-            if line.startswith('*Time'): t = float(line.split('=')[1]); rows.append((t, {}))
+            if line.startswith('*Time'):
+                t = float(line.split('=')[1])
+                if tp is not None and t - tp < 1e-4: t = None; continue
+                tp = t
+                if t in bad: t = None; continue
+                rows.append((t, {}))
             elif line[:1].isdigit() and t is not None: v = line.split(','); rows[-1][1][int(v[0])] = [float(a) for a in v]
         return rows
     for d in sorted(glob.glob(os.path.join(prev, name)) + glob.glob(os.path.join(prev, name + '_gpu*'))):
@@ -69,15 +109,16 @@ def rot_retarget(name, prev, base):
                 if not (os.path.exists(wsf) and os.path.exists(wdf)): curves.append((w, [])); continue
                 ww = json.load(open(wsf))['windows'][0]
                 curves.append((ww, [(amp[w['name']] * (tt - ww['t0']) / (ww['t_peak'] - ww['t0']), abs(dd[1][col[ww['dof']]]))
-                                    for tt, dd in drive(wdf) if 1 in dd and ww['t0'] + 1e-9 < tt <= ww['t_peak'] + 1e-9]))
+                                    for tt, dd in drive(wdf, Mt, ww['t0']) if 1 in dd and ww['t0'] + 1e-9 < tt <= ww['t_peak'] + 1e-9]))
             if not any(up for _, up in curves): continue       # the build dir (never run) precedes the _gpuN copy: skip it (bug found 2026-10-31)
         else:
             df = os.path.join(d, 'drive.txt')
             if not os.path.exists(df): continue
-            rows = drive(df)
+            rows = drive(df, Mt, min(w['t0'] for w in sch['windows']))
             curves = [(w, [(amp[w['name']] * (tt - w['t0']) / (w['t_peak'] - w['t0']), abs(dd[i + 1][col[w['dof']]]))
                            for tt, dd in rows if (i + 1) in dd and w['t0'] + 1e-9 < tt <= w['t_peak'] + 1e-9]) for i, w in enumerate(sch['windows'])]
         for w, up in curves:
+            up = despike(up, Mt)
             if not up or any(m >= Mt for _, m in up): out[w['name']] = amp[w['name']]; continue
             if max(th for th, _ in up) < 0.95 * amp[w['name']]: out[w['name']] = amp[w['name']]; continue   # stopped inside the ramp
             (t1, m1), (t2, m2) = up[-2], up[-1]; k = (m2 - m1) / (t2 - t1) if len(up) > 1 and t2 > t1 else 0

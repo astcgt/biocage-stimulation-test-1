@@ -1,0 +1,17 @@
+started p014 on cores 10..21
+finished p014: {'exit': -15, 'normal': False, 'wall_s': 542.5, 'cores': 4, 'core_h': 0.603}
+{
+ "cases": {
+  "p014": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 542.5,
+   "cores": 4,
+   "core_h": 0.603
+  }
+ },
+ "batch_wall_s": 552.6,
+ "total_core_h": 0.603,
+ "gpu_h": 0.0,
+ "not_run": []
+}

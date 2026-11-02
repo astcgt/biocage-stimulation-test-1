@@ -1,0 +1,17 @@
+started p005 on cores 38..128
+finished p005: {'exit': -15, 'normal': False, 'wall_s': 682.7, 'cores': 4, 'core_h': 0.759}
+{
+ "cases": {
+  "p005": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 682.7,
+   "cores": 4,
+   "core_h": 0.759
+  }
+ },
+ "batch_wall_s": 692.8,
+ "total_core_h": 0.759,
+ "gpu_h": 0.0,
+ "not_run": []
+}

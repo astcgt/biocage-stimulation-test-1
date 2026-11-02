@@ -1,0 +1,12 @@
+{
+ "exit": -15,
+ "banner": "ERROR",
+ "n_converged": 0,
+ "t_last": null,
+ "n_negjac": 602,
+ "static_retry": true,
+ "drive_rows": 0,
+ "dt_min": null,
+ "M_max_Nmm": null,
+ "target_reached": null
+}

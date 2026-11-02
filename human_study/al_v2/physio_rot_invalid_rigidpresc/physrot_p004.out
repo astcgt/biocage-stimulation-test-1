@@ -1,0 +1,17 @@
+started p004 on cores 83..135
+finished p004: {'exit': -15, 'normal': False, 'wall_s': 582.6, 'cores': 4, 'core_h': 0.647}
+{
+ "cases": {
+  "p004": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 582.6,
+   "cores": 4,
+   "core_h": 0.647
+  }
+ },
+ "batch_wall_s": 592.6,
+ "total_core_h": 0.647,
+ "gpu_h": 0.0,
+ "not_run": []
+}

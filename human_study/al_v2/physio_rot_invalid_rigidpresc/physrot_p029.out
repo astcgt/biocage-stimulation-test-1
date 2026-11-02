@@ -1,0 +1,17 @@
+started p029 on cores 0..84
+finished p029: {'exit': -15, 'normal': False, 'wall_s': 212.2, 'cores': 4, 'core_h': 0.236}
+{
+ "cases": {
+  "p029": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 212.2,
+   "cores": 4,
+   "core_h": 0.236
+  }
+ },
+ "batch_wall_s": 222.3,
+ "total_core_h": 0.236,
+ "gpu_h": 0.0,
+ "not_run": []
+}

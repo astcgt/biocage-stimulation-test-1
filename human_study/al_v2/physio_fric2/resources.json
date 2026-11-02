@@ -1,0 +1,15 @@
+{
+ "cases": {
+  "p060": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 38248.6,
+   "cores": 4,
+   "core_h": 42.498
+  }
+ },
+ "batch_wall_s": 38258.6,
+ "total_core_h": 42.498,
+ "gpu_h": 0.0,
+ "not_run": []
+}

@@ -262,10 +262,14 @@ def cmd_next():
     chosen = [dict(combo=COMBOS.index((p['x']['design'], p['x']['grad'], p['x']['fab'])), du=encode(p['x'])[3])
               for p in st['points'] if p.get('status') in ('new', 'queued')]          # busy locations
     n_busy = len(chosen)
+    # PI 2026-11-03 (T26): never propose a point that coincides with an EXISTING point of any status - the batch of 2026-10
+    # re-sampled four finished designs (p082=p088, p092=p117, p093=p145, p100=p142), ~8 GPU-h of duplicate runs
+    taken = [dict(combo=COMBOS.index((p['x']['design'], p['x']['grad'], p['x']['fab'])), du=encode(p['x'])[3]) for p in st['points']]
     for sep in (0.15, 0.07):                        # 0.07 when the busy points leave no candidate at 0.15 (2026-10-23)
         sel = list(chosen[:n_busy])
         for r in sorted(feas, key=lambda r: -r['ucb_y']):                   # greedy, keep designs apart from chosen and busy ones
             if any(r['combo'] == c['combo'] and abs(r['du'] - c['du']) < sep for c in sel): continue
+            if any(r['combo'] == c['combo'] and abs(r['du'] - c['du']) < 0.01 for c in taken): continue   # exact duplicate of a known design
             sel.append(r)
             if len(sel) >= n_busy + q: break
         if len(sel) > n_busy: break

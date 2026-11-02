@@ -1,0 +1,17 @@
+started p024 on cores 1..4
+finished p024: {'exit': -15, 'normal': False, 'wall_s': 272.3, 'cores': 4, 'core_h': 0.303}
+{
+ "cases": {
+  "p024": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 272.3,
+   "cores": 4,
+   "core_h": 0.303
+  }
+ },
+ "batch_wall_s": 282.3,
+ "total_core_h": 0.303,
+ "gpu_h": 0.0,
+ "not_run": []
+}

@@ -1,0 +1,17 @@
+started p003 on cores 8..63
+finished p003: {'exit': -15, 'normal': False, 'wall_s': 602.7, 'cores': 4, 'core_h': 0.67}
+{
+ "cases": {
+  "p003": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 602.7,
+   "cores": 4,
+   "core_h": 0.67
+  }
+ },
+ "batch_wall_s": 612.8,
+ "total_core_h": 0.67,
+ "gpu_h": 0.0,
+ "not_run": []
+}

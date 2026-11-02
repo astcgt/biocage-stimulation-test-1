@@ -13,6 +13,7 @@ exact usage.
 4_postprocess  capacity endpoints, slip / friction demand, tipping  ->  summary.json in the case folder
 5_compute      run cases on CPU / GPU, scheduler, checkpoints, monitoring
 6_active_learning  design screening loop (Sobol start, GP surrogates, robust batch selection)
+8_audit        platform capability registry -> verdicts per capability x configuration, change-impact query
 common         shared modules (geometry / frame, .xplt reader)
 ```
 
@@ -77,6 +78,13 @@ common         shared modules (geometry / frame, .xplt reader)
 | File | Purpose |
 |---|---|
 | `h22_active_learning.py` | Active-learning screening: builds / queues design points, scores dislocation and capacity, fits GPs, proposes batches. See `6_active_learning/README.md`. |
+
+## 8_audit/
+
+| File | Purpose |
+|---|---|
+| `h34_window_scan.py` | Log-only integrity scan of split batches: micro-steps / moment spikes per window (same filter as biocage-evo e03), negative-Jacobian elements per block (bone vs cage vs facet) for failed insertions and windows, distribution of non-computable designs by family / gradient / fabrication / d / E_soft -> `human_study/window_scan.json`, `WINDOW_SCAN_<date>.md`. Run after every batch, before collect_split. |
+| `h33_capability_audit.py` | Platform capability verdicts ([物理] [數值] [速度] [觀測] [多元]; [泛化] [時程] deferred) per configuration from `human_study/platform_capabilities.json` -> `human_study/CAPABILITY_SCORECARD.md`; `impact <component or file>` lists the checks to re-run after a change. Rules in `human_study/PLATFORM_CAPABILITIES.md`. |
 
 ## Typical use
 

@@ -1,0 +1,17 @@
+started p013 on cores 79..112
+finished p013: {'exit': -15, 'normal': False, 'wall_s': 562.5, 'cores': 4, 'core_h': 0.625}
+{
+ "cases": {
+  "p013": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 562.5,
+   "cores": 4,
+   "core_h": 0.625
+  }
+ },
+ "batch_wall_s": 572.5,
+ "total_core_h": 0.625,
+ "gpu_h": 0.0,
+ "not_run": []
+}

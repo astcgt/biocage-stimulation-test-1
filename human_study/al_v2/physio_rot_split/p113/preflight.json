@@ -1,0 +1,15 @@
+{
+ "ok": false,
+ "errors": [
+  "case.feb differs from a rebuild with the current h14 (stale build: rebuild the case)"
+ ],
+ "warnings": [],
+ "checked": "2026-10-31 07:10:21",
+ "fp": {
+  "feb": "64f3a414dd7ac68bd855d996c8086f31c55c4737a58c7167bfae9f79445c725f",
+  "h14": "df38154a90c6fa3a680667cfa6c3bc2c635ad428a7263ad524c5fcf97a69a666",
+  "h12": "8287cbe518196ec7b13bdb2adaecf77c9b030431435846179792a96723a524e2",
+  "settings": "5506f8e92c5d5d9165304d294c8f8f6ccfe7850e4e911552f5a01b3b0e15bc8d",
+  "lib": "67a39472d0e42d50bd02c7d5ab81b44f24bd778cd0c12025def12304d64006e3"
+ }
+}

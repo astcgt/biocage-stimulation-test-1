@@ -1,0 +1,15 @@
+{
+ "cases": {
+  "p027": {
+   "exit": 1,
+   "normal": false,
+   "wall_s": 10252.1,
+   "cores": 4,
+   "core_h": 11.391
+  }
+ },
+ "batch_wall_s": 10262.1,
+ "total_core_h": 11.391,
+ "gpu_h": 0.0,
+ "not_run": []
+}

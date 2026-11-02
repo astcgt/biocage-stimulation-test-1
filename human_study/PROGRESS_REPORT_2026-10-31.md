@@ -4,6 +4,10 @@ Read this first, then `DECISIONS.md` (authoritative, chronological; last ~250 li
 (`/raid/jupyter-alz.ee09/projects/claude-work/biocage-evo`) docs listed in section 10. Every number here is reproducible from
 the files named; when this report and DECISIONS.md disagree, DECISIONS.md wins.
 
+**2026-11-01:** read also `human_study/AUDIT_TODO_2026-11-01.md` (severity-ordered to-do list from the audits, plain language,
+glossary) and `human_study/PLATFORM_CAPABILITIES.md` (the four capability labels [物理][速度][觀測][多元], platform-vs-design
+decision table, trade-off matrix). Real-friction check and degradation sweep post-processed on 2026-11-01 (see DECISIONS tail).
+
 ## 1. What the project is, in one paragraph
 A bioresorbable PLCL cage (hard 85:15 + compliant 50:50 phases, FDM-printed) for the human C3-C4 segment that gives
 TEMPORARY support and fixation while a tissue-engineered disc (biodisc) matures (>= 16 weeks), then resorbs. Fixation must come
@@ -141,7 +145,7 @@ DESIGNER_KICKOFF.md; `work/agents/foreman/report_*.md` (hourly ops reports).
 
 ## 11. How to resume
 ```bash
-cd "/raid/jupyter-alz.ee09/projects/claude-work/biocage stimulation test 1"
+cd "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026"
 tmux ls; tail -20 human_study/scheduler.log; ls human_study/queue/*.job | wc -l; df -h /raid
 cd /raid/jupyter-alz.ee09/projects/claude-work/biocage-evo && python ops/collect_split.py 4 && python paper/figures/make_figs.py
 ```

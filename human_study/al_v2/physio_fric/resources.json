@@ -1,0 +1,15 @@
+{
+ "cases": {
+  "p125": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 9761.0,
+   "cores": 4,
+   "core_h": 10.846
+  }
+ },
+ "batch_wall_s": 9771.0,
+ "total_core_h": 10.846,
+ "gpu_h": 0.0,
+ "not_run": []
+}

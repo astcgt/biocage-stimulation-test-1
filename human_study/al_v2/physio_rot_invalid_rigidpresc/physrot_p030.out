@@ -1,0 +1,17 @@
+started p030 on cores 56..93
+finished p030: {'exit': -15, 'normal': False, 'wall_s': 192.2, 'cores': 4, 'core_h': 0.214}
+{
+ "cases": {
+  "p030": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 192.2,
+   "cores": 4,
+   "core_h": 0.214
+  }
+ },
+ "batch_wall_s": 202.2,
+ "total_core_h": 0.214,
+ "gpu_h": 0.0,
+ "not_run": []
+}

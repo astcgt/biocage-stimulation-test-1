@@ -10,6 +10,8 @@ Every 60 s:
   If no GPU is idle but >= 16 idle unclaimed cores exist, the next job runs on CPU via h06_run_cpu_batch.py.
 On start, interrupted jobs (in queue/running but without a live FEBio process) are re-queued and resume from their
 checkpoint (runners write <case>.dmp every 5 converged steps and restart with 'febio4 -r').
+Tunables (CPU_OVERCOMMIT, MEM_HEADROOM, CPU_LAUNCH_MAX, disk pause limits) are read from human_study/scheduler_tuning.json
+every pass (2026-11-02); launches pause while the disk is nearly full (scheduler.log 'paused: ...' / 'resumed').
 Log: human_study/scheduler.log.   usage: python h19_scheduler.py
 """
 import os, sys, time, json, glob, csv, shutil, subprocess
@@ -22,10 +24,39 @@ MAX_PER_GPU, SHARE_UTIL_MAX = 5, 60.0                         # my runs barely l
 MEM_HEADROOM = 16   # GB kept free under the cgroup cap: runs grow while they run; +4 gave 4 OOM kills at 47 runs (2026-10-23)
 CPU_LAUNCH_MAX = 8                                              # CPU jobs launched per 60 s pass
 RESERVE_H = 12                                                  # backfill may pass the head job for at most this long
-CPU_OVERCOMMIT = 1.0  # restored 2026-10-31 06:10: deleted .dmp checkpoints of terminated runs (252 GB), /raid 240 GB free. PAUSE foreman 2026-10-31 05:57: /raid 0 MB free; 4 runs exit=1 05:54:45; restore 1.0 at /raid >= 15 GB. foreman 2026-10-31 04:57: kept 1.0 at /raid 12 GB: physrotS runs are ~0.4 GB (p033 420 MB; test p062 1.3 GB), disk drops ~2 GB/h with 8 running; new pause rule: 0 if /raid < 5 GB. foreman 2026-10-30 16:55: /raid freed to 56 GB; 16 pass-2 runs x ~2.7 GB = ~43 GB, so max 8 x 4-core runs (32 cores = quota, avoids the 90% throttling seen at 1.5); pause (0) again if /raid < 15 GB. PAUSE foreman 2026-10-30 10:55: /raid 3.1 GB free, running p061 needs ~1 GB more; no launches until disk is freed. Was 0.125 (10:00): /raid 7-8 GB free, pass-2 runs 2.5-2.8 GB: at most 1 x 4-core run so an hourly check can stop launches before the disk fills (was 0.25 at 08:55); restore 1.5 once disk is freed. Was: claimed cores may reach 1.5 x the cgroup quota: 10 x 4-core GPU runs used 22-25 of 32 cores, 0 throttling (foreman 2026-10-29 08:50; was 1.25)
+CPU_OVERCOMMIT = 1.125  # foreman 2026-10-31 11:00: 8 x 4-core physrotU runs use 22-24.5 of 32 quota cores, 1 % periods throttled -> allow a 9th run; after: 9 runs use 27.0 cores (3.0/run, was 2.78), 19 % periods throttled; back to 1.0 if per-run use < 2.5 cores or throttled periods > 40 %. Was 1.0, restored 2026-10-31 06:10: deleted .dmp checkpoints of terminated runs (252 GB), /raid 240 GB free. PAUSE foreman 2026-10-31 05:57: /raid 0 MB free; 4 runs exit=1 05:54:45; restore 1.0 at /raid >= 15 GB. foreman 2026-10-31 04:57: kept 1.0 at /raid 12 GB: physrotS runs are ~0.4 GB (p033 420 MB; test p062 1.3 GB), disk drops ~2 GB/h with 8 running; new pause rule: 0 if /raid < 5 GB. foreman 2026-10-30 16:55: /raid freed to 56 GB; 16 pass-2 runs x ~2.7 GB = ~43 GB, so max 8 x 4-core runs (32 cores = quota, avoids the 90% throttling seen at 1.5); pause (0) again if /raid < 15 GB. PAUSE foreman 2026-10-30 10:55: /raid 3.1 GB free, running p061 needs ~1 GB more; no launches until disk is freed. Was 0.125 (10:00): /raid 7-8 GB free, pass-2 runs 2.5-2.8 GB: at most 1 x 4-core run so an hourly check can stop launches before the disk fills (was 0.25 at 08:55); restore 1.5 once disk is freed. Was: claimed cores may reach 1.5 x the cgroup quota: 10 x 4-core GPU runs used 22-25 of 32 cores, 0 throttling (foreman 2026-10-29 08:50; was 1.25)
 Q = os.path.join(P, 'human_study/queue'); RUN = os.path.join(Q, 'running'); DONE = os.path.join(Q, 'done')
 SAMPLES = os.path.join(P, 'human_study/gpu_samples.csv'); LOG = os.path.join(P, 'human_study/scheduler.log')
 for d in (Q, RUN, DONE): os.makedirs(d, exist_ok=True)
+
+# Tunables the foreman may change WITHOUT editing this file (2026-11-02, [速度] SPD-05 / T10): human_study/scheduler_tuning.json,
+# re-read every pass; missing keys fall back to these defaults. DISK_FREE_PAUSE_GB: no launch while the filesystem holding the
+# project has less free space (10-31: /raid hit 0 MB, 4 runs died, a state file was truncated). DISK_USAGE_PAUSE_GB: no launch
+# while this account's human_study/ usage (human_study/disk_usage.json, measured hourly by h23) exceeds it; null = off until
+# the PI fixes the personal quota (planned 500 GB; usage was 1.2 TB on 2026-11-02, so a 450 GB limit would stop everything).
+TUNING = os.path.join(P, 'human_study/scheduler_tuning.json'); USAGE = os.path.join(P, 'human_study/disk_usage.json')
+DEFAULTS = dict(CPU_OVERCOMMIT=CPU_OVERCOMMIT, MEM_HEADROOM=MEM_HEADROOM, CPU_LAUNCH_MAX=CPU_LAUNCH_MAX, DISK_FREE_PAUSE_GB=100, DISK_USAGE_PAUSE_GB=None)
+_last_tuning = {}
+
+
+def tuning():
+    t = dict(DEFAULTS)
+    try: t.update({k: v for k, v in json.load(open(TUNING)).items() if k in DEFAULTS})
+    except (OSError, ValueError) as e: log(f'tuning file unreadable ({e!r}); defaults used')
+    global _last_tuning
+    if t != _last_tuning: log('tuning ' + json.dumps(t)); _last_tuning = t
+    return t
+
+
+def disk_ok(t):
+    """False (with the reason) while launching would risk filling the disk; None reason = ok."""
+    free = shutil.disk_usage(P).free / 2**30
+    if free < t['DISK_FREE_PAUSE_GB']: return f'free {free:.0f} GB < {t["DISK_FREE_PAUSE_GB"]} GB'
+    if t['DISK_USAGE_PAUSE_GB'] is not None:
+        try: used = json.load(open(USAGE))['gb']
+        except (OSError, ValueError, KeyError): used = None
+        if used is not None and used > t['DISK_USAGE_PAUSE_GB']: return f'human_study usage {used:.0f} GB > {t["DISK_USAGE_PAUSE_GB"]} GB'
+    return None
 
 
 CG = '/sys/fs/cgroup' + open('/proc/self/cgroup').read().strip().split(':')[-1]
@@ -161,7 +192,7 @@ def first_fit(jobs, fits):
 
 
 def main():
-    running = {}
+    running = {}; paused = None
     log('scheduler start')
     resume_orphans()
     while True:
@@ -177,19 +208,24 @@ def main():
                 log(f'finished {name} exit={p.returncode}'); del running[name]
         reap_adopted(running)
         jobs = sorted(glob.glob(os.path.join(Q, '*.job')), key=os.path.getmtime)
+        T = tuning(); why = disk_ok(T) if jobs else None
+        if why:
+            if why != paused: log(f'paused: {why}'); paused = why
+            jobs = []
+        elif paused: log('resumed: disk ok'); paused = None
         if jobs:
             st = gpu_state()
             b = cpu_busy(); c = claimed_cores(); free = sum(1 for k, v in b.items() if v < 0.10 and k not in c)
-            free = min(free, int(cpu_quota() * CPU_OVERCOMMIT) - running_cores())   # idle host cores are not mine past the cgroup CPU quota
+            free = min(free, int(cpu_quota() * T['CPU_OVERCOMMIT']) - running_cores())   # idle host cores are not mine past the cgroup CPU quota
             for g in sorted(g for g, s in st.items() if s['idle']):           # GPU runs need idle cores too (h18)
                 j = first_fit(jobs, lambda sp: not sp.get('cpu_only') and free >= sp.get('cores', 16)
-                              and mem_free_gb() >= sp.get('host_mem_gb_gpu', 4) + MEM_HEADROOM)
+                              and mem_free_gb() >= sp.get('host_mem_gb_gpu', 4) + T['MEM_HEADROOM'])
                 if j is None: break                                                    # cpu_only: too big for GPU memory
                 jobs.remove(j); free -= json.load(open(j)).get('cores', 16)
                 running[os.path.basename(j)[:-4]] = launch(j, g); time.sleep(20)
             if jobs:
-                for _ in range(CPU_LAUNCH_MAX):            # several CPU launches per pass: fill an idle machine in minutes
-                    j = first_fit(jobs, lambda sp: free >= sp.get('cores', 16) and mem_free_gb() >= sp.get('mem_gb', 8) + MEM_HEADROOM)
+                for _ in range(T['CPU_LAUNCH_MAX']):       # several CPU launches per pass: fill an idle machine in minutes
+                    j = first_fit(jobs, lambda sp: free >= sp.get('cores', 16) and mem_free_gb() >= sp.get('mem_gb', 8) + T['MEM_HEADROOM'])
                     if j is None: break
                     jobs.remove(j); free -= json.load(open(j)).get('cores', 16)
                     running[os.path.basename(j)[:-4]] = launch(j); time.sleep(20)

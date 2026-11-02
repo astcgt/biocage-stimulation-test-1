@@ -1,0 +1,17 @@
+started p025 on cores 38..81
+finished p025: {'exit': -15, 'normal': False, 'wall_s': 252.2, 'cores': 4, 'core_h': 0.28}
+{
+ "cases": {
+  "p025": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 252.2,
+   "cores": 4,
+   "core_h": 0.28
+  }
+ },
+ "batch_wall_s": 262.3,
+ "total_core_h": 0.28,
+ "gpu_h": 0.0,
+ "not_run": []
+}

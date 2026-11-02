@@ -1,15 +1,15 @@
 {
  "cases": {
-  "p091": {
-   "exit": -15,
+  "p090": {
+   "exit": 1,
    "normal": false,
-   "wall_s": 36718.4,
+   "wall_s": 100839.7,
    "cores": 4,
-   "core_h": 40.798
+   "core_h": 112.044
   }
  },
- "batch_wall_s": 36728.4,
- "total_core_h": 40.798,
+ "batch_wall_s": 100849.8,
+ "total_core_h": 112.044,
  "gpu_h": 0.0,
  "not_run": []
 }

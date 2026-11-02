@@ -290,6 +290,56 @@
    "release_dtmax": 0.1,
    "annulus_remnant": false,
    "insert_dt": 0.01
+  },
+  "human_study/al_v2/physio_fric2/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic"
+  },
+  "human_study/al_v2/numconv_dt/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "physio_dt": 0.025
+  },
+  "human_study/al_v2/numconv_pen05/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "penalty": 5.0
+  },
+  "human_study/al_v2/numconv_pen20/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "penalty": 20.0
+  },
+  "human_study/al_v2/numconv_hz01/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "penalty": 5.0
   }
  }
 }

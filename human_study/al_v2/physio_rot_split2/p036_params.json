@@ -1,0 +1,42 @@
+{
+ "fsu": "human_study/fsu/C34_fsu_refined.feb",
+ "fsu_info": "human_study/fsu/C34_fsu_refined.json",
+ "frame": "human_study/frame_c3c4.json",
+ "cage_npz": "human_study/al/meshes/cage_A_axial_mix_d1.482.npz",
+ "test": "physio_rot",
+ "d": 1.482,
+ "E_hard": 642.51,
+ "E_soft": 1.697,
+ "sig_hard": 15.0,
+ "sig_soft": 3.0,
+ "theta": 0.2,
+ "mu": 0.35,
+ "compress_mm": 3.0,
+ "iso_max_level": 3.0,
+ "iso_cycles": 1,
+ "contact_mode": "global",
+ "penalty": 10.0,
+ "mu_ramp": 0.3,
+ "cage_mat": "gent",
+ "nu_soft": 0.45,
+ "contact_type": "tied",
+ "insert_mode": "expand",
+ "shrink": 0.8,
+ "biodisc": false,
+ "release_dtmax": 0.1,
+ "annulus_remnant": false,
+ "insert_dt": 0.01,
+ "physio_rot_rad": {
+  "flexion": 0.008911835522272,
+  "extension": 0.050411199999999996,
+  "LB_right": 0.029946,
+  "LB_left": 0.030114,
+  "AR_left": 0.041810999999999994,
+  "AR_right": 0.0419034
+ },
+ "physio_dynamic": {
+  "density": 1e-06,
+  "rhoi": 0.0
+ },
+ "physio_split": true
+}

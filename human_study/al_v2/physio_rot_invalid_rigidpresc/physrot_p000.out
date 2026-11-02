@@ -1,0 +1,17 @@
+started p000 on cores 20..27
+finished p000: {'exit': -15, 'normal': False, 'wall_s': 642.7, 'cores': 4, 'core_h': 0.714}
+{
+ "cases": {
+  "p000": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 642.7,
+   "cores": 4,
+   "core_h": 0.714
+  }
+ },
+ "batch_wall_s": 652.8,
+ "total_core_h": 0.714,
+ "gpu_h": 0.0,
+ "not_run": []
+}

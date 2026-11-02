@@ -1,0 +1,12 @@
+{
+ "exit": 0,
+ "banner": "NORMAL",
+ "n_converged": 31,
+ "t_last": 4.0,
+ "n_negjac": 5,
+ "static_retry": false,
+ "drive_rows": 31,
+ "dt_min": 0.003852190000000366,
+ "M_max_Nmm": 548.694259872,
+ "target_reached": false
+}

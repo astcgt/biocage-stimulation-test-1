@@ -1,0 +1,17 @@
+started p022 on cores 69..74
+finished p022: {'exit': -15, 'normal': False, 'wall_s': 312.4, 'cores': 4, 'core_h': 0.347}
+{
+ "cases": {
+  "p022": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 312.4,
+   "cores": 4,
+   "core_h": 0.347
+  }
+ },
+ "batch_wall_s": 322.4,
+ "total_core_h": 0.347,
+ "gpu_h": 0.0,
+ "not_run": []
+}

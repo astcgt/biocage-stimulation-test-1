@@ -1,0 +1,2299 @@
+{
+ "note": "Registry of the simulation platform's capability objects (PI 2026-11-01 / 2026-11-02). Rules in human_study/PLATFORM_CAPABILITIES.md; verdicts computed by scripts/8_audit/h33_capability_audit.py into human_study/CAPABILITY_SCORECARD.md (generated, do not edit). Edit this file when a check is run (status + date + value), added, or its threshold is decided. Paths are relative to the project root; '../biocage-evo/' is the evo repo. State: pass | fail | partial | not_run | deferred. Date = when the evidence was produced (ISO; a date without time counts as 23:59); optional status.reconfirmed {date, note} = a later component change was checked and cannot affect the result.",
+ "configs": {
+  "TIED": {
+   "name": "黏死篩選（生產）",
+   "desc": "FEBio 4.13 + 本專案補丁；cage-骨 tied；拆分視窗（h30/h31）；靜態或慢速動態；CPU Pardiso 或 GPU cuDSS（h18）",
+   "use": "150 個 AL 設計點的 pass / fail / open 判定"
+  },
+  "FRIC": {
+   "name": "真實摩擦（驗證）",
+   "desc": "同 TIED，但 contact_type elastic、mu 0.35、nonsym、慢速動態",
+   "use": "gate 4：檢驗 TIED 的滑出判定；摩擦下的實際滑移"
+  },
+  "GPUFE": {
+   "name": "evo GPU 求解器（L1 快篩）",
+   "desc": "biocage-evo/gpufe：GPU Newton + 顯式摩擦回映",
+   "use": "演化迴圈的快速排名（gate 2-4 通過前不得使用）"
+  }
+ },
+ "components": {
+  "ANAT": {
+   "name": "解剖模型（Herron C0-C7 → 精細化 C3-C4 FSU）",
+   "paths": [
+    "scripts/2_spinal_unit/h08_extract_fsu.py",
+    "scripts/2_spinal_unit/h16_remesh_bone.py",
+    "scripts/2_spinal_unit/h17_fsu_refined.py"
+   ]
+  },
+  "MESH": {
+   "name": "cage 網格與幾何",
+   "paths": [
+    "scripts/3_cage_case/h12_cage_mesh.py",
+    "scripts/common/cage_geom.py"
+   ]
+  },
+  "BUILD": {
+   "name": "FEBio 案例組裝（手術、負荷、輸出）",
+   "paths": [
+    "scripts/3_cage_case/h14_build_case.py"
+   ]
+  },
+  "SETTINGS": {
+   "name": "全研究設定",
+   "paths": [
+    "human_study/current_settings.json"
+   ]
+  },
+  "SPLIT": {
+   "name": "拆分視窗與執行（含靜態重試）",
+   "paths": [
+    "scripts/3_cage_case/h30_split_windows.py",
+    "scripts/5_compute/h31_split_run.py"
+   ]
+  },
+  "FEBIO": {
+   "name": "FEBio 4.13 + 補丁（求解器本體）",
+   "paths": [
+    "third_party/FEBio/cbuild/lib/libfebiomech.so",
+    "third_party/FEBio/cbuild/bin/febio4"
+   ]
+  },
+  "GPUDIRECT": {
+   "name": "GPU 直接求解（cuDSS 外掛）",
+   "paths": [
+    "scripts/5_compute/h18_run_gpu_case.py"
+   ]
+  },
+  "GPUFE": {
+   "name": "evo GPU 求解器",
+   "paths": [
+    "../biocage-evo/gpufe"
+   ]
+  },
+  "OPS": {
+   "name": "排程、看門狗、重啟",
+   "paths": [
+    "scripts/5_compute/h19_scheduler.py",
+    "scripts/5_compute/h23_watchdog.py",
+    "../biocage-evo/ops/resume_all.sh"
+   ]
+  },
+  "PREFLIGHT": {
+   "name": "起跑前檢查",
+   "paths": [
+    "scripts/5_compute/h24_preflight.py"
+   ]
+  },
+  "RETARGET": {
+   "name": "振幅重定與回合串接",
+   "paths": [
+    "scripts/6_active_learning/h28_physio_prerun.py",
+    "scripts/6_active_learning/h29_rot_chain.py"
+   ]
+  },
+  "METRICS": {
+   "name": "判定指標 e03 / e04 / e05",
+   "paths": [
+    "../biocage-evo/methods/e03_mu_req.py",
+    "../biocage-evo/methods/e04_dislocation.py",
+    "../biocage-evo/methods/e05_compression.py"
+   ]
+  },
+  "COLLECT": {
+   "name": "判定彙整",
+   "paths": [
+    "../biocage-evo/ops/collect_split.py"
+   ]
+  },
+  "XPLT": {
+   "name": "xplt 讀取器",
+   "paths": [
+    "scripts/common/xplt.py"
+   ]
+  },
+  "EQLAW": {
+   "name": "接觸皮層等效律（原型）",
+   "paths": [
+    "scripts/3_cage_case/h32_eqlaw_patch.py"
+   ]
+  },
+  "AL": {
+   "name": "主動學習取樣",
+   "paths": [
+    "scripts/6_active_learning/h22_active_learning.py"
+   ]
+  }
+ },
+ "capabilities": {
+  "PHY": {
+   "label": "[物理]",
+   "name": "物理真實性（Validation）",
+   "priority": "primary",
+   "question": "模型方程描述的東西像不像真的人體 C3-C4 加上真的 PLCL cage？",
+   "facets": {
+    "anatomy": {
+     "name": "解剖與節段力學",
+     "question": "完整與切出的節段在各方向的剛度、ROM、小面關節力是否符合實驗？"
+    },
+    "interface": {
+     "name": "cage-骨介面",
+     "question": "介面模型能否正確預測 cage 會不會滑？"
+    },
+    "material": {
+     "name": "材料",
+     "question": "PLCL 兩相的常數與本構有沒有實驗依據？"
+    },
+    "loading": {
+     "name": "負荷與手術程序",
+     "question": "負荷協定與插入程序是否代表生理與手術？"
+    }
+   }
+  },
+  "NUM": {
+   "label": "[數值]",
+   "name": "數值正確性（Verification）",
+   "priority": "primary",
+   "question": "方程有沒有被正確地解：離散、時間積分、接觸演算法、近似與求解器本身的誤差夠不夠小？",
+   "facets": {
+    "discretization": {
+     "name": "空間離散",
+     "question": "網格加密後判定量是否不變？"
+    },
+    "temporal": {
+     "name": "時間離散與動態近似",
+     "question": "時間步、慢速動態的慣性是否污染判定量？"
+    },
+    "contact": {
+     "name": "接觸演算法",
+     "question": "罰則、摩擦演算法與求解穩健性是否影響結果？"
+    },
+    "approximation": {
+     "name": "協定近似",
+     "question": "拆分視窗、慢速動態、靜態重試等便利手段是否與參考解一致？"
+    },
+    "solver": {
+     "name": "求解器一致性",
+     "question": "補丁、GPU 與替代求解器是否給出與參考求解器相同的解？"
+    }
+   }
+  },
+  "SPD": {
+   "label": "[速度]",
+   "name": "模擬速度",
+   "priority": "primary",
+   "question": "同一個答案，用最少的機器時間、磁碟與人力得到？",
+   "facets": {
+    "compute": {
+     "name": "機器時間",
+     "question": "每個設計要多少 GPU / CPU 時間，有沒有異常慢的部分？"
+    },
+    "storage": {
+     "name": "儲存",
+     "question": "每個設計輸出多少，磁碟會不會滿？"
+    },
+    "unattended": {
+     "name": "無人值守",
+     "question": "能不能連續運轉、出事自動處理或告警？"
+    },
+    "throughput": {
+     "name": "吞吐與重工",
+     "question": "每小時完成幾個設計，多少需要重跑？"
+    }
+   }
+  },
+  "OBS": {
+   "label": "[觀測]",
+   "name": "只觀測關注目標",
+   "priority": "primary",
+   "question": "量的是不是我們關心的量，量得對、齊全、可追溯、有分類？",
+   "facets": {
+    "target": {
+     "name": "終點相關性",
+     "question": "BIOCAGE 目的的每個失效模式都有指標嗎？"
+    },
+    "state": {
+     "name": "評估狀態",
+     "question": "判定取的是正確的狀態（目標負荷、無數值垃圾）嗎？"
+    },
+    "integrity": {
+     "name": "完整性",
+     "question": "每個 run 與視窗都齊全、真的施加了負荷、全部被評估了嗎？"
+    },
+    "metric": {
+     "name": "指標正確性",
+     "question": "指標程式本身算得對嗎？"
+    },
+    "provenance": {
+     "name": "可追溯",
+     "question": "每個數字能追到模型、設定、程式版本嗎？"
+    },
+    "classification": {
+     "name": "分類",
+     "question": "每個非 pass 都有原因標籤嗎？"
+    }
+   }
+  },
+  "DIV": {
+   "label": "[多元]",
+   "name": "容納多元設計",
+   "priority": "primary",
+   "question": "各種設計都能被表示、算到判定，而且不靠均質化或設計專屬調參？",
+   "facets": {
+    "representation": {
+     "name": "表示",
+     "question": "設計空間的每一類都能建成模型嗎？"
+    },
+    "fidelity": {
+     "name": "細節保真",
+     "question": "模型裡的材料配置與設計完全一致（不均質化）嗎？"
+    },
+    "computability": {
+     "name": "可計算率",
+     "question": "多少設計能算到有判定？"
+    },
+    "uniformity": {
+     "name": "程序普適",
+     "question": "失敗是否集中在某類設計；是否需要設計專屬調參？"
+    }
+   }
+  },
+  "GEN": {
+   "label": "[泛化]",
+   "name": "結論穩健性",
+   "priority": "secondary",
+   "question": "判定在合理的不確定範圍內會不會翻轉？（PI 2026-11-02：次要目標，之後再關注）",
+   "facets": {
+    "uncertainty": {
+     "name": "輸入不確定性",
+     "question": "病人、材料、摩擦、放置、規則門檻變動時判定翻轉率多少？"
+    }
+   }
+  },
+  "TIM": {
+   "label": "[時程]",
+   "name": "支撐期覆蓋",
+   "priority": "secondary",
+   "question": "平台能不能回答 0 到 16 週以上的問題？（PI 2026-11-02：次要目標，之後再關注）",
+   "facets": {
+    "timecourse": {
+     "name": "時間演變",
+     "question": "降解、蠕變、壓縮永久變形、biodisc 成熟、疲勞有沒有被涵蓋？"
+    }
+   }
+  }
+ },
+ "restrictions": {
+  "R02": {
+   "type": "exclusion",
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "covers": [
+    "OBS-04"
+   ],
+   "refs": [
+    "T06"
+   ],
+   "text": "未達 1.5 N·m 的視窗永不作為淘汰依據；設計標 open，類別 [觀測]/amplitude。"
+  },
+  "R03": {
+   "type": "exclusion",
+   "configs": [
+    "FRIC"
+   ],
+   "covers": [
+    "NUM-04",
+    "NUM-06",
+    "NUM-13",
+    "PHY-05"
+   ],
+   "refs": [
+    "T01",
+    "T18"
+   ],
+   "text": "真實摩擦結果在 NUM-06（骨不翻轉）與 gate 4（PHY-05）通過前，不得用於淘汰或通過任何設計，只作診斷。"
+  },
+  "R04": {
+   "type": "exclusion",
+   "configs": [
+    "GPUFE"
+   ],
+   "covers": [
+    "NUM-12",
+    "NUM-13"
+   ],
+   "refs": [
+    "T17"
+   ],
+   "text": "gpufe 在 gate 2-4 通過前不得用於排名；第一輪演化走 FEBio L2。"
+  },
+  "R05": {
+   "type": "bounded",
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "covers": [
+    "PHY-06"
+   ],
+   "refs": [
+    "T04"
+   ],
+   "text": "材料常數取文獻值、無 bench 數據。偏差界限：降解掃描 E_soft ×0.1-0.5 下通過設計的 mu_req 與持續壓縮幾乎不變（p062 0.136→0.138）。壓縮 fail 一律標「暫定規則」並附 10/20%、20/30% 上限的敏感度。"
+  },
+  "R06": {
+   "type": "exclusion",
+   "configs": [
+    "TIED"
+   ],
+   "covers": [
+    "NUM-04"
+   ],
+   "refs": [
+    "T02"
+   ],
+   "text": "NUM-04 全批掃描完成前，任何末步 dt < 1e-4 的視窗判定需人工複核後才能進入彙整。"
+  },
+  "R07": {
+   "type": "scope",
+   "configs": [
+    "TIED",
+    "FRIC",
+    "GPUFE"
+   ],
+   "covers": [
+    "GEN-01",
+    "GEN-02",
+    "GEN-03",
+    "GEN-04",
+    "GEN-05"
+   ],
+   "refs": [
+    "T14"
+   ],
+   "text": "每份結論的範圍說明必須寫：單一 26 歲女性模型、名義材料、mu 0.35、名義置入位置；不外推。"
+  },
+  "R08": {
+   "type": "scope",
+   "configs": [
+    "TIED",
+    "FRIC",
+    "GPUFE"
+   ],
+   "covers": [
+    "TIM-01",
+    "TIM-02",
+    "TIM-03",
+    "TIM-04",
+    "TIM-05"
+   ],
+   "refs": [
+    "T11"
+   ],
+   "text": "每份結論的範圍說明必須寫：只涵蓋植入當下（t = 0）與軟相降解敏感度；不涵蓋硬相蠕變、壓縮永久變形、biodisc 成熟、疲勞。"
+  },
+  "R09": {
+   "type": "bounded",
+   "configs": [
+    "TIED"
+   ],
+   "covers": [
+    "NUM-01",
+    "NUM-03",
+    "NUM-05"
+   ],
+   "refs": [
+    "RISKS B4",
+    "GAPS 2.4"
+   ],
+   "text": "[2026-11-02T18:00] 旋轉協定的數值收斂已在 p062 確認（網格、罰則 ≤ 5%，時間步 ≤ 0.2%；mu 絕對差 ≤ 0.004）；其他設計（尤其家族 B）未驗：mu_req 相差 < 5% 的設計視為同分，距任何判定門檻 ±5% 內的設計標「數值待確認」。"
+  },
+  "R10": {
+   "type": "bounded",
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "covers": [
+    "OBS-02"
+   ],
+   "refs": [
+    "T07"
+   ],
+   "text": "取跨過 1.5 N·m 的第一步，力矩過衝 4-13%，mu_req 與滑移上限偏高同比例（保守方向）。pass 判定有效；以 mu_req 或滑移判 fail、且距門檻 < 13% 的設計需插值後複核。"
+  }
+ },
+ "checks": [
+  {
+   "id": "PHY-01",
+   "cap": "PHY",
+   "facet": "anatomy",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "完整頸椎 C0-C7 對 Herron 2020",
+   "method": "h07：26 歲力矩-轉角、C3-C7 ROM、C3-4 小面關節力，對數位化的 Herron 2020 圖",
+   "threshold": "10% 內的量 ≥ 18/22，小面關節力 ≤ 10%",
+   "threshold_src": "PI 2026-10-19（pass = 10% 內）；18/22 已接受",
+   "trigger": "ANAT 或 FEBIO 變更時",
+   "depends": [
+    "ANAT",
+    "FEBIO"
+   ],
+   "evidence": [
+    "human_study/validation/results"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-10-21",
+     "value": "18/22；小面關節力 ≤ 2%",
+     "note": "補丁版重驗末態差 2e-5"
+    },
+    "FRIC": {
+     "state": "pass",
+     "date": "2026-10-21",
+     "value": "同 TIED（解剖模型相同）"
+    }
+   },
+   "refs": [
+    "DECISIONS 2026-10-19..21"
+   ]
+  },
+  {
+   "id": "PHY-02",
+   "cap": "PHY",
+   "facet": "anatomy",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "精細化 C3-C4 FSU 對完整頸椎",
+   "method": "h11：六向 ROM，精細化 + tied 端板 vs 完整 C0-C7",
+   "threshold": "六向 ROM 差 ≤ 10%",
+   "threshold_src": "PI 2026-10-20",
+   "trigger": "ANAT 變更時",
+   "depends": [
+    "ANAT",
+    "FEBIO"
+   ],
+   "evidence": [
+    "human_study/fsu/fsu_refined_vs_full.json"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-10-20",
+     "value": "FE 13.07 vs 13.21 deg 等"
+    },
+    "FRIC": {
+     "state": "pass",
+     "date": "2026-10-20"
+    }
+   },
+   "refs": [
+    "DECISIONS 2026-10-20"
+   ]
+  },
+  {
+   "id": "PHY-03",
+   "cap": "PHY",
+   "facet": "anatomy",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "節段軸向撐開剛度 vs 屍體數據",
+   "method": "d 1.0 mm 撐開力（C3pot Fz），移除纖維環殘留後；對 Frank 1996（1.7 mm @ 44 N）",
+   "threshold": "與文獻同數量級（0.5-2×）",
+   "threshold_src": "提案",
+   "trigger": "ANAT 或 BUILD 的手術模型變更時",
+   "depends": [
+    "ANAT",
+    "BUILD"
+   ],
+   "evidence": [
+    "human_study/gaplib_diag"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-10-22T22:05",
+     "value": "39 N @ 1 mm（屍體 44 N @ 1.7 mm）"
+    },
+    "FRIC": {
+     "state": "pass",
+     "date": "2026-10-22T22:05"
+    }
+   },
+   "refs": [
+    "DECISIONS 2026-10-22 PI DECISION annulus remnant"
+   ]
+  },
+  {
+   "id": "PHY-04",
+   "cap": "PHY",
+   "facet": "interface",
+   "required": false,
+   "configs": [
+    "TIED"
+   ],
+   "name": "黏死介面受拉比例（診斷）",
+   "method": "評估狀態下 cage-骨接觸面受拉（法向拉力）的面積比例",
+   "threshold": "≤ 10%",
+   "threshold_src": "提案",
+   "trigger": "每批",
+   "depends": [
+    "BUILD",
+    "METRICS"
+   ],
+   "evidence": [
+    "../biocage-evo/work/findings/F-0021.json"
+   ],
+   "status": {
+    "TIED": {
+     "state": "fail",
+     "date": "2026-10-31",
+     "value": "約 40%",
+     "note": "e03/e04 改用 mu_scaled 補救，效果由 PHY-05 驗證"
+    }
+   },
+   "refs": [
+    "T03",
+    "F-0021"
+   ]
+  },
+  {
+   "id": "PHY-05",
+   "cap": "PHY",
+   "facet": "interface",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "gate 4：黏死滑出判定 vs 真實摩擦實測",
+   "method": "≥ 7 個設計，摩擦 run 振幅依實際反力矩重定，兩者都達 1.5 N·m ±2%；比較黏死 mu_scaled 判定（< 0.35 → 不滑）與摩擦 run 的 cage 剛體平移判定（e04）",
+   "threshold": "判定一致 ≥ 6/7，且無「黏死判通過、摩擦實測滑出」的案例",
+   "threshold_src": "提案",
+   "trigger": "一次；BUILD 介面或 METRICS 變更時重做",
+   "depends": [
+    "BUILD",
+    "METRICS",
+    "FEBIO"
+   ],
+   "evidence": [
+    "../biocage-evo/results/method/fric/compare.json",
+    "human_study/al_v2/physio_fric2"
+   ],
+   "status": {
+    "TIED": {
+     "state": "not_run",
+     "date": "2026-11-02T15:30",
+     "note": "第二回合 physrotFr2_（p060 p062 p109 p125，振幅由摩擦 run 的 drive.txt 重定、尖峰濾除）已排隊；p048/p084/p115 待 NUM-06"
+    }
+   },
+   "refs": [
+    "T01",
+    "T03"
+   ]
+  },
+  {
+   "id": "PHY-06",
+   "cap": "PHY",
+   "facet": "material",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "PLCL 材料常數有實驗依據",
+   "method": "current_settings 每個材料常數（E_hard、E_soft、Gent Jm、nu、濕態降伏、mu）列出文獻或 bench 來源",
+   "threshold": "全部有來源，且關鍵常數（E_soft、mu、濕態降伏）有 bench 數據",
+   "threshold_src": "提案",
+   "trigger": "SETTINGS 材料變更時",
+   "depends": [
+    "SETTINGS"
+   ],
+   "evidence": [
+    "human_study/PROGRESS_REPORT_2026-10-31.md"
+   ],
+   "status": {
+    "TIED": {
+     "state": "partial",
+     "date": "2026-11-01",
+     "value": "文獻值；無 bench"
+    },
+    "FRIC": {
+     "state": "partial",
+     "date": "2026-11-01"
+    }
+   },
+   "refs": [
+    "T04"
+   ]
+  },
+  {
+   "id": "PHY-07",
+   "cap": "PHY",
+   "facet": "loading",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "負荷協定有文獻依據",
+   "method": "100 N 跟隨負荷（Patwardhan 2000）+ 1.5 N·m 六向純力矩",
+   "threshold": "每個負荷參數有出處",
+   "threshold_src": "提案",
+   "trigger": "BUILD 負荷變更時",
+   "depends": [
+    "BUILD"
+   ],
+   "evidence": [
+    "human_study/DECISIONS.md"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-10-23T12:00"
+    },
+    "FRIC": {
+     "state": "pass",
+     "date": "2026-10-23T12:00"
+    }
+   },
+   "refs": [
+    "DECISIONS 2026-10-23 12:00"
+   ]
+  },
+  {
+   "id": "PHY-08",
+   "cap": "PHY",
+   "facet": "loading",
+   "required": false,
+   "configs": [
+    "FRIC"
+   ],
+   "name": "插入與推出程序合理（診斷）",
+   "method": "expand 0.8 插入後的夾持力；前／後方推出峰值 vs 135 N 守門值",
+   "threshold": "推出峰值 ≥ 守門值（守門值待 PI）",
+   "threshold_src": "待 [決定] T12",
+   "trigger": "BUILD 手術程序變更時",
+   "depends": [
+    "BUILD"
+   ],
+   "evidence": [
+    "human_study/proc_val/fric_push_post"
+   ],
+   "status": {
+    "FRIC": {
+     "state": "partial",
+     "date": "2026-10-31",
+     "value": "p062 後方推出 93 N",
+     "note": "PI 2026-11-03：守門值 135 N 無文獻依據；待 PI 在「相對比較」與「生理剪力重推」間選擇（已說明差別）"
+    }
+   },
+   "refs": [
+    "T12"
+   ]
+  },
+  {
+   "id": "NUM-01",
+   "cap": "NUM",
+   "facet": "discretization",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "cage 網格收斂（旋轉協定）",
+   "method": "p062 cage 厚度方向 0.2 → 0.1 mm（面內 0.1 mm 超出記憶體），接觸罰則固定為絕對值（避免自動罰則 ~E/h 混入），插入 + 六視窗",
+   "threshold": "mu_req 相對差 ≤ 5%；持續壓縮差 ≤ 1 個百分點",
+   "threshold_src": "PI 2026-11-03（5% 網格／罰則、2% 時間步確認）",
+   "trigger": "一次；MESH 或 BUILD 接觸設定變更時",
+   "depends": [
+    "MESH",
+    "BUILD",
+    "FEBIO"
+   ],
+   "evidence": [
+    "human_study/al_v2/numconv_hz01"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "note": "只驗了 p062（家族 A axial mix d 0.5）；家族 B 未驗；罰則補償是近似（GAPS 3.5）；PI 要求再驗一個家族 B 設計——目前沒有算得完任何視窗的 B 設計，等第 4 項",
+     "date": "2026-11-02T18:00",
+     "value": "p062 cage 厚度向 0.1 mm（46 層 106k hex，penalty 5 補償自動罰則 ~E/h）：|Δslip| ≤ 0.8%、|Δmu| ≤ 4.9%（0.0012 絕對；extension −6.7% = 0.0010）、Δ持續 +0.02 pp（門檻 5%）"
+    }
+   },
+   "refs": [
+    "RISKS B4"
+   ]
+  },
+  {
+   "id": "NUM-02",
+   "cap": "NUM",
+   "facet": "discretization",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "端板網格收斂（壓縮協定）",
+   "method": "端板 1.0 / 0.5 / 0.25 mm，最終接觸設定",
+   "threshold": "判定量差 ≤ 5%",
+   "threshold_src": "PI 規則 4（省時且精度損失小）",
+   "trigger": "ANAT 或 BUILD 接觸設定變更時",
+   "depends": [
+    "ANAT",
+    "BUILD",
+    "FEBIO"
+   ],
+   "evidence": [
+    "human_study/meshconv"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-10-21",
+     "value": "clamp 151.3 / 148.9 / … N（≤ 2%）"
+    },
+    "FRIC": {
+     "state": "pass",
+     "date": "2026-10-21"
+    }
+   },
+   "refs": [
+    "DECISIONS 2026-10-21"
+   ]
+  },
+  {
+   "id": "NUM-03",
+   "cap": "NUM",
+   "facet": "temporal",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "時間步收斂",
+   "method": "p062 插入 + 六視窗，dtmax 與 must point 步長減半",
+   "threshold": "mu_req 相對差 ≤ 2%",
+   "threshold_src": "PI 2026-11-03（5% 網格／罰則、2% 時間步確認）",
+   "trigger": "一次；SPLIT 或 BUILD 步進設定變更時",
+   "depends": [
+    "BUILD",
+    "SPLIT"
+   ],
+   "evidence": [
+    "human_study/al_v2/numconv_dt"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-11-02T18:00",
+     "note": "只驗了 p062；重算前 extension 曾差 6.6%，是基準的重試步偽態（NUM-14）；PI 要求再驗一個家族 B 設計——目前沒有算得完任何視窗的 B 設計，等第 4 項",
+     "value": "p062 physio_dt 0.025（×0.5）：六視窗 |Δmu| ≤ 0.2%、|Δslip| ≤ 0.0%、Δ持續壓縮 0.00 pp（門檻 2%）"
+    }
+   },
+   "refs": []
+  },
+  {
+   "id": "NUM-04",
+   "cap": "NUM",
+   "facet": "temporal",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "慢速動態微步偽力矩",
+   "method": "scripts/8_audit/h34_window_scan.py 掃描每批所有視窗的 drive.txt：微步（dt < 1e-4）與孤立尖峰（偏離鄰點預測 > max(0.15×目標, 1×預測)）；e03.filter_rows 以同一規則把這些狀態排除在判定之外",
+   "threshold": "每批掃描；判定不依賴任何無效狀態（原判達標、濾除後未達標的視窗數 = 0 或已重跑）",
+   "threshold_src": "提案",
+   "trigger": "每批（彙整前）",
+   "depends": [
+    "BUILD",
+    "SPLIT",
+    "FEBIO"
+   ],
+   "evidence": [
+    "human_study/WINDOW_SCAN_2026-11-02.md",
+    "scripts/8_audit/h34_window_scan.py"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "note": "根因已定位為慣性殘差（NUM-14）；慢速動態 + 質量縮放的妥協見 GAPS 3.7",
+     "date": "2026-11-02T18:00",
+     "value": "474 視窗：1 微步、21 尖峰視窗（全部也被 NUM-14 的剛體殘差層抓到：尖峰 = 被驅動剛體的慣性暫態）；第一層後 3 個、第二層後再 11 個視窗的舊判定依賴垃圾狀態"
+    },
+    "FRIC": {
+     "state": "pass",
+     "date": "2026-11-02T18:00",
+     "value": "474 視窗：1 微步、21 尖峰視窗（全部也被 NUM-14 的剛體殘差層抓到：尖峰 = 被驅動剛體的慣性暫態）；第一層後 3 個、第二層後再 11 個視窗的舊判定依賴垃圾狀態",
+     "note": "根因已定位為慣性殘差（NUM-14）；慢速動態 + 質量縮放的妥協見 GAPS 3.7"
+    }
+   },
+   "refs": [
+    "T02",
+    "RISKS A7"
+   ]
+  },
+  {
+   "id": "NUM-05",
+   "cap": "NUM",
+   "facet": "contact",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "罰則敏感度（旋轉協定）",
+   "method": "p062 全域罰則 ×0.5 / ×2，插入 + 六視窗",
+   "threshold": "mu_req 相對差 ≤ 5%",
+   "threshold_src": "PI 2026-11-03（5% 網格／罰則、2% 時間步確認）",
+   "trigger": "一次；BUILD 接觸設定變更時",
+   "depends": [
+    "BUILD",
+    "FEBIO"
+   ],
+   "evidence": [
+    "human_study/al_v2/numconv_pen05",
+    "human_study/al_v2/numconv_pen20"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "note": "只驗了 p062；pen20 AR_left 重算前差 −14%，是重試步偽態（NUM-14）；PI 要求再驗一個家族 B 設計——目前沒有算得完任何視窗的 B 設計，等第 4 項",
+     "date": "2026-11-02T18:00",
+     "value": "p062 罰則 ×0.5：|Δslip| ≤ 2.3%、|Δmu| ≤ 3.3%（extension +7.7% = 0.0011 絕對）、Δ持續 −0.11 pp；×2：|Δslip| ≤ 1.5%、|Δmu| ≤ 2.6%、+0.04 pp（門檻 5%；mu 相對差只在 |Δmu| > 0.005 時計）"
+    }
+   },
+   "refs": [
+    "DECISIONS 2026-10-21"
+   ]
+  },
+  {
+   "id": "NUM-06",
+   "cap": "NUM",
+   "facet": "contact",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "骨元素不翻轉（求解穩健性）",
+   "method": "所有停止的 run：翻轉元素所屬 domain 統計（case.log negative jacobian）",
+   "threshold": "翻轉含骨元素的 run = 0",
+   "threshold_src": "提案",
+   "trigger": "每批",
+   "depends": [
+    "BUILD",
+    "FEBIO",
+    "SPLIT"
+   ],
+   "evidence": [
+    "human_study/WINDOW_SCAN_2026-11-02.md"
+   ],
+   "status": {
+    "TIED": {
+     "state": "fail",
+     "note": "12 個翻轉 run 的 domain 未統計",
+     "date": "2026-11-02T15:30",
+     "value": "split2 插入失敗 13 個，其中 12 個含 C3/C4 皮質骨翻轉（74–448 元素）；視窗翻轉紀錄 192 個，含骨 159 個（C3_cortical 14663 條）"
+    },
+    "FRIC": {
+     "state": "fail",
+     "date": "2026-11-02T15:30",
+     "value": "p048 骨 590、p084 骨 564 元素；p115 只有 cage 軟層 66"
+    }
+   },
+   "refs": [
+    "T01"
+   ]
+  },
+  {
+   "id": "NUM-07",
+   "cap": "NUM",
+   "facet": "approximation",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "拆分視窗 vs 連續 run（六向全比）",
+   "method": "一個設計的插入 + 六個獨立視窗 vs 連續 run；覆蓋必須是六向（10-31 前只比屈曲，漏掉重啟曲線失效）",
+   "threshold": "mu_squeeze、滑移上限差 ≤ 1%（扣除取樣過衝，見 OBS-02）",
+   "threshold_src": "整合者 2026-10-31，已接受",
+   "trigger": "SPLIT 變更時；每批抽一個設計",
+   "depends": [
+    "SPLIT",
+    "BUILD",
+    "FEBIO"
+   ],
+   "evidence": [
+    "human_study/al_v2/physio_rot_split2/p062"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-10-31T08:30",
+     "value": "p062 六向；屈曲 0.0259 vs 0.0261；AR 差 = 力矩過衝比",
+     "reconfirmed": {
+      "date": "2026-11-02T15:40",
+      "note": "h31 11-02 只新增 window_check.json / split_check.json 的紀錄，FEBio 輸入與重啟流程不變"
+     }
+    }
+   },
+   "refs": [
+    "DECISIONS 2026-10-31 08:30"
+   ]
+  },
+  {
+   "id": "NUM-08",
+   "cap": "NUM",
+   "facet": "approximation",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "慢速動態 vs 靜態",
+   "method": "同一設計靜態與慢速動態（密度 1e-6 t/mm^3、rho_inf 0）比較 e04",
+   "threshold": "mu_squeeze 差 ≤ 0.005；滑移上限差 ≤ 0.02 mm",
+   "threshold_src": "整合者 2026-10-30，已接受",
+   "trigger": "BUILD 動態參數變更時；每批抽一個設計",
+   "depends": [
+    "BUILD",
+    "FEBIO"
+   ],
+   "evidence": [
+    "human_study/al_v2/physio_rot_dyn"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-10-30",
+     "value": "p062 / p002：差 ≤ 0.002 / 0.02 mm",
+     "note": "[2026-11-02T18:00] 速率無關性佐證：振幅差 10% 的重複設計在 1.5 N·m 的 mu／slip／N 差 ≤ 0.5%（p082/p088 extension、p092/p117 LB_right、p100/p142 AR_left）；靜態對照仍未做"
+    },
+    "FRIC": {
+     "state": "not_run",
+     "note": "[2026-11-02T18:00] 速率無關性佐證：振幅差 10% 的重複設計在 1.5 N·m 的 mu／slip／N 差 ≤ 0.5%（p082/p088 extension、p092/p117 LB_right、p100/p142 AR_left）；靜態對照仍未做"
+    }
+   },
+   "refs": [
+    "DECISIONS 2026-10-30",
+    "RISKS A7"
+   ]
+  },
+  {
+   "id": "NUM-09",
+   "cap": "NUM",
+   "facet": "approximation",
+   "required": false,
+   "configs": [
+    "TIED"
+   ],
+   "name": "動態失敗後的靜態重試（混用兩種物理）",
+   "method": "一個被靜態重試救回的設計，強制動態算完比較",
+   "threshold": "同 NUM-08",
+   "threshold_src": "提案",
+   "trigger": "一次",
+   "depends": [
+    "SPLIT"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "not_run"
+    }
+   },
+   "refs": [
+    "RISKS B3"
+   ]
+  },
+  {
+   "id": "NUM-10",
+   "cap": "NUM",
+   "facet": "solver",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "FEBio 補丁回歸",
+   "method": "補丁版 vs 原版：Herron C0-C7 屈曲／伸展、FSU 六向",
+   "threshold": "末態相對差 ≤ 1e-4（求解容差）",
+   "threshold_src": "整合者 2026-10-21",
+   "trigger": "FEBIO 每次重編",
+   "depends": [
+    "FEBIO"
+   ],
+   "evidence": [
+    "human_study/verify_patch",
+    "human_study/verify_patch3"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-10-21",
+     "value": "FSU 六向差 ≤ 5e-8 mm；C0-C7 2e-5"
+    },
+    "FRIC": {
+     "state": "pass",
+     "date": "2026-10-21"
+    }
+   },
+   "refs": [
+    "DECISIONS 2026-10-21"
+   ]
+  },
+  {
+   "id": "NUM-11",
+   "cap": "NUM",
+   "facet": "solver",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "GPU cuDSS vs CPU Pardiso",
+   "method": "同一 cage 案例 CPU 與 GPU 直接求解",
+   "threshold": "結果相同（相對差 ≤ 1e-4）",
+   "threshold_src": "整合者",
+   "trigger": "GPUDIRECT 或 FEBIO 變更時",
+   "depends": [
+    "GPUDIRECT",
+    "FEBIO"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-11-02T18:00",
+     "value": "4 對 cage 參數相同的設計（p082/p088、p092/p117、p093/p145、p100/p142）：振幅相同的視窗 cuDSS(GPU1) vs pardiso(CPU) 驅動力矩差 ≤ 3.1e-10、GPU1 vs GPU4 ≤ 1.8e-11；判定量（mu、slip、N）差 ≤ 0.1%",
+     "note": "GAPS 2.10；取代 10-20 的 design A 單點證據"
+    }
+   },
+   "refs": [
+    "DECISIONS Model scope"
+   ]
+  },
+  {
+   "id": "NUM-12",
+   "cap": "NUM",
+   "facet": "solver",
+   "required": true,
+   "configs": [
+    "GPUFE"
+   ],
+   "name": "gpufe gate 2-4",
+   "method": "gate 2 FSU 六向、gate 3 cage 黏死、gate 4 cage 摩擦，對 FEBio",
+   "threshold": "各 gate 依 VERIFICATION.md 門檻",
+   "threshold_src": "evo 驗證者",
+   "trigger": "GPUFE 變更時",
+   "depends": [
+    "GPUFE"
+   ],
+   "evidence": [
+    "../biocage-evo/results/gpufe_verify"
+   ],
+   "status": {
+    "GPUFE": {
+     "state": "fail",
+     "date": "2026-10-28",
+     "value": "gate 2 只過屈曲（1/6）"
+    }
+   },
+   "refs": [
+    "T17",
+    "F-0026"
+   ]
+  },
+  {
+   "id": "NUM-13",
+   "cap": "NUM",
+   "facet": "contact",
+   "required": true,
+   "configs": [
+    "FRIC",
+    "GPUFE"
+   ],
+   "name": "摩擦錨點重設（定力保持測試）",
+   "method": "驗證者 V07：定力下黏著塊不應漂移；摩擦 run 的 cage 平移扣除此偽滑移",
+   "threshold": "定力保持漂移 ≤ 0.01 mm",
+   "threshold_src": "提案",
+   "trigger": "FEBIO 或 GPUFE 摩擦程式變更時",
+   "depends": [
+    "FEBIO",
+    "GPUFE"
+   ],
+   "evidence": [],
+   "status": {
+    "FRIC": {
+     "state": "not_run"
+    },
+    "GPUFE": {
+     "state": "not_run"
+    }
+   },
+   "refs": [
+    "T18",
+    "F-0003",
+    "F-0015"
+   ]
+  },
+  {
+   "id": "SPD-01",
+   "cap": "SPD",
+   "facet": "compute",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "每設計機器時間",
+   "method": "插入 + 六視窗的 case.log Total elapsed time 總和（GPU）",
+   "threshold": "≤ 30 min / 設計",
+   "threshold_src": "提案",
+   "trigger": "每批",
+   "depends": [
+    "BUILD",
+    "SPLIT",
+    "GPUDIRECT",
+    "FEBIO"
+   ],
+   "evidence": [
+    "human_study/al_v2/physio_rot_split2"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-10-31",
+     "value": "約 23 min（CPU 46 min）"
+    }
+   },
+   "refs": []
+  },
+  {
+   "id": "SPD-02",
+   "cap": "SPD",
+   "facet": "compute",
+   "required": false,
+   "configs": [
+    "TIED"
+   ],
+   "name": "視窗時間均衡（診斷）",
+   "method": "最慢視窗 / 視窗中位數",
+   "threshold": "≤ 3",
+   "threshold_src": "提案",
+   "trigger": "每批",
+   "depends": [
+    "SPLIT",
+    "BUILD"
+   ],
+   "evidence": [
+    "human_study/al_v2/physio_rot_split2/p062"
+   ],
+   "status": {
+    "TIED": {
+     "state": "fail",
+     "date": "2026-10-31",
+     "value": "p062 AR_left 15.8 min vs 中位數約 2 min"
+    }
+   },
+   "refs": [
+    "T09"
+   ]
+  },
+  {
+   "id": "SPD-03",
+   "cap": "SPD",
+   "facet": "storage",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "每設計輸出量",
+   "method": "插入 + 六視窗的 xplt（dmp 另計，pass 退役後刪）",
+   "threshold": "/raid 只放進行中的 run；完成批次歸檔 NAS（h36，symlink）；NAS 用量 ≤ 3 TB",
+   "threshold_src": "PI 2026-11-03",
+   "trigger": "每批",
+   "depends": [
+    "BUILD",
+    "SPLIT"
+   ],
+   "evidence": [
+    "human_study/al_v2/physio_rot_split2/p062"
+   ],
+   "status": {
+    "TIED": {
+     "state": "partial",
+     "date": "2026-11-03T00:30",
+     "value": "歸檔第一階段（舊／無效集合約 1.1 TB）進行中；每設計輸出 0.8 GB 不再是門檻",
+     "note": "h36_nas_archive.sh；第二階段等摩擦第二回合結束"
+    }
+   },
+   "refs": [
+    "T09"
+   ]
+  },
+  {
+   "id": "SPD-04",
+   "cap": "SPD",
+   "facet": "storage",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "磁碟守門",
+   "method": "排程器以本帳號用量 vs 配額判斷，剩餘 < 30 GB 暫停啟動；pass 退役後自動刪 dmp",
+   "threshold": "已實作且以模擬磁碟滿測試通過",
+   "threshold_src": "提案",
+   "trigger": "OPS 變更時",
+   "depends": [
+    "OPS"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-11-02T15:30",
+     "value": "h19 disk_ok：全域剩餘 < 100 GB 暫停啟動（單元測試通過）；本帳號用量門檻待 PI 定配額（null = 關）"
+    },
+    "FRIC": {
+     "state": "pass",
+     "date": "2026-11-02T15:30"
+    }
+   },
+   "refs": [
+    "T10"
+   ]
+  },
+  {
+   "id": "SPD-05",
+   "cap": "SPD",
+   "facet": "unattended",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "作業韌性",
+   "method": "狀態檔原子寫入；調參只在 scheduler_tuning.json；看門狗崩潰 10 min 內告警",
+   "threshold": "三項全部實作",
+   "threshold_src": "提案",
+   "trigger": "OPS 變更時",
+   "depends": [
+    "OPS"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-11-02T15:30",
+     "value": "scheduler_tuning.json 每輪重讀；h23 狀態檔原子寫入 + 損壞容錯；連續 3 輪崩潰寫 ALERT_watchdog.txt；AL loop .done 標記"
+    },
+    "FRIC": {
+     "state": "pass",
+     "date": "2026-11-02T15:30"
+    }
+   },
+   "refs": [
+    "T10"
+   ]
+  },
+  {
+   "id": "SPD-06",
+   "cap": "SPD",
+   "facet": "unattended",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "無人值守時數",
+   "method": "scheduler.log / watchdog.log：連續運轉無人工介入的時數；每 100 run 人工介入次數",
+   "threshold": "≥ 24 h；≤ 1 次 / 100 run",
+   "threshold_src": "提案",
+   "trigger": "每週",
+   "depends": [
+    "OPS"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "not_run",
+     "note": "未統計"
+    }
+   },
+   "refs": []
+  },
+  {
+   "id": "SPD-07",
+   "cap": "SPD",
+   "facet": "throughput",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "吞吐",
+   "method": "全資源下每小時完成的設計數",
+   "threshold": "≥ 8 設計 / h",
+   "threshold_src": "提案",
+   "trigger": "每批",
+   "depends": [
+    "OPS",
+    "SPLIT"
+   ],
+   "evidence": [
+    "human_study/scheduler.log"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-10-31",
+     "value": "8-10 設計 / h"
+    }
+   },
+   "refs": []
+  },
+  {
+   "id": "SPD-08",
+   "cap": "SPD",
+   "facet": "throughput",
+   "required": false,
+   "configs": [
+    "TIED"
+   ],
+   "name": "重工率（診斷）",
+   "method": "需第二回合以上的設計 / 可計算設計",
+   "threshold": "≤ 10%",
+   "threshold_src": "提案",
+   "trigger": "每批",
+   "depends": [
+    "RETARGET"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-10-31T12:35",
+     "value": "12 / 136（8.8%）"
+    }
+   },
+   "refs": [
+    "T06"
+   ]
+  },
+  {
+   "id": "OBS-01",
+   "cap": "OBS",
+   "facet": "target",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC",
+    "GPUFE"
+   ],
+   "name": "終點齊全",
+   "method": "BIOCAGE 目的的失效模式 ↔ 指標對照：滑出（e03/e04）、軟相壓縮（e05）、硬相持續應力（e06）、後方推出、局部硬塊移動與原地旋轉",
+   "threshold": "每個失效模式至少一個已實作指標；e06 硬相應力門檻 = 短期強度的 18%（PI 2026-11-03，次要指標，暫不實作）",
+   "threshold_src": "提案",
+   "trigger": "METRICS 變更或研究目的變更時",
+   "depends": [
+    "METRICS"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "fail",
+     "date": "2026-11-01",
+     "value": "缺 e06；T19 缺最後方點與硬體素 best fit"
+    },
+    "FRIC": {
+     "state": "fail",
+     "date": "2026-11-01"
+    },
+    "GPUFE": {
+     "state": "fail",
+     "date": "2026-11-01"
+    }
+   },
+   "refs": [
+    "T11",
+    "T19"
+   ]
+  },
+  {
+   "id": "OBS-02",
+   "cap": "OBS",
+   "facet": "state",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "目標力矩插值",
+   "method": "e04/e05 在包夾 1.5 N·m 的兩個狀態間線性插值",
+   "threshold": "|M_eval / 1.5 N·m - 1| ≤ 2%",
+   "threshold_src": "提案",
+   "trigger": "METRICS 變更時",
+   "depends": [
+    "METRICS"
+   ],
+   "evidence": [
+    "../biocage-evo/methods/e03_mu_req.py"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-11-02T15:30",
+     "value": "e03.target_bracket 包夾兩態線性插值；p062 extension 滑移 0.1463→0.1383（連續 run 0.1339）、AR_left 0.2090→0.2016（0.2006）",
+     "note": "重算後 234 個雙方達標視窗：mu 中位數 −0.4%、滑移 −3.4%；13 個 |Δmu| > 20% 全可解釋（10 個舊判定用了尖峰狀態、3 個 mu < 0.01 絕對變動 ≤ 0.002）"
+    },
+    "FRIC": {
+     "state": "pass",
+     "date": "2026-11-02T15:30"
+    }
+   },
+   "refs": [
+    "T07"
+   ]
+  },
+  {
+   "id": "OBS-03",
+   "cap": "OBS",
+   "facet": "state",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "無效狀態濾除",
+   "method": "e04/e05 拒用末步 dt < 1e-4、力矩跳變 > 2×、min J ≤ 0 的狀態；單元測試含 p060 LB_left",
+   "threshold": "已實作且測試通過",
+   "threshold_src": "提案",
+   "trigger": "METRICS 變更時",
+   "depends": [
+    "METRICS"
+   ],
+   "evidence": [
+    "../biocage-evo/methods/e03_mu_req.py"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-11-02T15:30",
+     "value": "e03.filter_rows：dt < 1e-4、孤立尖峰、首列 > 3×目標；自測含 p060/p100/p015/p027 模式"
+    },
+    "FRIC": {
+     "state": "pass",
+     "date": "2026-11-02T15:30"
+    }
+   },
+   "refs": [
+    "T02"
+   ]
+  },
+  {
+   "id": "OBS-04",
+   "cap": "OBS",
+   "facet": "state",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "振幅達標不靠猜",
+   "method": "每批未達 1.5 N·m 的視窗自動串接下一回合（h29），或視窗以力矩控制收尾",
+   "threshold": "對所有批次自動啟用",
+   "threshold_src": "提案",
+   "trigger": "RETARGET 變更時",
+   "depends": [
+    "RETARGET",
+    "SPLIT"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "partial",
+     "date": "2026-10-31",
+     "value": "h29 只對 split 批次"
+    },
+    "FRIC": {
+     "state": "partial",
+     "date": "2026-11-02T15:30",
+     "value": "h28 重定振幅已加尖峰濾除；physrotFr2_ 排隊中；h29 仍只對非拆分批次"
+    }
+   },
+   "refs": [
+    "T06"
+   ]
+  },
+  {
+   "id": "OBS-05",
+   "cap": "OBS",
+   "facet": "integrity",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "完整性自動檢查",
+   "method": "h31 每視窗寫 window_check.json（結束行 vs exit code、旋轉確實施加：力矩單調升到峰值、目標是否達到、末兩步力矩比、翻轉數）；collect_split 拒收不合格；每批完整性報告",
+   "threshold": "已實作且全批通過",
+   "threshold_src": "提案",
+   "trigger": "每 run",
+   "depends": [
+    "SPLIT",
+    "COLLECT"
+   ],
+   "evidence": [
+    "scripts/5_compute/h31_split_run.py",
+    "scripts/8_audit/h34_window_scan.py",
+    "human_study/WINDOW_SCAN_2026-11-02.md"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-11-02T15:30",
+     "value": "h31 每視窗寫 window_check.json + split_check.json；舊 run 由 h34 回溯掃描；collect_split 拒收無有效狀態的視窗"
+    },
+    "FRIC": {
+     "state": "pass",
+     "date": "2026-11-02T15:30"
+    }
+   },
+   "refs": [
+    "T13"
+   ]
+  },
+  {
+   "id": "OBS-06",
+   "cap": "OBS",
+   "facet": "integrity",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "彙整覆蓋率",
+   "method": "已評估 run 數 / 應評估 run 數（collect_split 從每個 run 的結果檔彙整）",
+   "threshold": "100%",
+   "threshold_src": "整合者 2026-10-31",
+   "trigger": "每批",
+   "depends": [
+    "COLLECT"
+   ],
+   "evidence": [
+    "../biocage-evo/results/method/split",
+    "../biocage-evo/work/ops/logs/collect_split_interp_20261102.log"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-11-02T18:00",
+     "note": "第二次重算（NUM-14 層）後；舊結果封存 results/method/split_pre_dyn_20261102/",
+     "value": "276 視窗 0 錯誤；70 pass / 62 fail / 16 open；classes: PASS 70, DESIGN/compression-sustained 53, -peak 5, -peak-lowerbound 4, DECISION/T05-lowerbound 10, [多元]/computability 2, [數值]/unstable-window 4"
+    }
+   },
+   "refs": [
+    "DECISIONS 2026-10-31 10:40"
+   ]
+  },
+  {
+   "id": "OBS-07",
+   "cap": "OBS",
+   "facet": "metric",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "指標程式自測",
+   "method": "e03 --test（解析案例）；e04 綜合塊測試（紅隊 r0003）；e05 自測",
+   "threshold": "三者都有自測且通過",
+   "threshold_src": "提案",
+   "trigger": "METRICS 變更時",
+   "depends": [
+    "METRICS",
+    "XPLT"
+   ],
+   "evidence": [
+    "../biocage-evo/work/board/r0003/redteam.json"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-11-02T15:30",
+     "value": "e03/e04/e05 --test 全部 PASS（解析案例 + 包夾濾除模式 + 單軸壓縮）"
+    },
+    "FRIC": {
+     "state": "pass",
+     "date": "2026-11-02T15:30"
+    }
+   },
+   "refs": []
+  },
+  {
+   "id": "OBS-08",
+   "cap": "OBS",
+   "facet": "provenance",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "起跑前一致性（h24）",
+   "method": "每個 run：設定類別、h14 重建位元一致、FEBio 補丁、restart sha",
+   "threshold": "100% run 通過才啟動",
+   "threshold_src": "PI 2026-10-22",
+   "trigger": "每 run（daemon）",
+   "depends": [
+    "PREFLIGHT"
+   ],
+   "evidence": [
+    "human_study/preflight.log"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-11-02"
+    },
+    "FRIC": {
+     "state": "pass",
+     "date": "2026-11-02"
+    }
+   },
+   "refs": []
+  },
+  {
+   "id": "OBS-09",
+   "cap": "OBS",
+   "facet": "provenance",
+   "required": false,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "判定值的完整來源",
+   "method": "每個判定值記錄來源 run、設定類別、程式 commit；結果檔版本化",
+   "threshold": "全部",
+   "threshold_src": "提案",
+   "trigger": "每批",
+   "depends": [
+    "COLLECT"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "partial",
+     "date": "2026-11-01",
+     "value": "有來源 run；無 commit；結果未版本化",
+     "reconfirmed": {
+      "date": "2026-11-02T10:00",
+      "note": "11-02 collect_split 只改資料夾路徑字串（改名），不影響此檢查"
+     }
+    },
+    "FRIC": {
+     "state": "partial",
+     "date": "2026-11-01",
+     "reconfirmed": {
+      "date": "2026-11-02T10:00",
+      "note": "11-02 collect_split 只改資料夾路徑字串（改名），不影響此檢查"
+     }
+    }
+   },
+   "refs": [
+    "T22"
+   ]
+  },
+  {
+   "id": "OBS-10",
+   "cap": "OBS",
+   "facet": "classification",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "失敗與 open 的分類標籤",
+   "method": "collect_split 的 class 欄位（`[能力]/<面向>`、DESIGN/…、DECISION/…）；失敗 job 逐一標記",
+   "threshold": "100% 非 pass 有標籤",
+   "threshold_src": "PI 2026-11-01",
+   "trigger": "每批",
+   "depends": [
+    "COLLECT"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-11-02T18:00",
+     "value": "276 視窗 0 錯誤；70 pass / 62 fail / 16 open；classes: PASS 70, DESIGN/compression-sustained 53, -peak 5, -peak-lowerbound 4, DECISION/T05-lowerbound 10, [多元]/computability 2, [數值]/unstable-window 4",
+     "note": "第二次重算（NUM-14 層）後；舊結果封存 results/method/split_pre_dyn_20261102/"
+    },
+    "FRIC": {
+     "state": "partial",
+     "date": "2026-11-02T16:10",
+     "note": "摩擦批次由 fric_compare 另行處理，尚未套用 class 欄位"
+    }
+   },
+   "refs": [
+    "T16"
+   ]
+  },
+  {
+   "id": "OBS-11",
+   "cap": "OBS",
+   "facet": "integrity",
+   "required": false,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "靜默錯誤偵測延遲（結果指標）",
+   "method": "事件紀錄：錯誤發生 → 發現的時間",
+   "threshold": "≤ 1 批",
+   "threshold_src": "提案",
+   "trigger": "每次事件",
+   "depends": [],
+   "evidence": [
+    "human_study/DECISIONS.md"
+   ],
+   "status": {
+    "TIED": {
+     "state": "fail",
+     "date": "2026-10-31",
+     "value": "合併負荷 10-26、重啟曲線 10-31：數小時到數天"
+    },
+    "FRIC": {
+     "state": "fail",
+     "date": "2026-11-01",
+     "value": "微步偽達標由人工發現"
+    }
+   },
+   "refs": [
+    "T13"
+   ]
+  },
+  {
+   "id": "DIV-01",
+   "cap": "DIV",
+   "facet": "representation",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC",
+    "GPUFE"
+   ],
+   "name": "設計空間可表示",
+   "method": "h12：家族 A/B、gradient axial/radial/both、fabrication mix/interleave、d；evo 0.2 mm 體素場 → FEBio（l2_febio）",
+   "threshold": "每一類至少一個設計建網格並通過 h24",
+   "threshold_src": "提案",
+   "trigger": "MESH 變更時",
+   "depends": [
+    "MESH",
+    "BUILD"
+   ],
+   "evidence": [
+    "../biocage-evo/l2_febio"
+   ],
+   "status": {
+    "TIED": {
+     "state": "partial",
+     "date": "2026-11-01",
+     "value": "人體家族全部；evo 體素場路徑未核"
+    },
+    "FRIC": {
+     "state": "partial",
+     "date": "2026-11-01"
+    },
+    "GPUFE": {
+     "state": "not_run"
+    }
+   },
+   "refs": []
+  },
+  {
+   "id": "DIV-02",
+   "cap": "DIV",
+   "facet": "fidelity",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC",
+    "GPUFE"
+   ],
+   "name": "不均質化",
+   "method": "比對模型每個 cage 元素的硬相比例 = 設計場值（0.2 mm）；等效律只能取代最外層 0.2 mm",
+   "threshold": "自動比對 100% 一致",
+   "threshold_src": "PI 2026-10-31",
+   "trigger": "MESH、BUILD 或 EQLAW 變更時",
+   "depends": [
+    "MESH",
+    "BUILD",
+    "EQLAW"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "partial",
+     "date": "2026-11-01",
+     "value": "h12 依構造成立；無自動比對"
+    },
+    "FRIC": {
+     "state": "partial",
+     "date": "2026-11-01"
+    },
+    "GPUFE": {
+     "state": "not_run"
+    }
+   },
+   "refs": [
+    "no-homogenization"
+   ]
+  },
+  {
+   "id": "DIV-03",
+   "cap": "DIV",
+   "facet": "computability",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "可計算率",
+   "method": "算到規則判定（pass、規則 fail、下限超標 fail）的設計 / 全部設計",
+   "threshold": "≥ 95%",
+   "threshold_src": "提案",
+   "trigger": "每批",
+   "depends": [
+    "BUILD",
+    "SPLIT",
+    "FEBIO",
+    "COLLECT"
+   ],
+   "evidence": [
+    "../biocage-evo/results/method/split"
+   ],
+   "status": {
+    "TIED": {
+     "state": "fail",
+     "date": "2026-11-02T16:10",
+     "value": "重算後 135/150 有規則判定（72 pass、63 fail）= 90%；另 10 個 DECISION/T05-lowerbound（PI 接受下限判 fail 則 145/150 = 97%）、2 個 [多元]/computability、1 個 [數值]/unstable-window",
+     "note": "PI 2026-11-03：T05 下限判 fail → 10 個 open 設計改 fail；可計算率以「有判定」計為 145/150 = 97%；仍有 p023、p053 插入段停算（平台問題，調查中）"
+    },
+    "FRIC": {
+     "state": "fail",
+     "date": "2026-11-01",
+     "value": "4 / 7",
+     "reconfirmed": {
+      "date": "2026-11-02T10:00",
+      "note": "11-02 collect_split 只改資料夾路徑字串（改名），不影響此檢查"
+     }
+    }
+   },
+   "refs": [
+    "T05",
+    "T08",
+    "T01"
+   ]
+  },
+  {
+   "id": "DIV-04",
+   "cap": "DIV",
+   "facet": "uniformity",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "不可計算設計無偏",
+   "method": "不可計算設計在各家族、gradient、E_soft 區間的比例",
+   "threshold": "任一類 ≤ 2 × 整體比例",
+   "threshold_src": "提案",
+   "trigger": "每批",
+   "depends": [
+    "COLLECT"
+   ],
+   "evidence": [
+    "human_study/WINDOW_SCAN_2026-11-02.md"
+   ],
+   "status": {
+    "TIED": {
+     "state": "fail",
+     "date": "2026-11-02T15:30",
+     "value": "split2 整體 31%；家族 B 8/9 (89%)、gradient both 7/8 (88%)、interleave 11/30 (37%) vs mix 2/12、E_soft 低三分位 8/14 (57%) vs 高 0/14"
+    }
+   },
+   "refs": [
+    "T05"
+   ]
+  },
+  {
+   "id": "DIV-05",
+   "cap": "DIV",
+   "facet": "uniformity",
+   "required": false,
+   "configs": [
+    "TIED"
+   ],
+   "name": "無設計專屬調參（診斷）",
+   "method": "每個設計使用的求解模式與重試都有紀錄，且該模式被 NUM-08 / NUM-09 覆蓋",
+   "threshold": "100%",
+   "threshold_src": "提案",
+   "trigger": "每批",
+   "depends": [
+    "SPLIT",
+    "COLLECT"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "partial",
+     "date": "2026-10-31",
+     "value": "模式有紀錄；靜態重試未被 NUM-09 覆蓋",
+     "reconfirmed": {
+      "date": "2026-11-02T10:00",
+      "note": "11-02 collect_split 只改資料夾路徑字串（改名），不影響此檢查"
+     }
+    }
+   },
+   "refs": [
+    "RISKS B3"
+   ]
+  },
+  {
+   "id": "DIV-06",
+   "cap": "DIV",
+   "facet": "representation",
+   "required": false,
+   "configs": [
+    "TIED"
+   ],
+   "name": "取樣多樣性（診斷）",
+   "method": "獨特設計 / AL 點",
+   "threshold": "≥ 95%",
+   "threshold_src": "提案",
+   "trigger": "每輪 AL",
+   "depends": [
+    "AL"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "fail",
+     "date": "2026-10-31",
+     "value": "133 / 150 = 88.7%"
+    }
+   },
+   "refs": [
+    "T15"
+   ]
+  },
+  {
+   "id": "GEN-01",
+   "cap": "GEN",
+   "facet": "uncertainty",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "解剖變異（59 / 64 歲模型）",
+   "method": "通過名單在其他年齡模型重跑",
+   "threshold": "判定翻轉率 ≤ 10%",
+   "threshold_src": "提案",
+   "trigger": "暫緩",
+   "depends": [
+    "ANAT"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "deferred"
+    }
+   },
+   "refs": [
+    "T14"
+   ]
+  },
+  {
+   "id": "GEN-02",
+   "cap": "GEN",
+   "facet": "uncertainty",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "材料離散",
+   "method": "E_hard、E_soft ±批次離散",
+   "threshold": "判定翻轉率 ≤ 10%",
+   "threshold_src": "提案",
+   "trigger": "暫緩",
+   "depends": [
+    "SETTINGS"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "deferred"
+    }
+   },
+   "refs": []
+  },
+  {
+   "id": "GEN-03",
+   "cap": "GEN",
+   "facet": "uncertainty",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "摩擦係數 0.2 / 0.45",
+   "method": "mu_req 判定對 mu 的敏感度",
+   "threshold": "判定翻轉率 ≤ 10%",
+   "threshold_src": "提案",
+   "trigger": "暫緩",
+   "depends": [
+    "SETTINGS"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "deferred"
+    }
+   },
+   "refs": []
+  },
+  {
+   "id": "GEN-04",
+   "cap": "GEN",
+   "facet": "uncertainty",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "手術置入偏差",
+   "method": "前後、左右位移與傾角",
+   "threshold": "判定翻轉率 ≤ 10%",
+   "threshold_src": "提案",
+   "trigger": "暫緩",
+   "depends": [
+    "BUILD"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "deferred"
+    }
+   },
+   "refs": []
+  },
+  {
+   "id": "GEN-05",
+   "cap": "GEN",
+   "facet": "uncertainty",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "判定規則門檻",
+   "method": "壓縮上限 10/20%、20/30%；推出守門值",
+   "threshold": "報告翻轉的設計",
+   "threshold_src": "提案",
+   "trigger": "暫緩",
+   "depends": [
+    "COLLECT"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "deferred"
+    }
+   },
+   "refs": [
+    "T04",
+    "T12"
+   ]
+  },
+  {
+   "id": "TIM-01",
+   "cap": "TIM",
+   "facet": "timecourse",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "軟相降解",
+   "method": "E_soft × 0.5 / 0.2 / 0.1 敏感度（5 個通過設計）",
+   "threshold": "通過設計在降解後仍通過",
+   "threshold_src": "提案",
+   "trigger": "暫緩",
+   "depends": [
+    "SETTINGS"
+   ],
+   "evidence": [
+    "../biocage-evo/results/method/degr/compare.json"
+   ],
+   "status": {
+    "TIED": {
+     "state": "deferred",
+     "date": "2026-11-01",
+     "value": "敏感度已跑：mu_req 幾乎不變；p115 只達 3-4 視窗"
+    }
+   },
+   "refs": [
+    "T04"
+   ]
+  },
+  {
+   "id": "TIM-02",
+   "cap": "TIM",
+   "facet": "timecourse",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "硬相蠕變破裂",
+   "method": "持續應力 vs 濕態降伏 25%（e06 為 t = 0 代理）",
+   "threshold": "待定",
+   "threshold_src": "",
+   "trigger": "暫緩",
+   "depends": [
+    "METRICS"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "deferred"
+    }
+   },
+   "refs": [
+    "T11",
+    "Lintz 2021"
+   ]
+  },
+  {
+   "id": "TIM-03",
+   "cap": "TIM",
+   "facet": "timecourse",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "軟相壓縮永久變形",
+   "method": "需 bench 數據",
+   "threshold": "待定",
+   "threshold_src": "",
+   "trigger": "暫緩",
+   "depends": [
+    "SETTINGS"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "deferred"
+    }
+   },
+   "refs": [
+    "T04"
+   ]
+  },
+  {
+   "id": "TIM-04",
+   "cap": "TIM",
+   "facet": "timecourse",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "biodisc 成熟後的負荷分擔",
+   "method": "biodisc 剛度隨時間上升的情境",
+   "threshold": "待定",
+   "threshold_src": "",
+   "trigger": "暫緩",
+   "depends": [
+    "BUILD"
+   ],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "deferred"
+    }
+   },
+   "refs": []
+  },
+  {
+   "id": "TIM-05",
+   "cap": "TIM",
+   "facet": "timecourse",
+   "required": true,
+   "configs": [
+    "TIED"
+   ],
+   "name": "疲勞",
+   "method": "循環負荷",
+   "threshold": "待定",
+   "threshold_src": "PI 決定延後",
+   "trigger": "暫緩",
+   "depends": [],
+   "evidence": [],
+   "status": {
+    "TIED": {
+     "state": "deferred"
+    }
+   },
+   "refs": [
+    "evo-roles-independent-focus"
+   ]
+  },
+  {
+   "id": "NUM-14",
+   "cap": "NUM",
+   "facet": "temporal",
+   "required": true,
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "name": "剛體動態殘差（重試步偽力矩）",
+   "method": "C3pot.txt 的剛體反力矩 |M_rb|（FEBio m_Mr：附著節點殘差 + 跟隨負荷 + 關節力的累加；準靜態收斂態為 0）。h34 掃描每批所有視窗；e03.filter_rows 把 |M_rb| > 2%×目標 的狀態排除在判定之外（理由 dyn）；h28 重定振幅、h31 window_check 同規則。力殘差只記錄（rb_fres_max）。",
+   "threshold": "判定不使用任何 |M_rb| > 0.02×目標（30 N·mm）的狀態；每批報告 dyn 態數與「達標→未達標」視窗數；修正量驗證：M_drive − M_rb(軸向) 把尖峰拉回鄰點插值 ±1%",
+   "threshold_src": "PI 2026-11-03（接受濾除為常規）",
+   "trigger": "每批（彙整前）",
+   "depends": [
+    "FEBIO",
+    "BUILD",
+    "SPLIT",
+    "METRICS"
+   ],
+   "evidence": [
+    "human_study/WINDOW_SCAN_2026-11-02.md",
+    "human_study/CAPABILITY_GAPS_2026-11-02.md#2.9",
+    "biocage-evo/methods/e03_mu_req.py"
+   ],
+   "status": {
+    "TIED": {
+     "state": "pass",
+     "date": "2026-11-02T18:00",
+     "value": "474 視窗 5278 態：158 視窗有 dyn 態（337 = 6.4%）；11 視窗由達標改未達標（生產批 5：p088 AR_left、p107 AR_right、p117 AR_right、p015 AR_right、p082 AR_left）；123 視窗重算，70/62/16",
+     "note": "PI 2026-11-03：兩層濾除接受為常規；根治（降密度／靜態／重試回步）不現在做（GAPS 3.7）"
+    },
+    "FRIC": {
+     "state": "pass",
+     "date": "2026-11-02T18:00",
+     "value": "physio_fric／fric2 視窗同規則掃描；p060 LB_left 末態殘差 281483（已由 dt 層濾除）",
+     "note": "PI 2026-11-03：兩層濾除接受為常規；根治（降密度／靜態／重試回步）不現在做（GAPS 3.7）"
+    }
+   },
+   "refs": [
+    "T02",
+    "GAPS 2.9",
+    "GAPS 3.7"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,15 @@
+{
+ "cases": {
+  "p095": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 402.4,
+   "cores": 4,
+   "core_h": 0.447
+  }
+ },
+ "batch_wall_s": 412.4,
+ "total_core_h": 0.447,
+ "gpu_h": 0.0,
+ "not_run": []
+}

@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/raid/jupyter-alz.ee09/projects/claude-work/biocage stimulation test 1/scripts/5_compute/h19_scheduler.py", line 202, in <module>
+    main()
+  File "/raid/jupyter-alz.ee09/projects/claude-work/biocage stimulation test 1/scripts/5_compute/h19_scheduler.py", line 198, in main
+    time.sleep(60)
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/raid/jupyter-alz.ee09/projects/claude-work/biocage stimulation test 1/scripts/5_compute/h19_scheduler.py", line 202, in <module>
+    main()
+  File "/raid/jupyter-alz.ee09/projects/claude-work/biocage stimulation test 1/scripts/5_compute/h19_scheduler.py", line 198, in main
+    time.sleep(60)
+KeyboardInterrupt

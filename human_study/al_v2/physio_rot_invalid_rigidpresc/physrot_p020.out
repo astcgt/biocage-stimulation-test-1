@@ -1,0 +1,17 @@
+started p020 on cores 48..68
+finished p020: {'exit': -15, 'normal': False, 'wall_s': 332.4, 'cores': 4, 'core_h': 0.369}
+{
+ "cases": {
+  "p020": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 332.4,
+   "cores": 4,
+   "core_h": 0.369
+  }
+ },
+ "batch_wall_s": 342.5,
+ "total_core_h": 0.369,
+ "gpu_h": 0.0,
+ "not_run": []
+}

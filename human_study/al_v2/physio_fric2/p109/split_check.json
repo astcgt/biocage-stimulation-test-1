@@ -1,0 +1,78 @@
+{
+ "windows": {
+  "flexion": {
+   "exit": -15,
+   "banner": "ERROR",
+   "n_converged": 0,
+   "t_last": null,
+   "n_negjac": 50,
+   "static_retry": true,
+   "drive_rows": 0,
+   "dt_min": null,
+   "M_max_Nmm": null,
+   "target_reached": null
+  },
+  "extension": {
+   "exit": -15,
+   "banner": "ERROR",
+   "n_converged": 0,
+   "t_last": null,
+   "n_negjac": 602,
+   "static_retry": true,
+   "drive_rows": 0,
+   "dt_min": null,
+   "M_max_Nmm": null,
+   "target_reached": null
+  },
+  "LB_right": {
+   "exit": 0,
+   "banner": "NORMAL",
+   "n_converged": 116,
+   "t_last": 4.0,
+   "n_negjac": 4165,
+   "static_retry": false,
+   "drive_rows": 116,
+   "dt_min": 0.0002532600000000329,
+   "M_max_Nmm": 2775.32626338,
+   "target_reached": true
+  },
+  "LB_left": {
+   "exit": 0,
+   "banner": "NORMAL",
+   "n_converged": 31,
+   "t_last": 4.0,
+   "n_negjac": 305,
+   "static_retry": false,
+   "drive_rows": 31,
+   "dt_min": 0.0009970400000001156,
+   "M_max_Nmm": 1715.32813193,
+   "target_reached": true
+  },
+  "AR_left": {
+   "exit": 0,
+   "banner": "NORMAL",
+   "n_converged": 69,
+   "t_last": 4.0,
+   "n_negjac": 71,
+   "static_retry": false,
+   "drive_rows": 69,
+   "dt_min": 0.001648219999999867,
+   "M_max_Nmm": 2693.18200839,
+   "target_reached": true
+  },
+  "AR_right": {
+   "exit": 0,
+   "banner": "NORMAL",
+   "n_converged": 81,
+   "t_last": 4.0,
+   "n_negjac": 101,
+   "static_retry": false,
+   "drive_rows": 81,
+   "dt_min": 0.0005098399999998726,
+   "M_max_Nmm": 3284.0884836,
+   "target_reached": true
+  }
+ },
+ "n_error": 2,
+ "n_below_target": 2
+}

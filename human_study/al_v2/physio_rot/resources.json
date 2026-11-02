@@ -1,0 +1,15 @@
+{
+ "cases": {
+  "p138": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 4135.9,
+   "cores": 4,
+   "core_h": 4.595
+  }
+ },
+ "batch_wall_s": 4146.0,
+ "total_core_h": 4.595,
+ "gpu_h": 0.0,
+ "not_run": []
+}

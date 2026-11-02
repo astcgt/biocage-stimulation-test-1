@@ -1,0 +1,17 @@
+started p026 on cores 63..90
+finished p026: {'exit': -15, 'normal': False, 'wall_s': 232.3, 'cores': 4, 'core_h': 0.258}
+{
+ "cases": {
+  "p026": {
+   "exit": -15,
+   "normal": false,
+   "wall_s": 232.3,
+   "cores": 4,
+   "core_h": 0.258
+  }
+ },
+ "batch_wall_s": 242.3,
+ "total_core_h": 0.258,
+ "gpu_h": 0.0,
+ "not_run": []
+}

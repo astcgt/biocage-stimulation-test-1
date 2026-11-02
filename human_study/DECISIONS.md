@@ -922,3 +922,125 @@ constraints = surgery-compatible + no nerve / bone harm; maximum freedom otherwi
   physio_degr010); split2 protocol and amplitudes; E_soft below the agreed 1.5-12 MPa range on purpose (literature: CL-rich
   PLCL loses half its molecular weight in 18-32 days). Question: does fixation (mu_req) or the compression rule fail first
   as the compliant phase softens?
+- 2026-11-01 23:40 folder renamed 'biocage stimulation test 1' -> biocage_stimulation_test_oct2026 (no symlink; queue empty, no FEBio running since 10-31 15:47). Daemons stopped and restarted via biocage-evo/ops/resume_all.sh; hard-coded paths updated in biocage-evo code/docs (config.json, e03_batch.sh, resume_all.sh, collect_split.py, fric_compare.py, degr_compare.py, activity_keepalive.py, make_figs.py, run_foreman.sh, foreman.md) and PROGRESS_REPORT_2026-10-31.md; result json 'case' fields keep the old path as a record.
+- 2026-11-01 user: the four platform goals (physically realistic, as fast as possible, observe only the targets we care about,
+  accommodate diverse designs) ARE the capability labels. Every failed run / debugging item / change must be tagged with the
+  capability it concerns ([物理] [速度] [觀測] [多元]), classified as platform deficiency vs design elimination ([設計]) vs rule
+  pending ([決定]), and assessed for its effect on the other three capabilities. Written: human_study/PLATFORM_CAPABILITIES.md
+  (capability objects, decision table, trade-off matrix, impact-assessment template) and human_study/AUDIT_TODO_2026-11-01.md
+  (severity-ordered to-do list, plain language, glossary). Post-processing run today: ops/fric_compare.py and ops/degr_compare.py
+  (biocage-evo results/method/fric, degr). Findings: (1) real-friction batch (physrotFr_, 7 designs): p048 / p084 / p115 stop in
+  the follower-load or release step (inversions in cage soft layers AND C3/C4 cortical bone), p109 flexion/extension fail; the
+  completed windows used the tied amplitudes (physio_rot_rad identical) and reach only 0.5-1.2 N m (p062 flexion 922 vs 1746
+  N mm tied) -> gate 4 not yet answered; (2) e04 accepted a must-point micro-step (dt 2e-6, slow dynamic) as the target state:
+  p060 LB_left M -295270 N mm, target_reached True -> evaluation-state filter needed; (3) degradation sweep E_soft x 0.5/0.2/0.1
+  on p048 p062 p097 p109 p115: mu_req and sustained compression almost unchanged (p062 0.136 -> 0.138; p048 sustained 6.6 -> 6.9 %),
+  slip bound rises (p048 0.158 -> 0.351 mm), p115 reaches only 3-4 windows at the fixed amplitudes: passing designs are
+  hard-phase-carried; soft-phase degradation is not their fixation risk, hard-phase creep (e06) is. Sensitivity only, not merged.
+- 2026-11-02 07:06 folder renamed again biocage_stimulation_test_oct2026 -> biocage_simulation_test_oct2026 (typo: simulation, not stimulation; no symlink; queue empty, no FEBio running). Daemons stopped / restarted via biocage-evo/ops/resume_all.sh; the same 10 biocage-evo code/doc files plus PROGRESS_REPORT_2026-10-31.md and AUDIT_TODO_2026-11-01.md re-pointed.
+- 2026-11-02 user: capability labels refined. [數值] numerical correctness (Verification: discretization, time stepping / slow-dynamic
+  artefacts, contact algorithm, protocol approximations, solver consistency) is a fifth PRIMARY label, split from [物理] (now
+  Validation only). [泛化] robustness of conclusions and [時程] support-period coverage are SECONDARY: registered, verdict
+  deferred, but every conclusion carries their scope statements (R07, R08). Judgement made systematic and object-oriented:
+  Capability -> Facet -> Check (method, threshold + source, configs, required/advisory, depends on Components, status per
+  Configuration TIED / FRIC / GPUFE), Restriction (bounded / exclusion / scope). Facet = worst required check; only a bounded
+  restriction upgrades a gap to 有條件合格; a component modified after a check's evidence date makes it stale. Files:
+  human_study/PLATFORM_CAPABILITIES.md (rules), human_study/platform_capabilities.json (56 checks, 9 restrictions),
+  scripts/8_audit/h33_capability_audit.py -> human_study/CAPABILITY_SCORECARD.md (generated), `impact` query for changes.
+  First verdicts (TIED / FRIC / GPUFE): [物理] 未評/未評/-, [數值] 未評/不合格/不合格, [速度] 不合格/不合格/-, [觀測] 不合格 x3,
+  [多元] 不合格/不合格/未評. All thresholds marked 提案 await the PI. AUDIT_TODO retagged (T01 T02 T14 T17 T18).
+- 2026-11-02 15:40 capability gap pass (user: list gaps per label by severity, research, implement what is safe, list conflicts
+  and unsolvable items; human_study/CAPABILITY_GAPS_2026-11-02.md). Implemented, all post-processing / operations (no FEBio
+  input changed): (1) biocage-evo e03.filter_rows + target_bracket: evaluation states with dt < 1e-4 (FEBio must-point /
+  step-end micro-step, FECore FETimeStepController::CheckMustPoints: spurious inertia moment in slow dynamics) or isolated
+  moment spikes (deviation from the neighbour prediction > max(0.15 target, 1x predicted)) are excluded; metrics interpolated
+  between the two states bracketing 1.5 N m (T07 overshoot removed: p062 extension slip 0.1463 -> 0.1383 mm vs sequential
+  0.1339; AR_left 0.2090 -> 0.2016 vs 0.2006, i.e. the split-vs-sequential residual WAS the overshoot); e04/e05 --test.
+  (2) scripts/8_audit/h34_window_scan.py (WINDOW_SCAN_2026-11-02.md): 474 windows, 1 micro-step, 21 spike windows, 3 old
+  verdicts rested on a spurious state (split2 p015 / p027 extension, fric p060 LB_left -> below target, R02); 16 failed
+  insertions, 15 with C3/C4 cortical bone inversions (74-590 elements; [數值] NUM-06, not a design verdict); non-computable
+  designs concentrate in family B (8/9), gradient both (7/8), interleave (11/30 vs mix 2/12), low E_soft (8/14 vs 0/14 high).
+  (3) h31 writes w_*/window_check.json + split_check.json; collect_split rejects windows without valid states, adds
+  class/reason per design (PASS, DESIGN/compression-*, [觀測]/amplitude, [觀測]/integrity, [多元]/computability,
+  DECISION/T05-lowerbound), normalises old folder names; full re-evaluation of split2-4 running (old results kept in
+  results/method/split_pre_interp_20261031/). (4) h19 reads human_study/scheduler_tuning.json every pass, pauses launches when
+  free disk < 100 GB (usage limit off until the PI sets the quota); h23 atomic state files, tolerant loads, hourly du ->
+  disk_usage.json, ALERT_watchdog.txt after 3 failed cycles, al/loop.done stops the AL-loop restarts (2060 so far); both
+  daemons restarted 14:45. (5) h28 despike (a spike no longer freezes the amplitude). Queued: physrotFr2_ (al_v2/physio_fric2:
+  p060 p062 p109 p125, amplitudes retargeted from physio_fric; gate 4 second pass) and p062 numerical-convergence runs
+  physrotNdt_ (physio_dt 0.025), physrotNp05_/Np20_ (penalty 5/20), physrotNhz_ (cage HZ 0.1 mm, meshconv/
+  cage_A_axial_mix_d0.500_HZ0.1.npz, penalty 5 to keep the auto-penalty stiffness ~E/h); settings classes added. Literature:
+  Henninger 2010 (< 5 % mesh-convergence criterion for spine segments); Smit/Engels/Govaert 2008/2010 (PLLA creep: 50 % of
+  short-term strength -> ~1 day, 14 MPa per decade; 25 % -> ~3 months); FEBio plot_level/stride only for fixed steps and
+  must-point states are micro-step states -> xplt reduction must be post-run (conflict 3.1). Open for the PI: GAPS section 4
+  (bone inversions, family B computability, material data, disk policy, e06 threshold, 135 N gate, slow-dynamic artefacts).
+- 2026-11-02 16:10 re-evaluation of split2-4 with the interpolating / filtering e03-e05 ended: 276 windows, 0 errors; verdicts
+  72 pass / 63 fail / 13 open (was 73 / 63 / 12). Among 234 windows reached in both evaluations mu_squeeze moved by -0.4 %
+  (median) and the slip bound by -3.4 %; the 13 windows with |d mu| > 20 % are 10 whose old evaluation state was a moment spike
+  (p100 LB_right 0.043 -> 0.122, p092 AR_left 0.125 -> 0.036, p082 p088 p015 p052 p061 p051) and 3 with mu < 0.01 (absolute
+  change <= 0.002). p027 pass -> open: its extension window collapsed after a spike (1434 -> 1742 -> 992 -> -137 N mm, C3
+  cortical inversions); collect_split rule added: a window with dropped states AND a non-monotonic moment is 'unstable' and
+  counts neither as reached nor as a compression lower bound -> class [數值]/unstable-window, recompute before any verdict.
+  Classes: PASS 72, DESIGN/compression-sustained 53, -peak 5, -peak-lowerbound 5, DECISION/T05-lowerbound 10 (p009 p011 p021
+  p033 p035 p045 p047 p055 p057 p058), [多元]/computability 2 (p023 p053), [數值]/unstable-window 1 (p027). All 8 queued runs
+  (physrotFr2_ x4, physrotN* x4) started on CPU: every GPU is occupied by other users.
+
+## 2026-11-02 18:00 — numerical convergence of the rotation protocol; second evaluation-state rule (rigid-body dynamic residual, NUM-14)
+- The four p062 convergence runs (dt x0.5, penalty x0.5 / x2, cage HZ 0.1 mm with penalty 5) ended. First comparison: 5/6 windows
+  within tolerance for every variant, extension out by 6-7 % in all four - but the four variants agreed with each other to 2 %; the
+  OUTLIER WAS THE BASELINE. Per-state trajectories: the baseline's state at t 3.9455 is a retried step (log: Retry attempt 1, dt
+  0.05 -> 0.04545) whose joint moment reads 1360 while the neighbours predict 1535; slip / mu / N of that state are consistent with
+  the neighbours; C3pot.txt logs a rigid-body moment My = -184 N mm at that state (< 0.3 elsewhere) = the deficit.
+- Root cause of the "spikes" (T02): the driven rigid body's inertial residual (mass-scaled slow dynamics, density 1e-6 t/mm3 =
+  1000 x water) after a retried / cut step, at the window start, or during contact chatter; the joint moment absorbs the same
+  amount. Verified on all large spikes: M_drive - M_rb(axis) returns to the neighbour interpolation within 1 % (p052 +245 % ->
+  +0.4 %, p051 +237 % -> +0.6 %, p093 +118 % -> -1.0 %, p142 +32 % -> -0.5 %, p145 +34 % -> 0.0 %). FEBio source: m_Fr / m_Mr are
+  the assembled residual contributions on the body (FEResidualVector, FERigidFollowerForce, FEGenericRigidJoint).
+- RULE (standing, 提案 threshold): a state whose rigid-body moment residual |M_rb| > 2 % of the target (30 N mm) is never used for a
+  verdict (e03.filter_rows reason 'dyn'; h28, h31, h34 same rule). Dropped, not repaired: the correction is unreliable inside
+  unstable windows. The force residual is reported only (rb_fres_max): states 2-7 N off the follower with |M_rb| < 30 have smooth
+  slip / mu / N (p092 flexion, p130 extension, p083 LB_left) - convergence slack, not a transient. A tighter smoothness threshold
+  was rejected (would touch 75 windows, mostly legitimate sign-crossing ramps).
+- Scan (h34): 158 / 474 windows have such states (337 / 5278 = 6.4 %); 11 windows flip "reached" -> "not reached" (production 5:
+  p088 AR_left, p107 AR_right, p117 AR_right, p015 AR_right split3, p082 AR_left split4). 123 production windows re-evaluated
+  (old results archived in biocage-evo/results/method/split_pre_dyn_20261102/): 70 pass / 62 fail / 16 open (was 72/63/13).
+  Moved: p082, p107 PASS -> open [數值]/unstable-window; p003 fail (peak lower bound) -> open. collect_split: a window with
+  dropped states that did not end in a valid state (complete False) is also 'unstable'.
+- Re-run comparison: NUM-01 / NUM-03 / NUM-05 PASS on p062 (time step: all |d| <= 0.2 %; penalty x0.5 / x2: slip <= 2.3 %, mu
+  <= 3.3 % (extension 7.7 % = 0.0011 absolute); mesh 0.1 mm: slip <= 0.8 %, mu <= 4.9 % (0.0012); sustained <= 0.11 pp). mu
+  relative changes count only when |d mu| > 0.005 (MU_ABS, 提案). R09 exclusion -> bounded (< 5 % = tie; +-5 % of a threshold =
+  數值待確認). Only p062 (family A) verified.
+- Duplicate designs (AL did not dedupe): p082=p088, p092=p117, p093=p145, p100=p142 (only the h28 amplitudes differ). Windows with
+  identical amplitudes agree to <= 3.1e-10 between cuDSS (GPU) and pardiso (CPU) and between GPUs -> NUM-11 pass; windows with
+  10 % different amplitude give mu / slip / N at 1.5 N m within 0.5 % -> rate independence of the slow-dynamic protocol (NUM-08
+  support). p082 open vs p088 PASS for the same design: evidence of duplicates should be merged (T26).
+- Registry 57 checks, scorecard regenerated: [數值] temporal facet 合格, contact facet 不合格 (bone inversions), capability
+  不合格. Friction second pass (physrotFr2_, CPU) still running. Open PI items unchanged (GAPS section 4); item 7 now has the
+  root cause and two options (accept the filter as routine, or invest in lower density / static / step-restart - all need
+  re-validation).
+
+## 2026-11-03 — PI DECISIONS on the 2026-11-02 capability audit (plain-language list answered item by item)
+1. Slow-dynamic spurious states: the two-layer evaluation-state filter (micro-step; rigid-body moment residual > 2 % of the target,
+   NUM-14) is ACCEPTED AS ROUTINE. Root-cause fixes (lower density, static windows, step restart) are not pursued now.
+2. Numerical-convergence tolerances CONFIRMED: mesh and penalty 5 %, time step 2 % (p062 passes). ALSO verify one family-B (thin
+   soft layer) design — pending: no family-B design has completed any window yet (all 9 stop under the follower load or during
+   insertion), so this waits for item 4.
+3. T05 lower bound: an insertion run that stops under the follower load with the soft layer already compressed beyond the limit is a
+   FAIL (class DESIGN/compression-sustained-lowerbound; collect_split updated). 10 designs move open -> fail.
+4. Designs that stop in the insertion phase before any load (p023, p053): treat as a PLATFORM problem first; search for fixes and
+   iterate; come back to the PI only when nothing works, or with an analysis showing thin soft layers are not a realistic design.
+5. Bone element inversions: first ANALYSE why a reputable solver fails on bone (fundamental) — analysis started
+   (human_study/BONE_INVERSION_ANALYSIS_2026-11-03.md when done), no fix runs yet.
+6. Duplicate designs: merge evidence of identical-parameter designs in collect_split (done; p082 inherits p088's AR_left) and
+   de-duplicate AL proposals against all existing points (h22 updated).
+7. Hard-phase stress (e06) threshold: 18 % of short-term strength — but SECONDARY; focus stays on the short-term indicators and the
+   capability labels (no slip-out, successful insertion). e06 not implemented now.
+8. Expulsion gate 135 N: PI asked for the difference between "ASTM-style relative comparison" and "value re-derived from
+   physiological shear" before deciding (explained in the 2026-11-03 report).
+9. Storage: /raid is not needed for compute now — archive to the NAS (/mnt/jp/alz.ee09), cap 3 TB. h36_nas_archive.sh moves finished
+   sets and leaves symlinks; phase 1 (old / invalid sets, ~1.1 TB) started 2026-11-03; split2/3/4, fric, degr, numconv follow when
+   the friction second pass has ended.
+10. Material bench data: none yet.
+11. Commit and push both repositories (done 2026-11-03).
+12. Reporting: from now on reports to the PI in plain language like a briefing to a boss — problem / cause / recommended fix /
+    professional sources consulted; encoded as the project agent .claude/agents/pi-report.md.
