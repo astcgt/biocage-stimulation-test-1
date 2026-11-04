@@ -1150,7 +1150,7 @@
    ],
    "name": "FEBio 補丁回歸",
    "method": "補丁版重編後 vs 前一基準（2026-10-21 補丁版，該版與原版差 ≤ 5e-8）：FSU 六向（CPU 與 cuDSS GPU 路徑）、Herron C0-C7 前屈／後伸；比對末態追蹤節點位移",
-   "threshold": "末態相對差 ≤ 1e-4（求解容差）；C0-C7 後伸例外見 value",
+   "threshold": "末態相對差 ≤ 1e-4（求解容差）",
    "threshold_src": "整合者 2026-10-21",
    "trigger": "FEBIO 每次重編",
    "depends": [
@@ -1163,15 +1163,15 @@
    ],
    "status": {
     "TIED": {
-     "state": "pass",
-     "date": "2026-11-05T04:25",
+     "state": "partial",
+     "date": "2026-11-05T06:38",
      "value": "2026-11-05 重跑（2026-11-03 03:00 執行檔，verify_patch_20261105/compare.json）：FSU 六向 CPU 與 10-21 基準末態差 ≤ 4.8e-12，GPU（cuDSS）路徑 ≤ 7.9e-12，GPU vs CPU 同執行檔 ≤ 7.9e-12（compare.json gpu_vs_cpu_same_binary） → 生產幾何通過。C0-C7 前屈 1.1e-4（絕對 0.004 mm，門檻邊緣）；C0-C7 後伸 C0 轉角差 0.025 %，但節點位移差最大 0.12 mm（C6 相對 2 %），自動步長路徑不同（嘗試步數 46 vs 56 含重試，收斂步 30 vs 32；compare.json c0c7_step_counts），舊執行檔已不存在無法固定步長雙跑 → 此案超門檻，未能證明非物理差異",
-     "note": "2026-11-05 PI 第 6 項重跑。判 pass 的依據是生產用的 FSU 幾何（兩條路徑皆 ≤ 1e-11）；C0-C7 後伸的 2 % 節點差標為限制（路徑依賴的摩擦接觸問題），不蓋過。"
+     "note": "PI 2026-11-05 06:38：判「部分通過」— 生產用 FSU 幾何（CPU 與 cuDSS 兩路徑）通過 ≤ 1e-11；Herron C0-C7 後伸一案 2 % 節點差超過 1e-4 門檻，舊執行檔已不存在無法對跑，門檻不加例外。"
     },
     "FRIC": {
-     "state": "pass",
-     "date": "2026-11-05T04:25",
-     "note": "2026-11-05 PI 第 6 項重跑。判 pass 的依據是生產用的 FSU 幾何（兩條路徑皆 ≤ 1e-11）；C0-C7 後伸的 2 % 節點差標為限制（路徑依賴的摩擦接觸問題），不蓋過。",
+     "state": "partial",
+     "date": "2026-11-05T06:38",
+     "note": "PI 2026-11-05 06:38：判「部分通過」— 生產用 FSU 幾何（CPU 與 cuDSS 兩路徑）通過 ≤ 1e-11；Herron C0-C7 後伸一案 2 % 節點差超過 1e-4 門檻，舊執行檔已不存在無法對跑，門檻不加例外。",
      "value": "2026-11-05 重跑（2026-11-03 03:00 執行檔，verify_patch_20261105/compare.json）：FSU 六向 CPU 與 10-21 基準末態差 ≤ 4.8e-12，GPU（cuDSS）路徑 ≤ 7.9e-12，GPU vs CPU 同執行檔 ≤ 7.9e-12（compare.json gpu_vs_cpu_same_binary） → 生產幾何通過。C0-C7 前屈 1.1e-4（絕對 0.004 mm，門檻邊緣）；C0-C7 後伸 C0 轉角差 0.025 %，但節點位移差最大 0.12 mm（C6 相對 2 %），自動步長路徑不同（嘗試步數 46 vs 56 含重試，收斂步 30 vs 32；compare.json c0c7_step_counts），舊執行檔已不存在無法固定步長雙跑 → 此案超門檻，未能證明非物理差異"
     }
    },

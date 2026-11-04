@@ -1025,11 +1025,12 @@
     "../biocage-evo/ops/fric_compare.py:89",
     "human_study/PI_PENDING_DECISIONS.md:5-7"
    ],
-   "status": "PI待決",
+   "status": "符合",
    "evidence": "PI 原話「1.5 N·m 點＝體外實驗標準力矩」被解讀為 04:30 條件式。若 PI 意為「只看 1.5 N·m」：14 個 extension@ROM fail（p051 p060 p072 p075 p076 p092 p093 p114 p117 p135 p139 p142 p143 p145）→ open；合併 DESIGN/dislocation-friction 17 → 0（p077/p086/p100 經 pooling 一併離開），這些設計轉入 interface-shear 或 friction-window。等 PI 確認（PI_PENDING_DECISIONS §A）。",
-   "checked": "2026-11-05 04:21",
+   "checked": "2026-11-05 06:38",
    "source": "verdict",
-   "check": "llm"
+   "check": "llm",
+   "note_pi": "PI 2026-11-05 06:38: reading confirmed: 1.5 N m when transmitted, else ROM"
   },
   {
    "id": "D-20261105-2",
@@ -1294,11 +1295,12 @@
     "human_study/platform_capabilities.json:1143",
     "human_study/verify_patch_20261105/compare.json"
    ],
-   "status": "實作時自選",
+   "status": "符合",
    "evidence": "8 個回歸案例中 c0c7/flex_neg_y worst_rel 2.08e-2 > 門檻 1e-4（整合者 2026-10-21）；標籤仍判 pass，並把 threshold 文字改成「≤ 1e-4；C0-C7 後伸例外見 value」。理由（生產用 FSU 幾何兩條路徑皆 ≤ 1e-11；C0-C7 後伸為路徑依賴的摩擦接觸、舊執行檔已不存在）在 DECISIONS 04:25 有記載，但「一案超門檻仍 pass＋門檻加例外」是實作判斷，決策文（第 6 項只說重跑）未授權。PI 簽核：接受例外，或改 NUM-10 為 partial。",
-   "checked": "2026-11-05 04:29",
+   "checked": "2026-11-05 06:38",
    "source": "labels",
-   "check": "llm"
+   "check": "llm",
+   "note_pi": "PI 2026-11-05 06:38: NUM-10 -> partial (threshold kept at 1e-4, no exception)"
   },
   {
    "id": "D-20261105-L6",

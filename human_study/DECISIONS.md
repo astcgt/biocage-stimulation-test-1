@@ -1631,3 +1631,11 @@ PI answers (verbatim): 1 "1.5 N·m 點＝體外實驗標準力矩"; 2 依照建�
   p139 dirs deleted and rebuilt (schedule 0.126 / 0.161, preflight OK), requeued. The other 8 pilots were fresh builds and are correct
   (params = case = window schedule 0.126). Lesson: never rely on a build-skip when the inputs changed; the preflight must cover every
   file FEBio reads.
+
+## 2026-11-05 06:38 — PI DECISIONS: item-1 reading confirmed; NUM-10 partial
+- PI (verbatim): "傳得到 1.5 N·m 在 1.5 N·m 判，傳不到才在 ROM 判" — the implemented reading of item 1 is confirmed; D-20261105-1b closed.
+  Gate-4 numbers stand: 14 fail / 24 pass / 33 open; merged radial-mix-excluded 28, dislocation-friction 17, interface-shear-provisional 14,
+  friction-computability 14, PASS 0.
+- PI: "NUM-10 例外：部分通過" — NUM-10 TIED / FRIC set to partial (production FSU geometry passes on both solver paths at <= 1e-11;
+  the C0-C7 extension case exceeds the 1e-4 threshold by 2 % at node level and cannot be re-run against the old binary); the threshold
+  keeps no exception. Sign-off item D-20261105-S4 closed.

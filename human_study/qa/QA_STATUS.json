@@ -1,6 +1,6 @@
 {
- "time": "2026-11-05 04:44",
- "overall": "PASS",
+ "time": "2026-11-05 06:38",
+ "overall": "WARN",
  "checks": [
   {
    "id": "R1-case-dir",
@@ -69,8 +69,8 @@
   },
   {
    "id": "R10-llm-audit-due",
-   "status": "PASS",
-   "message": "LLM audit current: last 2026-11-05 04:43; gate files changed since: []; decision entries since: []"
+   "status": "WARN",
+   "message": "LLM audit required: last 2026-11-05 04:43; gate files changed since: []; decision entries since: ['2026-11-05 06:38']"
   }
  ],
  "counts": {
@@ -101,7 +101,9 @@
   "unmapped": [],
   "mismatch": [],
   "gate_files_changed": [],
-  "new_decisions": []
+  "new_decisions": [
+   "2026-11-05 06:38"
+  ]
  },
  "mode": "quick"
 }
