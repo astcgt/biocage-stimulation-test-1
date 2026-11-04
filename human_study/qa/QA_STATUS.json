@@ -1,6 +1,6 @@
 {
- "time": "2026-11-05 04:39",
- "overall": "WARN",
+ "time": "2026-11-05 04:44",
+ "overall": "PASS",
  "checks": [
   {
    "id": "R1-case-dir",
@@ -65,12 +65,12 @@
   {
    "id": "R10-register",
    "status": "PASS",
-   "message": "88 register items; unmapped []; 不符 []"
+   "message": "94 register items; unmapped []; 不符 []"
   },
   {
    "id": "R10-llm-audit-due",
-   "status": "WARN",
-   "message": "LLM audit required: last 2026-11-05 04:29; gate files changed since: ['scripts/5_compute/h24_preflight.py']; decision entries since: []"
+   "status": "PASS",
+   "message": "LLM audit current: last 2026-11-05 04:43; gate files changed since: []; decision entries since: []"
   }
  ],
  "counts": {
@@ -96,13 +96,11 @@
   "designs": 149
  },
  "register": {
-  "last_llm_audit": "2026-11-05 04:29",
-  "n_items": 88,
+  "last_llm_audit": "2026-11-05 04:43",
+  "n_items": 94,
   "unmapped": [],
   "mismatch": [],
-  "gate_files_changed": [
-   "scripts/5_compute/h24_preflight.py"
-  ],
+  "gate_files_changed": [],
   "new_decisions": []
  },
  "mode": "quick"

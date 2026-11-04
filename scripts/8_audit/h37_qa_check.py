@@ -198,7 +198,7 @@ def r13_window_amplitude(case_dirs):
     bad = []
     for d in case_dirs:
         base = re.sub(r'_gpu\d+$', '', d.rstrip('/')); pj = base + '_params.json'      # the launch truth is the params file (h28 / h22), not the
-        if not os.path.exists(pj): continue                                              # built case.json (a stale build is self-consistent)
+        if not os.path.exists(pj): bad.append(f'{os.path.relpath(d, P)}: no params file {os.path.basename(pj)} (amplitude unverifiable)'); continue   # 2026-11-05 S5: never a silent pass
         want = dict((json.load(open(pj)).get('physio_rot_rad') or {}))
         S = json.load(open(os.path.join(P, 'human_study/current_settings.json'))); rel = os.path.relpath(base, P) + '/'
         for prefix, v in S['classes'].items():

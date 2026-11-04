@@ -1,7 +1,7 @@
 {
  "meta": {
   "note": "Register: one entry per PI decision that the code must implement. status in {符合, 不符, 未實作, 實作時自選, PI待決, unmapped}. check = h37 check id or 'llm' (judged by the qa-auditor agent). last_llm_audit is set by the auditor, never by h37.",
-  "last_llm_audit": "2026-11-05 04:29",
+  "last_llm_audit": "2026-11-05 04:43",
   "gate_files": [
    "scripts/3_cage_case/h14_build_case.py",
    "scripts/6_active_learning/h22_active_learning.py",
@@ -18,7 +18,8 @@
   "audit_report": "human_study/qa/audits/QA_AUDIT_2026-11-05.md",
   "note_15_10": "statuses updated by the main session after the 14:50-15:00 label maintenance; register content from the qa-auditor run of 14:41",
   "note_20261105": "second LLM audit (qa-auditor) 2026-11-05 04:13-04:21: PI decisions of 04:10 registered (D-20261105-*); 11 existing items revised; 不符 D-20261104-L1, D-20261104-L5, D-20261105-L3 (label / document text and numbers, no verdict change)",
-  "note_recheck": "2026-11-05 04:29: re-check after main-session fixes (DECISIONS 04:24 / 04:25 / 04:28 entries): D-20261104-L1, D-20261104-L5, D-20261105-L3 -> 符合; D-20261105-6 -> 符合; new D-20261105-S4 (NUM-10 pass with threshold exception, PI sign-off), D-20261105-L6 (labels stale after gate-file edits). 不符 0."
+  "note_recheck": "2026-11-05 04:29: re-check after main-session fixes (DECISIONS 04:24 / 04:25 / 04:28 entries): D-20261104-L1, D-20261104-L5, D-20261105-L3 -> 符合; D-20261105-6 -> 符合; new D-20261105-S4 (NUM-10 pass with threshold exception, PI sign-off), D-20261105-L6 (labels stale after gate-file edits). 不符 0.",
+  "note_recheck2": "2026-11-05 04:43: registered DECISIONS 04:38 GAP entry (h24 window-file comparison, h37 R13/R12, p139 rebuild + requeue, cancelled stale jobs); h14 rebuild of p139 and a synthetic stale copy run independently; D-20261104-S4 -> 符合; new sign-off D-20261105-S5 (R13 silent skip without params file). Commits 974e595 / a30c002 noted."
  },
  "items": [
   {
@@ -933,11 +934,12 @@
     "scripts/6_active_learning/h28_physio_prerun.py:156",
     "scripts/8_audit/h37_qa_check.py:25"
    ],
-   "status": "實作時自選",
-   "evidence": "h24:122 只重建比對 case.feb；w_*/restart.feb（h30 由 h14:631 產生）不在比對與 fingerprint 內，h31 重啟前無檢查（本次人工驗證三案 restart.feb md5 相同）。h28:156 以 'OK' in r.stdout 子字串判斷。h37 PILOT_KEYS 只列 6 鍵，h14 另有 aggressiveness, dtmax_windows, follower_in_release, physio_dt0, cage_penalty_fixed, physio_rot_factor, physio_scale, facet_contact, diag_drop, distract_free, seat_mm, dtol, release_dt, distract_dt 等以 prm.get 讀取的選項未納入（R7 的 extra-keys 一致性檢查部分補上）。h06 / h18 直接執行不查 preflight（只有 h19:188）。",
-   "checked": "2026-11-04 14:41",
+   "status": "符合",
+   "evidence": "h24:122 只重建比對 case.feb；w_*/restart.feb（h30 由 h14:631 產生）不在比對與 fingerprint 內，h31 重啟前無檢查（本次人工驗證三案 restart.feb md5 相同）。h28:156 以 'OK' in r.stdout 子字串判斷。h37 PILOT_KEYS 只列 6 鍵，h14 另有 aggressiveness, dtmax_windows, follower_in_release, physio_dt0, cage_penalty_fixed, physio_rot_factor, physio_scale, facet_contact, diag_drop, distract_free, seat_mm, dtol, release_dt, distract_dt 等以 prm.get 讀取的選項未納入（R7 的 extra-keys 一致性檢查部分補上）。h06 / h18 直接執行不查 preflight（只有 h19:188）。 | 2026-11-05 04:38：restart.feb / physio_schedule.json 未納入 h24 比對的簽核項已被 p139 事件證明有害並以 h24:124-131 補上（見 D-20261105-9a）；h24 現涵蓋 case.feb + 每個視窗的 restart.feb / restart_static.feb / physio_schedule.json + h37 launch（R7/R9/R13）。",
+   "checked": "2026-11-05 04:43",
    "source": "sim",
-   "check": "llm"
+   "check": "llm",
+   "status_before_20261105_0450": "實作時自選"
   },
   {
    "id": "D-20261104-S5",
@@ -1310,6 +1312,90 @@
    "evidence": "h33 以元件 mtime 比 status.date：fric_compare / collect_split（METRICS、COLLECT）與 current_settings（SETTINGS）03:40-03:5x 的改動使 PHY-06（SETTINGS）、OBS-02、OBS-03、OBS-07（METRICS）、OBS-05、OBS-06（COLLECT）在 04:25 計分表標「過期」（計分表共 23 處「過期」）。QA_SYSTEM／h33 規則：改動不影響者加 status.reconfirmed {date, note}，否則重跑。尚未處理；不影響判定數字。",
    "checked": "2026-11-05 04:29",
    "source": "labels",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261105-9a",
+   "decisions_line": 1622,
+   "quote": "h24 now also compares every w_*/restart.feb, restart_static.feb and physio_schedule.json against the rebuild (tested: the stale p139 build FAILS, the fresh builds pass)",
+   "code": [
+    "scripts/5_compute/h24_preflight.py:117-131",
+    "scripts/3_cage_case/h14_build_case.py"
+   ],
+   "status": "符合",
+   "evidence": "h24:120-123 先比 case.feb sha；:124-131 相同時再對 rebuild 目錄每個 w_*（:125）比 restart.feb / restart_static.feb / physio_schedule.json 的 sha（:127-130），任一不同 → err「stale split build」。前提驗證：h14 以 p139_params.json 建到 scratchpad 確實產生 w_flexion/、w_extension/（各含 restart.feb、physio_schedule.json），所以 :125 的 glob 不是空集合；rebuild 與現行 p139 case 的 case.feb / w_flexion/restart.feb / w_flexion/physio_schedule.json / w_extension/restart.feb sha 逐一相等（8e30bd02 / da9b8fa1 / acf05499 / 3c162782）。此類別無 restart_static.feb，:129 的 exists(a) 保護使其不誤報。限制：舊的 stale p139 已刪除，「stale 建置 FAIL」無法由我重現，只能由 h24 邏輯推得（schedule 內容不同 → sha 不同 → FAIL）；每個 w_* 只報第一個不同檔（:131 break）。 preflight.json mtime fric4/p139 04:37, fric4dt/p139 04:37 vs h24 修改 04:36",
+   "checked": "2026-11-05 04:43",
+   "source": "sim",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261105-9b",
+   "decisions_line": 1622,
+   "quote": "h37 launch gate R13 compares the window schedules rot_rad with the params file and the class setting … verified on a synthetic stale copy",
+   "code": [
+    "scripts/8_audit/h37_qa_check.py:197-213",
+    "scripts/8_audit/h37_qa_check.py:296-300",
+    "scripts/5_compute/h24_preflight.py:133-134"
+   ],
+   "status": "符合",
+   "evidence": "h37:199-200 以 <case>_params.json（去 _gpuN）為真值；:202-205 current_settings 類別的 physio_rot_rad 覆寫；:206-212 每個 w_*/physio_schedule.json 的 rot_rad 與真值差 > 1e-9 → FAIL；:298 launch 子命令執行 R7/R9/R13；h24:133 以 subprocess 呼叫 launch，rc≠0 → err。獨立重現：複製 physio_fric4/p139 到 scratchpad、把 w_flexion/physio_schedule.json flexion 改 0.035、params 檔放旁邊 → `FAIL R13-window-amplitude: … flexion 0.035 != params/settings 0.126`。現行 10 個試點目錄 R13 PASS（p139 兩類、p062_gpu3 實跑）。弱點：params 檔不存在時 :200 `continue` → 無聲 PASS（我移除 params 檔後重跑得 PASS）；經 h24 路徑不受影響（h24:102 無 params 檔即 ok=False），但直接呼叫 h37 launch 時會漏。見 D-20261105-S5。",
+   "checked": "2026-11-05 04:43",
+   "source": "ops",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261105-9c",
+   "decisions_line": 1622,
+   "quote": "p139 dirs deleted and rebuilt (schedule 0.126 / 0.161, preflight OK), requeued. The other 8 pilots were fresh builds and are correct (params = case = window schedule 0.126)",
+   "code": [
+    "human_study/al_v2/physio_fric4/p139",
+    "human_study/al_v2/physio_fric4dt/p139",
+    "human_study/queue/running/"
+   ],
+   "status": "符合",
+   "evidence": "physio_fric4/p139 與 p139_gpu1：case.feb、w_flexion/restart.feb mtime 04:36；physio_fric4dt 同 04:37；case physio_schedule.json 與 w_flexion/w_extension 的 rot_rad flexion 0.126 / extension 0.161 = p139_params.json physio_rot_rad = 類別設定；preflight.json ok true（preflight.json mtime fric4/p139 04:37, fric4dt/p139 04:37 vs h24 修改 04:36）。_gpu1 複本在跑（started_at 存在，case.log running t 1.35 / 1.18）；queue/running/ 含 physF4_p139.job、physF4dt_p139.job。其他 8 個試點（p060 p061 p062 p083 兩類）case 與視窗 schedule rot_rad 皆 0.126 / 0.161。",
+   "checked": "2026-11-05 04:43",
+   "source": "sim",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261105-9d",
+   "decisions_line": 1622,
+   "quote": "Stale jobs moved to human_study/queue/cancelled_stale_amplitude/ … physF4_p139 ran to the end with the wrong amplitude (windows reached 2.0 / 2.9 deg, below the ROM); physF4dt_p139 killed at t ~3",
+   "code": [
+    "human_study/queue/cancelled_stale_amplitude/"
+   ],
+   "status": "符合",
+   "evidence": "目錄含 042836_physF4_p139.job/.out（.out：started physio_fric4/p139_gpu1 on GPU 1；exit 0 normal wall 1807 s）與 043537_physF4dt_p139.job/.out（exit 1 normal False wall 2134 s）。stale 的 run 目錄已刪除，故「視窗 2.0 / 2.9 deg、0.035 / 0.050 rad」無法再由檔案核對，只剩 DECISIONS 文字；兩個 stale 結果未進任何結果檔（physio_fric4 不在 fric_compare SETS，fric_compare.py:18）。",
+   "checked": "2026-11-05 04:43",
+   "source": "ops",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261105-9e",
+   "decisions_line": 1622,
+   "quote": "(h37 R12 file index)",
+   "code": [
+    "scripts/8_audit/h37_qa_check.py:184-194",
+    "human_study/FILE_INDEX.md"
+   ],
+   "status": "符合",
+   "evidence": "h37:187 取 FILE_INDEX.md 反引號內路徑，:189-191 只檢查 human_study/ scripts/ ../biocage-evo/ .claude/ febio 前綴且非絕對路徑者是否存在（glob 允許）；04:29 quick：133 paths, missing []。只檢查「存在」，不檢查索引是否完整。",
+   "checked": "2026-11-05 04:43",
+   "source": "ops",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261105-S5",
+   "decisions_line": 1622,
+   "quote": "R13 … the launch truth is the params file",
+   "code": [
+    "scripts/8_audit/h37_qa_check.py:200"
+   ],
+   "status": "實作時自選",
+   "evidence": "R13 在 params 檔不存在時無聲略過（PASS），且比對鍵只限 want 中有的 dof（:211 `if k in got`）。經 h24 的起跑門無此漏洞（h24:102），但 h37 launch 可被單獨呼叫。建議：無 params 檔時報 WARN/FAIL 而非略過。PI/維護者簽核。",
+   "checked": "2026-11-05 04:43",
+   "source": "ops",
    "check": "llm"
   }
  ]
