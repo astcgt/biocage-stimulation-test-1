@@ -42,12 +42,16 @@ def block_ranges(feb_path):
 
 
 def negjac_blocks(log, rng):
-    """negative-Jacobian element ids in a log -> {block: count of distinct elements}, plus the number of lines."""
+    """negative-Jacobian element ids in a log -> ({block: count of distinct elements}, number of lines, FIRST block).
+    2026-11-03: the counts are NOT where the failure starts - FEBio prints at most -output_negative_jacobians (50) ids per domain
+    per update and aborts the mesh update at the first domain that throws, and the domains are checked in block order
+    (C3_cortical first, cage last), so bone counts are inflated; the diverged iterates of a retried step are not converged states
+    either. The FIRST inverted element of the log is the only reliable attribution (BONE_INVERSION_ANALYSIS_2026-11-03.md)."""
     ids = re.findall(r'Negative jacobian was detected at element (\d+)', open(log, errors='ignore').read())
+    blk = lambda e: next((b for b, (a, z) in rng.items() if a <= e <= z), 'unknown')
     c = Counter()
-    for e in set(int(i) for i in ids):
-        c[next((b for b, (a, z) in rng.items() if a <= e <= z), 'unknown')] += 1
-    return dict(c), len(ids)
+    for e in set(int(i) for i in ids): c[blk(e)] += 1
+    return dict(c), len(ids), blk(int(ids[0])) if ids else None
 
 
 def window_rows(wd):
@@ -86,18 +90,18 @@ def scan():
             if b == 'ERROR':
                 lg = open(os.path.join(rd, 'case.log'), errors='ignore').read()
                 conv = [float(v) for v in re.findall(r'converged at time : ([0-9.eE+-]+)', lg)]
-                nb, nl = negjac_blocks(os.path.join(rd, 'case.log'), block_ranges(os.path.join(rd, 'case.feb')))
+                nb, nl, first = negjac_blocks(os.path.join(rd, 'case.log'), block_ranges(os.path.join(rd, 'case.feb')))
                 bone = sum(v for k, v in nb.items() if 'cortical' in k or 'trabecular' in k)
                 out['failed_insertions'].append(dict(set=s, design=p, run=os.path.relpath(rd, P), t_last=max(conv) if conv else None,
-                                                     negjac_elements_by_block=nb, negjac_lines=nl, bone_elements=bone, **info[p]))
+                                                     negjac_elements_by_block=nb, negjac_lines=nl, bone_elements=bone, first_block=first, **info[p]))
             for wd in sorted(glob.glob(os.path.join(rd, 'w_*'))):
                 wn = os.path.basename(wd)[2:]; wb = banner(os.path.join(wd, 'case.log'))
                 if wb is None or not os.path.exists(os.path.join(wd, 'drive.txt')):
                     out['windows'].append(dict(set=s, design=p, window=wn, banner=wb, n_rows=0)); continue
                 r = window_rows(wd)
-                nb, nl = negjac_blocks(os.path.join(wd, 'case.log'), block_ranges(os.path.join(rd, 'case.feb'))) if nl_hint(wd) else ({}, 0)
+                nb, nl, first = negjac_blocks(os.path.join(wd, 'case.log'), block_ranges(os.path.join(rd, 'case.feb'))) if nl_hint(wd) else ({}, 0, None)
                 out['windows'].append(dict(set=s, design=p, window=wn, banner=wb, static_retry=os.path.exists(os.path.join(wd, 'case_dyn_fail.log')),
-                                           negjac_elements_by_block=nb, negjac_lines=nl, **r))
+                                           negjac_elements_by_block=nb, negjac_lines=nl, first_block=first, **r))
         # DIV-04: distribution of the non-computable designs vs all designs of the set
         fails = [f['design'] for f in out['failed_insertions'] if f['set'] == s]
         dist = {}
@@ -134,11 +138,11 @@ def report(out):
             L.append(f"  - （不影響判定）{w['set']}/{w['design']}/{w['window']}：{w['invalid']}")
     dts = sorted(w['dt_min'] for w in W if w.get('dt_min') is not None)
     if dts: L += ['', f"- 有效步長最小值分布：min {dts[0]:.4g}，中位數 {dts[len(dts) // 2]:.4g}，< 0.01 的視窗 {sum(d < 0.01 for d in dts)}"]
-    L += ['', '## 2. [數值] NUM-06 元素翻轉落在哪個區塊', '', '### 2.1 插入 run 失敗（ERROR）', '', '| 集合 | 設計 | 停在 t | 骨元素 | 各區塊（相異元素數） | 家族/梯度/製法/d/E_soft |', '|---|---|---|---|---|---|']
+    L += ['', '## 2. [數值] NUM-06 元素翻轉：哪個區塊先翻（2026-11-03 起以「第一個翻轉元素」歸因；各區塊計數受 -output_negative_jacobians=50 與區塊檢查順序膨脹，骨元素多為重試迭代的發散值）', '', '### 2.1 插入 run 失敗（ERROR）', '', '| 集合 | 設計 | 停在 t | **先翻的區塊** | 骨元素（膨脹值） | 各區塊（相異元素數） | 家族/梯度/製法/d/E_soft |', '|---|---|---|---|---|---|---|']
     for f in out['failed_insertions']:
-        L.append(f"| {f['set']} | {f['design']} | {f['t_last']} | **{f['bone_elements']}** | {', '.join(f'{k} {v}' for k, v in sorted(f['negjac_elements_by_block'].items(), key=lambda x: -x[1]))} | {f['family']}/{f['gradient']}/{f['fab']}/{f['d']}/{f['E_soft']} |")
-    bone_fail = [f for f in out['failed_insertions'] if f['bone_elements']]
-    L += ['', f"插入失敗 {len(out['failed_insertions'])} 個，其中 **{len(bone_fail)} 個含骨元素翻轉**（平台 [數值] 問題，不得歸咎設計）。", '', '### 2.2 視窗（含正常結束但曾翻轉重試的）', '']
+        L.append(f"| {f['set']} | {f['design']} | {f['t_last']} | **{f.get('first_block')}** | {f['bone_elements']} | {', '.join(f'{k} {v}' for k, v in sorted(f['negjac_elements_by_block'].items(), key=lambda x: -x[1]))} | {f['family']}/{f['gradient']}/{f['fab']}/{f['d']}/{f['E_soft']} |")
+    firsts = Counter(f.get('first_block') for f in out['failed_insertions'])
+    L += ['', f"插入失敗 {len(out['failed_insertions'])} 個；先翻的區塊：{', '.join(f'{k} {v}' for k, v in firsts.most_common())}（cage_soft 先翻 = 軟墊到達 Gent 鎖死伸長，見 BONE_INVERSION_ANALYSIS_2026-11-03.md）。", '', '### 2.2 視窗（含正常結束但曾翻轉重試的）', '']
     wj = [w for w in W if w.get('negjac_lines')]
     byb = Counter(); bone_win = []
     for w in wj:

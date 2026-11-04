@@ -299,7 +299,15 @@ def contacts(parent, pen_lc=None, mu_lc=None):
                      ('search_radius', 1.0), ('fric_coeff', mu), ('fric_penalty', prm.get('fric_penalty', 10.0)), ('ktmult', 1), ('knmult', 1))
         else:
             c = ET.SubElement(C, 'contact', type='sliding-elastic', name=f'{name}', surface_pair=name)
-            items = (('laugon', 0), ('penalty', PENALTY), ('auto_penalty', 1), ('two_pass', 0), ('search_tol', 0.01),
+            if prm.get('cage_penalty_fixed'):
+                # 2026-11-03 friction-batch test: auto_penalty scales the penalty per cage facet with the facet element's bulk
+                # modulus (FESlidingElasticInterface::CalcAutoPenalty on the slave surface), so a radial pad mixes penalties
+                # ~10-65x apart on one contact face (hard k 365 vs soft k 5.5-40 MPa, h 0.2 mm). A fixed, uniform penalty
+                # (N/mm^3; typically the soft-facet value PENALTY*k_soft/HZ) removes the heterogeneity.
+                pen_items = (('penalty', float(prm['cage_penalty_fixed'])), ('auto_penalty', 0))
+            else:
+                pen_items = (('penalty', PENALTY), ('auto_penalty', 1))
+            items = (('laugon', 0),) + pen_items + (('two_pass', 0), ('search_tol', 0.01),
                      ('search_radius', 1.0), ('symmetric_stiffness', SYM), ('tension', 0), ('fric_coeff', mu), ('knmult', 0))
         for k, v in items:
             e = ET.SubElement(c, k); e.text = str(v)
@@ -313,6 +321,8 @@ def tied(parent):
         for k, v in (('laugon', 0), ('penalty', PENALTY), ('auto_penalty', 1), ('two_pass', 0), ('search_tol', 0.01),
                      ('search_radius', 1.0), ('symmetric_stiffness', SYM), ('knmult', 1), ('init_time', 2.0)):
             ET.SubElement(c, k).text = str(v)
+        if prm.get('tied_init_converged'):             # 2026-11-03 (FEBio patch 'init_converged'): tie formed on the converged t = 2 state
+            ET.SubElement(c, 'init_converged').text = '1'
 def control(parent, steps, dt, dtmax, must=None):
     c = ET.SubElement(parent, 'Control')
     for k, v in (('time_steps', steps), ('step_size', dt), ('max_refs', 25), ('max_ups', 10), ('dtol', prm.get('dtol', 0.001)),
@@ -321,7 +331,19 @@ def control(parent, steps, dt, dtmax, must=None):
     ts = ET.SubElement(c, 'time_stepper')
     for k, v in (('dtmin', dt / 100), ('dtmax', dtmax), ('max_retries', 10), ('opt_iter', 15)):
         ET.SubElement(ts, k).text = str(v)
+    if prm.get('aggressiveness') is not None:       # 2026-11-03 pilot (fix 2): retries cut dt geometrically instead of linearly
+        ET.SubElement(ts, 'aggressiveness').text = str(prm['aggressiveness'])
     if must: ET.SubElement(ts, 'dtmax', lc=must).text = '1'
+    elif prm.get('dtmax_windows'):                  # 2026-11-03 pilot (fix 2): small steps around the event times (t 2, t 3)
+        if 'dtmax_curve' not in lcs:               # one step curve for the whole analysis: the step's own dtmax outside the windows
+            bounds = [(0, 1, DIST_DT), (1, 2, prm.get('insert_dt', 0.1)), (2, 3, REL_DTMAX), (3, 1e3, prm.get('physio_dt', 0.05))]
+            pts = []
+            for a, b, v in bounds:
+                pts.append((a, v))
+                for (w0, w1, wv) in sorted(prm['dtmax_windows']):     # a window may straddle a step boundary: clip it to the step
+                    if w0 < b and w1 > a: pts += [(max(w0, a), wv), (min(w1, b), v)]
+            lc('dtmax_curve', pts, kind='step')
+        ET.SubElement(ts, 'dtmax', lc=lcs['dtmax_curve']).text = '1'
     ET.SubElement(c, 'analysis', type='static')
 def rigid(parent, presc=(), fixed=(), force=()):
     r = ET.SubElement(parent.find('Boundary') if parent.find('Boundary') is not None else ET.SubElement(parent, 'Boundary'), 'rigid_body', mat='2')
@@ -337,7 +359,11 @@ if CONTACT_MODE == 'global':
     # stick/slip state and causing a residual jump at every step start with stiff penalties). Penalty x lc: 0 while the cage
     # sits in the undistracted gap (distraction), log-like ramp during seating (press fit: the endplates separate by less than
     # d under the distraction force), full from t = 2. Friction 0 during seating (cage pinned in X-Y), mu from release on.
-    if INSERT == 'expand':                          # no overlap at t = 1 -> full penalty as soon as contact is on
+    if INSERT == 'expand' and CONTACT_TYPE == 'tied' and prm.get('sliding_off_after_tie'):
+        # 2026-11-03 pilot (BONE_INVERSION_ANALYSIS fix 4): once the tie carries the interface (formed at t = 2 on the converged
+        # state) the sliding contact's penalty ramps to 0, so one surface pair is not governed by two penalties
+        lc('pen_ramp', [(0, 0), (1, 0), (1.001, 1), (2, 1), (2.03, 0), (1e3, 0)])
+    elif INSERT == 'expand':                        # no overlap at t = 1 -> full penalty as soon as contact is on
         lc('pen_ramp', [(0, 0), (1, 0), (1.001, 1), (1e3, 1)])
     else:
         lc('pen_ramp', [(0, 0), (1, 0), (1.001, 1e-3), (1.3, 1e-2), (1.6, 1e-1), (2, 1), (1e3, 1)])
@@ -462,15 +488,31 @@ elif test == 'physio_rot':
                 _vol.append(abs(np.linalg.det((Pn[1:] - Pn[0]).T)) / 6); _cen.append(Pn.mean(0))
     C3COM = (np.array(_cen) * np.array(_vol)[:, None]).sum(0) / sum(_vol)
     seq = [('Ry', 1, 'flexion'), ('Ry', -1, 'extension'), ('Rx', 1, 'LB_right'), ('Rx', -1, 'LB_left'), ('Rz', 1, 'AR_left'), ('Rz', -1, 'AR_right')]
+    if prm.get('physio_windows'): seq = [x for x in seq if x[2] in prm['physio_windows']]   # 2026-11-03: subset of windows (friction flexion / extension check, PI)
     T0 = 3.5; DT = prm.get('physio_dt', 0.05)
-    lc('follower', [(3.0, 0.0), (T0, 1.0), (T0 + len(seq) + 100, 1.0)])
+    if prm.get('follower_in_release'):
+        # 2026-11-03 pilot (BONE_INVERSION_ANALYSIS fix 3): the follower load ramps inside the STATIC release step (t 2.5-3.0)
+        # so that the first dynamic step no longer stacks three events (static->dynamic switch, load start, dt change)
+        lc('follower', [(2.5, 0.0), (3.0, 1.0), (T0 + len(seq) + 100, 1.0)]); rigid(s2b, force=[('z', lcs['follower'], -FL)])
+    else:
+        lc('follower', [(3.0, 0.0), (T0, 1.0), (T0 + len(seq) + 100, 1.0)])
     # 2026-10-29: the Lagrange-multiplier joint and the sliding-elastic facet / cage contacts need a NON-symmetric global
     # stiffness (FEBio warns "Rigid connectors require non-symmetric stiffness matrix"); the solver default (symmetric)
     # dropped those terms and the pilots stalled at facet contact onset in extension (p062 t 4.87, p001 t 4.83)
     SYMG = prm.get('physio_rot_symmetric', 0)
-    control(s3, int(round((T0 - 3.0) / DT)), DT, DT)
+    DT0 = prm.get('physio_dt0', DT)                 # 2026-11-03 pilot (fix 3): the first dynamic step starts small (e.g. 0.005) and grows to DT
+    control(s3, int(round((T0 - 3.0) / DT0)), DT0, DT)
     ET.SubElement(s3.find('Control'), 'symmetric_stiffness').text = str(SYMG)
     rigid(s3, force=[('z', lcs['follower'], -FL)])
+    if prm.get('c3_release_ramp'):
+        # 2026-11-04 pilot (friction batch, 27 radial insertion failures): the release step holds C3 in x, y, Rx, Ry, Rz while the
+        # distracted segment is seated, which stores a reaction (My ~ 730 N mm per mm of distraction, Fx ~ -25 N/mm); the hold
+        # step frees those DOFs in one step, so the first step after t 3 starts with residual |F|^2+|M|^2 (1e4-1e6) = an impact
+        # that the soft contact faces of the radial designs do not survive. The ramp applies the t 3 reactions as rigid forces /
+        # moments that decay linearly to 0 over the hold step (t 3 -> T0), i.e. the distractor is removed gradually.
+        RR = prm['c3_release_ramp']                 # {"Fx","Fy","Mx","My","Mz"} from C3pot.txt at t 3 (N, N mm)
+        lc('c3_release', [(3.0, 1.0), (T0, 0.0), (T0 + len(seq) + 100, 0.0)])
+        rigid(s3, force=[(dof, lcs['c3_release'], float(RR[k])) for k, dof in (('Fx', 'x'), ('Fy', 'y'), ('Mx', 'Rx'), ('My', 'Ry'), ('Mz', 'Rz')) if abs(float(RR.get(k, 0))) > 0])
     for i, (dd, sg, nm) in enumerate(seq):
         ts = T0 + i
         si = ET.SubElement(root, 'Step', name='physio_' + nm)
@@ -491,7 +533,7 @@ elif test == 'physio_rot':
         for k, v in (('laugon', 2), ('body_a', 1), ('body_b', 2), ('joint', ','.join(f'{c:.6g}' for c in C3COM))):
             ET.SubElement(cj, k).text = str(v)
         ET.SubElement(cj, 'prescribe_' + dd, lc=lcs['rot_' + nm]).text = f'{float(sg) * TH[nm] * F:.6g}'
-    json.dump(dict(control='rotation', target_moment_Nmm=M, follower_N=FL, t_follower=[3.0, T0], rot_rad={k: v * F for k, v in TH.items()},
+    json.dump(dict(control='rotation', target_moment_Nmm=M, follower_N=FL, t_follower=[2.5, 3.0] if prm.get('follower_in_release') else [3.0, T0], rot_rad={k: v * F for k, v in TH.items()},
                    windows=[dict(name=n, dof=dd, sign=sg, t0=T0 + i, t_peak=T0 + i + 0.5, t1=T0 + i + 1.0) for i, (dd, sg, n) in enumerate(seq)]),
               open(os.path.join(out, 'physio_schedule.json'), 'w'), indent=1)
 else:
@@ -544,8 +586,12 @@ if DYN and (test.startswith('physio') or prm.get('test_dynamic')):   # solution;
     for m in root.find('Material'):
         for dn in m.iter('density'): dn.text = f"{DYN.get('density', 1e-6):.6g}"
         if m.find('density') is None: ET.SubElement(m, 'density').text = f"{DYN.get('density', 1e-6):.6g}"
+    # 2026-11-03 pilot (friction batch: 21 radial designs lose their soft face elements in the FIRST dynamic step at t = 3,
+    # initial residual 1e4-1e6 vs 1e-2 static, independent of dt): dynamic_from_release moves the static->dynamic switch to
+    # t = 2, where the cage is still held (cage_hold) and no load ramps, so the switch transient meets a constrained cage.
+    STATIC_STEPS = ('distract', 'insert_seat') if prm.get('dynamic_from_release') else INSERTION_STEPS
     for st_ in root.findall('Step'):
-        if st_.get('name') in INSERTION_STEPS: continue
+        if st_.get('name') in STATIC_STEPS: continue
         ctl = st_.find('Control'); ctl.find('analysis').set('type', 'dynamic')
         ET.SubElement(ctl, 'rhoi').text = str(DYN.get('rhoi', 0.0))
 DROP = list(prm.get('diag_drop', []))               # distraction-stiffness diagnosis: remove a tissue component

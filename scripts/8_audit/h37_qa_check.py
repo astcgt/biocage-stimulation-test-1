@@ -1,0 +1,289 @@
+"""QA regression checks: does the platform still do what the decision log says it does? (PI 2026-11-04: a QA agent must check
+periodically that the code matches the agreed method and the capability labels, so that drift does not produce wrong numbers.)
+
+Layer A of human_study/qa/QA_SYSTEM.md: deterministic checks, each one born from a real error of 2026-10-31 .. 11-04. They
+REPORT only; nothing here edits DECISIONS, labels or results. Layer B (judgement: does the code implement the meaning of a
+decision?) is the qa-auditor agent, which fills human_study/qa/QA_SPEC.json; this script only tells when that audit is due.
+
+usage: python scripts/8_audit/h37_qa_check.py            # full: all checks, writes human_study/qa/QA_STATUS.{json,md}, exit 1 on FAIL
+       python scripts/8_audit/h37_qa_check.py --quick    # no rebuild / no face recount (seconds); same outputs
+       python scripts/8_audit/h37_qa_check.py launch <case_dir> [...]   # launch gate for h24: pilot keys + material blocks of that case
+       python scripts/8_audit/h37_qa_check.py --daemon [hours]          # full check every N h (default 6), log human_study/qa/qa.log (tmux biocage_qa)
+"""
+import os, sys, re, json, glob, csv, time, hashlib, subprocess, tempfile, collections
+import xml.etree.ElementTree as ET
+import numpy as np
+
+P = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+EV = os.path.normpath(os.path.join(P, '..', 'biocage-evo'))
+QA = os.path.join(P, 'human_study/qa'); os.makedirs(QA, exist_ok=True)
+SETTINGS = os.path.join(P, 'human_study/current_settings.json')
+H14 = os.path.join(P, 'scripts/3_cage_case/h14_build_case.py')
+GOLDEN = dict(params='human_study/al_v2/physio_fric3/p062_params.json', md5='4f3208b5e014c353f0f0e3683c1679ed',
+              note='production p062 physio_fric3 case.feb, DECISIONS 2026-11-03 14:30 / 22:30')
+# pilot-only options: never in a production class or case (DECISIONS 2026-11-03 22:30: all default off, production byte-identical)
+PILOT_KEYS = ('dynamic_from_release', 'c3_release_ramp', 'sliding_off_after_tie', 'tied_init_converged', 'test_dynamic', 'only_distract')   # 'test' is the protocol name, not an option
+REQ = ('flexion', 'extension')
+FACES = ((0, 1, 2, 3), (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7))
+R = []     # (check id, status PASS/FAIL/WARN/SKIP, message)
+
+
+def rep(cid, ok, msg, warn=False): R.append((cid, 'PASS' if ok else ('WARN' if warn else 'FAIL'), msg))
+
+
+def md5(path): return hashlib.md5(open(path, 'rb').read()).hexdigest()
+
+
+def ended(log):
+    if not os.path.exists(log): return None
+    tail = open(log, errors='ignore').read()[-4000:]
+    return 'NORMAL' if 'N O R M A L' in tail else ('ERROR' if 'E R R O R' in tail else None)
+
+
+def pilot_keys_in(prm): return [k for k in PILOT_KEYS if prm.get(k)]
+
+
+# ---------------------------------------------------------------- R1 run dir resolved (error 2026-11-04: p110 build dir vs p110_gpu3)
+def r1_case_dirs():
+    rows = [r for r in json.load(open(os.path.join(EV, 'results/method/fric/compare.json'))) if 'note' not in r]
+    bad, amb = [], []
+    for r in rows:
+        d = os.path.join(P, 'human_study/al_v2', r['set'], r['case_dir'], 'w_' + r['window'])
+        if not (ended(d + '/case.log') and os.path.exists(d + '/case.xplt')): bad.append(f"{r['set']}/{r['case_dir']}/w_{r['window']}")
+        sib = [s for s in glob.glob(os.path.join(P, 'human_study/al_v2', r['set'], r['design'] + '*')) if os.path.isdir(s) and ended(s + '/case.log')]
+        if len(sib) > 1: amb.append(f"{r['set']}/{r['design']}: {len(sib)} run dirs with a log")
+    rep('R1-case-dir', not bad, f'{len(rows)} friction rows; windows without finished log + xplt: {len(bad)} {bad[:5]}')
+    rep('R1-ambiguous', not amb, f'designs with several run dirs in one set: {len(set(amb))} {sorted(set(amb))[:5]}', warn=True)
+
+
+# ---------------------------------------------------------------- R2 no pass by absence (error 2026-11-04: p072 extension dropped)
+def r2_no_pass_by_absence():
+    v = json.load(open(os.path.join(EV, 'results/method/fric/verdicts.json')))
+    bad = [p for p, d in v.items() if not p.startswith('_') and d.get('verdict') == 'pass' and not all(w in d.get('windows', {}) and d['windows'][w].get('usable') for w in REQ)]
+    rep('R2-gate4', not bad, f'gate 4 passes without both usable windows: {bad}')
+    e = json.load(open(os.path.join(EV, 'results/method/fric/e07_verdicts.json')))['designs']
+    bad = [p for p, d in e.items() if d.get('verdict') == 'pass' and not all(w in d.get('windows', {}) for w in REQ)]
+    rep('R2-shear', not bad, f'interface-shear passes without both windows: {bad}')
+    m = json.load(open(os.path.join(EV, 'results/method/split/comp_by_design_merged.json')))
+    bad = [p for p, d in m.items() if d.get('verdict') == 'pass' and any(g.get('verdict') not in ('pass',) for g in d.get('gates', {}).values() if g.get('verdict') not in ('excluded',))]
+    bad2 = [p for p, d in m.items() if d.get('verdict') == 'pass' and 'gates' not in d]
+    rep('R2-merged', not (bad or bad2), f'merged passes with a non-pass gate: {bad}; without gate record: {bad2}')
+
+
+# ---------------------------------------------------------------- R3 interface faces recount (error 2026-11-04: mesh flag used as material)
+def recount_faces(cd):
+    cj = json.load(open(os.path.join(cd, 'case.json'))); m = np.load(os.path.join(P, cj['params']['cage_npz']))
+    ce = np.load(os.path.join(cd, 'cage_elems.npz'), allow_pickle=True); hexes = m['hexes']
+    mat = {int(h): str(b) for h, b in zip(ce['npz_index'], ce['block'])}
+    fmap = {}
+    for h in ce['npz_index']:
+        for f in FACES: fmap.setdefault(tuple(sorted(hexes[h][list(f)])), []).append(int(h))
+    n = sum(1 for v in fmap.values() if len(v) == 2 and mat[v[0]] != mat[v[1]])
+    return n, len(set(mat.values()))
+
+
+def r3_faces(quick):
+    files = sorted(glob.glob(os.path.join(EV, 'results/method/fric/e07/*.json')))
+    if quick: rep('R3-faces', True, f'skipped (--quick); {len(files)} e07 window files', warn=True); return
+    rows = {(r['case_dir'], r['window']): r for r in json.load(open(os.path.join(EV, 'results/method/fric/compare.json'))) if 'note' not in r}
+    cache, bad, ins = {}, [], []
+    for f in files:
+        tag = os.path.basename(f)[:-5]; cd, wn = tag.split('__'); r = rows.get((cd, wn))
+        if not r: continue
+        j = json.load(open(f)); wd = os.path.join(P, 'human_study/al_v2', r['set'], cd, 'w_' + wn)
+        if cd not in cache:
+            try: cache[cd] = recount_faces(wd)
+            except Exception as ex: cache[cd] = (None, str(ex))
+        n, nb = cache[cd]
+        if n is None or n != j.get('n_faces'): bad.append(f'{tag}: e07 {j.get("n_faces")} vs recount {n} ({nb} blocks)')
+        if j.get('states'):
+            t = np.array([s['time'] for s in j['states']]); dt = abs(t[np.argmin(abs(t - 3.5))] - 3.5)
+            if dt > 0.05: ins.append(f'{tag}: nearest state to t 3.5 is {dt:.2f} away')
+    rep('R3-faces', not bad, f'{len(files)} windows, {len(cache)} cases recounted; mismatches {len(bad)} {bad[:4]}')
+    rep('R4-insertion-state', not ins, f'insertion value state within 0.05 of t 3.5; violations {len(ins)} {ins[:4]}')   # error 2026-11-04: t 0 used
+
+
+# ---------------------------------------------------------------- R5 counts in documents vs merged result (error: 26/17/13/15 and 72/14 vs 73/15)
+def r5_counts():
+    C = json.load(open(os.path.join(EV, 'results/method/split/verdict_classes_merged.json')))['classes']
+    m = json.load(open(os.path.join(EV, 'results/method/split/comp_by_design_merged.json')))
+    tied = {p for p, d in m.items() if (d.get('gates') or {}).get('tied_screening', {}).get('verdict') == 'pass'}
+    cls = {'dislocation-friction': 'DESIGN/dislocation-friction', 'interface-shear': 'DESIGN/interface-shear-provisional',
+           'radial-mix': 'DESIGN/radial-mix-excluded', 'friction-computability': '[多元]/friction-computability'}
+    truth = {k: (len(C.get(v, [])), len(set(C.get(v, [])) & tied)) for k, v in cls.items()}
+    docs = ['human_study/DECISIONS.md', 'human_study/CAPABILITY_SCORECARD.md', os.path.join(EV, 'docs/DECISIONS.md'), os.path.join(EV, 'docs/PLAN.md')]
+    stale = []
+    for doc in docs:
+        path = doc if os.path.isabs(doc) else os.path.join(P, doc)
+        if not os.path.exists(path): continue
+        txt = open(path, errors='ignore').read()
+        for k, (n_all, n_tied) in truth.items():
+            hits = re.findall(k + r'(?:-provisional|-excluded)?\s+(\d+)\b', txt)
+            if hits and int(hits[-1]) not in (n_all, n_tied): stale.append(f'{os.path.relpath(path, P)}: last "{k} {hits[-1]}" vs result {n_all} (tied passes {n_tied})')
+    rep('R5-counts', not stale, f'classes {truth} (all / among tied passes); stale document counts: {stale}')
+    return dict(classes=truth, tied_passes=len(tied), designs=len(m))
+
+
+# ---------------------------------------------------------------- R6 retracted claims still in current documents
+def r6_retracted():
+    reg = json.load(open(os.path.join(QA, 'RETRACTED.json')))['items']
+    docs = ['human_study/platform_capabilities.json', 'human_study/CAPABILITY_SCORECARD.md', 'human_study/PLATFORM_CAPABILITIES.md', os.path.join(EV, 'docs/PLAN.md')]
+    hits = []
+    for doc in docs:
+        path = doc if os.path.isabs(doc) else os.path.join(P, doc)
+        if not os.path.exists(path): continue
+        txt = open(path, errors='ignore').read()
+        for it in reg:
+            for ph in it['phrases']:
+                if ph in txt: hits.append(f'{os.path.relpath(path, P)}: "{ph}" ({it["id"]}, retracted {it["retracted_on"]})')
+    rep('R6-retracted', not hits, f'{len(reg)} retracted claims checked in {len(docs)} current documents; hits: {hits}')
+
+
+# ---------------------------------------------------------------- R7 pilot options never in production
+def r7_pilot_keys(case_dirs=None):
+    S = json.load(open(SETTINGS)); bad = []
+    for cls, v in S['classes'].items():
+        if 'pilot' not in cls and any(v.get(k) for k in PILOT_KEYS): bad.append(f'class {cls}: {pilot_keys_in(v)}')
+    if any(S['common'].get(k) for k in PILOT_KEYS): bad.append('common: ' + str(pilot_keys_in(S['common'])))
+    src = open(H14).read()
+    for k in PILOT_KEYS:
+        if k not in src: continue
+        if re.search(r"prm\.get\('%s',\s*(?!None|False|0\b|''|\"\"|\[\]|\{\})" % k, src):
+            bad.append(f'h14 reads {k} with a non-off default')
+        for mm in re.finditer(r"prm\['%s'\]" % k, src):      # direct read must sit inside an 'if prm.get(k)' guard (same or earlier lines)
+            if not re.search(r"if prm\.get\('%s'\)" % k, src[max(0, mm.start() - 2500):mm.start()]): bad.append(f'h14 reads {k} unguarded')
+    cases = case_dirs or [d for s in ('physio_fric3', 'physio_rot', 'physio_rot_r2', 'physio_rot_dyn', 'physio_rot_split2', 'physio_rot_split3', 'physio_rot_split4')
+                          for d in glob.glob(os.path.join(P, 'human_study/al_v2', s, 'p*')) if os.path.isdir(d) and os.path.exists(d + '/case.json')]
+    leak = []; ref = {}
+    for d in cases:
+        rel = os.path.relpath(d, P); is_pilot = any(rel.startswith(c.rstrip('/')) and 'pilot' in c for c in S['classes'])
+        try: prm = json.load(open(d + '/case.json')).get('params', {})
+        except Exception: continue
+        if is_pilot: continue                                   # pilot classes carry their options by design; h24 compares them with the class settings
+        if pilot_keys_in(prm): leak.append(f'{rel}: {pilot_keys_in(prm)}')
+        # all production cases of one set must share one key set (QA audit 2026-11-04: a fixed pilot-key list misses options)
+        st = os.path.basename(os.path.dirname(d)); ks = frozenset(prm)
+        if st not in ref: ref[st] = ks
+        elif ks != ref[st]: leak.append(f'{rel}: key set differs from the first case of {st}: {sorted(ks ^ ref[st])}')
+    rep('R7-pilot-keys', not (bad or leak), f'settings/h14: {bad}; production cases scanned {len(cases)}, with pilot options / extra keys: {leak[:5]}')
+
+
+# ---------------------------------------------------------------- R11 constants defined in several files must agree (audit 2026-11-04: ROM rad in 3 places)
+def r11_constants():
+    files = ['scripts/3_cage_case/h14_build_case.py', 'scripts/6_active_learning/h28_physio_prerun.py', '../biocage-evo/ops/fric_compare.py']
+    vals = {}
+    for f in files:
+        txt = open(os.path.normpath(os.path.join(P, f))).read()
+        m = re.search(r'flexion=([0-9.]+),\s*extension=([0-9.]+),\s*LB_right=([0-9.]+),\s*LB_left=([0-9.]+),\s*AR_left=([0-9.]+),\s*AR_right=([0-9.]+)', txt)
+        vals[f] = tuple(float(x) for x in m.groups()) if m else None
+    distinct = {v for v in vals.values() if v}
+    rep('R11-constants', len(distinct) == 1 and all(vals.values()), f'intact ROM constants: {vals}')
+
+
+# ---------------------------------------------------------------- R12 file index: every repo path named in human_study/FILE_INDEX.md exists (PI 2026-11-05: files are scattered)
+def r12_file_index():
+    idx = os.path.join(P, 'human_study/FILE_INDEX.md')
+    if not os.path.exists(idx): rep('R12-file-index', False, 'human_study/FILE_INDEX.md missing'); return
+    paths = re.findall(r'`([^`\n]+)`', open(idx).read()); missing = []
+    for q in paths:
+        if q.startswith('/') or ' ' in q or q.startswith('h') and q[1:3].isdigit() and ' ' in q: continue
+        if not (q.startswith('human_study/') or q.startswith('scripts/') or q.startswith('../biocage-evo/') or q.startswith('.claude/') or q.startswith('febio')): continue
+        full = os.path.normpath(os.path.join(P, q))
+        if not (os.path.exists(full) or glob.glob(full)): missing.append(q)
+    rep('R12-file-index', not missing, f'{len(paths)} paths in FILE_INDEX.md; missing {missing}')
+
+
+# ---------------------------------------------------------------- R8 golden rebuild (h14 drift without a launch)
+def r8_golden():
+    pj = os.path.join(P, GOLDEN['params'])
+    with tempfile.TemporaryDirectory() as td:
+        t0 = time.time(); r = subprocess.run([sys.executable, H14, pj, td], cwd=P, capture_output=True, text=True)
+        if r.returncode: rep('R8-golden-rebuild', False, 'h14 failed: ' + r.stderr.strip()[-300:]); return
+        h = md5(os.path.join(td, 'case.feb'))
+        rep('R8-golden-rebuild', h == GOLDEN['md5'], f'p062 physio_fric3 rebuild md5 {h[:8]} vs recorded {GOLDEN["md5"][:8]} ({time.time() - t0:.0f} s)')
+        r9_blocks([td], label='golden rebuild')
+
+
+# ---------------------------------------------------------------- R9 material map not homogenised (standing rule)
+def r9_blocks(case_dirs, label='production'):
+    bad, info = [], []
+    for cd in case_dirs:
+        try:
+            ce = np.load(os.path.join(cd, 'cage_elems.npz'), allow_pickle=True); blocks = set(str(b) for b in ce['block'])
+            names = [eb.get('name') for eb in ET.parse(os.path.join(cd, 'case.feb')).getroot().find('Geometry').findall('Elements')]
+            cage = [n for n in names if n and n.startswith('cage_') and not n.startswith('cage_biodisc')]
+            miss = blocks - set(names)
+            if miss or len(cage) < len(blocks): bad.append(f'{os.path.basename(cd)}: npz blocks {sorted(blocks)} vs feb cage blocks {cage}')
+            info.append(f'{os.path.basename(cd)}:{len(blocks)}')
+        except Exception as ex: bad.append(f'{os.path.basename(cd)}: {ex}')
+    rep('R9-material-blocks', not bad, f'{label}: one FEBio block per cage material in {len(case_dirs)} cases ({", ".join(info[:6])}); problems: {bad[:4]}')
+
+
+def production_samples():
+    """one axial mix, one radial mix, one interleave production case (by cage_elems block names)"""
+    out = {}
+    for d in sorted(glob.glob(os.path.join(P, 'human_study/al_v2/physio_fric3/p*'))):
+        if not os.path.exists(d + '/cage_elems.npz'): continue
+        try: cj = json.load(open(d + '/case.json')); cg = cj.get('cage') or {}; mm = re.search(r'cage_([A-Z])_(\w+?)_(\w+?)_d', cj['params'].get('cage_npz', ''))
+        except Exception: continue
+        key = (cg.get('gradient') or (mm and mm.group(2)), cg.get('fabrication') or (mm and mm.group(3)))
+        out.setdefault(key, d)
+        if len(out) >= 4: break
+    return list(out.values())
+
+
+# ---------------------------------------------------------------- R10 register and audit staleness
+def r10_register():
+    spec = json.load(open(os.path.join(QA, 'QA_SPEC.json'))); meta = spec['meta']; items = spec.get('items', [])
+    last = meta.get('last_llm_audit')
+    unmapped = [i['id'] for i in items if i.get('status') == 'unmapped']
+    mismatch = [i['id'] for i in items if i.get('status') == '不符']
+    stale_files = []
+    if last:
+        t_last = time.mktime(time.strptime(last[:16], '%Y-%m-%d %H:%M'))
+        for f in meta.get('gate_files', []):
+            path = os.path.normpath(os.path.join(P, f))
+            if os.path.exists(path) and os.path.getmtime(path) > t_last: stale_files.append(f)
+    # PI decision entries newer than the last audit
+    txt = open(os.path.join(P, 'human_study/DECISIONS.md'), errors='ignore').read()
+    heads = re.findall(r'^## (\d{4}-\d{2}-\d{2}(?: \d{2}:\d{2})?)[^\n]*(?:PI DECISION|PI decisions|decision)[^\n]*$', txt, flags=re.M | re.I)
+    new_dec = [h for h in heads if not last or h > last[:len(h)]]
+    hook = '--hook' in sys.argv            # 2026-11-05 pre-commit mode: register findings need a human (LLM audit); the hook enforces R1-R9, R11, R12
+    rep('R10-register', not (unmapped or mismatch) or hook, f'{len(items)} register items; unmapped {unmapped}; 不符 {mismatch}' + (' (hook mode: reported, not blocking)' if hook and (unmapped or mismatch) else ''), warn=hook)
+    due = (not last) or stale_files or new_dec
+    rep('R10-llm-audit-due', not due, ('LLM audit required: ' if due else 'LLM audit current: ') + f'last {last}; gate files changed since: {stale_files}; decision entries since: {new_dec}', warn=True)
+    return dict(last_llm_audit=last, n_items=len(items), unmapped=unmapped, mismatch=mismatch, gate_files_changed=stale_files, new_decisions=new_dec)
+
+
+def write_status(extra):
+    worst = 'FAIL' if any(s == 'FAIL' for _, s, _ in R) else ('WARN' if any(s == 'WARN' for _, s, _ in R) else 'PASS')
+    st = dict(time=time.strftime('%Y-%m-%d %H:%M'), overall=worst, checks=[dict(id=c, status=s, message=m) for c, s, m in R], **extra)
+    json.dump(st, open(os.path.join(QA, 'QA_STATUS.json'), 'w'), indent=1, ensure_ascii=False)
+    with open(os.path.join(QA, 'QA_STATUS.md'), 'w') as f:
+        f.write(f"# QA status {st['time']} — {worst}\n\nh37_qa_check.py (layer A, deterministic). PASS = check held; FAIL = drift found, fix before any number is reported; "
+                f"WARN = information or an audit is due. Layer B (meaning of the decisions) = qa-auditor agent, register human_study/qa/QA_SPEC.json.\n\n| check | status | detail |\n|---|---|---|\n")
+        for c, s, m in R: f.write(f'| {c} | {s} | {m.replace("|", "/")} |\n')
+    return worst
+
+
+if __name__ == '__main__':
+    if '--daemon' in sys.argv:
+        hours = float(sys.argv[sys.argv.index('--daemon') + 1]) if len(sys.argv) > sys.argv.index('--daemon') + 1 else 6.0
+        while True:
+            r = subprocess.run([sys.executable, os.path.abspath(__file__)], cwd=P, capture_output=True, text=True)
+            with open(os.path.join(QA, 'qa.log'), 'a') as f: f.write(f"{time.strftime('%Y-%m-%d %H:%M')} {(r.stdout.strip().splitlines() or ['?'])[-1]}\n")
+            time.sleep(hours * 3600)
+    if len(sys.argv) > 1 and sys.argv[1] == 'launch':
+        dirs = [os.path.abspath(d) for d in sys.argv[2:]]
+        r7_pilot_keys(dirs); r9_blocks(dirs, label='launch')
+        for c, s, m in R: print(f'{s:4s} {c}: {m}')
+        sys.exit(1 if any(s == 'FAIL' for _, s, _ in R) else 0)
+    quick = '--quick' in sys.argv
+    r1_case_dirs(); r2_no_pass_by_absence(); r3_faces(quick); counts = r5_counts(); r6_retracted(); r7_pilot_keys()
+    if not quick: r8_golden()
+    r9_blocks(production_samples()); r11_constants(); r12_file_index()
+    reg = r10_register()
+    worst = write_status(dict(counts=counts, register=reg, mode='quick' if quick else 'full'))
+    for c, s, m in R: print(f'{s:4s} {c}: {m[:300]}')
+    print('overall', worst, '-> human_study/qa/QA_STATUS.md')
+    sys.exit(1 if worst == 'FAIL' else 0)

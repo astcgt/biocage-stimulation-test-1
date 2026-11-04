@@ -1,0 +1,21 @@
+{
+ "note": "Claims retracted in DECISIONS.md. h37 fails when a phrase still appears in a CURRENT document (labels, scorecard, PLAN); DECISIONS entries are history and are not scanned. Add an entry whenever a result is withdrawn.",
+ "items": [
+  {"id": "RT-01", "retracted_on": "2026-11-04 11:30", "decisions_line": 1394,
+   "claim": "e07 interface-shear metric passes the numconv mesh / penalty / dt tolerances",
+   "phrases": ["passes the numconv tolerances", "通過網格收斂", "interface-shear metric passes"],
+   "correction": "HZ 0.1 refinement changes the soft-side p99 by -15.9 % (layer) / +16.7 % (band); tolerance 5 %"},
+  {"id": "RT-02", "retracted_on": "2026-11-04 11:30", "decisions_line": 1394,
+   "claim": "soft-side and hard-side interface tractions differ by <= 20 %",
+   "phrases": ["<= 20 %", "≤20 %", "≤ 20 %", "within 20 %"],
+   "correction": "interleave designs: up to about 27x (0.15 vs 4.2 MPa)"},
+  {"id": "RT-03", "retracted_on": "2026-11-04 11:30", "decisions_line": 1394,
+   "claim": "mix-design interface shear values computed before 2026-11-04 11:08 (mesh flag 'hard' used as the material interface)",
+   "phrases": ["flexion 10-14 MPa", "every axial design: flexion 10-14"],
+   "correction": "faces are now the boundaries between FEBio element blocks; corrected axial flexion at ROM 10.5-15.8 MPa"},
+  {"id": "RT-04", "retracted_on": "2026-11-04 01:30", "decisions_line": 1282,
+   "claim": "the t 3 event is caused by the switch to dynamic analysis; 'd' is a band depth",
+   "phrases": ["dynamic switch causes", "band depth d"],
+   "correction": "the event is the one-step release of the C3 distraction reaction; d is the distraction"}
+ ]
+}

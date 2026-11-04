@@ -1,0 +1,115 @@
+{
+ "time": "2026-11-05 03:57",
+ "overall": "WARN",
+ "checks": [
+  {
+   "id": "R1-case-dir",
+   "status": "PASS",
+   "message": "128 friction rows; windows without finished log + xplt: 0 []"
+  },
+  {
+   "id": "R1-ambiguous",
+   "status": "PASS",
+   "message": "designs with several run dirs in one set: 0 []"
+  },
+  {
+   "id": "R2-gate4",
+   "status": "PASS",
+   "message": "gate 4 passes without both usable windows: []"
+  },
+  {
+   "id": "R2-shear",
+   "status": "PASS",
+   "message": "interface-shear passes without both windows: []"
+  },
+  {
+   "id": "R2-merged",
+   "status": "PASS",
+   "message": "merged passes with a non-pass gate: []; without gate record: []"
+  },
+  {
+   "id": "R3-faces",
+   "status": "PASS",
+   "message": "skipped (--quick); 86 e07 window files"
+  },
+  {
+   "id": "R5-counts",
+   "status": "PASS",
+   "message": "classes {'dislocation-friction': (17, 17), 'interface-shear': (14, 14), 'radial-mix': (28, 27), 'friction-computability': (14, 14)} (all / among tied passes); stale document counts: []"
+  },
+  {
+   "id": "R6-retracted",
+   "status": "PASS",
+   "message": "4 retracted claims checked in 4 current documents; hits: []"
+  },
+  {
+   "id": "R7-pilot-keys",
+   "status": "PASS",
+   "message": "settings/h14: []; production cases scanned 722, with pilot options / extra keys: []"
+  },
+  {
+   "id": "R9-material-blocks",
+   "status": "PASS",
+   "message": "production: one FEBio block per cage material in 3 cases (p002:3, p036:4, p039:2); problems: []"
+  },
+  {
+   "id": "R11-constants",
+   "status": "PASS",
+   "message": "intact ROM constants: {'scripts/3_cage_case/h14_build_case.py': (0.1009, 0.1286, 0.0713, 0.0717, 0.0905, 0.0907), 'scripts/6_active_learning/h28_physio_prerun.py': (0.1009, 0.1286, 0.0713, 0.0717, 0.0905, 0.0907), '../biocage-evo/ops/fric_compare.py': (0.1009, 0.1286, 0.0713, 0.0717, 0.0905, 0.0907)}"
+  },
+  {
+   "id": "R12-file-index",
+   "status": "PASS",
+   "message": "133 paths in FILE_INDEX.md; missing []"
+  },
+  {
+   "id": "R10-register",
+   "status": "PASS",
+   "message": "67 register items; unmapped []; 不符 ['D-20261103-9'] (hook mode: reported, not blocking)"
+  },
+  {
+   "id": "R10-llm-audit-due",
+   "status": "WARN",
+   "message": "LLM audit required: last 2026-11-04 15:10; gate files changed since: ['human_study/current_settings.json', '../biocage-evo/ops/fric_compare.py', '../biocage-evo/ops/collect_split.py']; decision entries since: ['2026-11-05 04:10']"
+  }
+ ],
+ "counts": {
+  "classes": {
+   "dislocation-friction": [
+    17,
+    17
+   ],
+   "interface-shear": [
+    14,
+    14
+   ],
+   "radial-mix": [
+    28,
+    27
+   ],
+   "friction-computability": [
+    14,
+    14
+   ]
+  },
+  "tied_passes": 72,
+  "designs": 149
+ },
+ "register": {
+  "last_llm_audit": "2026-11-04 15:10",
+  "n_items": 67,
+  "unmapped": [],
+  "mismatch": [
+   "D-20261103-9"
+  ],
+  "gate_files_changed": [
+   "human_study/current_settings.json",
+   "../biocage-evo/ops/fric_compare.py",
+   "../biocage-evo/ops/collect_split.py"
+  ],
+  "new_decisions": [
+   "2026-11-05 04:10"
+  ]
+ },
+ "mode": "quick"
+}

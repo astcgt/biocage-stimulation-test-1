@@ -1,5 +1,5 @@
 {
- "note": "Study-wide model settings every case must match before it may run (checked by scripts/5_compute/h24_preflight.py). Edit together with DECISIONS.md; every queued case is re-checked when this file changes.",
+ "note": "Study-wide model settings every case must match before it may run (checked by scripts/5_compute/h24_preflight.py). Edit together with DECISIONS.md; every queued case is re-checked when this file changes. | 2026-11-04 QA: physio_fric3 class now locks nonsym / physio_dynamic / physio_split / physio_rot_rad (were only in the h28 EXTRA argument); pilot classes carry their distinguishing keys so h24 can tell pilot from production.",
  "common": {
   "frame": "human_study/frame_c3c4.json",
   "contact_type": "tied",
@@ -340,6 +340,323 @@
    "annulus_remnant": false,
    "insert_dt": 0.01,
    "penalty": 5.0
+  },
+  "human_study/al_v2/pilot_tie/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "tied_init_converged": 1,
+   "sliding_off_after_tie": 1,
+   "aggressiveness": 1,
+   "dtmax_windows": [
+    [
+     1.95,
+     2.05,
+     0.005
+    ],
+    [
+     3.0,
+     3.1,
+     0.005
+    ]
+   ]
+  },
+  "human_study/al_v2/pilot_tie3/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "tied_init_converged": 1,
+   "sliding_off_after_tie": 1,
+   "aggressiveness": 1,
+   "dtmax_windows": [
+    [
+     1.95,
+     2.05,
+     0.005
+    ],
+    [
+     3.0,
+     3.1,
+     0.005
+    ]
+   ],
+   "follower_in_release": 1,
+   "physio_dt0": 0.005
+  },
+  "human_study/al_v2/physio_fric3/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic",
+   "physio_windows": [
+    "flexion",
+    "extension"
+   ],
+   "nonsym": "all",
+   "physio_split": true,
+   "physio_dynamic": {
+    "density": 1e-06,
+    "rhoi": 0.0
+   },
+   "physio_rot_rad": {
+    "flexion": 0.126,
+    "extension": 0.161
+   }
+  },
+  "human_study/al_v2/physio_fric3p/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic",
+   "physio_windows": [
+    "flexion",
+    "extension"
+   ],
+   "follower_in_release": 1,
+   "physio_dt0": 0.005,
+   "aggressiveness": 1,
+   "dtmax_windows": [
+    [
+     1.95,
+     2.05,
+     0.005
+    ],
+    [
+     3.0,
+     3.1,
+     0.005
+    ]
+   ]
+  },
+  "human_study/al_v2/physio_fric3uS/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic",
+   "physio_windows": [
+    "flexion",
+    "extension"
+   ]
+  },
+  "human_study/al_v2/physio_fric3uH/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic",
+   "physio_windows": [
+    "flexion",
+    "extension"
+   ]
+  },
+  "human_study/al_v2/pilot_dynrel/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic",
+   "physio_windows": [
+    "flexion",
+    "extension"
+   ],
+   "dynamic_from_release": true,
+   "nonsym": "all",
+   "physio_split": true,
+   "physio_dynamic": {
+    "density": 1e-06,
+    "rhoi": 0.0
+   }
+  },
+  "human_study/al_v2/pilot_static/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic",
+   "physio_windows": [
+    "flexion",
+    "extension"
+   ],
+   "nonsym": "all",
+   "physio_split": true,
+   "physio_dynamic": null
+  },
+  "human_study/al_v2/pilot_rho9/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic",
+   "physio_windows": [
+    "flexion",
+    "extension"
+   ],
+   "nonsym": "all",
+   "physio_split": true,
+   "physio_dynamic": {
+    "density": 1e-09,
+    "rhoi": 0.0
+   }
+  },
+  "human_study/al_v2/pilot_c3ramp/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic",
+   "physio_windows": [
+    "flexion",
+    "extension"
+   ],
+   "nonsym": "all",
+   "physio_split": true,
+   "physio_dynamic": {
+    "density": 1e-06,
+    "rhoi": 0.0
+   }
+  },
+  "human_study/al_v2/pilot_c3ramp2/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic",
+   "physio_windows": [
+    "flexion",
+    "extension"
+   ],
+   "nonsym": "all",
+   "physio_split": true,
+   "physio_dynamic": {
+    "density": 1e-06,
+    "rhoi": 0.0
+   }
+  },
+  "human_study/al_v2/pilot_c3rampS/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic",
+   "physio_windows": [
+    "flexion",
+    "extension"
+   ],
+   "nonsym": "all",
+   "physio_split": true,
+   "physio_dynamic": null
+  },
+  "human_study/al_v2/pilot_c3rampR9/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic",
+   "physio_windows": [
+    "flexion",
+    "extension"
+   ],
+   "nonsym": "all",
+   "physio_split": true,
+   "physio_dynamic": {
+    "density": 1e-09,
+    "rhoi": 0.0
+   }
+  },
+  "human_study/al_v2/physio_fric4/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic",
+   "physio_windows": [
+    "flexion",
+    "extension"
+   ],
+   "nonsym": "all",
+   "physio_split": true,
+   "physio_dynamic": {
+    "density": 1e-09,
+    "rhoi": 0.0
+   },
+   "physio_rot_rad": {
+    "flexion": 0.126,
+    "extension": 0.161
+   },
+   "c3_release_ramp": null
+  },
+  "human_study/al_v2/physio_fric4dt/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic",
+   "physio_windows": [
+    "flexion",
+    "extension"
+   ],
+   "nonsym": "all",
+   "physio_split": true,
+   "physio_dynamic": {
+    "density": 1e-09,
+    "rhoi": 0.0
+   },
+   "physio_rot_rad": {
+    "flexion": 0.126,
+    "extension": 0.161
+   },
+   "c3_release_ramp": null,
+   "physio_dt": 0.025
   }
  }
 }

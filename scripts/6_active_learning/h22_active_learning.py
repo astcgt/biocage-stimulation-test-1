@@ -42,7 +42,10 @@ JOB_CORES = 4   # FEBio averages ~2.5 busy cores per run; memory (128 GB cap), n
 TEMPLATE = os.path.join(P, 'human_study', 'cage_test', 'params_A_iso_tied2.json')
 
 DESIGNS, GRADS, FABS = ('A', 'B'), ('axial', 'radial', 'both'), ('mix', 'interleave')
-COMBOS = list(itertools.product(DESIGNS, GRADS, FABS))                                   # 12
+COMBOS = list(itertools.product(DESIGNS, GRADS, FABS))                                   # 12 (kept whole: stored points are indexed by it)
+# PI 2026-11-04: radial-gradient mixing-nozzle designs are excluded at design level (worst in both the frictional dislocation
+# and the interface-shear gates); the sampler never proposes them again. Existing points keep their records.
+EXCLUDED_COMBOS = {(d, 'radial', 'mix') for d in DESIGNS}
 BOUNDS = dict(d=(0.5, 1.5), logEh=(math.log(250), math.log(900)), logEs=(math.log(1.5), math.log(12)), theta=(0.20, 0.40))
 CONT = ('d', 'logEh', 'logEs', 'theta')
 MU_WORST, MU_SIM = 0.2, 0.35
@@ -124,8 +127,9 @@ def cmd_init():
     if st['points']: log('init: points already exist, nothing to do'); return
     from scipy.stats import qmc
     U = qmc.Sobol(4, scramble=True, seed=20261021).random(N_INIT)
+    ALLOWED = [c for c in COMBOS if c not in EXCLUDED_COMBOS]
     for i, u in enumerate(U):
-        st['points'].append(dict(id=i, batch=0, x=x_from_unit(COMBOS[i % len(COMBOS)], u), status='new'))
+        st['points'].append(dict(id=i, batch=0, x=x_from_unit(ALLOWED[i % len(ALLOWED)], u), status='new'))
     st['batches'].append(dict(batch=0, ids=list(range(N_INIT)), created=time.strftime('%Y-%m-%d %H:%M')))
     save(st); log(f'init: {N_INIT} Sobol points'); build_and_queue(st, list(range(N_INIT)))
 
@@ -217,6 +221,7 @@ def robust_table(my, mc, n_u=64):
     U = qmc.Sobol(3, scramble=True, seed=7).random(n_u)                      # (logEh, logEs, theta) in [0, 1]
     dgrid = np.linspace(0, 1, 21); rows = []
     for ci, (dsg, gr, fb) in enumerate(COMBOS):
+        if (dsg, gr, fb) in EXCLUDED_COMBOS: continue
         for du in dgrid:
             X = np.array([[DESIGNS.index(dsg), GRADS.index(gr), FABS.index(fb), du, *u] for u in U])
             m_y, s_y = predict(my, X); m_c, s_c = predict(mc, X)

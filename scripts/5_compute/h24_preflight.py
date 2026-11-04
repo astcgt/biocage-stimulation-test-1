@@ -121,6 +121,9 @@ def check(cd):
         if r.returncode: err.append('h14 failed: ' + r.stderr.strip()[-300:])
         elif sha(os.path.join(td, 'case.feb')) != sha(os.path.join(cd, 'case.feb')):
             err.append('case.feb differs from a rebuild with the current h14 (stale build: rebuild the case)')
+    # 2b. QA launch gate (h37, PI 2026-11-04): no pilot-only option in a production case, one FEBio block per cage material
+    r = subprocess.run([sys.executable, os.path.join(P, 'scripts/8_audit/h37_qa_check.py'), 'launch', cd], cwd=P, capture_output=True, text=True)
+    if r.returncode: err.append('h37 QA launch gate: ' + ' | '.join(l for l in r.stdout.splitlines() if l.startswith('FAIL'))[-400:])
     # 3. structure
     root = ET.parse(os.path.join(cd, 'case.feb')).getroot(); geo = root.find('Geometry')
     nodeset = {ns.get('name'): [int(n.get('id')) for n in ns] for ns in geo.findall('NodeSet')}

@@ -1044,3 +1044,547 @@ constraints = surgery-compatible + no nerve / bone harm; maximum freedom otherwi
 11. Commit and push both repositories (done 2026-11-03).
 12. Reporting: from now on reports to the PI in plain language like a briefing to a boss — problem / cause / recommended fix /
     professional sources consulted; encoded as the project agent .claude/agents/pi-report.md.
+
+## 2026-11-03 01:30 — bone "inversions" re-attributed (BONE_INVERSION_ANALYSIS_2026-11-03.md, analysis agent; spot-checked)
+- CORRECTION of 2026-11-02: the "15/16 failed insertions with C3/C4 cortical inversions" were diverged Newton iterates of retried
+  steps (Jacobians -2 ... -1e13, impossible for a converged state), inflated by -output_negative_jacobians=50 per domain and the
+  block check order (C3_cortical first). In every failed run the FIRST inverted element is cage_soft (verified on p053, p023,
+  p048, p011). FEBio is not failing on bone; NUM-06 -> partial, h34 now attributes by the first inverting block.
+- Root physics: the Gent pad (Jm 0.7) locks at stretch ~0.60; under 100 N the solid area of family A needs ~2.7 MPa, family B
+  ~4.4 MPa nominal, so designs with sigma/E_soft >~ 1.5 (all B interleave; A with E_soft <= 1.7 and both/axial gradient) sit at
+  the locking singularity: tangent blows up, 0.8 mm walls buckle, Newton diverges. 13/16 failures at t 3.0-3.4 where three events
+  coincide (static -> dynamic switch, follower-load start, dt change); p023 (t 1.99) fails when the patched tied interface forms
+  inside a non-converged Newton loop while cage expansion alone already buckles the walls.
+- Candidate fixes ranked by the analysis (none run yet): (1) feasibility gate sigma_demand / E_soft + Gent lock before building
+  (no GPU); (2) time-stepper aggressiveness 1 + must-point small steps at t 2 and 3 (pilot p023 + p053 ~0.4 GPU-h); (3) de-stack
+  the t = 3 events (follower load in the static release, dynamic start at dt 0.005; pilot ~0.6 GPU-h); (4) tied patch: form the tie
+  after convergence, serialize m_binit, drop the sliding penalty once tied (pilot p023 ~0.1 GPU-h); (5) relax Jm or neo-Hookean
+  screening - overrides the PI's Q45 decision, needs approval; not recommended: homogenising the cage, shell / rigid cortex,
+  augmented Lagrangian for the tie, cortical refinement. Secondary note to verify: Herron orthotropic G31 = 444 gives a negative
+  Lame mu1 for cortical bone (not the cause, but check against the paper).
+
+## 2026-11-03 03:00 — pilot of fixes 4 + 2 on p023 (PI order: p023 4+2 -> p053 3 -> only then 5)
+- FEBio tied-elastic patch extended: parameter 'init_converged' (tie formed in the iteration-0 update of the first step that
+  starts at/after init_time, i.e. on the converged t = 2 configuration, instead of inside the Newton loop of the step ending
+  at 2.0) and m_binit serialized in the shallow retry dump only (restart .dmp layout unchanged, so running split windows still
+  restart). Scan: no NORMAL production insertion run ever retried the tie-forming step, only p023 did -> production verdicts
+  unaffected by the old behaviour. Build tree reconfigured (the CMake cache still pointed at the pre-rename path); full rebuild
+  03:00; h14 rebuild of p062 byte-identical with the new options off; h24 preflight OK on the pilot case.
+- h14 options (off by default): tied_init_converged, sliding_off_after_tie (sliding penalty ramps to 0 over t 2.0-2.03 once the
+  tie carries the interface; PI question answered: two penalties on one surface pair double the stiffness and fight each other
+  when the tie was pinned on a bad configuration), aggressiveness (time stepper), dtmax_windows (step curve: dt 0.005 at
+  t 1.95-2.05 and 3.0-3.1). Settings class al_v2/pilot_tie; job pilotTie_p023 queued.
+- Friction second pass (physrotFr2_) ended: p060, p062, p125 6/6 windows NORMAL; p109 flexion / extension ERROR. fric_compare
+  now covers physio_fric + physio_fric2 with the NUM-14 filter (old results in results/method/fric_pre_dyn_20261102/); running.
+
+## 2026-11-03 04:00 — gate 4 second pass result (real friction vs tied screening; PHY-05 partial)
+- physrotFr2_ (p060 p062 p109 p125; mu 0.35, 100 N follower, slow dynamic, amplitudes retargeted from physio_fric; evaluated
+  with the NUM-14 filter; biocage-evo/results/method/fric/compare.json): 14 windows reach 1.5 N m; cage translation there
+  <= 0.373 mm (p125 flexion) - all within the PI's 1 mm / 0.5 mm posterior criterion.
+- Extension never reaches 1.5 N m in any design: the moment saturates at 530-580 N mm, i.e. the friction capacity of the
+  interface (~ mu N x lever arm = 0.35 x 100 N x ~15 mm); the retargeted drive then rotates C3 to 15.7 deg (p060) and the cage
+  slides posteriorly 1.40 mm. Evaluated instead at the intact segment's extension ROM (7.4 deg at 1.5 N m): p060 0.54 mm
+  posterior (> 0.5 mm, borderline), p062 0.36 mm (reached only 6.6 deg), p125 0.24 mm (5.8 deg). fric_compare now reports
+  both evaluation points (moment target; intact ROM).
+- The tied one-face slip bound is NOT an upper bound in flexion: friction translation exceeds it (p125 0.373 vs 0.137, p062 0.188
+  vs 0.111, p060 0.787 at 1405 N mm vs 0.316) and in p109 LB_left (0.194 vs 0.133); in LB / AR it holds (friction 0.03-0.19 vs
+  bounds 0.07-0.73). Tied screening is therefore conservative for LB / AR, not for flexion / extension.
+- p109 flexion / extension ERROR (window runs). Open for the PI (GAPS 4, item 12): the extension rule for friction runs (ROM-based
+  evaluation; is 0.5 mm posterior at 7.4 deg a fail for p060?), and whether flexion / extension need friction runs for every
+  passing design (~1.5 GPU-h each) or a corrected tied bound.
+- Pilot p053 (fixes 4 + 2 + 3: class pilot_tie3 = pilot_tie + follower_in_release + physio_dt0 0.005) queued alongside p023
+  (CPU, p023 at t 0.34 after 25 min).
+
+## 2026-11-03 04:30 — PI DECISION: friction-run dislocation rule
+- PI: the ROM-threshold evaluation for flexion / extension in the friction configuration is accepted; "0.54 mm: if it exceeds
+  the limit we set, it is a FAIL". Rule implemented (fric_compare -> results/method/fric/verdicts.json; collect_split applies
+  it as class DESIGN/dislocation-friction): any valid, monotonic window whose cage translation exceeds 1 mm (any direction) or
+  0.5 mm posterior at either evaluation point (1.5 N m, or the intact ROM when the moment cannot be transmitted) fails the
+  design. p060 -> fail (extension at ROM: posterior 0.54 mm). Verdicts: 70 pass / 73 fail / 5 open.
+- Still open (PI): whether every passing design gets flexion + extension friction windows (71 x ~0.5 GPU-h) or the tied slip
+  bound is corrected for flexion / extension; item 8 (expulsion gate).
+
+## 2026-11-03 05:00 — PI DECISION: friction flexion + extension windows for every passing design
+- Class al_v2/physio_fric3 (= physio_fric2: contact elastic mu 0.35, nonsym all, slow dynamic, split; plus physio_windows
+  [flexion, extension]; h14 option added, production builds byte-identical). Drive amplitudes fixed at 1.25 x the intact ROM
+  (flexion 0.126 rad, extension 0.161 rad) so the ROM evaluation point is always reached; the moment target is reached only
+  where the interface can transmit it. Jobs physrotFr3_<design> for the 70 passing designs (p060 already failed); insertion run
+  + 2 windows each, ~0.5 GPU-h; evaluated by fric_compare (SETS + physio_fric3) with the dislocation rule of 04:30.
+
+## 2026-11-03 06:00 — pilot results (fixes 4+2 on p023, 4+2+3 on p053); NAS phase 1 done
+- p023 (pilot_tie: tie formed on the converged t = 2 state, sliding penalty off after the tie, geometric retries, dt 0.005
+  windows): the old failure point is cleared - t 1.75-2.0 took 2 retries (production: 10 retries exhausted at t 1.999), the tie
+  formed on the converged configuration and the release stage ran at dt 0.05 with no retry. It died at t 3.05, the first
+  dynamic step with the follower load (97 retries, dt down to 1e-13, first inverted element cage_soft) - the stacked-event step
+  that fix 3 targets. Fix 4 therefore works for the insertion stage; p023 with 4+2+3 queued (pilotTie3_p023, front of queue).
+- p053 (pilot_tie3 = 4+2+3, follower ramped 2.5-3.0 in the static release stage, first dynamic dt 0.005): insertion and the
+  tie passed cleanly (no retry before t 2.6). Retries started at t 2.62-2.72, exactly when the C3-pot axial force crosses
+  zero (distraction fully released, follower ~25-45 N added) and the first inverted elements are cage_soft near the cage top;
+  from t 2.70 the step stayed at dtmin 1e-4 with 24-30 Newton iterations per step (1 step / 45 s, ~29 h to t 3.0) - stopped
+  at 05:50 (kill_febio.sh). With the dynamic transition removed, p053 still cannot carry the follower load on its soft pad:
+  the failure follows the load, not the solver event, consistent with BONE_INVERSION_ANALYSIS section 2.6 (A family E_soft
+  1.57-1.67: nominal demand 2.67 MPa / E_soft = 1.7, Gent lock at lambda ~0.61). Remaining options are the PI's: fix 5 (relax
+  Jm, changes Q45) or classify the thin/soft A-family pads as physically unable to carry 100 N (design, not platform).
+- physio_fric3 batch: 4 NORMAL (p002 p026 p036 p051), p039 stopped by the watchdog (stalled at t 2.233: dtmin 1e-4 with
+  24-30 iterations per step, no retry, elastic-contact release stage; same signature in p050 at t 2.52). 61 queued; GPUs are
+  held by other users so the scheduler launches on CPU only (max 8 x 4 cores).
+- NAS archive phase 1 finished 05:45 (cases, physio_rot, physio_v3, dyn, r2, fix, facet*, invalid*: 1098 GB on the NAS,
+  /raid free 2.6 TB, symlinks in place).
+
+## 2026-11-03 07:15 — p023 with fixes 4+2+3: fails under the follower load, not at a solver event
+- pilotTie3_p023 (CPU, 1 h 20): insertion clean (5 retries in t 1.5-1.8, tie formed on the converged t = 2 state, release at
+  dt 0.05), then 13 retries at t 2.62-2.65 and ERROR at t 2.6492 - the moment the C3-pot axial force turns compressive
+  (Fz +40 N at t 2.0 -> -9 N at t 2.62, follower ~25-30 N of 100 N added). 685 inverted elements, all cage (528 soft, 157
+  hard), zero bone. Same behaviour as p053 (06:00 entry): with the tie, retry and event-stacking fixes in place, both
+  insertion-stage failures become "the soft pad inverts under the first 30 N of compression". Fixes 4+2+3 are therefore
+  not the answer for these two designs; they remain useful platform options (p023's t = 2 step and the t = 3 residual jump).
+- Control queued: pilotTie3_p062 (passing design, convergence-check reference) in the same class, to show the pilot options do
+  not harm a design that carries the load and to measure the t = 3 residual with the follower ramped statically.
+- For the PI: fix 5 (Jm) or classify E_soft <= ~1.7 MPa (A) / <= ~4.2 MPa (B) pads as design failures (BONE_INVERSION_ANALYSIS
+  2.6: nominal demand 2.67 / 4.44 MPa). Not started without a decision.
+
+## 2026-11-03 07:50 — control p062 in the pilot class (fixes 4+2+3): harmless, cheaper in retries, residual jump at t = 3 stays
+- pilotTie3_p062 insertion run NORMAL in 28 min on 4 CPU cores, 0 retries, 2 negative-Jacobian lines (production split2: 0
+  retries, 136 steps; pilot 328 steps because of the dt 0.005 windows at t 1.95-2.05 / 3.0-3.1 and the geometric retry
+  option). The six windows started normally (flexion 6-7 iterations per step).
+- Fix 3 does NOT remove the residual jump at the first dynamic step: initial residual norm 3.5e1 at t 3.0 -> 4.8e3 (3.005) ->
+  1.2e5 (3.019) -> 3.1e4 (3.067) -> 2.4e2 (3.1) -> 5.9e-1 (3.27); production 2.4e-2 at 3.0 -> 1.3e4 at 3.05 -> 1e2 at 3.1-3.3.
+  The jump therefore belongs to the static -> mass-scaled dynamic switch itself (inertial residual of the first dynamic steps,
+  cf. NUM-14), not to the follower load; it costs no extra iterations (3-5) on a design that carries the load. For p023 / p053
+  the follower load alone (static, 25-45 N) already inverts the soft pad, so the t = 3 event was never the root cause.
+- numconv_compare SETS gains pilot_tie3 (information row): when the p062 pilot windows end, mu_squeeze / slip / N / compression
+  are compared with the split2 baseline to confirm the pilot options leave the physics unchanged (expected within the 2 %
+  time-step tolerance).
+
+## 2026-11-03 08:15 — control p062 windows: pilot options leave the metrics unchanged
+- All six pilot_tie3/p062 windows NORMAL (1 retry in AR_right). numconv_compare (row pilot_tie3, tolerance 2 %): mu_squeeze
+  within -0.7..+0.6 % (extension +4.9 % = +0.0007 absolute, below the 0.005 floor), slip bound within 0.0..+0.7 %, sustained
+  compression +0.02 pp vs the split2 baseline -> pass. The tie-on-converged-state, geometric-retry, dt-window and
+  follower-in-release options are therefore physics-neutral on a load-carrying design and may be enabled per class when a
+  design needs them; production classes stay unchanged (builds byte-identical) until the PI asks otherwise.
+
+## 2026-11-03 13:50 — friction batch (physrotFr3_) mid-point: every insertion failure is a radial-gradient design
+- 55 of 70 insertion runs ended: 30 NORMAL (17 radial, 13 axial), 19 ERROR (19 radial, 0 axial), 6 running, 15 queued; GPUs
+  became free ~09:45 so the scheduler now launches on GPU. Earlier friction sets agree: physio_fric 3 radial ERROR / 3 radial +
+  1 axial OK; physio_fric2 all OK. In the tied production configuration all 70 of these designs passed.
+- Two failure signatures, both only in radial designs (soft bands at the window edge of the contact face, 100 % hard elsewhere):
+  (a) release-stage crawl stopped by the watchdog (p039 p048 p050 p052 p064 p097): dt at dtmin 1e-4 with 22-40 Newton
+  iterations per step, no or few inverted elements - contact chatter signature; E_soft 1.67 and 11.9 alike.
+  (b) first dynamic step t 3.0-3.06 (p061 p068 p071 p074 p082 p083 p084 p088 p095 p101 p104; p109 at 3.34): 10-18 retries,
+  thousands of inverted cage elements (first inverted: cage_soft / cage_mix, twice C3_cortical) - the stacked t = 3 event.
+  Window failures (8 of 60 ended windows: p014 E, p051 F, p063 F, p066 F, p078 E, p081 F, p086 F, p093 F) are mixed radial /
+  axial and are evaluated separately (10-35 retries late in the window).
+- Hypothesis for "radial only": the cage-endplate sliding-elastic contact (two_pass 0, auto_penalty 1, master C3_endplate,
+  slave cage_top/cage_bot) computes the penalty per SLAVE facet from the cage element's bulk modulus (FESlidingElasticInterface
+  ::CalcAutoPenalty on m_ss). A radial pad mixes hard (E 300-800 MPa) and soft (1.6-12 MPa) facets on one contact face, so the
+  penalty varies ~100x along the interface; with friction the hard facets take the load and the soft facets chatter / invert.
+  Axial pads are uniformly soft at the face (uniform penalty) and all pass. Under the tied contact the interface is glued, so
+  the heterogeneity never mattered. Not yet tested; candidate fixes are a uniform penalty (auto_penalty 0 with a fixed value
+  calibrated to the current hard-facet penalty), two_pass, or augmented Lagrangian - each a numerics change to validate on
+  p062 (numconv_compare) before use.
+- Action taken: class al_v2/physio_fric3p = physio_fric3 + the physics-neutral pilot options (follower_in_release, physio_dt0
+  0.005, aggressiveness 1, dtmax_windows; 08:15 entry). The 12 signature-(b) designs are queued as physrotFr3p_<design>
+  (builds differ from physio_fric3 only in the follower curve, dt curve and control blocks). Signature (a) is not expected to
+  respond to time-step options and waits for the penalty test.
+
+## 2026-11-03 14:30 — uniform contact-penalty test for the friction configuration (radial designs)
+- Evidence sharpened: in the t = 3 failures (p061 p083 p088 p068) 73-100 % of the first inverted cage elements sit in the two
+  element layers at the contact face (layer 0-1 or the top layers), both soft and hard facets. Auto-penalty per slave facet =
+  PENALTY x k_facet / h (h 0.2 mm): p048 soft 279 vs hard 45 276 N/mm3 (ratio 162), p061 1 977 vs 18 231 (9), p026 1 003 vs
+  61 106 (61); the axial p062 is 33 562 vs 54 128 (1.6) and passes. So it is the heterogeneity along one contact face, not the
+  penalty magnitude, that separates radial (fail) from axial (pass) under friction.
+- h14 option cage_penalty_fixed (N/mm3): auto_penalty 0 and a fixed penalty (still ramped by pen_ramp); off by default,
+  production builds byte-identical (p062 physio_fric3 rebuild md5 4f3208b5 unchanged).
+- Test classes al_v2/physio_fric3uS (fixed = soft-facet value) and physio_fric3uH (fixed = hard-facet value), each with p048
+  (release crawl), p061 (t = 3 failure) and p026 (radial design that passed: numerics control for the metric change). If both
+  values rescue p048/p061, the heterogeneity is the cause; if only one does, the magnitude matters too. p026's windows are
+  compared with its physio_fric3 result (fric_compare) to judge whether the uniform penalty changes mu / slip beyond the 5 %
+  penalty tolerance. No production class changes until the PI sees the result.
+
+## 2026-11-03 19:45 — friction batch: 43/70 insertions done, 27 radial failures; pilot options do not rescue, uniform penalty partly
+- physio_fric3: 43 NORMAL (both windows OK for 33; 10 window ERROR: p014 E, p051 F, p063 F, p066 F, p078 E, p081 F, p086 F,
+  p093 F, p125 F, p146 F), 27 ERROR - all radial (8 new ones at t 3.01-3.07 with 10-18 retries: p115 p116 p120 p127 p128 p129
+  p130 p140), 1 running. Every axial design completed.
+- physio_fric3p (pilot time-step options + follower ramped 2.5-3.0): the 12 radial designs fail or crawl EARLIER - 6 ERROR at t
+  2.93-3.005 (p071 136 retries at the first dynamic step; p083/p104 at t 2.93-2.95 with 16/10 retries under the static
+  follower ramp) and 6 crawling at dtmin 1e-4 with 25-55 iterations per step at t 2.73-2.97 (watchdog will stop them). With
+  friction the radial faces fail as the follower load approaches 100 N, static or dynamic: the failure follows the load.
+- physio_fric3uS (uniform soft-facet penalty): p048 moved past its old crawl (t 2.44 -> 2.88, dt 0.005-0.007, 20-29 iterations),
+  p061 still crawls at 1e-4 (t 2.78), p026 control normal (dt 0.08, 8-10 iterations). uH (hard-facet value) at t 1.3.
+- Reading: the inverted elements are the face layers at the hard/soft band boundaries (face fraction 0.3-1.0, mixed phi). Under
+  the tie the soft bands are glued; with sliding allowed the nearly incompressible soft bands (nu 0.45) bulge laterally between
+  hard bands and the 0.2 mm face elements shear until they invert. The penalty heterogeneity contributes (p048 improves) but is
+  not the whole mechanism (p061). This is a computability limit of radial pads in the friction configuration, not of axial pads.
+- Consequence for the PI's order (flexion + extension friction windows for every passing design): ~33 designs get both windows,
+  ~27 radial designs cannot be evaluated in the friction configuration with the current mesh / contact. Options for the PI:
+  (a) keep the tied screening result for those designs and flag the friction gate as 'not numerically confirmed' (tied bound is
+  conservative for LB / AR, not for flexion / extension); (b) a friction-computable method for radial pads (finer face mesh,
+  or a contact formulation to be validated on p062 / p026); (c) treat 'not computable under friction' as a design-level penalty
+  (soft bands squeezed out of a sliding interface are also a real-world concern for interleaved radial pads).
+- fric_compare (SETS + physio_fric3) running on the ended windows -> results/method/fric/verdicts.json; collect_split + h33 after
+  the remaining runs end.
+
+## 2026-11-03 22:30 — friction batch (physio_fric3) ended: 70 designs, corrected evaluation, two failure clusters, pilots queued
+
+**Batch.** All 70 passing A-family designs ran the frictional insertion (sliding-elastic, mu 0.35, slow dynamic) with flexion +
+extension windows: 43 insertions NORMAL (18 axial, 25 radial), 27 ERROR (all radial). fric3p (pilot time-step options) 12/12
+ERROR; uniform-penalty test: uS p048 2.90 / p061 3.014 ERROR (no rescue), uS p026 flexion u_h 0.353 vs 0.368 mm (-3.9 %) but
+1.5 N m not reached (|M| 682) and extension ERROR at t 3.77; uH (hard-facet penalty everywhere) all ERROR at contact onset
+t 2.02-2.11, 653 soft / 17 hard negative-jacobian elements -> the soft facets cannot carry the hard penalty. Conclusion: the
+penalty heterogeneity is not the cause of the radial failures.
+
+**Evaluation bug fixed (ops/fric_compare.py).** The intact-ROM evaluation picked the first dir starting with the id, which for
+GPU-run designs is the never-run build dir (p110 vs p110_gpu3) -> rom_error on 76 rows and vacuous 'pass' for every GPU-run
+design in the 13:50 / 19:45 interim notes. Rows now carry case_dir. Corrected verdicts (results/method/fric/verdicts.json,
+fric3_summary.csv): **19 pass / 25 fail** of 44 evaluated (43 fric3 + p060). Rule: translation at the state where the C3
+rotation reaches the intact ROM (flexion 5.8 deg, extension 7.4 deg) > 1 mm any direction or > 0.5 mm posterior.
+- flexion, anterior translation at ROM: axial 0.50-0.64 mm (all pass), radial 0.93-1.19 mm (20 of 21 radial with a valid
+  flexion window fail; p072 exactly 1.00). Bimodal by gradient, independent of E_soft (1.6-11.9), d and theta.
+- extension, posterior translation at ROM: 0.20-0.64 mm; 13 windows > 0.5 (p135 0.50, p076 0.50, p139 0.63 axial; the rest
+  radial interleave 0.51-0.61). Extension sits on the 0.5 mm limit for both gradients.
+- 11 designs evaluated on one window only (other window missing / non-monotonic); p066 no window valid.
+Reading: with real friction the cage slides ~1 mm anteriorly when the segment flexes to its intact ROM if the contact face has
+soft perimeter bands (radial); whole-layer axial faces slide ~0.55 mm. The tied slip bound (0.1-0.3 mm) is not comparable
+(evaluated at 1.5 N m, which friction never transmits: moment saturates at 520-590 N mm).
+
+**The 27 radial insertion failures = two clusters, both numerical, feature-correlated.**
+- Feature: every ERROR design has soft-band depth d >= 0.8 mm (median 1.25); every radial NORMAL has d <= 0.96 (median 0.65).
+  theta and E_soft do not separate them.
+- Cluster 1 (6 designs, t 2.23-2.93, release / follower ramp, static): p039 p064 p052 p050 p097 p048. No xplt state near the
+  failure (PLOT_STEP_FINAL), only the log: crawl then negative jacobians in the soft face bands (19:45 note).
+- Cluster 2 (21 designs, t 3.005-3.07): the FIRST dynamic step at t 3. p061: at t 3.000 (static, converged) soft-band stretches
+  0.97-1.04 (strain <= 4 %), hard 0.99-1.01; the first dynamic step (dt 0.05) starts with residual 6.0e4 (static steps 1e-2 to
+  1e0), 'converges' in 60 iterations to a state with soft stretches 0.58-3.60 and 6 % of soft elements beyond the Gent lock
+  (I1-3 > 0.7); the next step inverts ~400 elements. Same R0 1e4-1e6 in p068 (fails outright, R0 1e6), p026 (survives, R0 2e4),
+  p062 axial (survives, R0 1.3e4); fric3p with dt0 0.005 and the follower moved to release: R0 2.1e4, dies at 3.005 -> the
+  transient is the analysis-type switch itself, not the load ramp, not dt. p109 (3.34) is the only late one.
+  => for cluster 2 the element inversion is NOT a material overload: 4 % strain one step before, >200 % one step after. It is
+  the static->dynamic switch transient hitting a sliding cage whose contact face has soft bands.
+- Answer to the PI's question (inversion = 破掉?): no. Inversion is the mesh/solver limit; in cluster 2 the material was at
+  <= 4 % strain just before, so nothing physical broke. In cluster 1 the strains are not logged; physically the soft perimeter
+  bands squeeze out between the hard bands (nu 0.45), the likelier real failure mode is delamination at the printed hard/soft
+  interface (assumed perfectly bonded in the model), not fracture of PLCL soft phase (elongation at break hundreds of %).
+  The model has no failure criterion, so '破掉' cannot be concluded from it.
+
+**Pilots queued (h14 option dynamic_from_release, default off; production p062 fric3 case byte-identical, md5 4f3208b5...):**
+classes al_v2/pilot_dynrel (switch to dynamic at t 2 while cage_hold constrains the cage), pilot_static (no dynamic at all),
+pilot_rho9 (density 1e-9 = real tissue, 1000x less artificial mass); designs p061, p068 (cluster 2), p048 (cluster 1).
+Decision rule: an option counts only if it (i) passes the three, (ii) keeps p062's window metrics within the 5 % / 2 % numconv
+tolerances (ops/numconv_compare.py), (iii) is then re-run on the 27.
+
+**Degradation sweep (physio_degr050/020/010, tied, secondary, ops/degr_compare.py):** E_soft x0.5/0.2/0.1 changes mu_req by
+<= 0.005, slip bound <= 0.36 mm, sustained compression +0.1-0.9 pp, peak compression +0.3-3 pp (p048 24.5-24.6 % at x0.5/0.2 vs
+25 % limit; p062 5.8-7.0 %). The tied verdicts are insensitive to soft-phase degradation.
+
+**Storage.** NAS phase 2 started 22:05 (split2/3/4, fric, fric2, fric3p, fric3uS/uH, numconv_*, pilot_tie*; ~110 GB);
+physio_fric3 (79 GB) and physio_degr* stay on /raid until the pilots and any strain re-reads are done.
+
+## 2026-11-04 01:30 — correction: the t 3 event is the instantaneous release of the C3 distraction reaction, not the dynamic switch; 'd' is the distraction, not a band depth
+
+**Correction of the 22:30 entry.** `d_mm` in the design parameters is the DISTRACTION height of C3 during insertion
+(prescribed rigid z, lc 15), not the soft-band depth. The feature that separates the 27 insertion failures (d >= 0.8, median
+1.25) from the 25 radial NORMAL (d <= 0.96, median 0.65) is therefore the distraction.
+
+**Mechanism, confirmed by three pilots (p061 / p068 / p048 each).** dynamic switch moved to t 2 (pilot_dynrel): p061 NORMAL +
+both windows NORMAL, p068 ERROR t 3.05, p048 ERROR t 3.10. No dynamic at all (pilot_static): p061 NORMAL (windows running),
+p068 / p048 ERROR at the first step after t 3. Real density 1e-9 (pilot_rho9): same. In every variant the first step after
+t 3 starts with residual R0 = 9.9e5 for p068, and C3pot.txt shows the C3 rigid-body reactions at t 3: Fx -35 N, My 998 N mm
+-> |F|^2 + |M|^2 = 9.97e5. p061 R0 6.0e4 = (Fx -10.6, My 244)^2; p062 1.25e4 = (Fx -5.5, My 112)^2; p026 1.95e4.
+The release step holds C3 in x, y, Rx, Ry, Rz while the distracted segment is seated; the ligaments / facets stretched by the
+distraction leave a reaction moment of ~730 N mm per mm of distraction (corr |My| vs d 0.98 over the 70 designs; p050/p068/
+p084/p127/p109/p048/p097 at d 1.5: 1092 N mm; p036 axial d 1.48: 1056 N mm, survives). The hold step frees those DOFs in one
+step = an impact of up to 1 N m on a sliding cage; axial faces survive it, radial faces with soft bands at the contact do not.
+Table: biocage-evo results/method/fric/seated_reactions_t2.json.
+- Physics reading: a real distractor is removed gradually and C3 settles into the cage under the ligament preload; the
+  model applies that preload as a step. The stored moment itself is a real quantity (lordosis / preload after insertion) and
+  worth logging per design.
+- Pilot queued (h14 option c3_release_ramp, default off, production p062 case byte-identical): the t 3 reactions applied as
+  rigid forces / moments on C3 decaying linearly to 0 over the hold step (t 3 -> 3.5); class al_v2/pilot_c3ramp, designs
+  p068 (Fx -35.4, My 998), p061 (-10.6, 244.5), p048 (p068's values; its own run died at 2.93 before t 3). Check: R0 of the
+  first step after t 3 should drop from 1e6 to ~1e2; then p062 numconv tolerance (5 % / 2 %) before any re-run of the 27.
+- The 2026-11-03 'pilot options' (dt0, aggressiveness, follower_in_release) could not help: the impact is independent of dt
+  and of the follower load.
+
+**Interface shear (PI 2026-11-04: shear large enough to delaminate the printed hard / soft interface is unsafe).**
+methods/e07_interface_shear.py: traction on every cage face shared by a hard and a soft element, from the soft-side and
+hard-side Cauchy stress separately (they agree within ~20 %), split into horizontal (between printed layers; the axial
+interface) and vertical (in-plane band boundary; the radial interface) faces; shear and peel, max and p99, per state.
+First numbers (MPa, soft-side p99 / max): p062 axial friction: insertion t 3.5 horizontal 1.8 / 2.5, flexion window t 3.68
+4.4 / 6.0; p026 radial friction: insertion vertical 2.2 / 3.9, flexion t 3.76 8.2 / 11.9 (peel max 27); p062 tied (split2)
+flexion peak t 4.0 horizontal 6.8 / 9.0. Batch over the 84 friction windows running (ops/e07_batch.py -> e07_summary.csv,
+values at the intact-ROM state and max up to it). No threshold applied: the bond strength of the co-printed PLCL hard/soft
+interface is not measured; typical multi-material FDM interface shear strengths in the literature are a few MPa, so the PI's
+criterion would bite at the window peaks for most designs - threshold is the PI's decision.
+
+## 2026-11-04 02:30 — e07 interface shear, 86 friction windows (results/method/fric/e07_summary.csv, e07_by_design.csv)
+
+Soft-side p99 shear at the intact-ROM state (MPa), by class:
+- axial mix (18): insertion 1.3-2.3; flexion horizontal 10.2-14.0 (median 11.9), extension 2.1-3.5. Independent of E_soft (1.7-11.3).
+- radial mix (12, E_soft 1.6-7.0): insertion 1.5-3.1; flexion horizontal 18.6-30.0 / vertical 10.7-16.9, peel max 31-53;
+  extension 4.3-6.2.
+- radial interleave (10, E_soft 10.3-11.9, hard fraction 0.857): insertion 0.1-0.2; flexion 1.7-2.7; extension 0.3-0.5.
+- Windows over a p99@ROM threshold of 2 / 3 / 5 MPa: flexion 34 / 27 / 27 of 37, extension 29 / 17 / 8 of 41.
+Caveats: (i) flexion drives the segment to 5.8 deg with the cage as the only spacer, so the anterior edge carries the load and
+the interface values there exceed the hard-phase yield parameter (sig_hard 15 MPa) in the radial-mix designs - above that the
+numbers are 'the model's stress at a corner', a relative ranking rather than a stress a bonded interface would really see;
+(ii) p99 over 2300-4300 interface faces (tens of faces); (iii) reference-configuration normals (+-10 %).
+Decision pending (PI): bond-strength threshold and evaluation point (ROM state recommended, same as the slip rule).
+
+## 2026-11-04 03:30 — PI decisions applied: interface shear 3 MPa provisional, radial mix excluded; merged result 0 / 71
+
+**PI 2026-11-04.** (1) Interface-shear threshold 3 MPa, soft-side p99 shear at the intact-ROM state, flexion and extension
+(frictional runs), marked 'provisional, pending bond-strength test'. (2) Radial-gradient mixing-nozzle designs excluded at
+design level (A and B). Accepted knowing that every axial design fails the shear gate in flexion.
+
+**Implementation (biocage-evo).** ops/e07_batch.py -> results/method/fric/e07_verdicts.json (threshold and provisional flag
+stored in the file's meta). ops/fric_compare.py: no pass by absence - a window counts when it reached the intact ROM or
+1.5 N m among the valid states (the |M| monotonic flag is reported, not used to discard: before, p072 passed because its
+extension window, 0.55 mm posterior at ROM, was dropped); a design passes gate 4 only if flexion AND extension count;
+designs whose frictional insertion stopped are open with reason 'not computable'. ops/collect_split.py: per-design 'gates'
+record (tied screening, dislocation_friction, interface_shear, design_rule) and first-cause class order tied screening ->
+dislocation-friction -> interface-shear-provisional -> radial-mix-excluded; a tied pass a friction gate could not evaluate
+becomes open; design features read from any valid case.json (cage block or mesh name). Old repo
+scripts/6_active_learning/h22_active_learning.py: EXCLUDED_COMBOS = radial mix (A, B) never proposed again. Evo docs/PLAN.md
+S10 added.
+
+**Merged result (verdict_classes_merged.json): 0 designs pass all gates.** Of the 71 tied passes:
+DESIGN/dislocation-friction 26 (incl. p072, which was a nominal pass), DESIGN/interface-shear-provisional 15 (all axial
+designs with a usable window, flexion 10.2-14.0 MPa; plus radial mix p081, p113 by first cause), DESIGN/radial-mix-excluded
+13 (+ p107, previously open), [多元]/friction-computability 14 (all radial interleave: p039 p048 p052 p061 p064 p082 p083
+p088 p101 p115 p120 p121 p129 p140), [觀測]/friction-window 3 (p066, p146 axial; p086 interleave - flexion did not reach ROM).
+- The 13 radial-mix designs among the 27 friction-insertion failures no longer need a re-run; only the 14 interleave ones
+  do, and they ride on the c3_release_ramp pilot.
+- Of the 10 radial interleave designs computed under friction: shear 1.7-2.7 MPa (pass), but 8 fail the slip rule (~1 mm
+  flexion) and p072 fails extension (0.55 mm). The axial designs hold (0.50-0.64 mm flexion) but fail the shear gate.
+- Gap (not expanded now): the shear gate covers flexion / extension only; lateral bending / axial rotation exist only as tied
+  windows.
+
+## 2026-11-04 04:10 — reaction-ramp pilot, first result; run-to-run divergence of identical inputs
+
+- pilot_c3ramp p068 (radial mix, now excluded; reactions Fx -35.4 N, My 998 N mm ramped to 0 over t 3 -> 3.5): the ramp works
+  as intended - first step after t 3 R0 9.7e3 (was 9.9e5; = (99.8 N mm)^2, the per-step decrement), converged in 17
+  iterations, cage translation unchanged (0.007 mm). The run still dies in the SECOND step: R0 5.3e7 at step start, 291
+  negative jacobians. Not inertia (mass 1e-6); most likely a contact re-projection jump at the soft-banded face as C3 begins
+  to move. So the one-step release explained the first-step impact, not the whole failure of the radial faces.
+- pilot_c3ramp p061 / p048 stalled in the STATIC release step (t 2.68 / 2.12, dt at dt_min 1e-4), stopped (kill_febio).
+  The release step is byte-identical to production physio_fric3 and to pilot_static, yet pilot_static p061 (same GPU) passed:
+  the time-step histories of the two identical inputs agree to 7 digits for 151 steps and then diverge on round-off. The
+  release step of these radial designs is at the edge of computability (path sensitivity) - one more reason the friction
+  configuration cannot certify them as is.
+- pilot_c3ramp2 queued on the designs that matter (radial interleave, cluster 2): p061 (Fx -10.6, My 244.5), p083 (-16.6,
+  400.2), p129 (-13.5, 323.9), p120 (-16.9, 412.6); reactions from the production runs at t 3.
+- platform_capabilities.json: PHY-05 TIED -> fail (tied bound not conservative for flexion / extension), PHY-09 interface
+  shear (partial, provisional threshold), NUM-15 C3 release impact / friction-insertion computability (fail); evo-path
+  evidence fixed (../biocage-evo); h33 rerun, 0 warnings.
+
+## 2026-11-04 04:40 — interface-shear metric passes the numconv tolerances (p062 flexion, tied, at 1.5 N m)
+
+results/method/numconv/e07/compare_p062_flexion.json (biocage-evo). Soft-side p99 layer-interface shear (the metric that
+decides the axial designs): baseline 6.08 MPa; HZ 0.1 mm +2.0 %, penalty x0.5 -1.7 %, x2 +1.4 %, dt x0.5 0.0 % -> within the
+PI tolerances (5 % mesh / penalty, 2 % dt). Band-boundary p99 3.64 MPa: -7.2 % (HZ 0.1), -7.8 % (penalty x0.5) - outside 5 %,
+but it is not the deciding interface for axial designs. Single-face max (+29.7 % with HZ 0.1) and hard-side p99 (+24.1 %) are
+mesh-sensitive: the gate correctly uses the soft-side p99. Not tested: the frictional ROM state on the HZ 0.1 mesh (no such
+run); the axial values there (10.2-14.0 MPa) are 3-5x the threshold, far beyond a few-% mesh error.
+Reading: for whole-layer (axial) pads the layer interface is in series with the contact face, so the shear it carries is set
+by equilibrium (the shear the endplate transmits), not by the pad modulus - this is why it is independent of E_soft.
+- 04:50: p066 / p086 / p146 flexion windows stopped with 1100-2400 negative jacobians at 0-1.3 deg (ERROR), so they are
+  [多元]/friction-computability, not [觀測]. Final merged classes of the 71 tied passes: dislocation-friction 26,
+  interface-shear-provisional 15, radial-mix-excluded 13, friction-computability 17 (14 interleave insertions + p066 p086 p146).
+
+## 2026-11-04 11:30 — corrections and evaluation-point finding (retracts parts of the 02:30 / 03:30 / 04:10 / 04:40 entries)
+
+**e07 bug (mine).** The first version took the interface from the mesh flag 'hard', which is the interleave pattern; in mix
+designs it alternates inside one material, so all mix values before now (axial and radial mix, the p062 convergence check) were
+on faces that are no material interface. Fixed: material = FEBio element block. Invalid results kept out of the results tree.
+Corrected soft-side p99 shear (MPa), flexion at ROM / flexion at 1.5 N m / extension at ROM: axial mix 10.5-15.8 / 4.7-6.7 /
+3.2-7.4; radial mix 10.7-16.6 / 5.2-7.0 / 2.3-3.2; radial interleave 1.7-2.7 / 1.2-1.5 / 0.3-0.5.
+Merged classes of the 71 tied passes: dislocation-friction 26, interface-shear-provisional 17, radial-mix-excluded 13,
+friction-computability 15 (14 interleave insertions + p086). 0 pass.
+
+**Retraction: the shear metric does NOT pass the PI's mesh tolerance.** p062 tied flexion at 1.5 N m, corrected faces: HZ 0.1 mm
+layer p99 -15.9 %, band p99 +16.7 % (limit 5 %); penalty x0.5 -1.0 / -5.6 %, x2 +3.2 / +1.6 %; dt x0.5 0.0 %. So the value is
+good to about +-16 %. The axial fail at 3 MPa survives that error. In interleave designs the two one-sided tractions differ by
+up to ~27x (p093 t 3.5: soft 0.15, hard 4.2 MPa), so the boundary is not resolved at 0.2 mm; no interleave mesh check exists.
+The '~20 % soft / hard agreement' and the mechanism note 'equilibrium, independent of E_soft' were read from the invalid faces
+and are not established.
+
+**Evaluation-point inconsistency (mine).** The rule as written and reported to the PI on 2026-11-03 is 'at 1.5 N m, or at the
+intact ROM when the moment cannot be transmitted'; the code applied the ROM to every window. Flexion DOES transmit 1.5 N m, and
+holding it to the intact ROM takes |M| 1.9-6.1 N m (median 2.3 interleave, 3.3-3.4 mix; target 1.5). Every flexion slip failure
+comes from this: at 1.5 N m flexion translation is 0.09-0.88 mm (none > 1 mm). Extension is the case the ROM rule was made for
+(|M| saturates at 0.52-0.59 N m). The PI accepted 'ROM time point' for the shear gate on my wording, so the choice goes back to
+the PI. Not changed in code. Table: biocage-evo results/method/fric/threshold_rule_table.json, eval_point_sensitivity.json.
+
+**Friction computability.** pilot_c3ramp2 p061 / p083 / p120 / p129: all ERROR at t 3.05, step 2, 200-470 negative jacobians.
+First step fine (R0 7e2-2e3). Step-2 R0 scales exactly with 1/dt^2 (p061 ||R|| x dt = 107.6 in four retries) = the inertial
+predictor of the dynamic solver; its size is not explained by the logged C3 motion (cause open). Without the ramp p061 passes
+in three configurations (dynrel, static, rho9), three different stops for p068 / p048. Not exhausted: static + ramp and real
+density + ramp queued (classes pilot_c3rampS, pilot_c3rampR9; p061 p083 p129 p120). p061 windows (dynrel / static / rho9) reach
+only 2.9 deg (amplitude not retargeted) with flexion 0.56-0.61 mm.
+Literature check for the threshold: ABS-TPU 4.7, ASA-TPU 6.4 MPa lap shear (Harris 2019, Front Mech Eng); no PLCL value found.
+The earlier 'a few MPa' had no checked source.
+
+## 2026-11-04 12:20 — briefing check (pi-report) and duplicate detection
+- Flexion at 1.5 N m among windows that reached it: 0.15-0.88 mm (the 0.09 in the 11:30 entry is p063, stopped at 1.65 deg).
+- collect_split duplicate detection widened to design-defining parameters over all valid sets; p077 = p139, p143 = p092 = p117,
+  p086 = p100 = p142, p051 = p075, p095 = p128 were missed. Gates 4 and shear now pool the group (any id fails -> the group fails).
+- Identical designs do not repeat near the limit: extension posterior at ROM p077 0.456 / p139 0.634, p100 0.457 / p142 0.575
+  (only the prescribed amplitude differs), so the 0.5 mm limit is not numerically resolved; question to the PI.
+- Passes with pooled evidence, threshold / ROM everywhere / flexion 1.5 N m + extension ROM: 3 MPa 0 / 0; 5 MPa 0 / 2 (p036 p065);
+  6.4 MPa 0 / 9; 7.5 MPa 0 / 11; 16 MPa 11 / 11. All axial mix. Not applied: awaits the PI.
+
+## 2026-11-04 13:50 — merged classes after duplicate pooling (supersedes the counts in the 11:30 / 12:20 entries)
+- Tied passes 72 (p059 added: same design-defining parameters as p074, no split run of its own, inherits the pooled evidence).
+  First-cause classes: dislocation-friction 28, interface-shear-provisional 16, radial-mix-excluded 14, [多元] friction-computability 14
+  (p039 p048 p052 p061 p064 p082 p083 p088 p101 p115 p120 p121 p129 p140, all radial interleave). Pass all gates: 0.
+  Evaluation point unchanged (code applies the intact ROM to every window); threshold 3 MPa provisional; awaiting the PI
+  (questions 1-5 of the 13:30 briefing). Files: biocage-evo/results/method/split/*_merged.json.
+- QA audit of code vs decisions vs capability labels launched (PI request 13:45); a recurring QA structure is being designed.
+- Note: verdict_classes_merged.json lists 15 designs under DESIGN/radial-mix-excluded: the 14 tied passes plus p107, whose
+  tied screening is open ([數值]/unstable-window); the design-level exclusion is applied regardless of the tied result.
+
+## 2026-11-04 14:05 — QA system installed (PI request 13:45: a test-quality agent must check periodically that code matches the agreed method and the capability labels)
+- Design: human_study/qa/QA_SYSTEM.md. Layer A scripts/8_audit/h37_qa_check.py: ten deterministic regression checks, each from a
+  real error of 2026-10-31..11-04 (run dir resolution, pass by absence, e07 face recount, insertion state, document counts,
+  retracted claims qa/RETRACTED.json, pilot options in production, golden rebuild p062 md5 4f3208b5, one FEBio block per cage
+  material, register / audit-due). Report only; writes qa/QA_STATUS.{json,md}. tmux biocage_qa runs it every 6 h (crontab not
+  permitted for this account). First full run: all checks PASS, R10 WARN (no LLM audit yet).
+- Launch gate: h24_preflight.check() now calls `h37 launch <case_dir>` (pilot keys, material blocks); p062 fric3 preflight OK;
+  OBS-08 reconfirmed 2026-11-04 (stricter gate only). Preflight daemon restarted (tmux biocage_preflight).
+- Layer B: agent .claude/agents/qa-auditor.md fills the register qa/QA_SPEC.json (status 符合 / 不符 / 未實作 / 實作時自選 / PI待決)
+  and writes qa/audits/QA_AUDIT_<date>.md; skill /qa-audit runs A then B. pi-report must read QA_STATUS first and stamp every
+  briefing; numbers from result files only.
+- Pending PI: git pre-commit hook running h37 --quick (repo config change). Three audit agents (simulation method, verdict code,
+  labels) running now; their tables become the initial register.
+
+## 2026-11-04 14:20 — QA audit results applied (three independent auditors: simulation method, verdict code, labels)
+Verified at the cited lines before acting. Code fixes (no decision changed):
+- fric_compare.py:56 operator-precedence bug (k == 0 -> TypeError -> window silently 'open'); never triggered (0 rom_error rows).
+- fric_compare.py insertion stops: reason now distinguishes t_end < 3 (static release step, before the follower load: platform
+  problem, cluster 1) from t >= 3 (C3 release impact). Of the 14 [多元]/friction-computability designs, p039 2.233, p064 2.443,
+  p052 2.450, p048 2.931 stopped BEFORE t 3: the c3_release_ramp pilots cannot rescue them (the 13:30 briefing attributed all 14
+  to the release impact: corrected). 21 insertion runs stopped at t 3.005-3.34; 2 radial-mix ones (p050 2.518, p097 2.642) also < 3.
+- e07_batch.py: ROM-state shear interpolated over the VALID states only (NUM-14), as gate 4 does; 6 windows change by <= 0.2 MPa
+  (p139 ext 3.38 -> 3.59, p135 ext 3.52 -> 3.62 MPa), no verdict flips. Stale header text corrected (threshold IS applied; window rule
+  stricter than gate 4). e07_interface_shear / e04 docstrings corrected (one-sided tractions; node mean, not best fit).
+- current_settings.json: physio_fric3 class now locks nonsym all / physio_dynamic 1e-6 / physio_split / physio_rot_rad 0.126, 0.161
+  (were only in the h28 EXTRA argument, so h24 could not check them); pilot classes carry their keys (pilot_static physio_dynamic null,
+  rho9 1e-9, dynrel dynamic_from_release). 70/70 production params already matched. PHY-06, GEN-02/03, TIM-01/03 reconfirmed.
+- h37: pilot-key check is class-aware and per-set key-set consistency; new R11 (intact ROM constants in h14 / h28 / fric_compare agree).
+Findings that change what the PI was told (go into the next briefing):
+- Evaluation point: code checks BOTH the 1.5 N m point (when reached) and the ROM point (when reached), any exceedance fails; no
+  window fails at 1.5 N m, so today the ROM decides. The conditional rule of 04:30 (1.5 N m when transmissible) would move 12
+  flexion-only fails (p002 p014 p026 p038 p078 p079 p100 p112 p125 p132 p133 p148) out of gate 4: dislocation-friction 28 -> 17,
+  interface-shear-provisional 16 -> 27 (current gate order), pass still 0.
+- Gate order: radial-mix exclusion is the LAST first cause; 32 radial-mix designs in total, 27 tied passes, of which 14 carry the class,
+  11 are counted under dislocation-friction and 2 under interface-shear. Exclusion first would give 17 / 14 / 28 / 14.
+- Production code not committed: h14 / h22 / h24 / h28 / h34 / current_settings / h37 are working-tree only; HEAD's h14 cannot rebuild
+  the production cases (preflight h14 sha 682cf344 vs HEAD df38154a). Commit awaits the PI (standing rule).
+Sign-off items (implementation choices the decisions do not pin down): soft side = lower-phi side of each phi step (mix designs have no
+pure-soft block); p99; max(layer, band); reference-configuration normals; |n_z| > 0.7; shear window usable only at ROM (gate 4 also at
+1.5 N m); 1.25x amplitude factor not in any file (0.126 / 0.161 literal); 100 N and 1500 N mm as h14 defaults; ROM constants in 3 files
+(now R11-checked); restart.feb not covered by the h24 rebuild comparison.
+
+## 2026-11-04 15:00 — labels maintenance after the QA audit; p062 controls for the ramp pilots queued
+- platform_capabilities.json: PHY-05 method / threshold now state the actual rule (PI 04:30: > 1 mm any, > 0.5 mm posterior, both
+  evaluation points when reached; merged counts 26 unpooled / 28 pooled; per-family ranges at ROM: axial flexion 0.50-0.64, interleave
+  0.93-1.18, radial mix 1.00-1.19 mm; extension axial 0.20-0.63, interleave 0.46-0.61, radial mix 0.36-0.49), evidence date = result
+  time, fric3_summary.csv removed from its evidence. PHY-09 date = evidence time, valid-state interpolation noted. NUM-15 value now quotes
+  only numbers that exist in result files (c3_reactions_t3.json moved into results/method/fric; t 2 regression slope ~950 N mm/mm, not
+  730), stop phases split (6 static-release / 21 release-impact). R03 marked superseded by PI 2026-11-03 04:30 (friction results ARE
+  the design gates). New: NUM-16 interface-shear numerical convergence (fail: +-16 %), NUM-17 verdict reproducibility near limits
+  (fail: 0.5 mm line unresolved), R10 scope (shear only flexion / extension), R11 scope (evaluation point pending PI). OBS-10 / DIV-03 /
+  OBS-06 / NUM-14 values updated to the merged result (NUM-14 FRIC -> partial: no h34 batch scan of physio_fric3). METRICS component
+  now includes e07 and fric_compare. 39 status entries reconfirmed with explicit notes (h14 options off + byte-identical rebuild,
+  FEBio option off by default, settings lock existing values, OPS hardening, METRICS widening); NUM-10 (FEBio patch regression) left
+  STALE on purpose: the regression test must be re-run after the 2026-11-03 rebuild. Scorecard stale lines 65 -> 2 (NUM-10).
+  Retired e07 wrong-face outputs: results/method/fric/retired_wrong_faces_20261104/.
+- fric_compare.py: my 14:20 edit of line 56 had put the comment mid-line and commented out the interpolation fraction -> every window
+  'rom_error' -> the dislocation count fell to 0 and the shear count rose to 31. Caught by h37 R5 on the first rerun (counts vs documents), fixed 14:40,
+  pipelines rerun: 28 / 16 / 15 / 14 unchanged, gate-4 verdicts 26 fail / 14 pass / 31 open, shear 31 / 10 / 2; p139 ext 3.59,
+  p135 ext 3.62 MPa (valid-state interpolation). Lesson recorded: every gate-file edit is followed by the pipeline rerun + h37.
+- Pilots (14:00): pilot_c3rampR9 p061 insertion NORMAL (t 3.5; flexion window running, t 3.80), p120 ERROR t 2.77 (static release
+  phase, not the release impact), p083 t 2.81 / p129 t 3.37 running; pilot_c3rampS p061 3.32 / p120 3.43 / p129 3.37 past the release
+  and running, p083 t 2.84. First combinations past the C3 release. Controls queued per the 11:30 plan: p062 in pilot_c3rampR9 and
+  pilot_c3rampS (jobs pilotCR9_p062, pilotCS_p062; ramp Fx -5.54 N, My 111.7 N mm from the production C3pot at t 3; amplitudes 0.126 /
+  0.161 as production; preflight OK). Acceptance: p062 windows within 5 % / 2 % of production physio_fric3 before any interleave rerun.
+
+## 2026-11-04 16:25 (Claude) — p062 controls: static+ramp variant fails the control, real-density+ramp on track
+- pilot_c3rampS (fully static: physio_dynamic None applies to the main run AND the windows) p062: insertion NORMAL (t 3.5), flexion
+  window E R R O R at t 3.824 (first stall t 3.766, 41 -> 905 negative-Jacobian elements in cage_mix_0.25 + C3 / C4 cortical tets),
+  before the intact ROM (production t_rom 3.900). Production p062 flexion (dynamic 1e-6) ran to t 4 with 4 retries. The static window
+  is therefore a different solver set-up, not a 1:1 control; the static variant fails acceptance on p062 already. Its main runs are
+  also ~10x slower (p061 / p083 / p120 / p129 still at t 3.42-3.49 after 5 h). Static+ramp dropped unless the PI wants a hybrid
+  (static release, dynamic windows), which would be a new pilot.
+- pilot_c3rampR9 (density 1e-9 + C3 release ramp) p062: insertion NORMAL, flexion window past the ROM state while running
+  (t 3.958): u_h@ROM 0.486 mm vs production 0.503 (-3.3 %), post -0.486 vs -0.503 — within the 5 % acceptance; extension window
+  not yet started. p061 flexion t 3.86 / p129 flexion t 3.83 running, p083 main t 3.39 running, p120 ERROR t 2.77 (static phase).
+- Evaluation script (same metric as fric_compare.at_intact_rom, reproduces production 0.503 / 0.448 exactly):
+  scratchpad p062_control_eval.py -> p062_control_eval.json. Decision pending the extension window: if both within 5 %, rerun the
+  interleave designs in pilot_c3rampR9 settings, excluding p039 p048 p052 p064 (stopped before t 3: platform problem, ramp cannot help).
+
+## 2026-11-04 20:10 (Claude) — p062 control result: real-density+ramp does NOT reproduce production in extension
+- pilot_c3rampR9 p062 both windows NORMAL to t 4. Flexion: u_h@ROM 0.486 vs production 0.503 mm (-3.3 %, accepted). Extension:
+  0.566 vs 0.448 mm (+26 %), and at t 4 0.879 vs 0.650 (+35 %); smaller lift (uz 0.36 vs 0.47): the cage slides posteriorly
+  instead of riding up. Smooth divergence from t ~3.75 on (504 states, no oscillation), so not a dynamic artefact of the pilot.
+  Consequence: p062 would FAIL the 0.5 mm posterior line in extension under the pilot settings. Acceptance NOT met.
+- pilot_c3rampS p062: both windows ERROR (3.824 / 3.841, negative Jacobians, purely static windows). Static variant dropped.
+- Two factors differ from production (density 1e-9 vs 1e-6; C3 release ramp). Isolation pilots queued (h28, preflight OK):
+  pilot_rho9/p062 (1e-9, no ramp, job pilotR9_p062) and pilot_c3ramp2/p062 (1e-6 + ramp, job pilotC2_p062), amplitudes 0.126 / 0.161.
+- If the density is the cause, the production physio_fric3 extension translations (the gate that fails most designs at the 0.5 mm
+  line) carry a ~25 % numerical-damping bias in the favourable direction -> [數值] finding on top of NUM-17; PI must decide the
+  reference density. Interleave rerun on hold until the isolation pilots end.
+
+## 2026-11-05 02:55 (Claude) — isolation pilots: the DENSITY is the cause, the C3 release ramp is harmless
+- pilot_c3ramp2/p062 (production density 1e-6 + ramp): flexion 0.503 / extension 0.446 mm @ROM vs production 0.503 / 0.448
+  (-0.1 % / -0.3 %). The ramp reproduces production; it is a pure solver aid.
+- pilot_rho9/p062 (physical density 1e-9, no ramp): flexion 0.564 (+12 %), extension 0.535 (+19.6 %). pilot_c3rampR9 (1e-9 + ramp):
+  -3.3 % / +26 %. The 1e-6 density (1000x the physical PLCL / bone density) damps the cage motion and lowers the production
+  translations by 12-26 % in the favourable direction; p062 crosses the 0.5 mm posterior line in extension at physical density.
+- Insertion stops: 1e-6 + ramp (pilot_c3ramp2) still stops p061 / p083 / p120 / p129 at t 3.05 (release impact); 1e-9 + ramp
+  (pilot_c3rampR9) carries p061 / p083 / p129 to t 3.5 and through both windows (p120 stops at 2.77, static phase). So the ramp
+  alone does not rescue the interleave designs; the physical density does, and it also changes the answers.
+- Static+ramp (pilot_c3rampS): 5 of 10 windows ERROR before t 4; dropped.
+- PI decision needed (added to the pending list as item 8): reference density for the frictional runs. (a) keep 1e-6: results carry a
+  12-26 % favourable bias, 14 interleave designs stay '算不完'; (b) switch to 1e-9 (physical): rerun the 70 physio_fric3 designs
+  (~2 GPU-days at the pilot pace), expect more 0.5 mm failures, interleave designs become computable (3 of 4 pilots). Numbers in
+  scratchpad p062_control_eval.json; production is NOT re-labelled until the PI decides.
+- 03:20 addendum: static vs physical density at EQUAL drive (end of window, 2.9 deg; the 11:30 pilots p061 / p083 / p129 were built
+  with the retargeted amplitude 0.0507 rad, below the intact ROM, so they are insertion-feasibility pilots only): p083 flexion
+  static 0.451 vs 1e-9 0.449 mm; p129 flexion 0.491 vs 0.491; p061 flexion 0.631 vs 0.600 (rho9) / 0.579 (R9). Physical density
+  reproduces the static solution within 0-8 %; the production 1e-6 is the outlier (12-26 % low on p062). Evidence that 1e-9 is the
+  correct quasi-static reference. Files: human_study/PI_PENDING_DECISIONS.md (8 items, plain language), human_study/FILE_INDEX.md
+  (file index; h37 R12 checks that the listed paths exist).
+
+## 2026-11-05 04:10 — PI DECISIONS on the 8 pending items (human_study/PI_PENDING_DECISIONS.md of 03:20)
+PI answers (verbatim): 1 "1.5 N·m 點＝體外實驗標準力矩"; 2 依照建議; 3 a; 4 a; 5 c; 6 a; 7 依照建議; 8 b.
+- Item 1, evaluation point — read as the PI's own 2026-11-03 04:30 wording (option ii): a window is judged at the 1.5 N m state
+  when it transmits that moment, and ONLY at the intact-ROM state when it never reaches 1.5 N m. Implemented in fric_compare
+  (eval_point per window recorded in verdicts.json). If the PI meant "1.5 N m only", windows that never transmit it would stay
+  open instead — to be confirmed. The interface-shear gate stays at the ROM state (PI 2026-11-04 03:30 set it there explicitly).
+  Effect (from results/method/fric/verdicts.json): gate 4 verdicts 26 fail / 14 pass / 5 open -> 14 fail / 24 pass / 7 open;
+  10 designs fail -> pass (p002 p026 p038 p079 p100 p112 p125 p132 p133 p148: their flexion windows exceeded the limit only at
+  the ROM state while transmitting 1.5 N m), 2 fail -> open (p014 p078). All 14 remaining fails are extension@ROM (the extension
+  window never transmits 1.5 N m in these designs), posterior 0.50-0.64 mm.
+- Item 2, gate order — radial-mix exclusion is now the FIRST design-level cause (collect_split), ahead of dislocation and shear.
+- Merged classes after items 1 + 2 (results/method/split/verdict_classes_merged.json; tied passes 72, PASS 0):
+  DESIGN/radial-mix-excluded 28 (27 tied passes + p107), DESIGN/dislocation-friction 17, DESIGN/interface-shear-provisional 14,
+  [多元]/friction-computability 14; tied-screening classes unchanged (compression-sustained 53, -lowerbound 10, -peak 5,
+  -peak-lowerbound 4, computability 2, unstable-window 2). The 13:30 / 11-04 figures 28 / 16 / 14 / 14 are superseded.
+- Item 3 — commit authorised (PI author, local commit, no push; run directories and the deleted al_v2/cases records left out).
+- Item 4 — R03 confirmed superseded; all friction verdicts carry 'provisional' (verdicts.json _meta, e07 meta) until NUM-16 /
+  NUM-17 and item 8 are settled. Class strings unchanged.
+- Item 5 — T05 extension to the 6 static-release stops checked, nothing changes: their last converged plotted state is t 2.0
+  (p097: 2.64), i.e. before the release step completed, and the soft-layer compression there is <= 2 % (max over soft elements,
+  z-direction, as in failed_runs_lastJ.json; p99 principal <= 1 %) — far below the 15 % limit, so no lower-bound FAIL can be
+  claimed. They stay [多元]/friction-computability. Numbers: results/method/fric/static_release_stops_lastJ.json. The 21
+  release-impact stops wait for item 8 as decided. Note: T05 as worded (stop UNDER the follower load, t >= 3) does not cover t < 3;
+  had any exceeded 15 % the extension would have needed its own entry.
+- Item 6 — FEBio patch regression (NUM-10) to be re-run with the 2026-11-03 binary into a new directory (see later entry).
+- Item 7 — pre-commit hook: runs h37 --quick --hook (register findings reported as WARN, not blocking) in both repos.
+- Item 8 — reference density becomes the physical 1e-9 (new class physio_fric4, NO C3 release ramp: at 1e-9 the ramp shifts the
+  answer 14 % (p062 flexion 0.564 -> 0.486) and the static reference sits nearer no-ramp; pilot_rho9 p061 got through insertion
+  at 1e-9 alone). Step 1: time-step convergence on 5 designs (physio_dt 0.05 vs 0.025, acceptance 2 % on the item-1 evaluation-point
+  translation). Step 2: the remaining passing designs, excluding the 6 static-release stops (t < 3 is static in both densities).
+  physio_fric3 stays as the record of the 1e-6 results; physio_fric4 is kept out of fric_compare SETS until the rerun is complete,
+  then the basis is switched in one documented step.
