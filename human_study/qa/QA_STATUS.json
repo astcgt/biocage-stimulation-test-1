@@ -1,6 +1,6 @@
 {
- "time": "2026-11-05 06:38",
- "overall": "WARN",
+ "time": "2026-11-05 06:40",
+ "overall": "PASS",
  "checks": [
   {
    "id": "R1-case-dir",
@@ -65,12 +65,12 @@
   {
    "id": "R10-register",
    "status": "PASS",
-   "message": "94 register items; unmapped []; 不符 []"
+   "message": "96 register items; unmapped []; 不符 []"
   },
   {
    "id": "R10-llm-audit-due",
-   "status": "WARN",
-   "message": "LLM audit required: last 2026-11-05 04:43; gate files changed since: []; decision entries since: ['2026-11-05 06:38']"
+   "status": "PASS",
+   "message": "LLM audit current: last 2026-11-05 06:40; gate files changed since: []; decision entries since: []"
   }
  ],
  "counts": {
@@ -96,14 +96,12 @@
   "designs": 149
  },
  "register": {
-  "last_llm_audit": "2026-11-05 04:43",
-  "n_items": 94,
+  "last_llm_audit": "2026-11-05 06:40",
+  "n_items": 96,
   "unmapped": [],
   "mismatch": [],
   "gate_files_changed": [],
-  "new_decisions": [
-   "2026-11-05 06:38"
-  ]
+  "new_decisions": []
  },
  "mode": "quick"
 }

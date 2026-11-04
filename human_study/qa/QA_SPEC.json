@@ -1,7 +1,7 @@
 {
  "meta": {
   "note": "Register: one entry per PI decision that the code must implement. status in {符合, 不符, 未實作, 實作時自選, PI待決, unmapped}. check = h37 check id or 'llm' (judged by the qa-auditor agent). last_llm_audit is set by the auditor, never by h37.",
-  "last_llm_audit": "2026-11-05 04:43",
+  "last_llm_audit": "2026-11-05 06:40",
   "gate_files": [
    "scripts/3_cage_case/h14_build_case.py",
    "scripts/6_active_learning/h22_active_learning.py",
@@ -19,7 +19,8 @@
   "note_15_10": "statuses updated by the main session after the 14:50-15:00 label maintenance; register content from the qa-auditor run of 14:41",
   "note_20261105": "second LLM audit (qa-auditor) 2026-11-05 04:13-04:21: PI decisions of 04:10 registered (D-20261105-*); 11 existing items revised; 不符 D-20261104-L1, D-20261104-L5, D-20261105-L3 (label / document text and numbers, no verdict change)",
   "note_recheck": "2026-11-05 04:29: re-check after main-session fixes (DECISIONS 04:24 / 04:25 / 04:28 entries): D-20261104-L1, D-20261104-L5, D-20261105-L3 -> 符合; D-20261105-6 -> 符合; new D-20261105-S4 (NUM-10 pass with threshold exception, PI sign-off), D-20261105-L6 (labels stale after gate-file edits). 不符 0.",
-  "note_recheck2": "2026-11-05 04:43: registered DECISIONS 04:38 GAP entry (h24 window-file comparison, h37 R13/R12, p139 rebuild + requeue, cancelled stale jobs); h14 rebuild of p139 and a synthetic stale copy run independently; D-20261104-S4 -> 符合; new sign-off D-20261105-S5 (R13 silent skip without params file). Commits 974e595 / a30c002 noted."
+  "note_recheck2": "2026-11-05 04:43: registered DECISIONS 04:38 GAP entry (h24 window-file comparison, h37 R13/R12, p139 rebuild + requeue, cancelled stale jobs); h14 rebuild of p139 and a synthetic stale copy run independently; D-20261104-S4 -> 符合; new sign-off D-20261105-S5 (R13 silent skip without params file). Commits 974e595 / a30c002 noted.",
+  "note_recheck3": "2026-11-05 06:40: DECISIONS 06:38 registered (D-20261105-10a/10b); 1b, S4 closed by PI; S5 closed by 27de671 (re-tested); D-20261105-6 numbers now in compare.json. No code/result change (94f7b52)."
  },
  "items": [
   {
@@ -1026,11 +1027,12 @@
     "human_study/PI_PENDING_DECISIONS.md:5-7"
    ],
    "status": "符合",
-   "evidence": "PI 原話「1.5 N·m 點＝體外實驗標準力矩」被解讀為 04:30 條件式。若 PI 意為「只看 1.5 N·m」：14 個 extension@ROM fail（p051 p060 p072 p075 p076 p092 p093 p114 p117 p135 p139 p142 p143 p145）→ open；合併 DESIGN/dislocation-friction 17 → 0（p077/p086/p100 經 pooling 一併離開），這些設計轉入 interface-shear 或 friction-window。等 PI 確認（PI_PENDING_DECISIONS §A）。",
-   "checked": "2026-11-05 06:38",
+   "evidence": "PI 2026-11-05 06:38 逐字確認「傳得到 1.5 N·m 在 1.5 N·m 判，傳不到才在 ROM 判」= fric_compare.py:89-91 的實作；原本「若只看 1.5 N·m 則 14 個 extension@ROM fail → open、dislocation-friction 17 → 0」的替代情境不再成立。數字不變。見 D-20261105-10a。",
+   "checked": "2026-11-05 06:40",
    "source": "verdict",
    "check": "llm",
-   "note_pi": "PI 2026-11-05 06:38: reading confirmed: 1.5 N m when transmitted, else ROM"
+   "note_pi": "PI 2026-11-05 06:38: reading confirmed: 1.5 N m when transmitted, else ROM",
+   "note_20261105_0640": "closed by PI 06:38; status set 符合 by main session, evidence rewritten by auditor 2026-11-05 06:40"
   },
   {
    "id": "D-20261105-2",
@@ -1114,12 +1116,13 @@
     "human_study/platform_capabilities.json:1143"
    ],
    "status": "符合",
-   "evidence": "NUM-10 重跑完成（DECISIONS 04:25 條；標籤 status TIED/FRIC pass，date 2026-11-05T04:25，evidence 加 human_study/verify_patch_20261105）。對 verify_patch_20261105/compare.json（04:24，threshold_rel 1e-4，baseline verify_patch 2026-10-21）核數：fsu/* 六向 worst_rel 1.58e-12–4.78e-12（標籤「CPU ≤ 4.8e-12」✓）；fsu_gpu/* 1.66e-12–7.89e-12（「GPU ≤ 7.9e-12」✓）；c0c7/flex_pos_y 1.14e-4、C1 max_abs 0.0037 mm（「前屈 1.1e-4（0.004 mm）」✓）；c0c7/flex_neg_y worst_rel 2.08e-2 於 C6（scale 5.57 mm）、max_abs 0.1158 mm（「0.12 mm、2 %」✓）；C0_rigid 第 5 欄 -1.1227 vs -1.1230 → 0.025 %（✓）。不在證據檔中的兩個數：「GPU vs CPU 同執行檔 ≤ 7.9e-12」compare.json 無 GPU-vs-CPU 案例（兩者各對 baseline；三角不等式只保證 ≤ 1.27e-11）；「46 vs 56 步」log 'converged at time' 32 vs 30、C0_rigid.txt 33 vs 31 列，無 46/56。兩者不影響結論，但應改為可由檔案重算的數字。pass 的判法見 D-20261105-S4。",
-   "checked": "2026-11-05 04:29",
+   "evidence": "補充（2026-11-05 06:40）：compare.json 04:31 版新增 gpu_vs_cpu_same_binary（六向，最大 worst_rel 7.89e-12 ar_neg_z）與 c0c7_step_counts（flex_neg_y attempted 56/46、converged 32/30、retries 24/16；flex_pos_y 39/37、29/28），先前標為「不可由檔案重算」的兩個數字現已可重算且與標籤一致。狀態 pass → partial 由 PI 06:38 決定（D-20261105-10b）。",
+   "checked": "2026-11-05 06:40",
    "source": "labels",
    "check": "llm",
    "status_before_20261105_0429": "未實作",
-   "note_recheck": "re-check: rerun done; two label numbers not reproducible from compare.json"
+   "note_recheck": "re-check: rerun done; two label numbers not reproducible from compare.json",
+   "note_20261105_0640": "numbers now reproducible from compare.json 04:31"
   },
   {
    "id": "D-20261105-7",
@@ -1296,11 +1299,12 @@
     "human_study/verify_patch_20261105/compare.json"
    ],
    "status": "符合",
-   "evidence": "8 個回歸案例中 c0c7/flex_neg_y worst_rel 2.08e-2 > 門檻 1e-4（整合者 2026-10-21）；標籤仍判 pass，並把 threshold 文字改成「≤ 1e-4；C0-C7 後伸例外見 value」。理由（生產用 FSU 幾何兩條路徑皆 ≤ 1e-11；C0-C7 後伸為路徑依賴的摩擦接觸、舊執行檔已不存在）在 DECISIONS 04:25 有記載，但「一案超門檻仍 pass＋門檻加例外」是實作判斷，決策文（第 6 項只說重跑）未授權。PI 簽核：接受例外，或改 NUM-10 為 partial。",
-   "checked": "2026-11-05 06:38",
+   "evidence": "PI 2026-11-05 06:38 選「部分通過」：NUM-10 TIED/FRIC → partial，threshold 回到單純 ≤ 1e-4（platform_capabilities.json:1143 起，date 06:38）。簽核項已由 PI 裁決，不再是實作自選。見 D-20261105-10b。",
+   "checked": "2026-11-05 06:40",
    "source": "labels",
    "check": "llm",
-   "note_pi": "PI 2026-11-05 06:38: NUM-10 -> partial (threshold kept at 1e-4, no exception)"
+   "note_pi": "PI 2026-11-05 06:38: NUM-10 -> partial (threshold kept at 1e-4, no exception)",
+   "note_20261105_0640": "closed by PI 06:38; evidence rewritten by auditor 2026-11-05 06:40"
   },
   {
    "id": "D-20261105-L6",
@@ -1394,10 +1398,41 @@
    "code": [
     "scripts/8_audit/h37_qa_check.py:200"
    ],
-   "status": "實作時自選",
-   "evidence": "R13 在 params 檔不存在時無聲略過（PASS），且比對鍵只限 want 中有的 dof（:211 `if k in got`）。經 h24 的起跑門無此漏洞（h24:102），但 h37 launch 可被單獨呼叫。建議：無 params 檔時報 WARN/FAIL 而非略過。PI/維護者簽核。",
-   "checked": "2026-11-05 04:43",
+   "status": "符合",
+   "evidence": "commit 27de671（04:44）h37:200 改為 `if not os.path.exists(pj): bad.append(... 'no params file ... (amplitude unverifiable)'); continue`。獨立重測：scratchpad stale 複本無 params 檔 → `FAIL R13-window-amplitude: … no params file p139_params.json`；放回 params 檔（flexion 0.035）→ FAIL 0.035 != 0.126。無聲略過已消除。",
+   "checked": "2026-11-05 06:40",
    "source": "ops",
+   "check": "llm",
+   "note_20261105_0640": "fixed by main session 27de671; re-verified 2026-11-05 06:40"
+  },
+  {
+   "id": "D-20261105-10a",
+   "decisions_line": 1636,
+   "quote": "PI (verbatim): \"傳得到 1.5 N·m 在 1.5 N·m 判，傳不到才在 ROM 判\" — the implemented reading of item 1 is confirmed … Gate-4 numbers stand: 14 fail / 24 pass / 33 open; merged 28 / 17 / 14 / 14, PASS 0.",
+   "code": [
+    "../biocage-evo/ops/fric_compare.py:89-91",
+    "../biocage-evo/results/method/fric/verdicts.json",
+    "../biocage-evo/results/method/split/verdict_classes_merged.json"
+   ],
+   "status": "符合",
+   "evidence": "PI 原話與 fric_compare.py:89 `ev_point = '1.5Nm' if r['fric_reached'] else ('ROM' if r.get('rom_reached') else None)` 逐字對應（:90 只在 1.5Nm 點比、:91 只在 ROM 點比）。無程式或結果變動（commit 94f7b52 只動文件／標籤／登記表）：verdicts.json 仍為 03:41 版 fail 14 / pass 24 / open 33；verdict_classes_merged.json 28 / 17 / 14 / 14；h37 R5 PASS。PI_PENDING_DECISIONS.md §A 已移除。",
+   "checked": "2026-11-05 06:40",
+   "source": "verdict",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261105-10b",
+   "decisions_line": 1639,
+   "quote": "PI: \"NUM-10 例外：部分通過\" — NUM-10 TIED / FRIC set to partial …; the threshold keeps no exception.",
+   "code": [
+    "human_study/platform_capabilities.json:1143",
+    "human_study/verify_patch_20261105/compare.json",
+    "human_study/CAPABILITY_SCORECARD.md:55-56"
+   ],
+   "status": "符合",
+   "evidence": "platform_capabilities.json NUM-10：threshold「末態相對差 ≤ 1e-4（求解容差）」（例外文字已移除）、threshold_src 整合者 2026-10-21 不變；TIED/FRIC state partial、date 2026-11-05T06:38、note 引 PI 06:38「部分通過」。計分表 L55-56 顯示「未評 | 部分」；h33 --check rc 0。value 的數字對 compare.json（04:31 版）：fsu ≤ 4.78e-12、fsu_gpu ≤ 7.89e-12、gpu_vs_cpu_same_binary 最大 7.89e-12（ar_neg_z，新鍵，先前我標為不可重算者現已在檔內）、c0c7_step_counts flex_neg_y attempted 56 vs 46、converged 32 vs 30（新鍵，與標籤「嘗試步數 46 vs 56、收斂步 30 vs 32」一致）、c0c7/flex_neg_y worst_rel 2.08e-2 > 1e-4。",
+   "checked": "2026-11-05 06:40",
+   "source": "labels",
    "check": "llm"
   }
  ]
