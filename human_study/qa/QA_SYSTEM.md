@@ -44,3 +44,9 @@ A 層只報告，不改 DECISIONS、標籤或結果檔。
 ## 已安裝 / 待 PI 決定
 - 已安裝：h37 腳本；h24 起跑門（OBS-08 已 reconfirmed）；tmux `biocage_qa` 每 6 h 全檢；qa-auditor agent；`/qa-audit` skill；pi-report 守門規則；RETRACTED.json；QA_SPEC.json（登記表由首次稽核填入）。
 - 待 PI 決定：git pre-commit hook 跑 h37 --quick（改 repo 設定）；crontab（本帳號無權限，故用 tmux）。
+
+
+## 2026-11-05 additions
+- h24 step 2 compares the window restart files (w_*/restart.feb, restart_static.feb, physio_schedule.json) with the rebuild, not only case.feb (gap: stale split build with the wrong drive amplitude, p139 pilots).
+- h37 R12 file index (paths listed in human_study/FILE_INDEX.md exist); R13 launch gate: window schedule rot_rad = params file / class setting.
+- h37 --hook mode (pre-commit in both repos): R10 register findings reported as WARN, everything else blocking.

@@ -193,6 +193,26 @@ def r12_file_index():
     rep('R12-file-index', not missing, f'{len(paths)} paths in FILE_INDEX.md; missing {missing}')
 
 
+# ---------------------------------------------------------------- R13 window amplitude = case params (launch; stale split build p139 2026-11-05)
+def r13_window_amplitude(case_dirs):
+    bad = []
+    for d in case_dirs:
+        base = re.sub(r'_gpu\d+$', '', d.rstrip('/')); pj = base + '_params.json'      # the launch truth is the params file (h28 / h22), not the
+        if not os.path.exists(pj): continue                                              # built case.json (a stale build is self-consistent)
+        want = dict((json.load(open(pj)).get('physio_rot_rad') or {}))
+        S = json.load(open(os.path.join(P, 'human_study/current_settings.json'))); rel = os.path.relpath(base, P) + '/'
+        for prefix, v in S['classes'].items():
+            if rel.startswith(prefix) and v.get('physio_rot_rad'): want.update(v['physio_rot_rad'])     # class setting wins
+        if not want: continue
+        for w in sorted(glob.glob(os.path.join(d, 'w_*'))):
+            sf = os.path.join(w, 'physio_schedule.json')
+            if not os.path.exists(sf): continue
+            got = json.load(open(sf)).get('rot_rad') or {}
+            for k, v in want.items():
+                if k in got and abs(got[k] - v) > 1e-9: bad.append(f'{os.path.relpath(w, P)} {k} {got[k]} != params/settings {v}')
+    rep('R13-window-amplitude', not bad, f'window schedules vs case params: {bad[:6]}')
+
+
 # ---------------------------------------------------------------- R8 golden rebuild (h14 drift without a launch)
 def r8_golden():
     pj = os.path.join(P, GOLDEN['params'])
@@ -275,7 +295,7 @@ if __name__ == '__main__':
             time.sleep(hours * 3600)
     if len(sys.argv) > 1 and sys.argv[1] == 'launch':
         dirs = [os.path.abspath(d) for d in sys.argv[2:]]
-        r7_pilot_keys(dirs); r9_blocks(dirs, label='launch')
+        r7_pilot_keys(dirs); r9_blocks(dirs, label='launch'); r13_window_amplitude(dirs)
         for c, s, m in R: print(f'{s:4s} {c}: {m}')
         sys.exit(1 if any(s == 'FAIL' for _, s, _ in R) else 0)
     quick = '--quick' in sys.argv

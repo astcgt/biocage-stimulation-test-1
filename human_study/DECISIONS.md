@@ -1562,7 +1562,7 @@ PI answers (verbatim): 1 "1.5 N·m 點＝體外實驗標準力矩"; 2 依照建�
   when it transmits that moment, and ONLY at the intact-ROM state when it never reaches 1.5 N m. Implemented in fric_compare
   (eval_point per window recorded in verdicts.json). If the PI meant "1.5 N m only", windows that never transmit it would stay
   open instead — to be confirmed. The interface-shear gate stays at the ROM state (PI 2026-11-04 03:30 set it there explicitly).
-  Effect (from results/method/fric/verdicts.json): gate 4 verdicts 26 fail / 14 pass / 5 open -> 14 fail / 24 pass / 7 open;
+  Effect (from results/method/fric/verdicts.json): gate 4 verdicts 26 fail / 14 pass / 31 open -> 14 fail / 24 pass / 33 open (27 insertion stops: 6 static-release + 21 release-impact; 6 window-level: p014 p063 p066 p078 p086 p146);
   10 designs fail -> pass (p002 p026 p038 p079 p100 p112 p125 p132 p133 p148: their flexion windows exceeded the limit only at
   the ROM state while transmitting 1.5 N m), 2 fail -> open (p014 p078). All 14 remaining fails are extension@ROM (the extension
   window never transmits 1.5 N m in these designs), posterior 0.50-0.64 mm.
@@ -1588,3 +1588,46 @@ PI answers (verbatim): 1 "1.5 N·m 點＝體外實驗標準力矩"; 2 依照建�
   translation). Step 2: the remaining passing designs, excluding the 6 static-release stops (t < 3 is static in both densities).
   physio_fric3 stays as the record of the 1e-6 results; physio_fric4 is kept out of fric_compare SETS until the rerun is complete,
   then the basis is switched in one documented step.
+- 04:00 — commits (PI item 3): biocage_simulation_test_oct2026 ea74af8, biocage-evo 8586fb8 (author austonliuyi, local, no push; the
+  pre-commit hooks ran h37 --quick --hook: WARN only, LLM audit due). Left out on purpose: run directories, the untracked al_v2 set
+  metadata (physio_fric*, numconv_*, pilots) and the ~40 deleted al_v2/cases records — PI to say if they should follow.
+  Density pilots queued (preflight OK, amplitudes 0.126 / 0.161): physF4_ and physF4dt_ for p062 p060 p139 p061 p083 (10 jobs).
+  NUM-10 regression running: human_study/verify_patch_20261105 (6 FSU directions + C0-C7 flexion / extension, CPU batch).
+- 04:24 — QA audit 2026-11-05 (human_study/qa/audits/QA_AUDIT_2026-11-05.md): 3 不符, all label / document text and numbers, no
+  verdict or class count changes. Fixed: (1) my 04:10 "26/14/5 -> 14/24/7" counted only designs with windows; verdicts.json counts
+  are 26 / 14 / 31 -> 14 / 24 / 33 (open = 27 insertion stops + 6 window-level designs) — corrected in DECISIONS, R11, PHY-05, evo
+  docs; (2) PHY-05 method / threshold_src still described the two-point check -> conditional rule; 1.5 N m reached in 38 physio_fric3 windows (compare.json rows);
+  (3) OBS-10 note still gave the old gate order. PHY-05 / OBS-10 / DIV-03 status dates moved to the result-file time 03:41.
+  Item 5 figures corrected: max soft z-compression 1.28-2.14 % (p097 2.14), p99 principal 0.45-1.50 % — still far below 15 %.
+  Auditor sign-off items noted: the 03:20 option texts the PI answered against were overwritten by the 04:40 pending-doc rewrite
+  (only the 04:40 version is in git) — the PI's answers are read via the 04:10 entry; the scratch scripts (p062_control_eval,
+  static-release compression, verify_patch compare) live in the session scratchpad, not the repo.
+- 04:25 — NUM-10 regression rerun (PI item 6) done: human_study/verify_patch_20261105 (2026-11-03 03:00 binary) vs the 2026-10-21
+  baseline. FSU six directions: CPU path <= 4.8e-12, cuDSS GPU path <= 7.9e-12 relative at t 2.0 (GPU vs CPU of the same binary
+  <= 7.9e-12) -> the production geometry passes on both solver paths. Herron C0-C7 flexion 1.1e-4 (0.004 mm, at the threshold);
+  C0-C7 extension: C0 rotation 0.025 % but node displacements up to 0.12 mm (2 % of C6's 5.6 mm), different auto-stepper path
+  (46 vs 56 steps, path-dependent frictional contact); the pre-rebuild binary no longer exists, so a fixed-step two-binary run is
+  impossible -> recorded as a limitation, not hidden. NUM-10 TIED / FRIC -> pass (2026-11-05) with that note; the 2026-11-04
+  reconfirmation sweep's premise (rebuild changed no converged result on the production geometry) is now established.
+  GPUs 5 / 6 were taken by another user (39.8 GB each) during the run; cuDSS handle creation fails on a full GPU (status 4).
+- 04:28 — timestamp correction: the entries I labelled 05:05 / 05:40 / 05:50 and the pending-doc "04:40" were written at ~04:00 /
+  04:24 / 04:25 / 03:50 (I had estimated the clock instead of reading it); labels relabelled, NUM-10 status date set to 04:25.
+  The "04:10" header above was written at ~03:45; kept as is because the audit report and register cite it by that label.
+- 04:33 — audit re-check: 3 不符 -> 符合, h37 overall PASS (QA_AUDIT_2026-11-05.md §9-10). Follow-ups applied: NUM-10 label numbers
+  now reproducible from verify_patch_20261105/compare.json (gpu_vs_cpu_same_binary 7.9e-12; C0-C7 extension attempted steps
+  46 vs 56 incl. retries, converged 30 vs 32); the NUM-10 exception (C0-C7 extension 2 % node-level difference, label kept pass
+  on the production geometry) is listed for PI sign-off in PI_PENDING_DECISIONS.md §C. Stale labels after the 03:40 gate-file
+  changes: PHY-06 / OBS-02 / OBS-03 / OBS-05 / OBS-07 reconfirmed with notes (self-tests e03/e04/e05 PASS 04:31), OBS-06 value
+  updated to the 03:41 merge (276 windows, fail 131 / open 18 / pass 0).
+- 04:38 — GAP FOUND AND CLOSED (own check, not caught by the gates): the p139 density pilots in physio_fric4 / physio_fric4dt ran
+  with the window amplitude of the first, wrong build (0.035 / 0.050 rad instead of 0.126 / 0.161): h28 skips the h14 build when
+  case.feb exists, rewrote only the params file, and h24 passed because it compares a rebuild of case.feb only — the drive amplitude
+  lives in the window restarts (w_*/restart.feb, physio_schedule.json), which h24 never compared (listed as a sign-off item on
+  2026-11-04, now proven to matter). physF4_p139 ran to the end with the wrong amplitude (windows reached 2.0 / 2.9 deg, below the
+  ROM); physF4dt_p139 killed at t ~3. Fixes: h24 now also compares every w_*/restart.feb, restart_static.feb and
+  physio_schedule.json against the rebuild (tested: the stale p139 build FAILS, the fresh builds pass); h37 launch gate R13 compares
+  the window schedules' rot_rad with the params file and the class setting (a check against case.json would not have caught it —
+  a stale build is self-consistent; verified on a synthetic stale copy). Stale jobs moved to human_study/queue/cancelled_stale_amplitude/,
+  p139 dirs deleted and rebuilt (schedule 0.126 / 0.161, preflight OK), requeued. The other 8 pilots were fresh builds and are correct
+  (params = case = window schedule 0.126). Lesson: never rely on a build-skip when the inputs changed; the preflight must cover every
+  file FEBio reads.

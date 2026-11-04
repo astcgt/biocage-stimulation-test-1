@@ -121,6 +121,14 @@ def check(cd):
         if r.returncode: err.append('h14 failed: ' + r.stderr.strip()[-300:])
         elif sha(os.path.join(td, 'case.feb')) != sha(os.path.join(cd, 'case.feb')):
             err.append('case.feb differs from a rebuild with the current h14 (stale build: rebuild the case)')
+        else:                                           # 2026-11-05: the window restarts carry the drive amplitude (physio_rot_rad), which the
+            for w in sorted(glob.glob(os.path.join(td, 'w_*'))):      # main case.feb does not; a stale split build passed with wrong amplitudes (p139)
+                wn = os.path.basename(w)
+                for f in ('restart.feb', 'restart_static.feb', 'physio_schedule.json'):
+                    a, b = os.path.join(w, f), os.path.join(cd, wn, f)
+                    if os.path.exists(a) and (not os.path.exists(b) or sha(a) != sha(b)):
+                        err.append(f'{wn}/{f} differs from a rebuild with the current h14 (stale split build: rebuild the case)')
+                        break
     # 2b. QA launch gate (h37, PI 2026-11-04): no pilot-only option in a production case, one FEBio block per cage material
     r = subprocess.run([sys.executable, os.path.join(P, 'scripts/8_audit/h37_qa_check.py'), 'launch', cd], cwd=P, capture_output=True, text=True)
     if r.returncode: err.append('h37 QA launch gate: ' + ' | '.join(l for l in r.stdout.splitlines() if l.startswith('FAIL'))[-400:])

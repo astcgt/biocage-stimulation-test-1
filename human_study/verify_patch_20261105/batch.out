@@ -1,0 +1,80 @@
+started fsu/ar_neg_z on cores 24..31
+started fsu/ar_pos_z on cores 32..39
+started fsu/flex_neg_y on cores 40..50
+started fsu/flex_pos_y on cores 51..59
+started fsu/lb_neg_x on cores 60..77
+started fsu/lb_pos_x on cores 79..88
+started c0c7/flex_neg_y on cores 89..96
+started c0c7/flex_pos_y on cores 97..106
+finished fsu/flex_pos_y: {'exit': 0, 'normal': True, 'wall_s': 152.2, 'cores': 8, 'core_h': 0.338}
+finished fsu/ar_neg_z: {'exit': 0, 'normal': True, 'wall_s': 192.3, 'cores': 8, 'core_h': 0.427}
+finished fsu/ar_pos_z: {'exit': 0, 'normal': True, 'wall_s': 192.3, 'cores': 8, 'core_h': 0.427}
+finished fsu/lb_pos_x: {'exit': 0, 'normal': True, 'wall_s': 212.3, 'cores': 8, 'core_h': 0.472}
+finished fsu/flex_neg_y: {'exit': 0, 'normal': True, 'wall_s': 242.4, 'cores': 8, 'core_h': 0.539}
+finished fsu/lb_neg_x: {'exit': 0, 'normal': True, 'wall_s': 262.4, 'cores': 8, 'core_h': 0.583}
+finished c0c7/flex_pos_y: {'exit': 0, 'normal': True, 'wall_s': 602.6, 'cores': 8, 'core_h': 1.339}
+finished c0c7/flex_neg_y: {'exit': 0, 'normal': True, 'wall_s': 943.0, 'cores': 8, 'core_h': 2.096}
+{
+ "cases": {
+  "fsu/flex_pos_y": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 152.2,
+   "cores": 8,
+   "core_h": 0.338
+  },
+  "fsu/ar_neg_z": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 192.3,
+   "cores": 8,
+   "core_h": 0.427
+  },
+  "fsu/ar_pos_z": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 192.3,
+   "cores": 8,
+   "core_h": 0.427
+  },
+  "fsu/lb_pos_x": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 212.3,
+   "cores": 8,
+   "core_h": 0.472
+  },
+  "fsu/flex_neg_y": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 242.4,
+   "cores": 8,
+   "core_h": 0.539
+  },
+  "fsu/lb_neg_x": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 262.4,
+   "cores": 8,
+   "core_h": 0.583
+  },
+  "c0c7/flex_pos_y": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 602.6,
+   "cores": 8,
+   "core_h": 1.339
+  },
+  "c0c7/flex_neg_y": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 943.0,
+   "cores": 8,
+   "core_h": 2.096
+  }
+ },
+ "batch_wall_s": 953.1,
+ "total_core_h": 6.221,
+ "gpu_h": 0.0,
+ "not_run": []
+}

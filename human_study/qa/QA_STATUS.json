@@ -1,5 +1,5 @@
 {
- "time": "2026-11-05 03:57",
+ "time": "2026-11-05 04:39",
  "overall": "WARN",
  "checks": [
   {
@@ -65,12 +65,12 @@
   {
    "id": "R10-register",
    "status": "PASS",
-   "message": "67 register items; unmapped []; 不符 ['D-20261103-9'] (hook mode: reported, not blocking)"
+   "message": "88 register items; unmapped []; 不符 []"
   },
   {
    "id": "R10-llm-audit-due",
    "status": "WARN",
-   "message": "LLM audit required: last 2026-11-04 15:10; gate files changed since: ['human_study/current_settings.json', '../biocage-evo/ops/fric_compare.py', '../biocage-evo/ops/collect_split.py']; decision entries since: ['2026-11-05 04:10']"
+   "message": "LLM audit required: last 2026-11-05 04:29; gate files changed since: ['scripts/5_compute/h24_preflight.py']; decision entries since: []"
   }
  ],
  "counts": {
@@ -96,20 +96,14 @@
   "designs": 149
  },
  "register": {
-  "last_llm_audit": "2026-11-04 15:10",
-  "n_items": 67,
+  "last_llm_audit": "2026-11-05 04:29",
+  "n_items": 88,
   "unmapped": [],
-  "mismatch": [
-   "D-20261103-9"
-  ],
+  "mismatch": [],
   "gate_files_changed": [
-   "human_study/current_settings.json",
-   "../biocage-evo/ops/fric_compare.py",
-   "../biocage-evo/ops/collect_split.py"
+   "scripts/5_compute/h24_preflight.py"
   ],
-  "new_decisions": [
-   "2026-11-05 04:10"
-  ]
+  "new_decisions": []
  },
  "mode": "quick"
 }
