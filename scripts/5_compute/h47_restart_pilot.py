@@ -8,8 +8,8 @@ build: python h47_restart_pilot.py build <case_dir> <source_run_dir> [key=json .
          <case_dir>_params.json = <source run>'s params + the given keys; h14 rebuilds the deck (must be byte-identical to the
          source case.feb, else the checkpoint does not belong to it: h24 refuses); case.dmp hard-linked, case.xplt copied,
          launched_feb.sha256 copied; h24 preflight check must pass.
-run:   python h47_restart_pilot.py run <case_dir> <gpu> <cores>
-         runs w_extension/restart.feb in place (like h31) on the given GPU (cuDSS plugin) with the restart_env variables;
+run:   python h47_restart_pilot.py run <case_dir> <gpu> <cores> [window=extension]
+         runs w_<window>/restart.feb in place (like h31) on the given GPU (cuDSS plugin) with the restart_env variables;
          writes started_at, resources.json, done.
 """
 import os, sys, json, glob, shutil, subprocess, time, fcntl
@@ -43,8 +43,8 @@ def build(cd, src, extra):
     if not r['ok']: sys.exit(2)
 
 
-def run(cd, gpu, ncores):
-    cd = os.path.normpath(cd); prm = json.load(open(cd + '_params.json')); wd = os.path.join(cd, 'w_extension')
+def run(cd, gpu, ncores, window='extension'):
+    cd = os.path.normpath(cd); prm = json.load(open(cd + '_params.json')); wd = os.path.join(cd, 'w_' + window); sfx = '' if window == 'extension' else '_' + window
     if not h24_preflight.valid(cd): sys.exit(f'{cd}: no valid preflight (h24)')
     lock = open(os.path.join(P, 'human_study', '.cpu_launch.lock'), 'w'); fcntl.flock(lock, fcntl.LOCK_EX)
     busy = cpu_busy(); usable = [c for c in sorted(busy, key=busy.get) if busy[c] < 0.10 and c not in claimed_cores()]
@@ -56,9 +56,10 @@ def run(cd, gpu, ncores):
     shutil.copy(os.path.join(cd, 'case.xplt'), wd)            # the restart reopens (appends to) the plot file named in the archive
     cmd = ['prlimit', '--stack=unlimited', 'taskset', '-c', ','.join(map(str, cores)), FEBIO_FRIC, '-r', 'restart.feb', '-o', 'case.log',
            '-silent', '-output_negative_jacobians=50', '-cnf', CNF]
-    t0 = time.time(); open(os.path.join(cd, 'started_at'), 'w').write(str(t0))
+    t0 = time.time(); open(os.path.join(cd, 'started_at' + sfx), 'w').write(str(t0))
     json.dump(dict(cmd=cmd, env={k: env[k] for k in env if k.startswith(('BIOCAGE_', 'CUDA_', 'OMP_'))}, febio=FEBIO_FRIC,
-                   febio_sha256=h24_preflight.sha(FEBIO_FRIC)), open(os.path.join(cd, 'launch.json'), 'w'), indent=1)
+                   febio_sha256=h24_preflight.sha(FEBIO_FRIC), lib_sha256=h24_preflight.sha(os.path.join(P, 'third_party/FEBio/cbuild_fric/lib/libfebiomech.so')), window=window),
+              open(os.path.join(cd, 'launch' + sfx + '.json'), 'w'), indent=1)   # lib_sha256: the patched code lives in libfebiomech.so, the binary hash does not change between rebuilds
     p = subprocess.Popen(cmd, cwd=wd, env=env, stdout=subprocess.DEVNULL, stderr=open(os.path.join(cd, 'stderr.log'), 'w'))
     print(f'started {os.path.relpath(cd, P)} on GPU {gpu}, cores {cores[0]}..{cores[-1]}, env {prm.get("restart_env")}', flush=True)
     time.sleep(3); fcntl.flock(lock, fcntl.LOCK_UN)
@@ -70,11 +71,11 @@ def run(cd, gpu, ncores):
                core_h=round(ncores * wall / 3600, 3), gpu_h=round(wall / 3600, 3), profile_drops=drops, valid=(drops == 0),
                env_lines=[l.strip() for l in txt.splitlines() if 'BIOCAGE patch 7' in l][:6])
     if drops: print(f'INVALID: {drops} stiffness entries outside the matrix profile were dropped (see stderr.log)', flush=True)
-    json.dump(res, open(os.path.join(cd, 'resources.json'), 'w'), indent=1); print(os.path.relpath(cd, P), res, flush=True)
-    open(os.path.join(cd, 'done'), 'w').write(str(time.time()))
+    json.dump(res, open(os.path.join(cd, 'resources' + sfx + '.json'), 'w'), indent=1); print(os.path.relpath(cd, P), window, res, flush=True)
+    open(os.path.join(cd, 'done' + sfx), 'w').write(str(time.time()))
 
 
 if __name__ == '__main__':
     if sys.argv[1] == 'build': build(sys.argv[2], sys.argv[3], sys.argv[4:])
-    elif sys.argv[1] == 'run': run(sys.argv[2], int(sys.argv[3]), int(sys.argv[4]))
+    elif sys.argv[1] == 'run': run(sys.argv[2], int(sys.argv[3]), int(sys.argv[4]), *(sys.argv[5:6]))
     else: sys.exit(__doc__)

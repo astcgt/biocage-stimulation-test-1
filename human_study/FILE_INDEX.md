@@ -136,5 +136,5 @@ scratchpad `/tmp/claude-1024/-raid-jupyter-alz-ee09-projects-claude-work-biocage
 | `scripts/5_compute/h47_restart_pilot.py` | 重啟保持試算：從既有 t 3.5 存檔（pilot_holdA／holdE）重啟後伸窗口，用補丁版 FEBio 與環境變數切換摩擦修法（`restart_env`）；build 需 h14 重建與存檔 case.feb 逐位元相同並通過 h24 | Claude |
 | `human_study/al_v2/pilot_holdH/`, `human_study/al_v2/pilot_holdHf/` | 重啟保持試算案例（H：粗步，holdA 存檔；Hf：細步，holdE 存檔）；`launch_wave*.sh`、`wave*.log` 為各波啟動紀錄；失敗波的輸出在各案例 `_wave*_fail/` | Claude |
 | `febio_patches/febio-4.13-biocage-patch6-stick-memory.patch` | 補丁 6+7：黏著記憶／回映；`stick_memory` 改由環境變數 `BIOCAGE_STICK_MEMORY` 開啟（參數數量與正式版一致，存檔可互讀）、`BIOCAGE_CAGE_LAUGON` 增廣拉格朗日；凍結狀態不再換接觸元素；輪廓含錨點元素 | Claude |
-| `../biocage-evo/results/gpufe_verify/v2/v17g_hold_restart.json` | 重啟保持試算的漂移表（對照、增廣拉格朗日、黏著記憶） | Claude（scratch 讀取腳本，待併入 v17a_hold.py） |
+| `../biocage-evo/gpufe/verify/v17g_hold_restart.py`, `../biocage-evo/results/gpufe_verify/v2/v17g_hold_restart.json` | 重啟保持試算的讀數腳本與結果（對照、增廣拉格朗日、黏著記憶；起終點差與 t 3.95–4.4 線性趨勢、振幅、升降步數） | Claude |
 | `../biocage-evo/ops/restart_daemon.sh` | 重啟 evo daemon（含 foreman 閒置暫停，PI 2026-11-07 決定 6a） | Claude |
