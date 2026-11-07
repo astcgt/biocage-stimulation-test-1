@@ -22,7 +22,7 @@ H14 = os.path.join(P, 'scripts/3_cage_case/h14_build_case.py')
 GOLDEN = dict(params='human_study/al_v2/physio_fric3/p062_params.json', md5='4f3208b5e014c353f0f0e3683c1679ed',
               note='production p062 physio_fric3 case.feb, DECISIONS 2026-11-03 14:30 / 22:30')
 # pilot-only options: never in a production class or case (DECISIONS 2026-11-03 22:30: all default off, production byte-identical)
-PILOT_KEYS = ('dynamic_from_release', 'c3_release_ramp', 'sliding_off_after_tie', 'tied_init_converged', 'test_dynamic', 'only_distract', 'physio_hold', 'cage_laugon', 'cage_stick_memory', 'min_residual', 'window_min_residual', 'restart_env', 'window_static')   # 'test' is the protocol name, not an option
+PILOT_KEYS = ('dynamic_from_release', 'c3_release_ramp', 'sliding_off_after_tie', 'tied_init_converged', 'test_dynamic', 'only_distract', 'physio_hold', 'cage_laugon', 'cage_stick_memory', 'min_residual', 'window_min_residual', 'restart_env', 'window_static', 'window_dt')   # 'test' is the protocol name, not an option
 REQ = ('flexion', 'extension')
 FACES = ((0, 1, 2, 3), (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7))
 R = []     # (check id, status PASS/FAIL/WARN/SKIP, message)

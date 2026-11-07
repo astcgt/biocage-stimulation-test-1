@@ -1,5 +1,5 @@
 {
- "time": "2026-11-08 02:14",
+ "time": "2026-11-08 05:12",
  "overall": "WARN",
  "checks": [
   {
@@ -30,7 +30,12 @@
   {
    "id": "R3-faces",
    "status": "PASS",
-   "message": "skipped (--quick); 86 e07 window files"
+   "message": "86 windows, 43 cases recounted; mismatches 0 []"
+  },
+  {
+   "id": "R4-insertion-state",
+   "status": "PASS",
+   "message": "insertion value state within 0.05 of t 3.5; violations 0 []"
   },
   {
    "id": "R5-counts",
@@ -48,6 +53,16 @@
    "message": "settings/h14: []; production cases scanned 722, with pilot options / extra keys: []"
   },
   {
+   "id": "R8-golden-rebuild",
+   "status": "PASS",
+   "message": "p062 physio_fric3 rebuild md5 4f3208b5 vs recorded 4f3208b5 (11 s)"
+  },
+  {
+   "id": "R9-material-blocks",
+   "status": "PASS",
+   "message": "golden rebuild: one FEBio block per cage material in 1 cases (tmpq36r2qma:4); problems: []"
+  },
+  {
    "id": "R9-material-blocks",
    "status": "PASS",
    "message": "production: one FEBio block per cage material in 3 cases (p002:3, p036:4, p039:2); problems: []"
@@ -60,7 +75,7 @@
   {
    "id": "R12-file-index",
    "status": "PASS",
-   "message": "187 paths in FILE_INDEX.md; missing []"
+   "message": "192 paths in FILE_INDEX.md; missing []"
   },
   {
    "id": "R14-patch7-logs",
@@ -75,7 +90,7 @@
   {
    "id": "R10-llm-audit-due",
    "status": "WARN",
-   "message": "LLM audit required: last 2026-11-05 06:40; gate files changed since: ['scripts/3_cage_case/h14_build_case.py', 'human_study/current_settings.json', '../biocage-evo/ops/collect_split.py']; decision entries since: ['2026-11-06 23:42', '2026-11-07 13:00', '2026-11-08 01:40']"
+   "message": "LLM audit required: last 2026-11-05 06:40; gate files changed since: ['scripts/3_cage_case/h14_build_case.py', 'human_study/current_settings.json', '../biocage-evo/ops/fric_compare.py', '../biocage-evo/ops/collect_split.py']; decision entries since: ['2026-11-06 23:42', '2026-11-07 13:00', '2026-11-08 01:40']"
   }
  ],
  "counts": {
@@ -108,6 +123,7 @@
   "gate_files_changed": [
    "scripts/3_cage_case/h14_build_case.py",
    "human_study/current_settings.json",
+   "../biocage-evo/ops/fric_compare.py",
    "../biocage-evo/ops/collect_split.py"
   ],
   "new_decisions": [
@@ -116,5 +132,5 @@
    "2026-11-08 01:40"
   ]
  },
- "mode": "quick"
+ "mode": "full"
 }
