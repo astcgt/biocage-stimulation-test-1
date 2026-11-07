@@ -1,4 +1,4 @@
-# 平台能力計分表（自動產生 2026-11-08 02:18）
+# 平台能力計分表（自動產生 2026-11-08 02:22）
 
 由 `scripts/8_audit/h33_capability_audit.py` 從 `human_study/platform_capabilities.json` 產生，**不要手改**。判定規則見 `PLATFORM_CAPABILITIES.md`。門檻來源標「提案」的數字由 PI 拍板（[決定]）。
 
