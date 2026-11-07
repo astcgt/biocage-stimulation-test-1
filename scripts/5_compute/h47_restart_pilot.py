@@ -35,7 +35,7 @@ def build(cd, src, extra):
     subprocess.run([sys.executable, H14, cd + '_params.json', cd], check=True, cwd=P, stdout=subprocess.DEVNULL)
     a, b = h24_preflight.sha(os.path.join(src, 'case.feb')), h24_preflight.sha(os.path.join(cd, 'case.feb'))
     if a != b: sys.exit(f'{cd}: rebuilt case.feb differs from the source run {src} (the checkpoint does not belong to this deck)')
-    os.link(os.path.join(src, 'case.dmp'), os.path.join(cd, 'case.dmp'))
+    os.link(os.path.join(src, 'case.dmp'), os.path.join(cd, 'case.dmp'))   # hard link: run() passes NO -dump flag, so the source checkpoint is never rewritten; keep it that way
     shutil.copy2(os.path.join(src, 'case.xplt'), os.path.join(cd, 'case.xplt'))
     shutil.copy2(os.path.join(src, 'launched_feb.sha256'), os.path.join(cd, 'launched_feb.sha256'))
     r = h24_preflight.check(cd)
@@ -64,9 +64,12 @@ def run(cd, gpu, ncores):
     time.sleep(3); fcntl.flock(lock, fcntl.LOCK_UN)
     p.wait(); wall = time.time() - t0
     txt = open(os.path.join(wd, 'case.log'), errors='ignore').read()
+    err = open(os.path.join(cd, 'stderr.log'), errors='ignore').read()
+    drops = err.count('CRSSparseMatrix::add')     # patch-7 FECore guard: stiffness entries outside the sparse profile were DROPPED -> the window is invalid
     res = dict(exit=p.returncode, normal='N O R M A L' in txt[-4000:], wall_s=round(wall, 1), gpu=gpu, cores=ncores,
-               core_h=round(ncores * wall / 3600, 3), gpu_h=round(wall / 3600, 3),
+               core_h=round(ncores * wall / 3600, 3), gpu_h=round(wall / 3600, 3), profile_drops=drops, valid=(drops == 0),
                env_lines=[l.strip() for l in txt.splitlines() if 'BIOCAGE patch 7' in l][:6])
+    if drops: print(f'INVALID: {drops} stiffness entries outside the matrix profile were dropped (see stderr.log)', flush=True)
     json.dump(res, open(os.path.join(cd, 'resources.json'), 'w'), indent=1); print(os.path.relpath(cd, P), res, flush=True)
     open(os.path.join(cd, 'done'), 'w').write(str(time.time()))
 

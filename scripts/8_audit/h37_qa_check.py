@@ -22,7 +22,7 @@ H14 = os.path.join(P, 'scripts/3_cage_case/h14_build_case.py')
 GOLDEN = dict(params='human_study/al_v2/physio_fric3/p062_params.json', md5='4f3208b5e014c353f0f0e3683c1679ed',
               note='production p062 physio_fric3 case.feb, DECISIONS 2026-11-03 14:30 / 22:30')
 # pilot-only options: never in a production class or case (DECISIONS 2026-11-03 22:30: all default off, production byte-identical)
-PILOT_KEYS = ('dynamic_from_release', 'c3_release_ramp', 'sliding_off_after_tie', 'tied_init_converged', 'test_dynamic', 'only_distract', 'physio_hold', 'cage_laugon', 'cage_stick_memory', 'min_residual', 'window_min_residual', 'restart_env')   # 'test' is the protocol name, not an option
+PILOT_KEYS = ('dynamic_from_release', 'c3_release_ramp', 'sliding_off_after_tie', 'tied_init_converged', 'test_dynamic', 'only_distract', 'physio_hold', 'cage_laugon', 'cage_stick_memory', 'min_residual', 'window_min_residual', 'restart_env', 'window_static')   # 'test' is the protocol name, not an option
 REQ = ('flexion', 'extension')
 FACES = ((0, 1, 2, 3), (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7))
 R = []     # (check id, status PASS/FAIL/WARN/SKIP, message)
@@ -181,6 +181,20 @@ def r11_constants():
     rep('R11-constants', len(distinct) == 1 and all(vals.values()), f'intact ROM constants: {vals}')
 
 
+# ---------------------------------------------------------------- R14 patch-7 switches never in production (2026-11-08)
+def r14_patch7_logs():
+    """A production friction window must not have run with the env-switched friction treatments (BIOCAGE_STICK_MEMORY / BIOCAGE_CAGE_LAUGON,
+    FEBio patch 7, cbuild_fric) and must not have dropped stiffness entries (FECore guard). Both write their own evidence lines."""
+    hits = []
+    for s in ('physio_fric3', 'physio_fric4', 'physio_rot', 'physio_rot_split2', 'physio_rot_split3', 'physio_rot_split4'):
+        for lg in glob.glob(os.path.join(P, 'human_study/al_v2', s, 'p*_gpu*', 'w_*', 'case.log')) + glob.glob(os.path.join(P, 'human_study/al_v2', s, 'p*', 'case.log')):
+            try: txt = open(lg, errors='ignore').read()
+            except OSError: continue
+            if 'BIOCAGE patch 7' in txt: hits.append(os.path.relpath(lg, P) + ': patch-7 switch')
+            se = os.path.join(os.path.dirname(lg), 'stderr.log')
+            if os.path.exists(se) and 'CRSSparseMatrix::add' in open(se, errors='ignore').read(): hits.append(os.path.relpath(se, P) + ': dropped stiffness entries')
+    rep('R14-patch7-logs', not hits, f'production logs scanned for the patch-7 env switches and the FECore profile guard; hits: {hits[:10]}')
+
 # ---------------------------------------------------------------- R12 file index: every repo path named in human_study/FILE_INDEX.md exists (PI 2026-11-05: files are scattered)
 def r12_file_index():
     idx = os.path.join(P, 'human_study/FILE_INDEX.md')
@@ -302,7 +316,7 @@ if __name__ == '__main__':
     quick = '--quick' in sys.argv
     r1_case_dirs(); r2_no_pass_by_absence(); r3_faces(quick); counts = r5_counts(); r6_retracted(); r7_pilot_keys()
     if not quick: r8_golden()
-    r9_blocks(production_samples()); r11_constants(); r12_file_index()
+    r9_blocks(production_samples()); r11_constants(); r12_file_index(); r14_patch7_logs()
     reg = r10_register()
     worst = write_status(dict(counts=counts, register=reg, mode='quick' if quick else 'full'))
     for c, s, m in R: print(f'{s:4s} {c}: {m[:300]}')

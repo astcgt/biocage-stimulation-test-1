@@ -540,6 +540,7 @@ elif test == 'physio_rot':
         ET.SubElement(cj, 'prescribe_' + dd, lc=lcs['rot_' + nm]).text = f'{float(sg) * TH[nm] * F:.6g}'
     WMR = {}                                        # 2026-11-07 pilot (restart hold arms): |R|^2 floor for the WINDOW Control only (h30); insertion deck unchanged
     if prm.get('window_min_residual') is not None: WMR = {'window_min_residual': prm['window_min_residual']}
+    if prm.get('window_static'): WMR['window_static'] = True   # 2026-11-08 pilot: the restarted window step runs static (no inertia) - hold-drift discriminator (h30)
     json.dump(dict(control='rotation', target_moment_Nmm=M, follower_N=FL, t_follower=[2.5, 3.0] if prm.get('follower_in_release') else [3.0, T0], rot_rad={k: v * F for k, v in TH.items()},
                    windows=[dict(name=n, dof=dd, sign=sg, t0=T0 + i, t_peak=T0 + i + 0.5, t1=T0 + i + 1.0) for i, (dd, sg, n) in enumerate(seq)],
                    **({'physio_hold': HOLD} if HOLD else {}), **WMR),   # 2026-11-05 pilot (V17): h30 ramps, then holds the angle (HOLD = prm.get('physio_hold'), default None)

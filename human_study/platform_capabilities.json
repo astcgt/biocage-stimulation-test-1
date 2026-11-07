@@ -570,16 +570,24 @@
      "date": "2026-10-22T22:05",
      "value": "39 N @ 1 mm（屍體 44 N @ 1.7 mm）",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
+      }
      }
     },
     "FRIC": {
      "state": "pass",
      "date": "2026-10-22T22:05",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
+      }
      }
     }
    },
@@ -683,16 +691,24 @@
      "date": "2026-11-01",
      "value": "文獻值；無 bench",
      "reconfirmed": {
-      "date": "2026-11-05T04:32",
-      "note": "2026-11-05 03:40 SETTINGS 變動只是新增 physio_fric4／physio_fric4dt 類別（密度 1e-9、physio_dt）；材料常數未動"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: SETTINGS 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-05T04:32",
+       "note": "2026-11-05 03:40 SETTINGS 變動只是新增 physio_fric4／physio_fric4dt 類別（密度 1e-9、physio_dt）；材料常數未動"
+      }
      }
     },
     "FRIC": {
      "state": "partial",
      "date": "2026-11-01",
      "reconfirmed": {
-      "date": "2026-11-05T04:32",
-      "note": "2026-11-05 03:40 SETTINGS 變動只是新增 physio_fric4／physio_fric4dt 類別（密度 1e-9、physio_dt）；材料常數未動"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: SETTINGS 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-05T04:32",
+       "note": "2026-11-05 03:40 SETTINGS 變動只是新增 physio_fric4／physio_fric4dt 類別（密度 1e-9、physio_dt）；材料常數未動"
+      }
      }
     }
    },
@@ -725,16 +741,24 @@
      "state": "pass",
      "date": "2026-10-23T12:00",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04)"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04)"
+      }
      }
     },
     "FRIC": {
      "state": "pass",
      "date": "2026-10-23T12:00",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04)"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04)"
+      }
      }
     }
    },
@@ -768,8 +792,12 @@
      "value": "p062 後方推出 93 N",
      "note": "PI 2026-11-03：守門值 135 N 無文獻依據；待 PI 在「相對比較」與「生理剪力重推」間選擇（已說明差別）",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h14 options off by default; production rebuild byte-identical (QA R8 2026-11-04)"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h14 options off by default; production rebuild byte-identical (QA R8 2026-11-04)"
+      }
      }
     }
    },
@@ -805,8 +833,12 @@
      "date": "2026-11-02T18:00",
      "value": "p062 cage 厚度向 0.1 mm（46 層 106k hex，penalty 5 補償自動罰則 ~E/h）：|Δslip| ≤ 0.8%、|Δmu| ≤ 4.9%（0.0012 絕對；extension −6.7% = 0.0010）、Δ持續 +0.02 pp（門檻 5%）",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
+      }
      }
     }
    },
@@ -842,16 +874,24 @@
      "date": "2026-10-21",
      "value": "clamp 151.3 / 148.9 / … N（≤ 2%）",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00)"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00)"
+      }
      }
     },
     "FRIC": {
      "state": "pass",
      "date": "2026-10-21",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00)"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00)"
+      }
      }
     }
    },
@@ -886,8 +926,12 @@
      "note": "只驗了 p062；重算前 extension 曾差 6.6%，是基準的重試步偽態（NUM-14）；PI 要求再驗一個家族 B 設計——目前沒有算得完任何視窗的 B 設計，等第 4 項",
      "value": "p062 physio_dt 0.025（×0.5）：六視窗 |Δmu| ≤ 0.2%、|Δslip| ≤ 0.0%、Δ持續壓縮 0.00 pp（門檻 2%）",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD、SPLIT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
+      }
      }
     }
    },
@@ -923,8 +967,12 @@
      "date": "2026-11-02T18:00",
      "value": "474 視窗：1 微步、21 尖峰視窗（全部也被 NUM-14 的剛體殘差層抓到：尖峰 = 被驅動剛體的慣性暫態）；第一層後 3 個、第二層後再 11 個視窗的舊判定依賴垃圾狀態",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD、SPLIT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
+      }
      }
     },
     "FRIC": {
@@ -933,8 +981,12 @@
      "value": "474 視窗：1 微步、21 尖峰視窗（全部也被 NUM-14 的剛體殘差層抓到：尖峰 = 被驅動剛體的慣性暫態）；第一層後 3 個、第二層後再 11 個視窗的舊判定依賴垃圾狀態",
      "note": "根因已定位為慣性殘差（NUM-14）；慢速動態 + 質量縮放的妥協見 GAPS 3.7",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD、SPLIT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
+      }
      }
     }
    },
@@ -971,8 +1023,12 @@
      "date": "2026-11-02T18:00",
      "value": "p062 罰則 ×0.5：|Δslip| ≤ 2.3%、|Δmu| ≤ 3.3%（extension +7.7% = 0.0011 絕對）、Δ持續 −0.11 pp；×2：|Δslip| ≤ 1.5%、|Δmu| ≤ 2.6%、+0.04 pp（門檻 5%；mu 相對差只在 |Δmu| > 0.005 時計）",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
+      }
      }
     }
    },
@@ -1010,8 +1066,12 @@
      "date": "2026-11-03T01:30",
      "value": "修正：15/16 失敗 run 的「骨翻轉」是重試迭代的發散值（J −2…−1e13），不是收斂態；每個失敗 run 第一個翻轉的都是 cage_soft（Gent 軟墊到鎖死伸長 λ≈0.60）；骨 tet4 初始品質與整塊一致",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD、SPLIT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
+      }
      }
     },
     "FRIC": {
@@ -1020,8 +1080,12 @@
      "value": "修正：15/16 失敗 run 的「骨翻轉」是重試迭代的發散值（J −2…−1e13），不是收斂態；每個失敗 run 第一個翻轉的都是 cage_soft（Gent 軟墊到鎖死伸長 λ≈0.60）；骨 tet4 初始品質與整塊一致",
      "note": "2026-11-03 BONE_INVERSION_ANALYSIS：FEBio 並未「算不動骨頭」；真正的平台缺陷是 t=2（tied 形成）與 t=3（追隨力＋static→dynamic 切換＋dt 改變）三事件疊加的步進穩健性，以及 σ_demand/E_soft ≳ 1.5 的設計在 Gent Jm=0.7 下物理超載",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD、SPLIT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
+      }
      }
     }
    },
@@ -1056,8 +1120,12 @@
      "date": "2026-10-31T08:30",
      "value": "p062 六向；屈曲 0.0259 vs 0.0261；AR 差 = 力矩過衝比",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00) | METRICS component widened 2026-11-04 to include e07 / fric_compare (new files, hence stale); e03 / e04 / e05 themselves unchanged except an e04 docstring; self-tests PASS 2026-11-04 14:55"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: SPLIT、BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00) | METRICS component widened 2026-11-04 to include e07 / fric_compare (new files, hence stale); e03 / e04 / e05 themselves unchanged except an e04 docstring; self-tests PASS 2026-11-04 14:55"
+      }
      }
     }
    },
@@ -1093,8 +1161,12 @@
      "value": "p062 / p002：差 ≤ 0.002 / 0.02 mm",
      "note": "[2026-11-02T18:00] 速率無關性佐證：振幅差 10% 的重複設計在 1.5 N·m 的 mu／slip／N 差 ≤ 0.5%（p082/p088 extension、p092/p117 LB_right、p100/p142 AR_left）；靜態對照仍未做",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00)"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00)"
+      }
      }
     },
     "FRIC": {
@@ -1309,8 +1381,12 @@
      "date": "2026-10-31",
      "value": "約 23 min（CPU 46 min）",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04)"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD、SPLIT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04)"
+      }
      }
     }
    },
@@ -1374,8 +1450,12 @@
      "value": "歸檔第一階段（舊／無效集合約 1.1 TB）進行中；每設計輸出 0.8 GB 不再是門檻",
      "note": "h36_nas_archive.sh；第二階段等摩擦第二回合結束",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04)"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD、SPLIT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04)"
+      }
      }
     }
    },
@@ -1407,16 +1487,24 @@
      "date": "2026-11-02T15:30",
      "value": "h19 disk_ok：全域剩餘 < 100 GB 暫停啟動（單元測試通過）；本帳號用量門檻待 PI 定配額（null = 關）",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h19 / h23 hardening 2026-11-02/03 (commit e9f8ea4): scheduler and watchdog robustness only; does not touch case content or metrics"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: OPS 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h19 / h23 hardening 2026-11-02/03 (commit e9f8ea4): scheduler and watchdog robustness only; does not touch case content or metrics"
+      }
      }
     },
     "FRIC": {
      "state": "pass",
      "date": "2026-11-02T15:30",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h19 / h23 hardening 2026-11-02/03 (commit e9f8ea4): scheduler and watchdog robustness only; does not touch case content or metrics"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: OPS 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h19 / h23 hardening 2026-11-02/03 (commit e9f8ea4): scheduler and watchdog robustness only; does not touch case content or metrics"
+      }
      }
     }
    },
@@ -1448,16 +1536,24 @@
      "date": "2026-11-02T15:30",
      "value": "scheduler_tuning.json 每輪重讀；h23 狀態檔原子寫入 + 損壞容錯；連續 3 輪崩潰寫 ALERT_watchdog.txt；AL loop .done 標記",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h19 / h23 hardening 2026-11-02/03 (commit e9f8ea4): scheduler and watchdog robustness only; does not touch case content or metrics"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: OPS 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h19 / h23 hardening 2026-11-02/03 (commit e9f8ea4): scheduler and watchdog robustness only; does not touch case content or metrics"
+      }
      }
     },
     "FRIC": {
      "state": "pass",
      "date": "2026-11-02T15:30",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h19 / h23 hardening 2026-11-02/03 (commit e9f8ea4): scheduler and watchdog robustness only; does not touch case content or metrics"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: OPS 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h19 / h23 hardening 2026-11-02/03 (commit e9f8ea4): scheduler and watchdog robustness only; does not touch case content or metrics"
+      }
      }
     }
    },
@@ -1516,8 +1612,12 @@
      "date": "2026-10-31",
      "value": "8-10 設計 / h",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h28 change since the evidence is the physio_windows subset option (2026-11-03 05:00, off by default); build byte-identical"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: OPS、SPLIT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h28 change since the evidence is the physio_windows subset option (2026-11-03 05:00, off by default); build byte-identical"
+      }
      }
     }
    },
@@ -1621,16 +1721,24 @@
      "value": "e03.target_bracket 包夾兩態線性插值；p062 extension 滑移 0.1463→0.1383（連續 run 0.1339）、AR_left 0.2090→0.2016（0.2006）",
      "note": "重算後 234 個雙方達標視窗：mu 中位數 −0.4%、滑移 −3.4%；13 個 |Δmu| > 20% 全可解釋（10 個舊判定用了尖峰狀態、3 個 mu < 0.01 絕對變動 ≤ 0.002）",
      "reconfirmed": {
-      "date": "2026-11-05T04:32",
-      "note": "2026-11-05 03:40 gate 檔變動（fric_compare 評估點、collect_split 順序）不觸及 e03.target_bracket；e03 --test PASS 2026-11-05 04:31"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: METRICS 只有 fric_compare 的 _meta.rule 文字改成「檢查而非閘」（PI 2026-11-07 決定 1）；e03/e04/e05/e07 未動",
+      "previous": {
+       "date": "2026-11-05T04:32",
+       "note": "2026-11-05 03:40 gate 檔變動（fric_compare 評估點、collect_split 順序）不觸及 e03.target_bracket；e03 --test PASS 2026-11-05 04:31"
+      }
      }
     },
     "FRIC": {
      "state": "pass",
      "date": "2026-11-02T15:30",
      "reconfirmed": {
-      "date": "2026-11-05T04:32",
-      "note": "2026-11-05 03:40 gate 檔變動（fric_compare 評估點、collect_split 順序）不觸及 e03.target_bracket；e03 --test PASS 2026-11-05 04:31"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: METRICS 只有 fric_compare 的 _meta.rule 文字改成「檢查而非閘」（PI 2026-11-07 決定 1）；e03/e04/e05/e07 未動",
+      "previous": {
+       "date": "2026-11-05T04:32",
+       "note": "2026-11-05 03:40 gate 檔變動（fric_compare 評估點、collect_split 順序）不觸及 e03.target_bracket；e03 --test PASS 2026-11-05 04:31"
+      }
      }
     }
    },
@@ -1664,16 +1772,24 @@
      "date": "2026-11-02T15:30",
      "value": "e03.filter_rows：dt < 1e-4、孤立尖峰、首列 > 3×目標；自測含 p060/p100/p015/p027 模式",
      "reconfirmed": {
-      "date": "2026-11-05T04:32",
-      "note": "2026-11-05 03:40 gate 檔變動不觸及 e03.filter_rows；e03 --test PASS 2026-11-05 04:31"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: METRICS 只有 fric_compare 的 _meta.rule 文字改成「檢查而非閘」（PI 2026-11-07 決定 1）；e03/e04/e05/e07 未動",
+      "previous": {
+       "date": "2026-11-05T04:32",
+       "note": "2026-11-05 03:40 gate 檔變動不觸及 e03.filter_rows；e03 --test PASS 2026-11-05 04:31"
+      }
      }
     },
     "FRIC": {
      "state": "pass",
      "date": "2026-11-02T15:30",
      "reconfirmed": {
-      "date": "2026-11-05T04:32",
-      "note": "2026-11-05 03:40 gate 檔變動不觸及 e03.filter_rows；e03 --test PASS 2026-11-05 04:31"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: METRICS 只有 fric_compare 的 _meta.rule 文字改成「檢查而非閘」（PI 2026-11-07 決定 1）；e03/e04/e05/e07 未動",
+      "previous": {
+       "date": "2026-11-05T04:32",
+       "note": "2026-11-05 03:40 gate 檔變動不觸及 e03.filter_rows；e03 --test PASS 2026-11-05 04:31"
+      }
      }
     }
    },
@@ -1706,8 +1822,12 @@
      "date": "2026-10-31",
      "value": "h29 只對 split 批次",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: METRICS component widened 2026-11-04 to include e07 / fric_compare (new files, hence stale); e03 / e04 / e05 themselves unchanged except an e04 docstring; self-tests PASS 2026-11-04 14:55 | h28 change since the evidence is the physio_windows subset option (2026-11-03 05:00, off by default); build byte-identical"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: SPLIT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: METRICS component widened 2026-11-04 to include e07 / fric_compare (new files, hence stale); e03 / e04 / e05 themselves unchanged except an e04 docstring; self-tests PASS 2026-11-04 14:55 | h28 change since the evidence is the physio_windows subset option (2026-11-03 05:00, off by default); build byte-identical"
+      }
      }
     },
     "FRIC": {
@@ -1715,8 +1835,12 @@
      "date": "2026-11-02T15:30",
      "value": "h28 重定振幅已加尖峰濾除；physrotFr2_ 排隊中；h29 仍只對非拆分批次",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: METRICS component widened 2026-11-04 to include e07 / fric_compare (new files, hence stale); e03 / e04 / e05 themselves unchanged except an e04 docstring; self-tests PASS 2026-11-04 14:55 | h28 change since the evidence is the physio_windows subset option (2026-11-03 05:00, off by default); build byte-identical"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: SPLIT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: METRICS component widened 2026-11-04 to include e07 / fric_compare (new files, hence stale); e03 / e04 / e05 themselves unchanged except an e04 docstring; self-tests PASS 2026-11-04 14:55 | h28 change since the evidence is the physio_windows subset option (2026-11-03 05:00, off by default); build byte-identical"
+      }
      }
     }
    },
@@ -1753,16 +1877,24 @@
      "date": "2026-11-02T15:30",
      "value": "h31 每視窗寫 window_check.json + split_check.json；舊 run 由 h34 回溯掃描；collect_split 拒收無有效狀態的視窗",
      "reconfirmed": {
-      "date": "2026-11-05T04:32",
-      "note": "2026-11-05 03:40 collect_split 只改第一原因順序；無有效狀態視窗的拒收邏輯不變（rejected windows 0）"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: COLLECT 只改閘門段（滑脫摩擦閘 → 檢查，PI 2026-11-07 決定 1）；完整性、拒收與拆分邏輯未動；SPLIT：h30 只加預設關閉的 window_min_residual／window_static",
+      "previous": {
+       "date": "2026-11-05T04:32",
+       "note": "2026-11-05 03:40 collect_split 只改第一原因順序；無有效狀態視窗的拒收邏輯不變（rejected windows 0）"
+      }
      }
     },
     "FRIC": {
      "state": "pass",
      "date": "2026-11-02T15:30",
      "reconfirmed": {
-      "date": "2026-11-05T04:32",
-      "note": "2026-11-05 03:40 collect_split 只改第一原因順序；無有效狀態視窗的拒收邏輯不變（rejected windows 0）"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: COLLECT 只改閘門段（滑脫摩擦閘 → 檢查，PI 2026-11-07 決定 1）；完整性、拒收與拆分邏輯未動；SPLIT：h30 只加預設關閉的 window_min_residual／window_static",
+      "previous": {
+       "date": "2026-11-05T04:32",
+       "note": "2026-11-05 03:40 collect_split 只改第一原因順序；無有效狀態視窗的拒收邏輯不變（rejected windows 0）"
+      }
      }
     }
    },
@@ -1793,9 +1925,9 @@
    "status": {
     "TIED": {
      "state": "pass",
-     "date": "2026-11-05T03:41",
-     "note": "第二次重算（NUM-14 層）後；舊結果封存 results/method/split_pre_dyn_20261102/",
-     "value": "collect_split 2026-11-05 03:41（PI 第 1／2 項後）：276 視窗 0 錯誤，149 設計全部有 class；fail 131 / open 18 / pass 0"
+     "date": "2026-11-08",
+     "note": "取代 11-05 03:41 的計數（fail 131、PASS 0）",
+     "value": "collect_split 2026-11-08（PI 2026-11-07 決定 1 後）：276 視窗 0 錯誤，149 設計全部有 class；PASS 13、open 18、fail 118；friction_check_exceeded 13（註記）"
     }
    },
    "refs": [
@@ -1830,8 +1962,12 @@
      "value": "e03/e04/e05 --test 全部 PASS（解析案例 + 包夾濾除模式 + 單軸壓縮）",
      "note": " | 2026-11-04 14:55 QA：e03/e04/e05 --test 重跑全部 PASS（e04 docstring 修正、e07/fric_compare 加入 METRICS 元件後）",
      "reconfirmed": {
-      "date": "2026-11-05T04:32",
-      "note": "e03／e04／e05 --test 重跑全部 PASS 2026-11-05 04:31"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: METRICS 只有 fric_compare 的 _meta.rule 文字改成「檢查而非閘」（PI 2026-11-07 決定 1）；e03/e04/e05/e07 未動",
+      "previous": {
+       "date": "2026-11-05T04:32",
+       "note": "e03／e04／e05 --test 重跑全部 PASS 2026-11-05 04:31"
+      }
      }
     },
     "FRIC": {
@@ -1839,8 +1975,12 @@
      "date": "2026-11-04T14:55",
      "note": " | 2026-11-04 14:55 QA：e03/e04/e05 --test 重跑全部 PASS（e04 docstring 修正、e07/fric_compare 加入 METRICS 元件後）",
      "reconfirmed": {
-      "date": "2026-11-05T04:32",
-      "note": "e03／e04／e05 --test 重跑全部 PASS 2026-11-05 04:31"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: METRICS 只有 fric_compare 的 _meta.rule 文字改成「檢查而非閘」（PI 2026-11-07 決定 1）；e03/e04/e05/e07 未動",
+      "previous": {
+       "date": "2026-11-05T04:32",
+       "note": "e03／e04／e05 --test 重跑全部 PASS 2026-11-05 04:31"
+      }
      }
     }
    },
@@ -1871,16 +2011,24 @@
      "state": "pass",
      "date": "2026-11-02",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "h24 only gained an extra failure condition (h37 launch gate); p062 physio_fric3 preflight re-run OK, a stricter gate cannot turn a recorded pass into a false pass"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: PREFLIGHT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "h24 only gained an extra failure condition (h37 launch gate); p062 physio_fric3 preflight re-run OK, a stricter gate cannot turn a recorded pass into a false pass"
+      }
      }
     },
     "FRIC": {
      "state": "pass",
      "date": "2026-11-02",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "h24 only gained an extra failure condition (h37 launch gate); p062 physio_fric3 preflight re-run OK, a stricter gate cannot turn a recorded pass into a false pass"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: PREFLIGHT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "h24 only gained an extra failure condition (h37 launch gate); p062 physio_fric3 preflight re-run OK, a stricter gate cannot turn a recorded pass into a false pass"
+      }
      }
     }
    },
@@ -1910,16 +2058,24 @@
      "date": "2026-11-01",
      "value": "有來源 run；無 commit；結果未版本化",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: collect_split changes 2026-11-04 are the design-level gates and duplicate pooling after the tied screening; the per-window integrity / provenance records (h31 split_check, window_check, sources) are unchanged and QA R1/R2 verify them"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: COLLECT 只改閘門段（滑脫摩擦閘 → 檢查，PI 2026-11-07 決定 1）；完整性、拒收與拆分邏輯未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: collect_split changes 2026-11-04 are the design-level gates and duplicate pooling after the tied screening; the per-window integrity / provenance records (h31 split_check, window_check, sources) are unchanged and QA R1/R2 verify them"
+      }
      }
     },
     "FRIC": {
      "state": "partial",
      "date": "2026-11-01",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: collect_split changes 2026-11-04 are the design-level gates and duplicate pooling after the tied screening; the per-window integrity / provenance records (h31 split_check, window_check, sources) are unchanged and QA R1/R2 verify them"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: COLLECT 只改閘門段（滑脫摩擦閘 → 檢查，PI 2026-11-07 決定 1）；完整性、拒收與拆分邏輯未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: collect_split changes 2026-11-04 are the design-level gates and duplicate pooling after the tied screening; the per-window integrity / provenance records (h31 split_check, window_check, sources) are unchanged and QA R1/R2 verify them"
+      }
      }
     }
    },
@@ -1951,15 +2107,15 @@
    "status": {
     "TIED": {
      "state": "pass",
-     "date": "2026-11-05T03:41",
-     "value": "276 視窗 0 錯誤（collect_split 合併，2026-11-04 14:35）：tied 篩選 72 pass；classes：DESIGN/compression-sustained 53、-peak 5、-peak-lowerbound 4、-sustained-lowerbound 10、[多元]/computability 2、[數值]/unstable-window 2；tied pass 再經閘門：DESIGN/dislocation-friction 17、interface-shear-provisional 14、radial-mix-excluded 28（含 p107）、[多元]/friction-computability 14；PASS 0（2026-11-05 04:10 更新：PI 第 1 項評估點＝1.5 N·m 傳得到時、否則 ROM，第 2 項排除優先；閘 4 14 fail／24 pass／33 open（27 個插入段停算：靜態段 6、釋放衝擊 21；視窗層 6：p014 p063 p066 p078 p086 p146）；合併 radial-mix-excluded 28、dislocation-friction 17、interface-shear-provisional 14、friction-computability 14、PASS 0）｜2026-11-07 PI 決定 1（μ_req 為主，摩擦 run 只做檢查）後重算：PASS 13、friction-check-exceeded 13（註記，非閘）、interface-shear-provisional 18、radial-mix-excluded 28、friction-computability 14、open 18（collect_split 2026-11-08）",
+     "date": "2026-11-08",
+     "value": "276 視窗 0 錯誤（collect_split 2026-11-08）：tied 篩選 72 pass；classes：DESIGN/compression-sustained 53、-sustained-lowerbound 10、-peak 5、-peak-lowerbound 4、radial-mix-excluded 28、interface-shear-provisional 18、[多元]/friction-computability 14、[多元]/computability 2、[數值]/unstable-window 2、PASS 13；friction-check-exceeded 13（PI 決定 1：註記，非類別）",
      "note": "2026-11-05：first-cause 順序 tied 篩選 → radial-mix 排除 → dislocation → shear（collect_split.py:215-223；PI 2026-11-05 第 2 項，排除優先） | 2026-11-05 03:41 結果檔重算後更新日期"
     },
     "FRIC": {
      "state": "pass",
-     "date": "2026-11-05T03:41",
+     "date": "2026-11-08",
      "note": "2026-11-04 QA：原「尚未套用 class 欄位」已過期 | 2026-11-05 03:41 結果檔重算後更新日期",
-     "value": "摩擦閘門結果已併入 collect_split 的 gates 欄位與 class（dislocation-friction、interface-shear-provisional、friction-computability、friction-window）"
+     "value": "摩擦 run 結果併入 collect_split 的 gates 欄位：interface_shear 為閘（18 fail）、dislocation_friction 為檢查（role check，13 個 PASS 設計超標，暫定），radial-mix 排除 28；每個設計都有 class／reason"
     }
    },
    "refs": [
@@ -2028,16 +2184,24 @@
      "date": "2026-11-01",
      "value": "人體家族全部；evo 體素場路徑未核",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | current_settings.json changes add classes and lock keys production already carried (QA 2026-11-04 14:15); no value of an existing production class changed"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | current_settings.json changes add classes and lock keys production already carried (QA 2026-11-04 14:15); no value of an existing production class changed"
+      }
      }
     },
     "FRIC": {
      "state": "partial",
      "date": "2026-11-01",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | current_settings.json changes add classes and lock keys production already carried (QA 2026-11-04 14:15); no value of an existing production class changed"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | current_settings.json changes add classes and lock keys production already carried (QA 2026-11-04 14:15); no value of an existing production class changed"
+      }
      }
     },
     "GPUFE": {
@@ -2073,16 +2237,24 @@
      "date": "2026-11-01",
      "value": "h12 依構造成立；無自動比對",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | current_settings.json changes add classes and lock keys production already carried (QA 2026-11-04 14:15); no value of an existing production class changed | QA R9 2026-11-04: one FEBio block per cage material in production and golden rebuild"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | current_settings.json changes add classes and lock keys production already carried (QA 2026-11-04 14:15); no value of an existing production class changed | QA R9 2026-11-04: one FEBio block per cage material in production and golden rebuild"
+      }
      }
     },
     "FRIC": {
      "state": "partial",
      "date": "2026-11-01",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | current_settings.json changes add classes and lock keys production already carried (QA 2026-11-04 14:15); no value of an existing production class changed | QA R9 2026-11-04: one FEBio block per cage material in production and golden rebuild"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | current_settings.json changes add classes and lock keys production already carried (QA 2026-11-04 14:15); no value of an existing production class changed | QA R9 2026-11-04: one FEBio block per cage material in production and golden rebuild"
+      }
      }
     },
     "GPUFE": {
@@ -2194,8 +2366,12 @@
      "date": "2026-10-31",
      "value": "模式有紀錄；靜態重試未被 NUM-09 覆蓋",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: collect_split changes 2026-11-04 are the design-level gates and duplicate pooling after the tied screening; the per-window integrity / provenance records (h31 split_check, window_check, sources) are unchanged and QA R1/R2 verify them"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: COLLECT 只改閘門段（滑脫摩擦閘 → 檢查，PI 2026-11-07 決定 1）；完整性、拒收與拆分邏輯未動；SPLIT：h30 只加預設關閉的 window_min_residual／window_static",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: collect_split changes 2026-11-04 are the design-level gates and duplicate pooling after the tied screening; the per-window integrity / provenance records (h31 split_check, window_check, sources) are unchanged and QA R1/R2 verify them"
+      }
      }
     }
    },
@@ -2535,8 +2711,12 @@
      "value": "474 視窗 5278 態：158 視窗有 dyn 態（337 = 6.4%）；11 視窗由達標改未達標（生產批 5：p088 AR_left、p107 AR_right、p117 AR_right、p015 AR_right、p082 AR_left）；123 視窗重算，70/62/16",
      "note": "PI 2026-11-03：兩層濾除接受為常規；根治（降密度／靜態／重試回步）不現在做（GAPS 3.7） | 2026-11-04 QA：value 的 70/62/16 是 11-02 計數，現 tied pass 72（合併重複後）；physio_fric3 批次沒有 h34 批次掃描（視窗層的 window_check.n_dyn 有逐窗記錄）→ FRIC 證據不完整",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00) | h14 options off by default (QA R8 golden rebuild)"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: METRICS 只有 fric_compare 的 _meta.rule 文字改成「檢查而非閘」（PI 2026-11-07 決定 1）；e03/e04/e05/e07 未動；BUILD/SPLIT：預設關閉的試算選項（window_min_residual／window_static），R8 黃金重建 md5 4f3208b5 相同",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00) | h14 options off by default (QA R8 golden rebuild)"
+      }
      }
     },
     "FRIC": {
@@ -2545,8 +2725,12 @@
      "value": "physio_fric／fric2 視窗同規則掃描；p060 LB_left 末態殘差 281483（已由 dt 層濾除）",
      "note": "PI 2026-11-03：兩層濾除接受為常規；根治（降密度／靜態／重試回步）不現在做（GAPS 3.7） | 2026-11-04 QA：physio_fric3（86 視窗）未做 h34 批掃描，降為 partial",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00) | h14 options off by default (QA R8 golden rebuild)"
+      "date": "2026-11-08",
+      "note": "QA 2026-11-08: METRICS 只有 fric_compare 的 _meta.rule 文字改成「檢查而非閘」（PI 2026-11-07 決定 1）；e03/e04/e05/e07 未動；BUILD/SPLIT：預設關閉的試算選項（window_min_residual／window_static），R8 黃金重建 md5 4f3208b5 相同",
+      "previous": {
+       "date": "2026-11-04",
+       "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00) | h14 options off by default (QA R8 golden rebuild)"
+      }
      }
     }
    },

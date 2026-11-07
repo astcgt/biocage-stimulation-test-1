@@ -1,5 +1,5 @@
 diff --git a/FEBioMech/FESlidingElasticInterface.cpp b/FEBioMech/FESlidingElasticInterface.cpp
-index ae1d676..0fac588 100644
+index ae1d676..cc54d28 100644
 --- a/FEBioMech/FESlidingElasticInterface.cpp
 +++ b/FEBioMech/FESlidingElasticInterface.cpp
 @@ -33,6 +33,8 @@ SOFTWARE.*/
@@ -50,7 +50,7 @@ index ae1d676..0fac588 100644
 +//! (1) the sliding-elastic parameter list - and with it the layout of FEBio's restart dump - is identical to production FEBio
 +//! (FEParamContainer::Serialize refuses a dump whose parameter count differs), and (2) a window restarted from a production
 +//! checkpoint (the t 3.5 state of the friction runs) can switch the friction treatment on for the window only. Applied to
-+//! FRICTIONAL interfaces only (the frictionless facet contacts are untouched); every change is written to the log so a run
++//! FRICTIONAL interfaces only (the frictionless facet contacts are untouched); every change is written to the log (feLog, not filtered by the log level) so a run
 +//! carries its own evidence. Without the variables nothing changes (production behaviour).
 +//!   BIOCAGE_STICK_MEMORY=1               patch-6 stick memory (stick points kept across increments, slipped points return-mapped)
 +//!   BIOCAGE_CAGE_LAUGON=<tol>[,<maxaug>] augmented Lagrangian enforcement, augmentation tolerance tol, minaug 1, maxaug (default 10)
@@ -61,7 +61,7 @@ index ae1d676..0fac588 100644
 +    if (s)
 +    {
 +        m_bstickmem = (atoi(s) != 0);
-+        feLogInfo("BIOCAGE patch 7: interface '%s': stick_memory = %d (env BIOCAGE_STICK_MEMORY)", GetName().c_str(), (int)m_bstickmem);
++        feLog("BIOCAGE patch 7: interface '%s': stick_memory = %d (env BIOCAGE_STICK_MEMORY)", GetName().c_str(), (int)m_bstickmem);
 +    }
 +    const char* a = getenv("BIOCAGE_CAGE_LAUGON");
 +    if (a)
@@ -69,14 +69,42 @@ index ae1d676..0fac588 100644
 +        double tol = atof(a); int maxaug = 10;
 +        const char* c = strchr(a, ','); if (c) maxaug = atoi(c + 1);
 +        m_laugon = FECore::AUGLAG_METHOD; m_atol = tol; m_naugmin = 1; m_naugmax = maxaug;
-+        feLogInfo("BIOCAGE patch 7: interface '%s': laugon = AUGLAG, tolerance %g, minaug 1, maxaug %d (env BIOCAGE_CAGE_LAUGON)", GetName().c_str(), tol, maxaug);
++        feLog("BIOCAGE patch 7: interface '%s': laugon = AUGLAG, tolerance %g, minaug 1, maxaug %d (env BIOCAGE_CAGE_LAUGON)", GetName().c_str(), tol, maxaug);
 +    }
 +}
 +
  //-----------------------------------------------------------------------------
  void FESlidingElasticInterface::UpdateAutoPenalty()
  {
-@@ -647,6 +683,46 @@ void FESlidingElasticInterface::ProjectSurface(FESlidingElasticSurface& ss, FESl
+@@ -450,6 +486,27 @@ void FESlidingElasticInterface::BuildMatrixProfile(FEGlobalMatrix& K)
+                     }
+                     
+                     K.build_add(lm);
++                    if (m_bstickmem && data.m_pmep && (data.m_pmep != pe))
++                    {   // BIOCAGE patch 7: with stick memory the anchor element (m_pmep) can differ from the current one; the stick
++                        // traction and its tangent refer to the anchor, so its nodes must be in the profile as well
++                        FESurfaceElement& mep = *data.m_pmep;
++                        int* mpn = &mep.m_node[0];
++                        int nmepn = mep.Nodes();
++                        assign(lm, -1);
++                        for (l=0; l<nseln; ++l)
++                        {
++                            vector<int>& id = mesh.Node(sn[l]).m_ID;
++                            lm[6*l  ] = id[dof_X]; lm[6*l+1] = id[dof_Y]; lm[6*l+2] = id[dof_Z];
++                            lm[6*l+3] = id[dof_RU]; lm[6*l+4] = id[dof_RV]; lm[6*l+5] = id[dof_RW];
++                        }
++                        for (l=0; l<nmepn; ++l)
++                        {
++                            vector<int>& id = mesh.Node(mpn[l]).m_ID;
++                            lm[6*(l+nseln)  ] = id[dof_X]; lm[6*(l+nseln)+1] = id[dof_Y]; lm[6*(l+nseln)+2] = id[dof_Z];
++                            lm[6*(l+nseln)+3] = id[dof_RU]; lm[6*(l+nseln)+4] = id[dof_RV]; lm[6*(l+nseln)+5] = id[dof_RW];
++                        }
++                        K.build_add(lm);
++                    }
+                 }
+             }
+         }
+@@ -647,6 +704,46 @@ void FESlidingElasticInterface::ProjectSurface(FESlidingElasticSurface& ss, FESl
  
  //-----------------------------------------------------------------------------
  
@@ -123,7 +151,7 @@ index ae1d676..0fac588 100644
  void FESlidingElasticInterface::Update()
  {
      static int naug = 0;
-@@ -684,8 +760,14 @@ void FESlidingElasticInterface::Update()
+@@ -684,8 +781,14 @@ void FESlidingElasticInterface::Update()
  	int nsolve_iter = GetFEModel()->GetCurrentStep()->GetFESolver()->m_niter;
      if (nsolve_iter == 0)
      {
@@ -140,7 +168,24 @@ index ae1d676..0fac588 100644
          m_bfreeze = false;
      }
      
-@@ -895,6 +977,14 @@ vec3d FESlidingElasticInterface::ContactTraction(FESlidingElasticSurface& ss, co
+@@ -814,8 +917,14 @@ vec3d FESlidingElasticInterface::ContactTraction(FESlidingElasticSurface& ss, co
+             pn = m_btension ? (-tn) : MBRACKET(-tn);
+             
+             // store the previous values as the current
+-            data.m_pme = data.m_pmep;
+-            data.m_rs = data.m_rsp;
++            // BIOCAGE patch 7 (2026-11-07): with stick memory the anchor (m_pmep, m_rsp) may lie on another secondary element than the
++            // current projection; swapping the current projection for the anchor here (inside the stiffness pass, after the matrix
++            // profile was built from m_pme) wrote the contact stiffness outside the sparse profile and FEBio's CRSSparseMatrix::add
++            // never returned (hang seen in pilot_holdH p062/p139, 2026-11-07). The anchor stays in (m_pmep, m_rsp); m_pme is kept.
++            if (!m_bstickmem) {
++                data.m_pme = data.m_pmep;
++                data.m_rs = data.m_rsp;
++            }
+             
+             // recalculate gap
+             data.m_dg = dg + nu*m_offset;
+@@ -895,6 +1004,14 @@ vec3d FESlidingElasticInterface::ContactTraction(FESlidingElasticSurface& ss, co
                          
                          // slip direction
                          s1 = FESlidingElasticInterface::SlipTangent(ss, nel, n, ms, dh, drdot);
@@ -155,7 +200,7 @@ index ae1d676..0fac588 100644
                          
                          // total traction
                          t = (nu + s1*(m_mu))*(-pn);
-@@ -1213,8 +1303,9 @@ void FESlidingElasticInterface::StiffnessMatrix(FELinearSystem& LS, const FETime
+@@ -1213,8 +1330,9 @@ void FESlidingElasticInterface::StiffnessMatrix(FELinearSystem& LS, const FETime
  						// only evaluate stiffness matrix if contact traction is non-zero
  						if (pn != 0)
  						{
@@ -167,7 +212,7 @@ index ae1d676..0fac588 100644
  							{
  								double dtn = eps;
  
-@@ -1227,6 +1318,21 @@ void FESlidingElasticInterface::StiffnessMatrix(FELinearSystem& LS, const FETime
+@@ -1227,6 +1345,21 @@ void FESlidingElasticInterface::StiffnessMatrix(FELinearSystem& LS, const FETime
  
  								// identity tensor
  								mat3d I = mat3dd(1);
@@ -189,7 +234,7 @@ index ae1d676..0fac588 100644
  
  								// evaluate Mc and Ac and combine them into As
  								double* Gsr = se.Gr(j);
-@@ -1836,4 +1942,6 @@ void FESlidingElasticInterface::Serialize(DumpStream &ar)
+@@ -1836,4 +1969,6 @@ void FESlidingElasticInterface::Serialize(DumpStream &ar)
  	// restore pointers
  	SerializeElementPointers(m_ss, m_ms, ar);
  	SerializeElementPointers(m_ms, m_ss, ar);
@@ -217,3 +262,36 @@ index 279f289..04b2c85 100644
  	bool            m_bflipm;       //!< flip secondary surface normal
  	bool            m_bshellbs;     //!< flag for prescribing pressure on shell bottom for primary surface
  	bool            m_bshellbm;     //!< flag for prescribing pressure on shell bottom for secondary surface
+diff --git a/FECore/CompactUnSymmMatrix.cpp b/FECore/CompactUnSymmMatrix.cpp
+index 81abedd..ff6d0e5 100644
+--- a/FECore/CompactUnSymmMatrix.cpp
++++ b/FECore/CompactUnSymmMatrix.cpp
+@@ -28,6 +28,7 @@ SOFTWARE.*/
+ 
+ #include "stdafx.h"
+ #include "CompactUnSymmMatrix.h"
++#include <cstdio>
+ using namespace std;
+ 
+ //-----------------------------------------------------------------------------
+@@ -265,7 +266,8 @@ void CRSSparseMatrix::add(int i, int j, double v)
+ 	int n0 = 0;
+ 	int n = n1 / 2;
+ 	j += m_offset;
+-	do
++	int nguard = 0;   // BIOCAGE patch 7 diagnostic (2026-11-07): a column that is absent from the row's profile makes this bisection
++	do                // oscillate for ever (n0 = k, n1 = k + 1); report it on stderr instead of hanging (production FEBio hangs here)
+ 	{
+ 		int m = pi[n];
+ 		if (m == j)
+@@ -284,7 +286,10 @@ void CRSSparseMatrix::add(int i, int j, double v)
+ 			n1 = n;
+ 			n = (n0 + n1) >> 1;
+ 		}
++		if (++nguard > 200) break;
+ 	} while (n0 != n1);
++	static int nwarn = 0;
++	if (nwarn++ < 40) fprintf(stderr, "BIOCAGE: CRSSparseMatrix::add: entry (%d,%d) is not in the matrix profile (row has %d entries, nrow %d, ncol %d); value %g dropped\n", i, j - m_offset, n1 + 1, m_nrow, m_ncol, v);
+ 	assert(false);
+ }
+ 

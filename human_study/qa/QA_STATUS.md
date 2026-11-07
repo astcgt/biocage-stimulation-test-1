@@ -1,4 +1,4 @@
-# QA status 2026-11-08 02:06 — WARN
+# QA status 2026-11-08 02:14 — WARN
 
 h37_qa_check.py (layer A, deterministic). PASS = check held; FAIL = drift found, fix before any number is reported; WARN = information or an audit is due. Layer B (meaning of the decisions) = qa-auditor agent, register human_study/qa/QA_SPEC.json.
 
@@ -16,5 +16,6 @@ h37_qa_check.py (layer A, deterministic). PASS = check held; FAIL = drift found,
 | R9-material-blocks | PASS | production: one FEBio block per cage material in 3 cases (p002:3, p036:4, p039:2); problems: [] |
 | R11-constants | PASS | intact ROM constants: {'scripts/3_cage_case/h14_build_case.py': (0.1009, 0.1286, 0.0713, 0.0717, 0.0905, 0.0907), 'scripts/6_active_learning/h28_physio_prerun.py': (0.1009, 0.1286, 0.0713, 0.0717, 0.0905, 0.0907), '../biocage-evo/ops/fric_compare.py': (0.1009, 0.1286, 0.0713, 0.0717, 0.0905, 0.0907)} |
 | R12-file-index | PASS | 187 paths in FILE_INDEX.md; missing [] |
+| R14-patch7-logs | PASS | production logs scanned for the patch-7 env switches and the FECore profile guard; hits: [] |
 | R10-register | PASS | 96 register items; unmapped []; 不符 [] |
 | R10-llm-audit-due | WARN | LLM audit required: last 2026-11-05 06:40; gate files changed since: ['scripts/3_cage_case/h14_build_case.py', 'human_study/current_settings.json', '../biocage-evo/ops/collect_split.py']; decision entries since: ['2026-11-06 23:42', '2026-11-07 13:00', '2026-11-08 01:40'] |

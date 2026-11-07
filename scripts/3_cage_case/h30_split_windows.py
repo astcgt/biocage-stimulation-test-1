@@ -35,6 +35,8 @@ for w in sch['windows']:
     st = copy.deepcopy(win[w['name']]); wd = os.path.join(cd, 'w_' + w['name']); os.makedirs(wd, exist_ok=True)
     if sch.get('window_min_residual') is not None and st.find('Control/min_residual') is None:   # 2026-11-07 pilot (restart hold arms, h14 key window_min_residual): |R|^2 floor in the window Control only
         ET.SubElement(st.find('Control'), 'min_residual').text = str(sch['window_min_residual'])
+    if sch.get('window_static') and st.find('Control/analysis') is not None:   # 2026-11-08 pilot (h14 key window_static): static window step, dynamics removed
+        st.find('Control/analysis').set('type', 'static'); [st.find('Control').remove(x) for x in st.findall('Control/rhoi')]
     ts = st.find('Control/time_steps'); ts.text = str(int(round((HOLD['ramp'] + HOLD['T']) / float(st.find('Control/step_size').text))) if HOLD else int(ts.text) // 2)   # independent windows stop at the peak: no unload (near-zero-load tail fails the relative energy norm)
     rs = ET.Element('febio_restart', version='2.0'); ET.SubElement(rs, 'Archive').text = '../case.dmp'
     rs.append(st)
