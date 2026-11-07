@@ -440,7 +440,7 @@
    "refs": [
     "DECISIONS 2026-11-05 04:10"
    ],
-   "text": "評估點（PI 2026-11-05 第 1 項，採 2026-11-03 04:30 原文）：視窗傳得到 1.5 N·m 就在 1.5 N·m 狀態判，傳不到才在 intact ROM 狀態判；剪力門檻維持 ROM 狀態（PI 2026-11-04 03:30）。verdicts.json 每視窗記 eval_point。2026-11-05 起閘 4：14 fail／24 pass／33 open（27 個插入段停算：靜態段 6、釋放衝擊 21；視窗層 6：p014 p063 p066 p078 p086 p146）；合併類別 radial-mix-excluded 28、dislocation-friction 17、interface-shear-provisional 14、friction-computability 14。所有摩擦判定為暫定（R03 取代、NUM-16/17、密度第 8 項）。"
+   "text": "評估點（PI 2026-11-05 第 1 項，採 2026-11-03 04:30 原文）：視窗傳得到 1.5 N·m 就在 1.5 N·m 狀態判，傳不到才在 intact ROM 狀態判；剪力門檻維持 ROM 狀態（PI 2026-11-04 03:30）。verdicts.json 每視窗記 eval_point。2026-11-05 起閘 4：14 fail／24 pass／33 open（27 個插入段停算：靜態段 6、釋放衝擊 21；視窗層 6：p014 p063 p066 p078 p086 p146）；合併類別 radial-mix-excluded 28、dislocation-friction 17、interface-shear-provisional 14、friction-computability 14。所有摩擦判定為暫定（R03 取代、NUM-16/17、密度第 8 項）。｜2026-11-07 PI 決定 1（μ_req 為主，摩擦 run 只做檢查）後重算：PASS 13、friction-check-exceeded 13（註記，非閘）、interface-shear-provisional 18、radial-mix-excluded 28、friction-computability 14、open 18（collect_split 2026-11-08）"
   },
   "R12": {
    "type": "scope",
@@ -450,12 +450,13 @@
    "covers": [
     "PHY-05",
     "PHY-09",
+    "NUM-13",
     "NUM-15"
    ],
    "refs": [
-    "DECISIONS 2026-11-05 02:55 / 04:10 item 8"
+    "DECISIONS 2026-11-06 00:50"
    ],
-   "text": "密度參考：physio_fric3（1e-6）的位移在 p062 比真實密度（1e-9，與純靜態一致）低 12–26 %，偏向有利側；PI 2026-11-05 決定改以 1e-9（physio_fric4）為生產參考，重跑完成前所有摩擦數字須註明「1e-6 版、偏低」。"
+   "text": "摩擦數字隨增量數變動（NUM-13 FRIC 不合格，2026-11-06）：FEBio 每增量重設黏著點，cage 在定角度下漂移，p062 每增量約 0.0009 mm、p139 約 0.002 mm。2026-11-05「1e-6 比真實密度偏低 12–26 %」的說法已撤回：高增量的 1e-9 run 含此假象，密度本身的效應尚未分離。physio_fric3 與 physio_fric4 的平移都不是收斂值，所有滑出判定須註明。"
   }
  },
  "checks": [
@@ -482,23 +483,16 @@
    ],
    "status": {
     "TIED": {
-     "state": "pass",
-     "date": "2026-10-21",
-     "value": "18/22；小面關節力 ≤ 2%",
-     "note": "補丁版重驗末態差 2e-5",
-     "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
-     }
+     "state": "fail",
+     "date": "2026-11-08",
+     "value": "15/19（validation/results/comparison.json 有對照值的 19 項中 15 項在 10% 內；另 3 項 C3-C4 ROM Herron 無參考值，不能計入）；小面關節力 ≤ 2%",
+     "note": "PI 2026-11-07 選 (a)：值改 15/19 並重新判定。登記門檻 ≥ 18/22（82%）未達（15/19 = 79%），依門檻列不通過；是否改接受由 PI 決定（PI_PENDING_DECISIONS）。原 18/22 來源未確認。超出的 4 項都不是 C3-C4（C0-C1 兩項、C1-C2、C3-C7 各一）"
     },
     "FRIC": {
-     "state": "pass",
-     "date": "2026-10-21",
-     "value": "同 TIED（解剖模型相同）",
-     "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
-     }
+     "state": "fail",
+     "date": "2026-11-08",
+     "value": "15/19（validation/results/comparison.json 有對照值的 19 項中 15 項在 10% 內；另 3 項 C3-C4 ROM Herron 無參考值，不能計入）；小面關節力 ≤ 2%",
+     "note": "PI 2026-11-07 選 (a)：值改 15/19 並重新判定。登記門檻 ≥ 18/22（82%）未達（15/19 = 79%），依門檻列不通過；是否改接受由 PI 決定（PI_PENDING_DECISIONS）。原 18/22 來源未確認。超出的 4 項都不是 C3-C4（C0-C1 兩項、C1-C2、C3-C7 各一）"
     }
    },
    "refs": [
@@ -654,8 +648,8 @@
     "TIED": {
      "state": "fail",
      "date": "2026-11-05T03:41",
-     "value": "physio_fric3：70 設計、43 插入完成、86 視窗。ROM 時點前屈：axial mix 0.50–0.64 mm（n 15）、radial interleave 0.93–1.18（n 10）、radial mix 1.00–1.19（n 12）；後伸後方：axial 0.20–0.63、interleave 0.46–0.61、radial mix 0.36–0.49 mm。1.5 N·m 時點：38 視窗達到（compare.json physio_fric3 列），全部 ≤ 1 mm。verdicts.json（未合併，generated 2026-11-05 03:41）：fail 14 / pass 24 / open 33（27 插入段停算 + 6 視窗層）；合併後 DESIGN/dislocation-friction 17。11-04 的 26 個 ROM 點 fail 全在 ROM 時點，0 個在 1.5 N·m。tied 單面滑移上限（0.1–0.3 mm）被摩擦實測普遍超過 → tied 捷徑對前屈／後伸不保守。（2026-11-05 04:10 更新：PI 第 1 項評估點＝1.5 N·m 傳得到時、否則 ROM，第 2 項排除優先；閘 4 14 fail／24 pass／33 open（27 個插入段停算：靜態段 6、釋放衝擊 21；視窗層 6：p014 p063 p066 p078 p086 p146）；合併 radial-mix-excluded 28、dislocation-friction 17、interface-shear-provisional 14、friction-computability 14、PASS 0）",
-     "note": "2026-11-04 QA：method／threshold 改為實際判定依據（舊文字描述的 7 設計一致性測試從未執行）；fric3_summary.csv（22:30 舊判定）自證據移除。評估點：決策文 04:30 為條件式，程式兩點皆查；因 1.5 N·m 無 fail，今日結果等同「只看 ROM」；（歷史）11-04 當時估改條件式會使滑出 28 → 17、剪力 16 → 27，pass 仍 0；PI 2026-11-05 已採條件式。（2026-11-05 04:10 更新：PI 第 1 項評估點＝1.5 N·m 傳得到時、否則 ROM，第 2 項排除優先；閘 4 14 fail／24 pass／33 open（27 個插入段停算：靜態段 6、釋放衝擊 21；視窗層 6：p014 p063 p066 p078 p086 p146）；合併 radial-mix-excluded 28、dislocation-friction 17、interface-shear-provisional 14、friction-computability 14、PASS 0） | 2026-11-05 03:41 結果檔重算後更新日期"
+     "value": "physio_fric3：70 設計、43 插入完成、86 視窗。ROM 時點前屈：axial mix 0.50–0.64 mm（n 15）、radial interleave 0.93–1.18（n 10）、radial mix 1.00–1.19（n 12）；後伸後方：axial 0.20–0.63、interleave 0.46–0.61、radial mix 0.36–0.49 mm。1.5 N·m 時點：38 視窗達到（compare.json physio_fric3 列），全部 ≤ 1 mm。verdicts.json（未合併，generated 2026-11-05 03:41）：fail 14 / pass 24 / open 33（27 插入段停算 + 6 視窗層）；合併後 DESIGN/dislocation-friction 17。11-04 的 26 個 ROM 點 fail 全在 ROM 時點，0 個在 1.5 N·m。tied 單面滑移上限（0.1–0.3 mm）被摩擦實測普遍超過 → tied 捷徑對前屈／後伸不保守。（2026-11-05 04:10 更新：PI 第 1 項評估點＝1.5 N·m 傳得到時、否則 ROM，第 2 項排除優先；閘 4 14 fail／24 pass／33 open（27 個插入段停算：靜態段 6、釋放衝擊 21；視窗層 6：p014 p063 p066 p078 p086 p146）；合併 radial-mix-excluded 28、dislocation-friction 17、interface-shear-provisional 14、friction-computability 14、PASS 0）｜2026-11-07 PI 決定 1（μ_req 為主，摩擦 run 只做檢查）後重算：PASS 13、friction-check-exceeded 13（註記，非閘）、interface-shear-provisional 18、radial-mix-excluded 28、friction-computability 14、open 18（collect_split 2026-11-08）",
+     "note": "2026-11-04 QA：method／threshold 改為實際判定依據（舊文字描述的 7 設計一致性測試從未執行）；fric3_summary.csv（22:30 舊判定）自證據移除。評估點：決策文 04:30 為條件式，程式兩點皆查；因 1.5 N·m 無 fail，今日結果等同「只看 ROM」；（歷史）11-04 當時估改條件式會使滑出 28 → 17、剪力 16 → 27，pass 仍 0；PI 2026-11-05 已採條件式。（2026-11-05 04:10 更新：PI 第 1 項評估點＝1.5 N·m 傳得到時、否則 ROM，第 2 項排除優先；閘 4 14 fail／24 pass／33 open（27 個插入段停算：靜態段 6、釋放衝擊 21；視窗層 6：p014 p063 p066 p078 p086 p146）；合併 radial-mix-excluded 28、dislocation-friction 17、interface-shear-provisional 14、friction-computability 14、PASS 0） | 2026-11-05 03:41 結果檔重算後更新日期｜2026-11-07 PI 決定 1（μ_req 為主，摩擦 run 只做檢查）後重算：PASS 13、friction-check-exceeded 13（註記，非閘）、interface-shear-provisional 18、radial-mix-excluded 28、friction-computability 14、open 18（collect_split 2026-11-08）"
     }
    },
    "refs": [
@@ -1190,7 +1184,7 @@
    "name": "GPU cuDSS vs CPU Pardiso",
    "method": "同一 cage 案例 CPU 與 GPU 直接求解",
    "threshold": "結果相同（相對差 ≤ 1e-4）",
-   "threshold_src": "整合者",
+   "threshold_src": "整合者；PI 2026-11-07 維持 1e-4（部分通過）",
    "trigger": "GPUDIRECT 或 FEBIO 變更時",
    "depends": [
     "GPUDIRECT",
@@ -1199,10 +1193,10 @@
    "evidence": [],
    "status": {
     "TIED": {
-     "state": "pass",
-     "date": "2026-11-02T18:00",
-     "value": "4 對 cage 參數相同的設計（p082/p088、p092/p117、p093/p145、p100/p142）：振幅相同的視窗 cuDSS(GPU1) vs pardiso(CPU) 驅動力矩差 ≤ 3.1e-10、GPU1 vs GPU4 ≤ 1.8e-11；判定量（mu、slip、N）差 ≤ 0.1%",
-     "note": "GAPS 2.10；取代 10-20 的 design A 單點證據",
+     "state": "partial",
+     "date": "2026-11-08",
+     "value": "15 個相同輸入的黏死視窗 GPU(cuDSS) vs CPU(pardiso)：判定量最大差 mu 0.33%、slip 0.20%、cage 平移 0.58%；2–3 個視窗超過登記門檻 1e-4，全部在 PI 的 2% 容差內（h38 fig_febio_agreement 數據）",
+     "note": "PI 2026-11-07 選 (a)：門檻維持 1e-4，改為部分通過（DECISIONS 2026-11-07）。取代 11-02 的 ≤ 0.1% 說法",
      "reconfirmed": {
       "date": "2026-11-04",
       "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00)"
@@ -1262,13 +1256,23 @@
     "FEBIO",
     "GPUFE"
    ],
-   "evidence": [],
+   "evidence": [
+    "../biocage-evo/results/gpufe_verify/v2/v17a_hold.json",
+    "../biocage-evo/results/gpufe_verify/v2/v17a_ladder.json",
+    "../biocage-evo/results/gpufe_verify/v2/v17e_block_al.json"
+   ],
    "status": {
     "FRIC": {
-     "state": "not_run"
+     "state": "fail",
+     "date": "2026-11-06T00:50",
+     "value": "定角度保持（physio_fric3 設定、後伸）：p062 54 增量漂移 0.047 mm、355 增量 0.303 mm；p139 71 增量 0.167 mm、251 增量 0.461 mm；門檻 0.01 mm。每增量 p062 0.00087／0.00085、p139 0.0023／0.0018 mm。",
+     "note": "只測 p062、p139 後伸；保持時間相同、起點相同，只差增量數，故為數值假象。GPUFE 列未動（待 PI，見 PI_PENDING_DECISIONS.md）。"
     },
     "GPUFE": {
-     "state": "not_run"
+     "state": "fail",
+     "date": "2026-11-08",
+     "value": "gpufe 定力保持（h39/h40 數據）：90% 摩擦極限下漂移 0.03–0.06 mm，超過 0.01 mm；半極限 0.003–0.004 mm",
+     "note": "PI 2026-11-07 選 (a)：改為不合格。gpufe 依 PI 2026-11-06 第 3 項暫停，等 FEBio 金標準"
     }
    },
    "refs": [
@@ -1948,7 +1952,7 @@
     "TIED": {
      "state": "pass",
      "date": "2026-11-05T03:41",
-     "value": "276 視窗 0 錯誤（collect_split 合併，2026-11-04 14:35）：tied 篩選 72 pass；classes：DESIGN/compression-sustained 53、-peak 5、-peak-lowerbound 4、-sustained-lowerbound 10、[多元]/computability 2、[數值]/unstable-window 2；tied pass 再經閘門：DESIGN/dislocation-friction 17、interface-shear-provisional 14、radial-mix-excluded 28（含 p107）、[多元]/friction-computability 14；PASS 0（2026-11-05 04:10 更新：PI 第 1 項評估點＝1.5 N·m 傳得到時、否則 ROM，第 2 項排除優先；閘 4 14 fail／24 pass／33 open（27 個插入段停算：靜態段 6、釋放衝擊 21；視窗層 6：p014 p063 p066 p078 p086 p146）；合併 radial-mix-excluded 28、dislocation-friction 17、interface-shear-provisional 14、friction-computability 14、PASS 0）",
+     "value": "276 視窗 0 錯誤（collect_split 合併，2026-11-04 14:35）：tied 篩選 72 pass；classes：DESIGN/compression-sustained 53、-peak 5、-peak-lowerbound 4、-sustained-lowerbound 10、[多元]/computability 2、[數值]/unstable-window 2；tied pass 再經閘門：DESIGN/dislocation-friction 17、interface-shear-provisional 14、radial-mix-excluded 28（含 p107）、[多元]/friction-computability 14；PASS 0（2026-11-05 04:10 更新：PI 第 1 項評估點＝1.5 N·m 傳得到時、否則 ROM，第 2 項排除優先；閘 4 14 fail／24 pass／33 open（27 個插入段停算：靜態段 6、釋放衝擊 21；視窗層 6：p014 p063 p066 p078 p086 p146）；合併 radial-mix-excluded 28、dislocation-friction 17、interface-shear-provisional 14、friction-computability 14、PASS 0）｜2026-11-07 PI 決定 1（μ_req 為主，摩擦 run 只做檢查）後重算：PASS 13、friction-check-exceeded 13（註記，非閘）、interface-shear-provisional 18、radial-mix-excluded 28、friction-computability 14、open 18（collect_split 2026-11-08）",
      "note": "2026-11-05：first-cause 順序 tied 篩選 → radial-mix 排除 → dislocation → shear（collect_split.py:215-223；PI 2026-11-05 第 2 項，排除優先） | 2026-11-05 03:41 結果檔重算後更新日期"
     },
     "FRIC": {

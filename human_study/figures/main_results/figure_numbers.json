@@ -1,0 +1,100 @@
+{
+ "generated": "2026-11-06T04:16",
+ "fig1": {
+  "n": 149,
+  "npass": 0,
+  "tot": {
+   "compress": 72,
+   "exc": 28,
+   "unf": 18,
+   "shear": 14,
+   "slip": 17
+  },
+  "by_type": {
+   "Softer towards the faces, blended": {
+    "compress": 4,
+    "shear": 14,
+    "slip": 4
+   },
+   "Mix of both layouts": {
+    "compress": 16,
+    "unf": 1
+   },
+   "Flat cage with a soft pad, all layouts": {
+    "compress": 23,
+    "unf": 1
+   },
+   "Softer towards the faces, alternating threads": {
+    "compress": 28
+   },
+   "Soft inside, hard outside, blended": {
+    "exc": 28
+   },
+   "Soft inside, hard outside, alternating threads": {
+    "unf": 16,
+    "compress": 1,
+    "slip": 13
+   }
+  },
+  "val": [
+   15,
+   19
+  ]
+ },
+ "fig2": {
+  "n": 28,
+  "inside": [],
+  "run_inside": [
+   "p100"
+  ],
+  "axial": {
+   "n": 13,
+   "slip": [
+    0.39132022880555367,
+    1.2687027014737144
+   ],
+   "shear": [
+    10.537,
+    15.745
+   ]
+  },
+  "interleave": {
+   "n": 6,
+   "slip": [
+    1.0461890291018698,
+    1.2116744837733349
+   ],
+   "shear": [
+    1.781,
+    2.73
+   ]
+  },
+  "compress": {
+   "Other types (threaded faces, both layouts, family B)": [
+    50,
+    58
+   ],
+   "Softer towards the faces, blended": [
+    3,
+    21
+   ],
+   "Soft inside, hard ring outside": [
+    0,
+    58
+   ]
+  },
+  "tied": {
+   "n": 78,
+   "above": 77,
+   "tied_max": 0.47719054184035314,
+   "fric": [
+    0.19566093947302227,
+    1.1885859520234738
+   ]
+  },
+  "flips": [
+   3,
+   15
+  ]
+ }
+}

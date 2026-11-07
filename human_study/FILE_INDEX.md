@@ -42,6 +42,13 @@
 | `scripts/6_active_learning/h22_active_learning.py` | 主動學習取樣（設計參數） |
 | `scripts/8_audit/h33_capability_audit.py` | 由 platform_capabilities.json 產生計分表、過期判定 |
 | `scripts/8_audit/h34_window_scan.py` | 視窗狀態掃描 |
+| `scripts/8_audit/h45_mu_face_scan.py`, `scripts/8_audit/h46_mu_figs.py` | 黏死篩選摩擦下限：逐窗口單面需求與張力掃描（只讀結果）；poster 圖與不足圖 |
+| `scripts/8_audit/h44_multiagent_loop_fig.py` | 多代理對抗迴圈 4:3 圖（角色間誰交什麼、誰挑戰誰、誰決定） |
+| `scripts/8_audit/h42_cage_design_ideas_fig.py`, `scripts/8_audit/h43_methodology_fig.py` | cage 設計概念圖（12 類各一代表）、方法論圖（需求、流程、多代理、篩選） |
+| `scripts/8_audit/h41_main_results_figs.py` | 主要成果兩張圖（模型驗證＋149 設計篩選；為何沒有設計全過），只讀結果檔 |
+| `scripts/8_audit/h39_gpufe_newton_reverify.py` | gpufe 基準題用現行 Newton 求解器重跑（彎曲桿、滑動、黏著、定力保持）；不跑 FEBio，不寫 evo repo 的 results/ |
+| `scripts/8_audit/h40_gpu_solver_fig.py` | GPU solver vs FEBio 白話版圖（只讀結果檔） |
+| `scripts/8_audit/h38_febio_agreement_fig.py` | 平台 vs FEBio 貼合度圖與等效性檢定（只讀結果檔，不跑求解器）；`--rescan` 重掃相同輸入配對 |
 | `scripts/8_audit/h37_qa_check.py` | QA A 層：R1–R12 機械檢查；`--quick` / `launch <dir>` / `--daemon 6`；tmux `biocage_qa` |
 | `scripts/common/xplt.py`, `scripts/common/cage_geom.py` | 讀 FEBio xplt、cage 幾何 |
 
@@ -56,6 +63,7 @@
 | `../biocage-evo/ops/e07_batch.py` | 介面剪力批次＋3 MPa 判定 → `e07_verdicts.json` |
 | `../biocage-evo/ops/collect_split.py` | 合併所有閘：tied 篩選 → 滑出 → 剪力 → radial-mix 排除 → `split/*_merged.json` |
 | `../biocage-evo/ops/numconv_compare.py`, `../biocage-evo/ops/degr_compare.py` | 數值收斂、退化敏感度比較 |
+| `../biocage-evo/docs/GPUFE_VERIFICATION_PLAN.md` | gpufe 驗證計畫：V1–V23、門檻、真相來源、文獻、停損點 |
 
 ## 5. 結果檔（匯報的數字只能從這裡引）
 | 檔案 | 內容 |
@@ -69,6 +77,10 @@
 | `../biocage-evo/results/method/fric/eval_point_sensitivity.json` | 評估點（1.5 N·m vs ROM）敏感度 |
 | `../biocage-evo/results/method/fric/c3_reactions_t3.json` | C3 在 t 3 的反力（漸放用） |
 | `../biocage-evo/results/method/fric/static_release_stops_lastJ.json` | 6 個 t<3 停算 run 末態軟層壓縮（T05 檢查，≤2 %） |
+| `human_study/figures/mu_requirement/` | h46 輸出：`fig_mu_poster`、`fig_mu_gaps`（pdf/png/svg）、`fig_mu_legends.md`、`mu_face_scan.json`（505 窗口）、`figure_numbers.json` |
+| `human_study/figures/main_results/` | h41 輸出：`fig1_model_and_screen`、`fig2_why_none_pass`、`fig3_cage_design_ideas`、`fig4_methodology`、`fig5_multiagent_loop`（pdf/png/svg）、`figure_legends.md`、`fig3_fig4_legends.md`、`figure_numbers.json`、`fig3_representatives.json` |
+| `human_study/figures/gpu_solver_agreement/` | h40 輸出：`fig_gpu_solver_vs_febio.pdf/.png/.svg`、`figure_legend.md`、`process_table.csv`、`group_tests.json`；`newton_reverify/`（h39 結果）、`gate2_fine/`（第 2 關細步長重跑） |
+| `human_study/figures/febio_agreement/` | h38 輸出：`fig_febio_agreement.pdf/.png/.svg`、`figure_legend.md`、`equivalence_tests.csv`（每列檢定）、`figure_data.json`（配對與 gate 2 紀錄）、`same_input_scan.json`（輸入雜湊掃描）、`gate2_rerun_20261105/`（gpufe gate 2 今日重跑紀錄，未覆蓋 evo repo 的 results/） |
 | `../biocage-evo/results/method/fric/retired_wrong_faces_20261104/` | 作廢的舊介面版 e07 輸出（勿引用） |
 
 ## 6. 模擬資料夾（human_study/al_v2/）
@@ -117,3 +129,12 @@ scratchpad `/tmp/claude-1024/-raid-jupyter-alz-ee09-projects-claude-work-biocage
 
 ## 10. 記憶（Claude 的跨 session 規則）
 `/raid/jupyter-alz.ee09/.claude/projects/-raid-jupyter-alz-ee09-projects-claude-work-biocage-simulation-test-oct2026/memory/MEMORY.md`
+
+## 2026-11-08 新增（重啟保持試算、FEBio 補丁 7）
+| 檔案 | 內容 | 更新者 |
+|---|---|---|
+| `scripts/5_compute/h47_restart_pilot.py` | 重啟保持試算：從既有 t 3.5 存檔（pilot_holdA／holdE）重啟後伸窗口，用補丁版 FEBio 與環境變數切換摩擦修法（`restart_env`）；build 需 h14 重建與存檔 case.feb 逐位元相同並通過 h24 | Claude |
+| `human_study/al_v2/pilot_holdH/`, `human_study/al_v2/pilot_holdHf/` | 重啟保持試算案例（H：粗步，holdA 存檔；Hf：細步，holdE 存檔）；`launch_wave*.sh`、`wave*.log` 為各波啟動紀錄；失敗波的輸出在各案例 `_wave*_fail/` | Claude |
+| `febio_patches/febio-4.13-biocage-patch6-stick-memory.patch` | 補丁 6+7：黏著記憶／回映；`stick_memory` 改由環境變數 `BIOCAGE_STICK_MEMORY` 開啟（參數數量與正式版一致，存檔可互讀）、`BIOCAGE_CAGE_LAUGON` 增廣拉格朗日；凍結狀態不再換接觸元素；輪廓含錨點元素 | Claude |
+| `../biocage-evo/results/gpufe_verify/v2/v17g_hold_restart.json` | 重啟保持試算的漂移表（對照、增廣拉格朗日、黏著記憶） | Claude（scratch 讀取腳本，待併入 v17a_hold.py） |
+| `../biocage-evo/ops/restart_daemon.sh` | 重啟 evo daemon（含 foreman 閒置暫停，PI 2026-11-07 決定 6a） | Claude |

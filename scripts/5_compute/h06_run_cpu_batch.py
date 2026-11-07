@@ -7,7 +7,7 @@ usage: python h06_run_cpu_batch.py [--cores N] <batch_dir> <case1> [<case2> ...]
 import sys, os, time, json, glob, subprocess
 
 P = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # project root (scripts/<stage>/file)
-FEBIO = os.path.join(P, 'third_party/FEBio/cbuild/bin/febio4')
+FEBIO = os.environ.get('BIOCAGE_FEBIO') or os.path.join(P, 'third_party/FEBio/cbuild/bin/febio4')   # 2026-11-06: env override for pilots on a patched build (cbuild_fric); production unchanged
 LIBS = os.path.join(P, 'third_party/mkl/lib')
 CORES_PER_CASE, RESERVE = 16, 0   # PI 2026-10-20: no reserved cores, use every idle core
 

@@ -1,0 +1,38 @@
+[
+ {
+  "n": 10,
+  "legacy_rule": false,
+  "cycle_end_Fx_over_Fz": [
+   0.00013661521647707285,
+   6.799245754948189e-05,
+   0.00030274644089550056
+  ],
+  "max_Fx_over_Fz": 0.07287591380804448,
+  "min_stick_frac": 1.0,
+  "passed": true
+ },
+ {
+  "n": 20,
+  "legacy_rule": false,
+  "cycle_end_Fx_over_Fz": [
+   8.676629094971585e-05,
+   0.00012618065544098175,
+   0.00012760484175164513
+  ],
+  "max_Fx_over_Fz": 0.07278204791453054,
+  "min_stick_frac": 1.0,
+  "passed": true
+ },
+ {
+  "n": 40,
+  "legacy_rule": false,
+  "cycle_end_Fx_over_Fz": [
+   8.169138389538567e-06,
+   3.5580488875716285e-05,
+   1.0758096910835718e-05
+  ],
+  "max_Fx_over_Fz": 0.07272781920627515,
+  "min_stick_frac": 1.0,
+  "passed": true
+ }
+]

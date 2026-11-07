@@ -307,8 +307,12 @@ def contacts(parent, pen_lc=None, mu_lc=None):
                 pen_items = (('penalty', float(prm['cage_penalty_fixed'])), ('auto_penalty', 0))
             else:
                 pen_items = (('penalty', PENALTY), ('auto_penalty', 1))
-            items = (('laugon', 0),) + pen_items + (('two_pass', 0), ('search_tol', 0.01),
-                     ('search_radius', 1.0), ('symmetric_stiffness', SYM), ('tension', 0), ('fric_coeff', mu), ('knmult', 0))
+            # 2026-11-06 pilots (FEBio stick-point reset, DECISIONS 2026-11-06): cage_laugon {tolerance, minaug, maxaug} switches the
+            # cage contacts to augmented Lagrangian (the tangential multiplier Lt carries the friction traction across increments);
+            # cage_stick_memory 1 sets the BIOCAGE patch-6 parameter (needs the patched binary). Both default off: production unchanged.
+            AL = prm.get('cage_laugon')
+            items = ((('laugon', 1), ('tolerance', AL.get('tolerance', 0.01)), ('gaptol', 0), ('minaug', AL.get('minaug', 1)), ('maxaug', AL.get('maxaug', 20))) if AL else (('laugon', 0),)) + pen_items + (('two_pass', 0), ('search_tol', 0.01),
+                     ('search_radius', 1.0), ('symmetric_stiffness', SYM), ('tension', 0), ('fric_coeff', mu), ('knmult', 0)) + ((('stick_memory', 1),) if prm.get('cage_stick_memory') else ())
         for k, v in items:
             e = ET.SubElement(c, k); e.text = str(v)
             if k == 'penalty' and pen_lc: e.set('lc', pen_lc)
@@ -326,8 +330,9 @@ def tied(parent):
 def control(parent, steps, dt, dtmax, must=None):
     c = ET.SubElement(parent, 'Control')
     for k, v in (('time_steps', steps), ('step_size', dt), ('max_refs', 25), ('max_ups', 10), ('dtol', prm.get('dtol', 0.001)),
-                 ('etol', 0.01), ('rtol', 0), ('lstol', 0.9), ('ls_check_jacobians', 1)):
+                 ('etol', 0.01), ('rtol', prm.get('rtol', 0)), ('lstol', 0.9), ('ls_check_jacobians', 1)):
         ET.SubElement(c, k).text = str(v)
+    if prm.get('min_residual') is not None: ET.SubElement(c, 'min_residual').text = str(prm['min_residual'])   # 2026-11-06 pilots: absolute |R|^2 floor (hold steps start in equilibrium, relative norms stall)
     ts = ET.SubElement(c, 'time_stepper')
     for k, v in (('dtmin', dt / 100), ('dtmax', dtmax), ('max_retries', 10), ('opt_iter', 15)):
         ET.SubElement(ts, k).text = str(v)
@@ -489,7 +494,7 @@ elif test == 'physio_rot':
     C3COM = (np.array(_cen) * np.array(_vol)[:, None]).sum(0) / sum(_vol)
     seq = [('Ry', 1, 'flexion'), ('Ry', -1, 'extension'), ('Rx', 1, 'LB_right'), ('Rx', -1, 'LB_left'), ('Rz', 1, 'AR_left'), ('Rz', -1, 'AR_right')]
     if prm.get('physio_windows'): seq = [x for x in seq if x[2] in prm['physio_windows']]   # 2026-11-03: subset of windows (friction flexion / extension check, PI)
-    T0 = 3.5; DT = prm.get('physio_dt', 0.05)
+    T0 = 3.5; DT = prm.get('physio_dt', 0.05); HOLD = prm.get('physio_hold')
     if prm.get('follower_in_release'):
         # 2026-11-03 pilot (BONE_INVERSION_ANALYSIS fix 3): the follower load ramps inside the STATIC release step (t 2.5-3.0)
         # so that the first dynamic step no longer stacks three events (static->dynamic switch, load start, dt change)
@@ -533,8 +538,11 @@ elif test == 'physio_rot':
         for k, v in (('laugon', 2), ('body_a', 1), ('body_b', 2), ('joint', ','.join(f'{c:.6g}' for c in C3COM))):
             ET.SubElement(cj, k).text = str(v)
         ET.SubElement(cj, 'prescribe_' + dd, lc=lcs['rot_' + nm]).text = f'{float(sg) * TH[nm] * F:.6g}'
+    WMR = {}                                        # 2026-11-07 pilot (restart hold arms): |R|^2 floor for the WINDOW Control only (h30); insertion deck unchanged
+    if prm.get('window_min_residual') is not None: WMR = {'window_min_residual': prm['window_min_residual']}
     json.dump(dict(control='rotation', target_moment_Nmm=M, follower_N=FL, t_follower=[2.5, 3.0] if prm.get('follower_in_release') else [3.0, T0], rot_rad={k: v * F for k, v in TH.items()},
-                   windows=[dict(name=n, dof=dd, sign=sg, t0=T0 + i, t_peak=T0 + i + 0.5, t1=T0 + i + 1.0) for i, (dd, sg, n) in enumerate(seq)]),
+                   windows=[dict(name=n, dof=dd, sign=sg, t0=T0 + i, t_peak=T0 + i + 0.5, t1=T0 + i + 1.0) for i, (dd, sg, n) in enumerate(seq)],
+                   **({'physio_hold': HOLD} if HOLD else {}), **WMR),   # 2026-11-05 pilot (V17): h30 ramps, then holds the angle (HOLD = prm.get('physio_hold'), default None)
               open(os.path.join(out, 'physio_schedule.json'), 'w'), indent=1)
 else:
     # push-out (ASTM draft F04.25.02.02 style): 100 N axial preload on C3 (z force), C3 other DOFs fixed; cage pushed

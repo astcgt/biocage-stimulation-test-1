@@ -1,0 +1,219 @@
+diff --git a/FEBioMech/FESlidingElasticInterface.cpp b/FEBioMech/FESlidingElasticInterface.cpp
+index ae1d676..0fac588 100644
+--- a/FEBioMech/FESlidingElasticInterface.cpp
++++ b/FEBioMech/FESlidingElasticInterface.cpp
+@@ -33,6 +33,8 @@ SOFTWARE.*/
+ #include "FECore/FEAnalysis.h"
+ #include <FECore/FELinearSystem.h>
+ #include <FECore/log.h>
++#include <cstdlib>
++#include <cstring>
+ 
+ //-----------------------------------------------------------------------------
+ // Define sliding interface parameters
+@@ -56,6 +58,8 @@ BEGIN_FECORE_CLASS(FESlidingElasticInterface, FEContactInterface)
+ 	ADD_PARAMETER(m_mu       , "fric_coeff"         );
+ 	ADD_PARAMETER(m_bsmaug   , "smooth_aug"         );
+ 	ADD_PARAMETER(m_bflips   , "flip_primary"       );
++	// BIOCAGE patch 7 (2026-11-07): stick_memory is NOT an input parameter any more (env BIOCAGE_STICK_MEMORY, see ApplyBiocageEnv), so the
++	// parameter count - and with it the layout of FEBio restart dumps - stays identical to production FEBio 4.13 (production checkpoints restart here).
+ 	ADD_PARAMETER(m_bflipm   , "flip_secondary"     );
+     ADD_PARAMETER(m_bshellbs , "shell_bottom_primary"  );
+     ADD_PARAMETER(m_bshellbm , "shell_bottom_secondary");
+@@ -312,6 +316,7 @@ FESlidingElasticInterface::FESlidingElasticInterface(FEModel* pfem) : FEContactI
+     
+     m_bfreeze = false;
+     m_bflipm = m_bflips = false;
++    m_bstickmem = false;   // BIOCAGE patch 6: default off = original FEBio behaviour
+     m_bshellbm = m_bshellbs = false;
+     
+     m_offset = 0;
+@@ -332,6 +337,7 @@ FESlidingElasticInterface::~FESlidingElasticInterface()
+ //-----------------------------------------------------------------------------
+ bool FESlidingElasticInterface::Init()
+ {
++
+     
+     
+     // check friction and tension parameters
+@@ -357,9 +363,39 @@ bool FESlidingElasticInterface::Init()
+     if (m_bshellbs) { m_ss.SetShellBottom(m_bshellbs); m_bshellbs = false; }
+     if (m_bshellbm) { m_ms.SetShellBottom(m_bshellbm); m_bshellbm = false; }
+ 
++    ApplyBiocageEnv();   // BIOCAGE patch 7: pilot options from the environment (fresh run)
++
+     return true;
+ }
+ 
++//-----------------------------------------------------------------------------
++//! BIOCAGE patch 7 (2026-11-07): the pilot options are switched by environment variables instead of input-file parameters, so that
++//! (1) the sliding-elastic parameter list - and with it the layout of FEBio's restart dump - is identical to production FEBio
++//! (FEParamContainer::Serialize refuses a dump whose parameter count differs), and (2) a window restarted from a production
++//! checkpoint (the t 3.5 state of the friction runs) can switch the friction treatment on for the window only. Applied to
++//! FRICTIONAL interfaces only (the frictionless facet contacts are untouched); every change is written to the log so a run
++//! carries its own evidence. Without the variables nothing changes (production behaviour).
++//!   BIOCAGE_STICK_MEMORY=1               patch-6 stick memory (stick points kept across increments, slipped points return-mapped)
++//!   BIOCAGE_CAGE_LAUGON=<tol>[,<maxaug>] augmented Lagrangian enforcement, augmentation tolerance tol, minaug 1, maxaug (default 10)
++void FESlidingElasticInterface::ApplyBiocageEnv()
++{
++    if (m_mu <= 0.0) return;
++    const char* s = getenv("BIOCAGE_STICK_MEMORY");
++    if (s)
++    {
++        m_bstickmem = (atoi(s) != 0);
++        feLogInfo("BIOCAGE patch 7: interface '%s': stick_memory = %d (env BIOCAGE_STICK_MEMORY)", GetName().c_str(), (int)m_bstickmem);
++    }
++    const char* a = getenv("BIOCAGE_CAGE_LAUGON");
++    if (a)
++    {
++        double tol = atof(a); int maxaug = 10;
++        const char* c = strchr(a, ','); if (c) maxaug = atoi(c + 1);
++        m_laugon = FECore::AUGLAG_METHOD; m_atol = tol; m_naugmin = 1; m_naugmax = maxaug;
++        feLogInfo("BIOCAGE patch 7: interface '%s': laugon = AUGLAG, tolerance %g, minaug 1, maxaug %d (env BIOCAGE_CAGE_LAUGON)", GetName().c_str(), tol, maxaug);
++    }
++}
++
+ //-----------------------------------------------------------------------------
+ void FESlidingElasticInterface::UpdateAutoPenalty()
+ {
+@@ -647,6 +683,46 @@ void FESlidingElasticInterface::ProjectSurface(FESlidingElasticSurface& ss, FESl
+ 
+ //-----------------------------------------------------------------------------
+ 
++//-----------------------------------------------------------------------------
++//! BIOCAGE patch 6 (2026-11-06, parameter stick_memory): increment-start anchor update replacing InitSlidingSurface.
++//! Original FEBio copies the fresh projection into (m_rsp, m_pmep) at every increment start, so a point that STICKS loses
++//! its elastic tangential offset each increment and the body creeps by ~ t_s / eps per increment under a constant load
++//! (measured on the cage: drift proportional to the increment count at a fixed angle, 0.05-0.46 mm; block: 0.015 mm per
++//! increment at E 10 MPa). Here (1) a point that ended the last converged increment in stick keeps its stick point;
++//! (2) a point that slipped is re-anchored on the friction cone (return mapping, Wriggers 2006 ch. 5): the trial stick
++//! traction of the next increment equals the slip traction (nu + mu s1)(-pn) instead of restarting from zero;
++//! (3) new or lost contact behaves as before. The friction law itself (Coulomb return map in ContactTraction) is unchanged.
++void FESlidingElasticInterface::InitStickMemory(FESlidingElasticSurface& ss, FESlidingElasticSurface& ms)
++{
++    double psf = GetPenaltyScaleFactor();
++    for (int i=0; i<ss.Elements(); ++i)
++    {
++        FESurfaceElement& el = ss.Element(i);
++        int nint = el.GaussPoints();
++        for (int j=0; j<nint; ++j)
++        {
++            FESlidingElasticSurface::Data& data = static_cast<FESlidingElasticSurface::Data&>(*el.GetMaterialPoint(j));
++            if (data.m_bstick && data.m_pmep) continue;                       // (1) keep the stick point
++            FESurfaceElement* pme = data.m_pme;
++            if (pme && (m_mu > 0) && (data.m_gap > 0))                        // (2) return mapping of a slipped point
++            {
++                double eps = m_epsn*data.m_epsn*psf;
++                double pn = data.m_Lmd + eps*data.m_gap; if (!m_btension) pn = MBRACKET(pn);
++                double s1n = data.m_s1.norm();
++                if ((pn > 0) && (eps > 0) && (s1n > 0))
++                {
++                    vec3d q = ms.Local2Global(*pme, data.m_rs[0], data.m_rs[1]);
++                    vec3d xt = q - data.m_s1*(m_mu*pn/(eps*s1n));
++                    double rs[2] = { data.m_rs[0], data.m_rs[1] }; double g;
++                    if (ms.Intersect(*pme, xt, data.m_nu, rs, g, m_stol, false)) { data.m_rsp = vec2d(rs[0], rs[1]); data.m_pmep = pme; continue; }
++                }
++            }
++            data.m_rsp = data.m_rs;                                            // (3) as before
++            data.m_pmep = data.m_pme;
++        }
++    }
++}
++
+ void FESlidingElasticInterface::Update()
+ {
+     static int naug = 0;
+@@ -684,8 +760,14 @@ void FESlidingElasticInterface::Update()
+ 	int nsolve_iter = GetFEModel()->GetCurrentStep()->GetFESolver()->m_niter;
+     if (nsolve_iter == 0)
+     {
+-        m_ss.InitSlidingSurface();
+-        if (m_btwo_pass) m_ms.InitSlidingSurface();
++        if (m_bstickmem) {                      // BIOCAGE patch 6 (2026-11-06): keep stick points, return-map slipped points
++            InitStickMemory(m_ss, m_ms);
++            if (m_btwo_pass) InitStickMemory(m_ms, m_ss);
++        }
++        else {
++            m_ss.InitSlidingSurface();
++            if (m_btwo_pass) m_ms.InitSlidingSurface();
++        }
+         m_bfreeze = false;
+     }
+     
+@@ -895,6 +977,14 @@ vec3d FESlidingElasticInterface::ContactTraction(FESlidingElasticSurface& ss, co
+                         
+                         // slip direction
+                         s1 = FESlidingElasticInterface::SlipTangent(ss, nel, n, ms, dh, drdot);
++                        if (m_bstickmem) {
++                            // BIOCAGE patch 6: with stick memory the body can sit AT the friction limit in equilibrium (hold);
++                            // the kinematic slip direction (incremental relative motion, noise when nothing moves) then flips
++                            // between iterations and the traction jumps +-mu pn. Use the return-mapping direction instead:
++                            // slip traction = mu pn along the trial tangential traction (elastoplastic Coulomb, Wriggers 2006).
++                            vec3d tt = t - nu*tn; double tsn = tt.norm();
++                            if (tsn > 0) s1 = tt*(-1.0/tsn);
++                        }
+                         
+                         // total traction
+                         t = (nu + s1*(m_mu))*(-pn);
+@@ -1213,8 +1303,9 @@ void FESlidingElasticInterface::StiffnessMatrix(FELinearSystem& LS, const FETime
+ 						// only evaluate stiffness matrix if contact traction is non-zero
+ 						if (pn != 0)
+ 						{
+-							// if stick
+-							if (data.m_bstick)
++							// if stick (BIOCAGE patch 6: a return-mapped slipping point with a stick anchor also uses this branch,
++							// with the elastoplastic Coulomb tangent in place of the identity, see below)
++							if (data.m_bstick || (m_bstickmem && data.m_pmep))
+ 							{
+ 								double dtn = eps;
+ 
+@@ -1227,6 +1318,21 @@ void FESlidingElasticInterface::StiffnessMatrix(FELinearSystem& LS, const FETime
+ 
+ 								// identity tensor
+ 								mat3d I = mat3dd(1);
++								if (!data.m_bstick)
++								{
++									// BIOCAGE patch 6: slip traction t = -pn nu + mu pn s, s = trial tangential traction direction,
++									// t_trial = Lt + eps (xt - xo); d t / d(dg) = eps [ nu nu - mu s nu + (mu pn / |tt|) (I - nu nu - s s) ]
++									vec3d xo = ss.Local2Global(se, j);
++									vec3d xt = ms.Local2Global(*data.m_pmep, data.m_rsp[0], data.m_rsp[1]);
++									vec3d tr = data.m_Lmt + (xt - xo)*eps;
++									vec3d tt = tr - nu*(tr*nu); double tsn = tt.norm();
++									if (tsn > 0)
++									{
++										vec3d sh = tt/tsn;
++										mat3d P = mat3dd(1) - (nu & nu);
++										I = (nu & nu) - (sh & nu)*m_mu + (P - (sh & sh))*(m_mu*pn/tsn);
++									}
++								}
+ 
+ 								// evaluate Mc and Ac and combine them into As
+ 								double* Gsr = se.Gr(j);
+@@ -1836,4 +1942,6 @@ void FESlidingElasticInterface::Serialize(DumpStream &ar)
+ 	// restore pointers
+ 	SerializeElementPointers(m_ss, m_ms, ar);
+ 	SerializeElementPointers(m_ms, m_ss, ar);
++
++	if (ar.IsLoading() && (ar.IsShallow() == false)) ApplyBiocageEnv();   // BIOCAGE patch 7: restart of a production checkpoint with the pilot options
+ }
+diff --git a/FEBioMech/FESlidingElasticInterface.h b/FEBioMech/FESlidingElasticInterface.h
+index 279f289..04b2c85 100644
+--- a/FEBioMech/FESlidingElasticInterface.h
++++ b/FEBioMech/FESlidingElasticInterface.h
+@@ -113,6 +113,8 @@ public:
+     
+     //! calculate the slip direction on the primary surface
+     vec3d SlipTangent(FESlidingElasticSurface& ss, const int nel, const int nint, FESlidingElasticSurface& ms, double& dh, vec3d& r);
++    void InitStickMemory(FESlidingElasticSurface& ss, FESlidingElasticSurface& ms);   // BIOCAGE patch 6
++    void ApplyBiocageEnv();   // BIOCAGE patch 7: pilot options from the environment (frictional interfaces only)
+     
+     //! calculate contact traction
+     vec3d ContactTraction(FESlidingElasticSurface& ss, const int nel, const int n, FESlidingElasticSurface& ms, double& pn);
+@@ -181,6 +183,7 @@ public:
+     
+     bool            m_bfreeze;      //!< freeze stick/slip status
+ 	bool            m_bflips;       //!< flip primary surface normal
++	bool	m_bstickmem;	//!< BIOCAGE patch 6: stick memory (default false; patch 7: switched by env BIOCAGE_STICK_MEMORY, not an input parameter)
+ 	bool            m_bflipm;       //!< flip secondary surface normal
+ 	bool            m_bshellbs;     //!< flag for prescribing pressure on shell bottom for primary surface
+ 	bool            m_bshellbm;     //!< flag for prescribing pressure on shell bottom for secondary surface

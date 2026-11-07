@@ -1,6 +1,6 @@
 {
- "time": "2026-11-05 06:40",
- "overall": "PASS",
+ "time": "2026-11-08 02:06",
+ "overall": "WARN",
  "checks": [
   {
    "id": "R1-case-dir",
@@ -35,7 +35,7 @@
   {
    "id": "R5-counts",
    "status": "PASS",
-   "message": "classes {'dislocation-friction': (17, 17), 'interface-shear': (14, 14), 'radial-mix': (28, 27), 'friction-computability': (14, 14)} (all / among tied passes); stale document counts: []"
+   "message": "classes {'friction-check-exceeded': (13, 13), 'interface-shear': (18, 18), 'radial-mix': (28, 27), 'friction-computability': (14, 14)} (all / among tied passes); stale document counts: []"
   },
   {
    "id": "R6-retracted",
@@ -60,7 +60,7 @@
   {
    "id": "R12-file-index",
    "status": "PASS",
-   "message": "133 paths in FILE_INDEX.md; missing []"
+   "message": "187 paths in FILE_INDEX.md; missing []"
   },
   {
    "id": "R10-register",
@@ -69,19 +69,19 @@
   },
   {
    "id": "R10-llm-audit-due",
-   "status": "PASS",
-   "message": "LLM audit current: last 2026-11-05 06:40; gate files changed since: []; decision entries since: []"
+   "status": "WARN",
+   "message": "LLM audit required: last 2026-11-05 06:40; gate files changed since: ['scripts/3_cage_case/h14_build_case.py', 'human_study/current_settings.json', '../biocage-evo/ops/collect_split.py']; decision entries since: ['2026-11-06 23:42', '2026-11-07 13:00', '2026-11-08 01:40']"
   }
  ],
  "counts": {
   "classes": {
-   "dislocation-friction": [
-    17,
-    17
+   "friction-check-exceeded": [
+    13,
+    13
    ],
    "interface-shear": [
-    14,
-    14
+    18,
+    18
    ],
    "radial-mix": [
     28,
@@ -100,8 +100,16 @@
   "n_items": 96,
   "unmapped": [],
   "mismatch": [],
-  "gate_files_changed": [],
-  "new_decisions": []
+  "gate_files_changed": [
+   "scripts/3_cage_case/h14_build_case.py",
+   "human_study/current_settings.json",
+   "../biocage-evo/ops/collect_split.py"
+  ],
+  "new_decisions": [
+   "2026-11-06 23:42",
+   "2026-11-07 13:00",
+   "2026-11-08 01:40"
+  ]
  },
  "mode": "quick"
 }

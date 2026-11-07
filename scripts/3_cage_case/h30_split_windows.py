@@ -20,10 +20,12 @@ tree = ET.parse(os.path.join(cd, 'case.feb')); root = tree.getroot()
 sch = json.load(open(os.path.join(cd, 'physio_schedule.json')))
 steps = root.findall('Step'); win = {s.get('name')[len('physio_'):]: s for s in steps if s.get('name') in ['physio_' + w['name'] for w in sch['windows']]}
 lcs = {lc.get('id'): lc for lc in root.find('LoadData')}
+HOLD = sch.get('physio_hold')
 for w in sch['windows']:                 # all window rotation curves at 3.5-4.0-4.5, before the insertion run is written
     lid = win[w['name']].find('Constraints/constraint').find('prescribe_' + w['dof']).get('lc')
     lc = lcs[lid]; [lc.remove(p) for p in list(lc)]
-    for t, v in ((T0, 0.0), (T0 + 0.5, 1.0), (T0 + 1.0, 0.0)): ET.SubElement(lc, 'point').text = f'{t},{v}'
+    # 2026-11-05 pilot (V17, gpufe plan): physio_hold {ramp, frac, T} follows the production ramp rate to frac of the amplitude, then holds the angle for T
+    for t, v in (((T0, 0.0), (T0 + HOLD['ramp'], HOLD['frac']), (T0 + HOLD['ramp'] + HOLD['T'], HOLD['frac'])) if HOLD else ((T0, 0.0), (T0 + 0.5, 1.0), (T0 + 1.0, 0.0))): ET.SubElement(lc, 'point').text = f'{t},{v}'
 base = copy.deepcopy(root)
 for s in base.findall('Step'):
     if s.get('name')[len('physio_'):] in win: base.remove(s)
@@ -31,13 +33,15 @@ for s in base.findall('Step'):
         ET.SubElement(s.find('Control'), 'plot_level').text = 'PLOT_STEP_FINAL'
 for w in sch['windows']:
     st = copy.deepcopy(win[w['name']]); wd = os.path.join(cd, 'w_' + w['name']); os.makedirs(wd, exist_ok=True)
-    ts = st.find('Control/time_steps'); ts.text = str(int(ts.text) // 2)   # independent windows stop at the peak: no unload (near-zero-load tail fails the relative energy norm)
+    if sch.get('window_min_residual') is not None and st.find('Control/min_residual') is None:   # 2026-11-07 pilot (restart hold arms, h14 key window_min_residual): |R|^2 floor in the window Control only
+        ET.SubElement(st.find('Control'), 'min_residual').text = str(sch['window_min_residual'])
+    ts = st.find('Control/time_steps'); ts.text = str(int(round((HOLD['ramp'] + HOLD['T']) / float(st.find('Control/step_size').text))) if HOLD else int(ts.text) // 2)   # independent windows stop at the peak: no unload (near-zero-load tail fails the relative energy norm)
     rs = ET.Element('febio_restart', version='2.0'); ET.SubElement(rs, 'Archive').text = '../case.dmp'
     rs.append(st)
     ET.ElementTree(rs).write(os.path.join(wd, 'restart.feb'), encoding='ISO-8859-1', xml_declaration=True)
     full = copy.deepcopy(base); full.append(copy.deepcopy(st))                     # post-processing copy (not run)
     ET.ElementTree(full).write(os.path.join(wd, 'case.feb'), encoding='ISO-8859-1', xml_declaration=True)
-    s1 = dict(sch); s1['windows'] = [dict(w, t0=T0, t_peak=T0 + 0.5, t1=T0 + 0.5)]; s1['split'] = True
+    s1 = dict(sch); s1['windows'] = [dict(w, t0=T0, t_peak=T0 + (HOLD['ramp'] + HOLD['T'] if HOLD else 0.5), t1=T0 + (HOLD['ramp'] + HOLD['T'] if HOLD else 0.5))]; s1['split'] = True
     json.dump(s1, open(os.path.join(wd, 'physio_schedule.json'), 'w'), indent=1)
     for f in ('cage_elems.npz', 'case.json'): shutil.copy(os.path.join(cd, f), os.path.join(wd, f))
 ET.ElementTree(base).write(os.path.join(cd, 'case.feb'), encoding='ISO-8859-1', xml_declaration=True)

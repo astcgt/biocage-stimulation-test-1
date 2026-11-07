@@ -22,7 +22,7 @@ H14 = os.path.join(P, 'scripts/3_cage_case/h14_build_case.py')
 GOLDEN = dict(params='human_study/al_v2/physio_fric3/p062_params.json', md5='4f3208b5e014c353f0f0e3683c1679ed',
               note='production p062 physio_fric3 case.feb, DECISIONS 2026-11-03 14:30 / 22:30')
 # pilot-only options: never in a production class or case (DECISIONS 2026-11-03 22:30: all default off, production byte-identical)
-PILOT_KEYS = ('dynamic_from_release', 'c3_release_ramp', 'sliding_off_after_tie', 'tied_init_converged', 'test_dynamic', 'only_distract')   # 'test' is the protocol name, not an option
+PILOT_KEYS = ('dynamic_from_release', 'c3_release_ramp', 'sliding_off_after_tie', 'tied_init_converged', 'test_dynamic', 'only_distract', 'physio_hold', 'cage_laugon', 'cage_stick_memory', 'min_residual', 'window_min_residual', 'restart_env')   # 'test' is the protocol name, not an option
 REQ = ('flexion', 'extension')
 FACES = ((0, 1, 2, 3), (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7))
 R = []     # (check id, status PASS/FAIL/WARN/SKIP, message)
@@ -65,7 +65,7 @@ def r2_no_pass_by_absence():
     bad = [p for p, d in e.items() if d.get('verdict') == 'pass' and not all(w in d.get('windows', {}) for w in REQ)]
     rep('R2-shear', not bad, f'interface-shear passes without both windows: {bad}')
     m = json.load(open(os.path.join(EV, 'results/method/split/comp_by_design_merged.json')))
-    bad = [p for p, d in m.items() if d.get('verdict') == 'pass' and any(g.get('verdict') not in ('pass',) for g in d.get('gates', {}).values() if g.get('verdict') not in ('excluded',))]
+    bad = [p for p, d in m.items() if d.get('verdict') == 'pass' and any(g.get('verdict') not in ('pass',) for k, g in d.get('gates', {}).items() if g.get('verdict') not in ('excluded',) and k != 'dislocation_friction')]   # PI 2026-11-07: the friction dislocation record is a check, not a gate
     bad2 = [p for p, d in m.items() if d.get('verdict') == 'pass' and 'gates' not in d]
     rep('R2-merged', not (bad or bad2), f'merged passes with a non-pass gate: {bad}; without gate record: {bad2}')
 
@@ -108,8 +108,9 @@ def r5_counts():
     C = json.load(open(os.path.join(EV, 'results/method/split/verdict_classes_merged.json')))['classes']
     m = json.load(open(os.path.join(EV, 'results/method/split/comp_by_design_merged.json')))
     tied = {p for p, d in m.items() if (d.get('gates') or {}).get('tied_screening', {}).get('verdict') == 'pass'}
-    cls = {'dislocation-friction': 'DESIGN/dislocation-friction', 'interface-shear': 'DESIGN/interface-shear-provisional',
+    cls = {'friction-check-exceeded': '__friction_check_exceeded__', 'interface-shear': 'DESIGN/interface-shear-provisional',   # PI 2026-11-07: dislocation-friction class replaced by the check list
            'radial-mix': 'DESIGN/radial-mix-excluded', 'friction-computability': '[多元]/friction-computability'}
+    CJ = json.load(open(os.path.join(EV, 'results/method/split/verdict_classes_merged.json'))); C['__friction_check_exceeded__'] = CJ.get('friction_check_exceeded', [])
     truth = {k: (len(C.get(v, [])), len(set(C.get(v, [])) & tied)) for k, v in cls.items()}
     docs = ['human_study/DECISIONS.md', 'human_study/CAPABILITY_SCORECARD.md', os.path.join(EV, 'docs/DECISIONS.md'), os.path.join(EV, 'docs/PLAN.md')]
     stale = []
