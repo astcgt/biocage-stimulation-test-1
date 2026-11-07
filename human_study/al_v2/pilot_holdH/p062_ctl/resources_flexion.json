@@ -1,0 +1,12 @@
+{
+ "exit": 0,
+ "normal": true,
+ "wall_s": 8043.9,
+ "gpu": 3,
+ "cores": 5,
+ "core_h": 11.172,
+ "gpu_h": 2.234,
+ "profile_drops": 0,
+ "valid": true,
+ "env_lines": []
+}
