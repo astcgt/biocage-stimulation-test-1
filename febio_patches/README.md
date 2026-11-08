@@ -47,3 +47,8 @@ uninterrupted run (<= 4e-7). Patch 5: one-hex test z 0.800, x = y = 1.000 (also 
    row's profile on stderr and drops it instead of bisecting for ever (FEBio 4.13 hangs there; n0 = k, n1 = k + 1). Verification:
    control restart (options off) reproduces the production hold drift (p062 +0.057 vs +0.059 mm; p139 0.0030 vs 0.0025 mm per
    increment); stick memory: coarse hold drift 0.005-0.010 mm (controls 0.057-0.125), DECISIONS 2026-11-08 01:40.
+   (d) 2026-11-09 patch 7b (logging only, same patch file): `Init()` / `Serialize()` run before FEBio opens the `-o` log, so the
+   patch-7 lines never appeared in a restart window's `case.log`; the frictional interface now writes the env settings in effect
+   once more at its first `Update()` (flag `m_benvlogged`): `BIOCAGE patch 7: interface '<name>': stick_memory = 1, laugon = 0,
+   atol = ... (env settings in effect, logged at the first update)`. h37 R15 requires this line in every physio_fric5 window log and
+   pins the library hash (libfebiomech.so sha256 be7b357f..., built 2026-11-09 06:13).

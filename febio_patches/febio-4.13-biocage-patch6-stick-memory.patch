@@ -1,5 +1,5 @@
 diff --git a/FEBioMech/FESlidingElasticInterface.cpp b/FEBioMech/FESlidingElasticInterface.cpp
-index ae1d676..cc54d28 100644
+index ae1d676..001feea 100644
 --- a/FEBioMech/FESlidingElasticInterface.cpp
 +++ b/FEBioMech/FESlidingElasticInterface.cpp
 @@ -33,6 +33,8 @@ SOFTWARE.*/
@@ -20,15 +20,16 @@ index ae1d676..cc54d28 100644
  	ADD_PARAMETER(m_bflipm   , "flip_secondary"     );
      ADD_PARAMETER(m_bshellbs , "shell_bottom_primary"  );
      ADD_PARAMETER(m_bshellbm , "shell_bottom_secondary");
-@@ -312,6 +316,7 @@ FESlidingElasticInterface::FESlidingElasticInterface(FEModel* pfem) : FEContactI
+@@ -312,6 +316,8 @@ FESlidingElasticInterface::FESlidingElasticInterface(FEModel* pfem) : FEContactI
      
      m_bfreeze = false;
      m_bflipm = m_bflips = false;
-+    m_bstickmem = false;   // BIOCAGE patch 6: default off = original FEBio behaviour
++    m_bstickmem = false;
++    m_benvlogged = false;   // BIOCAGE patch 7b   // BIOCAGE patch 6: default off = original FEBio behaviour
      m_bshellbm = m_bshellbs = false;
      
      m_offset = 0;
-@@ -332,6 +337,7 @@ FESlidingElasticInterface::~FESlidingElasticInterface()
+@@ -332,6 +338,7 @@ FESlidingElasticInterface::~FESlidingElasticInterface()
  //-----------------------------------------------------------------------------
  bool FESlidingElasticInterface::Init()
  {
@@ -36,7 +37,7 @@ index ae1d676..cc54d28 100644
      
      
      // check friction and tension parameters
-@@ -357,9 +363,39 @@ bool FESlidingElasticInterface::Init()
+@@ -357,9 +364,39 @@ bool FESlidingElasticInterface::Init()
      if (m_bshellbs) { m_ss.SetShellBottom(m_bshellbs); m_bshellbs = false; }
      if (m_bshellbm) { m_ms.SetShellBottom(m_bshellbm); m_bshellbm = false; }
  
@@ -76,7 +77,7 @@ index ae1d676..cc54d28 100644
  //-----------------------------------------------------------------------------
  void FESlidingElasticInterface::UpdateAutoPenalty()
  {
-@@ -450,6 +486,27 @@ void FESlidingElasticInterface::BuildMatrixProfile(FEGlobalMatrix& K)
+@@ -450,6 +487,27 @@ void FESlidingElasticInterface::BuildMatrixProfile(FEGlobalMatrix& K)
                      }
                      
                      K.build_add(lm);
@@ -104,7 +105,7 @@ index ae1d676..cc54d28 100644
                  }
              }
          }
-@@ -647,6 +704,46 @@ void FESlidingElasticInterface::ProjectSurface(FESlidingElasticSurface& ss, FESl
+@@ -647,12 +705,56 @@ void FESlidingElasticInterface::ProjectSurface(FESlidingElasticSurface& ss, FESl
  
  //-----------------------------------------------------------------------------
  
@@ -151,7 +152,17 @@ index ae1d676..cc54d28 100644
  void FESlidingElasticInterface::Update()
  {
      static int naug = 0;
-@@ -684,8 +781,14 @@ void FESlidingElasticInterface::Update()
+     static int biter = 0;
+     
+     FEModel& fem = *GetFEModel();
++    if (!m_benvlogged && m_mu > 0) {   // BIOCAGE patch 7b (2026-11-09): evidence line in the run's own log (Init / Serialize run before -o opens the log file, so the lines written there never appear in a restart window's case.log)
++        feLog("BIOCAGE patch 7: interface '%s': stick_memory = %d, laugon = %d, atol = %g (env settings in effect, logged at the first update)\n", GetName().c_str(), (int)m_bstickmem, (int)m_laugon, m_atol);
++        m_benvlogged = true;
++    }
+     
+     // get the iteration number
+     // we need this number to see if we can do segment updates or not
+@@ -684,8 +786,14 @@ void FESlidingElasticInterface::Update()
  	int nsolve_iter = GetFEModel()->GetCurrentStep()->GetFESolver()->m_niter;
      if (nsolve_iter == 0)
      {
@@ -168,7 +179,7 @@ index ae1d676..cc54d28 100644
          m_bfreeze = false;
      }
      
-@@ -814,8 +917,14 @@ vec3d FESlidingElasticInterface::ContactTraction(FESlidingElasticSurface& ss, co
+@@ -814,8 +922,14 @@ vec3d FESlidingElasticInterface::ContactTraction(FESlidingElasticSurface& ss, co
              pn = m_btension ? (-tn) : MBRACKET(-tn);
              
              // store the previous values as the current
@@ -185,7 +196,7 @@ index ae1d676..cc54d28 100644
              
              // recalculate gap
              data.m_dg = dg + nu*m_offset;
-@@ -895,6 +1004,14 @@ vec3d FESlidingElasticInterface::ContactTraction(FESlidingElasticSurface& ss, co
+@@ -895,6 +1009,14 @@ vec3d FESlidingElasticInterface::ContactTraction(FESlidingElasticSurface& ss, co
                          
                          // slip direction
                          s1 = FESlidingElasticInterface::SlipTangent(ss, nel, n, ms, dh, drdot);
@@ -200,7 +211,7 @@ index ae1d676..cc54d28 100644
                          
                          // total traction
                          t = (nu + s1*(m_mu))*(-pn);
-@@ -1213,8 +1330,9 @@ void FESlidingElasticInterface::StiffnessMatrix(FELinearSystem& LS, const FETime
+@@ -1213,8 +1335,9 @@ void FESlidingElasticInterface::StiffnessMatrix(FELinearSystem& LS, const FETime
  						// only evaluate stiffness matrix if contact traction is non-zero
  						if (pn != 0)
  						{
@@ -212,7 +223,7 @@ index ae1d676..cc54d28 100644
  							{
  								double dtn = eps;
  
-@@ -1227,6 +1345,21 @@ void FESlidingElasticInterface::StiffnessMatrix(FELinearSystem& LS, const FETime
+@@ -1227,6 +1350,21 @@ void FESlidingElasticInterface::StiffnessMatrix(FELinearSystem& LS, const FETime
  
  								// identity tensor
  								mat3d I = mat3dd(1);
@@ -234,7 +245,7 @@ index ae1d676..cc54d28 100644
  
  								// evaluate Mc and Ac and combine them into As
  								double* Gsr = se.Gr(j);
-@@ -1836,4 +1969,6 @@ void FESlidingElasticInterface::Serialize(DumpStream &ar)
+@@ -1836,4 +1974,6 @@ void FESlidingElasticInterface::Serialize(DumpStream &ar)
  	// restore pointers
  	SerializeElementPointers(m_ss, m_ms, ar);
  	SerializeElementPointers(m_ms, m_ss, ar);
@@ -242,7 +253,7 @@ index ae1d676..cc54d28 100644
 +	if (ar.IsLoading() && (ar.IsShallow() == false)) ApplyBiocageEnv();   // BIOCAGE patch 7: restart of a production checkpoint with the pilot options
  }
 diff --git a/FEBioMech/FESlidingElasticInterface.h b/FEBioMech/FESlidingElasticInterface.h
-index 279f289..04b2c85 100644
+index 279f289..717eb8d 100644
 --- a/FEBioMech/FESlidingElasticInterface.h
 +++ b/FEBioMech/FESlidingElasticInterface.h
 @@ -113,6 +113,8 @@ public:
@@ -254,11 +265,12 @@ index 279f289..04b2c85 100644
      
      //! calculate contact traction
      vec3d ContactTraction(FESlidingElasticSurface& ss, const int nel, const int n, FESlidingElasticSurface& ms, double& pn);
-@@ -181,6 +183,7 @@ public:
+@@ -181,6 +183,8 @@ public:
      
      bool            m_bfreeze;      //!< freeze stick/slip status
  	bool            m_bflips;       //!< flip primary surface normal
 +	bool	m_bstickmem;	//!< BIOCAGE patch 6: stick memory (default false; patch 7: switched by env BIOCAGE_STICK_MEMORY, not an input parameter)
++	bool	m_benvlogged;	//!< BIOCAGE patch 7b: the env settings have been written to the log at the first Update() (Init/Serialize run before the log file is open)
  	bool            m_bflipm;       //!< flip secondary surface normal
  	bool            m_bshellbs;     //!< flag for prescribing pressure on shell bottom for primary surface
  	bool            m_bshellbm;     //!< flag for prescribing pressure on shell bottom for secondary surface

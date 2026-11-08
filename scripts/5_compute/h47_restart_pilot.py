@@ -60,16 +60,17 @@ def run(cd, gpu, ncores, window='extension'):
     json.dump(dict(cmd=cmd, env={k: env[k] for k in env if k.startswith(('BIOCAGE_', 'CUDA_', 'OMP_'))}, febio=FEBIO_FRIC,
                    febio_sha256=h24_preflight.sha(FEBIO_FRIC), lib_sha256=h24_preflight.sha(os.path.join(P, 'third_party/FEBio/cbuild_fric/lib/libfebiomech.so')), window=window),
               open(os.path.join(cd, 'launch' + sfx + '.json'), 'w'), indent=1)   # lib_sha256: the patched code lives in libfebiomech.so, the binary hash does not change between rebuilds
-    p = subprocess.Popen(cmd, cwd=wd, env=env, stdout=subprocess.DEVNULL, stderr=open(os.path.join(cd, 'stderr.log'), 'w'))
+    p = subprocess.Popen(cmd, cwd=wd, env=env, stdout=subprocess.DEVNULL, stderr=open(os.path.join(cd, 'stderr' + sfx + '.log'), 'w'))   # per window (2026-11-09): profile_drops below must read this window's stderr
     print(f'started {os.path.relpath(cd, P)} on GPU {gpu}, cores {cores[0]}..{cores[-1]}, env {prm.get("restart_env")}', flush=True)
     time.sleep(3); fcntl.flock(lock, fcntl.LOCK_UN)
     p.wait(); wall = time.time() - t0
     txt = open(os.path.join(wd, 'case.log'), errors='ignore').read()
-    err = open(os.path.join(cd, 'stderr.log'), errors='ignore').read()
+    err = open(os.path.join(cd, 'stderr' + sfx + '.log'), errors='ignore').read()
     drops = err.count('CRSSparseMatrix::add')     # patch-7 FECore guard: stiffness entries outside the sparse profile were DROPPED -> the window is invalid
     res = dict(exit=p.returncode, normal='N O R M A L' in txt[-4000:], wall_s=round(wall, 1), gpu=gpu, cores=ncores,
                core_h=round(ncores * wall / 3600, 3), gpu_h=round(wall / 3600, 3), profile_drops=drops, valid=(drops == 0),
-               env_lines=[l.strip() for l in txt.splitlines() if 'BIOCAGE patch 7' in l][:6])
+               env_lines=[l.strip() for l in txt.splitlines() if 'BIOCAGE patch 7' in l][:6],
+               stick_memory_logged=any('stick_memory = 1' in l for l in txt.splitlines() if 'BIOCAGE patch 7' in l))   # patch 7b: evidence line written at the first contact update
     if drops: print(f'INVALID: {drops} stiffness entries outside the matrix profile were dropped (see stderr.log)', flush=True)
     json.dump(res, open(os.path.join(cd, 'resources' + sfx + '.json'), 'w'), indent=1); print(os.path.relpath(cd, P), window, res, flush=True)
     open(os.path.join(cd, 'done' + sfx), 'w').write(str(time.time()))

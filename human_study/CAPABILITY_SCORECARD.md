@@ -1,4 +1,4 @@
-# 平台能力計分表（自動產生 2026-11-08 04:59）
+# 平台能力計分表（自動產生 2026-11-09 06:08）
 
 由 `scripts/8_audit/h33_capability_audit.py` 從 `human_study/platform_capabilities.json` 產生，**不要手改**。判定規則見 `PLATFORM_CAPABILITIES.md`。門檻來源標「提案」的數字由 PI 拍板（[決定]）。
 
@@ -131,7 +131,7 @@
 
 | ID | 檢查 | 方法 | 門檻（來源） | 必要 | TIED | FRIC | GPUFE |
 |---|---|---|---|---|---|---|---|
-| PHY-01 | 完整頸椎 C0-C7 對 Herron 2020 | h07：26 歲力矩-轉角、C3-C7 ROM、C3-4 小面關節力，對數位化的 Herron 2020 圖 | 10% 內的量 ≥ 18/22，小面關節力 ≤ 10%（PI 2026-10-19（pass = 10% 內）；18/22 已接受） | 是 | 不通過：15/19（validation/results/comparison.json 有對照值的 19 項中 15 項在 10% 內；另 3 項 C3-C4 ROM Herron 無參考值，不能計入）；小面關節力 ≤ 2% | 不通過：15/19（validation/results/comparison.json 有對照值的 19 項中 15 項在 10% 內；另 3 項 C3-C4 ROM Herron 無參考值，不能計入）；小面關節力 ≤ 2% | — |
+| PHY-01 | 完整頸椎 C0-C7 對 Herron 2020 | h07：26 歲力矩-轉角、C3-C7 ROM、C3-4 小面關節力，對數位化的 Herron 2020 圖 | C3-C4 相關項全部在 10% 內，小面關節力 ≤ 10%（2026-11-09 改寫；原「≥ 18/22」）（PI 2026-10-19（pass = 10% 內）；PI 2026-11-09 接受 15/19，門檻改為 C3-C4 相關項） | 是 | 不通過：15/19（validation/results/comparison.json 有對照值的 19 項中 15 項在 10% 內；另 3 項 C3-C4 ROM Herron 無參考值，不能計入）；小面關節力 ≤ 2% | 不通過：15/19（validation/results/comparison.json 有對照值的 19 項中 15 項在 10% 內；另 3 項 C3-C4 ROM Herron 無參考值，不能計入）；小面關節力 ≤ 2% | — |
 | PHY-02 | 精細化 C3-C4 FSU 對完整頸椎 | h11：六向 ROM，精細化 + tied 端板 vs 完整 C0-C7 | 六向 ROM 差 ≤ 10%（PI 2026-10-20） | 是 | 通過：FE 13.07 vs 13.21 deg 等 | 通過 | — |
 | PHY-03 | 節段軸向撐開剛度 vs 屍體數據 | d 1.0 mm 撐開力（C3pot Fz），移除纖維環殘留後；對 Frank 1996（1.7 mm @ 44 N） | 與文獻同數量級（0.5-2×）（提案） | 是 | 通過：39 N @ 1 mm（屍體 44 N @ 1.7 mm） | 通過 | — |
 

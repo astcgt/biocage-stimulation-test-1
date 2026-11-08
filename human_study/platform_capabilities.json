@@ -471,8 +471,8 @@
    ],
    "name": "完整頸椎 C0-C7 對 Herron 2020",
    "method": "h07：26 歲力矩-轉角、C3-C7 ROM、C3-4 小面關節力，對數位化的 Herron 2020 圖",
-   "threshold": "10% 內的量 ≥ 18/22，小面關節力 ≤ 10%",
-   "threshold_src": "PI 2026-10-19（pass = 10% 內）；18/22 已接受",
+   "threshold": "C3-C4 相關項全部在 10% 內，小面關節力 ≤ 10%（2026-11-09 改寫；原「≥ 18/22」）",
+   "threshold_src": "PI 2026-10-19（pass = 10% 內）；PI 2026-11-09 接受 15/19，門檻改為 C3-C4 相關項",
    "trigger": "ANAT 或 FEBIO 變更時",
    "depends": [
     "ANAT",

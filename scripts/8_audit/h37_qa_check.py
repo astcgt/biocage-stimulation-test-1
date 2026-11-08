@@ -22,7 +22,10 @@ H14 = os.path.join(P, 'scripts/3_cage_case/h14_build_case.py')
 GOLDEN = dict(params='human_study/al_v2/physio_fric3/p062_params.json', md5='4f3208b5e014c353f0f0e3683c1679ed',
               note='production p062 physio_fric3 case.feb, DECISIONS 2026-11-03 14:30 / 22:30')
 # pilot-only options: never in a production class or case (DECISIONS 2026-11-03 22:30: all default off, production byte-identical)
-PILOT_KEYS = ('dynamic_from_release', 'c3_release_ramp', 'sliding_off_after_tie', 'tied_init_converged', 'test_dynamic', 'only_distract', 'physio_hold', 'cage_laugon', 'cage_stick_memory', 'min_residual', 'window_min_residual', 'restart_env', 'window_static', 'window_dt')   # 'test' is the protocol name, not an option
+PILOT_KEYS = ('dynamic_from_release', 'c3_release_ramp', 'sliding_off_after_tie', 'tied_init_converged', 'test_dynamic', 'only_distract', 'physio_hold', 'cage_laugon', 'cage_stick_memory', 'min_residual', 'window_static', 'window_dt')
+# 2026-11-09 (PI decision 1): restart_env + window_min_residual left the pilot list - they ARE the production friction law of physio_fric5 (R15 pins their values)
+FRIC5 = dict(cls='human_study/al_v2/physio_fric5/', restart_env={'BIOCAGE_STICK_MEMORY': '1'}, window_min_residual=1e-4,
+             lib_sha256='be7b357f71f155e462e1c3e3ca60d60b7bd9308d35d79b5cef5805ca149b2f89')   # validated cbuild_fric libfebiomech.so (patch 6 + 7 + 7b evidence line, built 2026-11-09 06:13)   # 'test' is the protocol name, not an option
 REQ = ('flexion', 'extension')
 FACES = ((0, 1, 2, 3), (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7))
 R = []     # (check id, status PASS/FAIL/WARN/SKIP, message)
@@ -196,6 +199,30 @@ def r14_patch7_logs():
     rep('R14-patch7-logs', not hits, f'production logs scanned for the patch-7 env switches and the FECore profile guard; hits: {hits[:10]}')
 
 # ---------------------------------------------------------------- R12 file index: every repo path named in human_study/FILE_INDEX.md exists (PI 2026-11-05: files are scattered)
+def r15_fric5():
+    """physio_fric5 (PI 2026-11-09 decision 1): the settings class carries exactly the reference friction law (stick memory env + window
+    residual floor 1e-4) and no superseded set carries it; every finished window log has the patch-7 evidence line with stick_memory = 1,
+    no dropped stiffness entries (FECore guard, per-window stderr), and the launch record names the validated cbuild_fric library."""
+    S = json.load(open(SETTINGS)); v = S['classes'].get(FRIC5['cls'], {}); bad = []
+    if v.get('restart_env') != FRIC5['restart_env'] or v.get('window_min_residual') != FRIC5['window_min_residual']: bad.append(f"class {FRIC5['cls']}: restart_env {v.get('restart_env')}, window_min_residual {v.get('window_min_residual')}")
+    for s3 in S['classes']:
+        if s3 != FRIC5['cls'] and 'pilot' not in s3 and (S['classes'][s3].get('restart_env') or S['classes'][s3].get('window_min_residual')): bad.append(f'class {s3} carries restart_env / window_min_residual')
+    for s3 in ('physio_fric3', 'physio_fric4'):
+        for pj in glob.glob(os.path.join(P, 'human_study/al_v2', s3, 'p*_params.json')):
+            prm = json.load(open(pj))
+            if prm.get('restart_env') or prm.get('window_min_residual'): bad.append('law keys in a superseded set: ' + os.path.relpath(pj, P))
+    n = 0
+    for lg in sorted(glob.glob(os.path.join(P, FRIC5['cls'], 'p*', 'w_*', 'case.log'))):
+        txt = open(lg, errors='ignore').read()
+        if not any(k in txt[-4000:] for k in ('N O R M A L', 'E R R O R')): continue
+        n += 1; rel = os.path.relpath(lg, P); wn = os.path.basename(os.path.dirname(lg))[2:]; cd = os.path.dirname(os.path.dirname(lg)); sfx = '' if wn == 'extension' else '_' + wn
+        if not any('BIOCAGE patch 7' in l and 'stick_memory = 1' in l for l in txt.splitlines()): bad.append(rel + ': no stick-memory evidence line')
+        se = os.path.join(cd, 'stderr' + sfx + '.log')
+        if os.path.exists(se) and 'CRSSparseMatrix::add' in open(se, errors='ignore').read(): bad.append(rel + ': dropped stiffness entries')
+        lj = os.path.join(cd, 'launch' + sfx + '.json'); h = json.load(open(lj)).get('lib_sha256') if os.path.exists(lj) else None
+        if h != FRIC5['lib_sha256']: bad.append(f'{rel}: lib {str(h)[:8]} != validated {FRIC5["lib_sha256"][:8]}')
+    rep('R15-fric5-law', not bad, f'physio_fric5 class pinned, superseded sets clean; {n} finished window logs checked; problems: {bad[:8]}')
+
 def r12_file_index():
     idx = os.path.join(P, 'human_study/FILE_INDEX.md')
     if not os.path.exists(idx): rep('R12-file-index', False, 'human_study/FILE_INDEX.md missing'); return
@@ -316,7 +343,7 @@ if __name__ == '__main__':
     quick = '--quick' in sys.argv
     r1_case_dirs(); r2_no_pass_by_absence(); r3_faces(quick); counts = r5_counts(); r6_retracted(); r7_pilot_keys()
     if not quick: r8_golden()
-    r9_blocks(production_samples()); r11_constants(); r12_file_index(); r14_patch7_logs()
+    r9_blocks(production_samples()); r11_constants(); r12_file_index(); r14_patch7_logs(); r15_fric5()
     reg = r10_register()
     worst = write_status(dict(counts=counts, register=reg, mode='quick' if quick else 'full'))
     for c, s, m in R: print(f'{s:4s} {c}: {m[:300]}')

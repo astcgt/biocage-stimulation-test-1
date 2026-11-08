@@ -1,6 +1,6 @@
 {
- "time": "2026-11-08 05:12",
- "overall": "WARN",
+ "time": "2026-11-09 06:17",
+ "overall": "FAIL",
  "checks": [
   {
    "id": "R1-case-dir",
@@ -60,7 +60,7 @@
   {
    "id": "R9-material-blocks",
    "status": "PASS",
-   "message": "golden rebuild: one FEBio block per cage material in 1 cases (tmpq36r2qma:4); problems: []"
+   "message": "golden rebuild: one FEBio block per cage material in 1 cases (tmp2otgfmeg:4); problems: []"
   },
   {
    "id": "R9-material-blocks",
@@ -74,13 +74,18 @@
   },
   {
    "id": "R12-file-index",
-   "status": "PASS",
-   "message": "192 paths in FILE_INDEX.md; missing []"
+   "status": "FAIL",
+   "message": "201 paths in FILE_INDEX.md; missing ['human_study/al_v2/physio_fric5/']"
   },
   {
    "id": "R14-patch7-logs",
    "status": "PASS",
    "message": "production logs scanned for the patch-7 env switches and the FECore profile guard; hits: []"
+  },
+  {
+   "id": "R15-fric5-law",
+   "status": "PASS",
+   "message": "physio_fric5 class pinned, superseded sets clean; 0 finished window logs checked; problems: []"
   },
   {
    "id": "R10-register",
@@ -90,7 +95,7 @@
   {
    "id": "R10-llm-audit-due",
    "status": "WARN",
-   "message": "LLM audit required: last 2026-11-05 06:40; gate files changed since: ['scripts/3_cage_case/h14_build_case.py', 'human_study/current_settings.json', '../biocage-evo/ops/fric_compare.py', '../biocage-evo/ops/collect_split.py']; decision entries since: ['2026-11-06 23:42', '2026-11-07 13:00', '2026-11-08 01:40']"
+   "message": "LLM audit required: last 2026-11-05 06:40; gate files changed since: ['scripts/3_cage_case/h14_build_case.py', 'human_study/current_settings.json', '../biocage-evo/ops/fric_compare.py', '../biocage-evo/ops/collect_split.py']; decision entries since: ['2026-11-06 23:42', '2026-11-07 13:00', '2026-11-08 01:40', '2026-11-09']"
   }
  ],
  "counts": {
@@ -129,7 +134,8 @@
   "new_decisions": [
    "2026-11-06 23:42",
    "2026-11-07 13:00",
-   "2026-11-08 01:40"
+   "2026-11-08 01:40",
+   "2026-11-09"
   ]
  },
  "mode": "full"
