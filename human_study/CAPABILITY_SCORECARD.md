@@ -1,4 +1,4 @@
-# 平台能力計分表（自動產生 2026-11-09 18:25）
+# 平台能力計分表（自動產生 2026-11-09 18:43）
 
 由 `scripts/8_audit/h33_capability_audit.py` 從 `human_study/platform_capabilities.json` 產生，**不要手改**。判定規則見 `PLATFORM_CAPABILITIES.md`。門檻來源標「提案」的數字由 PI 拍板（[決定]）。
 
@@ -48,7 +48,7 @@
 |---|---|---|---|---|---|
 | PHY-03 節段軸向撐開剛度 vs 屍體數據 | [物理] | TIED | 未評 | 過期（BUILD 已改動）：39 N @ 1 mm（屍體 44 N @ 1.7 mm） | DECISIONS 2026-10-22 PI DECISION annulus remnant |
 | PHY-03 節段軸向撐開剛度 vs 屍體數據 | [物理] | FRIC | 未評 | 過期（BUILD 已改動） | DECISIONS 2026-10-22 PI DECISION annulus remnant |
-| PHY-05 gate 4：黏死滑出判定 vs 真實摩擦實測 | [物理] | TIED | 不合格 | 不通過：physio_fric5（參考摩擦律重算，43 設計、86 視窗，77 正常終止、9 solver error 其中 4 個仍在 1.5 N·m 前讀得、5 個不可用→open）：verdicts.json pass 35 / fail 6 / open 30（fric3 時 24/14/33；16 個判定改變，13 個改為 pass，3 個因 fric5 視窗不可用改為 open）。仍 fail：p051 p075 p093 p114 p145（後伸 ROM 時點後方 0.504–0.549 mm，門檻 0.5 嚴格）與 p060（fric2）。89 個視窗傳到 1.5 N·m，該點最大平移 0.894 mm（p114 前屈），全部 ≤ 1 mm、後方 ≤ 0.5 mm。tied 單面滑移上限仍被摩擦實測普遍超過：fric5 84 視窗中 82 個（fric3 80/84，中位比 2.97）→ tied 捷徑對前屈／後伸不保守的結論不變。舊值（fric3，2026-11-05）：fail 14 / pass 24 / open 33；ROM 時點前屈 axial mix 0.50–0.64、radial interleave 0.93–1.18、radial mix 1.00–1.19 mm。 | T01, T03 |
+| PHY-05 gate 4：黏死滑出判定 vs 真實摩擦實測 | [物理] | TIED | 不合格 | 不通過（BUILD 已改動）：physio_fric5（參考摩擦律重算，43 設計、86 視窗，77 正常終止、9 solver error 其中 4 個仍在 1.5 N·m 前讀得、5 個不可用→open）：verdicts.json pass 35 / fail 6 / open 30（fric3 時 24/14/33；16 個判定改變，13 個改為 pass，3 個因 fric5 視窗不可用改為 open）。仍 fail：p051 p075 p093 p114 p145（後伸 ROM 時點後方 0.504–0.549 mm，門檻 0.5 嚴格）與 p060（fric2）。89 個視窗傳到 1.5 N·m，該點最大平移 0.894 mm（p114 前屈），全部 ≤ 1 mm、後方 ≤ 0.5 mm。tied 單面滑移上限仍被摩擦實測普遍超過：fric5 84 視窗中 82 個（fric3 80/84，中位比 2.97）→ tied 捷徑對前屈／後伸不保守的結論不變。舊值（fric3，2026-11-05）：fail 14 / pass 24 / open 33；ROM 時點前屈 axial mix 0.50–0.64、radial interleave 0.93–1.18、radial mix 1.00–1.19 mm。 | T01, T03 |
 | PHY-06 PLCL 材料常數有實驗依據 | [物理] | TIED | 有條件合格 | 過期（SETTINGS 已改動）：文獻值；無 bench | T04 |
 | PHY-06 PLCL 材料常數有實驗依據 | [物理] | FRIC | 有條件合格 | 過期（SETTINGS 已改動） | T04 |
 | PHY-07 負荷協定有文獻依據 | [物理] | TIED | 未評 | 過期（BUILD 已改動） | DECISIONS 2026-10-23 12:00 |
@@ -111,6 +111,7 @@
 - PHY-03 節段軸向撐開剛度 vs 屍體數據 [TIED]：BUILD（FEBio 案例組裝（手術、負荷、輸出））
 - PHY-03 節段軸向撐開剛度 vs 屍體數據 [FRIC]：BUILD（FEBio 案例組裝（手術、負荷、輸出））
 - PHY-04 黏死介面受拉比例（診斷） [TIED]：BUILD（FEBio 案例組裝（手術、負荷、輸出））, METRICS（判定指標 e03 / e04 / e05 / e07 與閘門程式）
+- PHY-05 gate 4：黏死滑出判定 vs 真實摩擦實測 [TIED]：BUILD（FEBio 案例組裝（手術、負荷、輸出））
 - PHY-06 PLCL 材料常數有實驗依據 [TIED]：SETTINGS（全研究設定）
 - PHY-06 PLCL 材料常數有實驗依據 [FRIC]：SETTINGS（全研究設定）
 - PHY-07 負荷協定有文獻依據 [TIED]：BUILD（FEBio 案例組裝（手術、負荷、輸出））
@@ -201,7 +202,7 @@
 | ID | 檢查 | 方法 | 門檻（來源） | 必要 | TIED | FRIC | GPUFE |
 |---|---|---|---|---|---|---|---|
 | PHY-04 | 黏死介面受拉比例（診斷） | 評估狀態下 cage-骨接觸面受拉（法向拉力）的面積比例 | ≤ 10%（提案） | 診斷 | 不通過（BUILD,METRICS 已改動）：約 40% | — | — |
-| PHY-05 | gate 4：黏死滑出判定 vs 真實摩擦實測 | 真實摩擦 run（physio_fric5 參考摩擦律（黏著記憶，PI 2026-11-09 決定 1）取代 physio_fric3，每視窗以最高級集合為準；mu 0.35、100 N 追隨載荷、前屈＋後伸視窗）：cage 剛體平移（e04，籠節點平均 − C4 終板平均）在評估點判定；評估點 = 視窗傳得到 1.5 N·m 時在 1.5 N·m 狀態判，否則在 intact ROM 狀態判（PI 2026-11-05 第 1 項；fric_compare.py ev_point，每視窗記入 verdicts.json）。無缺窗通過：前屈與後伸都要有可用視窗。相同設計參數的 id 合併證據（任一 fail → 整組 fail）。 | 平移 > 1 mm（任向）或 > 0.5 mm（後方）即 fail（嚴格大於）（PI 2026-11-03 04:30（規則）；PI 2026-11-03（合併重複）；評估點條件式 PI 2026-11-05 第 1 項確認並實作（fric_compare.py:89-92）） | 是 | 不通過：physio_fric5（參考摩擦律重算，43 設計、86 視窗，77 正常終止、9 solver error 其中 4 個仍在 1.5 N·m 前讀得、5 個不可用→open）：verdicts.json pass 35 / fail 6 / open 30（fric3 時 24/14/33；16 個判定改變，13 個改為 pass，3 個因 fric5 視窗不可用改為 open）。仍 fail：p051 p075 p093 p114 p145（後伸 ROM 時點後方 0.504–0.549 mm，門檻 0.5 嚴格）與 p060（fric2）。89 個視窗傳到 1.5 N·m，該點最大平移 0.894 mm（p114 前屈），全部 ≤ 1 mm、後方 ≤ 0.5 mm。tied 單面滑移上限仍被摩擦實測普遍超過：fric5 84 視窗中 82 個（fric3 80/84，中位比 2.97）→ tied 捷徑對前屈／後伸不保守的結論不變。舊值（fric3，2026-11-05）：fail 14 / pass 24 / open 33；ROM 時點前屈 axial mix 0.50–0.64、radial interleave 0.93–1.18、radial mix 1.00–1.19 mm。 | — | — |
+| PHY-05 | gate 4：黏死滑出判定 vs 真實摩擦實測 | 真實摩擦 run（physio_fric5 參考摩擦律（黏著記憶，PI 2026-11-09 決定 1）取代 physio_fric3，每視窗以最高級集合為準；mu 0.35、100 N 追隨載荷、前屈＋後伸視窗）：cage 剛體平移（e04，籠節點平均 − C4 終板平均）在評估點判定；評估點 = 視窗傳得到 1.5 N·m 時在 1.5 N·m 狀態判，否則在 intact ROM 狀態判（PI 2026-11-05 第 1 項；fric_compare.py ev_point，每視窗記入 verdicts.json）。無缺窗通過：前屈與後伸都要有可用視窗。相同設計參數的 id 合併證據（任一 fail → 整組 fail）。 | 平移 > 1 mm（任向）或 > 0.5 mm（後方）即 fail（嚴格大於）（PI 2026-11-03 04:30（規則）；PI 2026-11-03（合併重複）；評估點條件式 PI 2026-11-05 第 1 項確認並實作（fric_compare.py:89-92）） | 是 | 不通過（BUILD 已改動）：physio_fric5（參考摩擦律重算，43 設計、86 視窗，77 正常終止、9 solver error 其中 4 個仍在 1.5 N·m 前讀得、5 個不可用→open）：verdicts.json pass 35 / fail 6 / open 30（fric3 時 24/14/33；16 個判定改變，13 個改為 pass，3 個因 fric5 視窗不可用改為 open）。仍 fail：p051 p075 p093 p114 p145（後伸 ROM 時點後方 0.504–0.549 mm，門檻 0.5 嚴格）與 p060（fric2）。89 個視窗傳到 1.5 N·m，該點最大平移 0.894 mm（p114 前屈），全部 ≤ 1 mm、後方 ≤ 0.5 mm。tied 單面滑移上限仍被摩擦實測普遍超過：fric5 84 視窗中 82 個（fric3 80/84，中位比 2.97）→ tied 捷徑對前屈／後伸不保守的結論不變。舊值（fric3，2026-11-05）：fail 14 / pass 24 / open 33；ROM 時點前屈 axial mix 0.50–0.64、radial interleave 0.93–1.18、radial mix 1.00–1.19 mm。 | — | — |
 | PHY-09 | 材料介面剪力（脫層，S10） | e07：每個材料不同（FEBio 區塊）的共用面，以軟側與硬側 Cauchy 應力分別求牽引力，分層間（水平）與帶邊界（垂直）面；剪力與剝離，max 與 p99 | 軟側 p99 剪力 ≤ 3 MPa（前屈、後伸）（PI 2026-11-04（暫定，待黏結強度實驗）） | 是 | — | 不通過（BUILD,METRICS 已改動）：修正介面定義後（軟側 p99，MPa）：前屈 ROM／前屈 1.5 N·m／後伸 ROM：axial 10.5–15.8／4.7–6.7／3.2–7.4；radial mix 10.7–16.6／5.2–7.0／2.3–3.2；interleave 1.7–2.7／1.2–1.5／0.3–0.5。網格收斂未過（HZ 0.1：層間 −15.9 %、帶邊界 +16.7 %，容差 5 %）；interleave 軟／硬側差到 ~27 倍 | — |
 
 **材料** — PLCL 兩相的常數與本構有沒有實驗依據？
