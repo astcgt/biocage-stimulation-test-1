@@ -611,7 +611,7 @@ if DYN and (test.startswith('physio') or prm.get('test_dynamic')):   # solution;
     # initial residual 1e4-1e6 vs 1e-2 static, independent of dt): dynamic_from_release moves the static->dynamic switch to
     # t = 2, where the cage is still held (cage_hold) and no load ramps, so the switch transient meets a constrained cage.
     STATIC_STEPS = ('distract', 'insert_seat') if prm.get('dynamic_from_release') else INSERTION_STEPS
-    if prm.get('all_dynamic'): STATIC_STEPS = ()   # 2026-11-09 pilot (issue 2, process G, DECISIONS 22:1x): every step dynamic from t 0 - no static -> dynamic switch anywhere (the switch under load kills d 1.5 radial designs: fric3p 11-03, F''' p068)
+    if prm.get('all_dynamic'): STATIC_STEPS = ()   # 2026-11-09 pilot (issue 2, process G, DECISIONS 22:10): every step dynamic from t 0 - no static -> dynamic switch anywhere (the switch under load kills d 1.5 radial designs: fric3p 11-03, F''' p068)
     if prm.get('physio_static_until_windows'): STATIC_STEPS = tuple(STATIC_STEPS) + (prm['test'],)   # 2026-11-09 pilot (issue 2): the follower step t 3-3.5 stays static; only the window restarts run dynamic (density 1e-6 kept on the materials)
     for st_ in root.findall('Step'):
         if st_.get('name') in STATIC_STEPS: continue
