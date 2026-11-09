@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-09T20:22",
+ "generated": "2026-11-09T20:20",
  "design": "p062",
  "process": "E' (pilot_relE3: release_all_dofs + main-deck min_residual 1e-4, dynamic follower step, stick-memory law)",
  "insertion_t3p5": {
