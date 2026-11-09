@@ -483,16 +483,16 @@
    ],
    "status": {
     "TIED": {
-     "state": "fail",
-     "date": "2026-11-08",
+     "state": "pass",
+     "date": "2026-11-09",
      "value": "15/19（validation/results/comparison.json 有對照值的 19 項中 15 項在 10% 內；另 3 項 C3-C4 ROM Herron 無參考值，不能計入）；小面關節力 ≤ 2%",
-     "note": "PI 2026-11-07 選 (a)：值改 15/19 並重新判定。登記門檻 ≥ 18/22（82%）未達（15/19 = 79%），依門檻列不通過；是否改接受由 PI 決定（PI_PENDING_DECISIONS）。原 18/22 來源未確認。超出的 4 項都不是 C3-C4（C0-C1 兩項、C1-C2、C3-C7 各一）"
+     "note": "PI 2026-11-07 選 (a)：值改 15/19 並重新判定。登記門檻 ≥ 18/22（82%）未達（15/19 = 79%），依門檻列不通過；是否改接受由 PI 決定（PI_PENDING_DECISIONS）。原 18/22 來源未確認。超出的 4 項都不是 C3-C4（C0-C1 兩項、C1-C2、C3-C7 各一）｜2026-11-09 PI 決定 3：接受 15/19，門檻改為「C3-C4 相關項全部在 10% 內」；超出的 4 項（LB C0-C1 21.5%、AR C0-C1 −14.2%、AR C1-C2 −10.6%、AR C3-C7 12.1%）都不是 C3-C4 → 通過（QA 2026-11-09 不符 #2 修正：先前只改了門檻文字）"
     },
     "FRIC": {
-     "state": "fail",
-     "date": "2026-11-08",
+     "state": "pass",
+     "date": "2026-11-09",
      "value": "15/19（validation/results/comparison.json 有對照值的 19 項中 15 項在 10% 內；另 3 項 C3-C4 ROM Herron 無參考值，不能計入）；小面關節力 ≤ 2%",
-     "note": "PI 2026-11-07 選 (a)：值改 15/19 並重新判定。登記門檻 ≥ 18/22（82%）未達（15/19 = 79%），依門檻列不通過；是否改接受由 PI 決定（PI_PENDING_DECISIONS）。原 18/22 來源未確認。超出的 4 項都不是 C3-C4（C0-C1 兩項、C1-C2、C3-C7 各一）"
+     "note": "PI 2026-11-07 選 (a)：值改 15/19 並重新判定。登記門檻 ≥ 18/22（82%）未達（15/19 = 79%），依門檻列不通過；是否改接受由 PI 決定（PI_PENDING_DECISIONS）。原 18/22 來源未確認。超出的 4 項都不是 C3-C4（C0-C1 兩項、C1-C2、C3-C7 各一）｜2026-11-09 PI 決定 3：接受 15/19，門檻改為「C3-C4 相關項全部在 10% 內」；超出的 4 項（LB C0-C1 21.5%、AR C0-C1 −14.2%、AR C1-C2 −10.6%、AR C3-C7 12.1%）都不是 C3-C4 → 通過（QA 2026-11-09 不符 #2 修正：先前只改了門檻文字）"
     }
    },
    "refs": [
@@ -1262,13 +1262,16 @@
     "GPUDIRECT",
     "FEBIO"
    ],
-   "evidence": [],
+   "evidence": [
+    "human_study/figures/febio_agreement/figure_data.json",
+    "human_study/figures/febio_agreement/same_input_scan.json"
+   ],
    "status": {
     "TIED": {
      "state": "partial",
      "date": "2026-11-08",
-     "value": "15 個相同輸入的黏死視窗 GPU(cuDSS) vs CPU(pardiso)：判定量最大差 mu 0.33%、slip 0.20%、cage 平移 0.58%；2–3 個視窗超過登記門檻 1e-4，全部在 PI 的 2% 容差內（h38 fig_febio_agreement 數據）",
-     "note": "PI 2026-11-07 選 (a)：門檻維持 1e-4，改為部分通過（DECISIONS 2026-11-07）。取代 11-02 的 ≤ 0.1% 說法",
+     "value": "同輸入黏死視窗 GPU(cuDSS) vs CPU(pardiso)，有效配對 15／21（figure_data.json tied）：判定量最大相對差 mu 0.33%（/tied_design_level/mu/worst/max）、cage 平移 0.58%（max_trans）；超過登記門檻 1e-4 的視窗數 mu 3、slip 2、N 2、peak 2，全部在 PI 的 2% 容差內（h38 fig_febio_agreement）",
+     "note": "PI 2026-11-07 選 (a)：門檻維持 1e-4，改為部分通過（DECISIONS 2026-11-07）。取代 11-02 的 ≤ 0.1% 說法｜2026-11-09 QA 不符 #6 修正：證據檔補登（figure_data.json、same_input_scan.json）；原 value 的「slip 0.20%」在證據檔中無來源，已移除",
      "reconfirmed": {
       "date": "2026-11-04",
       "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00)"
@@ -1321,8 +1324,8 @@
    ],
    "name": "摩擦錨點重設（定力保持測試）",
    "method": "驗證者 V07：定力下黏著塊不應漂移；摩擦 run 的 cage 平移扣除此偽滑移",
-   "threshold": "定力保持漂移 ≤ 0.01 mm",
-   "threshold_src": "提案",
+   "threshold": "保持段 t 3.95–4.4 線性趨勢 ≤ 0.01 mm，且生產步長與半步長結果差 ≤ 0.005 mm（PI 2026-11-09 決定 2）",
+   "threshold_src": "PI 2026-11-09（原提案「定力保持漂移 ≤ 0.01 mm」）",
    "trigger": "FEBIO 或 GPUFE 摩擦程式變更時",
    "depends": [
     "FEBIO",
@@ -1339,8 +1342,8 @@
     "FRIC": {
      "state": "fail",
      "date": "2026-11-06T00:50",
-     "value": "定角度保持（physio_fric3 設定、後伸）：p062 54 增量漂移 0.047 mm、355 增量 0.303 mm；p139 71 增量 0.167 mm、251 增量 0.461 mm；門檻 0.01 mm。每增量 p062 0.00087／0.00085、p139 0.0023／0.0018 mm。",
-     "note": "只測 p062、p139 後伸；保持時間相同、起點相同，只差增量數，故為數值假象。GPUFE 列未動（待 PI，見 PI_PENDING_DECISIONS.md）。｜2026-11-08：修法已存在並在重啟保持試算驗證（FEBio 補丁 6+7 黏著記憶，環境變數開啟）：生產步長保持漂移 ≤ 0.003 mm、11–18 增量無差（對照組 0.049–0.160）；細步 0.002 的差異來自 1e-6 密度節段的振盪（峰對峰 0.05 mm，升降步數各半），非摩擦律。正式配置仍用原法 → 維持不通過，等 PI 決定採用與重算（DECISIONS 2026-11-08 02:15）｜2026-11-08 05:00 前屈方向同樣驗證：生產律保持段「退回」0.165／0.298 mm，黏著記憶 +0.0005／−0.0001 mm（加 min_residual 1e-4 才避開靜止陷阱）；兩方向都是假象，重算須含兩方向（DECISIONS 04:50／05:00）"
+     "value": "定角度保持（physio_fric3 設定、後伸，v17a_hold.json，t 3.9 起）：p062 55 增量漂移 0.059 mm、356 增量 0.315 mm；p139 71 增量 0.180 mm、252 增量 0.473 mm；每增量 p062 0.0011／0.00088、p139 0.0025／0.0019 mm；門檻（舊）0.01 mm。",
+     "note": "只測 p062、p139 後伸；保持時間相同、起點相同，只差增量數，故為數值假象。GPUFE 列未動（待 PI，見 PI_PENDING_DECISIONS.md）。｜2026-11-08：修法已存在並在重啟保持試算驗證（FEBio 補丁 6+7 黏著記憶，環境變數開啟）：生產步長保持漂移 ≤ 0.003 mm、11–18 增量無差（對照組 0.049–0.160）；細步 0.002 的差異來自 1e-6 密度節段的振盪（峰對峰 0.05 mm，升降步數各半），非摩擦律。正式配置仍用原法 → 維持不通過，等 PI 決定採用與重算（DECISIONS 2026-11-08 02:15）｜2026-11-08 05:00 前屈方向同樣驗證：生產律保持段「退回」0.165／0.298 mm，黏著記憶 +0.0005／−0.0001 mm（加 min_residual 1e-4 才避開靜止陷阱）；兩方向都是假象，重算須含兩方向（DECISIONS 04:50／05:00）｜2026-11-09 QA 不符 #3/#5 修正：門檻文字改為 PI 採用的兩款判準；value 改引證據檔 v17a_hold.json 的欄位（原為 DECISIONS 11-06 自 t 3.91 起的手算值 0.047／0.303／0.167／0.461）"
     },
     "GPUFE": {
      "state": "fail",

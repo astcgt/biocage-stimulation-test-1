@@ -156,7 +156,7 @@ def r7_pilot_keys(case_dirs=None):
             bad.append(f'h14 reads {k} with a non-off default')
         for mm in re.finditer(r"prm\['%s'\]" % k, src):      # direct read must sit inside an 'if prm.get(k)' guard (same or earlier lines)
             if not re.search(r"if prm\.get\('%s'\)" % k, src[max(0, mm.start() - 2500):mm.start()]): bad.append(f'h14 reads {k} unguarded')
-    cases = case_dirs or [d for s in ('physio_fric3', 'physio_rot', 'physio_rot_r2', 'physio_rot_dyn', 'physio_rot_split2', 'physio_rot_split3', 'physio_rot_split4')
+    cases = case_dirs or [d for s in ('physio_fric3', 'physio_fric5', 'physio_rot', 'physio_rot_r2', 'physio_rot_dyn', 'physio_rot_split2', 'physio_rot_split3', 'physio_rot_split4')
                           for d in glob.glob(os.path.join(P, 'human_study/al_v2', s, 'p*')) if os.path.isdir(d) and os.path.exists(d + '/case.json')]
     leak = []; ref = {}
     for d in cases:

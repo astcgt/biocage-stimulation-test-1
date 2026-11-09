@@ -30,6 +30,13 @@ env = dict(os.environ, CUDA_VISIBLE_DEVICES=str(gpu), OMP_NUM_THREADS=str(ncores
 feb = os.path.basename(glob.glob(os.path.join(dst, '*.feb'))[0])
 fargs, resumed = febio_args(dst, feb)     # resume from the checkpoint (<case>.dmp) if a previous run was interrupted
 if not resumed: record_launch(dst, feb)
+# 2026-11-09 (QA S2/S7): which FEBio ran, with which BIOCAGE_* switches - the production binary unless BIOCAGE_FEBIO points at a
+# patched build (h06), e.g. the issue-2 pilots (pilot_relE) run on cbuild_fric with BIOCAGE_STICK_MEMORY=1 for insertion AND windows
+import hashlib
+_sha = lambda f: hashlib.sha256(open(f, 'rb').read()).hexdigest() if os.path.exists(f) else None
+json.dump(dict(febio=FEBIO, febio_sha256=_sha(FEBIO), lib_sha256=_sha(os.path.join(os.path.dirname(os.path.dirname(FEBIO)), 'lib', 'libfebiomech.so')),
+               env={k: v for k, v in os.environ.items() if k.startswith('BIOCAGE_')}, gpu=gpu, cores=ncores, resumed=resumed),
+          open(os.path.join(dst, 'launch.json'), 'w'), indent=1)
 cmd = ['prlimit', '--stack=unlimited', 'taskset', '-c', ','.join(map(str, cores)), FEBIO] + fargs + \
       ['-cnf', os.path.join(P, 'febio_cudss/febio_cudss.xml')]
 if os.path.exists(os.path.join(dst, 'split.json')):          # h30 split case: insertion run + independent window restarts

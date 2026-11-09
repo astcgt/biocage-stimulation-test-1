@@ -13,8 +13,8 @@ WINDOWS = ('flexion', 'extension')
 
 def sources():
     out = {}
-    for d in sorted(glob.glob(SRC + '/p*_gpu*')):
-        if not os.path.exists(d + '/case.dmp') or not os.path.exists(d + '/case.log'): continue
+    for d in sorted(glob.glob(SRC + '/p[0-9][0-9][0-9]*')):   # bare pNNN dirs that ran in place (13 production runs) AND pNNN_gpuK copies (QA 2026-11-09 不符 #1: the _gpu-only glob missed 13 usable checkpoints incl. p062)
+        if not os.path.isdir(d) or not os.path.exists(d + '/case.dmp') or not os.path.exists(d + '/case.log'): continue
         txt = open(d + '/case.log', errors='ignore').read()[-300000:]; m = re.findall(r'Nonlinear solution status: time= *([\d.eE+-]+)', txt)
         if not m or float(m[-1]) < 3.499: continue
         p = os.path.basename(d)[:4]

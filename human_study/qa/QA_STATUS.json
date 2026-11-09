@@ -1,5 +1,5 @@
 {
- "time": "2026-11-09 06:17",
+ "time": "2026-11-09 11:41",
  "overall": "FAIL",
  "checks": [
   {
@@ -55,12 +55,12 @@
   {
    "id": "R8-golden-rebuild",
    "status": "PASS",
-   "message": "p062 physio_fric3 rebuild md5 4f3208b5 vs recorded 4f3208b5 (11 s)"
+   "message": "p062 physio_fric3 rebuild md5 4f3208b5 vs recorded 4f3208b5 (12 s)"
   },
   {
    "id": "R9-material-blocks",
    "status": "PASS",
-   "message": "golden rebuild: one FEBio block per cage material in 1 cases (tmp2otgfmeg:4); problems: []"
+   "message": "golden rebuild: one FEBio block per cage material in 1 cases (tmp4_ib4n16:4); problems: []"
   },
   {
    "id": "R9-material-blocks",
@@ -74,8 +74,8 @@
   },
   {
    "id": "R12-file-index",
-   "status": "FAIL",
-   "message": "201 paths in FILE_INDEX.md; missing ['human_study/al_v2/physio_fric5/']"
+   "status": "PASS",
+   "message": "205 paths in FILE_INDEX.md; missing []"
   },
   {
    "id": "R14-patch7-logs",
@@ -89,13 +89,13 @@
   },
   {
    "id": "R10-register",
-   "status": "PASS",
-   "message": "96 register items; unmapped []; 不符 []"
+   "status": "FAIL",
+   "message": "136 register items; unmapped []; 不符 ['D-20261107-7L', 'D-20261109-1b', 'D-20261109-2L', 'D-20261109-3', 'D-20261109-M1', 'D-20261109-L1']"
   },
   {
    "id": "R10-llm-audit-due",
-   "status": "WARN",
-   "message": "LLM audit required: last 2026-11-05 06:40; gate files changed since: ['scripts/3_cage_case/h14_build_case.py', 'human_study/current_settings.json', '../biocage-evo/ops/fric_compare.py', '../biocage-evo/ops/collect_split.py']; decision entries since: ['2026-11-06 23:42', '2026-11-07 13:00', '2026-11-08 01:40', '2026-11-09']"
+   "status": "PASS",
+   "message": "LLM audit current: last 2026-11-09 11:37; gate files changed since: []; decision entries since: []"
   }
  ],
  "counts": {
@@ -121,22 +121,19 @@
   "designs": 149
  },
  "register": {
-  "last_llm_audit": "2026-11-05 06:40",
-  "n_items": 96,
+  "last_llm_audit": "2026-11-09 11:37",
+  "n_items": 136,
   "unmapped": [],
-  "mismatch": [],
-  "gate_files_changed": [
-   "scripts/3_cage_case/h14_build_case.py",
-   "human_study/current_settings.json",
-   "../biocage-evo/ops/fric_compare.py",
-   "../biocage-evo/ops/collect_split.py"
+  "mismatch": [
+   "D-20261107-7L",
+   "D-20261109-1b",
+   "D-20261109-2L",
+   "D-20261109-3",
+   "D-20261109-M1",
+   "D-20261109-L1"
   ],
-  "new_decisions": [
-   "2026-11-06 23:42",
-   "2026-11-07 13:00",
-   "2026-11-08 01:40",
-   "2026-11-09"
-  ]
+  "gate_files_changed": [],
+  "new_decisions": []
  },
  "mode": "full"
 }

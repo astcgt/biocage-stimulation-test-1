@@ -309,10 +309,11 @@ def contacts(parent, pen_lc=None, mu_lc=None):
                 pen_items = (('penalty', PENALTY), ('auto_penalty', 1))
             # 2026-11-06 pilots (FEBio stick-point reset, DECISIONS 2026-11-06): cage_laugon {tolerance, minaug, maxaug} switches the
             # cage contacts to augmented Lagrangian (the tangential multiplier Lt carries the friction traction across increments);
-            # cage_stick_memory 1 sets the BIOCAGE patch-6 parameter (needs the patched binary). Both default off: production unchanged.
+            # cage_stick_memory (2026-11-06 pilots) wrote the patch-6 deck parameter; removed 2026-11-09 (QA S5): patch 7 switched the
+            # option to the environment (restart_env / BIOCAGE_STICK_MEMORY), the deck parameter no longer exists. Default off: production unchanged.
             AL = prm.get('cage_laugon')
             items = ((('laugon', 1), ('tolerance', AL.get('tolerance', 0.01)), ('gaptol', 0), ('minaug', AL.get('minaug', 1)), ('maxaug', AL.get('maxaug', 20))) if AL else (('laugon', 0),)) + pen_items + (('two_pass', 0), ('search_tol', 0.01),
-                     ('search_radius', 1.0), ('symmetric_stiffness', SYM), ('tension', 0), ('fric_coeff', mu), ('knmult', 0)) + ((('stick_memory', 1),) if prm.get('cage_stick_memory') else ())
+                     ('search_radius', 1.0), ('symmetric_stiffness', SYM), ('tension', 0), ('fric_coeff', mu), ('knmult', 0))
         for k, v in items:
             e = ET.SubElement(c, k); e.text = str(v)
             if k == 'penalty' and pen_lc: e.set('lc', pen_lc)
