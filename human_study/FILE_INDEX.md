@@ -138,6 +138,7 @@ scratchpad `/tmp/claude-1024/-raid-jupyter-alz-ee09-projects-claude-work-biocage
 | `human_study/al_v2/pilot_relE/` | 議題二試算：release_all_dofs（釋放步把 C3 固定端六個反力一起 ramp 到零）+ physio_static_until_windows（跟隨力步靜態、窗口動態），黏著記憶律；p068、p129（原本在 t 3.05 死）、p062、p094（存活者，等價性對照）（2026-11-09） | Claude |
 | `human_study/al_v2/pilot_fric5ctl/` | 議題一對照診斷：fric5 批次 9 個 solver error（軟籠面元素負 Jacobian）的同窗口對照，與 physio_fric5 完全相同但 `BIOCAGE_STICK_MEMORY=0`（舊摩擦律 + 窗口 min_residual 1e-4），由 h47 自 fric3 存檔重建；p142 前屈先跑（DECISIONS 2026-11-09 18:10） |
 | `human_study/al_v2/pilot_relF/` | 議題二流程 F 試算：流程 E + `follower_in_release [2.0, 2.5]`（釋放儲存力矩前先把 100 N 跟隨壓力加滿，C3 在受壓下被釋放）；p068 先跑（DECISIONS 2026-11-09 18:35） |
+| `human_study/al_v2/pilot_relE2/` | 議題二流程 E + 主 deck `min_residual 1e-4`（靜態跟隨力步的靜止位移判準陷阱；DECISIONS 2026-11-09 19:10）；p062 先跑 |
 | `../biocage-evo/ops/mu_req_field.py`, `../biocage-evo/results/method/mu_req_field.json`, `../biocage-evo/results/method/mu_req_field.csv` | mu_req 場：每個設計的超參數 → 六個窗口的 mu_req（tied 篩選 mu_squeeze）、governing window、over_max／lower_bound／computable 旗標、摩擦檢查結果；ML 演化 agent 的訓練表（PI 2026-11-09） | Claude |
 | `../biocage-evo/results/method/mu_req_vs_fric5.json` | （另有同名 .csv）mu_req 捷徑（tied）對 physio_fric5 金標準的一致性（43 設計）：等級相關、線性對應殘差、0.5 mm 門檻對應的 mu_req；PI 待決第 3 項（容差）資料（DECISIONS 2026-11-09 18:18、18:26） |
 | `../biocage-evo/results/method/fric/e07_fric3_vs_fric5_shear.json` | 同設計同窗口 ROM 時點軟側 p99 介面剪力，fric3 vs fric5（71 對；法則效應中位 +6 %） |
