@@ -1,4 +1,4 @@
-# 平台能力計分表（自動產生 2026-11-09 11:48）
+# 平台能力計分表（自動產生 2026-11-09 18:09）
 
 由 `scripts/8_audit/h33_capability_audit.py` 從 `human_study/platform_capabilities.json` 產生，**不要手改**。判定規則見 `PLATFORM_CAPABILITIES.md`。門檻來源標「提案」的數字由 PI 拍板（[決定]）。
 
@@ -8,7 +8,7 @@
 |---|---|---|---|
 | **[物理]** 物理真實性（Validation） | 不合格 | 不合格 | n/a |
 | **[數值]** 數值正確性（Verification） | 未評 | 不合格 | 不合格 |
-| **[速度]** 模擬速度 | 未評 | 合格 | n/a |
+| **[速度]** 模擬速度 | 未評 | 未評 | n/a |
 | **[觀測]** 只觀測關注目標 | 不合格 | 不合格 | 不合格 |
 | **[多元]** 容納多元設計 | 不合格 | 不合格 | 未評 |
 | **[泛化]** 結論穩健性 | 暫緩 | n/a | n/a |
@@ -24,13 +24,13 @@
 | [物理] 負荷與手術程序 | 未評 | 未評 | n/a |
 | [數值] 空間離散 | 未評 | 不合格 | n/a |
 | [數值] 時間離散與動態近似 | 未評 | 不合格 | n/a |
-| [數值] 接觸演算法 | 未評 | 不合格 | 不合格 |
+| [數值] 接觸演算法 | 未評 | 未評 | 不合格 |
 | [數值] 協定近似 | 未評 | 未評 | n/a |
 | [數值] 求解器一致性 | 未評 | 不合格 | 不合格 |
 | [速度] 機器時間 | 未評 | n/a | n/a |
-| [速度] 儲存 | 未評 | 合格 | n/a |
-| [速度] 無人值守 | 未評 | 合格 | n/a |
-| [速度] 吞吐與重工 | 合格 | n/a | n/a |
+| [速度] 儲存 | 未評 | 未評 | n/a |
+| [速度] 無人值守 | 未評 | 未評 | n/a |
+| [速度] 吞吐與重工 | 未評 | n/a | n/a |
 | [觀測] 終點相關性 | 不合格 | 不合格 | 不合格 |
 | [觀測] 評估狀態 | 未評 | 未評 | n/a |
 | [觀測] 完整性 | 合格 | 合格 | n/a |
@@ -48,7 +48,7 @@
 |---|---|---|---|---|---|
 | PHY-03 節段軸向撐開剛度 vs 屍體數據 | [物理] | TIED | 未評 | 過期（BUILD 已改動）：39 N @ 1 mm（屍體 44 N @ 1.7 mm） | DECISIONS 2026-10-22 PI DECISION annulus remnant |
 | PHY-03 節段軸向撐開剛度 vs 屍體數據 | [物理] | FRIC | 未評 | 過期（BUILD 已改動） | DECISIONS 2026-10-22 PI DECISION annulus remnant |
-| PHY-05 gate 4：黏死滑出判定 vs 真實摩擦實測 | [物理] | TIED | 不合格 | 不通過（BUILD,METRICS 已改動）：physio_fric3：70 設計、43 插入完成、86 視窗。ROM 時點前屈：axial mix 0.50–0.64 mm（n 15）、radial interleave 0.93–1.18（n 10）、radial mix 1.00–1.19（n 12）；後伸後方：axial 0.20–0.63、interleave 0.46–0.61、radial mix 0.36–0.49 mm。1.5 N·m 時點：38 視窗達到（compare.json physio_fric3 列），全部 ≤ 1 mm。verdicts.json（未合併，generated 2026-11-05 03:41）：fail 14 / pass 24 / open 33（27 插入段停算 + 6 視窗層）；合併後 DESIGN/dislocation-friction 17。11-04 的 26 個 ROM 點 fail 全在 ROM 時點，0 個在 1.5 N·m。tied 單面滑移上限（0.1–0.3 mm）被摩擦實測普遍超過 → tied 捷徑對前屈／後伸不保守。（2026-11-05 04:10 更新：PI 第 1 項評估點＝1.5 N·m 傳得到時、否則 ROM，第 2 項排除優先；閘 4 14 fail／24 pass／33 open（27 個插入段停算：靜態段 6、釋放衝擊 21；視窗層 6：p014 p063 p066 p078 p086 p146）；合併 radial-mix-excluded 28、dislocation-friction 17、interface-shear-provisional 14、friction-computability 14、PASS 0）｜2026-11-07 PI 決定 1（μ_req 為主，摩擦 run 只做檢查）後重算：PASS 13、friction-check-exceeded 13（註記，非閘）、interface-shear-provisional 18、radial-mix-excluded 28、friction-computability 14、open 18（collect_split 2026-11-08） | T01, T03 |
+| PHY-05 gate 4：黏死滑出判定 vs 真實摩擦實測 | [物理] | TIED | 不合格 | 不通過：physio_fric5（參考摩擦律重算，43 設計、86 視窗，77 正常終止、9 solver error 其中 4 個仍在 1.5 N·m 前讀得、5 個不可用→open）：verdicts.json pass 35 / fail 6 / open 30（fric3 時 24/14/33；16 個判定改變，13 個改為 pass，3 個因 fric5 視窗不可用改為 open）。仍 fail：p051 p075 p093 p114 p145（後伸 ROM 時點後方 0.504–0.549 mm，門檻 0.5 嚴格）與 p060（fric2）。89 個視窗傳到 1.5 N·m，該點最大平移 0.894 mm（p114 前屈），全部 ≤ 1 mm、後方 ≤ 0.5 mm。tied 單面滑移上限仍被摩擦實測普遍超過：fric5 84 視窗中 82 個（fric3 80/84，中位比 2.97）→ tied 捷徑對前屈／後伸不保守的結論不變。舊值（fric3，2026-11-05）：fail 14 / pass 24 / open 33；ROM 時點前屈 axial mix 0.50–0.64、radial interleave 0.93–1.18、radial mix 1.00–1.19 mm。 | T01, T03 |
 | PHY-06 PLCL 材料常數有實驗依據 | [物理] | TIED | 有條件合格 | 過期（SETTINGS 已改動）：文獻值；無 bench | T04 |
 | PHY-06 PLCL 材料常數有實驗依據 | [物理] | FRIC | 有條件合格 | 過期（SETTINGS 已改動） | T04 |
 | PHY-07 負荷協定有文獻依據 | [物理] | TIED | 未評 | 過期（BUILD 已改動） | DECISIONS 2026-10-23 12:00 |
@@ -69,11 +69,16 @@
 | NUM-10 FEBio 補丁回歸 | [數值] | FRIC | 未評 | 部分：2026-11-05 重跑（2026-11-03 03:00 執行檔，verify_patch_20261105/compare.json）：FSU 六向 CPU 與 10-21 基準末態差 ≤ 4.8e-12，GPU（cuDSS）路徑 ≤ 7.9e-12，GPU vs CPU 同執行檔 ≤ 7.9e-12（compare.json gpu_vs_cpu_same_binary） → 生產幾何通過。C0-C7 前屈 1.1e-4（絕對 0.004 mm，門檻邊緣）；C0-C7 後伸 C0 轉角差 0.025 %，但節點位移差最大 0.12 mm（C6 相對 2 %），自動步長路徑不同（嘗試步數 46 vs 56 含重試，收斂步 30 vs 32；compare.json c0c7_step_counts），舊執行檔已不存在無法固定步長雙跑 → 此案超門檻，未能證明非物理差異 | DECISIONS 2026-10-21 |
 | NUM-11 GPU cuDSS vs CPU Pardiso | [數值] | TIED | 未評 | 過期（GPUDIRECT 已改動）：同輸入黏死視窗 GPU(cuDSS) vs CPU(pardiso)，有效配對 15／21（figure_data.json tied）：判定量最大相對差 mu 0.33%（/tied_design_level/mu/worst/max）、cage 平移 0.58%（max_trans）；超過登記門檻 1e-4 的視窗數 mu 3、slip 2、N 2、peak 2，全部在 PI 的 2% 容差內（h38 fig_febio_agreement） | DECISIONS Model scope |
 | NUM-12 gpufe gate 2-4 | [數值] | GPUFE | 不合格 | 不通過（GPUFE 已改動）：gate 2 只過屈曲（1/6） | T17, F-0026 |
-| NUM-13 摩擦錨點重設（定力保持測試） | [數值] | FRIC | 不合格 | 不通過（GPUFE 已改動）：定角度保持（physio_fric3 設定、後伸，v17a_hold.json，t 3.9 起）：p062 55 增量漂移 0.059 mm、356 增量 0.315 mm；p139 71 增量 0.180 mm、252 增量 0.473 mm；每增量 p062 0.0011／0.00088、p139 0.0025／0.0019 mm；門檻（舊）0.01 mm。 | T18, F-0003, F-0015 |
-| NUM-13 摩擦錨點重設（定力保持測試） | [數值] | GPUFE | 不合格 | 不通過：gpufe 定力保持（h39/h40 數據）：90% 摩擦極限下漂移 0.03–0.06 mm，超過 0.01 mm；半極限 0.003–0.004 mm | T18, F-0003, F-0015 |
+| NUM-13 摩擦錨點重設（定力保持測試） | [數值] | FRIC | 未評 | 部分：正式配置（physio_fric5，PI 2026-11-09 決定 1）已改用參考摩擦律（FEBio 補丁 6+7 黏著記憶，BIOCAGE_STICK_MEMORY=1，視窗 min_residual 1e-4；86 視窗 log 皆有 patch-7 證據行，h37 R15）。條款 1（保持段 t 3.95–4.4 線性趨勢 ≤ 0.01 mm）：重啟保持試算 p062 smR 0.000 mm、p139 smR 0.001 mm 量級（v17g_hold_restart*.json），前屈亦平。條款 2（生產步長 vs 半步長 ≤ 0.005 mm）：p139 smRh 達成；p062 smRh 半步臂在 t 3.69 發散（3589 個負 Jacobian，插入脆弱性），未驗。舊法（fric3）量測保留供對照：p062 55 增量 0.059 mm、356 增量 0.315 mm；p139 71 增量 0.180、252 增量 0.473 mm。 | T18, F-0003, F-0015 |
+| NUM-13 摩擦錨點重設（定力保持測試） | [數值] | GPUFE | 不合格 | 不通過（GPUFE 已改動）：gpufe 定力保持（h39/h40 數據）：90% 摩擦極限下漂移 0.03–0.06 mm，超過 0.01 mm；半極限 0.003–0.004 mm | T18, F-0003, F-0015 |
 | SPD-01 每設計機器時間 | [速度] | TIED | 未評 | 過期（BUILD,GPUDIRECT 已改動）：約 23 min（CPU 46 min） |  |
 | SPD-03 每設計輸出量 | [速度] | TIED | 未評 | 過期（BUILD 已改動）：歸檔第一階段（舊／無效集合約 1.1 TB）進行中；每設計輸出 0.8 GB 不再是門檻 | T09 |
+| SPD-04 磁碟守門 | [速度] | TIED | 未評 | 過期（OPS 已改動）：h19 disk_ok：全域剩餘 < 100 GB 暫停啟動（單元測試通過）；本帳號用量門檻待 PI 定配額（null = 關） | T10 |
+| SPD-04 磁碟守門 | [速度] | FRIC | 未評 | 過期（OPS 已改動） | T10 |
+| SPD-05 作業韌性 | [速度] | TIED | 未評 | 過期（OPS 已改動）：scheduler_tuning.json 每輪重讀；h23 狀態檔原子寫入 + 損壞容錯；連續 3 輪崩潰寫 ALERT_watchdog.txt；AL loop .done 標記 | T10 |
+| SPD-05 作業韌性 | [速度] | FRIC | 未評 | 過期（OPS 已改動） | T10 |
 | SPD-06 無人值守時數 | [速度] | TIED | 未評 | 未做 |  |
+| SPD-07 吞吐 | [速度] | TIED | 未評 | 過期（OPS 已改動）：8-10 設計 / h |  |
 | OBS-01 終點齊全 | [觀測] | TIED | 不合格 | 不通過（METRICS 已改動）：缺 e06；T19 缺最後方點與硬體素 best fit | T11, T19 |
 | OBS-01 終點齊全 | [觀測] | FRIC | 不合格 | 不通過（METRICS 已改動） | T11, T19 |
 | OBS-01 終點齊全 | [觀測] | GPUFE | 不合格 | 不通過（METRICS 已改動） | T11, T19 |
@@ -106,7 +111,6 @@
 - PHY-03 節段軸向撐開剛度 vs 屍體數據 [TIED]：BUILD（FEBio 案例組裝（手術、負荷、輸出））
 - PHY-03 節段軸向撐開剛度 vs 屍體數據 [FRIC]：BUILD（FEBio 案例組裝（手術、負荷、輸出））
 - PHY-04 黏死介面受拉比例（診斷） [TIED]：BUILD（FEBio 案例組裝（手術、負荷、輸出））, METRICS（判定指標 e03 / e04 / e05 / e07 與閘門程式）
-- PHY-05 gate 4：黏死滑出判定 vs 真實摩擦實測 [TIED]：BUILD（FEBio 案例組裝（手術、負荷、輸出））, METRICS（判定指標 e03 / e04 / e05 / e07 與閘門程式）
 - PHY-06 PLCL 材料常數有實驗依據 [TIED]：SETTINGS（全研究設定）
 - PHY-06 PLCL 材料常數有實驗依據 [FRIC]：SETTINGS（全研究設定）
 - PHY-07 負荷協定有文獻依據 [TIED]：BUILD（FEBio 案例組裝（手術、負荷、輸出））
@@ -125,10 +129,15 @@
 - NUM-08 慢速動態 vs 靜態 [TIED]：BUILD（FEBio 案例組裝（手術、負荷、輸出））
 - NUM-11 GPU cuDSS vs CPU Pardiso [TIED]：GPUDIRECT（GPU 直接求解（cuDSS 外掛））
 - NUM-12 gpufe gate 2-4 [GPUFE]：GPUFE（evo GPU 求解器）
-- NUM-13 摩擦錨點重設（定力保持測試） [FRIC]：GPUFE（evo GPU 求解器）
+- NUM-13 摩擦錨點重設（定力保持測試） [GPUFE]：GPUFE（evo GPU 求解器）
 - SPD-01 每設計機器時間 [TIED]：BUILD（FEBio 案例組裝（手術、負荷、輸出））, GPUDIRECT（GPU 直接求解（cuDSS 外掛））
 - SPD-02 視窗時間均衡（診斷） [TIED]：SPLIT（拆分視窗與執行（含靜態重試））, BUILD（FEBio 案例組裝（手術、負荷、輸出））
 - SPD-03 每設計輸出量 [TIED]：BUILD（FEBio 案例組裝（手術、負荷、輸出））
+- SPD-04 磁碟守門 [TIED]：OPS（排程、看門狗、重啟）
+- SPD-04 磁碟守門 [FRIC]：OPS（排程、看門狗、重啟）
+- SPD-05 作業韌性 [TIED]：OPS（排程、看門狗、重啟）
+- SPD-05 作業韌性 [FRIC]：OPS（排程、看門狗、重啟）
+- SPD-07 吞吐 [TIED]：OPS（排程、看門狗、重啟）
 - OBS-01 終點齊全 [TIED]：METRICS（判定指標 e03 / e04 / e05 / e07 與閘門程式）
 - OBS-01 終點齊全 [FRIC]：METRICS（判定指標 e03 / e04 / e05 / e07 與閘門程式）
 - OBS-01 終點齊全 [GPUFE]：METRICS（判定指標 e03 / e04 / e05 / e07 與閘門程式）
@@ -192,7 +201,7 @@
 | ID | 檢查 | 方法 | 門檻（來源） | 必要 | TIED | FRIC | GPUFE |
 |---|---|---|---|---|---|---|---|
 | PHY-04 | 黏死介面受拉比例（診斷） | 評估狀態下 cage-骨接觸面受拉（法向拉力）的面積比例 | ≤ 10%（提案） | 診斷 | 不通過（BUILD,METRICS 已改動）：約 40% | — | — |
-| PHY-05 | gate 4：黏死滑出判定 vs 真實摩擦實測 | 真實摩擦 run（physio_fric3：mu 0.35、100 N 追隨載荷、前屈＋後伸視窗）：cage 剛體平移（e04，籠節點平均 − C4 終板平均）在評估點判定；評估點 = 視窗傳得到 1.5 N·m 時在 1.5 N·m 狀態判，否則在 intact ROM 狀態判（PI 2026-11-05 第 1 項；fric_compare.py ev_point，每視窗記入 verdicts.json）。無缺窗通過：前屈與後伸都要有可用視窗。相同設計參數的 id 合併證據（任一 fail → 整組 fail）。 | 平移 > 1 mm（任向）或 > 0.5 mm（後方）即 fail（嚴格大於）（PI 2026-11-03 04:30（規則）；PI 2026-11-03（合併重複）；評估點條件式 PI 2026-11-05 第 1 項確認並實作（fric_compare.py:89-92）） | 是 | 不通過（BUILD,METRICS 已改動）：physio_fric3：70 設計、43 插入完成、86 視窗。ROM 時點前屈：axial mix 0.50–0.64 mm（n 15）、radial interleave 0.93–1.18（n 10）、radial mix 1.00–1.19（n 12）；後伸後方：axial 0.20–0.63、interleave 0.46–0.61、radial mix 0.36–0.49 mm。1.5 N·m 時點：38 視窗達到（compare.json physio_fric3 列），全部 ≤ 1 mm。verdicts.json（未合併，generated 2026-11-05 03:41）：fail 14 / pass 24 / open 33（27 插入段停算 + 6 視窗層）；合併後 DESIGN/dislocation-friction 17。11-04 的 26 個 ROM 點 fail 全在 ROM 時點，0 個在 1.5 N·m。tied 單面滑移上限（0.1–0.3 mm）被摩擦實測普遍超過 → tied 捷徑對前屈／後伸不保守。（2026-11-05 04:10 更新：PI 第 1 項評估點＝1.5 N·m 傳得到時、否則 ROM，第 2 項排除優先；閘 4 14 fail／24 pass／33 open（27 個插入段停算：靜態段 6、釋放衝擊 21；視窗層 6：p014 p063 p066 p078 p086 p146）；合併 radial-mix-excluded 28、dislocation-friction 17、interface-shear-provisional 14、friction-computability 14、PASS 0）｜2026-11-07 PI 決定 1（μ_req 為主，摩擦 run 只做檢查）後重算：PASS 13、friction-check-exceeded 13（註記，非閘）、interface-shear-provisional 18、radial-mix-excluded 28、friction-computability 14、open 18（collect_split 2026-11-08） | — | — |
+| PHY-05 | gate 4：黏死滑出判定 vs 真實摩擦實測 | 真實摩擦 run（physio_fric5 參考摩擦律（黏著記憶，PI 2026-11-09 決定 1）取代 physio_fric3，每視窗以最高級集合為準；mu 0.35、100 N 追隨載荷、前屈＋後伸視窗）：cage 剛體平移（e04，籠節點平均 − C4 終板平均）在評估點判定；評估點 = 視窗傳得到 1.5 N·m 時在 1.5 N·m 狀態判，否則在 intact ROM 狀態判（PI 2026-11-05 第 1 項；fric_compare.py ev_point，每視窗記入 verdicts.json）。無缺窗通過：前屈與後伸都要有可用視窗。相同設計參數的 id 合併證據（任一 fail → 整組 fail）。 | 平移 > 1 mm（任向）或 > 0.5 mm（後方）即 fail（嚴格大於）（PI 2026-11-03 04:30（規則）；PI 2026-11-03（合併重複）；評估點條件式 PI 2026-11-05 第 1 項確認並實作（fric_compare.py:89-92）） | 是 | 不通過：physio_fric5（參考摩擦律重算，43 設計、86 視窗，77 正常終止、9 solver error 其中 4 個仍在 1.5 N·m 前讀得、5 個不可用→open）：verdicts.json pass 35 / fail 6 / open 30（fric3 時 24/14/33；16 個判定改變，13 個改為 pass，3 個因 fric5 視窗不可用改為 open）。仍 fail：p051 p075 p093 p114 p145（後伸 ROM 時點後方 0.504–0.549 mm，門檻 0.5 嚴格）與 p060（fric2）。89 個視窗傳到 1.5 N·m，該點最大平移 0.894 mm（p114 前屈），全部 ≤ 1 mm、後方 ≤ 0.5 mm。tied 單面滑移上限仍被摩擦實測普遍超過：fric5 84 視窗中 82 個（fric3 80/84，中位比 2.97）→ tied 捷徑對前屈／後伸不保守的結論不變。舊值（fric3，2026-11-05）：fail 14 / pass 24 / open 33；ROM 時點前屈 axial mix 0.50–0.64、radial interleave 0.93–1.18、radial mix 1.00–1.19 mm。 | — | — |
 | PHY-09 | 材料介面剪力（脫層，S10） | e07：每個材料不同（FEBio 區塊）的共用面，以軟側與硬側 Cauchy 應力分別求牽引力，分層間（水平）與帶邊界（垂直）面；剪力與剝離，max 與 p99 | 軟側 p99 剪力 ≤ 3 MPa（前屈、後伸）（PI 2026-11-04（暫定，待黏結強度實驗）） | 是 | — | 不通過（BUILD,METRICS 已改動）：修正介面定義後（軟側 p99，MPa）：前屈 ROM／前屈 1.5 N·m／後伸 ROM：axial 10.5–15.8／4.7–6.7／3.2–7.4；radial mix 10.7–16.6／5.2–7.0／2.3–3.2；interleave 1.7–2.7／1.2–1.5／0.3–0.5。網格收斂未過（HZ 0.1：層間 −15.9 %、帶邊界 +16.7 %，容差 5 %）；interleave 軟／硬側差到 ~27 倍 | — |
 
 **材料** — PLCL 兩相的常數與本構有沒有實驗依據？
@@ -235,7 +244,7 @@
 |---|---|---|---|---|---|---|---|
 | NUM-05 | 罰則敏感度（旋轉協定） | p062 全域罰則 ×0.5 / ×2，插入 + 六視窗 | mu_req 相對差 ≤ 5%（PI 2026-11-03（5% 網格／罰則、2% 時間步確認）） | 是 | 過期（BUILD 已改動）：p062 罰則 ×0.5：|Δslip| ≤ 2.3%、|Δmu| ≤ 3.3%（extension +7.7% = 0.0011 絕對）、Δ持續 −0.11 pp；×2：|Δslip| ≤ 1.5%、|Δmu| ≤ 2.6%、+0.04 pp（門檻 5%；mu 相對差只在 |Δmu| > 0.005 時計） | — | — |
 | NUM-06 | 骨元素不翻轉（求解穩健性） | 所有停止的 run：翻轉元素所屬 domain 統計（case.log negative jacobian） | 翻轉含骨元素的 run = 0（提案） | 是 | 過期（BUILD 已改動）：修正：15/16 失敗 run 的「骨翻轉」是重試迭代的發散值（J −2…−1e13），不是收斂態；每個失敗 run 第一個翻轉的都是 cage_soft（Gent 軟墊到鎖死伸長 λ≈0.60）；骨 tet4 初始品質與整塊一致 | 過期（BUILD 已改動）：修正：15/16 失敗 run 的「骨翻轉」是重試迭代的發散值（J −2…−1e13），不是收斂態；每個失敗 run 第一個翻轉的都是 cage_soft（Gent 軟墊到鎖死伸長 λ≈0.60）；骨 tet4 初始品質與整塊一致 | — |
-| NUM-13 | 摩擦錨點重設（定力保持測試） | 驗證者 V07：定力下黏著塊不應漂移；摩擦 run 的 cage 平移扣除此偽滑移 | 保持段 t 3.95–4.4 線性趨勢 ≤ 0.01 mm，且生產步長與半步長結果差 ≤ 0.005 mm（PI 2026-11-09 決定 2）（PI 2026-11-09（原提案「定力保持漂移 ≤ 0.01 mm」）） | 是 | — | 不通過（GPUFE 已改動）：定角度保持（physio_fric3 設定、後伸，v17a_hold.json，t 3.9 起）：p062 55 增量漂移 0.059 mm、356 增量 0.315 mm；p139 71 增量 0.180 mm、252 增量 0.473 mm；每增量 p062 0.0011／0.00088、p139 0.0025／0.0019 mm；門檻（舊）0.01 mm。 | 不通過：gpufe 定力保持（h39/h40 數據）：90% 摩擦極限下漂移 0.03–0.06 mm，超過 0.01 mm；半極限 0.003–0.004 mm |
+| NUM-13 | 摩擦錨點重設（定力保持測試） | 驗證者 V07：定力下黏著塊不應漂移；摩擦 run 的 cage 平移扣除此偽滑移 | 保持段 t 3.95–4.4 線性趨勢 ≤ 0.01 mm，且生產步長與半步長結果差 ≤ 0.005 mm（PI 2026-11-09 決定 2）（PI 2026-11-09（原提案「定力保持漂移 ≤ 0.01 mm」）） | 是 | — | 部分：正式配置（physio_fric5，PI 2026-11-09 決定 1）已改用參考摩擦律（FEBio 補丁 6+7 黏著記憶，BIOCAGE_STICK_MEMORY=1，視窗 min_residual 1e-4；86 視窗 log 皆有 patch-7 證據行，h37 R15）。條款 1（保持段 t 3.95–4.4 線性趨勢 ≤ 0.01 mm）：重啟保持試算 p062 smR 0.000 mm、p139 smR 0.001 mm 量級（v17g_hold_restart*.json），前屈亦平。條款 2（生產步長 vs 半步長 ≤ 0.005 mm）：p139 smRh 達成；p062 smRh 半步臂在 t 3.69 發散（3589 個負 Jacobian，插入脆弱性），未驗。舊法（fric3）量測保留供對照：p062 55 增量 0.059 mm、356 增量 0.315 mm；p139 71 增量 0.180、252 增量 0.473 mm。 | 不通過（GPUFE 已改動）：gpufe 定力保持（h39/h40 數據）：90% 摩擦極限下漂移 0.03–0.06 mm，超過 0.01 mm；半極限 0.003–0.004 mm |
 
 **協定近似** — 拆分視窗、慢速動態、靜態重試等便利手段是否與參考解一致？
 
@@ -270,20 +279,20 @@
 | ID | 檢查 | 方法 | 門檻（來源） | 必要 | TIED | FRIC | GPUFE |
 |---|---|---|---|---|---|---|---|
 | SPD-03 | 每設計輸出量 | 插入 + 六視窗的 xplt（dmp 另計，pass 退役後刪） | /raid 只放進行中的 run；完成批次歸檔 NAS（h36，symlink）；NAS 用量 ≤ 3 TB（PI 2026-11-03） | 是 | 過期（BUILD 已改動）：歸檔第一階段（舊／無效集合約 1.1 TB）進行中；每設計輸出 0.8 GB 不再是門檻 | — | — |
-| SPD-04 | 磁碟守門 | 排程器以本帳號用量 vs 配額判斷，剩餘 < 30 GB 暫停啟動；pass 退役後自動刪 dmp | 已實作且以模擬磁碟滿測試通過（提案） | 是 | 通過：h19 disk_ok：全域剩餘 < 100 GB 暫停啟動（單元測試通過）；本帳號用量門檻待 PI 定配額（null = 關） | 通過 | — |
+| SPD-04 | 磁碟守門 | 排程器以本帳號用量 vs 配額判斷，剩餘 < 30 GB 暫停啟動；pass 退役後自動刪 dmp | 已實作且以模擬磁碟滿測試通過（提案） | 是 | 過期（OPS 已改動）：h19 disk_ok：全域剩餘 < 100 GB 暫停啟動（單元測試通過）；本帳號用量門檻待 PI 定配額（null = 關） | 過期（OPS 已改動） | — |
 
 **無人值守** — 能不能連續運轉、出事自動處理或告警？
 
 | ID | 檢查 | 方法 | 門檻（來源） | 必要 | TIED | FRIC | GPUFE |
 |---|---|---|---|---|---|---|---|
-| SPD-05 | 作業韌性 | 狀態檔原子寫入；調參只在 scheduler_tuning.json；看門狗崩潰 10 min 內告警 | 三項全部實作（提案） | 是 | 通過：scheduler_tuning.json 每輪重讀；h23 狀態檔原子寫入 + 損壞容錯；連續 3 輪崩潰寫 ALERT_watchdog.txt；AL loop .done 標記 | 通過 | — |
+| SPD-05 | 作業韌性 | 狀態檔原子寫入；調參只在 scheduler_tuning.json；看門狗崩潰 10 min 內告警 | 三項全部實作（提案） | 是 | 過期（OPS 已改動）：scheduler_tuning.json 每輪重讀；h23 狀態檔原子寫入 + 損壞容錯；連續 3 輪崩潰寫 ALERT_watchdog.txt；AL loop .done 標記 | 過期（OPS 已改動） | — |
 | SPD-06 | 無人值守時數 | scheduler.log / watchdog.log：連續運轉無人工介入的時數；每 100 run 人工介入次數 | ≥ 24 h；≤ 1 次 / 100 run（提案） | 是 | 未做 | — | — |
 
 **吞吐與重工** — 每小時完成幾個設計，多少需要重跑？
 
 | ID | 檢查 | 方法 | 門檻（來源） | 必要 | TIED | FRIC | GPUFE |
 |---|---|---|---|---|---|---|---|
-| SPD-07 | 吞吐 | 全資源下每小時完成的設計數 | ≥ 8 設計 / h（提案） | 是 | 通過：8-10 設計 / h | — | — |
+| SPD-07 | 吞吐 | 全資源下每小時完成的設計數 | ≥ 8 設計 / h（提案） | 是 | 過期（OPS 已改動）：8-10 設計 / h | — | — |
 | SPD-08 | 重工率（診斷） | 需第二回合以上的設計 / 可計算設計 | ≤ 10%（提案） | 診斷 | 通過：12 / 136（8.8%） | — | — |
 
 ### [觀測] 只觀測關注目標
@@ -329,7 +338,7 @@
 
 | ID | 檢查 | 方法 | 門檻（來源） | 必要 | TIED | FRIC | GPUFE |
 |---|---|---|---|---|---|---|---|
-| OBS-10 | 失敗與 open 的分類標籤 | collect_split 的 class 欄位（`[能力]/<面向>`、DESIGN/…、DECISION/…）；失敗 job 逐一標記 | 100% 非 pass 有標籤（PI 2026-11-01） | 是 | 通過：276 視窗 0 錯誤（collect_split 2026-11-08）：tied 篩選 72 pass；classes：DESIGN/compression-sustained 53、-sustained-lowerbound 10、-peak 5、-peak-lowerbound 4、radial-mix-excluded 28、interface-shear-provisional 18、[多元]/friction-computability 14、[多元]/computability 2、[數值]/unstable-window 2、PASS 13；friction-check-exceeded 13（PI 決定 1：註記，非類別） | 通過：摩擦 run 結果併入 collect_split 的 gates 欄位：interface_shear 為閘（18 fail）、dislocation_friction 為檢查（role check，13 個 PASS 設計超標，暫定），radial-mix 排除 28；每個設計都有 class／reason | — |
+| OBS-10 | 失敗與 open 的分類標籤 | collect_split 的 class 欄位（`[能力]/<面向>`、DESIGN/…、DECISION/…）；失敗 job 逐一標記 | 100% 非 pass 有標籤（PI 2026-11-01） | 是 | 通過：276 視窗 0 錯誤（collect_split 2026-11-08）：tied 篩選 72 pass；classes：DESIGN/compression-sustained 53、-sustained-lowerbound 10、-peak 5、-peak-lowerbound 4、radial-mix-excluded 28、interface-shear-provisional 18、[多元]/friction-computability 14、[多元]/computability 2、[數值]/unstable-window 2、PASS 13；friction-check-exceeded 13（PI 決定 1：註記，非類別）｜2026-11-09 18:10（fric5 重算）：類別數全部不變，friction-check-exceeded 7 | 通過：摩擦 run 結果併入 collect_split 的 gates 欄位：interface_shear 為閘（18 fail）、dislocation_friction 為檢查（role check，13 個 PASS 設計超標，暫定），radial-mix 排除 28；每個設計都有 class／reason | — |
 
 ### [多元] 容納多元設計
 

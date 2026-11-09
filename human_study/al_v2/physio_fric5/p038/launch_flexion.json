@@ -1,0 +1,28 @@
+{
+ "cmd": [
+  "prlimit",
+  "--stack=unlimited",
+  "taskset",
+  "-c",
+  "22,23,26,27,29",
+  "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/third_party/FEBio/cbuild_fric/bin/febio4",
+  "-r",
+  "restart.feb",
+  "-o",
+  "case.log",
+  "-silent",
+  "-output_negative_jacobians=50",
+  "-cnf",
+  "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/febio_cudss/febio_cudss.xml"
+ ],
+ "env": {
+  "CUDA_VISIBLE_DEVICES": "3",
+  "OMP_NUM_THREADS": "5",
+  "OMP_STACKSIZE": "1G",
+  "BIOCAGE_STICK_MEMORY": "1"
+ },
+ "febio": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/third_party/FEBio/cbuild_fric/bin/febio4",
+ "febio_sha256": "88c24a0d06811eaf5c1637a649998b49eddb11b154ba24dd89c2a83e9e7c6700",
+ "lib_sha256": "be7b357f71f155e462e1c3e3ca60d60b7bd9308d35d79b5cef5805ca149b2f89",
+ "window": "flexion"
+}

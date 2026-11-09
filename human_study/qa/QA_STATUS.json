@@ -1,11 +1,11 @@
 {
- "time": "2026-11-09 11:50",
+ "time": "2026-11-09 18:09",
  "overall": "WARN",
  "checks": [
   {
    "id": "R1-case-dir",
    "status": "PASS",
-   "message": "128 friction rows; windows without finished log + xplt: 0 []"
+   "message": "212 friction rows; windows without finished log + xplt: 0 []"
   },
   {
    "id": "R1-ambiguous",
@@ -30,12 +30,12 @@
   {
    "id": "R3-faces",
    "status": "PASS",
-   "message": "skipped (--quick); 86 e07 window files"
+   "message": "skipped (--quick); 172 e07 window files"
   },
   {
    "id": "R5-counts",
    "status": "PASS",
-   "message": "classes {'friction-check-exceeded': (13, 13), 'interface-shear': (18, 18), 'radial-mix': (28, 27), 'friction-computability': (14, 14)} (all / among tied passes); stale document counts: []"
+   "message": "classes {'friction-check-exceeded': (7, 7), 'interface-shear': (18, 18), 'radial-mix': (28, 27), 'friction-computability': (14, 14)} (all / among tied passes); stale document counts: []"
   },
   {
    "id": "R6-retracted",
@@ -70,7 +70,7 @@
   {
    "id": "R15-fric5-law",
    "status": "PASS",
-   "message": "physio_fric5 class pinned, superseded sets clean; 0 finished window logs checked; problems: []"
+   "message": "physio_fric5 class pinned, superseded sets clean; 86 finished window logs checked; problems: []"
   },
   {
    "id": "R10-register",
@@ -80,14 +80,14 @@
   {
    "id": "R10-llm-audit-due",
    "status": "WARN",
-   "message": "LLM audit required: last 2026-11-09 11:37; gate files changed since: ['scripts/3_cage_case/h14_build_case.py', '../biocage-evo/ops/fric_compare.py', '../biocage-evo/ops/e07_batch.py', 'scripts/5_compute/h48_fric5_batch.py']; decision entries since: []"
+   "message": "LLM audit required: last 2026-11-09 11:37; gate files changed since: ['scripts/3_cage_case/h14_build_case.py', '../biocage-evo/ops/fric_compare.py', '../biocage-evo/ops/e07_batch.py', 'scripts/5_compute/h48_fric5_batch.py']; decision entries since: ['2026-11-09 18:10']"
   }
  ],
  "counts": {
   "classes": {
    "friction-check-exceeded": [
-    13,
-    13
+    7,
+    7
    ],
    "interface-shear": [
     18,
@@ -116,7 +116,9 @@
    "../biocage-evo/ops/e07_batch.py",
    "scripts/5_compute/h48_fric5_batch.py"
   ],
-  "new_decisions": []
+  "new_decisions": [
+   "2026-11-09 18:10"
+  ]
  },
  "mode": "quick"
 }
