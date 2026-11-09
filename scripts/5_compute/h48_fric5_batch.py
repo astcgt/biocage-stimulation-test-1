@@ -22,14 +22,22 @@ def sources():
         out[p] = d
     return out
 
-def build(only):
-    src = sources(); print(len(src), 'usable checkpoints')
-    for p, d in src.items():
-        if only and p not in only: continue
-        cd = os.path.join(DST, p)
-        if os.path.exists(cd + '/case.dmp') and os.path.exists(cd + '/preflight.json'): print(p, 'built'); continue
-        r = subprocess.run([sys.executable, H47, 'build', cd, d], cwd=P, capture_output=True, text=True)
-        print(p, 'build', 'OK' if r.returncode == 0 else 'FAIL', (r.stdout + r.stderr).strip()[-300:])
+def law_keys():
+    """the reference friction law = the physio_fric5 settings class (h37 R15 pins it): passed to h47 build as key=json so the params carry it"""
+    S = json.load(open(os.path.join(P, 'human_study/current_settings.json')))['classes'][os.path.relpath(DST, P) + '/']
+    return [f'{k}={json.dumps(S[k])}' for k in ('restart_env', 'window_min_residual')]
+
+def build(only, nworkers=4):
+    import h24_preflight
+    src = sources(); print(len(src), 'usable checkpoints', flush=True); keys = law_keys()
+    todo = [(p, d) for p, d in src.items() if (not only or p in only) and not h24_preflight.valid(os.path.join(DST, p))]   # valid = passing preflight whose fingerprint still holds
+    print(len(todo), 'to build with', keys, flush=True)
+    def one(pd):
+        p, d = pd; r = subprocess.run([sys.executable, H47, 'build', os.path.join(DST, p), d] + keys, cwd=P, capture_output=True, text=True)
+        return f"{p} build {'OK' if r.returncode == 0 else 'FAIL'} {(r.stdout + r.stderr).strip()[-300:]}"
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(nworkers) as ex:
+        for line in ex.map(one, todo): print(time.strftime('%H:%M'), line, flush=True)
 
 def run(nw, gpus, ncores, only):
     cases = [os.path.join(DST, p) for p in sorted(os.listdir(DST)) if re.match(r'p\d{3}$', p) and (not only or p in only) and os.path.exists(os.path.join(DST, p, 'case.dmp'))]
@@ -54,6 +62,6 @@ def run(nw, gpus, ncores, only):
     print('BATCH DONE', time.strftime('%Y-%m-%d %H:%M'), flush=True)
 
 if __name__ == '__main__':
-    if sys.argv[1] == 'build': build(set(sys.argv[2:]))
+    if sys.argv[1] == 'build': build(set(sys.argv[2:]))     # (re)builds every case without a valid preflight; a valid one is kept
     elif sys.argv[1] == 'run': run(int(sys.argv[2]), [int(g) for g in sys.argv[3].split(',')], int(sys.argv[4]), set(sys.argv[5:]))
     else: sys.exit(__doc__)

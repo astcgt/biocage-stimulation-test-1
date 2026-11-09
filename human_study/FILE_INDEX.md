@@ -135,6 +135,8 @@ scratchpad `/tmp/claude-1024/-raid-jupyter-alz-ee09-projects-claude-work-biocage
 |---|---|---|
 | `scripts/5_compute/h47_restart_pilot.py` | 重啟保持試算：從既有 t 3.5 存檔（pilot_holdA／holdE）重啟後伸窗口，用補丁版 FEBio 與環境變數切換摩擦修法（`restart_env`）；build 需 h14 重建與存檔 case.feb 逐位元相同並通過 h24 | Claude |
 | `scripts/5_compute/h48_fric5_batch.py`, `human_study/al_v2/physio_fric5/` | 決定 1 重算：physio_fric3 有 t 3.5 存檔的 run 以 h47 重建為 `physio_fric5/pNNN`（裸名，案例目錄即 run 目錄，無 `_gpuK` 後綴；`pNNN_params.json` 在旁），兩個窗口以黏著記憶律重啟；`run_<window>.out`、`launch_<window>.json`、`resources_<window>.json`、`stderr_<window>.log` 為每窗紀錄（2026-11-09） | Claude |
+| `human_study/al_v2/pilot_relE/` | 議題二試算：release_all_dofs（釋放步把 C3 固定端六個反力一起 ramp 到零）+ physio_static_until_windows（跟隨力步靜態、窗口動態），黏著記憶律；p068、p129（原本在 t 3.05 死）、p062、p094（存活者，等價性對照）（2026-11-09） | Claude |
+| `../biocage-evo/ops/mu_req_field.py`, `../biocage-evo/results/method/mu_req_field.json`, `../biocage-evo/results/method/mu_req_field.csv` | mu_req 場：每個設計的超參數 → 六個窗口的 mu_req（tied 篩選 mu_squeeze）、governing window、over_max／lower_bound／computable 旗標、摩擦檢查結果；ML 演化 agent 的訓練表（PI 2026-11-09） | Claude |
 | `human_study/al_v2/pilot_holdH/`, `human_study/al_v2/pilot_holdHf/` | 重啟保持試算案例（H：粗步，holdA 存檔；Hf：細步，holdE 存檔）；`launch_wave*.sh`、`wave*.log` 為各波啟動紀錄（wave 5/6：flexion 窗口，輸出為 `*_flexion.json`、`done_flexion`）；失敗波的輸出在各案例 `_wave*_fail/` | Claude |
 | `febio_patches/febio-4.13-biocage-patch6-stick-memory.patch` | 補丁 6+7：黏著記憶／回映；`stick_memory` 改由環境變數 `BIOCAGE_STICK_MEMORY` 開啟（參數數量與正式版一致，存檔可互讀）、`BIOCAGE_CAGE_LAUGON` 增廣拉格朗日；凍結狀態不再換接觸元素；輪廓含錨點元素 | Claude |
 | `../biocage-evo/gpufe/verify/v17g_hold_restart.py`, `../biocage-evo/results/gpufe_verify/v2/v17g_hold_restart.json` | 重啟保持試算的讀數腳本與結果（對照、增廣拉格朗日、黏著記憶；起終點差與 t 3.95–4.4 線性趨勢、振幅、升降步數） | Claude |
