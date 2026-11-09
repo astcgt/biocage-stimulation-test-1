@@ -1,6 +1,6 @@
 {
- "time": "2026-11-09 11:41",
- "overall": "FAIL",
+ "time": "2026-11-09 11:50",
+ "overall": "WARN",
  "checks": [
   {
    "id": "R1-case-dir",
@@ -30,12 +30,7 @@
   {
    "id": "R3-faces",
    "status": "PASS",
-   "message": "86 windows, 43 cases recounted; mismatches 0 []"
-  },
-  {
-   "id": "R4-insertion-state",
-   "status": "PASS",
-   "message": "insertion value state within 0.05 of t 3.5; violations 0 []"
+   "message": "skipped (--quick); 86 e07 window files"
   },
   {
    "id": "R5-counts",
@@ -50,17 +45,7 @@
   {
    "id": "R7-pilot-keys",
    "status": "PASS",
-   "message": "settings/h14: []; production cases scanned 722, with pilot options / extra keys: []"
-  },
-  {
-   "id": "R8-golden-rebuild",
-   "status": "PASS",
-   "message": "p062 physio_fric3 rebuild md5 4f3208b5 vs recorded 4f3208b5 (12 s)"
-  },
-  {
-   "id": "R9-material-blocks",
-   "status": "PASS",
-   "message": "golden rebuild: one FEBio block per cage material in 1 cases (tmp4_ib4n16:4); problems: []"
+   "message": "settings/h14: []; production cases scanned 765, with pilot options / extra keys: []"
   },
   {
    "id": "R9-material-blocks",
@@ -89,13 +74,13 @@
   },
   {
    "id": "R10-register",
-   "status": "FAIL",
-   "message": "136 register items; unmapped []; 不符 ['D-20261107-7L', 'D-20261109-1b', 'D-20261109-2L', 'D-20261109-3', 'D-20261109-M1', 'D-20261109-L1']"
+   "status": "PASS",
+   "message": "136 register items; unmapped []; 不符 []"
   },
   {
    "id": "R10-llm-audit-due",
-   "status": "PASS",
-   "message": "LLM audit current: last 2026-11-09 11:37; gate files changed since: []; decision entries since: []"
+   "status": "WARN",
+   "message": "LLM audit required: last 2026-11-09 11:37; gate files changed since: ['scripts/3_cage_case/h14_build_case.py', '../biocage-evo/ops/fric_compare.py', '../biocage-evo/ops/e07_batch.py', 'scripts/5_compute/h48_fric5_batch.py']; decision entries since: []"
   }
  ],
  "counts": {
@@ -124,16 +109,14 @@
   "last_llm_audit": "2026-11-09 11:37",
   "n_items": 136,
   "unmapped": [],
-  "mismatch": [
-   "D-20261107-7L",
-   "D-20261109-1b",
-   "D-20261109-2L",
-   "D-20261109-3",
-   "D-20261109-M1",
-   "D-20261109-L1"
+  "mismatch": [],
+  "gate_files_changed": [
+   "scripts/3_cage_case/h14_build_case.py",
+   "../biocage-evo/ops/fric_compare.py",
+   "../biocage-evo/ops/e07_batch.py",
+   "scripts/5_compute/h48_fric5_batch.py"
   ],
-  "gate_files_changed": [],
   "new_decisions": []
  },
- "mode": "full"
+ "mode": "quick"
 }

@@ -1713,9 +1713,9 @@
     "../biocage-evo/results/method/fric/compare.json (fric3 rows case_dir 裸名 13 設計)",
     "human_study/al_v2/physio_fric5/build.log (30 usable checkpoints)"
    ],
-   "status": "不符",
-   "evidence": "h48 sources() 只掃 `p*_gpu*`，漏掉 13 個在裸名目錄就地跑完的生產 run：p002 p014 p026 p036 p038 p051 p062 p063 p065 p066 p067 p072 p100 —— 每個都有 case.dmp（mtime 與 case.log 結束同秒 = t 3.5 末態 dump）、NORMAL、t 3.5、launched_feb.sha256、case.xplt，且 compare.json 的 fric3 列以裸名 case_dir 引用它們（R1 PASS）。實際盤點（11:1x 掃 physio_fric3/p*）：有 case.log 的 run 目錄 71 = 70 個不同設計（p071 兩個目錄，都只到 t 3.06）；dmp 且 case.log 末時間 ≥ 3.499 者 43（30 _gpu + 13 裸名）。第一次掃描的「無 dmp 54」含未跑過的裸名 build 副本，不與 L1812「6 dirs have no dump」衝突；本條只否定 30 vs 43。故決策 1 的重算範圍應為 43 案／86 窗（~14 GPU-h），不是 30／60（~10 GPU-h）；「其餘 25 個設計屬議題二」應為 27（= 70 個有 log 的設計 − 43）。L1815 的「p062 先跑」在現行 h48 下做不到（p062 不在 30 之內；fric3/p062 是 golden case 本身）。若照現狀跑完，fric_compare RANK 會讓 13 個設計留在生產律（混律）：摩擦 fail 14 個中的 p051 p072；fcx PASS 13 個中的 p051 p072 p100；interface-shear 18 個中的 p036 p062 p063 p065 p066 p067；pass 8 個（p002 p026 p036 p038 p062 p065 p067 p100）；open 3 個（p014 p063 p066）。修法：h48:16 glob 改為 `p*`＋以 case.log 的 t_end 解析（p071 兩目錄都 <3.5，不會觸發 :21 的 two-usable exit）；h48 build 會略過已 valid 的 30 案，只補 13 案。",
-   "checked": "2026-11-09 11:33",
+   "status": "符合",
+   "evidence": "fixed 2026-11-09 11:50：h48 sources() glob 改 p[0-9][0-9][0-9]*（裸名 + _gpu），usable = dmp 且 log 末時間 ≥ 3.499；build2.log 補建 13 案，physio_fric5 共 43 案全部 h24 valid（p071 兩目錄皆 < 3.5，無 two-usable 衝突）；範圍 43 設計／86 窗口。DECISIONS 2026-11-09 12:00 #1。稽核時原為 不符：h48 sources() 只掃 `p*_gpu*`，漏掉 13 個在裸名目錄就地跑完的生產 run：p002 p014 p026 p036 p038 p051 p062 p063 p065 p066 p067 p072 p100 —— 每個都有 case.dmp（mtime 與 case.log 結束同秒 = t 3.5 末態 dump）、NORMAL、t 3.5、launched_feb.sha256、case.xplt，且 compare.json 的 fric3 列以裸名 case_dir 引用它們（R1 PASS）。實際盤點（11:1x 掃 physio_fric3/p*）：有 ca",
+   "checked": "2026-11-09 11:50",
    "source": "decisions",
    "check": "llm"
   },
