@@ -1,0 +1,51 @@
+{
+ "generated": "2026-11-09T23:03",
+ "design": "p062",
+ "process": "G (pilot_relG)",
+ "insertion_t3p5": {
+  "d_cage_rel_C4_mm": [
+   -0.0102,
+   -0.0003,
+   0.0021
+  ],
+  "d_C3_pos_mm": [
+   -0.0131,
+   0.0003,
+   0.0029
+  ],
+  "d_C3_rot_deg": [
+   -0.001,
+   0.0,
+   0.001
+  ],
+  "reference": "physio_fric3/p062"
+ },
+ "windows": {
+  "flexion": {
+   "eval_point": "1.5Nm",
+   "G_u_h_mm": 0.159,
+   "F3_u_h_mm": 0.157,
+   "E_prime_u_h_mm": 0.174,
+   "fric5_u_h_mm": 0.176,
+   "fric3_u_h_mm": 0.164,
+   "retries": 3,
+   "rows_dyn_flagged": "2 of 116"
+  },
+  "extension": {
+   "eval_point": "ROM",
+   "G_post_mm": 0.441,
+   "F3_post_mm": 0.439,
+   "E_prime_post_mm": 0.441,
+   "fric5_post_mm": 0.441,
+   "fric3_post_mm": 0.448,
+   "retries": 1
+  }
+ },
+ "insertion": {
+  "retries": 0,
+  "negative_jacobians": 4
+ },
+ "wall_s": 2547.1,
+ "cores": 6,
+ "gpu": 6
+}
