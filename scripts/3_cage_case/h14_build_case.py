@@ -501,10 +501,15 @@ elif test == 'physio_rot':
     seq = [('Ry', 1, 'flexion'), ('Ry', -1, 'extension'), ('Rx', 1, 'LB_right'), ('Rx', -1, 'LB_left'), ('Rz', 1, 'AR_left'), ('Rz', -1, 'AR_right')]
     if prm.get('physio_windows'): seq = [x for x in seq if x[2] in prm['physio_windows']]   # 2026-11-03: subset of windows (friction flexion / extension check, PI)
     T0 = 3.5; DT = prm.get('physio_dt', 0.05); HOLD = prm.get('physio_hold')
-    if prm.get('follower_in_release'):
+    FIR = prm.get('follower_in_release')
+    if FIR:
         # 2026-11-03 pilot (BONE_INVERSION_ANALYSIS fix 3): the follower load ramps inside the STATIC release step (t 2.5-3.0)
         # so that the first dynamic step no longer stacks three events (static->dynamic switch, load start, dt change)
-        lc('follower', [(2.5, 0.0), (3.0, 1.0), (T0 + len(seq) + 100, 1.0)]); rigid(s2b, force=[('z', lcs['follower'], -FL)])
+        # 2026-11-09 pilot (issue 2, process F, DECISIONS 19:10): a [t_start, t_end] list sets the ramp window, e.g. [2.0, 2.5] puts the
+        # full follower load on BEFORE most of the stored moment is released (release_all_dofs ramps over t 2-3), so C3 is compressed
+        # while it is freed instead of swinging to -3..-7 deg under zero load (process E pilots p062/p094/p068)
+        FA, FB = (FIR if isinstance(FIR, (list, tuple)) else (2.5, 3.0))
+        lc('follower', [(FA, 0.0), (FB, 1.0), (T0 + len(seq) + 100, 1.0)]); rigid(s2b, force=[('z', lcs['follower'], -FL)])
     else:
         lc('follower', [(3.0, 0.0), (T0, 1.0), (T0 + len(seq) + 100, 1.0)])
     # 2026-10-29: the Lagrange-multiplier joint and the sliding-elastic facet / cage contacts need a NON-symmetric global
@@ -548,7 +553,7 @@ elif test == 'physio_rot':
     if prm.get('window_min_residual') is not None: WMR = {'window_min_residual': prm['window_min_residual']}
     if prm.get('window_static'): WMR['window_static'] = True
     if prm.get('window_dt'): WMR['window_dt'] = prm['window_dt']   # 2026-11-08 pilot: window step size only (h30); insertion deck unchanged   # 2026-11-08 pilot: the restarted window step runs static (no inertia) - hold-drift discriminator (h30)
-    json.dump(dict(control='rotation', target_moment_Nmm=M, follower_N=FL, t_follower=[2.5, 3.0] if prm.get('follower_in_release') else [3.0, T0], rot_rad={k: v * F for k, v in TH.items()},
+    json.dump(dict(control='rotation', target_moment_Nmm=M, follower_N=FL, t_follower=[FA, FB] if FIR else [3.0, T0], rot_rad={k: v * F for k, v in TH.items()},
                    windows=[dict(name=n, dof=dd, sign=sg, t0=T0 + i, t_peak=T0 + i + 0.5, t1=T0 + i + 1.0) for i, (dd, sg, n) in enumerate(seq)],
                    **({'physio_hold': HOLD} if HOLD else {}), **WMR),   # 2026-11-05 pilot (V17): h30 ramps, then holds the angle (HOLD = prm.get('physio_hold'), default None)
               open(os.path.join(out, 'physio_schedule.json'), 'w'), indent=1)

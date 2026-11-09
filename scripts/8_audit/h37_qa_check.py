@@ -25,7 +25,7 @@ GOLDEN = dict(params='human_study/al_v2/physio_fric3/p062_params.json', md5='4f3
 PILOT_KEYS = ('dynamic_from_release', 'c3_release_ramp', 'sliding_off_after_tie', 'tied_init_converged', 'test_dynamic', 'only_distract', 'physio_hold', 'cage_laugon', 'cage_stick_memory', 'min_residual', 'window_static', 'window_dt', 'release_all_dofs', 'physio_static_until_windows')
 # 2026-11-09 (PI decision 1): restart_env + window_min_residual left the pilot list - they ARE the production friction law of physio_fric5 (R15 pins their values)
 FRIC5 = dict(cls='human_study/al_v2/physio_fric5/', restart_env={'BIOCAGE_STICK_MEMORY': '1'}, window_min_residual=1e-4,
-             lib_sha256='be7b357f71f155e462e1c3e3ca60d60b7bd9308d35d79b5cef5805ca149b2f89')   # validated cbuild_fric libfebiomech.so (patch 6 + 7 + 7b evidence line, built 2026-11-09 06:13)   # 'test' is the protocol name, not an option
+             lib_sha256='be7b357f71f155e462e1c3e3ca60d60b7bd9308d35d79b5cef5805ca149b2f89')   # patch 8 (FEBioXML rigid_moment load_type) lives in libfebioxml.so sha256 eb4b36e4b0610e092a05... (not in launch records; README item 8)   # validated cbuild_fric libfebiomech.so (patch 6 + 7 + 7b evidence line, built 2026-11-09 06:13)   # 'test' is the protocol name, not an option
 REQ = ('flexion', 'extension')
 FACES = ((0, 1, 2, 3), (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7))
 R = []     # (check id, status PASS/FAIL/WARN/SKIP, message)
@@ -88,16 +88,25 @@ def recount_faces(cd):
 def r3_faces(quick):
     files = sorted(glob.glob(os.path.join(EV, 'results/method/fric/e07/*.json')))
     if quick: rep('R3-faces', True, f'skipped (--quick); {len(files)} e07 window files', warn=True); return
-    rows = {(r['case_dir'], r['window']): r for r in json.load(open(os.path.join(EV, 'results/method/fric/compare.json'))) if 'note' not in r}
+    # 2026-11-09: e07 files of sets other than physio_fric3 carry the set as a prefix (<set>__<case_dir>__<window>); a bare
+    # <case_dir>__<window> tag is a physio_fric3 window. Rows are keyed per set because fric3 and fric5 reuse the bare case names.
+    rows = {}
+    for r in json.load(open(os.path.join(EV, 'results/method/fric/compare.json'))):
+        if 'note' not in r: rows[(r['set'], r['case_dir'], r['window'])] = r
+    by_cw = {}
+    for (s_, cd, wn), r in rows.items(): by_cw.setdefault((cd, wn), []).append(r)
     cache, bad, ins = {}, [], []
     for f in files:
-        tag = os.path.basename(f)[:-5]; cd, wn = tag.split('__'); r = rows.get((cd, wn))
+        tag = os.path.basename(f)[:-5]; parts = tag.split('__')
+        if len(parts) == 3: s_, cd, wn = parts; r = rows.get((s_, cd, wn))
+        else:
+            cd, wn = parts; cands = by_cw.get((cd, wn), []); r = next((x for x in cands if x['set'] == 'physio_fric3'), cands[0] if cands else None)
         if not r: continue
-        j = json.load(open(f)); wd = os.path.join(P, 'human_study/al_v2', r['set'], cd, 'w_' + wn)
-        if cd not in cache:
-            try: cache[cd] = recount_faces(wd)
-            except Exception as ex: cache[cd] = (None, str(ex))
-        n, nb = cache[cd]
+        j = json.load(open(f)); wd = os.path.join(P, 'human_study/al_v2', r['set'], cd, 'w_' + wn); ck = (r['set'], cd)
+        if ck not in cache:
+            try: cache[ck] = recount_faces(wd)
+            except Exception as ex: cache[ck] = (None, str(ex))
+        n, nb = cache[ck]
         if n is None or n != j.get('n_faces'): bad.append(f'{tag}: e07 {j.get("n_faces")} vs recount {n} ({nb} blocks)')
         if j.get('states'):
             t = np.array([s['time'] for s in j['states']]); dt = abs(t[np.argmin(abs(t - 3.5))] - 3.5)

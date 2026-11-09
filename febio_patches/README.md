@@ -61,3 +61,4 @@ uninterrupted run (<= 4e-7). Patch 5: one-hex test z 0.800, x = y = 1.000 (also 
    My 1093 N mm), i.e. the moments were dumped at once. One line per reader. Production decks never use `type="ramp"` on a moment
    (only the cage `z` force), so the production binary and results are unaffected; FEBio 4-format decks (`<rigid_load><load_type>`)
    were never affected.
+   Library hash of this build: `cbuild_fric/lib/libfebioxml.so` sha256 eb4b36e4b0610e092a05… (2026-11-09 13:1x; the binary `febio4` hash 88c24a0d is unchanged because the patched code lives in the shared libraries; h18/h47 launch records carry only the libfebiomech.so hash be7b357f).
