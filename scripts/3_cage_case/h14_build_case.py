@@ -411,7 +411,12 @@ if CONTACT_MODE == 'per_step': contacts(s2b)
 b2b = ET.SubElement(s2b, 'Boundary'); ET.SubElement(b2b, 'fix', bc='x,y', node_set='cage_hold')
 r2 = ET.SubElement(b2b, 'rigid_body', mat='2')
 ET.SubElement(r2, 'force', bc='z', type='ramp').text = '0'
-for dof in ('x', 'y', 'Rx', 'Ry', 'Rz'): ET.SubElement(r2, 'fixed', bc=dof)
+for dof in ('x', 'y', 'Rx', 'Ry', 'Rz'):
+    # 2026-11-09 pilot (issue 2, DECISIONS 06:30): release_all_dofs ramps EVERY C3-pot reaction to zero in this static step (FEBio rigid
+    # force/moment type ramp = FORCE_TARGET: current reaction -> 0, no per-design values), so the sagittal moment stored by the distraction
+    # (110-1000 N mm, grows with cage thickness) is not dumped on the cage in one dynamic step at t 3. Default off: pot fixed as before.
+    if prm.get('release_all_dofs'): ET.SubElement(r2, 'force', bc=dof, type='ramp').text = '0'
+    else: ET.SubElement(r2, 'fixed', bc=dof)
 # step 3: test (t 3..)
 test = prm['test']; s3 = ET.SubElement(root, 'Step', name=test)
 if CONTACT_MODE == 'per_step': contacts(s3)
@@ -600,6 +605,7 @@ if DYN and (test.startswith('physio') or prm.get('test_dynamic')):   # solution;
     # initial residual 1e4-1e6 vs 1e-2 static, independent of dt): dynamic_from_release moves the static->dynamic switch to
     # t = 2, where the cage is still held (cage_hold) and no load ramps, so the switch transient meets a constrained cage.
     STATIC_STEPS = ('distract', 'insert_seat') if prm.get('dynamic_from_release') else INSERTION_STEPS
+    if prm.get('physio_static_until_windows'): STATIC_STEPS = tuple(STATIC_STEPS) + (prm['test'],)   # 2026-11-09 pilot (issue 2): the follower step t 3-3.5 stays static; only the window restarts run dynamic (density 1e-6 kept on the materials)
     for st_ in root.findall('Step'):
         if st_.get('name') in STATIC_STEPS: continue
         ctl = st_.find('Control'); ctl.find('analysis').set('type', 'dynamic')
