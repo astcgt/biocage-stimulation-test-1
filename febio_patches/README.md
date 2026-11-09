@@ -52,3 +52,12 @@ uninterrupted run (<= 4e-7). Patch 5: one-hex test z 0.800, x = y = 1.000 (also 
    once more at its first `Update()` (flag `m_benvlogged`): `BIOCAGE patch 7: interface '<name>': stick_memory = 1, laugon = 0,
    atol = ... (env settings in effect, logged at the first update)`. h37 R15 requires this line in every physio_fric5 window log and
    pins the library hash (libfebiomech.so sha256 be7b357f..., built 2026-11-09 06:13).
+
+8. `FEBioXML/FEBioBoundarySection.cpp`, `FEBioXML/FEBioConstraintsSection.cpp` (2026-11-09, same patch file, built into `cbuild_fric/` only):
+   the FEBio 2.5-format reader creates `rigid_moment` loads without passing the `type` attribute (`load_type`), so a rigid-body moment
+   written as `<force bc="Ry" type="ramp">0</force>` was a plain zero moment instead of MOMENT_TARGET (current reaction ramped to the
+   value); forces (`bc` x/y/z) did get it. Found when the issue-2 pilot (h14 `release_all_dofs`: all C3-pot reactions ramped to zero in
+   the static release step) started its first release increment with residual 1.19e6 = the squared reactions at t 2 (p068: Fx -39 N,
+   My 1093 N mm), i.e. the moments were dumped at once. One line per reader. Production decks never use `type="ramp"` on a moment
+   (only the cage `z` force), so the production binary and results are unaffected; FEBio 4-format decks (`<rigid_load><load_type>`)
+   were never affected.

@@ -274,6 +274,30 @@ index 279f289..717eb8d 100644
  	bool            m_bflipm;       //!< flip secondary surface normal
  	bool            m_bshellbs;     //!< flag for prescribing pressure on shell bottom for primary surface
  	bool            m_bshellbm;     //!< flag for prescribing pressure on shell bottom for secondary surface
+diff --git a/FEBioXML/FEBioBoundarySection.cpp b/FEBioXML/FEBioBoundarySection.cpp
+index d38780e..2e9899b 100644
+--- a/FEBioXML/FEBioBoundarySection.cpp
++++ b/FEBioXML/FEBioBoundarySection.cpp
+@@ -1401,6 +1401,7 @@ void FEBioBoundarySection25::ParseRigidBody(XMLTag& tag)
+ 			{
+ 				pFC = fecore_new<FEModelLoad>("rigid_moment", &fem);
+ 
++				pFC->SetParameter("load_type", ntype);   // BIOCAGE patch 8 (2026-11-09): the 2.5 reader dropped the type attribute for moments, so type="ramp" (MOMENT_TARGET: current reaction ramped to the value) silently became a zero moment
+ 				pFC->SetParameter("rb", nmat);
+ 				pFC->SetParameter("dof", bc - 3);
+ 				pFC->SetParameter("value", val);
+diff --git a/FEBioXML/FEBioConstraintsSection.cpp b/FEBioXML/FEBioConstraintsSection.cpp
+index c2175cb..ff96356 100644
+--- a/FEBioXML/FEBioConstraintsSection.cpp
++++ b/FEBioXML/FEBioConstraintsSection.cpp
+@@ -627,6 +627,7 @@ void FEBioConstraintsSection2::ParseRigidConstraint20(XMLTag& tag)
+ 			{
+ 				pFC = fecore_new<FEModelLoad>("rigid_moment", &fem);
+ 
++				pFC->SetParameter("load_type", ntype);   // BIOCAGE patch 8 (2026-11-09): the 2.5 reader dropped the type attribute for moments, so type="ramp" (MOMENT_TARGET: current reaction ramped to the value) silently became a zero moment
+ 				pFC->SetParameter("rb", nmat);
+ 				pFC->SetParameter("dof", bc - 3);
+ 				pFC->SetParameter("value", val);
 diff --git a/FECore/CompactUnSymmMatrix.cpp b/FECore/CompactUnSymmMatrix.cpp
 index 81abedd..ff6d0e5 100644
 --- a/FECore/CompactUnSymmMatrix.cpp
