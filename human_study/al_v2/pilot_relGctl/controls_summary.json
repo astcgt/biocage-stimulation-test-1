@@ -1,0 +1,29 @@
+{
+ "generated": "2026-11-10T14:45",
+ "note": "production-law (BIOCAGE_STICK_MEMORY=0) restarts of process-G windows from the G checkpoints: does the production law compute what the stick-memory law cannot?",
+ "controls": {
+  "p068": {
+   "family": "radial_mix",
+   "d": 1.5,
+   "E_soft": 1.674,
+   "extension": "ERROR t 3.5046 (first increment), cage_mix_0.0 1804 neg-jac",
+   "flexion": "ERROR t 3.5046, cage_mix_0.0 2461",
+   "conclusion": "neither law computes the windows: soft face locks under the 100 N follower load -> DESIGN/soft-face-locking"
+  },
+  "p121": {
+   "family": "radial_interleave",
+   "d": 1.25,
+   "E_soft": 7.38,
+   "flexion": {
+    "status": "ERROR at t 3.990 after reaching 1.5 N m (19 retries, 21285 negative Jacobians recovered)",
+    "u_h_at_1p5Nm_mm": 0.28,
+    "u_h_at_rom_mm": 1.293,
+    "rot_max_deg": 6.85,
+    "eval_point": "1.5Nm"
+   },
+   "stick_law_flexion": "ERROR t 3.892 before 1.5 N m / ROM (cage 1.33 mm displaced)",
+   "conclusion": "the production law computes the window; fallback (item 1) applicable: 0.280 + 0.043 = 0.323 mm -> pass"
+  }
+ },
+ "boundary_proposal": "soft-face locking (no friction law computes the physio windows): E_soft about 1.7 MPa with d >= 1.4 mm (p068 p050 p116). Stick-law-only failure with a production-law fallback: E_soft 7-11 MPa with d 1.25-1.5 mm (p109 extension passes under stick law; flexion of p109 and p121 needs the fallback). Thin cages (d <= 1.0) with E_soft >= 10 compute under the stick law (p052 p094 p129)."
+}
