@@ -22,7 +22,7 @@ H14 = os.path.join(P, 'scripts/3_cage_case/h14_build_case.py')
 GOLDEN = dict(params='human_study/al_v2/physio_fric3/p062_params.json', md5='4f3208b5e014c353f0f0e3683c1679ed',
               note='production p062 physio_fric3 case.feb, DECISIONS 2026-11-03 14:30 / 22:30')
 # pilot-only options: never in a production class or case (DECISIONS 2026-11-03 22:30: all default off, production byte-identical)
-PILOT_KEYS = ('dynamic_from_release', 'c3_release_ramp', 'sliding_off_after_tie', 'tied_init_converged', 'test_dynamic', 'only_distract', 'physio_hold', 'cage_laugon', 'cage_stick_memory', 'min_residual', 'window_static', 'window_dt', 'release_all_dofs', 'physio_static_until_windows', 'all_dynamic', 'follower_in_release', 'physio_dt0')   # QA audit 2026-11-10 不符 #6: the two fix-3 keys are pilot keys; the one production class that carries them (physio_fric3p, 11-03 fix 3, 12/12 failed) is allow-listed below
+PILOT_KEYS = ('dynamic_from_release', 'c3_release_ramp', 'sliding_off_after_tie', 'tied_init_converged', 'test_dynamic', 'only_distract', 'physio_hold', 'cage_laugon', 'cage_stick_memory', 'min_residual', 'window_static', 'window_dt', 'release_all_dofs', 'physio_static_until_windows', 'all_dynamic', 'follower_in_release', 'physio_dt0', 'window_dt0', 'window_null')   # QA audit 2026-11-10 不符 #6: the two fix-3 keys are pilot keys; the one production class that carries them (physio_fric3p, 11-03 fix 3, 12/12 failed) is allow-listed below
 # 2026-11-09 (PI decision 1): restart_env + window_min_residual left the pilot list - they ARE the production friction law of physio_fric5 (R15 pins their values)
 FRIC5 = dict(cls='human_study/al_v2/physio_fric5/', restart_env={'BIOCAGE_STICK_MEMORY': '1'}, window_min_residual=1e-4,
              lib_sha256='be7b357f71f155e462e1c3e3ca60d60b7bd9308d35d79b5cef5805ca149b2f89')   # patch 8 (FEBioXML rigid_moment load_type) lives in libfebioxml.so sha256 eb4b36e4b0610e092a05... (not in launch records; README item 8)   # validated cbuild_fric libfebiomech.so (patch 6 + 7 + 7b evidence line, built 2026-11-09 06:13)   # 'test' is the protocol name, not an option
@@ -368,7 +368,10 @@ def r17_relG_fallback():
     (BIOCAGE_STICK_MEMORY=0; h51 -> h47). Fallback SOURCE only. Checks: the class equals its stick-law class except restart_env 0; every case
     names a finished physio_relG source run, differs from it only in restart_env / restart_source and carries the same deck hash; every finished
     window logs 'stick_memory = 0' only, was launched with env 0 and the validated library and dropped no stiffness entries; in the verdicts a
-    physio_relG_pl window appears only as a flagged fallback of an unusable physio_relG window that did not fold in the first increments."""
+    physio_relG_pl window appears only as a flagged fallback of an unusable physio_relG window. 2026-11-11: the 'first increments' veto
+    (superseded t_last >= 3.52) is withdrawn - the identical decks p050 / p068 / p084 / p127 (same case.feb hash) gave different
+    first-increment outcomes, so that pattern is run-to-run variability, not a design property; a fallback is refused only for a window
+    classed not computable under either law (verdicts key soft_face_locking, kept for compatibility)."""
     S = json.load(open(SETTINGS)); bad = []; n = nw = nf = 0
     for fc, lc in FALLBACK_CLASSES.items():
         v = S['classes'].get(fc)
@@ -401,7 +404,7 @@ def r17_relG_fallback():
                 if x.get('set') not in FALLBACK_CLASSES_SETS: continue
                 nf += 1; fb = x.get('fallback') or {}; sup = fb.get('superseded') or {}
                 if not fb or sup.get('set') != 'physio_relG' or x.get('window_law') != 'production (fallback)': bad.append(f'verdict {p} {w}: fallback-source window used without the fallback flag / provenance')
-                if w in (v.get('soft_face_locking') or []) or (sup.get('t_last') is not None and sup['t_last'] < 3.52): bad.append(f'verdict {p} {w}: fallback applied to a window that folded in the first increments (t_last {sup.get("t_last")})')
+                if w in (v.get('soft_face_locking') or []): bad.append(f'verdict {p} {w}: fallback applied to a window classed not computable under either law')
     rep('R17-relG-fallback', not bad, f'{n} physio_relG_pl cases, {nw} finished windows checked; {nf} fallback windows in the verdicts; problems: {bad[:8]}')
 FALLBACK_CLASSES_SETS = tuple(c.rstrip('/').split('/')[-1] for c in FALLBACK_CLASSES)   # 'physio_relG_pl'
 

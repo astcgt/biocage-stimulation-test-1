@@ -2013,3 +2013,54 @@ p062 flexion 14.4 min, extension 7.8 min (GPU 3, 5 cores each), both NORMAL, evi
 - QA: h37 PRODUCTION_OPTIONS + FALLBACK_CLASSES (R15 exemption) and the new R17-relG-fallback: class = relG + env 0; every case names a finished physio_relG source, same deck hash, params differ only in restart_env / restart_source; finished windows: evidence lines stick_memory = 0 only, launch env 0 + validated lib be7b357f, no dropped stiffness entries; verdicts: a physio_relG_pl window appears only as a flagged fallback of a physio_relG window with t_last >= 3.52 and not in soft_face_locking. R7 case scan includes physio_relG_pl. Quick h37 17:0x: all PASS (R16 8 run dirs, R17 0 cases), R10 WARN (layer-B audit due after today's gate edits).
 - Generator script (audit 實作時自選 item): evo ops/law_shift.py regenerates fric3_to_fric5_shift.json (n 74, abs_p90 0.04314 reproduced; percentile method 'higher' = an observed shift, linear interpolation would give 0.04263) and writes relG_law_shift.json (empty until the controls finish).
 - Next: after RELG DRIVE DONE and RELG_PL DONE: fric_compare -> e07_batch -> law_shift -> collect_split -> mu_req_field -> h33 -> h37 full -> layer-B audit -> envelope tiers from the data -> PI report.
+
+## 2026-11-11 00:16 process-G batch complete; fallback set + 7 extra production-law windows; REPLICATE FINDING (first-increment failure = run-to-run variability, soft-face-locking hypothesis withdrawn); verdict rules changed; pilot_relGdt0 (small first window increment) launched
+
+- Batch physio_relG: 27/27 insertions normal to t 3.5 (relG_drive 14:36-23:36, 'RELG DRIVE DONE' 23:36; run_batch2 last BATCH DONE 23:35). No GPU-5 use after the 14:38 incident.
+- physio_relG_pl (production law, same G checkpoint; h51, tmux relGpl_drive; the foreman restarted it 22:02 with 5 workers via ops/relGpl_handoff.sh): 19 windows done 23:38; then 7 more
+  (tmux relGpl_ctrl2, h51 only-mode, 23:51-00:08): the production-law restarts of the 7 windows that the 'first increments' rule had excluded, so that EVERY window that stopped under the stick law has
+  a production-law attempt. Outcomes (both-laws view): of the 18 windows that stopped under the stick law, 6 computed under the production law (p083 flex, p095 ext, p104 ext, p120 flex, p109 ext
+  normal to t 4.0; p064 flex reached 1.5 N m then stopped at 3.82) -> fallback read-outs; 12 stopped under BOTH laws (p048 flex+ext, p050 flex+ext, p074 flex, p084 ext, p097 flex+ext, p109 flex,
+  p115 flex, p116 flex, p127 flex), 10 of them at the first increment (t_last 3.50455 = retry 10 of 10, dt 0.05/11). Controls (stick law computed): p039 both and p052 both computed under the
+  production law too (p039 flex stopped at 3.89 after 1.5 N m under both laws); p061 flex AND ext stopped early under the production law (3.55 / 3.60) where the stick law ran to 4.0 -> the
+  production law is a second numerical path, not a safer one; 'fallback rescued 6 of 18' is not a rescue rate of a better method.
+- Law shift on process-G checkpoints (ops/law_shift.py -> relG_law_shift.json): n 4 pairs (p039, p052), abs_median 0.0323, abs_max 0.0581 mm > the 0.0431 fric3->fric5 abs_p90. Rule: the
+  fallback margin is per source, FALLBACK_MARGIN = {physio_fric3: 0.0431, physio_relG_pl: max(0.0431, relG abs_max) = 0.0581}; margin_basis recorded per row. No verdict flips (closest:
+  p104 ext 0.401 -> 0.416 < 0.45). PI confirmation requested (PI_PENDING).
+- REPLICATES: the 71 designs are 59 distinct decks (launched_feb.sha256 / case.feb hash). p050, p068, p084, p127 are byte-identical (every params key, case.feb sha 500c814ead46...): p068 passes
+  both windows under the stick law; p050 flex, p084 ext, p127 flex stopped at the first increment under BOTH laws (p050 ext stopped later, both laws). Their end-of-insertion states agree to
+  about 1e-4 relative (push reaction -0.27398 ... -0.27407), the solver paths differ (5455-6215 increments, 5-119 negative-Jacobian warnings). Second group p086 / p100 / p142: pass / grey / pass
+  (p100 ext fallback read-out exactly 0.500). The other 6 replicate groups are consistent. Conclusion: whether a window's first increment converges is run-to-run variability of a near-identical
+  checkpoint, not a property of the design; the 'soft-face locking' explanation (PI 2026-11-10 item 2 wording, pilot control 14:45 'p068: neither law computes') is contradicted by the production
+  run of p068 and by p109 (E_soft 11.3 MPa) / p115 (7.4 MPa) failing the same way. verdicts.json now lists `replicates` per design (deck hash, sibling ids, their verdicts, consistent flag).
+- Mechanism (window logs): the first increment 3.5 -> 3.55 fails; FEBio retries with dt/11 steps (3.54545, 3.54091, ... 3.50455 = retry 10 = max_retries) and stops with E R R O R; p068 flex
+  converged at retry 9 (dt 0.0091) and ran to 4.0, p068 ext at retry 5, p127 ext at retry 4. First Newton iteration: displacement norm 1e6, line-search step 0.012 -> a restart transient
+  (the rigid-joint drive and the window Control switched on at t 3.5) that is friction-law- and material-independent. Thickness matters statistically: d > 1.3 mm -> 8 of 11 designs have
+  a not-computable window (p036 / p064 / p068 pass), d <= 1.3 -> 1 of 60 (p074).
+- Rule changes (biocage-evo ops/fric_compare.py; backups in the session scratchpad): (1) the folded_early veto of the fallback is withdrawn -> p036 flexion (production-inserted, stick law
+  failed at the first increment, production law computed 0.169 + 0.0431 = 0.212 mm at 1.5 N m) becomes pass by fallback; (2) per-source margin (above); (3) a window is classed 'not computable'
+  (verdict key `soft_face_locking` KEPT as a compatibility name for h37 R17 / h51 / QA_SPEC; evidence text neutral: 'not computable under either friction law (stick-memory t_last, production-law
+  restart t_last[, first increments])') ONLY when both laws stopped before an evaluation point; a first-increment stick-law failure alone is noted under `first_increment_pattern`; (4) `replicates`;
+  (5) collect_split class renamed DESIGN/soft-face-locking -> DESIGN/not-computable-both-laws (2 designs; DESIGN vs [數值] is a PI decision), mu_req_field adds `replicates`. h37 R17: the
+  't_last >= 3.52' assertion removed (fallback refused only for a both-laws window). h51: run_batch.log prints the FEBio normal flag (foreman 23:00 request: exit 0 hid ERROR runs); generic mode
+  H51_DST / H51_KEYS for other restart pilots of the G checkpoints.
+- Final numbers (verdicts.json 2026-11-11): all 71 designs pass 44 / grey 17 / open 10 (was 43 / 17 / 11); process G 27: pass 17 / grey 1 (p140) / open 9; production 44: pass 27 / grey 16 /
+  open 1 (p060, data gap). Fallback windows 11 (relG_pl +0.0581: p064 p083 p120 flex, p095 p104 p109 ext; fric3 +0.0431: p036 p132 p142 p148 flex, p100 ext). Not computable (both laws) 12
+  windows in 9 designs. Grey 17 = extension posterior at intact ROM 0.453-0.549 mm; 15 of them are thin cages d <= 0.65 mm (+ p100 d 0.8 via fallback 0.500, p140 d 1.15). e07 interface shear
+  unchanged (open 22 / fail 37 / pass 11). collect_split classes: PASS 1, GREY 13, DESIGN/not-computable-both-laws 2, [多元]/computability 2, [數值]/unstable-window 2, [觀測]/friction-window 7
+  (rest DESIGN/compression-*). h33 scorecard rewritten (FRIC labels still 不合格: OBS-01, NUM-13 partial, etc.).
+- Envelope from the data (replaces the 14:45 three-tier proposal; PI confirmation): computability is a per-window provenance flag, not a design region. Verdict by cage thickness d: d <= 0.65:
+  grey 15 / pass 9 (posterior drift at extension ROM 0.45-0.55); 0.65 < d <= 1.0: pass 18 / grey 1; 1.0 < d <= 1.3: pass 14 / grey 1 / not computable 1; d > 1.3: pass 3 / not computable 8.
+  E_soft does not separate the not-computable designs (1.7-11.3 MPa).
+- pilot_relGdt0 (00:08, tmux relGdt0_pilot, h51 generic mode): h30 key `window_dt0` 0.005 (first window increment 10x smaller; dtmin 5e-5; dtmax 0.05 and the end time unchanged; h14 passes
+  the key to physio_schedule.json; h37 PILOT_KEYS + window_dt0; settings class human_study/al_v2/pilot_relGdt0/ = physio_relG + window_dt0). Stick-memory-law restarts of the G checkpoints of
+  the 12 not-computable windows + 2 controls (p068 flex, p039 ext: read-out effect of the step change). If it computes, the proposal will be: window_dt0 in the production window Control, rerun of
+  the 12 windows with provenance (PI decision). Results in the next entry.
+- Foreman (status 23:00) answered here: the relG_pl ERROR terminations are an expected outcome class (both-laws evidence), no hold needed; tmux relGpl_ctrl2 and relGdt0_pilot are intentional
+  h51 drivers; h51 logs the normal flag now; the NUMA-aware core pick (h06/h18/h47) stays a pending request. Its ops/febio_pin.sh re-pins FEBio processes once (scheduling only).
+- Correction of the 17:14 rule: the h24 fingerprint hashes case.feb, h14, h12, current_settings.json and the FEBio library - not h24 / h37. Editing h37 / h24 never invalidates a pending case;
+  editing h12 does (memory gate-files-fingerprint). Today's settings / h14 edits (window_dt0) were made with no unstarted batch case; the pilot cases were built (h47) after them.
+- Not committed until now (interim): compare.json / verdicts.json / e04 files / mu_req_field / split merges - committed with this entry as the final state of the 2026-11-10 batch.
+- Next: pilot_relGdt0 results -> DECISIONS; layer-B audit (qa-auditor) on the rule changes; PI report 2026-11-11 (問題/原因/建議/參考資料) with the QA stamp; PI decisions: margin 0.0581,
+  not-computable class (DESIGN vs [數值]), replicate policy (per-id vs per-deck verdict), window_dt0 adoption, p036 pass-by-fallback.
+- Class counts after the 2026-11-11 00:14 rerun (collect_split over verdict_lists_merged.json; R5): PASS 1, GREY/friction-posterior-0.45-0.55 13, interface-shear-provisional 22, radial-mix-excluded 28, friction-computability 0, [多元]/computability 2, [數值]/unstable-window 2, [觀測]/friction-window 7, DESIGN/not-computable-both-laws 2, friction-check-exceeded 0.

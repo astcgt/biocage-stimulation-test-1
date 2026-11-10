@@ -553,6 +553,8 @@ elif test == 'physio_rot':
     if prm.get('window_min_residual') is not None: WMR = {'window_min_residual': prm['window_min_residual']}
     if prm.get('window_static'): WMR['window_static'] = True
     if prm.get('window_dt'): WMR['window_dt'] = prm['window_dt']   # 2026-11-08 pilot: window step size only (h30); insertion deck unchanged   # 2026-11-08 pilot: the restarted window step runs static (no inertia) - hold-drift discriminator (h30)
+    if prm.get('window_dt0'): WMR['window_dt0'] = prm['window_dt0']   # 2026-11-11 pilot: small first window increment only (h30 window_dt0); insertion deck unchanged
+    if prm.get('window_null'): WMR['window_null'] = True   # 2026-11-11 pilot: null restart (zero rotation drive, h30 window_null); insertion deck unchanged
     json.dump(dict(control='rotation', target_moment_Nmm=M, follower_N=FL, t_follower=[FA, FB] if FIR else [3.0, T0], rot_rad={k: v * F for k, v in TH.items()},
                    windows=[dict(name=n, dof=dd, sign=sg, t0=T0 + i, t_peak=T0 + i + 0.5, t1=T0 + i + 1.0) for i, (dd, sg, n) in enumerate(seq)],
                    **({'physio_hold': HOLD} if HOLD else {}), **WMR),   # 2026-11-05 pilot (V17): h30 ramps, then holds the angle (HOLD = prm.get('physio_hold'), default None)

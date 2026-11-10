@@ -28,9 +28,9 @@ from h50_relG_batch import gpu_busy
 import h24_preflight
 H47 = os.path.join(P, 'scripts/5_compute/h47_restart_pilot.py')
 EV = os.path.normpath(os.path.join(P, '..', 'biocage-evo')); FRIC_COMPARE = os.path.join(EV, 'ops/fric_compare.py'); VERD = os.path.join(EV, 'results/method/fric/verdicts.json')
-SRC = os.path.join(P, 'human_study/al_v2/physio_relG'); DST = os.path.join(P, 'human_study/al_v2/physio_relG_pl'); DRIVE_LOG = os.path.join(SRC, 'drive.log')
+SRC = os.path.join(P, 'human_study/al_v2/physio_relG'); DST = os.path.join(P, 'human_study/al_v2', os.environ.get('H51_DST', 'physio_relG_pl')); DRIVE_LOG = os.path.join(SRC, 'drive.log')
 QUOTA = 32                       # this account's cgroup core quota (ops/relG_drive.py: 6 x 6 threads ran 26-28 % throttled)
-RESTART_ENV = 'restart_env={"BIOCAGE_STICK_MEMORY": "0"}'
+RESTART_ENV = os.environ.get('H51_KEYS', 'restart_env={"BIOCAGE_STICK_MEMORY": "0"}')   # 2026-11-11: H51_DST / H51_KEYS run this driver (only-mode) for another restart pilot of the process-G checkpoints, e.g. H51_DST=pilot_relGdt0 H51_KEYS='window_dt0=0.005' (one key=json)
 sfx = lambda w: '' if w == 'extension' else '_' + w
 marker = lambda p, w, kind='done': os.path.join(DST, p, kind + sfx(w))
 
@@ -58,7 +58,7 @@ def needed(v=None):
 
 
 def build(only=()):
-    todo = sorted({p for p, w, _ in needed()[0]} | set(only)); os.makedirs(DST, exist_ok=True)
+    todo = sorted(set(only) | (set() if os.environ.get('H51_DST') else {p for p, w, _ in needed()[0]})); os.makedirs(DST, exist_ok=True)   # generic mode: only the named designs
     for p in todo:
         cd = os.path.join(DST, p)
         if h24_preflight.valid(cd): print(p, 'already valid', flush=True); continue
@@ -125,7 +125,8 @@ def run(nw, gpus, ncores, only):
                 t0 = time.time(); print(time.strftime('%H:%M'), f'worker {i} gpu {gpu} start {p} {w}', flush=True)
                 with open(os.path.join(DST, f'{p}_run.log'), 'a') as fo:
                     r = subprocess.run([sys.executable, H47, 'run', os.path.join(DST, p), str(gpu), str(ncores), w], cwd=P, stdout=fo, stderr=subprocess.STDOUT)
-                dt = time.time() - t0; print(time.strftime('%H:%M'), f'{p} {w} exit {r.returncode} {dt / 60:.0f} min', flush=True)
+                dt = time.time() - t0; rj = os.path.join(DST, p, 'resources' + sfx(w) + '.json'); nrm = json.load(open(rj)).get('normal') if os.path.exists(rj) else None
+                print(time.strftime('%H:%M'), f'{p} {w} exit {r.returncode} normal {nrm} {dt / 60:.0f} min', flush=True)   # normal = FEBio N O R M A L termination (foreman 2026-11-10 23:00 request: exit 0 alone hid ERROR runs)
                 if not os.path.exists(marker(p, w)):
                     fails[it] += 1
                     if fails[it] >= 6: print(time.strftime('%H:%M'), f'{p} {w}: 6 attempts without a done marker, given up', flush=True); continue
@@ -135,7 +136,7 @@ def run(nw, gpus, ncores, only):
                 with lock: inflight.discard(it)
     os.makedirs(DST, exist_ok=True)
     th = [threading.Thread(target=worker, args=(i, gpus[i % len(gpus)]), daemon=True) for i in range(nw)]; [t.start() for t in th]
-    print(time.strftime('%H:%M'), f'start: {nw} workers, GPUs {gpus}, {ncores} cores, quota {QUOTA}', 'only ' + ' '.join(only) if only else 'needed windows from the verdicts' + (' + controls ' + ' '.join(f'{p}:{w}' for p, w in extra) if extra else ''), flush=True)
+    print(time.strftime('%H:%M'), f'start: {nw} workers, GPUs {gpus}, {ncores} cores, quota {QUOTA}, dst {os.path.basename(DST)}, keys {RESTART_ENV}', 'only ' + ' '.join(only) if only else 'needed windows from the verdicts' + (' + controls ' + ' '.join(f'{p}:{w}' for p, w in extra) if extra else ''), flush=True)
     while True:
         if not only: refresh()
         enqueue()

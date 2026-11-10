@@ -1,11 +1,11 @@
 {
- "time": "2026-11-10 17:14",
+ "time": "2026-11-11 00:25",
  "overall": "WARN",
  "checks": [
   {
    "id": "R1-case-dir",
    "status": "PASS",
-   "message": "220 friction rows; windows without finished log + xplt: 0 []"
+   "message": "264 friction rows; windows without finished log + xplt: 0 []"
   },
   {
    "id": "R1-ambiguous",
@@ -30,12 +30,12 @@
   {
    "id": "R3-faces",
    "status": "PASS",
-   "message": "skipped (--quick); 172 e07 window files"
+   "message": "skipped (--quick); 250 e07 window files"
   },
   {
    "id": "R5-counts",
    "status": "PASS",
-   "message": "classes {'friction-check-exceeded': (0, 0), 'interface-shear': (18, 18), 'radial-mix': (28, 27), 'friction-computability': (14, 14)} (all / among tied passes); stale document counts: []"
+   "message": "classes {'friction-check-exceeded': (0, 0), 'interface-shear': (22, 22), 'radial-mix': (28, 27), 'friction-computability': (0, 0)} (all / among tied passes); stale document counts: []"
   },
   {
    "id": "R6-retracted",
@@ -45,7 +45,7 @@
   {
    "id": "R7-pilot-keys",
    "status": "PASS",
-   "message": "settings/h14: []; production cases scanned 808, with pilot options / extra keys: []"
+   "message": "settings/h14: []; production cases scanned 836, with pilot options / extra keys: []"
   },
   {
    "id": "R9-material-blocks",
@@ -60,7 +60,7 @@
   {
    "id": "R12-file-index",
    "status": "PASS",
-   "message": "235 paths in FILE_INDEX.md; missing []"
+   "message": "237 paths in FILE_INDEX.md; missing []"
   },
   {
    "id": "R14-patch7-logs",
@@ -75,12 +75,12 @@
   {
    "id": "R16-relG-law",
    "status": "PASS",
-   "message": "physio_relG: class law = fric5 law; 8 finished run dirs checked (insertion + window evidence lines, launch env/lib, stderr); problems: []"
+   "message": "physio_relG: class law = fric5 law; 27 finished run dirs checked (insertion + window evidence lines, launch env/lib, stderr); problems: []"
   },
   {
    "id": "R17-relG-fallback",
    "status": "PASS",
-   "message": "6 physio_relG_pl cases, 0 finished windows checked; 0 fallback windows in the verdicts; problems: []"
+   "message": "17 physio_relG_pl cases, 24 finished windows checked; 6 fallback windows in the verdicts; problems: []"
   },
   {
    "id": "R10-register",
@@ -90,7 +90,7 @@
   {
    "id": "R10-llm-audit-due",
    "status": "WARN",
-   "message": "LLM audit required: last 2026-11-10 14:13; gate files changed since: ['scripts/3_cage_case/h14_build_case.py', 'scripts/5_compute/h24_preflight.py', 'human_study/current_settings.json', '../biocage-evo/ops/fric_compare.py', '../biocage-evo/ops/e07_batch.py', '../biocage-evo/ops/collect_split.py', '../biocage-evo/ops/mu_req_field.py']; decision entries since: ['2026-11-10 14:16', '2026-11-10 14:24']"
+   "message": "LLM audit required: last 2026-11-10 14:13; gate files changed since: ['scripts/3_cage_case/h14_build_case.py', 'scripts/5_compute/h24_preflight.py', 'human_study/current_settings.json', '../biocage-evo/ops/fric_compare.py', '../biocage-evo/ops/e07_batch.py', '../biocage-evo/ops/collect_split.py', 'scripts/3_cage_case/h30_split_windows.py', '../biocage-evo/ops/mu_req_field.py']; decision entries since: ['2026-11-10 14:16', '2026-11-10 14:24']"
   }
  ],
  "counts": {
@@ -100,16 +100,16 @@
     0
    ],
    "interface-shear": [
-    18,
-    18
+    22,
+    22
    ],
    "radial-mix": [
     28,
     27
    ],
    "friction-computability": [
-    14,
-    14
+    0,
+    0
    ]
   },
   "tied_passes": 72,
@@ -127,6 +127,7 @@
    "../biocage-evo/ops/fric_compare.py",
    "../biocage-evo/ops/e07_batch.py",
    "../biocage-evo/ops/collect_split.py",
+   "scripts/3_cage_case/h30_split_windows.py",
    "../biocage-evo/ops/mu_req_field.py"
   ],
   "new_decisions": [

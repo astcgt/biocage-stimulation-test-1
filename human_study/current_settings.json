@@ -1358,6 +1358,78 @@
     2.5
    ],
    "all_dynamic": true
+  },
+  "human_study/al_v2/pilot_relGdt0/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic",
+   "physio_windows": [
+    "flexion",
+    "extension"
+   ],
+   "nonsym": "all",
+   "physio_split": true,
+   "physio_dynamic": {
+    "density": 1e-06,
+    "rhoi": 0.0
+   },
+   "physio_rot_rad": {
+    "flexion": 0.126,
+    "extension": 0.161
+   },
+   "restart_env": {
+    "BIOCAGE_STICK_MEMORY": "1"
+   },
+   "window_min_residual": 0.0001,
+   "release_all_dofs": true,
+   "min_residual": 0.0001,
+   "follower_in_release": [
+    2.0,
+    2.5
+   ],
+   "all_dynamic": true,
+   "window_dt0": 0.005
+  },
+  "human_study/al_v2/pilot_relGnull/": {
+   "fsu": "human_study/fsu/C34_fsu_refined.feb",
+   "insert_mode": "expand",
+   "shrink": 0.8,
+   "biodisc": false,
+   "release_dtmax": 0.1,
+   "annulus_remnant": false,
+   "insert_dt": 0.01,
+   "contact_type": "elastic",
+   "physio_windows": [
+    "flexion",
+    "extension"
+   ],
+   "nonsym": "all",
+   "physio_split": true,
+   "physio_dynamic": {
+    "density": 1e-06,
+    "rhoi": 0.0
+   },
+   "physio_rot_rad": {
+    "flexion": 0.126,
+    "extension": 0.161
+   },
+   "restart_env": {
+    "BIOCAGE_STICK_MEMORY": "1"
+   },
+   "window_min_residual": 0.0001,
+   "release_all_dofs": true,
+   "min_residual": 0.0001,
+   "follower_in_release": [
+    2.0,
+    2.5
+   ],
+   "all_dynamic": true,
+   "window_null": true
   }
  }
 }

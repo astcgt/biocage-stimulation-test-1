@@ -2116,7 +2116,7 @@
     "TIED": {
      "state": "pass",
      "date": "2026-11-09T18:10",
-     "value": "276 視窗 0 錯誤（collect_split 2026-11-08）：tied 篩選 72 pass；classes：DESIGN/compression-sustained 53、-sustained-lowerbound 10、-peak 5、-peak-lowerbound 4、radial-mix-excluded 28、interface-shear-provisional 18、[多元]/friction-computability 14、[多元]/computability 2、[數值]/unstable-window 2、PASS 13；friction-check-exceeded 13（PI 決定 1：註記，非類別）｜2026-11-09 18:10（fric5 重算）：類別數全部不變，friction-check-exceeded 7｜2026-11-10（灰區生效）：PASS 0、GREY 13、friction-check-exceeded 0",
+     "value": "（歷史）276 視窗 0 錯誤（collect_split 2026-11-08）：tied 篩選 72 pass；classes：DESIGN/compression-sustained 53、-sustained-lowerbound 10、-peak 5、-peak-lowerbound 4、radial-mix-excluded 28、interface-shear-provisional 18、[多元]/friction-computability 14、[多元]/computability 2、[數值]/unstable-window 2、PASS 13；friction-check-exceeded 13（PI 決定 1：註記，非類別）｜2026-11-09 18:10（fric5 重算）：類別數全部不變，friction-check-exceeded 7｜2026-11-10（灰區生效）：PASS 0、GREY 13、friction-check-exceeded 0｜2026-11-11 00:14 更新：276 視窗 0 錯誤（collect_split 2026-11-11 00:14，流程 G 27 設計與 26 個參考律重啟窗口完成後）：tied 篩選 both 1；classes：DESIGN/compression-sustained 53、-sustained-lowerbound 10、-peak 5、-peak-lowerbound 4、radial-mix-excluded 28、interface-shear-provisional 22、friction-computability 0、[多元]/computability 2、[數值]/unstable-window 2、[觀測]/friction-window 7、DESIGN/not-computable-both-laws 2、GREY/friction-posterior-0.45-0.55 13、PASS 1、friction-check-exceeded 0；摩擦判定 pass 44 / grey 17 / open 10（71 設計；DECISIONS 2026-11-11 00:16）",
      "note": "2026-11-05：first-cause 順序 tied 篩選 → radial-mix 排除 → dislocation → shear（collect_split.py:215-223；PI 2026-11-05 第 2 項，排除優先） | 2026-11-05 03:41 結果檔重算後更新日期"
     },
     "FRIC": {
@@ -2300,7 +2300,7 @@
     "TIED": {
      "state": "fail",
      "date": "2026-11-05T03:41",
-     "value": "verdict_lists_merged.json（2026-11-04 14:35）：149 設計，有判定（fail）131、open 18（friction-computability 14、[多元]/computability 2、unstable-window 2）、pass 0 → 有判定率 131/149 = 88 %（open 全為可計算性問題）",
+     "value": "（歷史）verdict_lists_merged.json（2026-11-04 14:35）：149 設計，有判定（fail）131、open 18（friction-computability 14、[多元]/computability 2、unstable-window 2）、pass 0 → 有判定率 131/149 = 88 %（open 全為可計算性問題）｜2026-11-11 00:14 更新：verdict_lists_merged.json（2026-11-11 00:14）：149 設計，有判定（fail）124、grey 13、open 11（[多元]/computability 2、unstable-window 2、[觀測]/friction-window 7；friction-computability 0）、pass 1 → 有判定率 (124+13+1)/149 = 92.6%；open 全部有標籤",
      "note": "tied 篩選 72 pass 經摩擦閘門後全數 fail 或 open；可計算率的分母與 11-02 的 150 不同（149 個有 case 的設計） | 2026-11-05 03:41 結果檔重算後更新日期"
     },
     "FRIC": {

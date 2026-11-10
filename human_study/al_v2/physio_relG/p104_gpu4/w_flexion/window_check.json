@@ -1,0 +1,15 @@
+{
+ "exit": 0,
+ "banner": "NORMAL",
+ "n_converged": 80,
+ "t_last": 4.0,
+ "n_negjac": 578,
+ "static_retry": false,
+ "drive_rows": 80,
+ "dt_min": 0.0006732000000000404,
+ "M_max_Nmm": 4504.48412712,
+ "target_reached": true,
+ "n_dyn": 2,
+ "rb_res_max_Nmm": 28.046384566461104,
+ "rb_fres_max_N": 4.634998926027311
+}

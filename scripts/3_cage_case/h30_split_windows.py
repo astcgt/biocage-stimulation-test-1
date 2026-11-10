@@ -40,6 +40,13 @@ for w in sch['windows']:
     if sch.get('window_dt'):                        # 2026-11-08 pilot (h14 key window_dt): window step size / dtmax only (insertion deck unchanged) - half-step arms of the hold criterion
         dt = float(sch['window_dt']); st.find('Control/step_size').text = str(dt); st.find('Control/time_stepper/dtmax').text = str(dt); st.find('Control/time_stepper/dtmin').text = str(dt / 100)
     ts = st.find('Control/time_steps'); ts.text = str(int(round((HOLD['ramp'] + HOLD['T']) / float(st.find('Control/step_size').text))) if HOLD else int(ts.text) // 2)   # independent windows stop at the peak: no unload (near-zero-load tail fails the relative energy norm)
+    if sch.get('window_dt0'):                       # 2026-11-11 pilot (h14 key window_dt0): small FIRST window increment only - the restart transient (the rigid-joint drive
+        dt0 = float(sch['window_dt0']); dur = int(ts.text) * float(st.find('Control/step_size').text)   # switched on at t 3.5) failed all 10 retries (dt down to 0.05/11) for p050/p084/p109/p115/p127
+        st.find('Control/step_size').text = str(dt0); ts.text = str(int(round(dur / dt0))); st.find('Control/time_stepper/dtmin').text = str(dt0 / 100)   # dtmax and the end time unchanged
+    if sch.get('window_null'):                      # 2026-11-11 pilot (h14 key window_null): NULL restart - zero rotation drive (prescribed value 0, load curve kept), 0.2 s window,
+        for pr in st.findall('Constraints/constraint/*'):   # follower load unchanged; restart file only (case.feb identical): does the restart itself diverge?
+            if pr.tag.startswith('prescribe_'): pr.text = '0'
+        ts.text = str(int(round(0.2 / float(st.find('Control/step_size').text))))
     rs = ET.Element('febio_restart', version='2.0'); ET.SubElement(rs, 'Archive').text = '../case.dmp'
     rs.append(st)
     ET.ElementTree(rs).write(os.path.join(wd, 'restart.feb'), encoding='ISO-8859-1', xml_declaration=True)
