@@ -1,4 +1,4 @@
-# QA status 2026-11-11 01:52 — FAIL
+# QA status 2026-11-11 02:05 — PASS
 
 h37_qa_check.py (layer A, deterministic). PASS = check held; FAIL = drift found, fix before any number is reported; WARN = information or an audit is due. Layer B (meaning of the decisions) = qa-auditor agent, register human_study/qa/QA_SPEC.json.
 
@@ -20,5 +20,5 @@ h37_qa_check.py (layer A, deterministic). PASS = check held; FAIL = drift found,
 | R15-fric5-law | PASS | physio_fric5 class pinned, superseded sets clean; 86 finished window logs checked; problems: [] |
 | R16-relG-law | PASS | physio_relG: class law = fric5 law; 27 finished run dirs checked (insertion + window evidence lines, launch env/lib, stderr); problems: [] |
 | R17-relG-fallback | PASS | 17 physio_relG_pl cases, 24 finished windows checked; 6 fallback windows in the verdicts; problems: [] |
-| R10-register | FAIL | 199 register items; unmapped []; 不符 ['D-20261109-R5', 'D-20261109-R10', 'D-20261110-7', 'D-20261111-1', 'D-20261111-L1', 'D-20261111-L2'] |
-| R10-llm-audit-due | WARN | LLM audit required: last 2026-11-11 00:55; gate files changed since: ['scripts/3_cage_case/h14_build_case.py', 'human_study/current_settings.json', 'scripts/3_cage_case/h30_split_windows.py', 'scripts/5_compute/h47_restart_pilot.py', 'scripts/5_compute/h51_relG_fallback.py']; decision entries since: [] |
+| R10-register | PASS | 204 register items; unmapped []; 不符 [] |
+| R10-llm-audit-due | PASS | LLM audit current: last 2026-11-11 02:02; gate files changed since: []; decision entries since: [] |
