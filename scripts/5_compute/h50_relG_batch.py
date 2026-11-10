@@ -67,6 +67,23 @@ def done(p):
     return None
 
 
+def running(p):
+    """a run dir with started_at but no resources.json whose log was written in the last 20 min = a live run (another driver / worker)"""
+    for d in glob.glob(f'{DST}/{p}_gpu*'):
+        lg = os.path.join(d, 'case.log')
+        if os.path.exists(os.path.join(d, 'started_at')) and not os.path.exists(os.path.join(d, 'resources.json')) and os.path.exists(lg) and time.time() - os.path.getmtime(lg) < 1200: return d
+    return None
+
+
+def gpu_busy(gpu, frac=0.6):
+    """2026-11-10 14:38 incident: GPUs 5 and 6 were filled to 39.7 of 40 GB by other users' processes; cuDSS failed at once (status 4) and the
+    worker on GPU 5 'finished' 9 designs in 3 minutes with an E R R O R each. A worker now waits while its GPU holds more than 60 % memory."""
+    try:
+        out = subprocess.run(['nvidia-smi', '--query-gpu=memory.used,memory.total', '--format=csv,noheader,nounits', '-i', str(gpu)], capture_output=True, text=True, timeout=30).stdout.split(',')
+        return int(out[0]) / int(out[1]) > frac
+    except Exception: return False
+
+
 def run(nw, gpus, ncores, only):
     import h24_preflight
     c = cls(); env = dict(os.environ, BIOCAGE_FEBIO=FEBIO_FRIC, **{k: str(v) for k, v in (c.get('restart_env') or {}).items()})
@@ -78,11 +95,18 @@ def run(nw, gpus, ncores, only):
         while True:
             try: p = q.get_nowait()
             except queue.Empty: return
+            if running(p): print(time.strftime('%H:%M'), f'{p} already running in {running(p)}, skipped', flush=True); continue
+            waited = 0
+            while gpu_busy(gpu) and waited < 6 * 3600:
+                if waited == 0: print(time.strftime('%H:%M'), f'worker {i}: GPU {gpu} memory > 60 % used by other processes, waiting', flush=True)
+                time.sleep(300); waited += 300
+            if gpu_busy(gpu): q.put(p); print(time.strftime('%H:%M'), f'worker {i}: GPU {gpu} still busy after 6 h, giving up this worker', flush=True); return
             t0 = time.time(); print(time.strftime('%H:%M'), f'worker {i} gpu {gpu} start {p}', flush=True)
             with open(f'{DST}/{p}_run.log', 'a') as fo:
                 r = subprocess.run([sys.executable, H18, str(gpu), f'{DST}/{p}', str(ncores)], cwd=P, env=env, stdout=fo, stderr=subprocess.STDOUT)
-            print(time.strftime('%H:%M'), f'{p} exit {r.returncode} {(time.time() - t0) / 60:.0f} min', flush=True)
+            dt = time.time() - t0; print(time.strftime('%H:%M'), f'{p} exit {r.returncode} {dt / 60:.0f} min', flush=True)
             if r.returncode == 3: q.put(p); time.sleep(300)      # h18 exit 3 = not enough idle cores: back in the queue
+            elif dt < 120 and not done(p): q.put(p); print(time.strftime('%H:%M'), f'{p} failed within 2 min (launcher / GPU problem, not a solver result): requeued; worker {i} pauses 10 min', flush=True); time.sleep(600)
     th = [threading.Thread(target=worker, args=(i, gpus[i % len(gpus)])) for i in range(nw)]
     [t.start() for t in th]; [t.join() for t in th]
     print('BATCH DONE', time.strftime('%Y-%m-%d %H:%M'), flush=True)
