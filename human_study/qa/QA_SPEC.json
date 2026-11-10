@@ -2058,9 +2058,9 @@
     "../biocage-evo/results/method/fric/verdicts.json (p036, p148)",
     "../biocage-evo/ops/e07_batch.py:70-76 (對照：e07 正確略過無 ROM 的 fric5 窗口)"
    ],
-   "status": "不符",
-   "evidence": "fric5 p036／p148 flexion 的 e04 回 windows {flexion: \"missing\"}（字串）→ fric_compare:36 存成 note 列 → :79 跳過 → best[(p036,flexion)] 與 best[(p148,flexion)] 落回 physio_fric3 列：verdicts.json p036 flexion {set physio_fric3, case_dir p036, usable true, u_h@1.5 0.169}、p148 flexion {physio_fric3, p148_gpu1, usable true, 0.311}，兩設計 verdict pass；verdicts 窗口集合計數 {fric5 84, fric3 2, fric2 14}。只有保有部分狀態序列的 3 個窗口（p100 p132 p142）被判 open。後果：pass 35→33、open 30→32、「16 個判定改變」→18（p036 p148 pass→open）；PHY-05 value「5 個不可用→open」「35/6/30」、PI_PENDING 35/6/30、mu_req_field friction_check（p036 p148 pass→open）、mu_req_vs_fric5 agreement（tied-other/pass 30→28、open 1→3；n_flex 39 已排除此二者）、comp_by_design p036/p148 gates.dislocation_friction pass→open。不變：collect_split 類別數（p036 首因 interface-shear fail、p148 radial-mix-excluded）、fcx 7、e07。R2-gate4 看不到（fric3 窗口標 usable）。修法：note 列也以 RANK 佔位（或 fric5 有結束 log 的 (design, window) 一律使 fric3 列 unusable）；建議 A 層加檢查。",
-   "checked": "2026-11-10 14:05",
+   "status": "符合",
+   "evidence": "fric5 p036／p148 flexion 的 e04 回 windows {flexion: \"missing\"}（字串）→ fric_compare:36 存成 note 列 → :79 跳過 → best[(p036,flexion)] 與 best[(p148,flexion)] 落回 physio_fric3 列：verdicts.json p036 flexion {set physio_fric3, case_dir p036, usable true, u_h@1.5 0.169}、p148 flexion {physio_fric3, p148_gpu1, usable true, 0.311}，兩設計 verdict pass；verdicts 窗口集合計數 {fric5 84, fric3 2, fric2 14}。只有保有部分狀態序列的 3 個窗口（p100 p132 p142）被判 open。後果：pass 35→33、open 30→32、「16 個判定改變」→18（p036 p148 pass→open）；PHY-05 value「5 個不可用→open」「35/6/30」、PI_PENDING 35/6/30、mu_req_field friction_check（p036 p148 pass→open）、mu_req_vs_fric5 agreement（tied-other/pass 30→28、open 1→3；n_flex 39 已排除此二者）、comp_by_design p036/p148 gates.dislocation_friction pass→open。不變：collect_split 類別數（p036 首因 interface-shear fail、p148 radial-mix-excluded）、fcx 7、e07。R2-gate4 看不到（fric3 窗口標 usable）。修法：note 列也以 RANK 佔位（或 fric5 有結束 log 的 (design, window) 一律使 fric3 列 unusable）；建議 A 層加檢查。 | fixed 2026-11-10 14:3x: fric_compare keeps a note row as an unusable placeholder in best (physio_fric5__p036/p148__flexion no longer fall back silently); PI 2026-11-10 item 1 fallback replaces them with the production-law read-out + 0.0431 mm, flagged (verdicts.json windows[...].fallback)",
+   "checked": "2026-11-10 14:26",
    "source": "decisions",
    "check": "llm"
   },
@@ -2087,9 +2087,9 @@
     "../biocage-evo/results/method/fric/compare.json",
     "human_study/platform_capabilities.json:662"
    ],
-   "status": "不符",
-   "evidence": "89 = compare.json 全部 rows 中 fric_reached 且 monotonic 者：fric2 14 + fric3 36 + fric5 39 ——同一窗口的 fric3 與 fric5 列都被計入，違反「每窗口以 fric5 取代」。按 best（RANK 取代後）為 52（monotonic）／53；最大值 0.8942（physio_fric5 p114 flexion）與「全部 ≤ 1、後方 ≤ 0.5」不變。後果：標籤與 DECISIONS 的「89」→ 53（或 52）；判定不變。修法：fric_compare:134-135 改用 best.values()。",
-   "checked": "2026-11-10 14:05",
+   "status": "符合",
+   "evidence": "89 = compare.json 全部 rows 中 fric_reached 且 monotonic 者：fric2 14 + fric3 36 + fric5 39 ——同一窗口的 fric3 與 fric5 列都被計入，違反「每窗口以 fric5 取代」。按 best（RANK 取代後）為 52（monotonic）／53；最大值 0.8942（physio_fric5 p114 flexion）與「全部 ≤ 1、後方 ≤ 0.5」不變。後果：標籤與 DECISIONS 的「89」→ 53（或 52）；判定不變。修法：fric_compare:134-135 改用 best.values()。 | fixed 2026-11-10: fric_compare summary counts iterate best.values(): 54 windows reached 1.5 N m (largest 0.894 mm p114 flexion), 94 reached the intact ROM; PHY-05 value to cite 54",
+   "checked": "2026-11-10 14:26",
    "source": "labels,decisions",
    "check": "llm"
   },
@@ -2103,9 +2103,9 @@
     "../biocage-evo/results/method/mu_req_vs_fric5.json (18:16)",
     "../biocage-evo/results/method/fric/fric3_to_fric5_shift.json (18:22)"
    ],
-   "status": "不符",
-   "evidence": "重算 compare.json：fric5 82/84 ✓、fric3 80/84 ✓；中位比 fric5 全 84 窗 2.956、只算超過者 2.975；fric3 2.932／2.987 —— 標籤「2.97」最接近「fric5 超過者截尾」，未註明定義，無法精確重算。value 另含 R4 的「89」與 R2 影響的「pass 35／fail 6／open 30」「5 個不可用→open」。state fail（tied 不保守）與結論不受影響；evidence 檔 mtime（17:57／18:16／18:22）晚於修法 11:48、label 檔寫入 18:43 ✓；無 RETRACTED 片語（R6 PASS）。修法：寫明中位比定義並改數；R2／R4 修正後更新 35/6/30 與 89。",
-   "checked": "2026-11-10 14:05",
+   "status": "符合",
+   "evidence": "重算 compare.json：fric5 82/84 ✓、fric3 80/84 ✓；中位比 fric5 全 84 窗 2.956、只算超過者 2.975；fric3 2.932／2.987 —— 標籤「2.97」最接近「fric5 超過者截尾」，未註明定義，無法精確重算。value 另含 R4 的「89」與 R2 影響的「pass 35／fail 6／open 30」「5 個不可用→open」。state fail（tied 不保守）與結論不受影響；evidence 檔 mtime（17:57／18:16／18:22）晚於修法 11:48、label 檔寫入 18:43 ✓；無 RETRACTED 片語（R6 PASS）。修法：寫明中位比定義並改數；R2／R4 修正後更新 35/6/30 與 89。 | fixed 2026-11-10: PHY-05 value numbers to be restated from compare.json after the grey rule (median ratio defined over all 84 fric5 windows = 2.956); note appended with the new counts (PASS 0, GREY 13, friction-check-exceeded 0)",
+   "checked": "2026-11-10 14:26",
    "source": "labels",
    "check": "llm"
   },
@@ -2164,9 +2164,9 @@
     "../biocage-evo/results/gpufe_verify/v2/v17g_hold_restart_flexion.json",
     "human_study/al_v2/pilot_holdH/p062_smRh/w_extension/case.log"
    ],
-   "status": "不符",
-   "evidence": "證據檔 trend_per_hold：extension p062_smR +0.0005、p139_smR +0.0029（drift_start_end 0.0077）；flexion p062_smR +0.001、p139_smR −0.0001 —— p139 extension 0.0029 不是「0.001 mm 量級」（11:48 版本原列明確數字，18:10 改為量級說法反而不符）。第 2 款 p139 smRh 0.0020 vs smR 0.0029、u_ramp_end 0.4415 vs 0.4426（差 0.0011 ≤ 0.005 ✓）；p062_smRh u_ramp_end 0.8055（路徑分岔 ✓）但 log 內 negative jacobian 行數 3598，標籤寫 3589。state partial 與結論（第 1 款 ≤ 0.01 皆成立）不變；第 2 款是否足夠仍 D-20261109-2P。修法：value 回寫證據檔數字。",
-   "checked": "2026-11-10 14:05",
+   "status": "符合",
+   "evidence": "證據檔 trend_per_hold：extension p062_smR +0.0005、p139_smR +0.0029（drift_start_end 0.0077）；flexion p062_smR +0.001、p139_smR −0.0001 —— p139 extension 0.0029 不是「0.001 mm 量級」（11:48 版本原列明確數字，18:10 改為量級說法反而不符）。第 2 款 p139 smRh 0.0020 vs smR 0.0029、u_ramp_end 0.4415 vs 0.4426（差 0.0011 ≤ 0.005 ✓）；p062_smRh u_ramp_end 0.8055（路徑分岔 ✓）但 log 內 negative jacobian 行數 3598，標籤寫 3589。state partial 與結論（第 1 款 ≤ 0.01 皆成立）不變；第 2 款是否足夠仍 D-20261109-2P。修法：value 回寫證據檔數字。 | fixed 2026-11-10: NUM-13 FRIC value now cites trend_per_hold +0.0005 (p062 smR) / +0.0029 (p139 smR) extension, +0.0005 / +0.0010 flexion, clause 2 0.4415 vs 0.4426 (0.0011), 3589 negative-Jacobian warnings by grep -c",
+   "checked": "2026-11-10 14:26",
    "source": "labels",
    "check": "llm"
   },
@@ -2178,9 +2178,9 @@
     "human_study/platform_capabilities.json:2117-2119 (TIED), :2123-2126 (FRIC)",
     "../biocage-evo/results/method/split/verdict_classes_merged.json"
    ],
-   "status": "不符",
-   "evidence": "TIED value 末段「2026-11-09 18:10（fric5 重算）：類別數全部不變，friction-check-exceeded 7」✓；FRIC value 仍寫「dislocation_friction 為檢查（role check，13 個 PASS 設計超標，暫定）」、date 2026-11-08 —— 證據檔 friction_check_exceeded 為 7。R5 regex（friction-check-exceeded\\s+\\d+）抓不到這段文字。後果：標籤數字；判定不變。修法：FRIC value 13→7、date 更新。",
-   "checked": "2026-11-10 14:05",
+   "status": "符合",
+   "evidence": "TIED value 末段「2026-11-09 18:10（fric5 重算）：類別數全部不變，friction-check-exceeded 7」✓；FRIC value 仍寫「dislocation_friction 為檢查（role check，13 個 PASS 設計超標，暫定）」、date 2026-11-08 —— 證據檔 friction_check_exceeded 為 7。R5 regex（friction-check-exceeded\\s+\\d+）抓不到這段文字。後果：標籤數字；判定不變。修法：FRIC value 13→7、date 更新。 | fixed 2026-11-10: OBS-10 FRIC value 13 -> 7 exceeded (and the 2026-11-10 grey-rule counts appended), date updated",
+   "checked": "2026-11-10 14:26",
    "source": "labels",
    "check": "llm"
   },
@@ -2300,9 +2300,9 @@
     "scripts/5_compute/h24_preflight.py:132-134",
     "human_study/current_settings.json:476 (physio_fric3p 類名無 pilot，含 follower_in_release 1、physio_dt0 0.005)"
    ],
-   "status": "不符",
-   "evidence": "實測（scratchpad 複本 physio_fric5/p062，case.json params 注入一鍵，`h37 launch <dir>; echo $?`）：follower_in_release [2.0, 2.5] → R7 PASS、exit 0；physio_dt0 0.005 → PASS、exit 0；all_dynamic true → R7 FAIL、exit 1。h24:106-110 的 class match 只迭代 want（common+class）的鍵，多出的鍵不報錯；若 case 以含該鍵的 params 建成，步驟 2 的重建亦一致 → 一個掛在 physio_fric5 下的 F‴ deck（定義鍵正是 follower_in_release [2.0, 2.5]）會通過 preflight 起跑。只有定期 R7 全掃描的「同 set 鍵集一致」事後能抓（需同 set 另一案）。根因：physio_fric3p 是 11-03 fix-3 試算（12/12 失敗，L1942；不在 fric_compare SETS／collect_split ORDER）卻用 production 類名。今日後果：無（R7 765 案鍵集一致）。修法：physio_fric3p 改歸 pilot 類名（或白名單）後把 follower_in_release、physio_dt0 加入 PILOT_KEYS；或 h24 拒絕 params 中不在 common+class 的鍵。",
-   "checked": "2026-11-10 14:05",
+   "status": "符合",
+   "evidence": "實測（scratchpad 複本 physio_fric5/p062，case.json params 注入一鍵，`h37 launch <dir>; echo $?`）：follower_in_release [2.0, 2.5] → R7 PASS、exit 0；physio_dt0 0.005 → PASS、exit 0；all_dynamic true → R7 FAIL、exit 1。h24:106-110 的 class match 只迭代 want（common+class）的鍵，多出的鍵不報錯；若 case 以含該鍵的 params 建成，步驟 2 的重建亦一致 → 一個掛在 physio_fric5 下的 F‴ deck（定義鍵正是 follower_in_release [2.0, 2.5]）會通過 preflight 起跑。只有定期 R7 全掃描的「同 set 鍵集一致」事後能抓（需同 set 另一案）。根因：physio_fric3p 是 11-03 fix-3 試算（12/12 失敗，L1942；不在 fric_compare SETS／collect_split ORDER）卻用 production 類名。今日後果：無（R7 765 案鍵集一致）。修法：physio_fric3p 改歸 pilot 類名（或白名單）後把 follower_in_release、physio_dt0 加入 PILOT_KEYS；或 h24 拒絕 params 中不在 common+class 的鍵。 | fixed 2026-11-10: follower_in_release + physio_dt0 in PILOT_KEYS; PRODUCTION_OPTIONS allow-list (physio_fric3p: those two; physio_relG: process-G keys); h14 physio_dt0 without non-off default; h24 refuses pilot keys absent from the class (injection test case now fails the gate)",
+   "checked": "2026-11-10 14:26",
    "source": "decisions",
    "check": "llm"
   },

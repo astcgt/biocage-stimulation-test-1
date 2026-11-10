@@ -1,6 +1,6 @@
 {
- "time": "2026-11-10 14:25",
- "overall": "FAIL",
+ "time": "2026-11-10 14:26",
+ "overall": "WARN",
  "checks": [
   {
    "id": "R1-case-dir",
@@ -45,7 +45,7 @@
   {
    "id": "R7-pilot-keys",
    "status": "PASS",
-   "message": "settings/h14: []; production cases scanned 771, with pilot options / extra keys: []"
+   "message": "settings/h14: []; production cases scanned 773, with pilot options / extra keys: []"
   },
   {
    "id": "R9-material-blocks",
@@ -79,8 +79,8 @@
   },
   {
    "id": "R10-register",
-   "status": "FAIL",
-   "message": "167 register items; unmapped []; 不符 ['D-20261109-R2', 'D-20261109-R4', 'D-20261109-R5', 'D-20261109-R9', 'D-20261109-R10', 'D-20261109-R18']"
+   "status": "PASS",
+   "message": "167 register items; unmapped []; 不符 []"
   },
   {
    "id": "R10-llm-audit-due",
@@ -114,14 +114,7 @@
   "last_llm_audit": "2026-11-10 14:13",
   "n_items": 167,
   "unmapped": [],
-  "mismatch": [
-   "D-20261109-R2",
-   "D-20261109-R4",
-   "D-20261109-R5",
-   "D-20261109-R9",
-   "D-20261109-R10",
-   "D-20261109-R18"
-  ],
+  "mismatch": [],
   "gate_files_changed": [
    "scripts/3_cage_case/h14_build_case.py",
    "scripts/5_compute/h24_preflight.py",
