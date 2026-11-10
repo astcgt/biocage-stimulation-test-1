@@ -109,6 +109,13 @@ def check(cd):
     for k, v in want.items():
         got = prm.get(k, defaults.get(k))
         if got != v: err.append(f'setting {k} = {got!r}, current setting {v!r}')
+    # QA audit 2026-11-10 不符 #6: a pilot / process option that the case's settings class does NOT carry is refused here (before, only keys present
+    # in common + class were compared, so an extra key such as follower_in_release [2.0, 2.5] in a physio_fric5 params file passed the gate)
+    try:
+        sys.path.insert(0, os.path.join(P, 'scripts/8_audit')); import h37_qa_check as _q
+        stray = [k for k in _q.PILOT_KEYS if prm.get(k) and k not in want]
+        if stray: err.append(f'pilot / process option(s) {stray} not in the settings class of {rel} (h37 PILOT_KEYS)')
+    except Exception as _ex: warn.append(f'pilot-key check skipped: {_ex}')
     if 'cage_gaplib' in want and os.path.exists(os.path.join(P, prm['cage_npz'])):
         gl = json.loads(str(np.load(os.path.join(P, prm['cage_npz']))['info'])).get('gaplib')
         if gl != want['cage_gaplib']: err.append(f'cage mesh built with gaplib {gl!r}, current setting {want["cage_gaplib"]!r}')

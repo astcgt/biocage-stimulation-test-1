@@ -516,7 +516,7 @@ elif test == 'physio_rot':
     # stiffness (FEBio warns "Rigid connectors require non-symmetric stiffness matrix"); the solver default (symmetric)
     # dropped those terms and the pilots stalled at facet contact onset in extension (p062 t 4.87, p001 t 4.83)
     SYMG = prm.get('physio_rot_symmetric', 0)
-    DT0 = prm.get('physio_dt0', DT)                 # 2026-11-03 pilot (fix 3): the first dynamic step starts small (e.g. 0.005) and grows to DT
+    DT0 = prm.get('physio_dt0') or DT    # QA audit 2026-11-10 不符 #6: no non-off default for a pilot key (same value as before)                 # 2026-11-03 pilot (fix 3): the first dynamic step starts small (e.g. 0.005) and grows to DT
     control(s3, int(round((T0 - 3.0) / DT0)), DT0, DT)
     ET.SubElement(s3.find('Control'), 'symmetric_stiffness').text = str(SYMG)
     rigid(s3, force=[('z', lcs['follower'], -FL)])

@@ -1,6 +1,6 @@
 {
- "time": "2026-11-09 18:34",
- "overall": "WARN",
+ "time": "2026-11-10 14:25",
+ "overall": "FAIL",
  "checks": [
   {
    "id": "R1-case-dir",
@@ -30,17 +30,12 @@
   {
    "id": "R3-faces",
    "status": "PASS",
-   "message": "172 windows, 86 cases recounted; mismatches 0 []"
-  },
-  {
-   "id": "R4-insertion-state",
-   "status": "PASS",
-   "message": "insertion value state within 0.05 of t 3.5; violations 0 []"
+   "message": "skipped (--quick); 172 e07 window files"
   },
   {
    "id": "R5-counts",
    "status": "PASS",
-   "message": "classes {'friction-check-exceeded': (7, 7), 'interface-shear': (18, 18), 'radial-mix': (28, 27), 'friction-computability': (14, 14)} (all / among tied passes); stale document counts: []"
+   "message": "classes {'friction-check-exceeded': (0, 0), 'interface-shear': (18, 18), 'radial-mix': (28, 27), 'friction-computability': (14, 14)} (all / among tied passes); stale document counts: []"
   },
   {
    "id": "R6-retracted",
@@ -50,17 +45,7 @@
   {
    "id": "R7-pilot-keys",
    "status": "PASS",
-   "message": "settings/h14: []; production cases scanned 765, with pilot options / extra keys: []"
-  },
-  {
-   "id": "R8-golden-rebuild",
-   "status": "PASS",
-   "message": "p062 physio_fric3 rebuild md5 4f3208b5 vs recorded 4f3208b5 (11 s)"
-  },
-  {
-   "id": "R9-material-blocks",
-   "status": "PASS",
-   "message": "golden rebuild: one FEBio block per cage material in 1 cases (tmpe71u7jxo:4); problems: []"
+   "message": "settings/h14: []; production cases scanned 771, with pilot options / extra keys: []"
   },
   {
    "id": "R9-material-blocks",
@@ -75,7 +60,7 @@
   {
    "id": "R12-file-index",
    "status": "PASS",
-   "message": "212 paths in FILE_INDEX.md; missing []"
+   "message": "222 paths in FILE_INDEX.md; missing []"
   },
   {
    "id": "R14-patch7-logs",
@@ -88,21 +73,26 @@
    "message": "physio_fric5 class pinned, superseded sets clean; 86 finished window logs checked; problems: []"
   },
   {
-   "id": "R10-register",
+   "id": "R16-relG-law",
    "status": "PASS",
-   "message": "136 register items; unmapped []; 不符 []"
+   "message": "physio_relG: class law = fric5 law; 0 finished run dirs checked (insertion + window evidence lines, launch env/lib, stderr); problems: []"
+  },
+  {
+   "id": "R10-register",
+   "status": "FAIL",
+   "message": "167 register items; unmapped []; 不符 ['D-20261109-R2', 'D-20261109-R4', 'D-20261109-R5', 'D-20261109-R9', 'D-20261109-R10', 'D-20261109-R18']"
   },
   {
    "id": "R10-llm-audit-due",
    "status": "WARN",
-   "message": "LLM audit required: last 2026-11-09 11:37; gate files changed since: ['scripts/3_cage_case/h14_build_case.py', 'human_study/current_settings.json', '../biocage-evo/ops/fric_compare.py', '../biocage-evo/ops/e07_batch.py', 'scripts/5_compute/h48_fric5_batch.py']; decision entries since: ['2026-11-09 18:10']"
+   "message": "LLM audit required: last 2026-11-10 14:13; gate files changed since: ['scripts/3_cage_case/h14_build_case.py', 'scripts/5_compute/h24_preflight.py', 'human_study/current_settings.json', '../biocage-evo/ops/fric_compare.py', '../biocage-evo/ops/e07_batch.py', '../biocage-evo/ops/collect_split.py', '../biocage-evo/ops/mu_req_field.py']; decision entries since: ['2026-11-10 14:16', '2026-11-10 14:24']"
   }
  ],
  "counts": {
   "classes": {
    "friction-check-exceeded": [
-    7,
-    7
+    0,
+    0
    ],
    "interface-shear": [
     18,
@@ -121,20 +111,30 @@
   "designs": 149
  },
  "register": {
-  "last_llm_audit": "2026-11-09 11:37",
-  "n_items": 136,
+  "last_llm_audit": "2026-11-10 14:13",
+  "n_items": 167,
   "unmapped": [],
-  "mismatch": [],
+  "mismatch": [
+   "D-20261109-R2",
+   "D-20261109-R4",
+   "D-20261109-R5",
+   "D-20261109-R9",
+   "D-20261109-R10",
+   "D-20261109-R18"
+  ],
   "gate_files_changed": [
    "scripts/3_cage_case/h14_build_case.py",
+   "scripts/5_compute/h24_preflight.py",
    "human_study/current_settings.json",
    "../biocage-evo/ops/fric_compare.py",
    "../biocage-evo/ops/e07_batch.py",
-   "scripts/5_compute/h48_fric5_batch.py"
+   "../biocage-evo/ops/collect_split.py",
+   "../biocage-evo/ops/mu_req_field.py"
   ],
   "new_decisions": [
-   "2026-11-09 18:10"
+   "2026-11-10 14:16",
+   "2026-11-10 14:24"
   ]
  },
- "mode": "full"
+ "mode": "quick"
 }
