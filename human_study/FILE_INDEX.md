@@ -8,6 +8,7 @@
 |---|---|---|
 | `human_study/DECISIONS.md` | 所有決策與工作紀錄，依時間附加；PI 決策標「PI DECISION」 | Claude 記錄、PI 決策 |
 | `human_study/PI_PENDING_DECISIONS.md` | 等 PI 決定的事項：白話問題／選項／影響；決定後移到 DECISIONS | Claude |
+| `human_study/PI_REPORT_2026-11-10.md` | 2026-11-10 進度與議題清單（決策優先：議題二流程選擇、軟面鎖死窗口、0.5 mm 灰區、捷徑容差；結果、進行中、失誤紀錄、參考檔案） |
 | `human_study/FILE_INDEX.md` | 本檔 | Claude |
 | `human_study/PROGRESS_REPORT_2026-10-31.md` | 上一份進度報告（人體模型轉向後） | Claude |
 | `human_study/README.md` | human_study 總說明 | Claude |
