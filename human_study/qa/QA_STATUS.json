@@ -1,6 +1,6 @@
 {
- "time": "2026-11-11 00:25",
- "overall": "WARN",
+ "time": "2026-11-11 01:52",
+ "overall": "FAIL",
  "checks": [
   {
    "id": "R1-case-dir",
@@ -40,7 +40,7 @@
   {
    "id": "R6-retracted",
    "status": "PASS",
-   "message": "4 retracted claims checked in 4 current documents; hits: []"
+   "message": "5 retracted claims checked in 4 current documents; hits: []"
   },
   {
    "id": "R7-pilot-keys",
@@ -60,7 +60,7 @@
   {
    "id": "R12-file-index",
    "status": "PASS",
-   "message": "237 paths in FILE_INDEX.md; missing []"
+   "message": "252 paths in FILE_INDEX.md; missing []"
   },
   {
    "id": "R14-patch7-logs",
@@ -84,13 +84,13 @@
   },
   {
    "id": "R10-register",
-   "status": "PASS",
-   "message": "167 register items; unmapped []; 不符 []"
+   "status": "FAIL",
+   "message": "199 register items; unmapped []; 不符 ['D-20261109-R5', 'D-20261109-R10', 'D-20261110-7', 'D-20261111-1', 'D-20261111-L1', 'D-20261111-L2']"
   },
   {
    "id": "R10-llm-audit-due",
    "status": "WARN",
-   "message": "LLM audit required: last 2026-11-10 14:13; gate files changed since: ['scripts/3_cage_case/h14_build_case.py', 'scripts/5_compute/h24_preflight.py', 'human_study/current_settings.json', '../biocage-evo/ops/fric_compare.py', '../biocage-evo/ops/e07_batch.py', '../biocage-evo/ops/collect_split.py', 'scripts/3_cage_case/h30_split_windows.py', '../biocage-evo/ops/mu_req_field.py']; decision entries since: ['2026-11-10 14:16', '2026-11-10 14:24']"
+   "message": "LLM audit required: last 2026-11-11 00:55; gate files changed since: ['scripts/3_cage_case/h14_build_case.py', 'human_study/current_settings.json', 'scripts/3_cage_case/h30_split_windows.py', 'scripts/5_compute/h47_restart_pilot.py', 'scripts/5_compute/h51_relG_fallback.py']; decision entries since: []"
   }
  ],
  "counts": {
@@ -116,24 +116,25 @@
   "designs": 149
  },
  "register": {
-  "last_llm_audit": "2026-11-10 14:13",
-  "n_items": 167,
+  "last_llm_audit": "2026-11-11 00:55",
+  "n_items": 199,
   "unmapped": [],
-  "mismatch": [],
+  "mismatch": [
+   "D-20261109-R5",
+   "D-20261109-R10",
+   "D-20261110-7",
+   "D-20261111-1",
+   "D-20261111-L1",
+   "D-20261111-L2"
+  ],
   "gate_files_changed": [
    "scripts/3_cage_case/h14_build_case.py",
-   "scripts/5_compute/h24_preflight.py",
    "human_study/current_settings.json",
-   "../biocage-evo/ops/fric_compare.py",
-   "../biocage-evo/ops/e07_batch.py",
-   "../biocage-evo/ops/collect_split.py",
    "scripts/3_cage_case/h30_split_windows.py",
-   "../biocage-evo/ops/mu_req_field.py"
+   "scripts/5_compute/h47_restart_pilot.py",
+   "scripts/5_compute/h51_relG_fallback.py"
   ],
-  "new_decisions": [
-   "2026-11-10 14:16",
-   "2026-11-10 14:24"
-  ]
+  "new_decisions": []
  },
  "mode": "quick"
 }

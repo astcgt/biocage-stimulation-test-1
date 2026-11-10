@@ -1,0 +1,11 @@
+{
+ "window_drive": "from_state",
+ "thy_rad": -0.0154114822447,
+ "redefined": [
+  {
+   "dof": "prescribe_Ry",
+   "lc": "22",
+   "amp_rad": 0.126
+  }
+ ]
+}

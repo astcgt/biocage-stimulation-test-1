@@ -29,6 +29,8 @@ def build(cd, src, extra):
     for kv in extra:
         k, v = kv.split('=', 1); prm[k] = json.loads(v)
     prm['restart_source'] = os.path.relpath(src, P)
+    if prm.get('window_drive') == 'from_state':   # 2026-11-11 (DECISIONS 01:00): the window drive starts from the C3 rotation at the end of the source insertion (h30)
+        prm['window_drive_thy_rad'] = float(open(os.path.join(src, 'C3pot.txt')).read().strip().splitlines()[-1].split(',')[5])   # C3pot.txt columns: id,x,y,z,thx,thy,thz,Fx,Fy,Fz,Mx,My,Mz of rigid body 2
     os.makedirs(os.path.dirname(cd), exist_ok=True)
     json.dump(prm, open(cd + '_params.json', 'w'), indent=1)
     if os.path.exists(cd): shutil.rmtree(cd)

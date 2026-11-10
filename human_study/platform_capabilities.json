@@ -658,8 +658,8 @@
    "status": {
     "TIED": {
      "state": "fail",
-     "date": "2026-11-10T14:50",
-     "value": "2026-11-10（PI 決定套用：灰區 0.45–0.55、替代讀值、流程 provenance）：摩擦判定 pass 27 / 灰區 grey 16 / fail 0 / open 28（71 設計：43 個 physio_fric5（參考摩擦律重算集）＋ 26 個插入段停算待流程 G＋ 2 個 physio_fric2）。16 個灰區全是後伸 intact 活動範圔（ROM）時點後方 0.453–0.549 mm：p026 p051 p072 p075 p076 p081 p092 p093 p100 p113 p114 p117 p133 p135 p143 p145。替代讀值（舊法則＋0.0431 mm）窗口 5 個：p036 前屈 0.212、p132 前屈 0.386、p142 前屈 0.865、p148 前屈 0.354（pass）、p100 後伸（grey）。每窗口取最高級集合後：54 個窗口傳到 1.5 N·m（最大平移 0.894 mm，p114 前屈，全部 ≤ 1 mm、後方 ≤ 0.5）、94 個到 intact ROM。tied 單面滑移上限仍被摩擦實測普遍超過：physio_fric5 84 窗口中 82 個（physio_fric3 80/84；fric5 全 84 窗口比值中位 2.956）→ tied 捷徑對前屈／後伸不保守的結論不變。捷徑一致性（mu_req_vs_fric5.json）：等級相關 0.90、殘差 0.032 mm、0.5 mm 對應 mu_req 0.140；灰帶 0.140 ± 0.005 共 12 設計，其中 p102、p149 尚無摩擦 run。舊值（2026-11-09 18:10，灰區前）：pass 35 / fail 6 / open 30，其中 p036 p148 當時以未標記的舊法則列通過（稽核 2026-11-10 不符 #1）。",
+     "date": "2026-11-11T01:12",
+     "value": "2026-11-11 00:11（流程 G 批次完成後重算；verdicts.json）：摩擦判定 pass 44 / 灰區 grey 17 / fail 0 / open 10（71 設計 = 生產插入 44（physio_fric5 38＋fric5 窗口不可用改用 fric3 替代讀值 5＋physio_fric2 1）＋流程 G（process G）27）。17 個灰區全是後伸 intact 活動範圍（ROM）時點後方 0.453–0.549 mm：p026 p051 p072 p075 p076 p081 p092 p093 p100 p113 p114 p117 p133 p135 p140 p143 p145。替代讀值窗口 11：生產檔點＋0.0431 mm（p036 前屈 0.212、p132 0.386、p142 0.865、p148 0.354 pass；p100 後伸 0.500 grey）、流程 G 檔點＋0.0581 mm（對照組兩律讀值差最大值；p064 前屈 0.274、p083 0.789、p120 0.606、p095 後伸 0.327、p104 0.416、p109 0.259，全 pass）。每窗口取最高級集合後：72 個窗口傳到 1.5 N·m（最大平移 0.894 mm，p114 前屈，全部 ≤ 1 mm、後方 ≤ 0.5）、129 個到 intact ROM。兩種摩擦律從同一檔點重啟都在評估點前中止的窗口 12（9 設計；根因見 DECISIONS 2026-11-11 01:00）。每筆帶 insertion_process（production / G）與 window_law。捷徑一致性（mu_req_vs_fric5.json）仍為 2026-11-09 的 43 設計數字：等級相關 0.90、殘差 0.032 mm、0.5 mm 對應 mu_req 0.140；灰帶 0.140 ± 0.005 共 12 設計，p102、p149 尚無摩擦 run。｜（歷史 2026-11-10 14:50）2026-11-10（PI 決定套用：灰區 0.45–0.55、替代讀值、流程 provenance）：摩擦判定 pass 27 / 灰區 grey 16 / fail 0 / open 28（71 設計：43 個 physio_fric5（參考摩擦律重算集）＋ 26 個插入段停算待流程 G＋ 2 個 physio_fric2）。16 個灰區全是後伸 intact 活動範圔（ROM）時點後方 0.453–0.549 mm：p026 p051 p072 p075 p076 p081 p092 p093 p100 p113 p114 p117 p133 p135 p143 p145。替代讀值（舊法則＋0.0431 mm）窗口 5 個：p036 前屈 0.212、p132 前屈 0.386、p142 前屈 0.865、p148 前屈 0.354（pass）、p100 後伸（grey）。每窗口取最高級集合後：54 個窗口傳到 1.5 N·m（最大平移 0.894 mm，p114 前屈，全部 ≤ 1 mm、後方 ≤ 0.5）、94 個到 intact ROM。tied 單面滑移上限仍被摩擦實測普遍超過：physio_fric5 84 窗口中 82 個（physio_fric3 80/84；fric5 全 84 窗口比值中位 2.956）→ tied 捷徑對前屈／後伸不保守的結論不變。捷徑一致性（mu_req_vs_fric5.json）：等級相關 0.90、殘差 0.032 mm、0.5 mm 對應 mu_req 0.140；灰帶 0.140 ± 0.005 共 12 設計，其中 p102、p149 尚無摩擦 run。舊值（2026-11-09 18:10，灰區前）：pass 35 / fail 6 / open 30，其中 p036 p148 當時以未標記的舊法則列通過（稽核 2026-11-10 不符 #1）。",
      "note": "2026-11-04 QA：method／threshold 改為實際判定依據（舊文字描述的 7 設計一致性測試從未執行）；fric3_summary.csv（22:30 舊判定）自證據移除。評估點：決策文 04:30 為條件式，程式兩點皆查；因 1.5 N·m 無 fail，今日結果等同「只看 ROM」；（歷史）11-04 當時估改條件式會使滑出 28 → 17、剪力 16 → 27，pass 仍 0；PI 2026-11-05 已採條件式。（2026-11-05 04:10 更新：PI 第 1 項評估點＝1.5 N·m 傳得到時、否則 ROM，第 2 項排除優先；閘 4 14 fail／24 pass／33 open（27 個插入段停算：靜態段 6、釋放衝擊 21；視窗層 6：p014 p063 p066 p078 p086 p146）；合併 radial-mix-excluded 28、dislocation-friction 17、interface-shear-provisional 14、friction-computability 14、PASS 0） | 2026-11-05 03:41 結果檔重算後更新日期｜2026-11-07 PI 決定 1（μ_req 為主，摩擦 run 只做檢查）後重算：PASS 13、friction-check-exceeded 13（註記，非閘）、interface-shear-provisional 18、radial-mix-excluded 28、friction-computability 14、open 18（collect_split 2026-11-08） ｜2026-11-09 18:10：以 physio_fric5 重算（PI 決定 1）；5 個不可用視窗（p036 p132 p142 p148 前屈、p100 後伸）為軟面元素反轉的 solver error，待補跑（DECISIONS 2026-11-09 18:10）。 ｜2026-11-09 18:10 fric5 重算後 collect_split：PASS 13、friction-check-exceeded 7（p051 p060 p072 p075 p093 p114 p145；p086 p092 p100 p117 p142 p143 解除）、其餘類別不變。 ｜2026-11-09 18:26：捷徑 vs 金標準一致性資料 mu_req_vs_fric5.json（等級相關 0.90、殘差 0.032 mm、0.5 mm 對應 mu_req 0.140）；容差數字仍待 PI（決定 1b 留白），狀態不變。 ｜2026-11-10 14:4x（PI 決定套用）：灰區 0.45–0.55 mm 生效後 collect_split：PASS 0、GREY/friction-posterior-0.45-0.55 13、friction-check-exceeded 0（原 7 個超標全部落入灰區）。"
     }
    },
@@ -2116,14 +2116,14 @@
     "TIED": {
      "state": "pass",
      "date": "2026-11-09T18:10",
-     "value": "（歷史）276 視窗 0 錯誤（collect_split 2026-11-08）：tied 篩選 72 pass；classes：DESIGN/compression-sustained 53、-sustained-lowerbound 10、-peak 5、-peak-lowerbound 4、radial-mix-excluded 28、interface-shear-provisional 18、[多元]/friction-computability 14、[多元]/computability 2、[數值]/unstable-window 2、PASS 13；friction-check-exceeded 13（PI 決定 1：註記，非類別）｜2026-11-09 18:10（fric5 重算）：類別數全部不變，friction-check-exceeded 7｜2026-11-10（灰區生效）：PASS 0、GREY 13、friction-check-exceeded 0｜2026-11-11 00:14 更新：276 視窗 0 錯誤（collect_split 2026-11-11 00:14，流程 G 27 設計與 26 個參考律重啟窗口完成後）：tied 篩選 both 1；classes：DESIGN/compression-sustained 53、-sustained-lowerbound 10、-peak 5、-peak-lowerbound 4、radial-mix-excluded 28、interface-shear-provisional 22、friction-computability 0、[多元]/computability 2、[數值]/unstable-window 2、[觀測]/friction-window 7、DESIGN/not-computable-both-laws 2、GREY/friction-posterior-0.45-0.55 13、PASS 1、friction-check-exceeded 0；摩擦判定 pass 44 / grey 17 / open 10（71 設計；DECISIONS 2026-11-11 00:16）",
+     "value": "（歷史）276 視窗 0 錯誤（collect_split 2026-11-08）：tied 篩選 72 pass；classes：DESIGN/compression-sustained 53、-sustained-lowerbound 10、-peak 5、-peak-lowerbound 4、radial-mix-excluded 28、interface-shear-provisional 18、[多元]/friction-computability 14、[多元]/computability 2、[數值]/unstable-window 2、PASS 13；friction-check-exceeded 13（PI 決定 1：註記，非類別）｜2026-11-09 18:10（fric5 重算）：類別數全部不變，friction-check-exceeded 7｜2026-11-10（灰區生效）：PASS 0、GREY 13、friction-check-exceeded 0｜2026-11-11 00:14 更新：276 視窗 0 錯誤（collect_split 2026-11-11 00:14，流程 G 27 設計與 24 個參考律重啟窗口完成後（17 + 7；稽核 2026-11-11 更正））：tied 篩選 both 1；classes：DESIGN/compression-sustained 53、-sustained-lowerbound 10、-peak 5、-peak-lowerbound 4、radial-mix-excluded 28、interface-shear-provisional 22、friction-computability 0、[多元]/computability 2、[數值]/unstable-window 2、[觀測]/friction-window 7、DESIGN/not-computable-both-laws 2、GREY/friction-posterior-0.45-0.55 13、PASS 1、friction-check-exceeded 0；摩擦判定 pass 44 / grey 17 / open 10（71 設計；DECISIONS 2026-11-11 00:16）",
      "note": "2026-11-05：first-cause 順序 tied 篩選 → radial-mix 排除 → dislocation → shear（collect_split.py:215-223；PI 2026-11-05 第 2 項，排除優先） | 2026-11-05 03:41 結果檔重算後更新日期"
     },
     "FRIC": {
      "state": "pass",
-     "date": "2026-11-10T14:30",
+     "date": "2026-11-11T01:12",
      "note": "2026-11-04 QA：原「尚未套用 class 欄位」已過期 | 2026-11-05 03:41 結果檔重算後更新日期",
-     "value": "摩擦 run 結果併入 collect_split 的 gates 欄位：interface_shear 為閘（18 fail）、dislocation_friction 為檢查（role check，7 個 PASS 設計超標（2026-11-09 fric5 重算後；11-08 時 13 個），暫定），radial-mix 排除 28；每個設計都有 class／reason"
+     "value": "2026-11-11 00:14（verdict_classes_merged.json）：摩擦 run 結果併入 collect_split 的 gates 欄位：interface_shear 為閘（interface-shear-provisional 22；e07 pass 11 / fail 37 / open 22；替代窗口不計入剪力閘，PI 待決）、dislocation_friction 為檢查（role check；friction-check-exceeded 0；灰區 GREY/friction-posterior-0.45-0.55 13）、radial-mix-excluded 28、DESIGN/not-computable-both-laws 2、[多元]/computability 2、[數值]/unstable-window 2、[觀測]/friction-window 7；每個設計都有 class／reason，每筆帶 insertion_process／window_law。｜（歷史 2026-11-10 14:30）摩擦 run 結果併入 collect_split 的 gates 欄位：interface_shear 為閘（18 fail）、dislocation_friction 為檢查（role check，7 個 PASS 設計超標（2026-11-09 fric5 重算後；11-08 時 13 個），暫定），radial-mix 排除 28；每個設計都有 class／reason"
     }
    },
    "refs": [
@@ -2305,8 +2305,8 @@
     },
     "FRIC": {
      "state": "fail",
-     "date": "2026-11-05T03:41",
-     "value": "physio_fric3 插入 43/70 完成（axial 18/18、radial 25/52）；14 個 tied 通過的 interleave 設計摩擦下算不完（[多元]/friction-computability）",
+     "date": "2026-11-11T01:12",
+     "value": "2026-11-11：27 個生產插入停算的設計以流程 G（process G，全程動態、釋放力矩時同步加壓）全部插入完成（27/27 resources.json normal）；摩擦判定有結論 61/71（pass 44＋grey 17 = 85.9 %），open 10 = 9 個設計的 12 個窗口兩種摩擦律從同一檔點重啟都在評估點前中止（physio_relG 與 physio_relG_pl）＋p060 資料缺；friction-computability 0。根因（DECISIONS 2026-11-11 01:00）：窗口的剛性關節驅動在 t 3.5 接上時把 C3 拉回 t=0 方位（流程 G 1.16°、生產插入 0.3–0.4°），修法（驅動從目前轉角起算）試跑中（pilot_relGdrv）。｜（歷史 2026-11-05 03:41）physio_fric3 插入 43/70 完成（axial 18/18、radial 25/52）；14 個 tied 通過的 interleave 設計摩擦下算不完（[多元]/friction-computability）",
      "reconfirmed": {
       "date": "2026-11-02T10:00",
       "note": "11-02 collect_split 只改資料夾路徑字串（改名），不影響此檢查"
@@ -2880,8 +2880,8 @@
    "status": {
     "FRIC": {
      "state": "fail",
-     "date": "2026-11-04T12:20",
-     "value": "後伸後方位移：p077 0.456 vs p139 0.634、p100 0.457 vs p142 0.575、p086 0.466（相同設計參數，振幅不同）→ 0.5 mm 線未被數值解析；插入段相同輸入 151 步後因捨入分岔（一過一卡 dt_min）",
+     "date": "2026-11-11T01:12",
+     "value": "2026-11-11（灰區規則 PI 2026-11-10；verdicts.json 00:11）：0.5 mm 線的數值解析：同設計參數不同編號的複本 — 後伸 ROM 後方 p077 0.435 / p139 0.435（一致，pass）、p100 0.5（替代讀值，grey）vs p142 0.442（pass）、p086 0.44；流程 G 逐位元相同模型 p050/p068/p084/p127 判定 open/pass/open/open（窗口第一增量收斂與否的跨次執行變異；根因 = 關節驅動接上時的拉回，DECISIONS 2026-11-11 01:00）→ 灰區邊界附近的判定與窗口可算性仍不被數值解析；驅動修正後需重算。｜（歷史 2026-11-04 12:20）後伸後方位移：p077 0.456 vs p139 0.634、p100 0.457 vs p142 0.575、p086 0.466（相同設計參數，振幅不同）→ 0.5 mm 線未被數值解析；插入段相同輸入 151 步後因捨入分岔（一過一卡 dt_min）",
      "note": "2026-11-04 QA 新增；目前以「合併重複、任一 fail 即 fail」處理（PI 2026-11-03 第 6 項），容差待 PI"
     }
    }

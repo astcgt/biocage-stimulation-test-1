@@ -30,7 +30,7 @@ H47 = os.path.join(P, 'scripts/5_compute/h47_restart_pilot.py')
 EV = os.path.normpath(os.path.join(P, '..', 'biocage-evo')); FRIC_COMPARE = os.path.join(EV, 'ops/fric_compare.py'); VERD = os.path.join(EV, 'results/method/fric/verdicts.json')
 SRC = os.path.join(P, 'human_study/al_v2/physio_relG'); DST = os.path.join(P, 'human_study/al_v2', os.environ.get('H51_DST', 'physio_relG_pl')); DRIVE_LOG = os.path.join(SRC, 'drive.log')
 QUOTA = 32                       # this account's cgroup core quota (ops/relG_drive.py: 6 x 6 threads ran 26-28 % throttled)
-RESTART_ENV = os.environ.get('H51_KEYS', 'restart_env={"BIOCAGE_STICK_MEMORY": "0"}')   # 2026-11-11: H51_DST / H51_KEYS run this driver (only-mode) for another restart pilot of the process-G checkpoints, e.g. H51_DST=pilot_relGdt0 H51_KEYS='window_dt0=0.005' (one key=json)
+RESTART_ENV = os.environ.get('H51_KEYS', 'restart_env={"BIOCAGE_STICK_MEMORY": "0"}')   # 2026-11-11: H51_DST / H51_KEYS run this driver (only-mode) for another restart pilot of the process-G checkpoints, e.g. H51_DST=pilot_relGdt0 H51_KEYS='window_dt0=0.005' (key=json entries separated by '|')
 sfx = lambda w: '' if w == 'extension' else '_' + w
 marker = lambda p, w, kind='done': os.path.join(DST, p, kind + sfx(w))
 
@@ -65,7 +65,7 @@ def build(only=()):
         if os.path.isdir(cd) and glob.glob(cd + '/started_at*'): print(p, 'has started windows, not rebuilt', flush=True); continue
         src = source_run(p)
         if not src: print(p, 'no finished physio_relG run', flush=True); continue
-        r = subprocess.run([sys.executable, H47, 'build', cd, src, RESTART_ENV], cwd=P, capture_output=True, text=True)
+        r = subprocess.run([sys.executable, H47, 'build', cd, src] + RESTART_ENV.split('|'), cwd=P, capture_output=True, text=True)
         print(time.strftime('%H:%M'), p, 'build from', os.path.basename(src), 'OK' if r.returncode == 0 else f'FAIL {r.returncode}', (r.stdout.strip().splitlines() or [''])[-1][:200], r.stderr.strip()[-300:], flush=True)
 
 
