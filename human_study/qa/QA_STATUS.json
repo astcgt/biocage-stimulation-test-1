@@ -1,11 +1,11 @@
 {
- "time": "2026-11-10 14:27",
+ "time": "2026-11-10 17:14",
  "overall": "WARN",
  "checks": [
   {
    "id": "R1-case-dir",
    "status": "PASS",
-   "message": "212 friction rows; windows without finished log + xplt: 0 []"
+   "message": "220 friction rows; windows without finished log + xplt: 0 []"
   },
   {
    "id": "R1-ambiguous",
@@ -45,7 +45,7 @@
   {
    "id": "R7-pilot-keys",
    "status": "PASS",
-   "message": "settings/h14: []; production cases scanned 775, with pilot options / extra keys: []"
+   "message": "settings/h14: []; production cases scanned 808, with pilot options / extra keys: []"
   },
   {
    "id": "R9-material-blocks",
@@ -60,7 +60,7 @@
   {
    "id": "R12-file-index",
    "status": "PASS",
-   "message": "222 paths in FILE_INDEX.md; missing []"
+   "message": "235 paths in FILE_INDEX.md; missing []"
   },
   {
    "id": "R14-patch7-logs",
@@ -75,7 +75,12 @@
   {
    "id": "R16-relG-law",
    "status": "PASS",
-   "message": "physio_relG: class law = fric5 law; 0 finished run dirs checked (insertion + window evidence lines, launch env/lib, stderr); problems: []"
+   "message": "physio_relG: class law = fric5 law; 8 finished run dirs checked (insertion + window evidence lines, launch env/lib, stderr); problems: []"
+  },
+  {
+   "id": "R17-relG-fallback",
+   "status": "PASS",
+   "message": "6 physio_relG_pl cases, 0 finished windows checked; 0 fallback windows in the verdicts; problems: []"
   },
   {
    "id": "R10-register",

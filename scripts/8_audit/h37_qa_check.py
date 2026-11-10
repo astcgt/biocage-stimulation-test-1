@@ -46,8 +46,10 @@ def ended(log):
 # PI 2026-11-10 (issue 2 option a): process G is the PRODUCTION insertion of the designs whose production insertion stopped - its options are
 # allowed in exactly this class and its cases; everywhere else they stay pilot-only (DECISIONS 2026-11-10 14:xx)
 PRODUCTION_OPTIONS = {'human_study/al_v2/physio_relG/': ('release_all_dofs', 'all_dynamic', 'min_residual', 'follower_in_release'),   # process G (PI 2026-11-10 option a)
+                      'human_study/al_v2/physio_relG_pl/': ('release_all_dofs', 'all_dynamic', 'min_residual', 'follower_in_release'),   # its production-law fallback windows (same deck, restart_env 0; R17)
                       'human_study/al_v2/physio_fric3p/': ('follower_in_release', 'physio_dt0')}   # 2026-11-03 fix-3 set (production name, 12/12 failed, not in any verdict SETS); allow-listed, not renamed (run dirs, FILE_INDEX, NAS)
-LAW_CLASSES = ('human_study/al_v2/physio_fric5/', 'human_study/al_v2/physio_relG/')   # the two production classes that carry the reference friction law (PI 2026-11-09 decision 1; PI 2026-11-10 option a); R15 / R16 pin their values
+LAW_CLASSES = ('human_study/al_v2/physio_fric5/', 'human_study/al_v2/physio_relG/')
+FALLBACK_CLASSES = {'human_study/al_v2/physio_relG_pl/': 'human_study/al_v2/physio_relG/'}   # fallback class -> its stick-law class: the same deck and checkpoint, production law (restart_env 0); a fallback SOURCE only (PI 2026-11-10 item 1 extended to process G, DECISIONS 2026-11-10 14:45; R17)   # the two production classes that carry the reference friction law (PI 2026-11-09 decision 1; PI 2026-11-10 option a); R15 / R16 pin their values
 def pilot_keys_in(prm, allowed=()): return [k for k in PILOT_KEYS if prm.get(k) and k not in allowed]
 
 
@@ -170,7 +172,7 @@ def r7_pilot_keys(case_dirs=None):
             bad.append(f'h14 reads {k} with a non-off default')
         for mm in re.finditer(r"prm\['%s'\]" % k, src):      # direct read must sit inside an 'if prm.get(k)' guard (same or earlier lines)
             if not re.search(r"if prm\.get\('%s'\)" % k, src[max(0, mm.start() - 2500):mm.start()]): bad.append(f'h14 reads {k} unguarded')
-    cases = case_dirs or [d for s in ('physio_fric3', 'physio_fric5', 'physio_relG', 'physio_rot', 'physio_rot_r2', 'physio_rot_dyn', 'physio_rot_split2', 'physio_rot_split3', 'physio_rot_split4')
+    cases = case_dirs or [d for s in ('physio_fric3', 'physio_fric5', 'physio_relG', 'physio_relG_pl', 'physio_rot', 'physio_rot_r2', 'physio_rot_dyn', 'physio_rot_split2', 'physio_rot_split3', 'physio_rot_split4')
                           for d in glob.glob(os.path.join(P, 'human_study/al_v2', s, 'p*')) if os.path.isdir(d) and os.path.exists(d + '/case.json')]
     leak = []; ref = {}
     for d in cases:
@@ -221,7 +223,7 @@ def r15_fric5():
     S = json.load(open(SETTINGS)); v = S['classes'].get(FRIC5['cls'], {}); bad = []
     if v.get('restart_env') != FRIC5['restart_env'] or v.get('window_min_residual') != FRIC5['window_min_residual']: bad.append(f"class {FRIC5['cls']}: restart_env {v.get('restart_env')}, window_min_residual {v.get('window_min_residual')}")
     for s3 in S['classes']:
-        if s3 not in LAW_CLASSES and 'pilot' not in s3 and (S['classes'][s3].get('restart_env') or S['classes'][s3].get('window_min_residual')): bad.append(f'class {s3} carries restart_env / window_min_residual')
+        if s3 not in LAW_CLASSES and s3 not in FALLBACK_CLASSES and 'pilot' not in s3 and (S['classes'][s3].get('restart_env') or S['classes'][s3].get('window_min_residual')): bad.append(f'class {s3} carries restart_env / window_min_residual')
     for s3 in ('physio_fric3', 'physio_fric4'):
         for pj in glob.glob(os.path.join(P, 'human_study/al_v2', s3, 'p*_params.json')):
             prm = json.load(open(pj))
@@ -360,6 +362,49 @@ def write_status(extra):
         for c, s, m in R: f.write(f'| {c} | {s} | {m.replace("|", "/")} |\n')
     return worst
 
+# ---------------------------------------------------------------- R17 production-law fallback windows of the process-G set (PI 2026-11-10 item 1; DECISIONS 2026-11-10 14:45, 17:xx)
+def r17_relG_fallback():
+    """physio_relG_pl = physio_relG windows restarted from the SAME process-G t 3.5 checkpoint with the production friction law
+    (BIOCAGE_STICK_MEMORY=0; h51 -> h47). Fallback SOURCE only. Checks: the class equals its stick-law class except restart_env 0; every case
+    names a finished physio_relG source run, differs from it only in restart_env / restart_source and carries the same deck hash; every finished
+    window logs 'stick_memory = 0' only, was launched with env 0 and the validated library and dropped no stiffness entries; in the verdicts a
+    physio_relG_pl window appears only as a flagged fallback of an unusable physio_relG window that did not fold in the first increments."""
+    S = json.load(open(SETTINGS)); bad = []; n = nw = nf = 0
+    for fc, lc in FALLBACK_CLASSES.items():
+        v = S['classes'].get(fc)
+        if v is None: continue
+        base = dict(S['classes'][lc], restart_env={'BIOCAGE_STICK_MEMORY': '0'})
+        if v != base: bad.append(f'class {fc} != {lc} + restart_env 0: {sorted(k for k in set(v) | set(base) if v.get(k) != base.get(k))}')
+        for pj in sorted(glob.glob(os.path.join(P, fc, 'p*_params.json'))):
+            n += 1; prm = json.load(open(pj)); cd = pj[:-len('_params.json')]; rel = os.path.relpath(cd, P); src = prm.get('restart_source') or ''; sp = os.path.join(P, src)
+            if not src.startswith(lc) or not os.path.exists(os.path.join(sp, 'resources.json')): bad.append(f'{rel}: restart_source {src!r} is not a finished {lc} run'); continue
+            spj = os.path.join(P, lc, os.path.basename(cd) + '_params.json'); sprm = json.load(open(spj)) if os.path.exists(spj) else {}
+            diff = sorted(k for k in set(prm) | set(sprm) if k not in ('restart_env', 'restart_source') and prm.get(k) != sprm.get(k))
+            if diff or prm.get('restart_env') != {'BIOCAGE_STICK_MEMORY': '0'}: bad.append(f'{rel}: params differ from the source beyond restart_env 0: {diff}')
+            a, b = os.path.join(cd, 'launched_feb.sha256'), os.path.join(sp, 'launched_feb.sha256')
+            if not (os.path.exists(a) and os.path.exists(b) and open(a).read().split()[:1] == open(b).read().split()[:1]): bad.append(f'{rel}: deck hash differs from the source run')
+            for wl in sorted(glob.glob(os.path.join(cd, 'w_*', 'case.log'))):
+                wt = open(wl, errors='ignore').read()
+                if not any(k in wt[-4000:] for k in ('N O R M A L', 'E R R O R')): continue
+                nw += 1; wn = os.path.basename(os.path.dirname(wl))[2:]; sfx = '' if wn == 'extension' else '_' + wn; wrel = os.path.relpath(wl, P)
+                ev = [l for l in wt.splitlines() if 'BIOCAGE patch 7' in l]
+                if not ev or not all('stick_memory = 0' in l for l in ev): bad.append(wrel + ': evidence lines are not stick_memory = 0')
+                lj = os.path.join(cd, 'launch' + sfx + '.json'); j = json.load(open(lj)) if os.path.exists(lj) else {}
+                if j.get('lib_sha256') != FRIC5['lib_sha256'] or (j.get('env') or {}).get('BIOCAGE_STICK_MEMORY') != '0': bad.append(f"{wrel}: launch lib {str(j.get('lib_sha256'))[:8]} / env {(j.get('env') or {}).get('BIOCAGE_STICK_MEMORY')}")
+                se = os.path.join(cd, 'stderr' + sfx + '.log')
+                if os.path.exists(se) and 'CRSSparseMatrix::add' in open(se, errors='ignore').read(): bad.append(wrel + ': dropped stiffness entries')
+    vj = os.path.join(EV, 'results/method/fric/verdicts.json')
+    if os.path.exists(vj):
+        for p, v in json.load(open(vj)).items():
+            if p.startswith('_'): continue
+            for w, x in (v.get('windows') or {}).items():
+                if x.get('set') not in FALLBACK_CLASSES_SETS: continue
+                nf += 1; fb = x.get('fallback') or {}; sup = fb.get('superseded') or {}
+                if not fb or sup.get('set') != 'physio_relG' or x.get('window_law') != 'production (fallback)': bad.append(f'verdict {p} {w}: fallback-source window used without the fallback flag / provenance')
+                if w in (v.get('soft_face_locking') or []) or (sup.get('t_last') is not None and sup['t_last'] < 3.52): bad.append(f'verdict {p} {w}: fallback applied to a window that folded in the first increments (t_last {sup.get("t_last")})')
+    rep('R17-relG-fallback', not bad, f'{n} physio_relG_pl cases, {nw} finished windows checked; {nf} fallback windows in the verdicts; problems: {bad[:8]}')
+FALLBACK_CLASSES_SETS = tuple(c.rstrip('/').split('/')[-1] for c in FALLBACK_CLASSES)   # 'physio_relG_pl'
+
 
 if __name__ == '__main__':
     if '--daemon' in sys.argv:
@@ -376,7 +421,7 @@ if __name__ == '__main__':
     quick = '--quick' in sys.argv
     r1_case_dirs(); r2_no_pass_by_absence(); r3_faces(quick); counts = r5_counts(); r6_retracted(); r7_pilot_keys()
     if not quick: r8_golden()
-    r9_blocks(production_samples()); r11_constants(); r12_file_index(); r14_patch7_logs(); r15_fric5()
+    r9_blocks(production_samples()); r11_constants(); r12_file_index(); r14_patch7_logs(); r15_fric5(); r17_relG_fallback()
     reg = r10_register()
     worst = write_status(dict(counts=counts, register=reg, mode='quick' if quick else 'full'))
     for c, s, m in R: print(f'{s:4s} {c}: {m[:300]}')
