@@ -1,6 +1,6 @@
 {
- "time": "2026-11-11 02:05",
- "overall": "PASS",
+ "time": "2026-11-11 14:44",
+ "overall": "WARN",
  "checks": [
   {
    "id": "R1-case-dir",
@@ -60,7 +60,7 @@
   {
    "id": "R12-file-index",
    "status": "PASS",
-   "message": "252 paths in FILE_INDEX.md; missing []"
+   "message": "262 paths in FILE_INDEX.md; missing []"
   },
   {
    "id": "R14-patch7-logs",
@@ -83,14 +83,19 @@
    "message": "17 physio_relG_pl cases, 24 finished windows checked; 6 fallback windows in the verdicts; problems: []"
   },
   {
+   "id": "R18-agent-prompts",
+   "status": "PASS",
+   "message": ".claude/agents vs human_study/agent_prompts: in sync"
+  },
+  {
    "id": "R10-register",
    "status": "PASS",
    "message": "204 register items; unmapped []; 不符 []"
   },
   {
    "id": "R10-llm-audit-due",
-   "status": "PASS",
-   "message": "LLM audit current: last 2026-11-11 02:02; gate files changed since: []; decision entries since: []"
+   "status": "WARN",
+   "message": "LLM audit required: last 2026-11-11 02:02; gate files changed since: ['../biocage-evo/ops/e07_batch.py', '../biocage-evo/ops/collect_split.py']; decision entries since: ['2026-11-11 14:44']"
   }
  ],
  "counts": {
@@ -120,8 +125,13 @@
   "n_items": 204,
   "unmapped": [],
   "mismatch": [],
-  "gate_files_changed": [],
-  "new_decisions": []
+  "gate_files_changed": [
+   "../biocage-evo/ops/e07_batch.py",
+   "../biocage-evo/ops/collect_split.py"
+  ],
+  "new_decisions": [
+   "2026-11-11 14:44"
+  ]
  },
  "mode": "quick"
 }
