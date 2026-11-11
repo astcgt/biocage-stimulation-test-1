@@ -46,9 +46,11 @@ def ended(log):
 # PI 2026-11-10 (issue 2 option a): process G is the PRODUCTION insertion of the designs whose production insertion stopped - its options are
 # allowed in exactly this class and its cases; everywhere else they stay pilot-only (DECISIONS 2026-11-10 14:xx)
 PRODUCTION_OPTIONS = {'human_study/al_v2/physio_relG/': ('release_all_dofs', 'all_dynamic', 'min_residual', 'follower_in_release'),   # process G (PI 2026-11-10 option a)
+                      'human_study/al_v2/physio_fric5r/': ('window_drive_mode',),   # route E (PI 2026-11-11 1a): fric5 windows with the relative C3-pot drive (R19)
+                      'human_study/al_v2/physio_relGr/': ('release_all_dofs', 'all_dynamic', 'min_residual', 'follower_in_release', 'window_drive_mode'),   # route E for the process-G designs (R19)
                       'human_study/al_v2/physio_relG_pl/': ('release_all_dofs', 'all_dynamic', 'min_residual', 'follower_in_release'),   # its production-law fallback windows (same deck, restart_env 0; R17)
                       'human_study/al_v2/physio_fric3p/': ('follower_in_release', 'physio_dt0')}   # 2026-11-03 fix-3 set (production name, 12/12 failed, not in any verdict SETS); allow-listed, not renamed (run dirs, FILE_INDEX, NAS)
-LAW_CLASSES = ('human_study/al_v2/physio_fric5/', 'human_study/al_v2/physio_relG/')
+LAW_CLASSES = ('human_study/al_v2/physio_fric5/', 'human_study/al_v2/physio_relG/', 'human_study/al_v2/physio_fric5r/', 'human_study/al_v2/physio_relGr/')
 FALLBACK_CLASSES = {'human_study/al_v2/physio_relG_pl/': 'human_study/al_v2/physio_relG/'}   # fallback class -> its stick-law class: the same deck and checkpoint, production law (restart_env 0); a fallback SOURCE only (PI 2026-11-10 item 1 extended to process G, DECISIONS 2026-11-10 14:45; R17)   # the two production classes that carry the reference friction law (PI 2026-11-09 decision 1; PI 2026-11-10 option a); R15 / R16 pin their values
 def pilot_keys_in(prm, allowed=()): return [k for k in PILOT_KEYS if prm.get(k) and k not in allowed]
 
@@ -172,7 +174,7 @@ def r7_pilot_keys(case_dirs=None):
             bad.append(f'h14 reads {k} with a non-off default')
         for mm in re.finditer(r"prm\['%s'\]" % k, src):      # direct read must sit inside an 'if prm.get(k)' guard (same or earlier lines)
             if not re.search(r"if prm\.get\('%s'\)" % k, src[max(0, mm.start() - 2500):mm.start()]): bad.append(f'h14 reads {k} unguarded')
-    cases = case_dirs or [d for s in ('physio_fric3', 'physio_fric5', 'physio_relG', 'physio_relG_pl', 'physio_rot', 'physio_rot_r2', 'physio_rot_dyn', 'physio_rot_split2', 'physio_rot_split3', 'physio_rot_split4')
+    cases = case_dirs or [d for s in ('physio_fric3', 'physio_fric5', 'physio_relG', 'physio_relG_pl', 'physio_fric5r', 'physio_relGr', 'physio_rot', 'physio_rot_r2', 'physio_rot_dyn', 'physio_rot_split2', 'physio_rot_split3', 'physio_rot_split4')
                           for d in glob.glob(os.path.join(P, 'human_study/al_v2', s, 'p*')) if os.path.isdir(d) and os.path.exists(d + '/case.json')]
     leak = []; ref = {}
     for d in cases:
@@ -406,7 +408,55 @@ def r17_relG_fallback():
                 if not fb or sup.get('set') != 'physio_relG' or x.get('window_law') != 'production (fallback)': bad.append(f'verdict {p} {w}: fallback-source window used without the fallback flag / provenance')
                 if w in (v.get('soft_face_locking') or []): bad.append(f'verdict {p} {w}: fallback applied to a window classed not computable under either law')
     rep('R17-relG-fallback', not bad, f'{n} physio_relG_pl cases, {nw} finished windows checked; {nf} fallback windows in the verdicts; problems: {bad[:8]}')
+ROUTE_E = {'human_study/al_v2/physio_fric5r/': dict(base='human_study/al_v2/physio_fric5/', src_set='physio_fric3', src_params='human_study/al_v2/physio_fric3', extra=('restart_env', 'window_min_residual', 'window_drive_mode', 'restart_source')),
+           'human_study/al_v2/physio_relGr/': dict(base='human_study/al_v2/physio_relG/', src_set='physio_relG', src_params='human_study/al_v2/physio_relG', extra=('window_drive_mode', 'restart_source'))}
+def r19_route_e():
+    """Route E (PI 2026-11-11 decision 1a): physio_fric5r / physio_relGr = the stick-law windows restarted from the SAME checkpoints (physio_fric3
+    insertion run dirs / physio_relG run dirs) with the window drive as a RELATIVE prescribed rotation of the C3 pot (h30 window_drive_mode
+    rigid_relative) instead of the rigid joint. Checks: the class equals its base law class + window_drive_mode; every case names a finished
+    source run, its params differ from the source params only in the allowed keys and it carries the source deck hash; every window restart
+    file has no Constraints block and prescribes Ry (and Rx, Rz) with type relative; every finished window logs stick_memory = 1, was launched
+    with env 1 and the validated library, dropped no stiffness entries, and has window_drive.json rigid_relative."""
+    S = json.load(open(SETTINGS)); bad = []; n = nw = 0
+    for cls, cfg in ROUTE_E.items():
+        v = S['classes'].get(cls)
+        if v is None: continue
+        if v != dict(S['classes'][cfg['base']], window_drive_mode='rigid_relative'): bad.append(f"class {cls} != {cfg['base']} + window_drive_mode rigid_relative: {sorted(k for k in set(v) | set(S['classes'][cfg['base']]) if v.get(k) != dict(S['classes'][cfg['base']], window_drive_mode='rigid_relative').get(k))}")
+        for pj in sorted(glob.glob(os.path.join(P, cls, 'p*_params.json'))):
+            n += 1; prm = json.load(open(pj)); cd = pj[:-len('_params.json')]; rel = os.path.relpath(cd, P); src = prm.get('restart_source') or ''; sp = os.path.join(P, src)
+            fin = os.path.exists(os.path.join(sp, 'case.dmp')) and (os.path.exists(os.path.join(sp, 'resources.json')) or (os.path.exists(os.path.join(sp, 'case.log')) and 'N O R M A L' in open(os.path.join(sp, 'case.log'), errors='ignore').read()[-4000:]))
+            if not src.startswith('human_study/al_v2/' + cfg['src_set']) or not fin: bad.append(f'{rel}: restart_source {src!r} is not a finished {cfg["src_set"]} run'); continue
+            if prm.get('window_drive_mode') != 'rigid_relative': bad.append(rel + ': window_drive_mode != rigid_relative')
+            spj = os.path.join(P, cfg['src_params'], os.path.basename(cd) + '_params.json'); sprm = json.load(open(spj)) if os.path.exists(spj) else {}
+            diff = sorted(k for k in set(prm) | set(sprm) if k not in cfg['extra'] and prm.get(k) != sprm.get(k))
+            if diff: bad.append(f'{rel}: params differ from the source beyond {cfg["extra"]}: {diff}')
+            a, b = os.path.join(cd, 'launched_feb.sha256'), os.path.join(sp, 'launched_feb.sha256')
+            if not (os.path.exists(a) and os.path.exists(b) and open(a).read().split()[:1] == open(b).read().split()[:1]): bad.append(f'{rel}: deck hash differs from the source run')
+            for rf in sorted(glob.glob(os.path.join(cd, 'w_*', 'restart.feb'))):
+                rt = open(rf, errors='ignore').read(); wrel = os.path.relpath(rf, P)
+                if '<Constraints' in rt: bad.append(wrel + ': rigid joint still declared')
+                if 'type="relative"' not in rt or 'bc="Ry"' not in rt: bad.append(wrel + ': no relative prescribed Ry')
+                wj = os.path.join(os.path.dirname(rf), 'window_drive.json')
+                if not os.path.exists(wj) or json.load(open(wj)).get('window_drive_mode') != 'rigid_relative': bad.append(wrel + ': window_drive.json missing / not rigid_relative')
+            for wl in sorted(glob.glob(os.path.join(cd, 'w_*', 'case.log'))):
+                wt = open(wl, errors='ignore').read()
+                if not any(k in wt[-4000:] for k in ('N O R M A L', 'E R R O R')): continue
+                nw += 1; wn = os.path.basename(os.path.dirname(wl))[2:]; sfx = '' if wn == 'extension' else '_' + wn; wrel = os.path.relpath(wl, P)
+                if not any('BIOCAGE patch 7' in l and 'stick_memory = 1' in l for l in wt.splitlines()): bad.append(wrel + ': no stick-memory evidence line')
+                lj = os.path.join(cd, 'launch' + sfx + '.json'); j = json.load(open(lj)) if os.path.exists(lj) else {}
+                if j.get('lib_sha256') != FRIC5['lib_sha256'] or (j.get('env') or {}).get('BIOCAGE_STICK_MEMORY') != '1': bad.append(f"{wrel}: launch lib {str(j.get('lib_sha256'))[:8]} / env {(j.get('env') or {}).get('BIOCAGE_STICK_MEMORY')}")
+                se = os.path.join(cd, 'stderr' + sfx + '.log')
+                if os.path.exists(se) and 'CRSSparseMatrix::add' in open(se, errors='ignore').read(): bad.append(wrel + ': dropped stiffness entries')
+    rep('R19-route-E', not bad, f'route-E classes: {n} cases, {nw} finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: {bad[:8]}')
 FALLBACK_CLASSES_SETS = tuple(c.rstrip('/').split('/')[-1] for c in FALLBACK_CLASSES)   # 'physio_relG_pl'
+
+
+# ---------------------------------------------------------------- R18 agent prompts = core + patches (PI 2026-11-11)
+def r18_agent_prompts():
+    sys.path.insert(0, os.path.join(P, 'scripts/8_audit'))
+    import h52_agent_prompts
+    bad = h52_agent_prompts.check()
+    rep('R18-agent-prompts', not bad, f'.claude/agents vs human_study/agent_prompts: ' + ('in sync' if not bad else f'{bad} (agent file hand-edited or not regenerated; edit the sources and rerun h52)'))
 
 
 if __name__ == '__main__':
@@ -424,7 +474,7 @@ if __name__ == '__main__':
     quick = '--quick' in sys.argv
     r1_case_dirs(); r2_no_pass_by_absence(); r3_faces(quick); counts = r5_counts(); r6_retracted(); r7_pilot_keys()
     if not quick: r8_golden()
-    r9_blocks(production_samples()); r11_constants(); r12_file_index(); r14_patch7_logs(); r15_fric5(); r17_relG_fallback()
+    r9_blocks(production_samples()); r11_constants(); r12_file_index(); r14_patch7_logs(); r15_fric5(); r17_relG_fallback(); r19_route_e(); r18_agent_prompts()
     reg = r10_register()
     worst = write_status(dict(counts=counts, register=reg, mode='quick' if quick else 'full'))
     for c, s, m in R: print(f'{s:4s} {c}: {m[:300]}')
