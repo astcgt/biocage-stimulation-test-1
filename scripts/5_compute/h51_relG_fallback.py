@@ -28,16 +28,17 @@ from h50_relG_batch import gpu_busy
 import h24_preflight
 H47 = os.path.join(P, 'scripts/5_compute/h47_restart_pilot.py')
 EV = os.path.normpath(os.path.join(P, '..', 'biocage-evo')); FRIC_COMPARE = os.path.join(EV, 'ops/fric_compare.py'); VERD = os.path.join(EV, 'results/method/fric/verdicts.json')
-SRC = os.path.join(P, 'human_study/al_v2/physio_relG'); DST = os.path.join(P, 'human_study/al_v2', os.environ.get('H51_DST', 'physio_relG_pl')); DRIVE_LOG = os.path.join(SRC, 'drive.log')
+SRC = os.path.join(P, 'human_study/al_v2', os.environ.get('H51_SRC', 'physio_relG')); DST = os.path.join(P, 'human_study/al_v2', os.environ.get('H51_DST', 'physio_relG_pl')); DRIVE_LOG = os.path.join(SRC, 'drive.log')
 QUOTA = 32                       # this account's cgroup core quota (ops/relG_drive.py: 6 x 6 threads ran 26-28 % throttled)
-RESTART_ENV = os.environ.get('H51_KEYS', 'restart_env={"BIOCAGE_STICK_MEMORY": "0"}')   # 2026-11-11: H51_DST / H51_KEYS run this driver (only-mode) for another restart pilot of the process-G checkpoints, e.g. H51_DST=pilot_relGdt0 H51_KEYS='window_dt0=0.005' (key=json entries separated by '|')
+RESTART_ENV = os.environ.get('H51_KEYS', 'restart_env={"BIOCAGE_STICK_MEMORY": "0"}')   # 2026-11-11: H51_SRC / H51_DST / H51_KEYS run this driver (only-mode) for another restart pilot of process-G or production (physio_fric3) checkpoints, e.g. H51_DST=pilot_relGdt0 H51_KEYS='window_dt0=0.005' (key=json entries separated by '|')
 sfx = lambda w: '' if w == 'extension' else '_' + w
 marker = lambda p, w, kind='done': os.path.join(DST, p, kind + sfx(w))
 
 
 def source_run(p):
     """the finished physio_relG run dir of a design (resources.json, case.dmp, window dirs); None while it runs or when its insertion failed"""
-    c = [d for d in glob.glob(f'{SRC}/{p}_gpu*') if os.path.exists(d + '/resources.json') and os.path.exists(d + '/case.dmp') and glob.glob(d + '/w_*')]
+    ended = lambda d: os.path.exists(d + '/resources.json') or (os.path.exists(d + '/case.log') and 'N O R M A L' in open(d + '/case.log', errors='ignore').read()[-4000:])   # H51_SRC=physio_fric3: CPU insertion runs (h06) have no resources.json
+    c = [d for d in glob.glob(f'{SRC}/{p}_gpu*') + [f'{SRC}/{p}'] if os.path.isdir(d) and ended(d) and os.path.exists(d + '/case.dmp') and glob.glob(d + '/w_*')]
     return max(c, key=os.path.getmtime) if c else None
 
 

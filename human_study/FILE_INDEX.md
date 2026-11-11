@@ -51,7 +51,7 @@
 | `scripts/8_audit/h39_gpufe_newton_reverify.py` | gpufe 基準題用現行 Newton 求解器重跑（彎曲桿、滑動、黏著、定力保持）；不跑 FEBio，不寫 evo repo 的 results/ |
 | `scripts/8_audit/h40_gpu_solver_fig.py` | GPU solver vs FEBio 白話版圖（只讀結果檔） |
 | `scripts/8_audit/h38_febio_agreement_fig.py` | 平台 vs FEBio 貼合度圖與等效性檢定（只讀結果檔，不跑求解器）；`--rescan` 重掃相同輸入配對 |
-| `scripts/8_audit/h37_qa_check.py` | QA A 層：R1–R12 機械檢查；`--quick` / `launch <dir>` / `--daemon 6`；tmux `biocage_qa` |
+| `scripts/8_audit/h37_qa_check.py` | QA A 層：R1–R18 機械檢查；`--quick` / `launch <dir>` / `--daemon 6`；tmux `biocage_qa` |
 | `scripts/common/xplt.py`, `scripts/common/cage_geom.py` | 讀 FEBio xplt、cage 幾何 |
 
 ## 4. 判定程式（evo repo，決定誰 pass／fail）
@@ -114,8 +114,10 @@
 | `human_study/qa/RETRACTED.json` | 已撤回的說法（出現在文件中即 FAIL） |
 | `human_study/qa/audits/` | B 層稽核報告（`QA_AUDIT_2026-11-04.md`） |
 | `human_study/qa/qa.log` | h37 daemon 日誌 |
-| `.claude/agents/qa-auditor.md`, `.claude/skills/qa-audit/` | B 層 agent 與 `/qa-audit` |
-| `.claude/agents/pi-report.md` | 匯報 agent（先讀 QA 狀態、數字只引結果檔） |
+| `.claude/agents/qa-auditor.md`, `.claude/agents/qa-auditor-weak.md`, `.claude/skills/qa-audit/` | B 層 agent（h52 產物；`-weak` 為 Sonnet 級變體）與 `/qa-audit` |
+| `.claude/agents/pi-report.md`, `.claude/agents/pi-report-weak.md` | 匯報 agent（h52 產物；先讀 QA 狀態、數字只引結果檔） |
+| `human_study/agent_prompts/` | 代理設定原始檔：每個代理的 `core.md`（所有模型：最終目標＋必守規則）、`patch-weak.md`（較弱模型補丁）、`meta.json`；只改這裡 |
+| `scripts/8_audit/h52_agent_prompts.py` | 由原始檔產生 `.claude/agents/*.md`；`--check` 比對（h37 R18） |
 
 ## 8. FEBio
 | 檔案 | 內容 |
@@ -155,6 +157,7 @@ scratchpad `/tmp/claude-1024/-raid-jupyter-alz-ee09-projects-claude-work-biocage
 | `human_study/al_v2/pilot_relGfix/`, `human_study/al_v2/pilot_relGfixA/`（各含 run_batch.log） | 試跑類別 pilot_relGfix（2026-11-11 01:2x）= 兩個修正合併：關節罰函數（window_joint laugon 0、penalty 1e6）＋驅動從目前轉角起算（window_drive from_state）；pilot_relGfixA 同但關節用增廣拉格朗日（laugon 1、penalty 1e6、tolerance 0.01）。依據：Lagrange 乘子版（正式 laugon 2）第一次迭代的解與驅動值無關（鞍點方程在 GPU 直接解法下給出垃圾步，位移範數 1e6），罰函數版第一次迭代殘差 1e9 = 接上瞬間 0.0202 rad 的拉回 × 1e6。對象 p050 前屈、p068 前屈、p084 後伸（fix 另加 p039 後伸對照） | Claude |
 | `human_study/al_v2/pilot_relGlc/`（含 run_batch.log） | 診斷試跑 pilot_relGlc（2026-11-11 01:3x）：無關節重啟 ＋ 在重啟檔重新定義跟隨壓力曲線 lc 21 為 0（鍵 window_lc_redefine）；若 C3pot.txt 的 Fz 由 −100 N 變 0，表示 FEBio 重啟檔的 LoadData 重新定義有效（pilot_relGdrv／relGfix 的偏移曲線第一次迭代完全沒變，疑似未被採用；LoadData 現改放在 Step 之前） | Claude |
 | `human_study/al_v2/pilot_relGrel/`（含 run_batch.log、pNNN/w_*/window_drive.json） | 試跑類別 pilot_relGrel（2026-11-11 01:4x，路線 E）：窗口驅動改為 C3 pot 剛體的「相對」指定轉角（FEBio 2.5 格式 `<rigid_body><prescribed bc="Ry" lc=22/23 type="relative">`，啟動時以當下轉角為參考），不再用通用剛性關節（Lagrange 乘子、相對 t=0 絕對角）；曲線與振幅不變；force/moment 讀值仍由 C3pot.txt。對象 p050/p068 前屈、p084/p039 後伸 | Claude |
+| `human_study/al_v2/pilot_fric5rel/`（含 run_batch.log） | 路線 E 驗證試跑（PI 2026-11-11 決定 1a）：正式插入設計的檔點（physio_fric3 插入段 dump）以黏著記憶律＋C3 剛體相對指定轉角重啟（類別 = physio_fric5 + window_drive_mode rigid_relative；h51 以 H51_SRC=physio_fric3 建案）；對象 p002 兩向、p036 前屈、p100 後伸、p026 兩向；與 pilot_relGrel（流程 G 設計 p039/p068/p048/p109/p084）合計 8 設計 13 窗口，讀值與現行判定比較後決定正式化與 142 窗口重跑 | Claude |
 | `human_study/al_v2/physio_relG/gpu5_incident_20261110_p061_stderr.log` | 2026-11-10 14:36 GPU 5 被其他使用者佔滿（39.7/40 GB）、cuDSS status 4 立即失敗的證據；23 個 `_gpu5` 無效目錄已刪 | Claude |
 | `../biocage-evo/ops/mu_req_field.py`, `../biocage-evo/results/method/mu_req_field.json`, `../biocage-evo/results/method/mu_req_field.csv` | mu_req 場：每個設計的超參數 → 六個窗口的 mu_req（tied 篩選 mu_squeeze）、governing window、over_max／lower_bound／computable 旗標、摩擦檢查結果；ML 演化 agent 的訓練表（PI 2026-11-09） | Claude |
 | `../biocage-evo/results/method/mu_req_vs_fric5.json` | （另有同名 .csv）mu_req 捷徑（tied）對 physio_fric5 金標準的一致性（43 設計）：等級相關、線性對應殘差、0.5 mm 門檻對應的 mu_req；PI 待決第 3 項（容差）資料（DECISIONS 2026-11-09 18:18、18:26） |
