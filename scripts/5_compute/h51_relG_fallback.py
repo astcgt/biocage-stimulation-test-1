@@ -109,7 +109,7 @@ def run(nw, gpus, ncores, only):
             if not h24_preflight.valid(os.path.join(DST, p)): build([p])
         for it in new:
             if h24_preflight.valid(os.path.join(DST, it[0])): q.put(it); queued.add(it)
-            else: fails[it] += 1
+            else: fails[it] += 1; print(time.strftime('%H:%M'), f'{it[0]}:{it[1]} has NO valid preflight (h24 fingerprint stale? rebuild refused because the case has started windows) - attempt {fails[it]} of 6', flush=True)   # 2026-11-13: no more silent skips
         if new: print(time.strftime('%H:%M'), 'queued', [f'{p}:{w}' for p, w in new], flush=True)
     def slot_free(gpu): return (bool(os.environ.get('H51_SRC')) or drive_done() or not relg_todo()) and busy_threads() + ncores <= QUOTA and not gpu_busy(gpu)   # generic mode (H51_SRC): no physio_relG drive to wait for (2026-11-13: the fric5rel validation waited 36 h on this gate)
     def worker(i, gpu):
@@ -143,7 +143,11 @@ def run(nw, gpus, ncores, only):
         enqueue()
         if (only or drive_done()) and q.empty() and not inflight: break
         time.sleep(900)
-    stop.set(); [t.join() for t in th]; print('RELG_PL DONE', time.strftime('%Y-%m-%d %H:%M'), flush=True)
+    stop.set(); [t.join() for t in th]
+    want = ([(p, w) for p, w, _ in needed()[0]] + extra) if not only else [tuple(x.split(':')) for x in only]
+    miss = [f'{p}:{w}' for p, w in want if not os.path.exists(marker(p, w))]
+    if miss: print(time.strftime('%H:%M'), 'WARNING: requested windows WITHOUT a done marker:', ' '.join(miss), flush=True)   # 2026-11-13: DONE no longer hides given-up windows
+    print('RELG_PL DONE', time.strftime('%Y-%m-%d %H:%M'), 'missing', len(miss), flush=True)
 
 
 if __name__ == '__main__':

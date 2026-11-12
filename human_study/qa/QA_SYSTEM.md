@@ -26,6 +26,7 @@ PI 2026-11-04 指示：要有保證測試品質的 agent 定期檢查模擬方�
 | R8 golden-rebuild：用現行 h14 重建 p062 fric3，md5 必須等於 4f3208b5 | h14 改動是否影響 production（不等起跑才發現） |
 | R9 material-blocks：cage 每種材料一個 FEBio block（production 三型抽樣＋golden） | 標準規則：材料圖不得均質化 |
 | R10 register：登記表無 unmapped／不符；gate 檔案有改動或 DECISIONS 有新的 PI 決策條目 → 標「LLM audit required」 | 決策寫了、程式沒跟（評估點） |
+| R18 agent-prompts：`.claude/agents/*.md` 必須等於 h52 從 `human_study/agent_prompts/`（核心＋補丁）產生的內容 | 代理設定寫死過時範圍、各檔各自漂移（2026-11-11 提示詞稽核） |
 
 A 層只報告，不改 DECISIONS、標籤或結果檔。
 
@@ -36,7 +37,7 @@ A 層只報告，不改 DECISIONS、標籤或結果檔。
 4. 「不符」→ 寫 DECISIONS 條目，並把相關能力標籤改為 fail／stale（platform_capabilities.json），重跑 h33。
 5. 「實作時自選」→ 列成 PI 簽核清單，放進下一份匯報。
 
-觸發時機：(a) DECISIONS 新增 PI 決策；(b) gate 檔案（h14、h22、h24、h28、current_settings、fric_compare、e07_*、collect_split、e03、e04）有改動；(c) 任何向 PI 匯報數字之前；(d) 無事件時每週一次。R10 會把 (a)(b) 標成 WARN 提醒。
+觸發時機：(a) DECISIONS 新增 PI 決策；(b) gate 檔案（以 `qa/QA_SPEC.json` 的 `meta.gate_files` 為準）有改動；(c) 任何向 PI 匯報數字之前；(d) 無事件時每週一次。R10 會把 (a)(b) 標成 WARN 提醒。
 
 ## 匯報守門
 `pi-report` agent 先讀 `qa/QA_STATUS.json`：overall FAIL 或 R10 顯示稽核過期 → 匯報開頭必須寫「QA 未通過／稽核過期：以下數字未經核對」；數字一律引用結果檔與 QA_STATUS 的重算值，不用記憶中的數字。每份匯報結尾帶一行 QA 戳記（日期、overall、未過項）。

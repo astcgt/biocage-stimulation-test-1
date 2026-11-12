@@ -345,7 +345,7 @@ def r10_register():
             if os.path.exists(path) and os.path.getmtime(path) > t_last: stale_files.append(f)
     # PI decision entries newer than the last audit
     txt = open(os.path.join(P, 'human_study/DECISIONS.md'), errors='ignore').read()
-    heads = re.findall(r'^## (\d{4}-\d{2}-\d{2}(?: \d{2}:\d{2})?)[^\n]*(?:PI DECISION|PI decisions|decision)[^\n]*$', txt, flags=re.M | re.I)
+    heads = re.findall(r'^## (\d{4}-\d{2}-\d{2}(?: \d{2}:\d{2})?)[^\n]*(?:PI DECISION|PI decisions|decision|PI |PI 指示|PI 決定|verbatim)[^\n]*$', txt, flags=re.M | re.I)
     new_dec = [h for h in heads if not last or h > last[:len(h)]]
     hook = '--hook' in sys.argv            # 2026-11-05 pre-commit mode: register findings need a human (LLM audit); the hook enforces R1-R9, R11, R12
     rep('R10-register', not (unmapped or mismatch) or hook, f'{len(items)} register items; unmapped {unmapped}; 不符 {mismatch}' + (' (hook mode: reported, not blocking)' if hook and (unmapped or mismatch) else ''), warn=hook)
@@ -427,7 +427,7 @@ def r19_route_e():
             if not os.path.exists(os.path.join(cd, 'preflight.json')): continue   # case still being built by h47 (launched_feb.sha256 is copied before the preflight is written): checked on the next pass
             n += 1
             fin = os.path.exists(os.path.join(sp, 'case.dmp')) and (os.path.exists(os.path.join(sp, 'resources.json')) or (os.path.exists(os.path.join(sp, 'case.log')) and 'N O R M A L' in open(os.path.join(sp, 'case.log'), errors='ignore').read()[-4000:]))
-            if not src.startswith('human_study/al_v2/' + cfg['src_set']) or not fin: bad.append(f'{rel}: restart_source {src!r} is not a finished {cfg["src_set"]} run'); continue
+            if not src.startswith('human_study/al_v2/' + cfg['src_set'] + '/') or not fin: bad.append(f'{rel}: restart_source {src!r} is not a finished {cfg["src_set"]} run'); continue   # prefix WITH slash (audit 2026-11-13 S2)
             if prm.get('window_drive_mode') != 'rigid_relative': bad.append(rel + ': window_drive_mode != rigid_relative')
             spj = os.path.join(P, cfg['src_params'], os.path.basename(cd) + '_params.json'); sprm = json.load(open(spj)) if os.path.exists(spj) else {}
             diff = sorted(k for k in set(prm) | set(sprm) if k not in cfg['extra'] and prm.get(k) != sprm.get(k))
@@ -450,6 +450,16 @@ def r19_route_e():
                 se = os.path.join(cd, 'stderr' + sfx + '.log')
                 if os.path.exists(se) and 'CRSSparseMatrix::add' in open(se, errors='ignore').read(): bad.append(wrel + ': dropped stiffness entries')
     rep('R19-route-E', not bad, f'route-E classes: {n} cases, {nw} finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: {bad[:8]}')
+def r20_replicate_agreement():
+    """PI 2026-11-11 decision 4 (platform layer): designs built from the identical deck must give the same read-out under one window set. Reads
+    ../biocage-evo/results/method/fric/replicate_agreement.json (ops/replicate_agreement.py over the route-E sets physio_fric5r / physio_relGr):
+    WARN while any deck group's replicates disagree by more than 0.005 mm (or sit at different evaluation points) - a [數值] open item, not drift;
+    PASS when every group with two or more computed replicates agrees; skipped (PASS, noted) while the file is missing or older than verdicts.json."""
+    f = os.path.join(EV, 'results/method/fric/replicate_agreement.json'); vj = os.path.join(EV, 'results/method/fric/verdicts.json')
+    if not os.path.exists(f): rep('R20-replicate-agreement', True, 'replicate_agreement.json not generated yet (run ops/replicate_agreement.py after the route-E re-run)'); return
+    j = json.load(open(f)); sm = j.get('summary', {}); stale = os.path.exists(vj) and os.path.getmtime(f) < os.path.getmtime(vj)
+    bad = sm.get('windows_disagreeing_over_0p005_or_mixed_eval_point', 0)
+    rep('R20-replicate-agreement', not bad, f"sets {j.get('sets')}: {sm.get('groups')} deck groups, {sm.get('windows_with_two_or_more')} windows with >= 2 computed replicates, {bad} disagree (> 0.005 mm or mixed evaluation point), worst spread {sm.get('worst_spread_u_h_mm')} mm" + ('; file older than verdicts.json - rerun ops/replicate_agreement.py' if stale else ''), warn=True)
 FALLBACK_CLASSES_SETS = tuple(c.rstrip('/').split('/')[-1] for c in FALLBACK_CLASSES)   # 'physio_relG_pl'
 
 
@@ -476,7 +486,7 @@ if __name__ == '__main__':
     quick = '--quick' in sys.argv
     r1_case_dirs(); r2_no_pass_by_absence(); r3_faces(quick); counts = r5_counts(); r6_retracted(); r7_pilot_keys()
     if not quick: r8_golden()
-    r9_blocks(production_samples()); r11_constants(); r12_file_index(); r14_patch7_logs(); r15_fric5(); r17_relG_fallback(); r19_route_e(); r18_agent_prompts()
+    r9_blocks(production_samples()); r11_constants(); r12_file_index(); r14_patch7_logs(); r15_fric5(); r17_relG_fallback(); r19_route_e(); r20_replicate_agreement(); r18_agent_prompts()
     reg = r10_register()
     worst = write_status(dict(counts=counts, register=reg, mode='quick' if quick else 'full'))
     for c, s, m in R: print(f'{s:4s} {c}: {m[:300]}')

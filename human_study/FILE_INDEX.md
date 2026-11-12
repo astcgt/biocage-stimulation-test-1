@@ -110,6 +110,7 @@
 |---|---|
 | `human_study/qa/QA_SYSTEM.md` | 兩層 QA 設計說明 |
 | `human_study/qa/QA_SPEC.json` | B 層登記表：每條決策 ↔ 程式位置 ↔ 狀態（符合／不符／未實作／實作時自選／PI待決） |
+| `human_study/qa/audits/QA_AUDIT_2026-11-13.md` | 層 B 稽核 2026-11-13 04:1x–04:4x（DECISIONS 2026-11-11 14:44 至 2026-11-13 04:07）：5 條不符（fric_compare 勝出規則未看是否到達評估點、繼承後頂層殘留鎖死欄位、DIV-03／OBS-10／NUM-17 標籤數字過期）→ 04:5x 修正；登記表 242 條 | qa-auditor |
 | `human_study/qa/QA_STATUS.json`, `human_study/qa/QA_STATUS.md` | h37 最新結果（匯報前先看） |
 | `human_study/qa/RETRACTED.json` | 已撤回的說法（出現在文件中即 FAIL） |
 | `human_study/qa/audits/` | B 層稽核報告（`QA_AUDIT_2026-11-04.md`） |
@@ -149,6 +150,7 @@ scratchpad `/tmp/claude-1024/-raid-jupyter-alz-ee09-projects-claude-work-biocage
 | `scripts/5_compute/h51_relG_fallback.py`, `human_study/al_v2/physio_relG_pl/` | 流程 G 窗口的舊法則替代讀值（PI 2026-11-10 第 1 項延伸到流程 G）：黏著記憶律下在評估點前中止就反轉（軟面鎖死）的 physio_relG 窗口，從同一個 t 3.5 存檔用舊法則（`BIOCAGE_STICK_MEMORY=0`）以 h47 重跑；只作為替代來源（fric_compare `FALLBACK_SRC`、h37 R17），`+pNNN:window` 為對照窗口（量測流程 G 存檔上的法則差異）；`run_batch.log` 為驅動程式紀錄 | Claude；2026-11-11：撤銷「第一增量否決」（複本 p050/p068/p084/p127 證明那是跨次執行的數值變異）、流程 G 替代餘量改用 0.0581 mm（max 規則）、日誌加印 FEBio normal、通用模式 H51_DST/H51_KEYS |
 | `../biocage-evo/ops/relG_drive.py`, `../biocage-evo/ops/relG_drive_tuning.json`, `human_study/al_v2/physio_relG/drive.log` | physio_relG 批次第二驅動程式（工頭 2026-11-10 14:55）：每 60 s 一輪，最多 5 個 run × 6 核（32 核配額），GPU 4/1/3/2，中斷的 run 目錄在原 GPU 續跑；結束標記 RELG DRIVE DONE | Claude |
 | `../biocage-evo/ops/law_shift.py`, `../biocage-evo/results/method/fric/relG_law_shift.json` | 兩種摩擦律在同一存檔上的讀值差異產生器：fric3→fric5（替代讀值餘量 abs_p90 0.0431 mm 的來源；percentile 取觀測值）與 relG_pl→relG（流程 G 存檔上的轉移檢查） | Claude |
+| `../biocage-evo/ops/replicate_agreement.py`, `../biocage-evo/results/method/fric/replicate_agreement.json` | 複本一致性檢查（PI 2026-11-11 決定 4 的平台面驗收）：同模型（模型檔雜湊分組）的設計在指定窗口集（預設路線 E 的 physio_fric5r／physio_relGr）讀值差距；判準 = 同評估點且差 ≤ 0.005 mm（驗證試跑看到的讀值雜訊），超過者為 [數值] 項目而非設計結果 | Claude |
 | `human_study/al_v2/pilot_relGdt0/`, `human_study/al_v2/pilot_relGdt0/run_batch.log` | 試跑類別 pilot_relGdt0（2026-11-11 00:08）：流程 G 檔點以黏著記憶律重啟、窗口第一個增量步長 0.005（h30 鍵 window_dt0；dtmax 0.05 與結束時間不變），對象 = 兩種摩擦律都在第一增量中止的 12 個窗口 + 2 個對照（p068 前屈、p039 後伸）；由 h51 通用模式驅動（H51_DST=pilot_relGdt0 H51_KEYS=window_dt0=0.005），結果在各 pNNN/resources*.json 與 w_*/case.log |
 | `human_study/al_v2/pilot_relGnull/`, `human_study/al_v2/pilot_relGnull/run_batch.log` | 試跑類別 pilot_relGnull（2026-11-11 00:2x）「空重啟」：流程 G 檔點以黏著記憶律重啟、旋轉驅動為零（窗口專用鍵 window_null（h30：重啟檔的 prescribe 值設 0、0.2 s 窗口 4 步；physio_hold 會改主模型檔，h47 擋下）），跟隨壓力照常；若 p050/p084/p109/p127 仍在第一增量發散而 p068 不會，根因在重啟再平衡而非驅動；對象 = 4 個第一增量失敗窗口 + p048 前屈 + 對照 p068 前屈；h51 通用模式 H51_DST=pilot_relGnull | Claude |
 | `human_study/al_v2/pilot_relGnull2/`, `human_study/al_v2/pilot_relGnull2/run_batch.log` | 試跑類別 pilot_relGnull2（2026-11-11 00:5x）「無關節重啟」：window_null = nojoint，重啟步不宣告剛性關節驅動（只保留跟隨壓力、0.2 s 窗口）；pilot_relGnull（關節在、驅動 0）六個窗口含對照 p068 全部第一增量中止，此變體切分「關節接上」與「存檔重載」兩個假說；對象 p050 前屈、p068 前屈、p084 後伸 | Claude |

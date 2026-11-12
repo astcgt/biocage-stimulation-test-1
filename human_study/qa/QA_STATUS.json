@@ -1,11 +1,11 @@
 {
- "time": "2026-11-13 04:06",
+ "time": "2026-11-13 05:01",
  "overall": "WARN",
  "checks": [
   {
    "id": "R1-case-dir",
    "status": "PASS",
-   "message": "264 friction rows; windows without finished log + xplt: 0 []"
+   "message": "276 friction rows; windows without finished log + xplt: 0 []"
   },
   {
    "id": "R1-ambiguous",
@@ -45,7 +45,7 @@
   {
    "id": "R7-pilot-keys",
    "status": "PASS",
-   "message": "settings/h14: []; production cases scanned 858, with pilot options / extra keys: []"
+   "message": "settings/h14: []; production cases scanned 906, with pilot options / extra keys: []"
   },
   {
    "id": "R9-material-blocks",
@@ -60,7 +60,7 @@
   {
    "id": "R12-file-index",
    "status": "PASS",
-   "message": "265 paths in FILE_INDEX.md; missing []"
+   "message": "268 paths in FILE_INDEX.md; missing []"
   },
   {
    "id": "R14-patch7-logs",
@@ -85,7 +85,12 @@
   {
    "id": "R19-route-E",
    "status": "PASS",
-   "message": "route-E classes: 21 cases, 0 finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: []"
+   "message": "route-E classes: 70 cases, 14 finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: []"
+  },
+  {
+   "id": "R20-replicate-agreement",
+   "status": "PASS",
+   "message": "sets ['physio_fric5r', 'physio_relGr']: 8 deck groups, 0 windows with >= 2 computed replicates, 0 disagree (> 0.005 mm or mixed evaluation point), worst spread 0.0 mm"
   },
   {
    "id": "R18-agent-prompts",
@@ -95,12 +100,12 @@
   {
    "id": "R10-register",
    "status": "PASS",
-   "message": "204 register items; unmapped []; 不符 []"
+   "message": "245 register items; unmapped []; 不符 []"
   },
   {
    "id": "R10-llm-audit-due",
    "status": "WARN",
-   "message": "LLM audit required: last 2026-11-11 02:02; gate files changed since: ['human_study/current_settings.json', '../biocage-evo/ops/fric_compare.py', '../biocage-evo/ops/e07_batch.py', '../biocage-evo/ops/collect_split.py', '../biocage-evo/methods/e03_mu_req.py', '../biocage-evo/ops/mu_req_field.py', 'scripts/5_compute/h51_relG_fallback.py']; decision entries since: ['2026-11-11 14:44', '2026-11-11 14:55', '2026-11-11 15:04']"
+   "message": "LLM audit required: last 2026-11-13 04:58; gate files changed since: ['../biocage-evo/ops/fric_compare.py']; decision entries since: []"
   }
  ],
  "counts": {
@@ -126,24 +131,14 @@
   "designs": 149
  },
  "register": {
-  "last_llm_audit": "2026-11-11 02:02",
-  "n_items": 204,
+  "last_llm_audit": "2026-11-13 04:58",
+  "n_items": 245,
   "unmapped": [],
   "mismatch": [],
   "gate_files_changed": [
-   "human_study/current_settings.json",
-   "../biocage-evo/ops/fric_compare.py",
-   "../biocage-evo/ops/e07_batch.py",
-   "../biocage-evo/ops/collect_split.py",
-   "../biocage-evo/methods/e03_mu_req.py",
-   "../biocage-evo/ops/mu_req_field.py",
-   "scripts/5_compute/h51_relG_fallback.py"
+   "../biocage-evo/ops/fric_compare.py"
   ],
-  "new_decisions": [
-   "2026-11-11 14:44",
-   "2026-11-11 14:55",
-   "2026-11-11 15:04"
-  ]
+  "new_decisions": []
  },
  "mode": "quick"
 }
