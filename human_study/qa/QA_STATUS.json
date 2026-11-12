@@ -1,5 +1,5 @@
 {
- "time": "2026-11-11 15:07",
+ "time": "2026-11-13 04:06",
  "overall": "WARN",
  "checks": [
   {
@@ -45,7 +45,7 @@
   {
    "id": "R7-pilot-keys",
    "status": "PASS",
-   "message": "settings/h14: []; production cases scanned 836, with pilot options / extra keys: []"
+   "message": "settings/h14: []; production cases scanned 858, with pilot options / extra keys: []"
   },
   {
    "id": "R9-material-blocks",
@@ -60,7 +60,7 @@
   {
    "id": "R12-file-index",
    "status": "PASS",
-   "message": "263 paths in FILE_INDEX.md; missing []"
+   "message": "265 paths in FILE_INDEX.md; missing []"
   },
   {
    "id": "R14-patch7-logs",
@@ -85,7 +85,7 @@
   {
    "id": "R19-route-E",
    "status": "PASS",
-   "message": "route-E classes: 0 cases, 0 finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: []"
+   "message": "route-E classes: 21 cases, 0 finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: []"
   },
   {
    "id": "R18-agent-prompts",

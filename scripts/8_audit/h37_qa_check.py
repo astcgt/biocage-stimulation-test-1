@@ -178,12 +178,12 @@ def r7_pilot_keys(case_dirs=None):
                           for d in glob.glob(os.path.join(P, 'human_study/al_v2', s, 'p*')) if os.path.isdir(d) and os.path.exists(d + '/case.json')]
     leak = []; ref = {}
     for d in cases:
-        rel = os.path.relpath(d, P); is_pilot = any(rel.startswith(c.rstrip('/')) and 'pilot' in c for c in S['classes'])
+        rel = os.path.relpath(d, P) + '/'; is_pilot = any(rel.startswith(c) and 'pilot' in c for c in S['classes'])   # 2026-11-13: prefix match WITH the class slash (physio_relGr/p039 matched physio_relG before -> wrong allow-list)
         try: prm = json.load(open(d + '/case.json')).get('params', {})
         except Exception: continue
         if is_pilot: continue                                   # pilot classes carry their options by design; h24 compares them with the class settings
-        allowed = next((v for c, v in PRODUCTION_OPTIONS.items() if rel.startswith(c.rstrip('/'))), ())
-        if pilot_keys_in(prm, allowed): leak.append(f'{rel}: {pilot_keys_in(prm, allowed)}')
+        allowed = next((v for c, v in PRODUCTION_OPTIONS.items() if rel.startswith(c)), ())
+        if pilot_keys_in(prm, allowed): leak.append(f'{rel.rstrip("/")}: {pilot_keys_in(prm, allowed)}')
         # all production cases of one set must share one key set (QA audit 2026-11-04: a fixed pilot-key list misses options)
         st = os.path.basename(os.path.dirname(d)); ks = frozenset(prm)
         if st not in ref: ref[st] = ks
@@ -423,7 +423,9 @@ def r19_route_e():
         if v is None: continue
         if v != dict(S['classes'][cfg['base']], window_drive_mode='rigid_relative'): bad.append(f"class {cls} != {cfg['base']} + window_drive_mode rigid_relative: {sorted(k for k in set(v) | set(S['classes'][cfg['base']]) if v.get(k) != dict(S['classes'][cfg['base']], window_drive_mode='rigid_relative').get(k))}")
         for pj in sorted(glob.glob(os.path.join(P, cls, 'p*_params.json'))):
-            n += 1; prm = json.load(open(pj)); cd = pj[:-len('_params.json')]; rel = os.path.relpath(cd, P); src = prm.get('restart_source') or ''; sp = os.path.join(P, src)
+            prm = json.load(open(pj)); cd = pj[:-len('_params.json')]; rel = os.path.relpath(cd, P); src = prm.get('restart_source') or ''; sp = os.path.join(P, src)
+            if not os.path.exists(os.path.join(cd, 'preflight.json')): continue   # case still being built by h47 (launched_feb.sha256 is copied before the preflight is written): checked on the next pass
+            n += 1
             fin = os.path.exists(os.path.join(sp, 'case.dmp')) and (os.path.exists(os.path.join(sp, 'resources.json')) or (os.path.exists(os.path.join(sp, 'case.log')) and 'N O R M A L' in open(os.path.join(sp, 'case.log'), errors='ignore').read()[-4000:]))
             if not src.startswith('human_study/al_v2/' + cfg['src_set']) or not fin: bad.append(f'{rel}: restart_source {src!r} is not a finished {cfg["src_set"]} run'); continue
             if prm.get('window_drive_mode') != 'rigid_relative': bad.append(rel + ': window_drive_mode != rigid_relative')
