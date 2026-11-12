@@ -111,7 +111,7 @@ def run(nw, gpus, ncores, only):
             if h24_preflight.valid(os.path.join(DST, it[0])): q.put(it); queued.add(it)
             else: fails[it] += 1
         if new: print(time.strftime('%H:%M'), 'queued', [f'{p}:{w}' for p, w in new], flush=True)
-    def slot_free(gpu): return (drive_done() or not relg_todo()) and busy_threads() + ncores <= QUOTA and not gpu_busy(gpu)
+    def slot_free(gpu): return (bool(os.environ.get('H51_SRC')) or drive_done() or not relg_todo()) and busy_threads() + ncores <= QUOTA and not gpu_busy(gpu)   # generic mode (H51_SRC): no physio_relG drive to wait for (2026-11-13: the fric5rel validation waited 36 h on this gate)
     def worker(i, gpu):
         while not stop.is_set():
             try: it = q.get(timeout=30)
