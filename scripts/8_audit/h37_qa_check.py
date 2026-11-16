@@ -405,7 +405,7 @@ def r17_relG_fallback():
             for w, x in (v.get('windows') or {}).items():
                 if x.get('set') not in FALLBACK_CLASSES_SETS: continue
                 nf += 1; fb = x.get('fallback') or {}; sup = fb.get('superseded') or {}
-                if not fb or sup.get('set') != 'physio_relG' or x.get('window_law') != 'production (fallback)': bad.append(f'verdict {p} {w}: fallback-source window used without the fallback flag / provenance')
+                if not fb or sup.get('set') not in ('physio_relG', 'physio_relGr') or x.get('window_law') != 'production (fallback)': bad.append(f'verdict {p} {w}: fallback-source window used without the fallback flag / provenance')   # 2026-11-13: the superseded stick-law row may be the route-E one (physio_relGr)
                 if w in (v.get('soft_face_locking') or []): bad.append(f'verdict {p} {w}: fallback applied to a window classed not computable under either law')
     rep('R17-relG-fallback', not bad, f'{n} physio_relG_pl cases, {nw} finished windows checked; {nf} fallback windows in the verdicts; problems: {bad[:8]}')
 ROUTE_E = {'human_study/al_v2/physio_fric5r/': dict(base='human_study/al_v2/physio_fric5/', src_set='physio_fric3', src_params='human_study/al_v2/physio_fric3', extra=('restart_env', 'window_min_residual', 'window_drive_mode', 'restart_source')),

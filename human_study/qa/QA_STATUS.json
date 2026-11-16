@@ -1,11 +1,11 @@
 {
- "time": "2026-11-13 05:01",
+ "time": "2026-11-17 03:36",
  "overall": "WARN",
  "checks": [
   {
    "id": "R1-case-dir",
    "status": "PASS",
-   "message": "276 friction rows; windows without finished log + xplt: 0 []"
+   "message": "404 friction rows; windows without finished log + xplt: 0 []"
   },
   {
    "id": "R1-ambiguous",
@@ -30,12 +30,17 @@
   {
    "id": "R3-faces",
    "status": "PASS",
-   "message": "skipped (--quick); 250 e07 window files"
+   "message": "390 windows, 190 cases recounted; mismatches 0 []"
+  },
+  {
+   "id": "R4-insertion-state",
+   "status": "PASS",
+   "message": "insertion value state within 0.05 of t 3.5; violations 0 []"
   },
   {
    "id": "R5-counts",
    "status": "PASS",
-   "message": "classes {'friction-check-exceeded': (0, 0), 'interface-shear': (22, 22), 'radial-mix': (28, 27), 'friction-computability': (0, 0)} (all / among tied passes); stale document counts: []"
+   "message": "classes {'friction-check-exceeded': (2, 2), 'interface-shear': (28, 28), 'radial-mix': (28, 27), 'friction-computability': (0, 0)} (all / among tied passes); stale document counts: []"
   },
   {
    "id": "R6-retracted",
@@ -46,6 +51,16 @@
    "id": "R7-pilot-keys",
    "status": "PASS",
    "message": "settings/h14: []; production cases scanned 906, with pilot options / extra keys: []"
+  },
+  {
+   "id": "R8-golden-rebuild",
+   "status": "PASS",
+   "message": "p062 physio_fric3 rebuild md5 4f3208b5 vs recorded 4f3208b5 (11 s)"
+  },
+  {
+   "id": "R9-material-blocks",
+   "status": "PASS",
+   "message": "golden rebuild: one FEBio block per cage material in 1 cases (tmpmpg93hoz:4); problems: []"
   },
   {
    "id": "R9-material-blocks",
@@ -80,17 +95,17 @@
   {
    "id": "R17-relG-fallback",
    "status": "PASS",
-   "message": "17 physio_relG_pl cases, 24 finished windows checked; 6 fallback windows in the verdicts; problems: []"
+   "message": "17 physio_relG_pl cases, 24 finished windows checked; 2 fallback windows in the verdicts; problems: []"
   },
   {
    "id": "R19-route-E",
    "status": "PASS",
-   "message": "route-E classes: 70 cases, 14 finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: []"
+   "message": "route-E classes: 70 cases, 140 finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: []"
   },
   {
    "id": "R20-replicate-agreement",
-   "status": "PASS",
-   "message": "sets ['physio_fric5r', 'physio_relGr']: 8 deck groups, 0 windows with >= 2 computed replicates, 0 disagree (> 0.005 mm or mixed evaluation point), worst spread 0.0 mm"
+   "status": "WARN",
+   "message": "sets ['physio_fric5r', 'physio_relGr']: 8 deck groups, 14 windows with >= 2 computed replicates, 2 disagree (> 0.005 mm or mixed evaluation point), worst spread 0.012415672940065736 mm"
   },
   {
    "id": "R18-agent-prompts",
@@ -111,12 +126,12 @@
  "counts": {
   "classes": {
    "friction-check-exceeded": [
-    0,
-    0
+    2,
+    2
    ],
    "interface-shear": [
-    22,
-    22
+    28,
+    28
    ],
    "radial-mix": [
     28,
@@ -140,5 +155,5 @@
   ],
   "new_decisions": []
  },
- "mode": "quick"
+ "mode": "full"
 }
