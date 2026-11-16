@@ -1,11 +1,11 @@
 {
- "time": "2026-11-17 04:27",
+ "time": "2026-11-17 04:39",
  "overall": "WARN",
  "checks": [
   {
    "id": "R1-case-dir",
    "status": "PASS",
-   "message": "405 friction rows; windows without finished log + xplt: 0 []"
+   "message": "407 friction rows; windows without finished log + xplt: 0 []"
   },
   {
    "id": "R1-ambiguous",
@@ -35,7 +35,7 @@
   {
    "id": "R5-counts",
    "status": "PASS",
-   "message": "classes {'friction-check-exceeded': (2, 2), 'interface-shear': (28, 28), 'radial-mix': (28, 27), 'friction-computability': (0, 0)} (all / among tied passes); stale document counts: []"
+   "message": "classes {'friction-check-exceeded': (0, 0), 'interface-shear': (28, 28), 'radial-mix': (28, 27), 'friction-computability': (0, 0)} (all / among tied passes); stale document counts: []"
   },
   {
    "id": "R6-retracted",
@@ -75,7 +75,7 @@
   {
    "id": "R16-relG-law",
    "status": "PASS",
-   "message": "physio_relG: class law = fric5 law; 27 finished run dirs checked (insertion + window evidence lines, launch env/lib, stderr); problems: []"
+   "message": "physio_relG: class law = fric5 law; 28 finished run dirs checked (insertion + window evidence lines, launch env/lib, stderr); problems: []"
   },
   {
    "id": "R17-relG-fallback",
@@ -85,7 +85,7 @@
   {
    "id": "R19-route-E",
    "status": "PASS",
-   "message": "route-E classes: 71 cases, 140 finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: []"
+   "message": "route-E classes: 71 cases, 141 finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: []"
   },
   {
    "id": "R20-replicate-agreement",
@@ -104,15 +104,15 @@
   },
   {
    "id": "R10-llm-audit-due",
-   "status": "PASS",
-   "message": "LLM audit current: last 2026-11-17 04:30; gate files changed since: []; decision entries since: []"
+   "status": "WARN",
+   "message": "LLM audit required: last 2026-11-17 04:30; gate files changed since: ['../biocage-evo/ops/fric_compare.py']; decision entries since: ['2026-11-17 04:38']"
   }
  ],
  "counts": {
   "classes": {
    "friction-check-exceeded": [
-    2,
-    2
+    0,
+    0
    ],
    "interface-shear": [
     28,
@@ -135,8 +135,12 @@
   "n_items": 271,
   "unmapped": [],
   "mismatch": [],
-  "gate_files_changed": [],
-  "new_decisions": []
+  "gate_files_changed": [
+   "../biocage-evo/ops/fric_compare.py"
+  ],
+  "new_decisions": [
+   "2026-11-17 04:38"
+  ]
  },
  "mode": "quick"
 }
