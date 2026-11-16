@@ -1,7 +1,7 @@
 {
  "meta": {
   "note": "Register: one entry per PI decision that the code must implement. status in {符合, 不符, 未實作, 實作時自選, PI待決, unmapped}. check = h37 check id or 'llm' (judged by the qa-auditor agent). last_llm_audit is set by the auditor, never by h37.",
-  "last_llm_audit": "2026-11-13 04:58",
+  "last_llm_audit": "2026-11-17 04:30",
   "gate_files": [
    "scripts/3_cage_case/h14_build_case.py",
    "scripts/6_active_learning/h22_active_learning.py",
@@ -20,9 +20,10 @@
    "../biocage-evo/ops/mu_req_field.py",
    "../biocage-evo/ops/law_shift.py",
    "scripts/5_compute/h50_relG_batch.py",
-   "scripts/5_compute/h51_relG_fallback.py"
+   "scripts/5_compute/h51_relG_fallback.py",
+   "../biocage-evo/ops/replicate_agreement.py"
   ],
-  "audit_report": "human_study/qa/audits/QA_AUDIT_2026-11-13.md",
+  "audit_report": "human_study/qa/audits/QA_AUDIT_2026-11-17.md",
   "note_15_10": "statuses updated by the main session after the 14:50-15:00 label maintenance; register content from the qa-auditor run of 14:41",
   "note_20261105": "second LLM audit (qa-auditor) 2026-11-05 04:13-04:21: PI decisions of 04:10 registered (D-20261105-*); 11 existing items revised; 不符 D-20261104-L1, D-20261104-L5, D-20261105-L3 (label / document text and numbers, no verdict change)",
   "note_recheck": "2026-11-05 04:29: re-check after main-session fixes (DECISIONS 04:24 / 04:25 / 04:28 entries): D-20261104-L1, D-20261104-L5, D-20261105-L3 -> 符合; D-20261105-6 -> 符合; new D-20261105-S4 (NUM-10 pass with threshold exception, PI sign-off), D-20261105-L6 (labels stale after gate-file edits). 不符 0.",
@@ -36,7 +37,10 @@
   "note_20261111": "fifth LLM audit (qa-auditor) 2026-11-11 00:2x-00:5x: DECISIONS 2026-11-10 14:16, 14:24, 14:45, 17:14 and 2026-11-11 00:16 registered (D-20261110-6..15, D-20261111-1..12, L1-L2, S1-S7); 16 existing items re-checked. 不符 6: D-20261110-7 (not-computable rule / class differ from the PI-accepted 14:16 item-2 text; deliberate, documented, PI pending; literal rule would give nc 12->6 windows, NC class 2->1, fallback 11->10, verdict counts unchanged), D-20261111-1 (relG_pl windows 19+7=26 reported vs 17+7=24 on disk / R17), D-20261109-R5 (PHY-05 value stale 27/16/0/28 vs 44/17/10), D-20261109-R10 (OBS-10 FRIC 18 fail / 7 exceeded vs 22 / 0; OBS-10 TIED 26 vs 24 windows), D-20261111-L1 (DIV-03 FRIC value from 11-05), D-20261111-L2 (NUM-17 FRIC value from 11-04). No friction verdict changes. All other 00:16 numbers reproduced from the result files (D-20261111-2..5, 9, 10). Gate files h14/h30/settings/h37 were edited at 00:29 during the audit (window_null, pilot_relGnull): registered as an observation (D-20261110-15); pilot_relGdt0 / pilot_relGnull results not judged. Addendum 2026-11-11 00:55: settings/h30 edited again at 00:53 (pilot_relGnull2 class, h30 window_null nojoint variant) - pilot-only, diff inspected, registered as D-20261111-S8; last_llm_audit moved to 2026-11-11 00:55.",
   "note_20261111_recheck": "2026-11-11 02:02 re-check after the main-session fixes (DECISIONS 01:10, commits d54ff62 / eedd469): 不符 D-20261111-1, D-20261109-R5, D-20261109-R10, D-20261111-L1, D-20261111-L2 -> 符合 (corrections verified against run_batch.log / verdicts.json 00:11 / verdict_classes_merged.json 00:14; 72/129 window counts and limits reproduced); D-20261110-7 -> PI待決 (PI_PENDING item 1 asks the PI explicitly; code still differs from the 14:16 text). New: D-20261111-13 (pilot descriptions vs run records: relGdrv p048 flex not first-increment; route-E and relGfix second attempts LIVE at 01:58 past t 3.75 while DECISIONS 01:52 says stopped/fails), -14 (gate edits 00:55-01:46 pilot-only verified, golden md5 4f3208b5), -15 (RT-05), -16 (verdicts regenerated identical), -17 (window-procedure snap: PI issue, label disclosure). 不符 0.",
   "note_20261113": "fifth LLM audit (qa-auditor) 2026-11-13 04:1x-04:3x: DECISIONS 2026-11-11 14:44 / 14:55 / 15:02 / 15:04 and 2026-11-13 03:10 / 04:04 / 04:07 registered (D-20261111-18..36, L3; D-20261113-1..8, S1..S4, A0..A5); 16 existing items re-checked (10 status changes). 不符 5: D-20261113-6 (fric_compare keeps no joint-drive row when a route-E window fails; not-computable / replicate inheritance cannot fire for route-E winners - must be fixed before the post-re-run fric_compare), D-20261111-31 (top-level soft_face_locking kept on inherited pass designs -> mu_req_field column), D-20261111-L1 (DIV-03 numbers), D-20261111-L2 (NUM-17 wording), D-20261111-L3 (OBS-10 TIED numbers). 未實作 5 new (verdict-level drive provenance, provisional snap clause, MU_MAX, grey sub-grading, p102/p149) + D-20261109-M2 -> 未實作. The 15:04 and 04:04 numbers reproduce from the result files / an independent e04 re-run of the 18 validation windows. Route-E re-run (140 windows) running since 03:59/04:03: 70 cases checked as built per the decision, window results not judged (done 3 at 04:30).",
-  "note_recheck_20261113": "2026-11-13 04:58 re-check after DECISIONS 2026-11-13 04:50: the five 不符 (D-20261113-6, D-20261111-31, L1, L2, L3) -> 符合 (fric_compare winner rule re-simulated with synthetic failed route-E rows; verdicts.json 04:51 47/17/7 unchanged; labels rewritten 04:50, scorecard 04:51); 12 more items closed (D-20261111-28, -36, -32, -3, -27, D-20261113-A3, A4, S1-S4, -8). New: D-20261113-9 (verdicts.json now a mixed state with 11 route-E windows while the re-run continues), D-20261113-10 (replicate_agreement.py, 實作時自選), D-20261113-S5 (margin_basis claim not realised, 實作時自選). Narrative correction: e03 DYN_F is None, so under route E no dynamic-residual state is dropped (\"force residual still filters\" is not what the code does). Route-E window results not judged (done 9 + 3 at 04:56)."
+  "note_recheck_20261113": "2026-11-13 04:58 re-check after DECISIONS 2026-11-13 04:50: the five 不符 (D-20261113-6, D-20261111-31, L1, L2, L3) -> 符合 (fric_compare winner rule re-simulated with synthetic failed route-E rows; verdicts.json 04:51 47/17/7 unchanged; labels rewritten 04:50, scorecard 04:51); 12 more items closed (D-20261111-28, -36, -32, -3, -27, D-20261113-A3, A4, S1-S4, -8). New: D-20261113-9 (verdicts.json now a mixed state with 11 route-E windows while the re-run continues), D-20261113-10 (replicate_agreement.py, 實作時自選), D-20261113-S5 (margin_basis claim not realised, 實作時自選). Narrative correction: e03 DYN_F is None, so under route E no dynamic-residual state is dropped (\"force residual still filters\" is not what the code does). Route-E window results not judged (done 9 + 3 at 04:56).",
+  "note_gate_files_20261117": "replicate_agreement.py added by the qa-auditor 2026-11-17: its 0.005 mm / same-evaluation-point rule drives h37 R20 and the NUM-17 FRIC label numbers (decision 4 acceptance check)",
+  "note_20261117": "sixth LLM audit (qa-auditor) 2026-11-17 03:4x-04:1x (last_llm_audit 04:14): DECISIONS 2026-11-13 05:00 (L2213-2219) and 13:52 (L2221-2228) registered as D-20261113-11..15, 20..30, L1..L5, S7..S10; 7 existing items re-checked (9, 10, S5, M2 -> 符合; A2 -> 不符; A5 stays 未實作 - p102/p149 launched 2026-11-17 03:43; 6 re-verified). Verdict counts 52/13/4/2, the 7 changes, winning rows 78/44/7/8/18/2/1, replicate spreads, e07 12/53/5, split classes and mu_req_field reproduce; a scratchpad re-run of fric_compare.py reproduces verdicts.json / compare.json byte-identically. 不符 7: D-20261113-21 (first-increment failures 0 of 140 vs p048 first_increment_pattern), -23 (G/production split 23/3 + 29/13/2/1 do not sum; actual 24/3 + 28/13/2/1), -28 (15 more ROM windows vs 12), L2 (OBS-10 FRIC window_drive claim), L3 (DIV-03 FRIC same 0-of-140 sentence; DIV-03 TIED stale 92.6 % vs 94.6 %), L5 + A2 (NUM-13 FRIC pass: 21 of 36 joint-driven winning rows are production-law; promised route-E hold-drift re-read has no evidence). PI待決 new: D-20261113-29 (PASS 5 contains the two friction FAILs p093/p145 because collect_split keeps fails in PASS but moves greys out; previous PASS 3 all left). 實作時自選 new: -26 (verdict-changing replicate unification, side effects), S7-S10. Status totals: PI待決 2, 不符 7, 實作時自選 44, 未實作 8, 符合 209",
+  "note_20261117_recheck": "2026-11-17 04:30 re-check after DECISIONS 04:23 (L2237-2249): the seven 不符 (D-20261113-21, -23, -28, L2, L3, L5, A2) -> 符合 (DIV-03 / OBS-10 / NUM-13 labels dated 04:23 verified against the 04:19 result files; fric_compare REQ-only insertion_process, unified-member cleanup; collect_split window_drive; e03 comment); S10 -> 符合; D-20261113-29 stays PI待決 (now in PI_PENDING_DECISIONS.md); new D-20261117-1 (verdicts.json transitional 73 designs, p102/p149 open, 71-design numbers unchanged). 不符 0. Totals: PI待決 2, 實作時自選 43, 未實作 8, 符合 218"
  },
  "items": [
   {
@@ -1873,9 +1877,9 @@
    "code": [
     "../biocage-evo/ops/mu_req_field.py:11 (MU_MAX = 1.0 PLACEHOLDER), :34 (over_max = max > MU_MAX, 值保留)"
    ],
-   "status": "未實作",
-   "evidence": "MU_MAX 1.0 是程式內的佔位值（註解自承 PI to set）；實作選旗標＋保留原值而非 sentinel。PI 定 MU_MAX（可用表面處理能達到的上限，例如 0.5–1.0）並確認旗標方式即可。 ｜ 複查 2026-11-13 04:35（狀態 PI待決 → 未實作）：DECISIONS 04:07 L2200「授權自行決定 3」：MU_MAX 0.60（無外部依據，本案推論；over_max 旗標、值保留）「下次編輯時寫入」；ops/mu_req_field.py:11 仍 MU_MAX = 1.0（mtime 15:03）、mu_req_field.json _meta.mu_max 1.0；目前 max mu_req_max 0.1655 → 兩值皆無翻轉。",
-   "checked": "2026-11-13 04:35",
+   "status": "符合",
+   "evidence": "MU_MAX 1.0 是程式內的佔位值（註解自承 PI to set）；實作選旗標＋保留原值而非 sentinel。PI 定 MU_MAX（可用表面處理能達到的上限，例如 0.5–1.0）並確認旗標方式即可。 ｜ 複查 2026-11-13 04:35（狀態 PI待決 → 未實作）：DECISIONS 04:07 L2200「授權自行決定 3」：MU_MAX 0.60（無外部依據，本案推論；over_max 旗標、值保留）「下次編輯時寫入」；ops/mu_req_field.py:11 仍 MU_MAX = 1.0（mtime 15:03）、mu_req_field.json _meta.mu_max 1.0；目前 max mu_req_max 0.1655 → 兩值皆無翻轉。 ｜ 複查 2026-11-17 04:14（未實作 → 符合）：ops/mu_req_field.py:11 MU_MAX = 0.60（mtime 2026-11-13 04:49）、:38 over_max = max(mus) > MU_MAX；mu_req_field.json 13:51 _meta.mu_max 0.6、counts.over_max 0。",
+   "checked": "2026-11-17 04:14",
    "source": "decisions",
    "check": "llm"
   },
@@ -3454,8 +3458,8 @@
     "../biocage-evo/ops/e07_batch.py:75,81"
    ],
    "status": "符合",
-   "evidence": "fric_compare.py:103 每 (design, window) 取 RANK 最高者，不看 reached；physio_fric5r/physio_relGr 不在 FALLBACK_SRC（:33）→ :129 直接 continue。稽核員以 compare.json 真實列 + 合成的失敗路線 E 列重演 :95-139：p036 flexion 由「fric3 fallback 可用」變「physio_fric5r UNUSABLE」（fric3 替代鏈也失效）；p068 flexion 由「relG 可用」變「relGr UNUSABLE」→ 設計 open。連鎖：:178 _src = FALLBACK_SRC.get('physio_relGr') = None → both 永不成立 → 2(b) 類別（collect_split:233）與決定 4 繼承（fric_compare.py:237）對路線 E 勝出的窗口不再觸發。e07_batch.py:75 以 rom_reached 優先，覆蓋率確實只增不減，但 :81 無「absolute rigid joint」旗標。後果：今日數字不變（尚無路線 E 窗口進結果檔）；重跑後若直接執行 fric_compare，所有路線 E 失敗／未達評估點的窗口會把設計翻成 open（驗證集 13 窗中 2 窗未達：p048 ext、p084 ext；p036 flex 若失敗將失去現有 pass），且不可算類別與複本繼承失效 → 必須在重算前修正 fric_compare（reached 優先或 FALLBACK_SRC 加 fric5r→fric5、relGr→relG，並把 window_drive 寫入 verdict 列）。 ｜ 複查 2026-11-13 04:58（不符 → 符合）：DECISIONS 04:50（L2207）。fric_compare.py（04:49，未提交）:34 STICK_SETS、:35 FALLBACK_SRC 加 fric5r→fric3、relGr→relG_pl；:108-112 勝出鍵 (是否黏著律集合, 黏著律列是否到達評估點, RANK)。以 compare.json 真實列（剔除真實路線 E 列）＋合成失敗路線 E 列重演新規則：p036 flexion 仍為 fric3 fallback、p068 flexion 仍為 relG 可用、p050 flexion 路線 E 可用時勝出、p002 extension 路線 E 到 ROM 時勝出 ✓；不可算偵測的 _src 對路線 E 勝出列現為 relG_pl／fric3（可觸發）✓。verdicts.json 04:51 重算：pass 47 / grey 17 / open 7、open 名單、旗標 3＋3、fallback 11 窗不變 ✓；每個 verdict 窗口列有 window_drive（158/158）✓。注意：04:51 的 verdicts 已含 11 個重跑中完成的路線 E 窗口（p002 f/e、p014 e、p026 f/e、p036 e、p038 f/e、p039 f/e、p048 e）— 結果檔現為混合狀態，重跑結束前任何引用須註明。",
-   "checked": "2026-11-13 04:58",
+   "evidence": "fric_compare.py:103 每 (design, window) 取 RANK 最高者，不看 reached；physio_fric5r/physio_relGr 不在 FALLBACK_SRC（:33）→ :129 直接 continue。稽核員以 compare.json 真實列 + 合成的失敗路線 E 列重演 :95-139：p036 flexion 由「fric3 fallback 可用」變「physio_fric5r UNUSABLE」（fric3 替代鏈也失效）；p068 flexion 由「relG 可用」變「relGr UNUSABLE」→ 設計 open。連鎖：:178 _src = FALLBACK_SRC.get('physio_relGr') = None → both 永不成立 → 2(b) 類別（collect_split:233）與決定 4 繼承（fric_compare.py:237）對路線 E 勝出的窗口不再觸發。e07_batch.py:75 以 rom_reached 優先，覆蓋率確實只增不減，但 :81 無「absolute rigid joint」旗標。後果：今日數字不變（尚無路線 E 窗口進結果檔）；重跑後若直接執行 fric_compare，所有路線 E 失敗／未達評估點的窗口會把設計翻成 open（驗證集 13 窗中 2 窗未達：p048 ext、p084 ext；p036 flex 若失敗將失去現有 pass），且不可算類別與複本繼承失效 → 必須在重算前修正 fric_compare（reached 優先或 FALLBACK_SRC 加 fric5r→fric5、relGr→relG，並把 window_drive 寫入 verdict 列）。 ｜ 複查 2026-11-13 04:58（不符 → 符合）：DECISIONS 04:50（L2207）。fric_compare.py（04:49，未提交）:34 STICK_SETS、:35 FALLBACK_SRC 加 fric5r→fric3、relGr→relG_pl；:108-112 勝出鍵 (是否黏著律集合, 黏著律列是否到達評估點, RANK)。以 compare.json 真實列（剔除真實路線 E 列）＋合成失敗路線 E 列重演新規則：p036 flexion 仍為 fric3 fallback、p068 flexion 仍為 relG 可用、p050 flexion 路線 E 可用時勝出、p002 extension 路線 E 到 ROM 時勝出 ✓；不可算偵測的 _src 對路線 E 勝出列現為 relG_pl／fric3（可觸發）✓。verdicts.json 04:51 重算：pass 47 / grey 17 / open 7、open 名單、旗標 3＋3、fallback 11 窗不變 ✓；每個 verdict 窗口列有 window_drive（158/158）✓。注意：04:51 的 verdicts 已含 11 個重跑中完成的路線 E 窗口（p002 f/e、p014 e、p026 f/e、p036 e、p038 f/e、p039 f/e、p048 e）— 結果檔現為混合狀態，重跑結束前任何引用須註明。 ｜ 複查 2026-11-17 04:14：勝出規則 :107-111 未再改；13:49 的 fric_compare 唯一改動為 :253-260 複本統一（D-20261113-26）；scratchpad 複本重算與 verdicts.json 13:50 逐位元相同。",
+   "checked": "2026-11-17 04:14",
    "source": "decisions",
    "check": "llm"
   },
@@ -3563,9 +3567,9 @@
    "code": [
     "human_study/platform_capabilities.json (NUM-13 FRIC state partial, threshold)"
    ],
-   "status": "實作時自選",
-   "evidence": "NUM-13 FRIC 仍 partial（date 02:05）、threshold 文字仍為 PI 2026-11-09 決定 2 的兩款 → 現況一致（轉 pass 要等重跑）。此項觸及 PI 明定門檻的證據充分性 → 屬 PI 例外 (a) 邊界，建議下次匯報明列而非只記錄。",
-   "checked": "2026-11-13 04:35",
+   "status": "符合",
+   "evidence": "NUM-13 FRIC 仍 partial（date 02:05）、threshold 文字仍為 PI 2026-11-09 決定 2 的兩款 → 現況一致（轉 pass 要等重跑）。此項觸及 PI 明定門檻的證據充分性 → 屬 PI 例外 (a) 邊界，建議下次匯報明列而非只記錄。 ｜ 複查 2026-11-17 04:14（實作時自選 → 不符）：NUM-13 FRIC 已於 13:52 改 pass，但條目自訂的前提「hold-drift evidence is re-read on the new windows first」無證據（evidence 清單與 v17 檔未變，無路線 E 保持段檔），且標籤陳述「36 關節驅動列皆 stick_memory = 1」為假（21 列生產律）。詳 D-20261113-L5。 ｜ 複查 2026-11-17 04:30（DECISIONS 04:23 L2237-2249 修正後）（不符 → 符合）：授權自決 2 已撤回（DECISIONS 04:23 #6），NUM-13 FRIC 回 partial；條目與現狀一致。",
+   "checked": "2026-11-17 04:30",
    "source": "decisions",
    "check": "llm"
   },
@@ -3604,8 +3608,8 @@
     "human_study/al_v2/physio_fric3"
    ],
    "status": "未實作",
-   "evidence": "mu_req_field grey_band 12 設計中 p102、p149 無摩擦 run（physio_fric3 無 p102/p149 目錄）；排程在重跑之後，尚未起跑。",
-   "checked": "2026-11-13 04:35",
+   "evidence": "mu_req_field grey_band 12 設計中 p102、p149 無摩擦 run（physio_fric3 無 p102/p149 目錄）；排程在重跑之後，尚未起跑。 ｜ 複查 2026-11-17 04:14：已於 2026-11-17 03:43 起跑（tmux fric3_p102／fric3_p149；human_study/al_v2/physio_fric3/p102_gpu1、p149_gpu4，p102 case.log 1154 個收斂增量於 04:0x），尚未完成，無結果；維持未實作（進行中）。",
+   "checked": "2026-11-17 04:14",
    "source": "decisions",
    "check": "llm"
   },
@@ -3618,8 +3622,8 @@
     "../biocage-evo/results/method/fric/compare.json"
    ],
    "status": "符合",
-   "evidence": "verdicts.json 04:51：pass 47 / grey 17 / open 7、open 名單、旗標 3＋3、fallback 11 窗與 15:03 相同 ✓。但 compare.json 310 列已含 physio_fric5r 9 列、physio_relGr 3 列，verdicts 11 個窗口列為路線 E（p002 f/e、p014 e、p026 f/e、p036 e、p038 f/e、p039 f/e、p048 e；p048 e 為不可用列勝出，與 relG 同為不可用、後集合勝出，p048 仍 open）→「route-E rows not yet present」在 04:51 的檔案已不成立；數字相同但 provenance 混合。重跑結束前：任何引用 verdicts.json 的數字須註明「含 N 個路線 E 窗口的過渡狀態」；標籤 PHY-05／DIV-03／OBS-10 寫「2026-11-11 15:03 結果檔」，與 04:51 檔數字相同。",
-   "checked": "2026-11-13 04:58",
+   "evidence": "verdicts.json 04:51：pass 47 / grey 17 / open 7、open 名單、旗標 3＋3、fallback 11 窗與 15:03 相同 ✓。但 compare.json 310 列已含 physio_fric5r 9 列、physio_relGr 3 列，verdicts 11 個窗口列為路線 E（p002 f/e、p014 e、p026 f/e、p036 e、p038 f/e、p039 f/e、p048 e；p048 e 為不可用列勝出，與 relG 同為不可用、後集合勝出，p048 仍 open）→「route-E rows not yet present」在 04:51 的檔案已不成立；數字相同但 provenance 混合。重跑結束前：任何引用 verdicts.json 的數字須註明「含 N 個路線 E 窗口的過渡狀態」；標籤 PHY-05／DIV-03／OBS-10 寫「2026-11-11 15:03 結果檔」，與 04:51 檔數字相同。 ｜ 複查 2026-11-17 04:14：過渡狀態已結束——verdicts.json 13:50 在兩個驅動程式 DONE（11:34／13:32）之後產生，158 列 provenance 明確（D-20261113-14/20）。",
+   "checked": "2026-11-17 04:14",
    "source": "decisions",
    "check": "llm"
   },
@@ -3631,9 +3635,9 @@
     "../biocage-evo/ops/replicate_agreement.py",
     "../biocage-evo/results/method/fric/replicate_agreement.json"
    ],
-   "status": "實作時自選",
-   "evidence": "腳本以 verdicts.replicates.deck_sha256 分組、在指定集合（預設 fric5r／relGr）比較複本讀值（同評估點且 |spread u_h| ≤ 0.005 mm 為一致；0.005 為主線自選的讀值雜訊門檻）；04:53 輸出 8 組、0 窗有 ≥ 2 個算得出的複本（重跑中）。尚未接入 h37／h33（決定 4 文字要求），DECISIONS 04:50 條目未提此檔。簽核：門檻 0.005、接入 h37 R-檢查／h33 NUM-17 的時點。",
-   "checked": "2026-11-13 04:58",
+   "status": "符合",
+   "evidence": "腳本以 verdicts.replicates.deck_sha256 分組、在指定集合（預設 fric5r／relGr）比較複本讀值（同評估點且 |spread u_h| ≤ 0.005 mm 為一致；0.005 為主線自選的讀值雜訊門檻）；04:53 輸出 8 組、0 窗有 ≥ 2 個算得出的複本（重跑中）。尚未接入 h37／h33（決定 4 文字要求），DECISIONS 04:50 條目未提此檔。簽核：門檻 0.005、接入 h37 R-檢查／h33 NUM-17 的時點。 ｜ 複查 2026-11-17 04:14（實作時自選 → 符合）：已接入 h37 R20（h37:453-462，DECISIONS 05:00 L2217 記錄）、NUM-17 FRIC 標籤取其數字；13:51 輸出 8 群／14 窗／2 不一致（D-20261113-13/25）。門檻 0.005 mm 已寫入 DECISIONS 05:00。",
+   "checked": "2026-11-17 04:14",
    "source": "decisions",
    "check": "llm"
   },
@@ -3645,9 +3649,396 @@
     "../biocage-evo/ops/fric_compare.py:35,121-123",
     "../biocage-evo/results/method/fric/verdicts.json _meta.margin_basis"
    ],
+   "status": "符合",
+   "evidence": "路線 E 黏著律窗口失敗時退回「關節驱動的舊法則窗口＋餘量」：餘量 0.0431／0.0581 量自關節對（兩側同驅動），路線 E 對關節是不同驅動 → 近似。_meta.margin_basis 與 fallback.margin_basis 文字未改（只在 :35 程式註解寫明），「stated in margin_basis」未實現；fallback.superseded.set 會記 physio_fric5r／relGr 可供辨識。簽核：是否在 margin_basis 加註、或路線 E 失敗窗口先退回關節黏著律窗口（同法則、不同驅動）再退舊法則。 ｜ 複查 2026-11-17 04:14（實作時自選 → 符合）：fric_compare.py:145 已在 margin_basis 加註近似；現行 3 個替代窗口皆帶此句（D-20261113-12）。",
+   "checked": "2026-11-17 04:14",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-11",
+   "decisions_line": 2215,
+   "quote": "05:00「under route E the NUM-14 dynamic-residual filter is effectively OFF for the moment (exclude='all') AND the force residual is only recorded, not a criterion (e03 DYN_F = None) … the micro-step (dt) and jump filters remain」",
+   "code": [
+    "../biocage-evo/methods/e03_mu_req.py:75",
+    "../biocage-evo/methods/e03_mu_req.py:169",
+    "../biocage-evo/methods/e03_mu_req.py:200",
+    "../biocage-evo/methods/e03_mu_req.py:74,100,114"
+   ],
+   "status": "符合",
+   "evidence": "e03:75 `DYN_M, DYN_F = 0.02, None`；:102 力殘差只在 DYN_F 為真時才判 → 從未作用；:169 exclude == 'all' 時 mres = 0.0；:200 mode == 'rigid_relative' 傳 exclude='all' ✓。dt 濾波 :74 DT_MIN 1e-4／:100、jump 濾波 :113-114 不受 mode 影響 ✓。觀察：:200 行尾註解仍寫「the force residual still filters」，與 :75 矛盾（註解而非程式；不計分）。 ｜ 複查 2026-11-17 04:30（DECISIONS 04:23 L2237-2249 修正後）：e03_mu_req.py:200 註解改為「the force residual is recorded only (DYN_F None) - no rigid-body residual」（git diff）✓。",
+   "checked": "2026-11-17 04:30",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-12",
+   "decisions_line": 2216,
+   "quote": "05:00「fallback.margin_basis now states the approximation (joint-pair margin applied to a relative-drive window) when the superseded row is a physio_fric5r / physio_relGr row (audit S5)」",
+   "code": [
+    "../biocage-evo/ops/fric_compare.py:145",
+    "../biocage-evo/results/method/fric/verdicts.json p095/p104 extension, p148 flexion fallback.margin_basis"
+   ],
+   "status": "符合",
+   "evidence": "fric_compare.py:145 在 r['set'] ∈ (physio_fric5r, physio_relGr) 時於 margin_basis 加「; applied to a route-E (relative-drive) stick-law window although the margin was measured on joint-driven pairs - approximation (audit 2026-11-13 S5)」✓；verdicts.json 13:50 現有 3 個替代窗口（p095 ext、p104 ext 來源 physio_relG_pl 餘量 0.0581；p148 flex 來源 physio_fric3 餘量 0.0431）皆帶此句，superseded.set 為 physio_relGr／physio_fric5r ✓。",
+   "checked": "2026-11-17 04:14",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-13",
+   "decisions_line": 2217,
+   "quote": "05:00「h37 R20-replicate-agreement reads results/method/fric/replicate_agreement.json … WARN while any deck group disagrees, PASS when all agree, noted while the file is missing/stale. h33 NUM-17 FRIC gets the numbers after the re-run」",
+   "code": [
+    "scripts/8_audit/h37_qa_check.py:453-462",
+    "../biocage-evo/ops/replicate_agreement.py:34-46",
+    "../biocage-evo/results/method/fric/replicate_agreement.json",
+    "human_study/platform_capabilities.json NUM-17 FRIC value"
+   ],
+   "status": "符合",
+   "evidence": "h37:458-462：讀 replicate_agreement.json，bad = summary.windows_disagreeing_over_0p005_or_mixed_eval_point，rep(..., not bad, ..., warn=True) → 有不一致為 WARN ✓；缺檔 :459 PASS＋註記、過期（mtime < verdicts.json）只在訊息加註 ✓（簽核 S7：過期檔仍可 PASS）。replicate_agreement.json 13:51:12 晚於 verdicts.json 13:50:34 ✓。h37 --quick 2026-11-17 03:40：R20 WARN「8 deck groups, 14 windows, 2 disagree, worst 0.012416」✓。NUM-17 FRIC value（date 13:52）含 12/14、0.552/0.539、0.012、0.0068 ✓ 與檔一致。",
+   "checked": "2026-11-17 04:14",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-14",
+   "decisions_line": 2218,
+   "quote": "05:00「verdicts.json regenerated during the re-run already contains the finished route-E windows … counts unchanged so far (47 / 17 / 7) but provenance is mixed; no report quotes these interim verdicts; the final computation follows 'RELG_PL DONE' of both drivers」",
+   "code": [
+    "../biocage-evo/results/method/fric/verdicts.json (git 7e56772 = 04:51; HEAD = 13:50)",
+    "human_study/al_v2/physio_fric5r/run_batch.log",
+    "human_study/al_v2/physio_relGr/run_batch.log"
+   ],
+   "status": "符合",
+   "evidence": "git show 7e56772 verdicts.json：generated 04:51、pass 47 / grey 17 / open 7 ✓；現行 verdicts.json generated 13:50；run_batch.log 末行「RELG_PL DONE 2026-11-13 11:34」（fric5r）與「RELG_PL DONE 2026-11-13 13:32」（relGr）皆早於 13:50 ✓。本輪未見任何現行文件引用 04:51 的過渡數字。",
+   "checked": "2026-11-17 04:14",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-15",
+   "decisions_line": 2219,
+   "quote": "05:00「Register 245 items: 符合 193, 實作時自選 42, 未實作 9, PI待決 1 … last_llm_audit 2026-11-13 04:58」",
+   "code": [
+    "human_study/qa/QA_SPEC.json"
+   ],
+   "status": "符合",
+   "evidence": "本輪開始時 QA_SPEC.json：245 項，Counter 符合 193 / 實作時自選 42 / 未實作 9 / PI待決 1，meta.last_llm_audit 2026-11-13 04:58 ✓（本輪後數字改變，見 note_20261117）。",
+   "checked": "2026-11-17 04:14",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-20",
+   "decisions_line": 2223,
+   "quote": "13:52「physio_fric5r 86 windows (77 N O R M A L, 8 stopped before t 3.6 after converged increments, 1 late stop), physio_relGr 54 (33 normal, 12 early, 9 late) … Winning rows in verdicts.json: route E 122 of 158 (physio_fric5r 78, physio_relGr 44); joint-driven rows … physio_fric5 7, physio_relG 8, physio_fric2 18 …, fallbacks physio_relG_pl 2 (p095 ext, p104 ext) + physio_fric3 1 (p148 flex)」",
+   "code": [
+    "human_study/al_v2/physio_fric5r/p*/w_*/case.log",
+    "human_study/al_v2/physio_relGr/p*/w_*/case.log",
+    "human_study/al_v2/physio_fric5r/run_batch.log",
+    "human_study/al_v2/physio_relGr/run_batch.log",
+    "../biocage-evo/results/method/fric/verdicts.json"
+   ],
+   "status": "符合",
+   "evidence": "case.log 計數：fric5r 86 log，N O R M A L 77、E R R O R 9（t_last < 3.6 共 8：p014 f 3.574、p065 f 3.55、p067 f 3.555、p078 e 3.59、p086 e 3.59、p125 f 3.564、p143 f 3.56、p148 f 3.582；晚停 1：p081 e 3.632）✓；relGr 54 log，33 normal、21 error（< 3.6 共 12、≥ 3.6 共 9）✓。window_drive.json 140 個全部 window_drive_mode rigid_relative（逐檔計數）；launch*.json 140 個 lib_sha256 皆 be7b357f、env BIOCAGE_STICK_MEMORY 皆 1（逐檔計數）；run_batch.log 03:59 起、DONE 11:34／13:32 ✓。verdicts.json 158 個窗口列：fric5r 78、relGr 44（含 p050/p084 前屈 2 列為 inherited_from p068 的複本，自身勝出 42）、fric5 7、relG 8（6＋2 inherited）、fric2 18（p060 6、p062 4、p109 4、p125 4）、relG_pl 2（p095/p104 ext）、fric3 1（p148 flex）✓；window_drive「relative …」122、「absolute rigid joint …」36 ✓。",
+   "checked": "2026-11-17 04:14",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-21",
+   "decisions_line": 2223,
+   "quote": "13:52「FIRST-INCREMENT FAILURES: 0 of 140 (every joint-driven set had them: the activation snap is gone)」（同句見 DIV-03 FRIC 標籤「140 個重跑窗口第一增量失敗 0 個」、commit da5ed75 標題）",
+   "code": [
+    "../biocage-evo/ops/fric_compare.py:36,185,192",
+    "../biocage-evo/results/method/fric/verdicts.json p048.first_increment_pattern",
+    "human_study/al_v2/physio_relGr/p048/w_extension/case.log"
+   ],
+   "status": "符合",
+   "evidence": "程式自己的「第一增量型態」定義（fric_compare.py:36 LOCK_T 3.52、LOCK_NJ 100；:185 early = t_last < 3.52 且負 Jacobian > 100；:192 記入 first_increment_pattern）在 140 個路線 E 窗口中命中 1 個：verdicts.json p048.first_increment_pattern = ['extension']，physio_relGr/p048/w_extension/case.log t_last 3.51554、Negative jacobian 4941 次、73 個收斂增量。「0 of 140」只在「零收斂增量」的字面定義下成立，但決策文與標籤未給此定義，且結果檔同時標 p048 為 first_increment_pattern。後果：「activation snap is gone」的證據是 139/140 而非 140/140；DIV-03 FRIC 標籤同句須改；判定數字不變（p048 本就 open／both-laws）。 ｜ 複查 2026-11-17 04:30（DECISIONS 04:23 L2237-2249 修正後）（不符 → 符合）：DECISIONS 04:23 改為「1 of 140 (p048 extension …) ; 139 of 140 passed the first increment」；DIV-03 FRIC value 改「140 個重跑窗口中第一增量失敗 1 個（p048 後伸，t_last 3.516、負 Jacobian 4941）」(date 2026-11-17T04:23)；commit 標題保留為歷史。✓",
+   "checked": "2026-11-17 04:30",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-22",
+   "decisions_line": 2224,
+   "quote": "13:52「pass 52 / grey 13 / open 4 / fail 2. Changes (7): p097 open -> pass, p109 open -> pass, p116 open -> pass …; p100 grey -> pass (ext 0.436, was the fallback 0.500), p140 grey -> pass (ext 0.30, was 0.483 …); p093 grey -> FAIL (ext … 0.552 > 0.55; was 0.545); p145 grey -> FAIL by unification … (own 0.539, spread 0.012 mm …). Open 4 = p048 (ext), p074 (flex), p115 (flex) … + p060」",
+   "code": [
+    "../biocage-evo/results/method/fric/verdicts.json (generated 2026-11-13 13:50)",
+    "git f03e073:results/method/fric/verdicts.json (generated 2026-11-11 15:03)",
+    "../biocage-evo/ops/fric_compare.py:161-169"
+   ],
+   "status": "符合",
+   "evidence": "Counter 現行 pass 52 / grey 13 / open 4 / fail 2（71 設計）、基準 f03e073 47 / 17 / 7 ✓；逐設計差異恰 7 個：p093 grey→fail、p097 open→pass、p100 grey→pass、p109 open→pass、p116 open→pass、p140 grey→pass、p145 grey→fail ✓。值：p100 ext fric5r ROM 0.436（基準 fric3 替代 0.500）、p140 ext relGr 0.301（基準 relG 0.483）、p093 ext 0.552 > GREY_HI 0.55（:161 嚴格 >；基準 fric5 0.545）、p145 ext 0.539（own_verdict grey；差 0.0124）✓；p097 兩窗 relGr、p109 ext/flex relGr、p116 flex relGr ✓。open 4：p048 soft_face_locking [extension]、p074 [flexion]、p115 [flexion]、p060 flexion 無可用列（physio_fric2 唯一）✓。獨立重算：fric_compare.py 複本（輸出導向 scratchpad，結果檔未動）產出的 verdicts.json／compare.json（438 列）與現行檔逐位元相同（僅 _meta.generated 不同）✓。",
+   "checked": "2026-11-17 04:14",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-23",
+   "decisions_line": 2224,
+   "quote": "13:52「Process G 27: pass 23 / open 3 (+ p050, p084 inherit from p068; p127 computed itself now); production 44: pass 29 / grey 13 / fail 2 / open 1」",
+   "code": [
+    "../biocage-evo/results/method/fric/verdicts.json",
+    "../biocage-evo/ops/fric_compare.py:171",
+    "human_study/al_v2/physio_relGr/ (27 designs)"
+   ],
+   "status": "符合",
+   "evidence": "條目的分項加總自相矛盾：23＋3 = 26 ≠ 27；29＋13＋2＋1 = 45 ≠ 44。以集合成員計（physio_relGr 27 個設計；physio_fric5r 43＋p060 = 44）：流程 G 27 = pass 24 / open 3；生產 44 = pass 28 / grey 13 / fail 2 / open 1。差一個 = p109：fric_compare.py:171 以所有窗口列的 insertion_process 集合判定，p109 的 relGr 列（G）與 physio_fric2 LB/AR 列（production）並存 → insertion_process 為 2 元素 list，被條目計入生產側。後果：任何引用此分項的報告 G pass 23→24、生產 pass 29→28；總數 52/13/4/2 不變。簽核 S10（p109 provenance）。 ｜ 複查 2026-11-17 04:30（DECISIONS 04:23 L2237-2249 修正後）（不符 → 符合）：DECISIONS 04:23 重述 G 27 = 24/3、生產 44 = 28/13/2/1 ✓；fric_compare.py:171 改為只取 REQ 窗口（git diff：`wn_ in REQ`）；verdicts.json 04:19 p109.insertion_process 為「G …」字串、list 型 0 個；依 insertion_process 分組 G 27 = pass 24 / open 3 與依集合成員計相同 ✓。",
+   "checked": "2026-11-17 04:30",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-24",
+   "decisions_line": 2225,
+   "quote": "13:52「Read-out shifts route E minus joint (same evaluation point, 114 windows): production median 0.000 mm (min -0.064 p100 ext, max +0.168 posterior-sign p065 flex); process G median +0.001, but … flexion at 1.5 N m moves by 0.23 mm (p050 / p068 / p084 / p127 0.39 -> 0.16, p101 0.24) and p140 ext by -0.18 …; extension-at-ROM read-outs elsewhere move <= 0.06」",
+   "code": [
+    "../biocage-evo/results/method/fric/compare.json",
+    "git f03e073:results/method/fric/verdicts.json (baseline winners)"
+   ],
+   "status": "符合",
+   "evidence": "以路線 E 可用列對「基準 verdicts.json 15:03 的勝出列」（含替代＋餘量、繼承列）配對：114 對（同評估點 114、異評估點 0）✓。生產 78 對中位 +0.0004（「0.000」）、min −0.064 p100 ext（對替代值 0.500）、max +0.168 p065 flex ✓；流程 G 36 對中位 +0.0008（「+0.001」），p050/p068/p084/p127 flex +0.228（0.390→0.162；基準 p050/p084 為繼承 p068 的值，p084 自身關節列為 0.142）、p101 +0.242、p140 ext −0.182 ✓；其餘 ROM 點位移最大 0.055（p109 ext，對 relG_pl 替代值 0.259）✓ ≤ 0.06。註：若只對「自身關節驅動黏著律列」（fric5/relG）配對為 104 對（p100 ext 無可用 fric5 列），中位 0.001／0.000，極值 p093 flex −0.034、p065 +0.168。",
+   "checked": "2026-11-17 04:14",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-25",
+   "decisions_line": 2226,
+   "quote": "13:52「Replicate agreement (ops/replicate_agreement.py, R20): 8 deck groups, 14 windows with >= 2 computed replicates, 12 within 0.005 mm (p050/p068/p084/p127 flexion all 0.162, spread 0.00015; p077/p139 1e-11), 2 above: p093/p145 extension 0.0124 (0.552 / 0.539 …) and p051/p075 flexion 0.0068 (both grey) … Flags: replicate-not-reproduced 2, replicate-inconsistent 2 (p093, p145)」",
+   "code": [
+    "../biocage-evo/results/method/fric/replicate_agreement.json (13:51)",
+    "../biocage-evo/ops/replicate_agreement.py:17-41",
+    "../biocage-evo/results/method/fric/verdicts.json numerical_flags"
+   ],
+   "status": "符合",
+   "evidence": "summary：groups 8、windows_with_two_or_more 14、disagreeing 2、worst 0.012416 ✓；p093/p145 ext 0.5517/0.5393 差 0.012416、p051/p075 flex 差 0.006758、p050 群 flex 0.16205-0.16220 差 0.000149、p077/p139 flex 1.7e-11／ext 1.6e-12 ✓；p051/p075 verdicts 皆 grey ✓。numerical_flags：replicate-not-reproduced p050、p084；replicate-inconsistent p093、p145 ✓。腳本以 compare.json 的路線 E 列比較（不限勝出列；readout :17-20 同 fric_compare 評估點規則）。",
+   "checked": "2026-11-17 04:14",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-26",
+   "decisions_line": 2226,
+   "quote": "13:52「Decision-4 rule extended (授權自決): a deck group whose computed replicates DISAGREE in verdict takes the most conservative verdict (own under own_verdict), flag replicate-inconsistent; inheritance for not-computed replicates unchanged」",
+   "code": [
+    "../biocage-evo/ops/fric_compare.py:239,253-261",
+    "../biocage-evo/results/method/fric/verdicts.json p145",
+    "human_study/DECISIONS.md:2160 (PI 決定 4 原話)"
+   ],
    "status": "實作時自選",
-   "evidence": "路線 E 黏著律窗口失敗時退回「關節驱動的舊法則窗口＋餘量」：餘量 0.0431／0.0581 量自關節對（兩側同驅動），路線 E 對關節是不同驅動 → 近似。_meta.margin_basis 與 fallback.margin_basis 文字未改（只在 :35 程式註解寫明），「stated in margin_basis」未實現；fallback.superseded.set 會記 physio_fric5r／relGr 可供辨識。簽核：是否在 margin_basis 加註、或路線 E 失敗窗口先退回關節黏著律窗口（同法則、不同驅動）再退舊法則。",
-   "checked": "2026-11-13 04:58",
+   "evidence": "實作：:239 _order fail 0 < grey 1 < pass 2；:254 worst = min(computed)；:257-260 非 worst 成員 own_verdict／own_reasons 保留、verdict／reasons 改為 worst 的、verdict_source 註明；:261 replicates.verdicts／consistent 重算。p145：verdict fail、own_verdict grey、own_reasons []、verdict_source「… most conservative member p093 …」✓；p093 不變。這是會改判定的規則（p145 grey→fail），依 2026-11-13 授權自決；PI 決定 4 原話（L2160）要求「同一個設計能有穩定的模擬結果數值」，未指定統一方式；fric_compare.py:253 引號內「同個設計同個模擬流程，應認為同個結果」在 DECISIONS 無逐字出處（grep）。副作用（簽核）：(a) p145.reasons 寫的是 p093 的數字「extension@ROM u_h 0.55 post 0.55」而非自身 0.539；(b) p145 仍保留 grey 清單與 grey_note（灰區字句）；(c) replicates.consistent 統一後為 True，與 numerical_flags replicate-inconsistent 同在。後果：fail 2 vs 1、grey 13 vs 14；經 collect_split p145 進 PASS 類（見 D-20261113-29）。 ｜ 複查 2026-11-17 04:30（DECISIONS 04:23 L2237-2249 修正後）：副作用 (a)(b) 已處理：fric_compare.py:258-259（git diff）統一成員 own_grey 保留自身灰區、grey 改為 worst 的、grey_note 移除、reasons 改為「unified to replicate p093 (…; its reasons: extension@ROM u_h 0.55 post 0.55)」；verdicts.json 04:19 p145：reasons 如上、grey []、own_grey [0.539 …]、無 grey_note ✓。(c) replicates.consistent = True 與 replicate-inconsistent 旗標並存未改（語意簽核仍在）。規則本身（grey→fail）仍為授權自決下的 PI 簽核項；71 設計判定與勝出列與 13:50 相同。",
+   "checked": "2026-11-17 04:30",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-27",
+   "decisions_line": 2227,
+   "quote": "13:52「Interface shear e07 …: pass 12 / fail 53 / open 5 (was 15 / 40 / 15 …). collect_split: PASS 5 (was 3), GREY … 8, interface-shear-provisional 28, radial-mix-excluded 28, [數值]/not-computable-both-laws 2, [多元]/computability 2, [數值]/unstable-window 2, [觀測]/friction-window 2, friction-check-exceeded 2; 276 windows: fail 128 / grey 8 / both 5 / open 8. mu_req_field rewritten (MU_MAX 0.60, over_max 0)」",
+   "code": [
+    "../biocage-evo/results/method/fric/e07_verdicts.json (13:43)",
+    "git f03e073:results/method/fric/e07_verdicts.json",
+    "../biocage-evo/results/method/split/verdict_classes_merged.json (13:51)",
+    "../biocage-evo/results/method/split/verdict_lists_merged.json",
+    "../biocage-evo/results/method/mu_req_field.json _meta"
+   ],
+   "status": "符合",
+   "evidence": "e07 designs Counter pass 12 / fail 53 / open 5（70 設計）、基準 15 / 40 / 15 ✓；替代列 4（p036 flex fric3、p095/p104 ext relG_pl、p148 flex fric3，皆 fallback=True）。verdict_classes_merged：PASS 5、GREY 8、interface-shear-provisional 28、radial-mix-excluded 28、not-computable-both-laws 2（p048 p115）、computability 2、unstable-window 2、friction-window 2（p064 p121）、friction_check_exceeded 2（p093 p145）✓。verdict_lists_merged：fail 128 / grey 8 / both 5 / open 8 ✓——但這四數相加 = 149 是「設計數」，條目寫成「276 windows」；276 本輪未能由結果檔重現（文字）。mu_req_field.json _meta：generated 13:51、mu_max 0.6、counts.over_max 0、n_designs 149 ✓；ops/mu_req_field.py:11 MU_MAX = 0.60 ✓。 ｜ 複查 2026-11-17 04:30（DECISIONS 04:23 L2237-2249 修正後）：「276 windows」在 DECISIONS 04:23 #7 更正為設計數 ✓。",
+   "checked": "2026-11-17 04:30",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-28",
+   "decisions_line": 2227,
+   "quote": "13:52「(was 15 / 40 / 15: 15 more windows reach the ROM under route E, most exceed 3 MPa)」",
+   "code": [
+    "../biocage-evo/results/method/fric/e07_verdicts.json",
+    "git f03e073:results/method/fric/e07_verdicts.json",
+    "../biocage-evo/results/method/fric/compare.json"
+   ],
+   "status": "符合",
+   "evidence": "e07_verdicts 的窗口列（只收到達 intact ROM 的列）：基準 120、現行 132 → 多 12 個（p039 f、p050 f、p081 f、p082 f、p088 f、p095 f、p097 e/f、p109 f、p116 f、p127 f、p128 f），少 0 個；compare.json 另算「路線 E 到 ROM 而所有關節驅動列皆未到 ROM」亦為 12 個同名窗口。「15」無法由結果檔重現。後果：僅文字（e07 12/53/5 與類別數不變）。 ｜ 複查 2026-11-17 04:30（DECISIONS 04:23 L2237-2249 修正後）（不符 → 符合）：DECISIONS 04:23「-> 12 (e07 rows at the intact ROM 120 -> 132)」✓。",
+   "checked": "2026-11-17 04:30",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-29",
+   "decisions_line": 2227,
+   "quote": "13:52「collect_split: PASS 5 (was 3)」— PASS 類成員的意義",
+   "code": [
+    "../biocage-evo/ops/collect_split.py:243-244,249",
+    "../biocage-evo/results/method/split/verdict_classes_merged.json classes.PASS / friction_check_exceeded",
+    "git f03e073:results/method/split/verdict_classes_merged.json",
+    "human_study/DECISIONS.md:1732-1735 (PI 2026-11-07 13:00 「照建議」; decision 1: friction run = check), :1973 (PI 2026-11-10 verbatim 灰區), :1978 (reading: a grey design is never counted as a pass)"
+   ],
+   "status": "PI待決",
+   "evidence": "現行 PASS = p086 p093 p100 p142 p145；基準 PASS = p061 p083 p120（三者現在都在 interface-shear-provisional：路線 E 窗口到達 ROM 後剪力 > 3 MPa）→ 原 3 個候選全部出列，無一延續。新 PASS 5 中 p093、p145 正是摩擦判定 FAIL 的兩個設計（friction_check_exceeded）：collect_split.py:243-244 摩擦 fail 只記 friction_check=exceeded、tied PASS 保留（PI 2026-11-07 13:00 L1732-1735「照建議」接受決定 1：摩擦 run 是檢查非閘；PASS 含 exceeded 旗標的呈現自 2026-11-07/08 起已回報過，PHY-05 note「PASS 13、friction-check-exceeded 13」）；:249 摩擦 grey 則移出 PASS 進 GREY（PI 2026-11-10 L1973「0.45–0.55 當灰區…不接受為 final design」、L1978「a grey design is never counted as a pass」）。結果：p093/p145 因由 grey 變 fail 而從 GREY 類「升」入 PASS 類。新元素是兩條規則的交互作用：fail（> 0.55）排在 grey（0.45–0.55）之上進 PASS 類；兩段 PI 原文都沒有處理這個不對稱；需 PI 決定 fail 是否同樣排除。後果：若 fail 比照 grey 排除，PASS 5 → 3（p086 p100 p142）；向 PI 匯報「PASS 5 (was 3)」時必須說明成員全換且含 2 個摩擦 fail。 ｜ 複查 2026-11-17 04:30（DECISIONS 04:23 L2237-2249 修正後）：已列入 PI_PENDING_DECISIONS.md（04:23，第 5 行「最終候選（PASS）是否排除摩擦判定 fail 的設計」，附建議 fail 比照 grey 排除 → PASS 5→3）；程式未改（collect_split.py:243-244 仍保留 fail 於 PASS），等 PI。",
+   "checked": "2026-11-17 04:30",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-30",
+   "decisions_line": 2228,
+   "quote": "13:52 L2228「Class counts for R5: interface-shear-provisional 28, radial-mix-excluded 28, friction-computability 0, friction-check-exceeded 2」；L2229「R17 updated」",
+   "code": [
+    "scripts/8_audit/h37_qa_check.py:128-145,408",
+    "human_study/qa/QA_STATUS.json 2026-11-17 03:40"
+   ],
+   "status": "符合",
+   "evidence": "h37 --quick 2026-11-17 03:40：R5 PASS classes {friction-check-exceeded (2, 2), interface-shear (28, 28), radial-mix (28, 27), friction-computability (0, 0)}、stale document counts [] ✓；R17 :408 superseded set 接受 (physio_relG, physio_relGr) → PASS「17 physio_relG_pl cases, 24 finished windows, 2 fallback windows」✓。",
+   "checked": "2026-11-17 04:14",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-L1",
+   "decisions_line": 2229,
+   "quote": "13:52「Labels PHY-05 / … rewritten」— PHY-05 TIED（state fail, date 2026-11-13T13:52）",
+   "code": [
+    "human_study/platform_capabilities.json PHY-05 status.TIED",
+    "../biocage-evo/results/method/fric/verdicts.json",
+    "../biocage-evo/results/method/fric/replicate_agreement.json"
+   ],
+   "status": "符合",
+   "evidence": "標籤日期 13:52 晚於證據 verdicts.json 13:50:34、replicate_agreement.json 13:51:12 ✓。數字：pass 52 / grey 13 / fail 2 / open 4、158 中 122 路線 E、fail 2 = p093/p145 0.552/0.539 統一保守、open 4 = p048 p074 p115 + p060、替代 3（p095/p104 +0.0581、p148 +0.0431）、生產中位 0.000、0.39→0.16、複本 12/14 ✓（D-20261113-22/24/25）。「每筆帶 insertion_process、window_law、window_drive」對 verdicts.json 窗口列成立（:163）✓。未引用 RETRACTED 字句（h37 R6 PASS）。",
+   "checked": "2026-11-17 04:14",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-L2",
+   "decisions_line": 2229,
+   "quote": "13:52「Labels … OBS-10 … rewritten」— OBS-10 TIED／FRIC（pass, 13:52）",
+   "code": [
+    "human_study/platform_capabilities.json OBS-10 status.TIED/FRIC value",
+    "../biocage-evo/results/method/split/verdict_classes_merged.json",
+    "../biocage-evo/results/method/split/comp_by_design_merged.json",
+    "../biocage-evo/ops/collect_split.py:250"
+   ],
+   "status": "符合",
+   "evidence": "TIED：13 個類別數與 verdict_classes_merged.json 13:51 全部一致、both 5、摩擦 52/13/2/4 ✓；「276 視窗 0 錯誤」的 276 本輪未能由結果檔重現（best_by_design 564 窗／comp_by_design 610 窗；rejected_windows {} 支持「0 錯誤」）。FRIC：e07 12/53/5、interface-shear-provisional 28、exceeded 2、GREY 8、旗標 2/2 ✓；但結尾「每筆帶 insertion_process／window_law／window_drive」不成立——comp_by_design_merged.json 149 設計的 gates 只有 insertion_process 與 window_law（collect_split.py:250 只複製這兩項；collect_split.py mtime 2026-11-11 15:03 未改），window_drive 出現 0 次。純文字錯誤；數字不變。 ｜ 複查 2026-11-17 04:30（DECISIONS 04:23 L2237-2249 修正後）（不符 → 符合）：collect_split.py:250 新增 c['window_drive'] = {w: x.get('window_drive')}（git diff）；comp_by_design_merged.json 04:19 有 window_drive 的記錄 74（73 個有自身摩擦判定的設計＋1 個經 pooled 共用複本結果的設計；DECISIONS 寫 73）；OBS-10 FRIC value 加 2026-11-17 段、date 04:23 ✓。「276」在 DECISIONS 04:23 #7 更正為設計數 ✓。",
+   "checked": "2026-11-17 04:30",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-L3",
+   "decisions_line": 2229,
+   "quote": "13:52「Labels … DIV-03 … rewritten」— DIV-03 FRIC（fail, 13:52）與 DIV-03 TIED（fail, 2026-11-13T04:50）",
+   "code": [
+    "human_study/platform_capabilities.json DIV-03 status.FRIC/TIED",
+    "../biocage-evo/results/method/split/verdict_lists_merged.json (13:51)",
+    "../biocage-evo/results/method/fric/verdicts.json p048",
+    "scripts/8_audit/h33_capability_audit.py:84-90"
+   ],
+   "status": "符合",
+   "evidence": "FRIC：67/71 = 94.4 %、open 4 名單 ✓；「140 個重跑窗口第一增量失敗 0 個」✗（見 D-20261113-21）。TIED：日期 04:50、value 仍為 15:03 清單「fail 122、grey 13、both 3、open 11（friction-window 5）→ 92.6 %」，而 verdict_lists_merged.json 13:51 為 fail 128 / grey 8 / both 5 / open 8 → (128+8+5)/149 = 94.6 %、friction-window 2。h33 --check 0 錯誤 0 警告、計分表第 3 節未列 DIV-03：h33 只比元件 mtime（COLLECT = collect_split.py 11-11）與 status.date，不比證據檔 mtime（:84-90），所以抓不到。後果：DIV-03 TIED 有判定率 92.6 → 94.6 %、open 11 → 8。 ｜ 複查 2026-11-17 04:30（DECISIONS 04:23 L2237-2249 修正後）（不符 → 符合）：DIV-03 TIED value 加「verdict_lists_merged.json 13:51：fail 128 / grey 8 / both 5 / open 8 → 94.6%」、date 2026-11-17T04:23 ✓；DIV-03 FRIC「第一增量失敗 1 個」✓；h33 元件 mtime 限制記為工具缺口（DECISIONS #5）。",
+   "checked": "2026-11-17 04:30",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-L4",
+   "decisions_line": 2229,
+   "quote": "13:52「Labels … NUM-17 … rewritten」— NUM-17 FRIC（fail, 13:52）",
+   "code": [
+    "human_study/platform_capabilities.json NUM-17 status.FRIC value / evidence",
+    "../biocage-evo/results/method/fric/replicate_agreement.json"
+   ],
+   "status": "符合",
+   "evidence": "8 群、14 窗、12 ≤ 0.005、p050 群 0.162 差 0.00015、p077/p139 1e-11、p093/p145 0.552/0.539 差 0.012、p051/p075 0.0068 皆與 replicate_agreement.json 13:51 一致 ✓；state fail 維持（限值附近未被數值解析）合理。建議：evidence 清單加 ../biocage-evo/results/method/fric/replicate_agreement.json（目前只列 verdicts.json、comp_by_design_merged.json、DECISIONS.md）。",
+   "checked": "2026-11-17 04:14",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-L5",
+   "decisions_line": 2229,
+   "quote": "13:52「Labels … NUM-13 rewritten」— NUM-13 FRIC → pass（13:52；04:07 授權自決 2「NUM-13 moves to pass when the route-E re-run completes (the window procedure changes, so NUM-13's hold-drift evidence is re-read on the new windows first)」）",
+   "code": [
+    "human_study/platform_capabilities.json NUM-13 status.FRIC value / evidence",
+    "../biocage-evo/results/method/fric/verdicts.json windows[].set / window_law",
+    "../biocage-evo/results/gpufe_verify/v2/v17a_hold.json, v17g_hold_restart*.json (mtime 11-06 .. 11-09)"
+   ],
+   "status": "符合",
+   "evidence": "標籤 value：「158 勝出列中 122 為路線 E＋36 關節驅動列皆 stick_memory = 1（R15/R16/R19）」——36 個關節驅動勝出列中只有 15 列是黏著記憶律（physio_fric5 7、physio_relG 8），其餘 21 列是生產律：physio_fric2 18（p060 6、p062 4、p109 4、p125 4）、physio_fric3 替代 1（p148 flex）、physio_relG_pl 替代 2（p095/p104 ext）；在 142 個必要窗口（flexion/extension）中 5 個以生產律列判定（p060 f/e、p148 f、p095 e、p104 e；後三者帶餘量與 fallback 旗標）。「參考摩擦律在全部正式窗口使用」不成立。另，授權自決 2 的前提「保持段漂移證據先在新窗口重讀」沒有證據：evidence 清單仍是 v17a_hold（11-06）、v17e、v17g（11-08／11-09），無任何路線 E 窗口的保持段漂移檔，value 的條款 1／2 數字全為關節驅動重啟試算。後果：NUM-13 FRIC「通過」目前無支撐，應回 partial／有條件（註明 5 個生產律必要窗口與未重讀）；計分表 [數值] FRIC 面向隨之變；判定數字不變。 ｜ 複查 2026-11-17 04:30（DECISIONS 04:23 L2237-2249 修正後）（不符 → 符合）：NUM-13 FRIC state partial、date 2026-11-17T04:23，value 加 2026-11-17 段（122 路線 E＋15 關節黏著律＋21 生產律；5 個必要窗口生產律；保持段證據未重讀；轉通過的條件）✓；DECISIONS 04:23 #6 撤回授權自決 2 ✓。",
+   "checked": "2026-11-17 04:30",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-S7",
+   "decisions_line": 2217,
+   "quote": "h37 R20 對過期 replicate_agreement.json 的處理（實作時自選）",
+   "code": [
+    "scripts/8_audit/h37_qa_check.py:460-462"
+   ],
+   "status": "實作時自選",
+   "evidence": "stale（檔 mtime < verdicts.json）只在訊息加註，不改狀態：若日後 verdicts 重算而 replicate_agreement.json 未重跑且舊檔為 0 不一致，R20 會 PASS。簽核：stale 時改 WARN。目前不過期（13:51 > 13:50）。",
+   "checked": "2026-11-17 04:14",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-S8",
+   "decisions_line": 2191,
+   "quote": "04:04「fric_compare / e07 rank them highest with window_drive provenance」— e07 側的驅動 provenance",
+   "code": [
+    "../biocage-evo/ops/e07_batch.py:19,75-80",
+    "../biocage-evo/results/method/fric/e07_summary.csv (header)",
+    "../biocage-evo/results/method/fric/e07_verdicts.json windows[]"
+   ],
+   "status": "實作時自選",
+   "evidence": "e07_batch 以 (rom_reached, RANK) 取勝出列（route-E 集合最高級）✓，但 e07_verdicts.json 窗口列只有 set／case_dir／fallback，e07_summary.csv 欄位只有 set，無 window_drive；驅動只能由集合名推得。fric_compare 側已有 window_drive（D-20261113-6）。簽核：e07 列是否補 window_drive 欄。",
+   "checked": "2026-11-17 04:14",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-S9",
+   "decisions_line": 2217,
+   "quote": "gate_files 清單缺漏：ops/replicate_agreement.py 供 h37 R20 與 NUM-17 FRIC 數字",
+   "code": [
+    "human_study/qa/QA_SPEC.json meta.gate_files"
+   ],
+   "status": "實作時自選",
+   "evidence": "本輪由稽核員加入 ../biocage-evo/ops/replicate_agreement.py（note_gate_files_20261117）。其 0.005 mm 門檻與「同評估點」規則決定 R20 的 WARN/PASS 與標籤數字，改動時應觸發稽核。",
+   "checked": "2026-11-17 04:14",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261113-S10",
+   "decisions_line": 2224,
+   "quote": "p109 的 insertion_process 為兩元素 list（混合 provenance）",
+   "code": [
+    "../biocage-evo/ops/fric_compare.py:171",
+    "../biocage-evo/results/method/fric/verdicts.json p109.insertion_process"
+   ],
+   "status": "符合",
+   "evidence": ":171 取所有窗口列（含非必要窗口 LB/AR 的 physio_fric2 舊列）的 insertion_process 集合；p109 得 [G, production]。流程 G／生產分組計數因此差一（D-20261113-23）。簽核：procs 只取 REQ 窗口，或以勝出必要窗口的來源集合判定。 ｜ 複查 2026-11-17 04:30（DECISIONS 04:23 L2237-2249 修正後）（實作時自選 → 符合）：fric_compare.py:171 只取 REQ 窗口；p109 不再為 list（見 D-20261113-23）。",
+   "checked": "2026-11-17 04:30",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261117-1",
+   "decisions_line": 2248,
+   "quote": "04:23「Transitional: verdicts.json now lists 73 designs - p102 (… windows running) and p149 (production insertion stopped at t 3.05 -> rebuilt under process G, running) appear as open until their windows finish; the 71-design numbers above exclude them」",
+   "code": [
+    "../biocage-evo/results/method/fric/verdicts.json (generated 2026-11-17 04:19)",
+    "../biocage-evo/ops/fric_compare.py:198-207"
+   ],
+   "status": "符合",
+   "evidence": "verdicts.json 04:19：73 設計，全部 pass 52 / grey 13 / fail 2 / open 6；排除 p102、p149 後 52/13/4/2，71 設計的判定與勝出列（set、eval_point）和 13:50 檔完全相同 ✓。p102 open「window(s) extension did not reach …」（flexion 列存在、進行中）；p149 open「insertion run stopped at t 3.050 … release impact」（fric_compare.py:198-207 掃描）、process-G 重建進行中。本輪不判 p102/p149 的結果；在兩者完成前，引用 verdicts.json 的數字須註明 71／73。",
+   "checked": "2026-11-17 04:30",
    "source": "decisions",
    "check": "llm"
   }

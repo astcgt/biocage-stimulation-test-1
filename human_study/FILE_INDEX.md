@@ -111,6 +111,7 @@
 | `human_study/qa/QA_SYSTEM.md` | 兩層 QA 設計說明 |
 | `human_study/qa/QA_SPEC.json` | B 層登記表：每條決策 ↔ 程式位置 ↔ 狀態（符合／不符／未實作／實作時自選／PI待決） |
 | `human_study/qa/audits/QA_AUDIT_2026-11-13.md` | 層 B 稽核 2026-11-13 04:1x–04:4x（DECISIONS 2026-11-11 14:44 至 2026-11-13 04:07）：5 條不符（fric_compare 勝出規則未看是否到達評估點、繼承後頂層殘留鎖死欄位、DIV-03／OBS-10／NUM-17 標籤數字過期）→ 04:5x 修正；登記表 242 條 | qa-auditor |
+| `human_study/qa/audits/QA_AUDIT_2026-11-17.md` | 層 B 稽核 2026-11-17 04:1x（路線 E 重跑後狀態）：7 條不符（第一增量 0→1、流程 G／生產分項計數、ROM 窗口數、window_drive 欄、DIV-03 TIED 數字、NUM-13 退回部分、窗口數文字）→ 同日修正；新待決：PASS 類是否排除摩擦 fail | qa-auditor |
 | `human_study/qa/QA_STATUS.json`, `human_study/qa/QA_STATUS.md` | h37 最新結果（匯報前先看） |
 | `human_study/qa/RETRACTED.json` | 已撤回的說法（出現在文件中即 FAIL） |
 | `human_study/qa/audits/` | B 層稽核報告（`QA_AUDIT_2026-11-04.md`） |

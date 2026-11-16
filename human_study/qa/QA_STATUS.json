@@ -1,11 +1,11 @@
 {
- "time": "2026-11-17 03:36",
+ "time": "2026-11-17 04:27",
  "overall": "WARN",
  "checks": [
   {
    "id": "R1-case-dir",
    "status": "PASS",
-   "message": "404 friction rows; windows without finished log + xplt: 0 []"
+   "message": "405 friction rows; windows without finished log + xplt: 0 []"
   },
   {
    "id": "R1-ambiguous",
@@ -30,12 +30,7 @@
   {
    "id": "R3-faces",
    "status": "PASS",
-   "message": "390 windows, 190 cases recounted; mismatches 0 []"
-  },
-  {
-   "id": "R4-insertion-state",
-   "status": "PASS",
-   "message": "insertion value state within 0.05 of t 3.5; violations 0 []"
+   "message": "skipped (--quick); 390 e07 window files"
   },
   {
    "id": "R5-counts",
@@ -50,22 +45,12 @@
   {
    "id": "R7-pilot-keys",
    "status": "PASS",
-   "message": "settings/h14: []; production cases scanned 906, with pilot options / extra keys: []"
-  },
-  {
-   "id": "R8-golden-rebuild",
-   "status": "PASS",
-   "message": "p062 physio_fric3 rebuild md5 4f3208b5 vs recorded 4f3208b5 (11 s)"
+   "message": "settings/h14: []; production cases scanned 913, with pilot options / extra keys: []"
   },
   {
    "id": "R9-material-blocks",
    "status": "PASS",
-   "message": "golden rebuild: one FEBio block per cage material in 1 cases (tmpmpg93hoz:4); problems: []"
-  },
-  {
-   "id": "R9-material-blocks",
-   "status": "PASS",
-   "message": "production: one FEBio block per cage material in 3 cases (p002:3, p036:4, p039:2); problems: []"
+   "message": "production: one FEBio block per cage material in 4 cases (p002:3, p036:4, p039:2, p102:2); problems: []"
   },
   {
    "id": "R11-constants",
@@ -75,7 +60,7 @@
   {
    "id": "R12-file-index",
    "status": "PASS",
-   "message": "268 paths in FILE_INDEX.md; missing []"
+   "message": "269 paths in FILE_INDEX.md; missing []"
   },
   {
    "id": "R14-patch7-logs",
@@ -100,7 +85,7 @@
   {
    "id": "R19-route-E",
    "status": "PASS",
-   "message": "route-E classes: 70 cases, 140 finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: []"
+   "message": "route-E classes: 71 cases, 140 finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: []"
   },
   {
    "id": "R20-replicate-agreement",
@@ -115,12 +100,12 @@
   {
    "id": "R10-register",
    "status": "PASS",
-   "message": "245 register items; unmapped []; 不符 []"
+   "message": "271 register items; unmapped []; 不符 []"
   },
   {
    "id": "R10-llm-audit-due",
-   "status": "WARN",
-   "message": "LLM audit required: last 2026-11-13 04:58; gate files changed since: ['../biocage-evo/ops/fric_compare.py']; decision entries since: []"
+   "status": "PASS",
+   "message": "LLM audit current: last 2026-11-17 04:30; gate files changed since: []; decision entries since: []"
   }
  ],
  "counts": {
@@ -146,14 +131,12 @@
   "designs": 149
  },
  "register": {
-  "last_llm_audit": "2026-11-13 04:58",
-  "n_items": 245,
+  "last_llm_audit": "2026-11-17 04:30",
+  "n_items": 271,
   "unmapped": [],
   "mismatch": [],
-  "gate_files_changed": [
-   "../biocage-evo/ops/fric_compare.py"
-  ],
+  "gate_files_changed": [],
   "new_decisions": []
  },
- "mode": "full"
+ "mode": "quick"
 }
