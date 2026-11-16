@@ -1,5 +1,5 @@
 {
- "time": "2026-11-17 04:39",
+ "time": "2026-11-17 07:40",
  "overall": "WARN",
  "checks": [
   {
@@ -45,7 +45,7 @@
   {
    "id": "R7-pilot-keys",
    "status": "PASS",
-   "message": "settings/h14: []; production cases scanned 913, with pilot options / extra keys: []"
+   "message": "settings/h14: []; production cases scanned 914, with pilot options / extra keys: []"
   },
   {
    "id": "R9-material-blocks",
@@ -85,7 +85,7 @@
   {
    "id": "R19-route-E",
    "status": "PASS",
-   "message": "route-E classes: 71 cases, 141 finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: []"
+   "message": "route-E classes: 72 cases, 144 finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: []"
   },
   {
    "id": "R20-replicate-agreement",
@@ -105,7 +105,7 @@
   {
    "id": "R10-llm-audit-due",
    "status": "WARN",
-   "message": "LLM audit required: last 2026-11-17 04:30; gate files changed since: ['../biocage-evo/ops/fric_compare.py']; decision entries since: ['2026-11-17 04:38']"
+   "message": "LLM audit required: last 2026-11-17 04:30; gate files changed since: ['../biocage-evo/ops/fric_compare.py', '../biocage-evo/ops/e07_batch.py']; decision entries since: ['2026-11-17 04:38']"
   }
  ],
  "counts": {
@@ -136,7 +136,8 @@
   "unmapped": [],
   "mismatch": [],
   "gate_files_changed": [
-   "../biocage-evo/ops/fric_compare.py"
+   "../biocage-evo/ops/fric_compare.py",
+   "../biocage-evo/ops/e07_batch.py"
   ],
   "new_decisions": [
    "2026-11-17 04:38"

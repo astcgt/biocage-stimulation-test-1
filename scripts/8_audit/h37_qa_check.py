@@ -459,7 +459,7 @@ def r20_replicate_agreement():
     if not os.path.exists(f): rep('R20-replicate-agreement', True, 'replicate_agreement.json not generated yet (run ops/replicate_agreement.py after the route-E re-run)'); return
     j = json.load(open(f)); sm = j.get('summary', {}); stale = os.path.exists(vj) and os.path.getmtime(f) < os.path.getmtime(vj)
     bad = sm.get('windows_disagreeing_over_0p005_or_mixed_eval_point', 0)
-    rep('R20-replicate-agreement', not bad, f"sets {j.get('sets')}: {sm.get('groups')} deck groups, {sm.get('windows_with_two_or_more')} windows with >= 2 computed replicates, {bad} disagree (> 0.005 mm or mixed evaluation point), worst spread {sm.get('worst_spread_u_h_mm')} mm" + ('; file older than verdicts.json - rerun ops/replicate_agreement.py' if stale else ''), warn=True)
+    rep('R20-replicate-agreement', not (bad or stale), f"sets {j.get('sets')}: {sm.get('groups')} deck groups, {sm.get('windows_with_two_or_more')} windows with >= 2 computed replicates, {bad} disagree (> 0.005 mm or mixed evaluation point), worst spread {sm.get('worst_spread_u_h_mm')} mm" + ('; file older than verdicts.json - rerun ops/replicate_agreement.py' if stale else ''), warn=True)
 FALLBACK_CLASSES_SETS = tuple(c.rstrip('/').split('/')[-1] for c in FALLBACK_CLASSES)   # 'physio_relG_pl'
 
 

@@ -2875,7 +2875,8 @@
    "evidence": [
     "../biocage-evo/results/method/fric/verdicts.json",
     "../biocage-evo/results/method/split/comp_by_design_merged.json",
-    "human_study/DECISIONS.md"
+    "human_study/DECISIONS.md",
+    "../biocage-evo/results/method/fric/replicate_agreement.json"
    ],
    "status": {
     "FRIC": {
