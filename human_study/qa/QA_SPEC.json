@@ -1,7 +1,7 @@
 {
  "meta": {
   "note": "Register: one entry per PI decision that the code must implement. status in {符合, 不符, 未實作, 實作時自選, PI待決, unmapped}. check = h37 check id or 'llm' (judged by the qa-auditor agent). last_llm_audit is set by the auditor, never by h37.",
-  "last_llm_audit": "2026-11-18 05:37",
+  "last_llm_audit": "2026-11-18 06:22",
   "gate_files": [
    "scripts/3_cage_case/h14_build_case.py",
    "scripts/6_active_learning/h22_active_learning.py",
@@ -51,7 +51,8 @@
   "note_20261118_0418": "2026-11-18 04:17: D-20261118-16 -> 符合 (collect_split.py:248 own e07 values + shear_req_source; ranking 71 own rows identical in value and order to mu_req_field, 2 pooled rows p059/p060 labelled). 不符 0. Register 307.",
   "note_20261118_round2": "2026-11-18 05:37 narrow layer-B audit (qa-auditor): DECISIONS 2026-11-18 04:42 / 04:58 / 05:31 (old repo L2335-2344) with the evo-repo entries 04:42, 04:58, 05:11 (superseded), 05:21, 05:31, 05:32 and ROUND2_ARCHITECTURE.md registered as D-20261118-17..36. Surrogate validation gate (ops/surrogate_fit.py, results/surrogate/validation_2026-11-18.json): grouping, in-fold fitting, cross-conformal quantile, targets and the 05:21 table verified (independent regroup 120 = 120; refit of post_ext G reproduces the csv to 1.7e-7; table numbers = file); separation from verdicts / labels verified. 不符 3 (documents only, no verdict / class / label / table number changes): -27 ('12 without genes or mesh' - all 12 have params files with genes and a mesh; y5 would be 149 rows / 77 positives, y4 6), -28 ('identical in all 90 meshes' / 'every existing design has void 0.597' - 89 meshes, 16 cage_B at 0.645 / 22.55 mm2), -31 (ROUND2_ARCHITECTURE A2 / A5 still define y1 as posterior in both windows and P(y1 < 0.45 both windows); A3 model file; stale pending lines). 實作時自選 3 (-30 weight 70 : 30 has no written source, -35 steering decisions, -36 implementation details); 未實作 1 (-32 propose_round, OOD label, grammar / compiler, prereg, R21-R25). gate_files unchanged (surrogate_fit.py judges nothing; add it together with R21 / R23). Register 327.",
   "note_20261118_round2_recheck": "2026-11-18 05:56 re-check of D-20261118-27 / -28 / -31 after evo DECISIONS 05:53 (run 3): -27 -> 符合 (genes from params files, 149 rows, y5 77, y4 6; mu_req_field.py untouched); -28 stays 不符, narrowed to counts (run-3 rows use 77 design-A + 24 design-B meshes, text says 73 / 16; 'all 12 design-B' is 8 + 4; 'all design-B compression-sustained' is 23 of 24, p023 computability); -31 stays 不符, narrowed to two leftover phrases (ROUND2 L58 'newer than the model', L242 'R 5 (if approved)'). Run-3 table in the 05:53 entry = result file (every cell). last_llm_audit deliberately left at 2026-11-18 05:37: human_study/current_settings.json changed at 05:45 (class pilot_holdQR, another session) and was NOT audited here. 不符 2.",
-  "note_20261118_round2_recheck2": "2026-11-18 05:59 re-check 2: D-20261118-28, -31 -> 符合 (residual counts and the two leftover phrases corrected in evo DECISIONS.md / ROUND2_ARCHITECTURE.md 05:58:51; values equal the auditor's own recount). 不符 0. last_llm_audit still 2026-11-18 05:37 (current_settings.json 05:45 pilot_holdQR by another session not audited)."
+  "note_20261118_round2_recheck2": "2026-11-18 05:59 re-check 2: D-20261118-28, -31 -> 符合 (residual counts and the two leftover phrases corrected in evo DECISIONS.md / ROUND2_ARCHITECTURE.md 05:58:51; values equal the auditor's own recount). 不符 0. last_llm_audit still 2026-11-18 05:37 (current_settings.json 05:45 pilot_holdQR by another session not audited).",
+  "note_20261118_holdQR": "2026-11-18 06:22: DECISIONS 2026-11-18 05:52 (L2346-2352) and 06:13 (L2356-2358) registered as D-20261118-Q1..Q4 (Q-prefix: another session registers D-20261118-27..36 concurrently). Verified: pilot_holdQR class = holdQ + 3 restart keys (= holdR + half-step curve), h47 deck byte-identical + preflight OK, holdA/holdQ decks differ only in load curve 18, t 3.5 offsets 0.01052/0.01068/0.02016/0.02046 recomputed with the reader's formula, hold dt max 0.0249-0.0250 vs 0.047, n_hold 22/21/40/37, all deltas and trends from v17g rows, pre-registered reading applied as written, NUM-13 FRIC 06:13 text matches. 不符 1: D-20261118-Q1 ('wall 8258 s / 5331 s' is the whole h18 case incl. joint reference windows; insertion itself 652 / 605 s). No verdict / class / label-state change."
  },
  "items": [
   {
@@ -4457,8 +4458,8 @@
     "human_study/platform_capabilities.json NUM-13 threshold 第 2 款（步長／半步長差 ≤ 0.005 mm）"
    ],
    "status": "實作時自選",
-   "evidence": "(a) 「~0.002 mm」是主線自訂的 pilot 驗收值（標籤正式門檻為 0.01 mm），精確值與「~」的寬度未經 PI；(b) 第 2 款（生產步長 vs 半步長 ≤ 0.005 mm）只在關節驅動 p139 一筆（0.001 mm）驗過、未在路線 E 窗口重跑；04:23 條件為「或」，故轉通過成立，但標籤文字「第 2 款維持 2026-11-17 稽核接受的現有證據」不準確——稽核（D-20261113-L5）只把「接受第 2 款以現有證據為足」列為另一條可選路徑，未接受。簽核：PI 是否要路線 E 下的半步長複跑；文字建議改「第 2 款仍以 2026-11-09 關節驅動 p139 一筆為據」。 ｜ 複查 2026-11-18 02:41：措辭已改「第 2 款…仍以 2026-11-09 關節驅動 p139 一筆為據…路線 E 半步長組 pilot_holdRh 已加跑補此款」（02:37）；DECISIONS 02:39 記 (a) ~0.002 為主線工作門檻（正式 0.01）、(b) holdRh 起跑（驗收 |u_end(dt 0.05) − u_end(dt 0.025)| ≤ 0.005 mm 每窗）。holdRh 結果進行中、本輪不判；第 2 款在路線 E 下仍待其結果。狀態維持（簽核項 (a) 仍在）。",
-   "checked": "2026-11-18 02:41",
+   "evidence": "(a) 「~0.002 mm」是主線自訂的 pilot 驗收值（標籤正式門檻為 0.01 mm），精確值與「~」的寬度未經 PI；(b) 第 2 款（生產步長 vs 半步長 ≤ 0.005 mm）只在關節驅動 p139 一筆（0.001 mm）驗過、未在路線 E 窗口重跑；04:23 條件為「或」，故轉通過成立，但標籤文字「第 2 款維持 2026-11-17 稽核接受的現有證據」不準確——稽核（D-20261113-L5）只把「接受第 2 款以現有證據為足」列為另一條可選路徑，未接受。簽核：PI 是否要路線 E 下的半步長複跑；文字建議改「第 2 款仍以 2026-11-09 關節驅動 p139 一筆為據」。 ｜ 複查 2026-11-18 02:41：措辭已改「第 2 款…仍以 2026-11-09 關節驅動 p139 一筆為據…路線 E 半步長組 pilot_holdRh 已加跑補此款」（02:37）；DECISIONS 02:39 記 (a) ~0.002 為主線工作門檻（正式 0.01）、(b) holdRh 起跑（驗收 |u_end(dt 0.05) − u_end(dt 0.025)| ≤ 0.005 mm 每窗）。holdRh 結果進行中、本輪不判；第 2 款在路線 E 下仍待其結果。狀態維持（簽核項 (a) 仍在）。 ｜ 複查 2026-11-18 06:22：(b) 已由 pilot_holdQR（真半步、路線 E）補證（D-20261118-Q4），第 2 款不再依賴 2026-11-09 關節驅動單筆；(a) ~0.002 mm 工作門檻仍為主線自訂 — 狀態維持實作時自選。",
+   "checked": "2026-11-18 06:22",
    "source": "decisions",
    "check": "llm"
   },
@@ -4905,6 +4906,66 @@
    "status": "實作時自選",
    "evidence": "(a) 涵蓋率按列計、2 SE 按組計：post_ext 按列 0.806，各組平均 0.845。(b) p050、p084 的兩個窗口是繼承 p068 的複製值（inherited_from），不是獨立模擬：獨立列 70／68；去掉後 post_ext Gaussian 0.800（剛好在 0.80 門檻上）／保形 0.886，uh_flex 0.868／0.897。同組，無洩漏。(c) 4 列不是黏滯記憶律的讀值：p095、p104 extension 為參考律 + 0.0581 mm 餘裕、p148 flexion + 0.0431、p060 extension 為 physio_fric2 參考律；extension 的 3 列全部落在區間外。這些確實是 fric_compare 判定用的量，但混了不同摩擦律，特徵裡沒有標示。(d) 保形分位數用線性內插，不是保守名次 ceil((n+1)·0.9)：mu_req 保形涵蓋率 0.886（檔）對 0.911（保守名次）、寬度 0.0122 對 0.0127；post_ext、uh_flex 不變。(e) 評估點寫死：今天丟掉 0 個可用窗口，日後若有 extension 在 1.5 N m 或 flexion 在 ROM 判定的窗口會被無聲丟掉。(f) 每個窗口只建模起作用的那個量（extension 的 u_h 最大 0.552、flexion 後移全負），之後若不成立不會被發現。(g) y3 含 7 列 shear_req_complete = False 的不完整讀值（剪力本來就只探索）。",
    "checked": "2026-11-18 05:37",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-Q1",
+   "decisions_line": 2347,
+   "quote": "05:52「pilot_holdQ (dtmax_windows [[3.9, 3.91, 0.05], [4.4, 4.5, 0.025]]) … p062_gpu1 / p139_gpu4 insertion N O R M A L with case.dmp (wall 8258 s / 5331 s). Deck check: pilot_holdQ and pilot_holdA decks differ only in load curve 18 … Checkpoint states (t 3.5): p062 holdA 0.01052 vs holdQ 0.01068 mm (167 vs 170 converged steps, 1 retry each), p139 0.02016 vs 0.02046 mm (163 vs 163) … holdQ production windows: hold steps 0.0005-0.016 s … p139 extension E R R O R at t 3.807 (50 retries) … p062 ext trend +0.0595, p139 flex -0.4216」",
+   "code": [
+    "human_study/al_v2/pilot_holdQ/p062_gpu1, p139_gpu4 (case.feb, case.log, case.dmp, resources.json, started_at, w_*/case.log)",
+    "human_study/al_v2/pilot_holdA/p062_gpu1, p139_gpu2 (case.feb, case.log)",
+    "../biocage-evo/results/gpufe_verify/v2/v17g_hold_restart*.json rows set=pilot_holdQ",
+    "../biocage-evo/gpufe/verify/v17g_hold_restart.py:26-34 (H = 籠節點均值 − C4 終板均值的平面距離)"
+   ],
+   "status": "不符",
+   "evidence": "符合：兩案 case.log N O R M A L、case.dmp 存在；deck diff（holdA vs holdQ，p062 與 p139）各只有 1 行不同 = loadcurve id 18（A：…(3.9,0.05)(4.4,0.05)；Q：…(3.9,0.05)(3.91,0.05)(4.4,0.025)(4.5,0.05)），t 3.9 前各點相同 ✓；收斂增量 167／170、163／163、Retrying 各 1 ✓；以讀取器同一公式重算 t 3.5 平面偏移：holdA p062 0.01052、holdQ 0.01068、holdA p139 0.02016、holdQ 0.02046 mm ✓；holdQ 生產律關節窗保持段 dt 0.0005–0.0161 s ✓、p139 後伸 E R R O R t 3.8074、reader retries 50 ✓、p062 後伸 trend 0.0595、p139 前屈 −0.4216 ✓。不符：「insertion … (wall 8258 s / 5331 s)」— resources.json wall_s 8257.9／5330.5（gpu_h 2.294）是整個 h18 案例（插入＋兩個關節參考窗）的牆鐘；插入段本身 started_at 03:22:11 → case.log 結束 03:33:03（Total elapsed 652 s）、p139 03:22:21 → 03:32:27（605 s）。後果：無數字結論受影響；過程敘述的歸屬錯（插入 ≈ 11 分，不是 2.3 小時）。",
+   "checked": "2026-11-18 06:22",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-Q2",
+   "decisions_line": 2349,
+   "quote": "05:52「Class pilot_holdQR added to current_settings.json (= pilot_holdQ + restart_env {BIOCAGE_STICK_MEMORY: 1} + window_min_residual 1e-4 + window_drive_mode rigid_relative) … h47 build pilot_holdQR/p062 and /p139 from pilot_holdQ/p062_gpu1 and /p139_gpu4: rebuilt deck byte-identical to the source run, preflight OK []. 4 windows launched … p062 GPU 1, p139 GPU 4, 5 cores each」",
+   "code": [
+    "human_study/current_settings.json human_study/al_v2/pilot_holdQR/ (05:45:57; git diff 7e62932: +46 行)",
+    "scripts/5_compute/h47_restart_pilot.py:57,66 (restart_env → 環境變數)",
+    "human_study/al_v2/pilot_holdQR/p062, p139: launched_feb.sha256, case.feb, preflight.json, launch*.json, resources*.json"
+   ],
+   "status": "符合",
+   "evidence": "QR vs Q 差異恰為 restart_env {BIOCAGE_STICK_MEMORY: 1}、window_min_residual 0.0001、window_drive_mode rigid_relative；QR vs R 差異只有 dtmax_windows（半步曲線）✓；git diff 7e62932..工作樹 current_settings.json 僅 +46 行（新類；pilot 路徑；R7 PASS）。launched_feb.sha256 = pilot_holdQ/p062_gpu1 case.feb sha256 = QR case.feb（cec081e5…）、p139 同（0009aa1e…）✓；preflight.json ok True、problems None ✓。launch*.json：CUDA_VISIBLE_DEVICES 1／4、OMP_NUM_THREADS 5、taskset 5 核、BIOCAGE_STICK_MEMORY 1 ✓。「edit 前無排隊案例被作廢」的時點狀態無法事後核（transient），以 R7／preflight OK 為旁證。",
+   "checked": "2026-11-18 06:22",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-Q3",
+   "decisions_line": 2349,
+   "quote": "05:52 預先登錄的讀法：「Δu_start (hold start, t 3.9) and Δ(u_end - u_start) are reported beside Δu_end; … only the hold-only part Δ(u_end - u_start) is compared with the 0.005 mm acceptance; if that … exceeds 0.005 mm, NUM-13 FRIC goes back to partial (no fallback …). Window validity read from resources*.json before any number is used」→ 06:13 是否照寫套用",
+   "code": [
+    "human_study/DECISIONS.md:2357-2358",
+    "../biocage-evo/gpufe/verify/v17g_hold_restart.py:14,30-34 (T0 3.9 = hold start; u_start = H[首個 t ≥ 3.9]、u_end = H[最後]、n_hold = len(hold) − 1)"
+   ],
+   "status": "符合",
+   "evidence": "06:13 條目先列有效性（4 窗 normal、valid、profile_drops 0、stick_memory_logged；resources*.json 皆如此 ✓），再依序報 Δu_start、Δu_end、hold-only Δ(u_end−u_start)，並以 hold-only 與 0.005 mm 比較、趨勢與 0.01 mm 比較；未退回 2026-11-09 證據。讀取器 u_start 取 t ≥ 3.9 的第一個狀態（= 保持起點）、與預登錄定義一致。讀法照寫套用 ✓。",
+   "checked": "2026-11-18 06:22",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-Q4",
+   "decisions_line": 2357,
+   "quote": "06:13「4 windows N O R M A L, valid …, 0 retries (p139 ext 166 s, p062 ext 205 s, p139 flex 484 s, p062 flex 1452 s; 5 cores each). Hold step really halved: max hold dt 0.0249 / 0.0250 / 0.0248 / 0.0248 s (pilot_holdR 0.047 s); n_hold ext 22 / 21 vs 15 / 13, flex 40 / 37 vs 26 / 30. … Δu_start ext p062 -0.0007, p139 0.0000; flex p062 +0.0010, p139 +0.0005. Δu_end -0.0008 / 0.0000 / +0.0008 / -0.0003. Hold-only -0.0001 / 0.0000 / -0.0003 / -0.0008. Trends QR +0.0005 / +0.0022 / -0.0003 / +0.0003 vs R +0.0007 / +0.0022 / +0.0001 / +0.0006 … NUM-13 FRIC stays pass, now on route-E evidence for both clauses」；標籤 NUM-13 FRIC value 06:13 段同句",
+   "code": [
+    "../biocage-evo/results/gpufe_verify/v2/v17g_hold_restart.json, _flexion.json (06:13) rows set=pilot_holdQR / pilot_holdR",
+    "human_study/al_v2/pilot_holdQR/{p062,p139}/w_{extension,flexion}/case.log, ../resources*.json",
+    "human_study/platform_capabilities.json NUM-13 status.FRIC (state pass, date 2026-11-18T06:13; file 06:14:33)"
+   ],
+   "status": "符合",
+   "evidence": "讀取器列（QR）：後伸 p062 u 0.4571→0.4643 trend 0.0005 n_hold 22、p139 0.4625→0.4700 trend 0.0022 n_hold 21；前屈 p062 0.4272→0.4288 trend −0.0003 n_hold 40、p139 0.5541→0.5605 trend 0.0003 n_hold 37；4 列 NORMAL、retries 0、BIOCAGE_STICK_MEMORY 1 ✓；R 列 15／13／26／30、trend 0.0007／0.0022／0.0001／0.0006 ✓。自算差：Δu_start −0.0007／0.0000／+0.0010／+0.0005、Δu_end −0.0008／0.0000／+0.0008／−0.0003 ✓；hold-only −0.0001／0.0000／−0.0002／−0.0008（決策文第 3 項寫 −0.0003：以四位小數列值相減為 −0.0002，差在捨入位，不改「≤ 0.0008」結論）。case.log 保持段（3.9–4.4）最大 dt 0.0249／0.0250／0.0248／0.0248 s、holdR 0.0472／0.0473／0.0474／0.0467 ✓；Total elapsed 204／165／1451／483 s、resources wall_s 205.2／165.6／1452.0／483.8 ✓、normal／valid／profile_drops 0／stick_memory_logged ✓、5 核 ✓。全部 ≤ 0.005 mm、|trend| ≤ 0.01 → 第 2 款在路線 E 成立；標籤 06:13 段逐數相同、證據檔 06:13:27／34 早於標籤 06:14:33 ✓。D-20261118-7 的簽核 (b)（第 2 款未在路線 E 驗）隨之了結。",
+   "checked": "2026-11-18 06:22",
    "source": "decisions",
    "check": "llm"
   }

@@ -1,6 +1,6 @@
 {
- "time": "2026-11-18 06:16",
- "overall": "WARN",
+ "time": "2026-11-18 06:23",
+ "overall": "FAIL",
  "checks": [
   {
    "id": "R1-case-dir",
@@ -30,12 +30,7 @@
   {
    "id": "R3-faces",
    "status": "PASS",
-   "message": "398 windows, 194 cases recounted; mismatches 0 []"
-  },
-  {
-   "id": "R4-insertion-state",
-   "status": "PASS",
-   "message": "insertion value state within 0.05 of t 3.5; violations 0 []"
+   "message": "skipped (--quick); 398 e07 window files"
   },
   {
    "id": "R5-counts",
@@ -51,16 +46,6 @@
    "id": "R7-pilot-keys",
    "status": "PASS",
    "message": "settings/h14: []; production cases scanned 914, with pilot options / extra keys: []"
-  },
-  {
-   "id": "R8-golden-rebuild",
-   "status": "PASS",
-   "message": "p062 physio_fric3 rebuild md5 4f3208b5 vs recorded 4f3208b5 (11 s)"
-  },
-  {
-   "id": "R9-material-blocks",
-   "status": "PASS",
-   "message": "golden rebuild: one FEBio block per cage material in 1 cases (tmplflv0exd:4); problems: []"
   },
   {
    "id": "R9-material-blocks",
@@ -114,13 +99,13 @@
   },
   {
    "id": "R10-register",
-   "status": "PASS",
-   "message": "327 register items; unmapped []; 不符 []"
+   "status": "FAIL",
+   "message": "331 register items; unmapped []; 不符 ['D-20261118-Q1']"
   },
   {
    "id": "R10-llm-audit-due",
-   "status": "WARN",
-   "message": "LLM audit required: last 2026-11-18 05:37; gate files changed since: ['human_study/current_settings.json']; decision entries since: ['2026-11-18 06:02']"
+   "status": "PASS",
+   "message": "LLM audit current: last 2026-11-18 06:22; gate files changed since: []; decision entries since: []"
   }
  ],
  "counts": {
@@ -146,16 +131,14 @@
   "designs": 149
  },
  "register": {
-  "last_llm_audit": "2026-11-18 05:37",
-  "n_items": 327,
+  "last_llm_audit": "2026-11-18 06:22",
+  "n_items": 331,
   "unmapped": [],
-  "mismatch": [],
-  "gate_files_changed": [
-   "human_study/current_settings.json"
+  "mismatch": [
+   "D-20261118-Q1"
   ],
-  "new_decisions": [
-   "2026-11-18 06:02"
-  ]
+  "gate_files_changed": [],
+  "new_decisions": []
  },
- "mode": "full"
+ "mode": "quick"
 }
