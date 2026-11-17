@@ -61,6 +61,18 @@
     "DESIGN/soft-face-locking"
    ],
    "correction": "identical decks p050 / p068 / p084 / p127 differ in the first-increment outcome and stiff-face p109 / p115 fail the same way (DECISIONS 2026-11-11 00:16); root cause: the rigid-joint drive snaps C3 back to its t=0 orientation when it is switched on at t 3.5 (01:00). Class renamed DESIGN/not-computable-both-laws; the material explanation is withdrawn."
+  },
+  {
+   "id": "RT-06",
+   "retracted_on": "2026-11-18",
+   "decisions_line": "../biocage-evo/docs/DECISIONS.md 2026-11-18 05:21 (first run superseded)",
+   "claim": "surrogate first run: the flexion target was called posterior translation and compared with the 0.45 / 0.55 mm limits / the grey band",
+   "phrases": [
+    "posterior translation, flexion at 1.5 N m",
+    "y1f",
+    "P(y1 < 0.45 both windows)"
+   ],
+   "correction": "in flexion the cage moves anteriorly; the judged quantity there is the any-direction translation (limit 1 mm); the posterior limit acts in extension only (targets post_ext, uh_flex)"
   }
  ]
 }

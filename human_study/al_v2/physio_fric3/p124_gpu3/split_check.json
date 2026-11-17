@@ -1,0 +1,36 @@
+{
+ "windows": {
+  "flexion": {
+   "exit": 0,
+   "banner": "NORMAL",
+   "n_converged": 61,
+   "t_last": 4.0,
+   "n_negjac": 1292,
+   "static_retry": false,
+   "drive_rows": 61,
+   "dt_min": 0.00157980000000002,
+   "M_max_Nmm": 5811.85060968,
+   "target_reached": true,
+   "n_dyn": 5,
+   "rb_res_max_Nmm": 17.62884407912809,
+   "rb_fres_max_N": 125.6126499345857
+  },
+  "extension": {
+   "exit": 0,
+   "banner": "NORMAL",
+   "n_converged": 26,
+   "t_last": 4.0,
+   "n_negjac": 199,
+   "static_retry": false,
+   "drive_rows": 26,
+   "dt_min": 0.005500169999999915,
+   "M_max_Nmm": 589.302361699,
+   "target_reached": false,
+   "n_dyn": 2,
+   "rb_res_max_Nmm": 6.55680986634512,
+   "rb_fres_max_N": 21.27430354768698
+  }
+ },
+ "n_error": 0,
+ "n_below_target": 1
+}

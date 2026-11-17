@@ -8,5 +8,5 @@
  },
  "gpu": 5,
  "cores": 6,
- "resumed": false
+ "resumed": true
 }

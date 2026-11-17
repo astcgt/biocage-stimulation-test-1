@@ -12,7 +12,10 @@
 | `human_study/PI_REPORT_2026-11-11.md` | 給老闆的進度報告（2026-11-11 00:3x，流程 G 批次完成後）：待決 5 項、主要發現（窗口算不出 = 重啟瞬態的跨次執行數值變異，複本 p050/p068/p084/p127 證據）、批次數字、進行中試跑、QA 戳記、失誤紀錄 | Claude |
 | `human_study/PI_REPORT_2026-11-18_direction.md` | 下一輪方向選項報告（代理模型主動學習／新手導師發想／原則萃取；剪力欄位；數值項；mod 調查；homerepo） | 2026-11-18 |
 | `../biocage_home/` (CLAUDE.md, README.zh-TW.md, links/, skills/, agents/, agent_prompts) | 總部目錄（homerepo 輕量版，PI 2026-11-18）：專案地圖、長期規則、連到兩倉庫與決定／索引／QA 的符號連結；不含程式與資料 | 2026-11-18 |
-| `../biocage-evo/docs/ROUND2_ARCHITECTURE.md` | 下一輪演化構造細節（代理模型主動學習 A、新手／導師發想 B、原則萃取 C；QA R21/R22 提案） | 2026-11-18 |
+| `../biocage-evo/docs/ROUND2_ARCHITECTURE.md` | 下一輪演化構造細節 rev 2（代理模型主動學習 A＋分組驗證 90 %、新手／學長／導師＋設計文法＋幾何編譯器 B、原則萃取與新參數 C、多代理分工 D、創意對照評估 E；QA R21–R25 提案） | 2026-11-18 |
+| `../biocage-evo/ops/descriptors.py` | 由模型檔（h12 網格 npz）計算 12 個幾何描述量（任何材料分布圖都算得出；估算器與原則萃取共用） | 2026-11-18 |
+| `../biocage-evo/ops/surrogate_fit.py` | 估算器驗證門：高斯過程、名目涵蓋率 90 %、依設計分組留出與整個家族留出、交叉保形校正；只讀判定檔 | 2026-11-18 |
+| `../biocage-evo/results/surrogate/validation_2026-11-18.json`、`loo_predictions_2026-11-18.csv`（`*_run1_superseded.*` = 目標標錯的第一次執行；`*_run2_preaudit.*` = 稽核前的第二次執行；皆已取代） | 估算器分組驗證報告（實際涵蓋率、區間寬度、平均絕對誤差／均方根誤差、各家族、新家族）與逐筆預測 | 2026-11-18 |
 | `human_study/FILE_INDEX.md` | 本檔 | Claude |
 | `human_study/PROGRESS_REPORT_2026-10-31.md` | 上一份進度報告（人體模型轉向後） | Claude |
 | `human_study/README.md` | human_study 總說明 | Claude |
@@ -175,7 +178,7 @@ scratchpad `/tmp/claude-1024/-raid-jupyter-alz-ee09-projects-claude-work-biocage
 | `human_study/al_v2/pilot_holdH/`, `human_study/al_v2/pilot_holdHf/` | 重啟保持試算案例（H：粗步，holdA 存檔；Hf：細步，holdE 存檔）；`launch_wave*.sh`、`wave*.log` 為各波啟動紀錄（wave 5/6：flexion 窗口，輸出為 `*_flexion.json`、`done_flexion`）；失敗波的輸出在各案例 `_wave*_fail/` | Claude |
 | `human_study/al_v2/pilot_holdR/` | 路線 E（相對驅動）之下的保持段漂移試算（holdA 存檔、黏著記憶、window_min_residual、window_drive_mode rigid_relative；p062／p139 兩方向）；`launch_wave1.sh`、`wave1.log`；讀取器 biocage-evo/gpufe/verify/v17g_hold_restart.py | 2026-11-18 NUM-13 補證據 |
 | `human_study/al_v2/pilot_holdRh/` | 同 pilot_holdR 但保持段步長減半（window_dt 0.025）：NUM-13 第 2 款（步長／半步長差 ≤ 0.005 mm）在路線 E 之下的證據；`launch_wave1.sh`、`wave1.log` | 2026-11-18 |
-| `human_study/al_v2/pilot_holdQ/`, `human_study/al_v2/pilot_holdQR/` | 真正半步長保持插入模型（保持段 dtmax 0.025，holdE 式曲線；生產二進位、關節窗口＝生產律半步對照）與其 t 3.5 存檔的路線 E 黏著記憶重啟（QR）：NUM-13 第 2 款在路線 E 之下的證據；`launch.sh`、`launch.log` | 2026-11-18 |
+| `human_study/al_v2/pilot_holdQ/`, `human_study/al_v2/pilot_holdQR/` | 真正半步長保持插入模型（保持段 dtmax 0.025，holdE 式曲線；生產二進位、關節窗口＝生產律半步對照）與其 t 3.5 存檔的路線 E 黏著記憶重啟（QR）：NUM-13 第 2 款在路線 E 之下的證據；Q：`launch.sh`、`launch.log`；QR：`launch_wave1.sh`、`wave1.log` | 2026-11-18 |
 | `febio_patches/febio-4.13-biocage-patch6-stick-memory.patch` | 補丁 6+7：黏著記憶／回映；`stick_memory` 改由環境變數 `BIOCAGE_STICK_MEMORY` 開啟（參數數量與正式版一致，存檔可互讀）、`BIOCAGE_CAGE_LAUGON` 增廣拉格朗日；凍結狀態不再換接觸元素；輪廓含錨點元素 | Claude |
 | `../biocage-evo/gpufe/verify/v17g_hold_restart.py`, `../biocage-evo/results/gpufe_verify/v2/v17g_hold_restart.json` | 重啟保持試算的讀數腳本與結果（對照、增廣拉格朗日、黏著記憶；起終點差與 t 3.95–4.4 線性趨勢、振幅、升降步數） | Claude |
 | `../biocage-evo/gpufe/verify/v17h_block_slip_onset.py`, `../biocage-evo/results/gpufe_verify/v2/v17h_block_slip_onset.json` | 區塊滑移起始測試：位移驅動平板，摩擦力平台／庫倫極限，生產 vs 黏著記憶、兩種步長（2026-11-08） | Claude |

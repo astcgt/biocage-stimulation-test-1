@@ -1,7 +1,7 @@
 {
  "meta": {
   "note": "Register: one entry per PI decision that the code must implement. status in {符合, 不符, 未實作, 實作時自選, PI待決, unmapped}. check = h37 check id or 'llm' (judged by the qa-auditor agent). last_llm_audit is set by the auditor, never by h37.",
-  "last_llm_audit": "2026-11-18 04:17",
+  "last_llm_audit": "2026-11-18 05:37",
   "gate_files": [
    "scripts/3_cage_case/h14_build_case.py",
    "scripts/6_active_learning/h22_active_learning.py",
@@ -23,7 +23,7 @@
    "scripts/5_compute/h51_relG_fallback.py",
    "../biocage-evo/ops/replicate_agreement.py"
   ],
-  "audit_report": "human_study/qa/audits/QA_AUDIT_2026-11-17b.md",
+  "audit_report": "human_study/qa/audits/QA_AUDIT_2026-11-18.md",
   "note_15_10": "statuses updated by the main session after the 14:50-15:00 label maintenance; register content from the qa-auditor run of 14:41",
   "note_20261105": "second LLM audit (qa-auditor) 2026-11-05 04:13-04:21: PI decisions of 04:10 registered (D-20261105-*); 11 existing items revised; 不符 D-20261104-L1, D-20261104-L5, D-20261105-L3 (label / document text and numbers, no verdict change)",
   "note_recheck": "2026-11-05 04:29: re-check after main-session fixes (DECISIONS 04:24 / 04:25 / 04:28 entries): D-20261104-L1, D-20261104-L5, D-20261105-L3 -> 符合; D-20261105-6 -> 符合; new D-20261105-S4 (NUM-10 pass with threshold exception, PI sign-off), D-20261105-L6 (labels stale after gate-file edits). 不符 0.",
@@ -48,7 +48,10 @@
   "note_20261118_recheck3": "2026-11-18 02:41: D-20261118-8 -> 符合 (NUM-13 value and DECISIONS L2305/L2307 cite holdH ctl +0.035/+0.119/-0.165/-0.298 and same-direction iteration counts, all reproduced from v17g_hold_restart*.json; retries range stated 2-8, file 1-8 - minor); D-20261118-7 wording fixed, pilot_holdRh launched (clause 2 under route E pending, not judged); new D-20261118-9 (pilot_holdRh settings class, pilot-only). 不符 0. Register 300.",
   "note_20261118_shear_flag": "2026-11-18 04:12: DECISIONS 2026-11-18 03:19 / 03:23 / 04:04 / 04:07 registered as D-20261118-10..15; D-20261118-3 PI待決 -> 符合 (PI decided flag + ranking). Verified: collect_split shear branch removed, shear_check / shear_ranking / shear_check_exceeded, mu_req_field shear_rank, e07 meta, PLAN S10, h37 R2/R5, labels OBS-10 / PHY-09 partial; classes PASS 31 (26/3/2) / GREY 12 / shear flags 54/13/82 / e07 12/54/6 / verdicts 53/16/0/4 reproduce. 不符 1: D-20261118-13 (consequence sentence '28 designs excluded by the shear gate now PASS with exceeded' - actual 26 -> PASS exceeded, 2 -> GREY, 2 former open -> PASS not evaluated). 實作時自選 1: D-20261118-14 (not-evaluated shear no longer blocks PASS; p064 / p121 rank 1-2 on single-window values). Register 306.",
   "note_20261118_0415": "2026-11-18 04:15: D-20261118-13 -> 符合 (L2329 corrected); D-20261118-14 sign-off applied (incomplete read-outs ranked last in both files, verified) - stays 實作時自選 for the not-evaluated-not-blocking rule; new 不符 D-20261118-16: collect_split shear_ranking uses pooled (replicate-representative) shear_req values while mu_req_field shear_rank uses each design's own - 67 of 71 shared positions differ, p059/p060 ranked only in collect_split with substituted values. Classes / verdicts unchanged. Register 307.",
-  "note_20261118_0418": "2026-11-18 04:17: D-20261118-16 -> 符合 (collect_split.py:248 own e07 values + shear_req_source; ranking 71 own rows identical in value and order to mu_req_field, 2 pooled rows p059/p060 labelled). 不符 0. Register 307."
+  "note_20261118_0418": "2026-11-18 04:17: D-20261118-16 -> 符合 (collect_split.py:248 own e07 values + shear_req_source; ranking 71 own rows identical in value and order to mu_req_field, 2 pooled rows p059/p060 labelled). 不符 0. Register 307.",
+  "note_20261118_round2": "2026-11-18 05:37 narrow layer-B audit (qa-auditor): DECISIONS 2026-11-18 04:42 / 04:58 / 05:31 (old repo L2335-2344) with the evo-repo entries 04:42, 04:58, 05:11 (superseded), 05:21, 05:31, 05:32 and ROUND2_ARCHITECTURE.md registered as D-20261118-17..36. Surrogate validation gate (ops/surrogate_fit.py, results/surrogate/validation_2026-11-18.json): grouping, in-fold fitting, cross-conformal quantile, targets and the 05:21 table verified (independent regroup 120 = 120; refit of post_ext G reproduces the csv to 1.7e-7; table numbers = file); separation from verdicts / labels verified. 不符 3 (documents only, no verdict / class / label / table number changes): -27 ('12 without genes or mesh' - all 12 have params files with genes and a mesh; y5 would be 149 rows / 77 positives, y4 6), -28 ('identical in all 90 meshes' / 'every existing design has void 0.597' - 89 meshes, 16 cage_B at 0.645 / 22.55 mm2), -31 (ROUND2_ARCHITECTURE A2 / A5 still define y1 as posterior in both windows and P(y1 < 0.45 both windows); A3 model file; stale pending lines). 實作時自選 3 (-30 weight 70 : 30 has no written source, -35 steering decisions, -36 implementation details); 未實作 1 (-32 propose_round, OOD label, grammar / compiler, prereg, R21-R25). gate_files unchanged (surrogate_fit.py judges nothing; add it together with R21 / R23). Register 327.",
+  "note_20261118_round2_recheck": "2026-11-18 05:56 re-check of D-20261118-27 / -28 / -31 after evo DECISIONS 05:53 (run 3): -27 -> 符合 (genes from params files, 149 rows, y5 77, y4 6; mu_req_field.py untouched); -28 stays 不符, narrowed to counts (run-3 rows use 77 design-A + 24 design-B meshes, text says 73 / 16; 'all 12 design-B' is 8 + 4; 'all design-B compression-sustained' is 23 of 24, p023 computability); -31 stays 不符, narrowed to two leftover phrases (ROUND2 L58 'newer than the model', L242 'R 5 (if approved)'). Run-3 table in the 05:53 entry = result file (every cell). last_llm_audit deliberately left at 2026-11-18 05:37: human_study/current_settings.json changed at 05:45 (class pilot_holdQR, another session) and was NOT audited here. 不符 2.",
+  "note_20261118_round2_recheck2": "2026-11-18 05:59 re-check 2: D-20261118-28, -31 -> 符合 (residual counts and the two leftover phrases corrected in evo DECISIONS.md / ROUND2_ARCHITECTURE.md 05:58:51; values equal the auditor's own recount). 不符 0. last_llm_audit still 2026-11-18 05:37 (current_settings.json 05:45 pilot_holdQR by another session not audited)."
  },
  "items": [
   {
@@ -4596,6 +4599,314 @@
    "source": "decisions",
    "check": "llm",
    "status_before_20261118_0418": "不符"
+  },
+  {
+   "id": "D-20261118-17",
+   "decisions_line": 2335,
+   "quote": "04:42 PI 指示 (1)（evo DECISIONS L198）「surrogate validation at a fixed nominal coverage of 90 %, reporting empirical coverage, interval width, MAE / RMSE, per family and for new geometry regions」",
+   "code": [
+    "../biocage-evo/ops/surrogate_fit.py:41 (NOMINAL, Z = 0.90, 1.6449)",
+    "../biocage-evo/ops/surrogate_fit.py:109-131 (report: empirical_coverage, coverage_2se, width_median / width_p90, mae, rmse, rmse_baseline, skill, per_family)",
+    "../biocage-evo/ops/surrogate_fit.py:151 (leave-one-family-out for D / DT)",
+    "../biocage-evo/results/surrogate/validation_2026-11-18.json"
+   ],
+   "status": "符合",
+   "evidence": "validation_2026-11-18.json（05:20:54，晚於 surrogate_fit.py 05:13:56）：nominal_coverage 0.9；18 個迴歸變體各有 empirical_coverage、width_median／width_p90、mae、rmse、rmse_baseline、skill、per_family（n >= 5 才給數字：coverage、conformal_coverage、mae、rmse、width_median）；新幾何區域以 leave-one-family-out（留出整個家族，4–5 折）代理。由 loo_predictions csv 獨立重算 18 個變體的 coverage／MAE／RMSE，與檔案最大差 0.0004。未做的部分（最近鄰距離的分布外標記 OOD）見 D-20261118-32。",
+   "checked": "2026-11-18 05:37",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-18",
+   "decisions_line": 2335,
+   "quote": "04:42 PI 指示 (1)「validation grouped by design (no replicate on both sides)」；05:21「120 groups (genes + family, replicate lists, launched deck hashes), no group on both sides (asserted)」",
+   "code": [
+    "../biocage-evo/ops/surrogate_fit.py:63-78 (union-find：基因字串 + family、replicates 欄、source 與判定窗口 case_dir 的 launched_feb.sha256)",
+    "../biocage-evo/ops/surrogate_fit.py:99 (assert not set(grp[te]) & set(grp[tr]))"
+   ],
+   "status": "符合",
+   "evidence": "獨立重建分組（基因轉浮點、al_v2 下每個設計所有 1326 個 launched_feb.sha256、verdicts.json 的 replicates.designs）：120 組，與程式分割完全相同；多成員 12 組（p050/p068/p084/p127、p049/p089/p141、p086/p100/p142、p092/p117/p143、p051/p075、p059/p074、p060/p072、p077/p139、p082/p088、p093/p145、p095/p128、p123/p134）；無複本被拆開、無跨家族的組；基因字串與浮點值無不一致（0 例）。csv 的 group 欄與此分割一致。",
+   "checked": "2026-11-18 05:37",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-19",
+   "decisions_line": 2335,
+   "quote": "提問 1：scaling／超參數／baseline 是否在每折內擬合；cross-conformal 分位數是否只用其他組（surrogate_fit.py 說明 L23-25）",
+   "code": [
+    "../biocage-evo/ops/surrogate_fit.py:100 (StandardScaler().fit(X[tr])；gp().fit 於訓練折，normalize_y 在折內)",
+    "../biocage-evo/ops/surrogate_fit.py:103-105 (baseline = 訓練折同家族平均；spread = 訓練折)",
+    "../biocage-evo/ops/surrogate_fit.py:119-121 (s = |殘差|/sd；o = s[grp != g])",
+    "../biocage-evo/ops/surrogate_fit.py:183-186 (y5 分類器同樣折內)"
+   ],
+   "status": "符合",
+   "evidence": "以 import 方式（不呼叫 main）重跑 post_ext G/leave-one-group-out 59 折：預測與 csv 最大差 1.7e-7、下界差 5.9e-8（46 秒）→ 05:13 的程式確實產生 05:20 的結果檔。保形分位數對組 g 只取 grp != g 的分數（L121）。fitted_noise_sd_all_data 是全資料擬合（L134-136），只作診斷、不進驗證。補記（列入 D-20261118-36 簽核）：np.quantile 用線性內插而非保守名次；留出家族模式下保形分位數仍以「組」排除，同一被留出家族的其他列在內（DECISIONS 05:21 已寫明 in-sample、不是保證）。",
+   "checked": "2026-11-18 05:37",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-20",
+   "decisions_line": 2341,
+   "quote": "05:21「fric_compare judges the SIGNED posterior (0.45 / 0.55 mm) and the any-direction translation u_h (1 mm) … Targets now: post_ext (signed posterior, extension at the intact ROM) and uh_flex (u_h, flexion at 1.5 N m)」",
+   "code": [
+    "../biocage-evo/ops/surrogate_fit.py:162-171 (usable 且 eval_point 相符；flexion 取 u_h_at_1p5Nm、extension 取 post_at_rom)",
+    "../biocage-evo/ops/fric_compare.py:157, 161-163 (評估點；uh > 1.0 或 post > 0.55 為 fail，0.45 <= post <= 0.55 為 grey)",
+    "../biocage-evo/results/method/fric/verdicts.json (02:15)"
+   ],
+   "status": "符合",
+   "evidence": "由 verdicts.json 獨立重取：extension 73 設計中 usable 且 ROM 72、不可用 1；flexion usable 且 1.5 N m 70、不可用 3。可用但評估點不同而被丟掉的窗口 0；不可用被納入 0。csv 的 y 與判定量逐列相同（最大差 0.0）。extension 帶號後移 0.195–0.552 mm（72/72 為正）、u_h 最大 0.552（無 > 1 mm）；flexion 帶號後移 -0.910 – -0.037（70/70 為負）、u_h 最大 0.910。y2 79 列／64 組（下界列排除 15）、y3 71 列／59 組皆重現。列的組成問題（複本繼承的複製列、非黏滯記憶律列、評估點寫死）列入 D-20261118-36。",
+   "checked": "2026-11-18 05:37",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-21",
+   "decisions_line": 2341,
+   "quote": "05:21 表（evo DECISIONS L227-232）與 old-repo L2341 摘要",
+   "code": [
+    "../biocage-evo/docs/DECISIONS.md:227-236",
+    "../biocage-evo/results/surrogate/validation_2026-11-18.json"
+   ],
+   "status": "符合",
+   "evidence": "逐格對檔：post_ext 72/59、0.806(±0.078)、0.055、0.0168、0.0263(0.1032)、0.745、保形 0.889／0.0975；uh_flex 70/58、0.871(±0.079)、0.2059、0.0527、0.0795(0.19)、0.582、0.900／0.2634；mu_req 79/64、0.823(±0.075)、0.0075、0.0028、0.0041(0.0204)、0.796、0.886／0.0122；shear 71/59、0.859、4.102、2.4573、4.4869(2.8707)、-0.563、0.901／6.93、steer False。D：0.733／0.600／0.783（Gaussian 0.772 → 保形 0.899）。各家族、留出家族（post_ext 0.847／+0.304、radial_mix 折 0.62；uh_flex 0.429／+0.017、0.16–0.24；mu_req 0.823／+0.495、axial_interleave 0.00 n 5）、DT（0.332／0.653；-0.067／0.471）、y5 Brier 0.0656／0.075／0.2525、雜訊 0.0149／0.0036 皆與檔一致。捨入小差：mu_req 寬度 0.0075 寫 0.007；mu_req 的 axial_interleave n 5 其實有數字（0.80／1.00），敘述寫「too few rows」。old-repo L2341 寫「correction of the 04:58 line」，被更正的是 05:11 那一行。",
+   "checked": "2026-11-18 05:37",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-22",
+   "decisions_line": 2341,
+   "quote": "提問 3／surrogate_fit.py L3-4「Read-only on the verdict chain … writes only results/surrogate/. Surrogate numbers never enter verdicts or labels (h37 R21)」",
+   "code": [
+    "../biocage-evo/ops/surrogate_fit.py:47, 50 (只讀 mu_req_field.csv、verdicts.json)",
+    "../biocage-evo/ops/surrogate_fit.py:192-195 (唯一寫出：results/surrogate/validation_<date>.json、loo_predictions_<date>.csv)",
+    "../biocage-evo/ops/descriptors.py:20 (只 np.load)"
+   ],
+   "status": "符合",
+   "evidence": "兩檔沒有其他 open(...,'w')／dump／remove／subprocess。fric_compare、e07_batch、collect_split、mu_req_field、h33、h37 與 platform_capabilities.json 中 'surrogate'／'post_ext'／'uh_flex' 字樣 0 次（old repo 的 h22／h43 是既有的另一套）。mtime：verdicts.json 02:15:50、e07_verdicts 04:06、split／mu_req_field 04:16:57、platform_capabilities.json 04:07:54、CAPABILITY_SCORECARD 04:07:55，全部早於 descriptors.py 05:02、surrogate_fit.py 05:13、validation 05:20。date 參數未驗證（argv[1] 直接進檔名），實際不會寫到別處。R21 尚未寫進 h37（D-20261118-32）。",
+   "checked": "2026-11-18 05:37",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-23",
+   "decisions_line": 2341,
+   "quote": "05:21「radial_interleave is UNDER-covered beyond sampling noise (2 SE about 0.12 at n 25-27): post_ext 0.73 / 0.85, uh_flex 0.72 / 0.80, mu_req 0.70 / 0.70 … holds PASS 15 / GREY 10, and radial_mix is an excluded class (28)」",
+   "code": [
+    "../biocage-evo/docs/DECISIONS.md:234",
+    "../biocage-evo/results/surrogate/validation_2026-11-18.json per_family",
+    "../biocage-evo/results/surrogate/loo_predictions_2026-11-18.csv"
+   ],
+   "status": "符合",
+   "evidence": "數字與檔一致；radial_interleave 類別 PASS 15／GREY 10、radial_mix 排除 28 由 mu_req_field.csv 重現。限定：「2 SE 約 0.12」把複本列當獨立樣本；按組算是 18–19 組、2 SE 0.14。按組（整組都涵蓋）：post_ext 14/18 = 0.78（缺口 0.12，在 0.14 內）、uh_flex 11/18 = 0.61、mu_req 13/19 = 0.68（兩者明顯超出）。保形區間（實際用來引導的）只有 mu_req 0.70 明顯超出；post_ext 0.85、uh_flex 0.80 在雜訊內。post_ext 的 7 個漏列（p051、p060、p075、p093、p117、p143、p145）屬 4 個組、全部是後移 >= 0.45 mm 的設計；全體 y >= 0.45 的 17 列 Gaussian 涵蓋率只有 0.59（其餘 0.87），但沒有任何一列的預測均值跨過 0.45 判錯邊（y >= 0.45 的列預測最小 0.453；y < 0.45 的列預測最大 0.446）。結論方向成立，建議改寫為「按組計，uh_flex 與 mu_req 明顯不足，post_ext 的不足集中在灰區設計」。",
+   "checked": "2026-11-18 05:37",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-24",
+   "decisions_line": 2341,
+   "quote": "05:21「uh_flex coverage 0.43, skill +0.02 (radial folds 0.16-0.24): NOT predictable for an unseen family」",
+   "code": [
+    "../biocage-evo/results/surrogate/validation_2026-11-18.json targets.uh_flex[D/leave-one-family-out]",
+    "../biocage-evo/ops/surrogate_fit.py:93-106 (by=family)"
+   ],
+   "status": "符合",
+   "evidence": "檔：coverage 0.429、skill 0.017、rmse 0.3468 對 baseline 0.3529、4 折；radial_interleave 折 0.16、radial_mix 折 0.24、axial_mix 折 1.00（n 18，區間很寬）、axial_interleave n 2 無數字。steer_gaussian／steer_conformal 皆 False。證據只有 3 個有數字的折（已寫 weak evidence）。",
+   "checked": "2026-11-18 05:37",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-25",
+   "decisions_line": 2341,
+   "quote": "05:21「20 variants in the file, of which DT (descriptors + tied mu_req) is post-hoc」「C6 (b) test, post-hoc … does not rescue the unseen-family case」",
+   "code": [
+    "../biocage-evo/ops/surrogate_fit.py:11 (DT = POST-HOC variant)",
+    "../biocage-evo/results/surrogate/validation_2026-11-18.json spec / variants_tried",
+    "../biocage-evo/results/surrogate/validation_2026-11-18_run1_superseded.json"
+   ],
+   "status": "符合",
+   "evidence": "現行檔 variants_tried 20 個，spec 文字寫明 DT 為 POST-HOC；第一次執行的檔（05:10）沒有 DT，可佐證是事後加入。DT 留出家族：post_ext skill 0.332／coverage 0.653，uh_flex -0.067／0.471 ✓；族內 DT 對 D：0.732 對 0.733、0.588 對 0.600 ✓。小差：已取代的 05:11 條目寫「all 19 variants」，該檔實際 18 個。",
+   "checked": "2026-11-18 05:37",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-26",
+   "decisions_line": 2341,
+   "quote": "05:21「y5 ('not in a compression class', 75 of 137; counts radial-mix-excluded and not-computable as 1)」",
+   "code": [
+    "../biocage-evo/ops/surrogate_fit.py:178 (y = 0 若 verdict_class 含 'compression'，否則 1)",
+    "../biocage-evo/ops/surrogate_fit.py:177 (註解仍寫 'tied gate passed')"
+   ],
+   "status": "符合",
+   "evidence": "137 列重算：y = 1 共 75 = PASS 31 + radial-mix-excluded 28 + GREY 12 + unstable-window 2 + not-computable-both-laws 2；y = 0 共 62（compression-sustained 53、-peak 5、-peak-lowerbound 4）。標籤文字與實際定義相符；L177 的程式註解仍是舊名稱（不影響結果）。這個分類器沒納入被排除的 12 列（見 D-20261118-27）。",
+   "checked": "2026-11-18 05:37",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-27",
+   "decisions_line": 2341,
+   "quote": "05:21「137 rows with genes (12 without genes or mesh excluded)」",
+   "code": [
+    "../biocage-evo/ops/surrogate_fit.py:48-49 (mu_req_field.csv 的 family 或 hp_E_hard 空白即排除)",
+    "../biocage-evo/ops/mu_req_field.py:24-31 (source 為空時不讀 params，family／mesh／hp_* 留空)",
+    "human_study/al_v2/cases/p009_physio_params.json 等 12 檔"
+   ],
+   "status": "符合",
+   "evidence": "被排除的 p009、p011、p021、p023、p033、p035、p045、p047、p053、p055、p057、p058 在 al_v2/cases/pNNN_*_params.json 都有基因與存在的模型檔（例：p009 cage_B_radial_interleave_d0.888、E_hard 259.81、E_soft 3.213、theta 0.33；p053 cage_A_both_interleave_d1.500）。它們不是「沒有基因或網格」，而是 mu_req_field.csv 對沒有 source 的設計不填這些欄位。後果：四個迴歸目標的表格數字不變（這 12 個沒有摩擦、mu_req、剪力讀值）；y5 會變成 149 列（正例 75 → 77，多 10 個 compression-sustained-lowerbound 負例，其中 4 個在 radial_interleave），Brier 0.066／0.075／0.253 需重算；y4「4 positives」變 6（p023、p053 的類別 [多元]/computability 符合 L190 的字串條件）。建議：surrogate_fit.py 直接從 al_v2/cases 的 params 檔取基因（不要改 mu_req_field.py——它是 gate file，改了會再觸發稽核），重跑 y5／y4，並改正敘述。 ｜ 複查 2026-11-18 05:56：surrogate_fit.py（05:42:31）load() L57-65 對空白列改從 al_v2/cases/pNNN_*_params.json 取基因與模型檔；mu_req_field.py 未動（mtime 04:13:22，git 無修改）。以新 load() 重取：149 列、排除 0、補入 12、132 組（補入列未併入任何既有組）。validation_2026-11-18.json（05:52:04，晚於程式）：rows_with_genes 149、y5 149 列／正例 77、Brier 0.0504／家族率 0.0476／基準率 0.2541；y4 6 個（p003、p023、p027、p048、p053、p115）。evo DECISIONS L248 已改正排除原因。同一行新寫的「All 12 are design-B cages」不對（8 個 cage_B、4 個 cage_A：p053、p055、p057、p058），併入 D-20261118-28 追蹤。",
+   "checked": "2026-11-18 05:56",
+   "source": "decisions",
+   "check": "llm",
+   "status_before_20261118_recheck": "不符"
+  },
+  {
+   "id": "D-20261118-28",
+   "decisions_line": 2343,
+   "quote": "05:21「void_frac and contact_area are identical in all 90 meshes (0.597, 37.44 mm2)」；05:31「every existing design has void 0.597, so the weight does not change arm A today」",
+   "code": [
+    "../biocage-evo/docs/DECISIONS.md:237, 241",
+    "../biocage-evo/ops/descriptors.py:39-40",
+    "human_study/al/meshes/*.npz (info.window_frac)"
+   ],
+   "status": "符合",
+   "evidence": "137 列用到 89 個不同模型檔（不是 90）：73 個 cage_A 為 0.597／37.44 mm2，16 個 cage_B 為 0.645／22.55 mm2（16 個設計，類別全是 DESIGN/compression-sustained；axial_mix 4、axial_interleave 4、radial_mix 4、both_mix 4）。四個迴歸目標的列（72／70／79／71）確實全是 0.597，所以「不同窗口 = 分布外」對這四個目標成立；但 y5 的資料裡有第二種窗口，而且 05:31 用「全部 0.597」當作「30 % 空間權重今天不影響 A 組」的理由並非對所有現有設計成立：若 A 組候選池包含 cage_B（0.645；propose_round 尚未寫，未能查證），空間加權會偏向它，而現有 16/16 個 cage_B 設計在壓縮門失敗。不改任何判定或表格數字。建議改正兩處敘述，並在 propose_round 寫明候選池是否含 cage_B。 ｜ 複查 2026-11-18 05:56：已改正的部分——evo DECISIONS L249 與 ROUND2_ARCHITECTURE.md L231-233 寫明空間比例並非全部相同、迴歸列全為 A 型、甲組候選池只含 A 型家族（PI_PENDING L6 同）；05:21 條目標題加註已被取代。仍不符（範圍縮小，只剩計數）：第三次執行用 149 列，實際是 101 個模型檔 = A 型 77 個（0.597／37.44）+ B 型 24 個（0.645／22.55），文件仍寫 73／16（那是補入 12 列之前的 137 列）；「All 12 are design-B cages」實為 8 個 B 型 + 4 個 A 型；「all design-B designs are compression-sustained」實為 24 個中 23 個（16 個 compression-sustained、7 個 -lowerbound），p023 是 [多元]/computability（也在 y4 的 6 個之內）。結論（候選池只含 A 型，權重今天不起作用）不受影響，表格數字不變。修法：L248、L249 與 ROUND2 L231-232 改為 77／24、8 + 4、23 of 24。 ｜ 複查 2（2026-11-18 05:59）：evo DECISIONS.md（05:58:51）L248「Of the 12, 8 are design-B cages and 4 design-A (p053 p055 p057 p058)」、L249「77 design-A meshes … 24 design-B meshes … (149 rows, 101 meshes; 23 of the 24 design-B designs are compression-sustained, p023 is [多元]/computability)」；ROUND2_ARCHITECTURE.md L231-232「24 design-B meshes … 77 design-A meshes, and 23 of the 24 design-B designs are compression-sustained」。與我前一輪用 surrogate_fit.load() 的獨立重算一致（A 77、B 24、共 101；B 類別 16 + 7 + 1）。舊字句（73 / 16、All 12 are design-B、all design-B designs）在兩檔中只剩 L249 的更正說明。",
+   "checked": "2026-11-18 05:59",
+   "source": "decisions",
+   "check": "llm",
+   "status_before_20261118_recheck": "不符",
+   "status_before_20261118_recheck2": "不符"
+  },
+  {
+   "id": "D-20261118-29",
+   "decisions_line": 2343,
+   "quote": "04:58 第 1 項「目前先不管，隨意」（記為：空間不加權、S4 void >= 50 % 保留）→ 05:31 PI「更正：空間還是保留」",
+   "code": [
+    "../biocage-evo/docs/DECISIONS.md:204, 240-241",
+    "../biocage-evo/docs/ROUND2_ARCHITECTURE.md:226-227",
+    "../biocage-evo/docs/PLAN.md:30 (S4：>= 50 %，more is an objective)",
+    "human_study/PI_PENDING_DECISIONS.md:5"
+   ],
+   "status": "符合",
+   "evidence": "稽核期間 PI 於 05:31 撤回「先不管」。S4 下限：ROUND2_ARCHITECTURE.md L226（05:31:37 更新）、PLAN.md L30、B1 新手任務文字 L78、B13 編譯器 L0 檢查 L152、PI_PENDING L5 一致，沒有文件與「S4 保留」矛盾。04:58 的兩種讀法（空間不加權）現在都已失效；evo L204 與 old-repo L2339 是歷史條目，未加註「已被 05:31 取代」（下一條即更正）。S4 的程式檢查（幾何編譯器）尚未實作（D-20261118-32）。",
+   "checked": "2026-11-18 05:37",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-30",
+   "decisions_line": 2343,
+   "quote": "05:31「acquisition weight back to the recommended 70 : 30 (my reading)」",
+   "code": [
+    "../biocage-evo/docs/DECISIONS.md:241",
+    "../biocage-evo/docs/ROUND2_ARCHITECTURE.md:226",
+    "human_study/PI_PENDING_DECISIONS.md:5"
+   ],
+   "status": "實作時自選",
+   "evidence": "PI 原話只有「更正：空間還是保留」。70 : 30 這個數字在 05:31 之前的任何文件都查不到（ROUND2_ARCHITECTURE rev 1–3、PI_REPORT_2026-11-18_direction.md、PI_PENDING 的 HEAD 版、evo DECISIONS 04:42「Waiting for the PI: acquisition weights」都沒有數字），所以「回到建議值」沒有書面出處。PI_PENDING L5 把它寫在已劃掉（已定）的那一行裡，PI 不容易看出這仍待他確認。propose_round 未寫，目前不影響任何數字。簽核項：請 PI 明確回覆權重，並把它列為 PI_PENDING 的未結項。",
+   "checked": "2026-11-18 05:37",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-31",
+   "decisions_line": 2341,
+   "quote": "ROUND2_ARCHITECTURE.md 是否與 05:21 更正及 04:58／05:31 決定一致",
+   "code": [
+    "../biocage-evo/docs/ROUND2_ARCHITECTURE.md:29 (A2 y1 = posterior translation, flexion and extension)",
+    "../biocage-evo/docs/ROUND2_ARCHITECTURE.md:57 (P(pass) = P(y1 < 0.45 both windows))",
+    "../biocage-evo/docs/ROUND2_ARCHITECTURE.md:36 (輸出 model_<date>.pkl + loo_<date>.json)",
+    "../biocage-evo/docs/ROUND2_ARCHITECTURE.md:112 (PI decisions needed before round 1: acquisition weights …)",
+    "../biocage-evo/docs/ROUND2_ARCHITECTURE.md:234 (R 5 (if approved))"
+   ],
+   "status": "符合",
+   "evidence": "文件層級，尚無程式依此執行。L29、L57 仍是 05:21 已更正掉的目標定義：前屈的後移全為負、後移限值在前屈不起作用，前屈該看任意方向位移 < 1 mm（現有最大 0.910 mm）。若 propose_round 照 L57 寫，前屈那一項恆為 1，而且完全不檢查 1 mm 限值。L36 的模型檔 model_<date>.pkl 不存在（實際輸出 validation_<date>.json + loo_predictions_<date>.csv），R23「newer than the model」沒有比較對象。L112、L234 把已決定的事仍寫成待決。後果：目前沒有數字改變；在寫 propose_round／R23 之前要先改。 ｜ 複查 2026-11-18 05:56：ROUND2_ARCHITECTURE.md（05:53:38）已改正 L29-31（y1 = post_ext + uh_flex）、L38-39（不存模型檔，R23 比對驗證檔與輸入表）、L60-61（P(pass) = P(post_ext < 0.45) x P(uh_flex < 1.0) …）、L116（已決定）、L227-228（Hugging Face）；中度的部分（目標定義）已解除。仍剩兩處舊字句：L58「R23 (validation file exists, grouped, newer than the model)」與 L38-39 自相矛盾；L242「R 5 (if approved)」（對照組已於 04:58 核准；原登記的 L234）。兩處各改一句即可。 ｜ 複查 2（2026-11-18 05:59）：ROUND2_ARCHITECTURE.md（05:58:51）L58「R23 (validation file exists, grouped, newer than its input tables mu_req_field.csv and verdicts.json)」，與 L38-39 一致；L242「R 5 (approved 2026-11-18)」。『newer than the model』『if approved』兩句已不存在。原登記的五處全部改正。",
+   "checked": "2026-11-18 05:59",
+   "source": "decisions",
+   "check": "llm",
+   "status_before_20261118_recheck": "不符",
+   "status_before_20261118_recheck2": "不符"
+  },
+  {
+   "id": "D-20261118-32",
+   "decisions_line": 2338,
+   "quote": "04:42 (2)-(4)、04:58 第 2-4 項（每輪 A 20 + B 5 (+5) + R 5 + 1；導師可離開家族；對照組 R）、05:21 決定 (2)(4) 的旗標、h37 R21-R25",
+   "code": [
+    "../biocage-evo/ops/ (無 propose_round.py、geom_compile.py、design grammar)",
+    "scripts/8_audit/h37_qa_check.py (無 R21-R25)",
+    "../biocage-evo/results/ (無 round2/prereg.json、無 surrogate 模型檔)"
+   ],
+   "status": "未實作",
+   "evidence": "已決定、尚未實作（不是不符）：採樣與批次 propose_round（A5 效用、探索配額、複本 2 個）、最近鄰距離的分布外標記（OOD）、radial_interleave 的 under-covered 旗標與探索份額加倍、設計文法與幾何編譯器（含 S1／S3／S4／S5 程式檢查）、新手／學長／導師流程與機制標記、對照組 R、預先登記檔 prereg.json、原則萃取 C6、h37 的 R21（判定不含估算值）、R22、R23（分組驗證檔存在且較新）、R24、R25。",
+   "checked": "2026-11-18 05:37",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-33",
+   "decisions_line": 2335,
+   "quote": "04:42 (5)「standing rule: when blocked, search the literature first」",
+   "code": [
+    "../biocage-evo/roles/prompts/common.md (git diff：新增 2 行)",
+    "../biocage-evo/docs/ROUND2_ARCHITECTURE.md:215-217 (section F)"
+   ],
+   "status": "符合",
+   "evidence": "common.md 新增「When you are blocked … search the literature FIRST and cite what you found (or 'none found') … (PI 2026-11-18)」；ROUND2 section F 同義，並註明新手與標記者不適用。",
+   "checked": "2026-11-18 05:37",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-34",
+   "decisions_line": 2338,
+   "quote": "04:42 (6)、04:58 第 5 項「contributors must show no trace of AI or Claude」、05:32 Hugging Face set-up",
+   "code": [
+    "../biocage-evo/config.json:7-14 (huggingface_repo)",
+    "../biocage_evo_hf/.git (local config)",
+    "../biocage-evo/docs/DECISIONS.md:243-244"
+   ],
+   "status": "符合",
+   "evidence": "clone ../biocage_evo_hf 只有平台的 initial commit（作者為 PI 的 Hugging Face noreply 身分），工作區只有 .gitattributes、無未提交內容；local user.name／user.email 為同一 PI 身分，無 AI／Claude 字樣；git-lfs／git-xet 只設在該 clone。未推送任何內容（金鑰未登記）。上傳內容與公開／私有仍在 PI_PENDING（PI待決，未結）。",
+   "checked": "2026-11-18 05:37",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-35",
+   "decisions_line": 2341,
+   "quote": "05:21 依授權自行決定的五項：(1) 引導用保形區間 (2) 只在有資料的家族內引導、radial_interleave 加旗標且探索份額加倍 (3) 剪力只探索 (4) 新家族／拓撲／窗口 = 分布外 (5) 靠近 0.45 mm 只由模擬決定",
+   "code": [
+    "../biocage-evo/docs/DECISIONS.md:238",
+    "../biocage-evo/results/surrogate/validation_2026-11-18.json steer_gaussian / steer_conformal",
+    "../biocage-evo/ops/surrogate_fit.py:125-127"
+   ],
+   "status": "實作時自選",
+   "evidence": "與結果檔一致且偏保守：G 的 steer_conformal 對 post_ext／uh_flex／y2 為 True、y3 False ✓；(5) 保形半寬 0.0975/2 = 0.049 mm 對灰區寬 0.10 mm ✓，且 y >= 0.45 的 17 列 Gaussian 涵蓋率 0.59，支持「近限值只由模擬決定」。需 PI 知悉的地方：引導門檻（涵蓋率 0.80–0.95、skill >= 0.2、寬度 < 訓練分布 5–95 %）是自選數字；保形校正後的整體涵蓋率依構造就接近 0.90，所以「0.80–0.95」對保形區間幾乎必過，真正的檢驗是各家族涵蓋率與 skill。另：檔內留出家族的 steer 旗標對 y2 為 True／True、post_ext Gaussian True，與決定 (4)「新家族一律不由估算器升降」不同調——之後的程式不得讀留出家族那一格的 steer 旗標。",
+   "checked": "2026-11-18 05:37",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-36",
+   "decisions_line": 2341,
+   "quote": "surrogate_fit.py 的實作細節（決策文未寫）",
+   "code": [
+    "../biocage-evo/ops/surrogate_fit.py:113-114 (涵蓋率按列、誤差按組)",
+    "../biocage-evo/ops/surrogate_fit.py:121 (np.quantile 線性內插)",
+    "../biocage-evo/ops/surrogate_fit.py:166 (評估點寫死 extension=ROM、flexion=1.5Nm)",
+    "../biocage-evo/ops/surrogate_fit.py:170 (procG 特徵)",
+    "../biocage-evo/ops/surrogate_fit.py:175 (y3 不看 shear_req_complete)",
+    "../biocage-evo/ops/fric_compare.py:249 (複本繼承窗口)"
+   ],
+   "status": "實作時自選",
+   "evidence": "(a) 涵蓋率按列計、2 SE 按組計：post_ext 按列 0.806，各組平均 0.845。(b) p050、p084 的兩個窗口是繼承 p068 的複製值（inherited_from），不是獨立模擬：獨立列 70／68；去掉後 post_ext Gaussian 0.800（剛好在 0.80 門檻上）／保形 0.886，uh_flex 0.868／0.897。同組，無洩漏。(c) 4 列不是黏滯記憶律的讀值：p095、p104 extension 為參考律 + 0.0581 mm 餘裕、p148 flexion + 0.0431、p060 extension 為 physio_fric2 參考律；extension 的 3 列全部落在區間外。這些確實是 fric_compare 判定用的量，但混了不同摩擦律，特徵裡沒有標示。(d) 保形分位數用線性內插，不是保守名次 ceil((n+1)·0.9)：mu_req 保形涵蓋率 0.886（檔）對 0.911（保守名次）、寬度 0.0122 對 0.0127；post_ext、uh_flex 不變。(e) 評估點寫死：今天丟掉 0 個可用窗口，日後若有 extension 在 1.5 N m 或 flexion 在 ROM 判定的窗口會被無聲丟掉。(f) 每個窗口只建模起作用的那個量（extension 的 u_h 最大 0.552、flexion 後移全負），之後若不成立不會被發現。(g) y3 含 7 列 shear_req_complete = False 的不完整讀值（剪力本來就只探索）。",
+   "checked": "2026-11-18 05:37",
+   "source": "decisions",
+   "check": "llm"
   }
  ]
 }

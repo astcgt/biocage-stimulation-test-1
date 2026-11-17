@@ -1,0 +1,15 @@
+{
+ "cases": {
+  "p083": {
+   "exit": 0,
+   "normal": true,
+   "wall_s": 72904.0,
+   "cores": 4,
+   "core_h": 81.004
+  }
+ },
+ "batch_wall_s": 72914.1,
+ "total_core_h": 81.004,
+ "gpu_h": 0.0,
+ "not_run": []
+}

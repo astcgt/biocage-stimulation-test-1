@@ -1,0 +1,17 @@
+{
+  "tools": "Read, Grep, Glob, Bash",
+  "variants": [
+    {
+      "name": "qa-auditor",
+      "model": "inherit",
+      "parts": ["core.md"],
+      "description": "Independent test-quality auditor (layer B of human_study/qa/QA_SYSTEM.md). Checks that the simulation-building code, the verdict / gate code and the capability labels implement what the PI decided in DECISIONS.md. Use after a new PI decision, after a gate file changes, before any report of numbers to the PI, or weekly. Read-only on code; writes only human_study/qa/QA_SPEC.json and human_study/qa/audits/."
+    },
+    {
+      "name": "qa-auditor-weak",
+      "model": "sonnet",
+      "parts": ["core.md", "patch-weak.md"],
+      "description": "Same job as qa-auditor (layer B test-quality audit), with extra step-by-step guidance for a weaker model. Use only when a Sonnet- or Haiku-class model is explicitly wanted; otherwise use qa-auditor."
+    }
+  ]
+}

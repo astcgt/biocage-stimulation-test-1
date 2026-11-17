@@ -1,0 +1,2 @@
+started human_study/al_v2/pilot_holdH/p062_smR on GPU 3, cores 0..9, env {'BIOCAGE_STICK_MEMORY': '1'}
+human_study/al_v2/pilot_holdH/p062_smR flexion {'exit': 0, 'normal': True, 'wall_s': 603.2, 'gpu': 3, 'cores': 5, 'core_h': 0.838, 'gpu_h': 0.168, 'profile_drops': 0, 'valid': True, 'env_lines': []}

@@ -1,0 +1,13 @@
+{
+ "ok": true,
+ "errors": [],
+ "warnings": [],
+ "checked": "2026-11-09 11:41:47",
+ "fp": {
+  "feb": "19614bee8c82eefaba5dd78b2cf545afbbf7a4d08270009f8921b3a0e09cc30b",
+  "h14": "6216d121b8ae0fda4863d190fc44f6634f94eda48142d246ab1d0ed540c1d71a",
+  "h12": "8287cbe518196ec7b13bdb2adaecf77c9b030431435846179792a96723a524e2",
+  "settings": "d28f3e79fcd088910bcbcdaf43a8bf90848491fbc82acc0aa47d6b5e852e6b71",
+  "lib": "16f309d37f2c5137eae0f2975548d6d6198e7eb393eb72f66fb1883f9981148b"
+ }
+}

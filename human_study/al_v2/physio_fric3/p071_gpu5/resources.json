@@ -1,0 +1,9 @@
+{
+ "exit": 1,
+ "normal": false,
+ "wall_s": 2.9,
+ "gpu": 5,
+ "cores": 4,
+ "core_h": 0.003,
+ "gpu_h": 0.001
+}
