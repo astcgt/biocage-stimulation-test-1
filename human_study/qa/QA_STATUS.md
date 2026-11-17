@@ -1,4 +1,4 @@
-# QA status 2026-11-18 02:30 — WARN
+# QA status 2026-11-18 02:32 — WARN
 
 h37_qa_check.py (layer A, deterministic). PASS = check held; FAIL = drift found, fix before any number is reported; WARN = information or an audit is due. Layer B (meaning of the decisions) = qa-auditor agent, register human_study/qa/QA_SPEC.json.
 
