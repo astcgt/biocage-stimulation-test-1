@@ -10,6 +10,9 @@
 | `human_study/PI_PENDING_DECISIONS.md` | 等 PI 決定的事項：白話問題／選項／影響；決定後移到 DECISIONS | Claude |
 | `human_study/PI_REPORT_2026-11-10.md` | 2026-11-10 進度與議題清單（決策優先：議題二流程選擇、軟面鎖死窗口、0.5 mm 灰區、捷徑容差；結果、進行中、失誤紀錄、參考檔案） |
 | `human_study/PI_REPORT_2026-11-11.md` | 給老闆的進度報告（2026-11-11 00:3x，流程 G 批次完成後）：待決 5 項、主要發現（窗口算不出 = 重啟瞬態的跨次執行數值變異，複本 p050/p068/p084/p127 證據）、批次數字、進行中試跑、QA 戳記、失誤紀錄 | Claude |
+| `human_study/PI_REPORT_2026-11-18_direction.md` | 下一輪方向選項報告（代理模型主動學習／新手導師發想／原則萃取；剪力欄位；數值項；mod 調查；homerepo） | 2026-11-18 |
+| `../biocage_home/` (CLAUDE.md, README.zh-TW.md, links/, skills/, agents/, agent_prompts) | 總部目錄（homerepo 輕量版，PI 2026-11-18）：專案地圖、長期規則、連到兩倉庫與決定／索引／QA 的符號連結；不含程式與資料 | 2026-11-18 |
+| `../biocage-evo/docs/ROUND2_ARCHITECTURE.md` | 下一輪演化構造細節（代理模型主動學習 A、新手／導師發想 B、原則萃取 C；QA R21/R22 提案） | 2026-11-18 |
 | `human_study/FILE_INDEX.md` | 本檔 | Claude |
 | `human_study/PROGRESS_REPORT_2026-10-31.md` | 上一份進度報告（人體模型轉向後） | Claude |
 | `human_study/README.md` | human_study 總說明 | Claude |
@@ -112,6 +115,7 @@
 | `human_study/qa/QA_SPEC.json` | B 層登記表：每條決策 ↔ 程式位置 ↔ 狀態（符合／不符／未實作／實作時自選／PI待決） |
 | `human_study/qa/audits/QA_AUDIT_2026-11-13.md` | 層 B 稽核 2026-11-13 04:1x–04:4x（DECISIONS 2026-11-11 14:44 至 2026-11-13 04:07）：5 條不符（fric_compare 勝出規則未看是否到達評估點、繼承後頂層殘留鎖死欄位、DIV-03／OBS-10／NUM-17 標籤數字過期）→ 04:5x 修正；登記表 242 條 | qa-auditor |
 | `human_study/qa/audits/QA_AUDIT_2026-11-17.md` | 層 B 稽核 2026-11-17 04:1x（路線 E 重跑後狀態）：7 條不符（第一增量 0→1、流程 G／生產分項計數、ROM 窗口數、window_drive 欄、DIV-03 TIED 數字、NUM-13 退回部分、窗口數文字）→ 同日修正；新待決：PASS 類是否排除摩擦 fail | qa-auditor |
+| `human_study/qa/audits/QA_AUDIT_2026-11-17b.md` | 第 B 層稽核（2026-11-18 02:03）：邊界灰區規則、p102／p149 完成、簽結 S7/S8/26(c)；5 不符（p093 灰區清單假句、p149 步數敘述、「唯一窗口」聲稱、標籤規則欄位、DIV-03 TIED 數字）| 2026-11-18 |
 | `human_study/qa/QA_STATUS.json`, `human_study/qa/QA_STATUS.md` | h37 最新結果（匯報前先看） |
 | `human_study/qa/RETRACTED.json` | 已撤回的說法（出現在文件中即 FAIL） |
 | `human_study/qa/audits/` | B 層稽核報告（`QA_AUDIT_2026-11-04.md`） |

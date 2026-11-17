@@ -1,5 +1,5 @@
 {
- "time": "2026-11-17 08:00",
+ "time": "2026-11-18 02:30",
  "overall": "WARN",
  "checks": [
   {
@@ -60,7 +60,7 @@
   {
    "id": "R12-file-index",
    "status": "PASS",
-   "message": "269 paths in FILE_INDEX.md; missing []"
+   "message": "276 paths in FILE_INDEX.md; missing []"
   },
   {
    "id": "R14-patch7-logs",
@@ -100,12 +100,12 @@
   {
    "id": "R10-register",
    "status": "PASS",
-   "message": "271 register items; unmapped []; 不符 []"
+   "message": "296 register items; unmapped []; 不符 []"
   },
   {
    "id": "R10-llm-audit-due",
-   "status": "WARN",
-   "message": "LLM audit required: last 2026-11-17 04:30; gate files changed since: ['../biocage-evo/ops/fric_compare.py', '../biocage-evo/ops/e07_batch.py']; decision entries since: ['2026-11-17 04:38']"
+   "status": "PASS",
+   "message": "LLM audit current: last 2026-11-18 02:29; gate files changed since: []; decision entries since: []"
   }
  ],
  "counts": {
@@ -131,17 +131,12 @@
   "designs": 149
  },
  "register": {
-  "last_llm_audit": "2026-11-17 04:30",
-  "n_items": 271,
+  "last_llm_audit": "2026-11-18 02:29",
+  "n_items": 296,
   "unmapped": [],
   "mismatch": [],
-  "gate_files_changed": [
-   "../biocage-evo/ops/fric_compare.py",
-   "../biocage-evo/ops/e07_batch.py"
-  ],
-  "new_decisions": [
-   "2026-11-17 04:38"
-  ]
+  "gate_files_changed": [],
+  "new_decisions": []
  },
  "mode": "quick"
 }
