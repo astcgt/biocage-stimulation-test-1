@@ -1,7 +1,7 @@
 {
  "meta": {
   "note": "Register: one entry per PI decision that the code must implement. status in {符合, 不符, 未實作, 實作時自選, PI待決, unmapped}. check = h37 check id or 'llm' (judged by the qa-auditor agent). last_llm_audit is set by the auditor, never by h37.",
-  "last_llm_audit": "2026-11-18 06:22",
+  "last_llm_audit": "2026-11-18 06:24",
   "gate_files": [
    "scripts/3_cage_case/h14_build_case.py",
    "scripts/6_active_learning/h22_active_learning.py",
@@ -52,7 +52,8 @@
   "note_20261118_round2": "2026-11-18 05:37 narrow layer-B audit (qa-auditor): DECISIONS 2026-11-18 04:42 / 04:58 / 05:31 (old repo L2335-2344) with the evo-repo entries 04:42, 04:58, 05:11 (superseded), 05:21, 05:31, 05:32 and ROUND2_ARCHITECTURE.md registered as D-20261118-17..36. Surrogate validation gate (ops/surrogate_fit.py, results/surrogate/validation_2026-11-18.json): grouping, in-fold fitting, cross-conformal quantile, targets and the 05:21 table verified (independent regroup 120 = 120; refit of post_ext G reproduces the csv to 1.7e-7; table numbers = file); separation from verdicts / labels verified. 不符 3 (documents only, no verdict / class / label / table number changes): -27 ('12 without genes or mesh' - all 12 have params files with genes and a mesh; y5 would be 149 rows / 77 positives, y4 6), -28 ('identical in all 90 meshes' / 'every existing design has void 0.597' - 89 meshes, 16 cage_B at 0.645 / 22.55 mm2), -31 (ROUND2_ARCHITECTURE A2 / A5 still define y1 as posterior in both windows and P(y1 < 0.45 both windows); A3 model file; stale pending lines). 實作時自選 3 (-30 weight 70 : 30 has no written source, -35 steering decisions, -36 implementation details); 未實作 1 (-32 propose_round, OOD label, grammar / compiler, prereg, R21-R25). gate_files unchanged (surrogate_fit.py judges nothing; add it together with R21 / R23). Register 327.",
   "note_20261118_round2_recheck": "2026-11-18 05:56 re-check of D-20261118-27 / -28 / -31 after evo DECISIONS 05:53 (run 3): -27 -> 符合 (genes from params files, 149 rows, y5 77, y4 6; mu_req_field.py untouched); -28 stays 不符, narrowed to counts (run-3 rows use 77 design-A + 24 design-B meshes, text says 73 / 16; 'all 12 design-B' is 8 + 4; 'all design-B compression-sustained' is 23 of 24, p023 computability); -31 stays 不符, narrowed to two leftover phrases (ROUND2 L58 'newer than the model', L242 'R 5 (if approved)'). Run-3 table in the 05:53 entry = result file (every cell). last_llm_audit deliberately left at 2026-11-18 05:37: human_study/current_settings.json changed at 05:45 (class pilot_holdQR, another session) and was NOT audited here. 不符 2.",
   "note_20261118_round2_recheck2": "2026-11-18 05:59 re-check 2: D-20261118-28, -31 -> 符合 (residual counts and the two leftover phrases corrected in evo DECISIONS.md / ROUND2_ARCHITECTURE.md 05:58:51; values equal the auditor's own recount). 不符 0. last_llm_audit still 2026-11-18 05:37 (current_settings.json 05:45 pilot_holdQR by another session not audited).",
-  "note_20261118_holdQR": "2026-11-18 06:22: DECISIONS 2026-11-18 05:52 (L2346-2352) and 06:13 (L2356-2358) registered as D-20261118-Q1..Q4 (Q-prefix: another session registers D-20261118-27..36 concurrently). Verified: pilot_holdQR class = holdQ + 3 restart keys (= holdR + half-step curve), h47 deck byte-identical + preflight OK, holdA/holdQ decks differ only in load curve 18, t 3.5 offsets 0.01052/0.01068/0.02016/0.02046 recomputed with the reader's formula, hold dt max 0.0249-0.0250 vs 0.047, n_hold 22/21/40/37, all deltas and trends from v17g rows, pre-registered reading applied as written, NUM-13 FRIC 06:13 text matches. 不符 1: D-20261118-Q1 ('wall 8258 s / 5331 s' is the whole h18 case incl. joint reference windows; insertion itself 652 / 605 s). No verdict / class / label-state change."
+  "note_20261118_holdQR": "2026-11-18 06:22: DECISIONS 2026-11-18 05:52 (L2346-2352) and 06:13 (L2356-2358) registered as D-20261118-Q1..Q4 (Q-prefix: another session registers D-20261118-27..36 concurrently). Verified: pilot_holdQR class = holdQ + 3 restart keys (= holdR + half-step curve), h47 deck byte-identical + preflight OK, holdA/holdQ decks differ only in load curve 18, t 3.5 offsets 0.01052/0.01068/0.02016/0.02046 recomputed with the reader's formula, hold dt max 0.0249-0.0250 vs 0.047, n_hold 22/21/40/37, all deltas and trends from v17g rows, pre-registered reading applied as written, NUM-13 FRIC 06:13 text matches. 不符 1: D-20261118-Q1 ('wall 8258 s / 5331 s' is the whole h18 case incl. joint reference windows; insertion itself 652 / 605 s). No verdict / class / label-state change.",
+  "note_20261118_0625": "2026-11-18 06:24: D-20261118-Q1 -> 符合 (L2347 wall-time attribution corrected, 06:27 entry; drift_start_end 0.0015 vs 0.0018 confirms the -0.0003 rounding note). 不符 0 among the auditor's items."
  },
  "items": [
   {
@@ -4919,11 +4920,12 @@
     "../biocage-evo/results/gpufe_verify/v2/v17g_hold_restart*.json rows set=pilot_holdQ",
     "../biocage-evo/gpufe/verify/v17g_hold_restart.py:26-34 (H = 籠節點均值 − C4 終板均值的平面距離)"
    ],
-   "status": "不符",
-   "evidence": "符合：兩案 case.log N O R M A L、case.dmp 存在；deck diff（holdA vs holdQ，p062 與 p139）各只有 1 行不同 = loadcurve id 18（A：…(3.9,0.05)(4.4,0.05)；Q：…(3.9,0.05)(3.91,0.05)(4.4,0.025)(4.5,0.05)），t 3.9 前各點相同 ✓；收斂增量 167／170、163／163、Retrying 各 1 ✓；以讀取器同一公式重算 t 3.5 平面偏移：holdA p062 0.01052、holdQ 0.01068、holdA p139 0.02016、holdQ 0.02046 mm ✓；holdQ 生產律關節窗保持段 dt 0.0005–0.0161 s ✓、p139 後伸 E R R O R t 3.8074、reader retries 50 ✓、p062 後伸 trend 0.0595、p139 前屈 −0.4216 ✓。不符：「insertion … (wall 8258 s / 5331 s)」— resources.json wall_s 8257.9／5330.5（gpu_h 2.294）是整個 h18 案例（插入＋兩個關節參考窗）的牆鐘；插入段本身 started_at 03:22:11 → case.log 結束 03:33:03（Total elapsed 652 s）、p139 03:22:21 → 03:32:27（605 s）。後果：無數字結論受影響；過程敘述的歸屬錯（插入 ≈ 11 分，不是 2.3 小時）。",
-   "checked": "2026-11-18 06:22",
+   "status": "符合",
+   "evidence": "符合：兩案 case.log N O R M A L、case.dmp 存在；deck diff（holdA vs holdQ，p062 與 p139）各只有 1 行不同 = loadcurve id 18（A：…(3.9,0.05)(4.4,0.05)；Q：…(3.9,0.05)(3.91,0.05)(4.4,0.025)(4.5,0.05)），t 3.9 前各點相同 ✓；收斂增量 167／170、163／163、Retrying 各 1 ✓；以讀取器同一公式重算 t 3.5 平面偏移：holdA p062 0.01052、holdQ 0.01068、holdA p139 0.02016、holdQ 0.02046 mm ✓；holdQ 生產律關節窗保持段 dt 0.0005–0.0161 s ✓、p139 後伸 E R R O R t 3.8074、reader retries 50 ✓、p062 後伸 trend 0.0595、p139 前屈 −0.4216 ✓。不符：「insertion … (wall 8258 s / 5331 s)」— resources.json wall_s 8257.9／5330.5（gpu_h 2.294）是整個 h18 案例（插入＋兩個關節參考窗）的牆鐘；插入段本身 started_at 03:22:11 → case.log 結束 03:33:03（Total elapsed 652 s）、p139 03:22:21 → 03:32:27（605 s）。後果：無數字結論受影響；過程敘述的歸屬錯（插入 ≈ 11 分，不是 2.3 小時）。 ｜ 複查 2026-11-18 06:24：DECISIONS L2347（a645ad7 06:23）改為「insertion segment 652 s / 605 s from started_at to the case.log end; the resources.json wall 8258 s / 5331 s is the whole h18 case, insertion plus the two production-law joint reference windows」— 與 started_at／case.log／resources.json 一致 ✓；L2360 06:27 補記條目記錄更正與捨入註（hold-only 前屈 p062 −0.0003 來自 drift_start_end 0.0015 − 0.0018，四位小數 u 值相減為 −0.0002；兩者皆核）。",
+   "checked": "2026-11-18 06:24",
    "source": "decisions",
-   "check": "llm"
+   "check": "llm",
+   "status_before_20261118_0625": "不符"
   },
   {
    "id": "D-20261118-Q2",

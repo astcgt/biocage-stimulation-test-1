@@ -1,4 +1,4 @@
-# QA status 2026-11-18 06:23 — FAIL
+# QA status 2026-11-18 06:27 — WARN
 
 h37_qa_check.py (layer A, deterministic). PASS = check held; FAIL = drift found, fix before any number is reported; WARN = information or an audit is due. Layer B (meaning of the decisions) = qa-auditor agent, register human_study/qa/QA_SPEC.json.
 
@@ -9,10 +9,13 @@ h37_qa_check.py (layer A, deterministic). PASS = check held; FAIL = drift found,
 | R2-gate4 | PASS | gate 4 passes without both usable windows: [] |
 | R2-shear | PASS | interface-shear passes without both windows: [] |
 | R2-merged | PASS | merged passes with a non-pass gate: []; without gate record: [] |
-| R3-faces | PASS | skipped (--quick); 398 e07 window files |
+| R3-faces | PASS | 398 windows, 194 cases recounted; mismatches 0 [] |
+| R4-insertion-state | PASS | insertion value state within 0.05 of t 3.5; violations 0 [] |
 | R5-counts | PASS | classes {'friction-check-exceeded': (0, 0), 'interface-shear': (54, 53), 'radial-mix': (28, 27), 'friction-computability': (0, 0)} (all / among tied passes); stale document counts: [] |
 | R6-retracted | PASS | 6 retracted claims checked in 4 current documents; hits: [] |
 | R7-pilot-keys | PASS | settings/h14: []; production cases scanned 914, with pilot options / extra keys: [] |
+| R8-golden-rebuild | PASS | p062 physio_fric3 rebuild md5 4f3208b5 vs recorded 4f3208b5 (11 s) |
+| R9-material-blocks | PASS | golden rebuild: one FEBio block per cage material in 1 cases (tmpeu_s_zgu:4); problems: [] |
 | R9-material-blocks | PASS | production: one FEBio block per cage material in 4 cases (p002:3, p036:4, p039:2, p102:2); problems: [] |
 | R11-constants | PASS | intact ROM constants: {'scripts/3_cage_case/h14_build_case.py': (0.1009, 0.1286, 0.0713, 0.0717, 0.0905, 0.0907), 'scripts/6_active_learning/h28_physio_prerun.py': (0.1009, 0.1286, 0.0713, 0.0717, 0.0905, 0.0907), '../biocage-evo/ops/fric_compare.py': (0.1009, 0.1286, 0.0713, 0.0717, 0.0905, 0.0907)} |
 | R12-file-index | PASS | 291 paths in FILE_INDEX.md; missing [] |
@@ -23,5 +26,5 @@ h37_qa_check.py (layer A, deterministic). PASS = check held; FAIL = drift found,
 | R19-route-E | PASS | route-E classes: 72 cases, 144 finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: [] |
 | R20-replicate-agreement | WARN | sets ['physio_fric5r', 'physio_relGr']: 8 deck groups, 14 windows with >= 2 computed replicates, 2 disagree (> 0.005 mm or mixed evaluation point), worst spread 0.012415672940065736 mm |
 | R18-agent-prompts | PASS | .claude/agents vs human_study/agent_prompts: in sync |
-| R10-register | FAIL | 331 register items; unmapped []; 不符 ['D-20261118-Q1'] |
-| R10-llm-audit-due | PASS | LLM audit current: last 2026-11-18 06:22; gate files changed since: []; decision entries since: [] |
+| R10-register | PASS | 331 register items; unmapped []; 不符 [] |
+| R10-llm-audit-due | PASS | LLM audit current: last 2026-11-18 06:24; gate files changed since: []; decision entries since: [] |
