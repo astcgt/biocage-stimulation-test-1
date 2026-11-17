@@ -1,15 +1,15 @@
-# QA status 2026-11-17 07:40 — WARN
+# QA status 2026-11-17 08:00 — WARN
 
 h37_qa_check.py (layer A, deterministic). PASS = check held; FAIL = drift found, fix before any number is reported; WARN = information or an audit is due. Layer B (meaning of the decisions) = qa-auditor agent, register human_study/qa/QA_SPEC.json.
 
 | check | status | detail |
 |---|---|---|
-| R1-case-dir | PASS | 407 friction rows; windows without finished log + xplt: 0 [] |
+| R1-case-dir | PASS | 412 friction rows; windows without finished log + xplt: 0 [] |
 | R1-ambiguous | PASS | designs with several run dirs in one set: 0 [] |
 | R2-gate4 | PASS | gate 4 passes without both usable windows: [] |
 | R2-shear | PASS | interface-shear passes without both windows: [] |
 | R2-merged | PASS | merged passes with a non-pass gate: []; without gate record: [] |
-| R3-faces | PASS | skipped (--quick); 390 e07 window files |
+| R3-faces | PASS | skipped (--quick); 398 e07 window files |
 | R5-counts | PASS | classes {'friction-check-exceeded': (0, 0), 'interface-shear': (28, 28), 'radial-mix': (28, 27), 'friction-computability': (0, 0)} (all / among tied passes); stale document counts: [] |
 | R6-retracted | PASS | 5 retracted claims checked in 4 current documents; hits: [] |
 | R7-pilot-keys | PASS | settings/h14: []; production cases scanned 914, with pilot options / extra keys: [] |

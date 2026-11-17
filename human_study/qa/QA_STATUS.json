@@ -1,11 +1,11 @@
 {
- "time": "2026-11-17 07:40",
+ "time": "2026-11-17 08:00",
  "overall": "WARN",
  "checks": [
   {
    "id": "R1-case-dir",
    "status": "PASS",
-   "message": "407 friction rows; windows without finished log + xplt: 0 []"
+   "message": "412 friction rows; windows without finished log + xplt: 0 []"
   },
   {
    "id": "R1-ambiguous",
@@ -30,7 +30,7 @@
   {
    "id": "R3-faces",
    "status": "PASS",
-   "message": "skipped (--quick); 390 e07 window files"
+   "message": "skipped (--quick); 398 e07 window files"
   },
   {
    "id": "R5-counts",
