@@ -1,7 +1,7 @@
 {
  "meta": {
   "note": "Register: one entry per PI decision that the code must implement. status in {符合, 不符, 未實作, 實作時自選, PI待決, unmapped}. check = h37 check id or 'llm' (judged by the qa-auditor agent). last_llm_audit is set by the auditor, never by h37.",
-  "last_llm_audit": "2026-11-18 02:29",
+  "last_llm_audit": "2026-11-18 02:41",
   "gate_files": [
    "scripts/3_cage_case/h14_build_case.py",
    "scripts/6_active_learning/h22_active_learning.py",
@@ -43,7 +43,9 @@
   "note_20261117_recheck": "2026-11-17 04:30 re-check after DECISIONS 04:23 (L2237-2249): the seven 不符 (D-20261113-21, -23, -28, L2, L3, L5, A2) -> 符合 (DIV-03 / OBS-10 / NUM-13 labels dated 04:23 verified against the 04:19 result files; fric_compare REQ-only insertion_process, unified-member cleanup; collect_split window_drive; e03 comment); S10 -> 符合; D-20261113-29 stays PI待決 (now in PI_PENDING_DECISIONS.md); new D-20261117-1 (verdicts.json transitional 73 designs, p102/p149 open, 71-design numbers unchanged). 不符 0. Totals: PI待決 2, 實作時自選 43, 未實作 8, 符合 218",
   "note_20261118": "seventh LLM audit (qa-auditor) 2026-11-18 02:03: DECISIONS 2026-11-17 04:38 (L2251-2258), 07:39 (L2260-2267), 08:00 (L2269-2274) registered as D-20261117-2..16, L1..L3, S1..S2; 8 existing items re-checked (S7, S8, S9, L4, A5, D-20261117-1 -> 符合; D-20261113-26 stays 實作時自選 with (c) closed; D-20261113-29 stays PI待決, dormant). 不符 5: D-20261117-6 (p093 grey list carries a false flexion line 'own posterior 0.906 mm on the 0.55 limit' from fric_compare.py:275 abs(); propagates to comp_by_design_merged.json), D-20261117-13 (p149 narrative: 140 / 20 steps vs 28 / 4 converged window steps; 'not in PASS because e07 open' - p149 is compression-peak), D-20261117-16 ('only such window' - 14 windows where the same-law joint row reached an evaluation point and route E none; 144 not 142+4), D-20261117-L2 (PHY-05 method/threshold and NUM-17 threshold/note still state the pre-04:38 rules), D-20261117-L3 (DIV-03 TIED grey 8 / both 5 vs 10 / 3; rate 94.6 % unchanged). No verdict count changes from any 不符. 73-design numbers 53/16/0/4, e07 12/54/6 (72 designs, p060 absent), split PASS 3 / GREY 10 / shear 28 / radial 28, replicate agreement 12/14 / 0.0124 all reproduce from the 07:57 result files; 71-design subset identical to 5981e64 except replicates keys. h37 R20 stale->WARN, e07 window_drive, replicates.own_verdicts/unified verified in code and files.",
   "note_20261118_recheck": "2026-11-18 02:25 re-check after DECISIONS 02:16 / 02:21: D-20261117-6, -13, -16 -> 符合 (fric_compare.py:275 signed posterior filter, verdicts/comp_by_design 02:15 regenerated, 73 designs 53/16/0/4 unchanged; DECISIONS L2270 / L2273 corrected in place). D-20261117-L2 stays 不符 narrowed to the NUM-17 FRIC note (PHY-05 method/threshold/threshold_src and NUM-17 threshold carry the exception); D-20261117-L3 stays 不符 (DIV-03 TIED not updated in the file at 02:23, mtime 02:14:42). S1 accepted / S2 declined -> 符合 (recorded). New: D-20261118-1 不符 (shear_req 'maximum' excludes the at-ROM value: 112/135 windows have shear_p99_at_rom > shear_p99_max_to_rom, max 1.066 MPa p036 extension; no 3 MPa crossing, verdicts unchanged), -2 符合 (mu_req_field columns), -3 PI待決 (3 MPa gate vs flag), -4 符合 (pilot_holdR settings pilot-only), -5 不符 (02:16 'all five fixed' claim). Register 296.",
-  "note_20261118_recheck2": "2026-11-18 02:29 re-check 2: D-20261117-L2, -L3, D-20261118-1, -5 -> 符合 (platform_capabilities.json 02:27:38 NUM-17 note / DIV-03 TIED; e07_batch.py:52 max incl. interpolated ROM value, e07_verdicts.json / mu_req_field 02:27 regenerated: 0 of 135 windows with at_rom > max_to_rom, median 12.678 / max 21.894, e07 12/54/6 unchanged; replicate_agreement.json 02:27 re-run 8/14/2/0.0124). verdicts.json 02:15 73 designs 53/16/0/4 unchanged. 不符 0."
+  "note_20261118_recheck2": "2026-11-18 02:29 re-check 2: D-20261117-L2, -L3, D-20261118-1, -5 -> 符合 (platform_capabilities.json 02:27:38 NUM-17 note / DIV-03 TIED; e07_batch.py:52 max incl. interpolated ROM value, e07_verdicts.json / mu_req_field 02:27 regenerated: 0 of 135 windows with at_rom > max_to_rom, median 12.678 / max 21.894, e07 12/54/6 unchanged; replicate_agreement.json 02:27 re-run 8/14/2/0.0124). verdicts.json 02:15 73 designs 53/16/0/4 unchanged. 不符 0.",
+  "note_20261118_holdR": "2026-11-18 02:35: DECISIONS 02:32 (pilot_holdR, NUM-13 FRIC partial -> pass) registered as D-20261118-6 (符合: holdR trends 0.0007/0.0022/0.0001/0.0006, pp 0.0016-0.0035, 0 retries, 4 NORMAL reproduce from v17g_hold_restart*.json 02:31; pass path = route-E hold evidence per the 04:23 condition; 0.0022 vs '~0.002' judged a fair reading, label threshold 0.01 met 4.5x), -7 (實作時自選: self-set ~0.002 criterion; clause 2 not re-run under route E, wording '稽核接受' inaccurate), -8 (不符: production-law comparison +0.30/+0.46/-0.17/-0.36 not in any evidence file - holdA gives +0.059/+0.180/-0.118/-0.183, holdH ctl +0.035/+0.119/-0.165/-0.298; '375 vs 4697' compares extension with flexion). No verdict counts involved.",
+  "note_20261118_recheck3": "2026-11-18 02:41: D-20261118-8 -> 符合 (NUM-13 value and DECISIONS L2305/L2307 cite holdH ctl +0.035/+0.119/-0.165/-0.298 and same-direction iteration counts, all reproduced from v17g_hold_restart*.json; retries range stated 2-8, file 1-8 - minor); D-20261118-7 wording fixed, pilot_holdRh launched (clause 2 under route E pending, not judged); new D-20261118-9 (pilot_holdRh settings class, pilot-only). 不符 0. Register 300."
  },
  "items": [
   {
@@ -4422,6 +4424,67 @@
    "source": "decisions",
    "check": "llm",
    "status_before_20261118_recheck2": "不符"
+  },
+  {
+   "id": "D-20261118-6",
+   "decisions_line": 2304,
+   "quote": "02:32「pilot_holdR result: no hold-segment drift under the route-E window configuration -> NUM-13 FRIC partial -> pass (授權自行決定)」— 數字與通過條件",
+   "code": [
+    "../biocage-evo/results/gpufe_verify/v2/v17g_hold_restart.json rows set=pilot_holdR (02:31)",
+    "../biocage-evo/results/gpufe_verify/v2/v17g_hold_restart_flexion.json rows set=pilot_holdR (02:31)",
+    "human_study/platform_capabilities.json NUM-13 status.FRIC (state pass, date 2026-11-18T02:32; file 02:32:36), threshold, evidence[3-4]",
+    "human_study/al_v2/pilot_holdR/p062, p139 (w_extension / w_flexion case.log)"
+   ],
+   "status": "符合",
+   "evidence": "兩個結果檔 pilot_holdR 列：後伸 p062 trend_per_hold 0.0007（pp 0.0032、up/down 5/7）、p139 0.0022（0.0035、8/2）；前屈 p062 0.0001（0.0016、7/5）、p139 0.0006（0.0029、7/6）；4 列 state NORMAL、retries 0、t_last 4.4、env BIOCAGE_STICK_MEMORY 1、lib be7b357f ✓ 與 DECISIONS／標籤逐數相同。case.log：4 窗 N O R M A L、retry 0；Total elapsed 135／188／599／1544 s（DECISIONS 136／189／600／1546）✓。通過條件：NUM-13 FRIC 2026-11-17 04:23 段「轉通過前需：路線 E 窗口的保持段證據，或接受第 2 款以現有證據為足」— 第一路徑已成立；標籤 threshold 第 1 款「線性趨勢 ≤ 0.01 mm」四窗最大 0.0022（餘裕 4.5 倍）。pilot 自訂判準「~0.002 mm per hold」（DECISIONS 02:03 L2285）：p139 後伸 0.0022 超 10 %，與已接受的 pilot_holdH 黏著記憶組（trend −0.0003…0.0029：p139_sm 0.0020、smR 0.0029、smR7b 0.0021、smRh 0.0020）同量級、「~」為近似——判為合理解讀，state partial → pass 成立。evidence 清單加兩檔 ✓；證據檔 02:31 早於標籤 02:32 ✓。",
+   "checked": "2026-11-18 02:35",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-7",
+   "decisions_line": 2306,
+   "quote": "02:32「pre-stated criterion (…trend within ~0.002 mm per hold, no monotone creep)」；「第 2 款維持 2026-11-17 稽核接受的現有證據」",
+   "code": [
+    "human_study/DECISIONS.md:2285 (判準自訂), :2306",
+    "human_study/platform_capabilities.json NUM-13 threshold 第 2 款（步長／半步長差 ≤ 0.005 mm）"
+   ],
+   "status": "實作時自選",
+   "evidence": "(a) 「~0.002 mm」是主線自訂的 pilot 驗收值（標籤正式門檻為 0.01 mm），精確值與「~」的寬度未經 PI；(b) 第 2 款（生產步長 vs 半步長 ≤ 0.005 mm）只在關節驅動 p139 一筆（0.001 mm）驗過、未在路線 E 窗口重跑；04:23 條件為「或」，故轉通過成立，但標籤文字「第 2 款維持 2026-11-17 稽核接受的現有證據」不準確——稽核（D-20261113-L5）只把「接受第 2 款以現有證據為足」列為另一條可選路徑，未接受。簽核：PI 是否要路線 E 下的半步長複跑；文字建議改「第 2 款仍以 2026-11-09 關節驅動 p139 一筆為據」。 ｜ 複查 2026-11-18 02:41：措辭已改「第 2 款…仍以 2026-11-09 關節驅動 p139 一筆為據…路線 E 半步長組 pilot_holdRh 已加跑補此款」（02:37）；DECISIONS 02:39 記 (a) ~0.002 為主線工作門檻（正式 0.01）、(b) holdRh 起跑（驗收 |u_end(dt 0.05) − u_end(dt 0.025)| ≤ 0.005 mm 每窗）。holdRh 結果進行中、本輪不判；第 2 款在路線 E 下仍待其結果。狀態維持（簽核項 (a) 仍在）。",
+   "checked": "2026-11-18 02:41",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-8",
+   "decisions_line": 2305,
+   "quote": "02:32「Same checkpoints under the production law: extension +0.30 / +0.46 mm, flexion -0.17 / -0.36 mm per hold」（標籤 value 同句「對照生產律同存檔：後伸 +0.30／+0.46 mm、前屈 −0.17／−0.36 mm」）；L2307「4-10x fewer iterations … (p062 extension 375 vs 4697 iterations)」",
+   "code": [
+    "../biocage-evo/results/gpufe_verify/v2/v17a_hold.json cases (pilot_holdA / holdE)",
+    "../biocage-evo/results/gpufe_verify/v2/v17g_hold_restart.json / _flexion.json rows pilot_holdH *_ctl, *_sm",
+    "human_study/platform_capabilities.json NUM-13 status.FRIC.value 02:32 段"
+   ],
+   "status": "符合",
+   "evidence": "標籤引用的兩個證據檔與 v17a_hold.json 都不含 +0.30／+0.46／−0.17／−0.36：同存檔生產律（pilot_holdA，holdR 的來源檔點）drift_total 後伸 +0.059／+0.180、前屈 −0.118／−0.183 mm；v17g holdH *_ctl（生產律重啟）trend_per_hold 後伸 +0.035／+0.119、前屈 −0.165／−0.298；+0.315／+0.473 只在 pilot_holdE（不同保持設定）。四個數字無結果檔出處（近似 11-06 手算值 0.303／0.461／0.167，見 NUM-13 note）。迭代比較「p062 extension 375 vs 4697」把 holdR 後伸（375）對上 holdH p062_sm 前屈（4697）；同向比較：後伸 375 vs 862／599（1.6–2.3 倍）、p139 258 vs 488／473；前屈 p062 3716 vs 4697（1.3 倍）、p139 1344 vs 663（路線 E 反而較多）→「4-10x fewer」不成立。後果：NUM-13 state pass 不受影響（依 holdR 自身數字）；標籤 value 與 DECISIONS 的對照句須改引 holdA／holdH ctl 的實際值、刪除或更正迭代倍數。 ｜ 複查 2026-11-18 02:41：platform_capabilities.json 02:37:45 NUM-13 FRIC value 02:32 段改引「pilot_holdH p062_ctl／p139_ctl，v17g 同檔：後伸 +0.035／+0.119 mm、前屈 −0.165／−0.298 mm」＋更正註；v17g_hold_restart.json p062_ctl trend_per_hold 0.0352、p139_ctl 0.1187；_flexion.json p062_ctl −0.1651、p139_ctl −0.2979 ✓。DECISIONS L2305／L2307 就地更正：同向迭代比較 p062 後伸 375 vs 599–862（smR／sm）、p139 後伸 258 vs 473–488、p062 前屈 3716 vs 4697、p139 前屈 1344 vs 663 ✓（逐數同檔）；「retries 0 vs 2-8」：holdH sm／smR 組 retries 實為 1、1、5、6、5（後伸）與 8、2、5（前屈），範圍 1–8（smRh 變體 12、5 未計）— 下限 2 vs 1 的小差，不改結論。NUM-13 pass 未受影響。",
+   "checked": "2026-11-18 02:41",
+   "source": "decisions",
+   "check": "llm",
+   "status_before_20261118_recheck3": "不符"
+  },
+  {
+   "id": "D-20261118-9",
+   "decisions_line": 2311,
+   "quote": "02:39「class pilot_holdRh = pilot_holdR + window_dt 0.025 (hold dtmax halved), cases p062 / p139 from the holdA checkpoints (preflight OK), 4 windows started」（gate file current_settings.json）",
+   "code": [
+    "human_study/current_settings.json:1106 human_study/al_v2/pilot_holdRh/ (02:37:45)",
+    "human_study/al_v2/pilot_holdRh/p062, p139",
+    "human_study/FILE_INDEX.md:177"
+   ],
+   "status": "符合",
+   "evidence": "git diff 952ac1e..工作樹 current_settings.json：僅新增 pilot_holdRh 類（+42 行，pilot 路徑），無生產類改動；案例目錄 p062／p139 存在；FILE_INDEX 已列。pilot 結果（第 2 款半步長）進行中、不判；完成後 NUM-13 FRIC 第 2 款文字需隨之更新（屆時再登）。",
+   "checked": "2026-11-18 02:41",
+   "source": "decisions",
+   "check": "llm"
   }
  ]
 }

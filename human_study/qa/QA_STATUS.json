@@ -1,5 +1,5 @@
 {
- "time": "2026-11-18 02:32",
+ "time": "2026-11-18 02:42",
  "overall": "WARN",
  "checks": [
   {
@@ -60,7 +60,7 @@
   {
    "id": "R12-file-index",
    "status": "PASS",
-   "message": "276 paths in FILE_INDEX.md; missing []"
+   "message": "279 paths in FILE_INDEX.md; missing []"
   },
   {
    "id": "R14-patch7-logs",
@@ -100,12 +100,12 @@
   {
    "id": "R10-register",
    "status": "PASS",
-   "message": "296 register items; unmapped []; 不符 []"
+   "message": "300 register items; unmapped []; 不符 []"
   },
   {
    "id": "R10-llm-audit-due",
    "status": "PASS",
-   "message": "LLM audit current: last 2026-11-18 02:29; gate files changed since: []; decision entries since: []"
+   "message": "LLM audit current: last 2026-11-18 02:41; gate files changed since: []; decision entries since: []"
   }
  ],
  "counts": {
@@ -131,8 +131,8 @@
   "designs": 149
  },
  "register": {
-  "last_llm_audit": "2026-11-18 02:29",
-  "n_items": 296,
+  "last_llm_audit": "2026-11-18 02:41",
+  "n_items": 300,
   "unmapped": [],
   "mismatch": [],
   "gate_files_changed": [],
