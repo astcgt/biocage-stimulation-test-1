@@ -1,4 +1,4 @@
-# QA status 2026-11-18 03:24 — WARN
+# QA status 2026-11-18 04:07 — WARN
 
 h37_qa_check.py (layer A, deterministic). PASS = check held; FAIL = drift found, fix before any number is reported; WARN = information or an audit is due. Layer B (meaning of the decisions) = qa-auditor agent, register human_study/qa/QA_SPEC.json.
 
@@ -10,7 +10,7 @@ h37_qa_check.py (layer A, deterministic). PASS = check held; FAIL = drift found,
 | R2-shear | PASS | interface-shear passes without both windows: [] |
 | R2-merged | PASS | merged passes with a non-pass gate: []; without gate record: [] |
 | R3-faces | PASS | skipped (--quick); 398 e07 window files |
-| R5-counts | PASS | classes {'friction-check-exceeded': (0, 0), 'interface-shear': (28, 28), 'radial-mix': (28, 27), 'friction-computability': (0, 0)} (all / among tied passes); stale document counts: [] |
+| R5-counts | PASS | classes {'friction-check-exceeded': (0, 0), 'interface-shear': (54, 53), 'radial-mix': (28, 27), 'friction-computability': (0, 0)} (all / among tied passes); stale document counts: [] |
 | R6-retracted | PASS | 5 retracted claims checked in 4 current documents; hits: [] |
 | R7-pilot-keys | PASS | settings/h14: []; production cases scanned 914, with pilot options / extra keys: [] |
 | R9-material-blocks | PASS | production: one FEBio block per cage material in 4 cases (p002:3, p036:4, p039:2, p102:2); problems: [] |
@@ -24,4 +24,4 @@ h37_qa_check.py (layer A, deterministic). PASS = check held; FAIL = drift found,
 | R20-replicate-agreement | WARN | sets ['physio_fric5r', 'physio_relGr']: 8 deck groups, 14 windows with >= 2 computed replicates, 2 disagree (> 0.005 mm or mixed evaluation point), worst spread 0.012415672940065736 mm |
 | R18-agent-prompts | PASS | .claude/agents vs human_study/agent_prompts: in sync |
 | R10-register | PASS | 300 register items; unmapped []; 不符 [] |
-| R10-llm-audit-due | WARN | LLM audit required: last 2026-11-18 02:41; gate files changed since: ['human_study/current_settings.json']; decision entries since: [] |
+| R10-llm-audit-due | WARN | LLM audit required: last 2026-11-18 02:41; gate files changed since: ['human_study/current_settings.json', '../biocage-evo/ops/e07_batch.py', '../biocage-evo/ops/collect_split.py', '../biocage-evo/ops/mu_req_field.py']; decision entries since: ['2026-11-18 04:04', '2026-11-18 04:07'] |

@@ -77,7 +77,7 @@ def r2_no_pass_by_absence():
     bad = [p for p, d in e.items() if d.get('verdict') == 'pass' and not all(w in d.get('windows', {}) for w in REQ)]
     rep('R2-shear', not bad, f'interface-shear passes without both windows: {bad}')
     m = json.load(open(os.path.join(EV, 'results/method/split/comp_by_design_merged.json')))
-    bad = [p for p, d in m.items() if d.get('verdict') == 'pass' and any(g.get('verdict') not in ('pass',) for k, g in d.get('gates', {}).items() if g.get('verdict') not in ('excluded',) and k != 'dislocation_friction')]   # PI 2026-11-07: the friction dislocation record is a check, not a gate
+    bad = [p for p, d in m.items() if d.get('verdict') == 'pass' and any(g.get('verdict') not in ('pass',) for k, g in d.get('gates', {}).items() if g.get('verdict') not in ('excluded',) and k not in ('dislocation_friction', 'interface_shear'))]   # PI 2026-11-18: interface shear is a flag + ranking (role check), not a gate   # PI 2026-11-07: the friction dislocation record is a check, not a gate
     bad2 = [p for p, d in m.items() if d.get('verdict') == 'pass' and 'gates' not in d]
     rep('R2-merged', not (bad or bad2), f'merged passes with a non-pass gate: {bad}; without gate record: {bad2}')
 
@@ -129,9 +129,9 @@ def r5_counts():
     C = json.load(open(os.path.join(EV, 'results/method/split/verdict_classes_merged.json')))['classes']
     m = json.load(open(os.path.join(EV, 'results/method/split/comp_by_design_merged.json')))
     tied = {p for p, d in m.items() if (d.get('gates') or {}).get('tied_screening', {}).get('verdict') == 'pass'}
-    cls = {'friction-check-exceeded': '__friction_check_exceeded__', 'interface-shear': 'DESIGN/interface-shear-provisional',   # PI 2026-11-07: dislocation-friction class replaced by the check list
+    cls = {'friction-check-exceeded': '__friction_check_exceeded__', 'interface-shear': '__shear_check_exceeded__',   # PI 2026-11-07: dislocation-friction class replaced by the check list
            'radial-mix': 'DESIGN/radial-mix-excluded', 'friction-computability': '[多元]/friction-computability'}
-    CJ = json.load(open(os.path.join(EV, 'results/method/split/verdict_classes_merged.json'))); C['__friction_check_exceeded__'] = CJ.get('friction_check_exceeded', [])
+    CJ = json.load(open(os.path.join(EV, 'results/method/split/verdict_classes_merged.json'))); C['__friction_check_exceeded__'] = CJ.get('friction_check_exceeded', []); C['__shear_check_exceeded__'] = CJ.get('shear_check_exceeded', [])
     truth = {k: (len(C.get(v, [])), len(set(C.get(v, [])) & tied)) for k, v in cls.items()}
     docs = ['human_study/DECISIONS.md', 'human_study/CAPABILITY_SCORECARD.md', os.path.join(EV, 'docs/DECISIONS.md'), os.path.join(EV, 'docs/PLAN.md')]
     stale = []
