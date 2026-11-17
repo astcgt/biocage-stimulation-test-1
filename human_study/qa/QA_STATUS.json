@@ -1,5 +1,5 @@
 {
- "time": "2026-11-18 02:42",
+ "time": "2026-11-18 03:24",
  "overall": "WARN",
  "checks": [
   {
@@ -60,7 +60,7 @@
   {
    "id": "R12-file-index",
    "status": "PASS",
-   "message": "279 paths in FILE_INDEX.md; missing []"
+   "message": "283 paths in FILE_INDEX.md; missing []"
   },
   {
    "id": "R14-patch7-logs",
@@ -104,8 +104,8 @@
   },
   {
    "id": "R10-llm-audit-due",
-   "status": "PASS",
-   "message": "LLM audit current: last 2026-11-18 02:41; gate files changed since: []; decision entries since: []"
+   "status": "WARN",
+   "message": "LLM audit required: last 2026-11-18 02:41; gate files changed since: ['human_study/current_settings.json']; decision entries since: []"
   }
  ],
  "counts": {
@@ -135,7 +135,9 @@
   "n_items": 300,
   "unmapped": [],
   "mismatch": [],
-  "gate_files_changed": [],
+  "gate_files_changed": [
+   "human_study/current_settings.json"
+  ],
   "new_decisions": []
  },
  "mode": "quick"
