@@ -2272,3 +2272,15 @@ p062 flexion 14.4 min, extension 7.8 min (GPU 3, 5 cores each), both NORMAL, evi
 - Numbers (73 designs, verdicts.json 2026-11-17 08:00): 摩擦判定 pass 53 / 灰區 grey 16 / fail 0 / open 4（73 設計）; collect_split PASS 3 (p086 p100 p142), GREY/friction-posterior-0.45-0.55 10; e07 pass 12 / fail 54 / open 6; replicate agreement unchanged (12/14 within 0.005 mm, worst 0.0124 mm, R20 WARN). Labels PHY-05 TIED, OBS-10 TIED/FRIC, DIV-03 FRIC, NUM-17 FRIC appended (new text last). No production computation left in the queue; GPUs 1/3/4 idle.
 - Platform [數值] note: p149's route-E flexion failure is a case where the relative drive (route E) computes less than the absolute joint drive did - the only such window among the 142 + 4 re-run windows (route E otherwise added coverage only); kept as a numerical_flags-free design because the joint row is a valid stick-law read-out at the evaluation point.
 - Class counts for R5: interface-shear-provisional 28, radial-mix-excluded 28, friction-computability 0, friction-check-exceeded 0, GREY 10, PASS 3.
+
+## 2026-11-18 01:56 PI instructions (reply to the 01:5x status list)
+- PI (verbatim): 「剪力門檻 3 MPa 的文獻依據 / 如果可以完整跑完模擬，就紀錄最大需要承受的剪力」 -> for every fully completed simulation, record the maximum interface shear the design must bear (a required-strength field next to mu_req); the 3 MPa literature question is replaced by this read-out. Whether the 3 MPa gate stays a gate or becomes a flagged check (it moves designs between classes) is put to the PI with consequences before any class change.
+- PI: 「下一輪方向 / 設計演化可以參考主動學習、強化學習、還有其他專家文獻，也可以參考2026年那篇可以提出新穎性想法的agent(naive and mentor)，或是世界模型或抽象概念提取等論文，最後與我報告選項和預期後果與消耗資源時間」 -> literature / method survey, report options with expected consequences, compute and time; no evolution round started yet.
+- PI: 「數值項可以補」 -> NUM-13 hold-segment evidence under route-E windows approved (option B of the 01:5x list).
+- PI: 「介面工具先不裝，可以看有什麼適合我們專案的mod」 -> no installation; survey of suitable mods only.
+- PI: 「考慮是否需要引入homerepo的概念」 -> to evaluate and report.
+- PI: 「所有報告都需白話文、避免過多縮寫、直覺性」 -> standing rule re-affirmed (memory no-bare-abbreviations / explain-plain-analogies).
+
+## 2026-11-18 02:03 pilot_holdR launched: hold-segment drift under route E (NUM-13 evidence, PI 「數值項可以補」)
+- Settings class pilot_holdR = pilot_holdA (ramp 0.4 s to 0.8 x amplitude, hold 0.5 s, dtmax 0.05 on 3.9-4.4) + restart_env BIOCAGE_STICK_MEMORY 1 + window_min_residual 1e-4 + window_drive_mode rigid_relative, i.e. the production route-E window configuration (physio_fric5r) applied to the hold decks. Cases p062 / p139 built with h47 from the pilot_holdA t 3.5 checkpoints (p062_gpu1, p139_gpu2; deck byte-identical, preflight OK). 4 windows (extension + flexion each) started in tmux holdR_pilot (p062 GPU 1, p139 GPU 4, 5 cores each). Acceptance as before (pilot_holdH stick-memory arms): settled-hold trend within ~0.002 mm per hold and no monotone creep; reader gpufe/verify/v17g_hold_restart.py (arm pilot_holdR added).
+- Gate-file note: current_settings.json edited (new class only) while no batch had unstarted cases; no production preflight affected.
