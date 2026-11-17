@@ -1,5 +1,5 @@
 {
- "time": "2026-11-18 04:07",
+ "time": "2026-11-18 04:18",
  "overall": "WARN",
  "checks": [
   {
@@ -100,12 +100,12 @@
   {
    "id": "R10-register",
    "status": "PASS",
-   "message": "300 register items; unmapped []; 不符 []"
+   "message": "307 register items; unmapped []; 不符 []"
   },
   {
    "id": "R10-llm-audit-due",
-   "status": "WARN",
-   "message": "LLM audit required: last 2026-11-18 02:41; gate files changed since: ['human_study/current_settings.json', '../biocage-evo/ops/e07_batch.py', '../biocage-evo/ops/collect_split.py', '../biocage-evo/ops/mu_req_field.py']; decision entries since: ['2026-11-18 04:04', '2026-11-18 04:07']"
+   "status": "PASS",
+   "message": "LLM audit current: last 2026-11-18 04:17; gate files changed since: []; decision entries since: []"
   }
  ],
  "counts": {
@@ -131,20 +131,12 @@
   "designs": 149
  },
  "register": {
-  "last_llm_audit": "2026-11-18 02:41",
-  "n_items": 300,
+  "last_llm_audit": "2026-11-18 04:17",
+  "n_items": 307,
   "unmapped": [],
   "mismatch": [],
-  "gate_files_changed": [
-   "human_study/current_settings.json",
-   "../biocage-evo/ops/e07_batch.py",
-   "../biocage-evo/ops/collect_split.py",
-   "../biocage-evo/ops/mu_req_field.py"
-  ],
-  "new_decisions": [
-   "2026-11-18 04:04",
-   "2026-11-18 04:07"
-  ]
+  "gate_files_changed": [],
+  "new_decisions": []
  },
  "mode": "quick"
 }

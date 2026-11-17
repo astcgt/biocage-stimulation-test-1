@@ -1,7 +1,7 @@
 {
  "meta": {
   "note": "Register: one entry per PI decision that the code must implement. status in {符合, 不符, 未實作, 實作時自選, PI待決, unmapped}. check = h37 check id or 'llm' (judged by the qa-auditor agent). last_llm_audit is set by the auditor, never by h37.",
-  "last_llm_audit": "2026-11-18 02:41",
+  "last_llm_audit": "2026-11-18 04:17",
   "gate_files": [
    "scripts/3_cage_case/h14_build_case.py",
    "scripts/6_active_learning/h22_active_learning.py",
@@ -45,7 +45,10 @@
   "note_20261118_recheck": "2026-11-18 02:25 re-check after DECISIONS 02:16 / 02:21: D-20261117-6, -13, -16 -> 符合 (fric_compare.py:275 signed posterior filter, verdicts/comp_by_design 02:15 regenerated, 73 designs 53/16/0/4 unchanged; DECISIONS L2270 / L2273 corrected in place). D-20261117-L2 stays 不符 narrowed to the NUM-17 FRIC note (PHY-05 method/threshold/threshold_src and NUM-17 threshold carry the exception); D-20261117-L3 stays 不符 (DIV-03 TIED not updated in the file at 02:23, mtime 02:14:42). S1 accepted / S2 declined -> 符合 (recorded). New: D-20261118-1 不符 (shear_req 'maximum' excludes the at-ROM value: 112/135 windows have shear_p99_at_rom > shear_p99_max_to_rom, max 1.066 MPa p036 extension; no 3 MPa crossing, verdicts unchanged), -2 符合 (mu_req_field columns), -3 PI待決 (3 MPa gate vs flag), -4 符合 (pilot_holdR settings pilot-only), -5 不符 (02:16 'all five fixed' claim). Register 296.",
   "note_20261118_recheck2": "2026-11-18 02:29 re-check 2: D-20261117-L2, -L3, D-20261118-1, -5 -> 符合 (platform_capabilities.json 02:27:38 NUM-17 note / DIV-03 TIED; e07_batch.py:52 max incl. interpolated ROM value, e07_verdicts.json / mu_req_field 02:27 regenerated: 0 of 135 windows with at_rom > max_to_rom, median 12.678 / max 21.894, e07 12/54/6 unchanged; replicate_agreement.json 02:27 re-run 8/14/2/0.0124). verdicts.json 02:15 73 designs 53/16/0/4 unchanged. 不符 0.",
   "note_20261118_holdR": "2026-11-18 02:35: DECISIONS 02:32 (pilot_holdR, NUM-13 FRIC partial -> pass) registered as D-20261118-6 (符合: holdR trends 0.0007/0.0022/0.0001/0.0006, pp 0.0016-0.0035, 0 retries, 4 NORMAL reproduce from v17g_hold_restart*.json 02:31; pass path = route-E hold evidence per the 04:23 condition; 0.0022 vs '~0.002' judged a fair reading, label threshold 0.01 met 4.5x), -7 (實作時自選: self-set ~0.002 criterion; clause 2 not re-run under route E, wording '稽核接受' inaccurate), -8 (不符: production-law comparison +0.30/+0.46/-0.17/-0.36 not in any evidence file - holdA gives +0.059/+0.180/-0.118/-0.183, holdH ctl +0.035/+0.119/-0.165/-0.298; '375 vs 4697' compares extension with flexion). No verdict counts involved.",
-  "note_20261118_recheck3": "2026-11-18 02:41: D-20261118-8 -> 符合 (NUM-13 value and DECISIONS L2305/L2307 cite holdH ctl +0.035/+0.119/-0.165/-0.298 and same-direction iteration counts, all reproduced from v17g_hold_restart*.json; retries range stated 2-8, file 1-8 - minor); D-20261118-7 wording fixed, pilot_holdRh launched (clause 2 under route E pending, not judged); new D-20261118-9 (pilot_holdRh settings class, pilot-only). 不符 0. Register 300."
+  "note_20261118_recheck3": "2026-11-18 02:41: D-20261118-8 -> 符合 (NUM-13 value and DECISIONS L2305/L2307 cite holdH ctl +0.035/+0.119/-0.165/-0.298 and same-direction iteration counts, all reproduced from v17g_hold_restart*.json; retries range stated 2-8, file 1-8 - minor); D-20261118-7 wording fixed, pilot_holdRh launched (clause 2 under route E pending, not judged); new D-20261118-9 (pilot_holdRh settings class, pilot-only). 不符 0. Register 300.",
+  "note_20261118_shear_flag": "2026-11-18 04:12: DECISIONS 2026-11-18 03:19 / 03:23 / 04:04 / 04:07 registered as D-20261118-10..15; D-20261118-3 PI待決 -> 符合 (PI decided flag + ranking). Verified: collect_split shear branch removed, shear_check / shear_ranking / shear_check_exceeded, mu_req_field shear_rank, e07 meta, PLAN S10, h37 R2/R5, labels OBS-10 / PHY-09 partial; classes PASS 31 (26/3/2) / GREY 12 / shear flags 54/13/82 / e07 12/54/6 / verdicts 53/16/0/4 reproduce. 不符 1: D-20261118-13 (consequence sentence '28 designs excluded by the shear gate now PASS with exceeded' - actual 26 -> PASS exceeded, 2 -> GREY, 2 former open -> PASS not evaluated). 實作時自選 1: D-20261118-14 (not-evaluated shear no longer blocks PASS; p064 / p121 rank 1-2 on single-window values). Register 306.",
+  "note_20261118_0415": "2026-11-18 04:15: D-20261118-13 -> 符合 (L2329 corrected); D-20261118-14 sign-off applied (incomplete read-outs ranked last in both files, verified) - stays 實作時自選 for the not-evaluated-not-blocking rule; new 不符 D-20261118-16: collect_split shear_ranking uses pooled (replicate-representative) shear_req values while mu_req_field shear_rank uses each design's own - 67 of 71 shared positions differ, p059/p060 ranked only in collect_split with substituted values. Classes / verdicts unchanged. Register 307.",
+  "note_20261118_0418": "2026-11-18 04:17: D-20261118-16 -> 符合 (collect_split.py:248 own e07 values + shear_req_source; ranking 71 own rows identical in value and order to mu_req_field, 2 pooled rows p059/p060 labelled). 不符 0. Register 307."
  },
  "items": [
   {
@@ -4391,11 +4394,12 @@
     "../biocage-evo/ops/collect_split.py interface_shear gate",
     "../biocage-evo/results/method/split/verdict_classes_merged.json (02:15)"
    ],
-   "status": "PI待決",
-   "evidence": "e07 verdict 規則與 THR 未改（12/54/6）；interface-shear-provisional 28、PASS 3、GREY 10 不變；PI 02:16 問「只記錄、只標旗會影響 screening 效率和準確性嗎」已回覆、未決。若改為旗標：28 個 interface-shear-provisional 設計會回到 tied 篩選後的下一個類別（PASS 或 GREY），PASS 3 會變——任何類別變動前須 PI 決定。",
-   "checked": "2026-11-18 02:25",
+   "status": "符合",
+   "evidence": "e07 verdict 規則與 THR 未改（12/54/6）；interface-shear-provisional 28、PASS 3、GREY 10 不變；PI 02:16 問「只記錄、只標旗會影響 screening 效率和準確性嗎」已回覆、未決。若改為旗標：28 個 interface-shear-provisional 設計會回到 tied 篩選後的下一個類別（PASS 或 GREY），PASS 3 會變——任何類別變動前須 PI 決定。 ｜ 複查 2026-11-18 04:12：PI 2026-11-18 04:04 決定「改旗＋排序；等實測後再定門」已下達並實作（D-20261118-10..12）；PI_PENDING 第 10 行劃掉。PI待決 → 符合。",
+   "checked": "2026-11-18 04:12",
    "source": "decisions",
-   "check": "llm"
+   "check": "llm",
+   "status_before_20261118_0410": "PI待決"
   },
   {
    "id": "D-20261118-4",
@@ -4485,6 +4489,113 @@
    "checked": "2026-11-18 02:41",
    "source": "decisions",
    "check": "llm"
+  },
+  {
+   "id": "D-20261118-10",
+   "decisions_line": 2323,
+   "quote": "04:04 PI（verbatim）「我的建議：改旗 ＋ 排序；等實測後再定門」→ 剪力 3 MPa 檢查改為旗標（shear_check exceeded／within／not evaluated）＋以 shear_req_p99_MPa 排序；DESIGN/interface-shear-provisional 類退役；門等黏結強度實測",
+   "code": [
+    "../biocage-evo/ops/collect_split.py:209 (gates.interface_shear role check), :228-229 (fail 分支移除), :241-244 (c[shear_check]), :261-262 (shear_check_exceeded / shear_ranking / shear_rule)",
+    "../biocage-evo/ops/mu_req_field.py:56-57 (shear_rank)",
+    "../biocage-evo/ops/e07_batch.py:101 meta.decided",
+    "../biocage-evo/docs/PLAN.md:36 S10 列",
+    "human_study/PI_PENDING_DECISIONS.md:10"
+   ],
+   "status": "符合",
+   "evidence": "git diff 1a14f79..3eb70d3 collect_split.py：`move(fail, DESIGN/interface-shear-provisional)` 分支與「shv open → [觀測]/friction-window」分支移除；每設計 c[shear_check] = verdict（e07 fail → exceeded、pass → within、open／無 → not evaluated）、threshold_MPa 3.0、provisional、shear_req_*、rule；verdict_classes_merged.json 新鍵 shear_check_exceeded（54）、shear_ranking（73 筆、依 shear_req_p99 升冪：p064 0.082、p121 0.155、p115 0.181 …）、shear_rule ✓。mu_req_field.json shear_rank 1–71（p064 1、p121 2、p115 3 與 shear_req 順序一致）✓。e07 meta.decided「3 MPa is a FLAG + ranking key …」✓、THR 與 e07 判定規則未改（12/54/6）。PLAN S10 加註 FLAG + ranking ✓。PI_PENDING 3 MPa 項劃掉 ✓。",
+   "checked": "2026-11-18 04:12",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-11",
+   "decisions_line": 2328,
+   "quote": "04:07「Numbers (149 tied designs): … PASS 31、GREY 12 … shear flags exceeded 54 / within 13 / not evaluated 82; PASS 31（剪力旗：超過 3 MPa 26、未超過 3、未評估 2）; e07 … 12 / 54 / 6; friction verdicts unchanged (73: 53 / 16 / 0 / 4). PASS designs ranked …: p064 0.08、p121 0.15、p086 2.72、p100 2.72、p142 2.72、p061 3.01、p052 3.17、p083 3.18」",
+   "code": [
+    "../biocage-evo/results/method/split/verdict_classes_merged.json (04:07:55)",
+    "../biocage-evo/results/method/split/comp_by_design_merged.json (04:07:55)",
+    "../biocage-evo/results/method/fric/e07_verdicts.json (04:06), verdicts.json (02:15)",
+    "scripts/8_audit/h37_qa_check.py R5 (QA_STATUS 04:1x)"
+   ],
+   "status": "符合",
+   "evidence": "classes：compression-sustained 53、peak-lowerbound 4、radial-mix-excluded 28、unstable-window 2、sustained-lowerbound 10、compression-peak 5、computability 2、PASS 31、not-computable-both-laws 2、GREY 12（合 149；interface-shear-provisional 不存在）✓。comp_by_design 149 筆 shear_check：exceeded 54 / within 13 / not evaluated 82 ✓；PASS 31 內 26 / 3 / 2 ✓。shear_ranking 前列 p064 0.082、p121 0.155、p086/p100/p142 2.718 ✓（決策文四捨五入）。e07 12/54/6、verdicts 53/16/0/4 不變 ✓。R5 PASS：interface-shear (54, 53)、radial 28、GREY／PASS 文中計數一致。",
+   "checked": "2026-11-18 04:12",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-12",
+   "decisions_line": 2330,
+   "quote": "04:07「Labels OBS-10 TIED / FRIC appended; PHY-09 FRIC fail -> partial …」；L2331「h37 R2-merged now skips gates.interface_shear …; R5 interface-shear count = flagged designs (54)」",
+   "code": [
+    "human_study/platform_capabilities.json (04:07:54) OBS-10 status.TIED / FRIC, PHY-09 status.FRIC + threshold",
+    "scripts/8_audit/h37_qa_check.py R2-merged (k not in (dislocation_friction, interface_shear)), R5 cls interface-shear = __shear_check_exceeded__"
+   ],
+   "status": "符合",
+   "evidence": "OBS-10 TIED 04:07 段 10 個類別數與 verdict_classes_merged.json 逐項相同、旗 54/13/82、PASS 31（26/3/2）✓；OBS-10 FRIC 04:07 段 shear_check／shear_ranking 說明、PASS 最低 8 筆、e07 12/54/6 ✓；PHY-09 FRIC state partial、date 04:07、value「71 設計有值 0.08–21.9 MPa、中位 12.7；超過 3 MPa 54」= e07 02:27 以後的 shear_req（min 0.082、max 21.894、median 12.678）✓、threshold 加「實測前為旗標＋排序」✓。h37 diff 587240b..98f9397：R2-merged 排除 interface_shear；R5 interface-shear 改讀 shear_check_exceeded ✓；R2-merged PASS、R5 PASS。證據檔 04:06–04:07:55 早於／同於標籤 04:07:54（verdict_classes 04:07:55 晚 1 秒：同一鏈的輸出，數字相符）。",
+   "checked": "2026-11-18 04:12",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-13",
+   "decisions_line": 2329,
+   "quote": "04:07「Consequence to state plainly: 28 designs that were excluded only by the shear gate are now PASS candidates carrying the flag exceeded」",
+   "code": [
+    "git 1a14f79 vs 工作樹 results/method/split/verdict_classes_merged.json classes"
+   ],
+   "status": "符合",
+   "evidence": "類別變動 30 個設計：原 DESIGN/interface-shear-provisional 28 個 → PASS 26（旗 exceeded）＋ GREY 2（p076、p135：摩擦灰區，剪力旗不再先擋）；原 [觀測]/friction-window 2 個（p064、p121，剪力未評估）→ PASS（旗 not evaluated）。PASS 新增 28 = 26 + 2，但「28 個被剪力門排除的設計成為 PASS 候選且帶 exceeded」不成立：帶 exceeded 的是 26 個（決策文自己的 26/3/2 已寫對）；另 2 個原剪力類設計落入 GREY，2 個原 open 設計因「未評估不再擋」進 PASS。後果：對 PI 的後果句須改為「26 個剪力超標設計進 PASS（旗 exceeded）、2 個進 GREY、2 個剪力未評估的設計進 PASS」；類別計數不變。 ｜ 複查 2026-11-18 04:15：DECISIONS L2329 就地更正「of the 28 designs of the retired shear class, 26 are now PASS … exceeded and 2 (p076, p135) are GREY …; the 2 former [觀測]/friction-window designs (p064, p121, shear not evaluated) are PASS with the flag not evaluated」— 與稽核計數相同；L2332 加日期行。",
+   "checked": "2026-11-18 04:15",
+   "source": "decisions",
+   "check": "llm",
+   "status_before_20261118_0415": "不符"
+  },
+  {
+   "id": "D-20261118-14",
+   "decisions_line": 2327,
+   "quote": "04:07「an unevaluated shear no longer moves a friction-pass design to open」",
+   "code": [
+    "../biocage-evo/ops/collect_split.py:241 (not evaluated), 原 :2xx open 分支移除"
+   ],
+   "status": "實作時自選",
+   "evidence": "PI 原話只說「改旗＋排序」；剪力「未評估」（e07 open：窗口未到 ROM）的設計不再列 open 而進 PASS 是主線延伸：p064、p121 現為 PASS、shear_check not evaluated、shear_req_complete False（shear_req_p99 0.082／0.155 只來自單一窗口）。shear_ranking 把它們排第 1、2 名——以不完整窗口的值排在前面。簽核：未評估／不完整者是否應在排序中標示或後置（complete False 已記錄）。 ｜ 複查 2026-11-18 04:15：簽核已套用（L2332；collect_split.py:261、mu_req_field.py:55 排序鍵 (not complete, shear_req_p99)）：verdict_classes_merged.json 04:13 shear_ranking 73 筆，不完整者 10 筆全在第 64–73 位、兩組內各升冪 ✓；PASS 首位 p086／p100／p142 2.718；mu_req_field p064／p121 rank 65／66 ✓。「未評估不擋 PASS」的規則本身仍為主線延伸、維持簽核項。另見 D-20261118-16（兩檔排序值不一致）。",
+   "checked": "2026-11-18 04:15",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-15",
+   "decisions_line": 2313,
+   "quote": "03:19「pilot_holdRh result: step-sequence perturbation only (not a true half-step); differences <= 0.0006 mm … label text corrected」；03:23「pilot_holdQ launched … dtmax_windows [[3.9, 3.91, 0.05], [4.4, 4.5, 0.025]]」",
+   "code": [
+    "../biocage-evo/results/gpufe_verify/v2/v17g_hold_restart.json / _flexion.json rows set=pilot_holdRh",
+    "human_study/platform_capabilities.json NUM-13 status.FRIC.value 03:19 段",
+    "human_study/current_settings.json:1148 human_study/al_v2/pilot_holdQ/ (dtmax_windows)"
+   ],
+   "status": "符合",
+   "evidence": "holdRh 列：u_end 後伸 0.4657／0.4701 vs holdR 0.4651／0.4700（+0.0006／+0.0001）、前屈 0.4284／0.5604 vs 0.4280／0.5608（+0.0004／−0.0004）；trend 0.0008／0.0021／0.0／0.0006；pp 0.0006–0.0043；n_hold 15/13/23/39 vs 15/13/26/30；4 列 NORMAL、retries 0 ✓。NUM-13 FRIC value 03:19 段寫明「步長其實未減半 … 步序擾動證據，支持但不等於第 2 款 … 仍待 dtmax 曲線 0.025 重建」✓（state pass 仍依 04:23 第一路徑）。current_settings.json 相對 952ac1e 只新增 pilot_holdRh、pilot_holdQ 兩類（+83 行，pilot 路徑；holdQ dtmax_windows 如述）；R7 PASS。holdQ／holdQR 結果進行中、不判。",
+   "checked": "2026-11-18 04:12",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-16",
+   "decisions_line": 2327,
+   "quote": "04:07「designs are ranked by the required interface strength shear_req_p99_MPa … verdict_classes_merged.json gets … shear_ranking … mu_req_field: shear_rank column」— 兩個排序輸出是否同一排序",
+   "code": [
+    "../biocage-evo/ops/collect_split.py:196-206 (pooled(): 同參數群取代表成員的 e07 記錄，含 shear_req_*), :241, :261",
+    "../biocage-evo/ops/mu_req_field.py:55 (每設計自身 e07_verdicts.json 值)",
+    "../biocage-evo/results/method/split/verdict_classes_merged.json shear_ranking (04:13)",
+    "../biocage-evo/results/method/mu_req_field.json shear_rank (04:13)",
+    "../biocage-evo/results/method/fric/e07_verdicts.json"
+   ],
+   "status": "符合",
+   "evidence": "collect_split 的 shear_check／shear_ranking 用 pooled() 的代表成員值：p142 取 p086 的 2.718（自身 e07 2.704）、p145 取 p093 的 1.963（自身 1.959）、p075 2.153（自身 2.151）、p084 21.894（自身 21.868）；p060、p059 無自身 e07 記錄卻以群代表值 2.382／2.923 入榜（73 筆）。mu_req_field 用各設計自身值（71 筆，無 p059／p060）。結果：兩檔排序 71 個共同設計中 67 個名次不同（多為 ±1–2；首位 p093↔p145 互換）、值差 ≤ 0.026 MPa。兩檔皆已「不完整者後置」✓。後果：PASS 31 等類別與 e07 判定不變；但「所需剪力排序」在兩個輸出不一致，引用名次或值時會互相矛盾；p060／p059 的「所需剪力」是替代值（來自其他 id）未標示。建議：單一來源（各設計自身值，群內替代以 pooled 旗標註明），兩檔同鍵排序。 ｜ 複查 2026-11-18 04:17：collect_split.py:248（04:16）shear_req_* 改取各設計自身 e07 記錄、新鍵 shear_req_source（own／pooled from pNNN），:267 shear_ranking 列帶 source；旗標判定仍用 pooled 證據。verdict_classes_merged.json 04:16:57：73 筆 = own 71 + pooled 2（p060 2.382 pooled from p072、p059 2.923 pooled from p074）；71 筆 own 值與 e07_verdicts.json、mu_req_field.json 逐一相同、順序與 mu_req_field shear_rank 完全一致；不完整者仍後置；PASS 首位 p142 2.704、p086 2.718、p100 2.730；comp_by_design p142 source own、p060 pooled from p072。類別（PASS 31／GREY 12）、旗 54/13/82 不變。DECISIONS L2333 日期行 ✓。",
+   "checked": "2026-11-18 04:17",
+   "source": "decisions",
+   "check": "llm",
+   "status_before_20261118_0418": "不符"
   }
  ]
 }

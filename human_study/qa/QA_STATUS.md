@@ -1,4 +1,4 @@
-# QA status 2026-11-18 04:07 — WARN
+# QA status 2026-11-18 04:18 — WARN
 
 h37_qa_check.py (layer A, deterministic). PASS = check held; FAIL = drift found, fix before any number is reported; WARN = information or an audit is due. Layer B (meaning of the decisions) = qa-auditor agent, register human_study/qa/QA_SPEC.json.
 
@@ -23,5 +23,5 @@ h37_qa_check.py (layer A, deterministic). PASS = check held; FAIL = drift found,
 | R19-route-E | PASS | route-E classes: 72 cases, 144 finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: [] |
 | R20-replicate-agreement | WARN | sets ['physio_fric5r', 'physio_relGr']: 8 deck groups, 14 windows with >= 2 computed replicates, 2 disagree (> 0.005 mm or mixed evaluation point), worst spread 0.012415672940065736 mm |
 | R18-agent-prompts | PASS | .claude/agents vs human_study/agent_prompts: in sync |
-| R10-register | PASS | 300 register items; unmapped []; 不符 [] |
-| R10-llm-audit-due | WARN | LLM audit required: last 2026-11-18 02:41; gate files changed since: ['human_study/current_settings.json', '../biocage-evo/ops/e07_batch.py', '../biocage-evo/ops/collect_split.py', '../biocage-evo/ops/mu_req_field.py']; decision entries since: ['2026-11-18 04:04', '2026-11-18 04:07'] |
+| R10-register | PASS | 307 register items; unmapped []; 不符 [] |
+| R10-llm-audit-due | PASS | LLM audit current: last 2026-11-18 04:17; gate files changed since: []; decision entries since: [] |
