@@ -1,5 +1,5 @@
 {
- "time": "2026-11-18 12:48",
+ "time": "2026-11-18 12:53",
  "overall": "WARN",
  "checks": [
   {
@@ -30,7 +30,12 @@
   {
    "id": "R3-faces",
    "status": "PASS",
-   "message": "skipped (--quick); 398 e07 window files"
+   "message": "398 windows, 194 cases recounted; mismatches 0 []"
+  },
+  {
+   "id": "R4-insertion-state",
+   "status": "PASS",
+   "message": "insertion value state within 0.05 of t 3.5; violations 0 []"
   },
   {
    "id": "R5-counts",
@@ -46,6 +51,16 @@
    "id": "R7-pilot-keys",
    "status": "PASS",
    "message": "settings/h14: []; production cases scanned 914, with pilot options / extra keys: []"
+  },
+  {
+   "id": "R8-golden-rebuild",
+   "status": "PASS",
+   "message": "p062 physio_fric3 rebuild md5 4f3208b5 vs recorded 4f3208b5 (11 s)"
+  },
+  {
+   "id": "R9-material-blocks",
+   "status": "PASS",
+   "message": "golden rebuild: one FEBio block per cage material in 1 cases (tmppm0_motb:4); problems: []"
   },
   {
    "id": "R9-material-blocks",
@@ -158,5 +173,5 @@
    "2026-11-18 12:47"
   ]
  },
- "mode": "quick"
+ "mode": "full"
 }

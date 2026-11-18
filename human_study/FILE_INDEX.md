@@ -75,6 +75,9 @@
 | `../biocage-evo/methods/e07_interface_shear.py` | 硬／軟介面剪力（p99、軟側） |
 | `../biocage-evo/ops/fric_compare.py` | 摩擦視窗：1.5 N·m 點與 intact ROM 點的位移 → `verdicts.json`（閘 4） |
 | `../biocage-evo/ops/e07_batch.py` | 介面剪力批次＋3 MPa 判定 → `e07_verdicts.json` |
+| `../biocage-evo/methods/e06_hard_stress.py` | 硬相持續應力讀值（e06，OBS-01；18 % × sig_hard 暫定門檻，只記錄不判定） |
+| `../biocage-evo/ops/obs01_batch.py` | OBS-01 批次：T19（最後方點、硬體素剛體擬合，在 e04 內）＋ e06 跑遍黏死與摩擦勝出窗口 → `results/method/obs01/` |
+| `../biocage-evo/ops/shortcut_consistency.py` | PHY-05 捷徑一致性：tied mu_req_max vs 摩擦後方位移（等級相關、線性殘差、灰帶）→ `shortcut_consistency.json` |
 | `../biocage-evo/ops/collect_split.py` | 合併所有閘：tied 篩選 → 滑出 → 剪力 → radial-mix 排除 → `split/*_merged.json` |
 | `../biocage-evo/ops/numconv_compare.py`, `../biocage-evo/ops/degr_compare.py` | 數值收斂、退化敏感度比較 |
 | `../biocage-evo/docs/GPUFE_VERIFICATION_PLAN.md` | gpufe 驗證計畫：V1–V23、門檻、真相來源、文獻、停損點 |
@@ -88,6 +91,9 @@
 | `../biocage-evo/results/method/fric/compare.json` | 每個摩擦視窗：reached 旗標、t_rom、u_h、posterior |
 | `../biocage-evo/results/method/fric/verdicts.json` | 閘 4 滑出判定（fail／pass／open＋理由） |
 | `../biocage-evo/results/method/fric/e07_summary.csv`, `../biocage-evo/results/method/fric/e07_verdicts.json` | 介面剪力值與判定 |
+| `../biocage-evo/results/method/obs01/` | OBS-01 讀值：每勝出窗口的 T19 與 e06 json、`obs01_summary.json` |
+| `../biocage-evo/results/method/fric/shortcut_consistency.json` | PHY-05 捷徑一致性重算（73 設計，2026-11-18） |
+| `../biocage-evo/results/method/split/div04_noncomputable_bias.json` | DIV-04：算不出設計在家族／梯度／製法／E_soft 分位的比例（149 設計） |
 | `../biocage-evo/results/method/fric/eval_point_sensitivity.json` | 評估點（1.5 N·m vs ROM）敏感度 |
 | `../biocage-evo/results/method/fric/c3_reactions_t3.json` | C3 在 t 3 的反力（漸放用） |
 | `../biocage-evo/results/method/fric/static_release_stops_lastJ.json` | 6 個 t<3 停算 run 末態軟層壓縮（T05 檢查，≤2 %） |

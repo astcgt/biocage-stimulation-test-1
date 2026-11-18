@@ -4,7 +4,7 @@
   "--stack=unlimited",
   "taskset",
   "-c",
-  "0,2,3,4,5",
+  "35,56,74,121,147,179",
   "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/third_party/FEBio/cbuild_fric/bin/febio4",
   "-r",
   "restart.feb",
@@ -16,8 +16,8 @@
   "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/febio_cudss/febio_cudss.xml"
  ],
  "env": {
-  "CUDA_VISIBLE_DEVICES": "1",
-  "OMP_NUM_THREADS": "5",
+  "CUDA_VISIBLE_DEVICES": "4",
+  "OMP_NUM_THREADS": "6",
   "OMP_STACKSIZE": "1G",
   "BIOCAGE_STICK_MEMORY": "1"
  },
