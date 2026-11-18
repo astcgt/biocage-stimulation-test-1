@@ -1,5 +1,5 @@
 {
- "time": "2026-11-18 14:21",
+ "time": "2026-11-18 14:28",
  "overall": "WARN",
  "checks": [
   {
@@ -55,12 +55,12 @@
   {
    "id": "R8-golden-rebuild",
    "status": "PASS",
-   "message": "p062 physio_fric3 rebuild md5 4f3208b5 vs recorded 4f3208b5 (12 s)"
+   "message": "p062 physio_fric3 rebuild md5 4f3208b5 vs recorded 4f3208b5 (11 s)"
   },
   {
    "id": "R9-material-blocks",
    "status": "PASS",
-   "message": "golden rebuild: one FEBio block per cage material in 1 cases (tmpflrlthqg:4); problems: []"
+   "message": "golden rebuild: one FEBio block per cage material in 1 cases (tmpjstltep5:4); problems: []"
   },
   {
    "id": "R9-material-blocks",
@@ -125,12 +125,12 @@
   {
    "id": "R10-register",
    "status": "PASS",
-   "message": "371 register items; unmapped []; 不符 []"
+   "message": "376 register items; unmapped []; 不符 []"
   },
   {
    "id": "R10-llm-audit-due",
    "status": "PASS",
-   "message": "LLM audit current: last 2026-11-18 13:55; gate files changed since: []; decision entries since: []"
+   "message": "LLM audit current: last 2026-11-18 14:24; gate files changed since: []; decision entries since: []"
   }
  ],
  "counts": {
@@ -156,8 +156,8 @@
   "designs": 149
  },
  "register": {
-  "last_llm_audit": "2026-11-18 13:55",
-  "n_items": 371,
+  "last_llm_audit": "2026-11-18 14:24",
+  "n_items": 376,
   "unmapped": [],
   "mismatch": [],
   "gate_files_changed": [],

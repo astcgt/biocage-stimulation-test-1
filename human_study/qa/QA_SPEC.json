@@ -1,7 +1,7 @@
 {
  "meta": {
   "note": "Register: one entry per PI decision that the code must implement. status in {符合, 不符, 未實作, 實作時自選, PI待決, unmapped}. check = h37 check id or 'llm' (judged by the qa-auditor agent). last_llm_audit is set by the auditor, never by h37.",
-  "last_llm_audit": "2026-11-18 13:10",
+  "last_llm_audit": "2026-11-18 14:24",
   "gate_files": [
    "scripts/3_cage_case/h14_build_case.py",
    "scripts/6_active_learning/h22_active_learning.py",
@@ -57,7 +57,9 @@
   "note_20261118_round2_block2": "2026-11-18 12:10 narrow layer-B audit of the round-2 platform-independent block (qa-auditor): evo DECISIONS 05:58, 06:02, 11:08, 11:16, 11:55 and platform DECISIONS L2353 / L2363 / L2376 registered as D-20261118-37..52. Verified: compiler acceptance 78 of 78 re-run in memory; proposals weights 0.8 / 0.2, not launched; keep rule applied (none adopted) and quoted numbers = file; prereg hashes, novelty floor 0.9074 and exact-test gaps recomputed; leave-one-material-set-out and family rates = files; Hugging Face clone and commits without AI trace. 不符 3 (no verdict / class / label / table number changes): -38 (compiler S4 check counts all void, PLAN requires the void connected to both endplates to be >= 50 %; synthetic probe builds with 3.8 % through-connected void), -43 ('second tier, independent of d' not supported after controlling for d: partial correlations near 0), -47 (mentor.md 'keep at most 5' leaves the choice among more than five buildable ideas to the mentor). 符合 7 (-37, -40, -42, -44, -46, -49, -50); 實作時自選 5 (-39, -41, -45, -48, -51); 未實作 1 (-52). Also not audited: the 12:10 round-2 PI entry that appeared during the audit. NOT audited and last_llm_audit deliberately left at 2026-11-18 06:24: platform DECISIONS 11:25 / 11:38 / 12:05 / 12:1x (platform window), human_study/current_settings.json (11:27) and ../biocage-evo/methods/e04_dislocation.py (11:53) changed by another session; platform_capabilities.json / scorecard / pilot_rep3 changes today are not part of this block.",
   "note_20261118_round2_block2_recheck": "2026-11-18 12:26 re-check after evo DECISIONS 12:21: D-20261118-38, -43, -47 -> 符合 (compiler S4 on the through-going void + 25 % face contact, acceptance 78 of 78 re-run in memory and the auditor's three probes now refused; partial-correlation rule, post_ext values -0.51 / -0.45 / +0.45 / -0.45 recomputed; mentor draw by lot in the prompt, draw code not yet written). New: -53 (PI 12:10 material x geometry freedom, 符合), -54 (PI 12:21 same height / loosened / wording, 符合; prereg.json sha256 unchanged, amendment file), -55 (實作時自選: reference height 1.0 mm and arm A reduced from 18 to 9 designs - recommend telling the PI), -56 (實作時自選: 'stiffer is better' absent in radial_interleave; 'pre-declared' wording). 不符 0. last_llm_audit still 2026-11-18 06:24 (platform-window entries, current_settings.json and e04_dislocation.py not audited).",
   "note_20261118_platform_1125": "2026-11-18 13:04: platform-window entries 2026-11-18 11:25 / 11:38 (corrected 11:5x) / 12:05 + 12:2x / 12:1x / 12:3x / 12:5x and labels DIV-03 TIED, PHY-05 TIED, DIV-04 TIED, NUM-17 FRIC, NUM-15 FRIC, OBS-01 TIED/FRIC registered as D-20261118-P1..P16, P-L1 (P prefix; the surrogate window's D-20261118-27..56 untouched). Verified by recomputation: pilot_rep3 read-outs (0.5398 / 0.8242 / 0.8258), dump offsets, restart.feb identity, shortcut_consistency numbers (RMS reading consistent with PI 2026-11-10 L1979 observed 0.032 = rms_mm), DIV-04 json, verdict_lists 143/149, obs01_summary, e06 limit, negative-Jacobian attribution by case.feb element tables, relG 28/28. 不符 3: P3 (stop inventory 29 dirs = 28 designs / 21 first-dynamic, not 27 / 20; NUM-15 label '28 run / 27 設計'), P14 (p115 '1897 lines' is the cage_soft count of 2681 lines), P-L1 (PHY-05 / DIV-04 / NUM-17 evidence lists and OBS-01 threshold not updated). PI待決 1: P12 (pooling p060 with p072 crosses the DIV-03 FRIC 95 % line by a rule change). No verdict / class change.",
-  "note_20261118_1310": "2026-11-18 13:10: P3 / P14 / P-L1 -> 符合 (DECISIONS L2372 / L2395 and NUM-15 label corrected; evidence paths and OBS-01 threshold updated 13:08); P12 -> 符合 (superseded by p060's own production insertion, no pooling rule); P8 / P10 re-read against the 13:01 label text (PHY-05 TIED partial, NUM-17 FRIC fail; status.date fields still 12:01). New D-20261118-P17 (13:01 entry; p093n / p060 runs and the T19-e06 re-read pending, not judged). Auditor's items 不符 0."
+  "note_20261118_1310": "2026-11-18 13:10: P3 / P14 / P-L1 -> 符合 (DECISIONS L2372 / L2395 and NUM-15 label corrected; evidence paths and OBS-01 threshold updated 13:08); P12 -> 符合 (superseded by p060's own production insertion, no pooling rule); P8 / P10 re-read against the 13:01 label text (PHY-05 TIED partial, NUM-17 FRIC fail; status.date fields still 12:01). New D-20261118-P17 (13:01 entry; p093n / p060 runs and the T19-e06 re-read pending, not judged). Auditor's items 不符 0.",
+  "note_20261118_1355": "2026-11-18 13:55: DECISIONS 13:19 / 13:3x / 13:45 / 13:48 registered as D-20261118-P18..P22, all 符合: p093n full Newton (0 retries, 81 NJ, 1059 s, ROM 0.5489 recomputed), obs01 re-read numbers, pilot_rep3G full Newton fails on p048 / p115 (retries 26 / 15; NJ line counts differ from the text by < 0.5 % - counting convention), p060 insertion + route-E windows (deck = p072, 51 / 0 / 88 NJ, 874 / 1268 s), pipeline diff (only p060 and p072.replicates changed; 53/17/3; e07 13/54/6; classes identical; RA 9/16/3; DIV-03 FRIC 70/73 = 95.9 % pass supported by the >= 95 % threshold). Notes: OBS-01 label cites the summary as 13:2x (file 13:09); shortcut_consistency.json not rerun with p060. 不符 0.",
+  "note_20261118_1425": "2026-11-18 14:24: DECISIONS 13:5x / 14:0x bullets, 14:00 (NUM-16 patch check) and 14:19 (full Newton 4/4) registered as D-20261118-P23..P27, all 符合: PHY-05 false-pass direction now correct, six failing rows, mu_req_field 64-row diff (62 shear_rank-only + p060 + p072), shortcut rerun 0.915 / 0.0375 / 0.1450, e06_location_check values, num16 face vs 0.5 mm patch statistics, full-Newton logs (retries 2/0/0, NJ 188/77/50 vs text 187/77/50, wall 1269/1077/1056 s) and ROM 0.5515 / 0.5478 / 0.5401 recomputed; no verdict / class change since 13:45; PI_PENDING 13:54 block has six items. 不符 0."
  },
  "items": [
   {
@@ -5506,6 +5508,160 @@
    "status": "符合",
    "evidence": "標籤 state 改動與決策文一致（NUM-17 fail、PHY-05 partial；OBS-01 value 13:0x 段移除「顯然過嚴」）；p093n 目錄存在（結果進行中、不判）；p060_gpu1 執行中（t 2.76，不判）。未核：e06 位置檢查的數字（界面相鄰份額 0.48／0.40／0.26、非相鄰 p99 12.38／13.39／14.04 等）無結果檔、本輪未重算；p060 deck sha 85146a80 = p072 未比對；T19／e06 在判定評估點的重讀（obs01_batch 修改執行中）待回報後登記。",
    "checked": "2026-11-18 13:10",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-P18",
+   "decisions_line": 2428,
+   "quote": "13:19「pilot_rep3/p093n (same dump + deck …, max_ups 10 -> 0 = full Newton, GPU 4, 6 cores): N O R M A L in 1060 s, 0 retries, 81 negative-Jacobian lines (production BFGS: 1 retry / 250; the two BFGS reruns: 11 / 32 retries, E R R O R). ROM read-out posterior 0.5489 mm (production same dump 0.5517; p145 dump 0.5393 / 0.5398) … same-dump difference BFGS vs full Newton 0.0028 mm」",
+   "code": [
+    "human_study/al_v2/pilot_rep3/p093n/w_extension/{restart.feb,case.log}",
+    "human_study/al_v2/pilot_rep3/p093n/launched_feb.sha256",
+    "../biocage-evo/ops/fric_compare.py:68-78（稽核以同碼重算 ROM 讀值）"
+   ],
+   "status": "符合",
+   "evidence": "restart.feb 與正式 physio_fric5r/p093/w_extension/restart.feb 只差一行（Control：max_ups 0）；launched_feb 17f7470a… = 正式 p093 deck ✓。case.log：N O R M A L、t 4.0、Retrying 0、negative jacobian 81 行、Total elapsed 1059.3 s ✓。重算 ROM 後方 0.5489（t_rom 3.893）✓；0.5517 − 0.5489 = 0.0028 ✓；BFGS 重跑 Retrying 11／32 ✓（P7）。pilot_rep3 類未改（window Control 由 restart.feb 手改，非 gate file）。",
+   "checked": "2026-11-18 13:55",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-P19",
+   "decisions_line": 2429,
+   "quote": "13:19「obs01_batch re-read (friction windows at their verdict evaluation point: 75 at ROM via e04.t19_at / e06.at_time, 82 at 1.5 N m = e04's bracket, 5 unreached …; 726 windows ok, 420 s): FRIC hard-fit minus mean median 0.009 (max 0.061); rotation median 0.017 deg, max 1.92; posterior-most minus mean median 0.25, max 0.79; hard-phase p99 at the evaluation point median 25.0, max 65.3 (sustained median 10.1)」；OBS-01 TIED/FRIC value 13:19 段同句",
+   "code": [
+    "../biocage-evo/results/method/obs01/obs01_summary.json (generated 2026-11-18T13:09)",
+    "../biocage-evo/ops/obs01_batch.py",
+    "human_study/platform_capabilities.json OBS-01 status.TIED / FRIC (pass, 13:19)"
+   ],
+   "status": "符合",
+   "evidence": "summary generated 13:09、windows 726、ok 726、wall 420.2 s ✓；FRIC 162 列 eval_point 1.5Nm 82／ROM 75／None 5、e06.at ROM 75 ✓；hard_fit_minus_mean 中位 0.0087（標籤 0.009）、最大 0.061 ✓；rotation_z 中位 0.0172、最大 1.916 ✓；posterior_most − mean 中位 0.2524、最大 0.789 ✓；e06 peak_p99 中位 25.0、最大 65.3，sustained_p99 中位 10.1（106 窗）✓。小註：標籤寫「obs01_summary.json 13:2x」，檔 generated／mtime 13:09。state pass 不變。",
+   "checked": "2026-11-18 13:55",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-P20",
+   "decisions_line": 2430,
+   "quote": "13:3x「class pilot_rep3G added (= physio_relGr settings, unchanged …); h47 build pilot_rep3G/p048 and /p115 from the process-G dumps …, restart.feb Control max_ups 10 -> 0 …; result: p048 extension E R R O R at t 3.521 (26 retries, 5835 negative-Jacobian lines; BFGS production: t 3.514, 18 retries), p115 flexion E R R O R at t 3.527 (15 retries, 2952; BFGS: 3.527, 15) … p048 / p115 stay [數值]/not-computable-both-laws」",
+   "code": [
+    "human_study/current_settings.json human_study/al_v2/pilot_rep3G/ (git diff 3580134: +36 行)",
+    "human_study/al_v2/pilot_rep3G/{p048/w_extension,p115/w_flexion}/{restart.feb,case.log}, fullnewton.log",
+    "human_study/al_v2/physio_relGr/{p048/w_extension,p115/w_flexion}/case.log"
+   ],
+   "status": "符合",
+   "evidence": "pilot_rep3G 類與 physio_relGr 逐鍵相同（pilot 路徑；R7 PASS）。restart.feb max_ups 0 ✓。p048：E R R O R t 3.52069、Retrying 26、negative jacobian 總行 5849（元素行 5822；決策文 5835，計法差 < 0.5 %）、Total elapsed 140 s；p115：E R R O R t 3.52727、Retrying 15、2962（元素行 2946；決策文 2952）、93 s ✓。BFGS 正式：physio_relGr/p048 t 3.51364、Retrying 18 ✓；p115 t 3.52727、Retrying 15 ✓。fullnewton.log：兩案 exit 1、normal False、valid True。classes：p048／p115 仍 [數值]/not-computable-both-laws ✓（13:46 檔）。",
+   "checked": "2026-11-18 13:55",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-P21",
+   "decisions_line": 2435,
+   "quote": "13:45「physio_fric3/p060_gpu1 (GPU 1, 6 cores; deck identical to p072's production deck): insertion N O R M A L at t 3.5 (51 negative-Jacobian lines …); physio_fric5r/p060 (h47 build from that dump, preflight OK): extension N O R M A L 874 s (0 retries, 0 NJ), flexion N O R M A L 1268 s (1 retry, 88 NJ), both valid, stick memory logged」",
+   "code": [
+    "human_study/al_v2/physio_fric3/p060_gpu1/{case.feb,case.log,case.dmp}, physio_fric3/p072/case.feb",
+    "human_study/al_v2/physio_fric5r/p060/{launched_feb.sha256,resources.json,resources_flexion.json,w_extension/case.log,w_flexion/case.log}"
+   ],
+   "status": "符合",
+   "evidence": "p060_gpu1 case.feb sha256 85146a807d38295c = physio_fric3/p072/case.feb ✓；插入 N O R M A L t 3.5、case.dmp 存在、negative jacobian 51 行、1242 s ✓。physio_fric5r/p060 launched_feb 85146a80… ✓；w_extension N O R M A L、Retrying 0、NJ 0、873 s（resources wall 874.2）✓；w_flexion N O R M A L、Retrying 1、NJ 88、1267 s（1268.4）✓；兩窗 normal／valid／profile_drops 0／stick_memory_logged True、GPU 1、5 核（決策文「6 cores」指 h18 插入；窗口 5 核）。關節窗 p060_gpu1/w_flexion N O R M A L、w_extension 未完成（不用於判定）。",
+   "checked": "2026-11-18 13:55",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-P22",
+   "decisions_line": 2439,
+   "quote": "13:48「Diff against the 02:15 / 04:16 files: friction verdicts pass 53 / grey 17 / open 3 (p060 open -> grey, nothing else changed; every existing window's u_h / posterior / evaluation point identical …); collect_split classes unchanged (…143/149 judged); e07 pass 13 / fail 54 / open 6 (p060 … 2.394 MPa, within); shear flags exceeded 54; replicate agreement 9 groups / 16 windows / 3 over 0.005 (new group p060-p072: extension 0.0055, flexion 0.0036; both grey). p060: extension ROM posterior 0.4747, flexion 1.5 N m 0.7972」；DIV-03 FRIC fail → pass「70/73 = 95.9 %」；NUM-17 FRIC 13:48 段；PHY-05 TIED 13:48 計數",
+   "code": [
+    "../biocage-evo/results/method/fric/verdicts.json (13:45), e07_verdicts.json (13:46), replicate_agreement.json (13:46)",
+    "../biocage-evo/results/method/split/verdict_classes_merged.json, verdict_lists_merged.json (13:46)",
+    "scratchpad before_p060/ (02:15／04:16 檔的快照)",
+    "human_study/platform_capabilities.json DIV-03 status.FRIC (pass, 13:48), NUM-17 FRIC, PHY-05 TIED",
+    "../biocage-evo/results/method/fric/pipeline_1344.log"
+   ],
+   "status": "符合",
+   "evidence": "稽核逐設計比對 before_p060/verdicts.json → 13:45 檔：唯一差異 p060（missing／verdict／windows／grey／replicates／open_reason／grey_note）與 p072.replicates（新群成員）；其餘 71 設計所有鍵逐值相同 → 既有讀值與判定未因 T19 版 e04 改變 ✓。計數 53/17/3 ✓；p060 grey：後伸 ROM post 0.4747、前屈 1.5 N·m u_h 0.7972 ✓；p072 0.4692／0.7936 ✓；deck 群 85146a80 consistent True ✓。e07 13/54/6、p060 within 2.394 ✓；classes 10 類成員逐一相同、exceeded 54 ✓；lists 31/12/100/6 ✓。replicate_agreement 9 群／16 窗／3 不一致（p093/p145 0.0124、p051/p075 0.0068、p060/p072 0.0055）✓；R20 WARN 3/16 ✓。DIV-03 FRIC：(53+17)/73 = 0.9589 → 95.9 % ≥ 95 %（threshold「≥ 95%」、method「有判定設計／全部設計」不要求全部可算；open 3 的理由寫入 value）→ pass 成立 ✓。小註：PHY-05 的 shortcut_consistency.json（12:00，n_ext 72）未隨 p060 重算，標籤 13:48 只更新計數並註明狀態不變。",
+   "checked": "2026-11-18 13:55",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-P23",
+   "decisions_line": 2441,
+   "quote": "13:5x 更正「Failing required rows … NUM-15 FRIC, NUM-16 FRIC, NUM-17 FRIC, NUM-12 / NUM-13 GPUFE, OBS-01 GPUFE - six」；PHY-05 TIED (a) 方向更正「表能顯示的是『tied 通過但摩擦判定不通過』的假通過（fail 0、grey 17/73），不能顯示『tied 不通過但摩擦其實不滑出』的假不通過」",
+   "code": [
+    "human_study/platform_capabilities.json PHY-05 status.TIED.value 13:01 段（就地更正）",
+    "human_study/CAPABILITY_SCORECARD.md 不合格必要列",
+    "../biocage-evo/results/method/fric/shortcut_consistency.json agreement_table"
+   ],
+   "status": "符合",
+   "evidence": "PHY-05 (a) 現文方向正確：73 個有摩擦 run 者皆 tied 通過 → 表量的是假通過（friction fail 0、grey 17），無法量假不通過（無 tied 不通過者跑過摩擦）— 與 shortcut_consistency.json agreement（全在 tied≤mu(0.5) 側：53/17/3）一致 ✓；轉通過條件句已改「假不通過率（捷徑是否過嚴）」✓。計分表不合格必要列：NUM-15 FRIC、NUM-16 FRIC、NUM-17 FRIC、NUM-12／13 GPUFE、OBS-01 GPUFE = 6 ✓。",
+   "checked": "2026-11-18 14:24",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-P24",
+   "decisions_line": 2442,
+   "quote": "14:0x「R23 …: mu_req_field.csv changed in 64 rows - p060 (friction_check open -> grey, shear_req_p99 2.394 own, shear_rank 10, replicates [p072]), p072 (replicates), and shear_rank shifted for 63 designs …; shortcut_consistency.json rerun with p060: Spearman 0.915, RMS 0.037 mm (p90 0.054, max 0.151), 0.5 mm <-> mu_req 0.1450; agreement 53 / 17 / 3」；「option 乙 = dynamic_from_release already run 2026-11-04 … dropped」；「e06 location check saved」",
+   "code": [
+    "../biocage-evo/results/method/mu_req_field.csv (13:46) vs scratchpad before_p060/mu_req_field.csv",
+    "../biocage-evo/results/method/fric/shortcut_consistency.json (13:57)",
+    "../biocage-evo/results/method/obs01/e06_location_check.json (13:58)",
+    "human_study/DECISIONS.md:1269-1288 (pilot_dynrel 2026-11-04)"
+   ],
+   "status": "符合",
+   "evidence": "mu_req_field.csv 列差 64：p060（friction_check／shear_*／replicates／shear_rank）、p072（replicates＋shear_rank）、其餘 62 列只有 shear_rank 位移 → 「63 設計排名位移」= 62 + p072 ✓；mu_req_max／類別欄未變 ✓。shortcut_consistency.json 13:57：n 73、n_ext 72、Spearman 0.9151、RMS 0.0375、p90 0.0545、max 0.1506、mu_req_at_0p5 0.1450、agreement 53/17/3 ✓（PHY-05 state partial 不變）。e06_location_check.json：p093 相鄰份額 0.48（全體 0.48）、p015 0.40、p142 0.26（全體 0.48／0.46）；非相鄰 p99 12.38／13.39／14.04 vs 全體 12.38／13.13／13.35；中位 5.1–5.2、p90 9.6–10.7、p99 12.4–13.4、max 17.1–22.1 ✓（P17 的「無結果檔」已關）。乙 = h14 dynamic_from_release（pilot_dynrel，DECISIONS L1269–1288，2026-11-04 已試）✓。",
+   "checked": "2026-11-18 14:24",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-P25",
+   "decisions_line": 2446,
+   "quote": "14:00「ops/num16_metric_check.py … p062 flexion at 1.5 N m: face statistics fine-minus-coarse max -25 %, p99 -16 %, p95 -9 %, p90 -8 %, median -11 %, mean -9 %; 0.5 mm patches (198): patch-mean p99 +2.2 %, max -4.0 % -> within 5 % … NUM-16 stays fail; redefinition is a PI decision」；NUM-16 FRIC value 14:00 段、evidence 加 num16_metric_check.json",
+   "code": [
+    "../biocage-evo/ops/num16_metric_check.py (13:59)",
+    "../biocage-evo/results/method/numconv/num16_metric_check.json (13:59)",
+    "human_study/platform_capabilities.json NUM-16 status.FRIC (fail, 14:00), evidence",
+    "human_study/FILE_INDEX.md:81,97"
+   ],
+   "status": "符合",
+   "evidence": "json：coarse 5368 面／fine 5610 面、兩者 reached、198 patches；fine−coarse 相對差 max −0.2525、p99 −0.1577、p95 −0.0856、p90 −0.0771、median −0.1072、mean −0.0915；patch_mean_p99 +0.0223、patch_mean_max −0.0400 ✓（patch_mean_p90 −0.091 未在文中、不影響）。標籤 value 同數、state fail 不變、evidence 含新檔 ✓；FILE_INDEX 列 81／97 ✓。改定義待 PI（PI_PENDING 13:54 區塊第 5 項）。",
+   "checked": "2026-11-18 14:24",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-P26",
+   "decisions_line": 2450,
+   "quote": "14:19「full Newton converges 4 of 4: p093n2 (GPU 1, 5 cores) 1271 s, 2 retries, 187 NJ, ROM 0.5515; p093n3 (GPU 3, 6 cores) 1078 s, 0, 77, 0.5478; p093n 1060 s, 0, 81, 0.5489; p145n (GPU 4, 6 cores) 1057 s, 0, 50, 0.5401 … restart.feb differs from production only in Control max_ups 10 -> 0 … same-dump spread 0.0037 … production change proposed to the PI」；NUM-17 FRIC value 14:19 段",
+   "code": [
+    "human_study/al_v2/pilot_rep3/{p093n2,p093n3,p145n}/w_extension/{restart.feb,case.log}, launch.json, launched_feb.sha256",
+    "../biocage-evo/ops/fric_compare.py:68-78（稽核同碼重算 ROM）",
+    "human_study/platform_capabilities.json NUM-17 status.FRIC (fail, 14:19)",
+    "human_study/PI_PENDING_DECISIONS.md:58-64"
+   ],
+   "status": "符合",
+   "evidence": "三案 restart.feb max_ups 0、launched deck 17f7470a（p093 deck；p145 同模型）；p093n2 GPU 1／OMP 5：N O R M A L、Retrying 2、負 Jacobian 188 行（文 187）、1269.4 s（resources 1271）；p093n3 GPU 3／OMP 6：0、77、1076.6 s；p145n GPU 4／OMP 6：0、50、1055.7 s ✓。ROM 後方重算 0.5515／0.5478／0.5401 ✓；p093 同存檔三次散佈 0.5515−0.5478 = 0.0037 ✓；p145n vs BFGS 0.5393／0.5398 ✓。NUM-17 state fail 維持（正式設定仍 BFGS）、文字同數；正式 Control 改動未做（gate file h14／h31 未改）✓；PI_PENDING 13:54 區塊第 4 項列出。",
+   "checked": "2026-11-18 14:24",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-P27",
+   "decisions_line": 2438,
+   "quote": "13:45 之後「no verdict or class changed」；PI_PENDING「需要 PI 看（2026-11-18 13:54 更新：平台視窗）」六項；OBS-01 標籤時間字句",
+   "code": [
+    "../biocage-evo/results/method/fric/verdicts.json (13:45), e07_verdicts.json (13:46), split/verdict_classes_merged.json (13:46)",
+    "human_study/PI_PENDING_DECISIONS.md:58-64 (14:19:06)",
+    "human_study/platform_capabilities.json OBS-01 value「obs01_summary.json generated 13:09」"
+   ],
+   "status": "符合",
+   "evidence": "三個判定檔自 13:45／13:46 未再重生；53/17/3、13/54/6、classes 10 類不變 ✓。PI_PENDING 13:54 區塊六項：A5／NUM-15 甲乙、滑出判準最後方點、e06 門檻、窗口求解器全牛頓、NUM-16 定義、估算器輸入表更新 ✓（請求文稱 14:xx，檔內標 13:54，檔 mtime 14:19）。OBS-01 value 已改「obs01_summary.json generated 13:09」✓（P19 小註關閉）。p060 h18 關節窗兩窗 N O R M A L（p060_run.log：exit 0、wall 3462.6 s），僅參考列 ✓。",
+   "checked": "2026-11-18 14:24",
    "source": "decisions",
    "check": "llm"
   }

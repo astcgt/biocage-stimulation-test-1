@@ -1,4 +1,4 @@
-# QA status 2026-11-18 14:21 — WARN
+# QA status 2026-11-18 14:28 — WARN
 
 h37_qa_check.py (layer A, deterministic). PASS = check held; FAIL = drift found, fix before any number is reported; WARN = information or an audit is due. Layer B (meaning of the decisions) = qa-auditor agent, register human_study/qa/QA_SPEC.json.
 
@@ -14,8 +14,8 @@ h37_qa_check.py (layer A, deterministic). PASS = check held; FAIL = drift found,
 | R5-counts | PASS | classes {'friction-check-exceeded': (0, 0), 'interface-shear': (54, 53), 'radial-mix': (28, 27), 'friction-computability': (0, 0)} (all / among tied passes); stale document counts: [] |
 | R6-retracted | PASS | 6 retracted claims checked in 4 current documents; hits: [] |
 | R7-pilot-keys | PASS | settings/h14: []; production cases scanned 917, with pilot options / extra keys: [] |
-| R8-golden-rebuild | PASS | p062 physio_fric3 rebuild md5 4f3208b5 vs recorded 4f3208b5 (12 s) |
-| R9-material-blocks | PASS | golden rebuild: one FEBio block per cage material in 1 cases (tmpflrlthqg:4); problems: [] |
+| R8-golden-rebuild | PASS | p062 physio_fric3 rebuild md5 4f3208b5 vs recorded 4f3208b5 (11 s) |
+| R9-material-blocks | PASS | golden rebuild: one FEBio block per cage material in 1 cases (tmpjstltep5:4); problems: [] |
 | R9-material-blocks | PASS | production: one FEBio block per cage material in 4 cases (p002:3, p036:4, p039:2, p102:2); problems: [] |
 | R11-constants | PASS | intact ROM constants: {'scripts/3_cage_case/h14_build_case.py': (0.1009, 0.1286, 0.0713, 0.0717, 0.0905, 0.0907), 'scripts/6_active_learning/h28_physio_prerun.py': (0.1009, 0.1286, 0.0713, 0.0717, 0.0905, 0.0907), '../biocage-evo/ops/fric_compare.py': (0.1009, 0.1286, 0.0713, 0.0717, 0.0905, 0.0907)} |
 | R12-file-index | PASS | 328 paths in FILE_INDEX.md; missing [] |
@@ -28,5 +28,5 @@ h37_qa_check.py (layer A, deterministic). PASS = check held; FAIL = drift found,
 | R21-estimator-separation | PASS | usable windows without an existing run directory: 0 []; verdict programs that mention estimator outputs: [] |
 | R23-estimator-validation | WARN | validation_2026-11-18.json: grouped True (nominal 0.9, 132 groups); input tables newer than the report: ['mu_req_field.csv', 'verdicts.json'] |
 | R18-agent-prompts | PASS | .claude/agents vs human_study/agent_prompts: in sync |
-| R10-register | PASS | 371 register items; unmapped []; 不符 [] |
-| R10-llm-audit-due | PASS | LLM audit current: last 2026-11-18 13:55; gate files changed since: []; decision entries since: [] |
+| R10-register | PASS | 376 register items; unmapped []; 不符 [] |
+| R10-llm-audit-due | PASS | LLM audit current: last 2026-11-18 14:24; gate files changed since: []; decision entries since: [] |
