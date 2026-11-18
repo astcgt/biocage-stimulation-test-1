@@ -1,5 +1,5 @@
 {
- "time": "2026-11-18 12:22",
+ "time": "2026-11-18 12:28",
  "overall": "WARN",
  "checks": [
   {
@@ -110,7 +110,7 @@
   {
    "id": "R10-register",
    "status": "PASS",
-   "message": "347 register items; unmapped []; 不符 ['D-20261118-38', 'D-20261118-43', 'D-20261118-47'] (hook mode: reported, not blocking)"
+   "message": "351 register items; unmapped []; 不符 []"
   },
   {
    "id": "R10-llm-audit-due",
@@ -142,13 +142,9 @@
  },
  "register": {
   "last_llm_audit": "2026-11-18 06:24",
-  "n_items": 347,
+  "n_items": 351,
   "unmapped": [],
-  "mismatch": [
-   "D-20261118-38",
-   "D-20261118-43",
-   "D-20261118-47"
-  ],
+  "mismatch": [],
   "gate_files_changed": [
    "human_study/current_settings.json",
    "../biocage-evo/methods/e04_dislocation.py"

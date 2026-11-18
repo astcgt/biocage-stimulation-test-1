@@ -53,7 +53,9 @@
   "note_20261118_round2_recheck": "2026-11-18 05:56 re-check of D-20261118-27 / -28 / -31 after evo DECISIONS 05:53 (run 3): -27 -> 符合 (genes from params files, 149 rows, y5 77, y4 6; mu_req_field.py untouched); -28 stays 不符, narrowed to counts (run-3 rows use 77 design-A + 24 design-B meshes, text says 73 / 16; 'all 12 design-B' is 8 + 4; 'all design-B compression-sustained' is 23 of 24, p023 computability); -31 stays 不符, narrowed to two leftover phrases (ROUND2 L58 'newer than the model', L242 'R 5 (if approved)'). Run-3 table in the 05:53 entry = result file (every cell). last_llm_audit deliberately left at 2026-11-18 05:37: human_study/current_settings.json changed at 05:45 (class pilot_holdQR, another session) and was NOT audited here. 不符 2.",
   "note_20261118_round2_recheck2": "2026-11-18 05:59 re-check 2: D-20261118-28, -31 -> 符合 (residual counts and the two leftover phrases corrected in evo DECISIONS.md / ROUND2_ARCHITECTURE.md 05:58:51; values equal the auditor's own recount). 不符 0. last_llm_audit still 2026-11-18 05:37 (current_settings.json 05:45 pilot_holdQR by another session not audited).",
   "note_20261118_holdQR": "2026-11-18 06:22: DECISIONS 2026-11-18 05:52 (L2346-2352) and 06:13 (L2356-2358) registered as D-20261118-Q1..Q4 (Q-prefix: another session registers D-20261118-27..36 concurrently). Verified: pilot_holdQR class = holdQ + 3 restart keys (= holdR + half-step curve), h47 deck byte-identical + preflight OK, holdA/holdQ decks differ only in load curve 18, t 3.5 offsets 0.01052/0.01068/0.02016/0.02046 recomputed with the reader's formula, hold dt max 0.0249-0.0250 vs 0.047, n_hold 22/21/40/37, all deltas and trends from v17g rows, pre-registered reading applied as written, NUM-13 FRIC 06:13 text matches. 不符 1: D-20261118-Q1 ('wall 8258 s / 5331 s' is the whole h18 case incl. joint reference windows; insertion itself 652 / 605 s). No verdict / class / label-state change.",
-  "note_20261118_0625": "2026-11-18 06:24: D-20261118-Q1 -> 符合 (L2347 wall-time attribution corrected, 06:27 entry; drift_start_end 0.0015 vs 0.0018 confirms the -0.0003 rounding note). 不符 0 among the auditor's items."
+  "note_20261118_0625": "2026-11-18 06:24: D-20261118-Q1 -> 符合 (L2347 wall-time attribution corrected, 06:27 entry; drift_start_end 0.0015 vs 0.0018 confirms the -0.0003 rounding note). 不符 0 among the auditor's items.",
+  "note_20261118_round2_block2": "2026-11-18 12:10 narrow layer-B audit of the round-2 platform-independent block (qa-auditor): evo DECISIONS 05:58, 06:02, 11:08, 11:16, 11:55 and platform DECISIONS L2353 / L2363 / L2376 registered as D-20261118-37..52. Verified: compiler acceptance 78 of 78 re-run in memory; proposals weights 0.8 / 0.2, not launched; keep rule applied (none adopted) and quoted numbers = file; prereg hashes, novelty floor 0.9074 and exact-test gaps recomputed; leave-one-material-set-out and family rates = files; Hugging Face clone and commits without AI trace. 不符 3 (no verdict / class / label / table number changes): -38 (compiler S4 check counts all void, PLAN requires the void connected to both endplates to be >= 50 %; synthetic probe builds with 3.8 % through-connected void), -43 ('second tier, independent of d' not supported after controlling for d: partial correlations near 0), -47 (mentor.md 'keep at most 5' leaves the choice among more than five buildable ideas to the mentor). 符合 7 (-37, -40, -42, -44, -46, -49, -50); 實作時自選 5 (-39, -41, -45, -48, -51); 未實作 1 (-52). Also not audited: the 12:10 round-2 PI entry that appeared during the audit. NOT audited and last_llm_audit deliberately left at 2026-11-18 06:24: platform DECISIONS 11:25 / 11:38 / 12:05 / 12:1x (platform window), human_study/current_settings.json (11:27) and ../biocage-evo/methods/e04_dislocation.py (11:53) changed by another session; platform_capabilities.json / scorecard / pilot_rep3 changes today are not part of this block.",
+  "note_20261118_round2_block2_recheck": "2026-11-18 12:26 re-check after evo DECISIONS 12:21: D-20261118-38, -43, -47 -> 符合 (compiler S4 on the through-going void + 25 % face contact, acceptance 78 of 78 re-run in memory and the auditor's three probes now refused; partial-correlation rule, post_ext values -0.51 / -0.45 / +0.45 / -0.45 recomputed; mentor draw by lot in the prompt, draw code not yet written). New: -53 (PI 12:10 material x geometry freedom, 符合), -54 (PI 12:21 same height / loosened / wording, 符合; prereg.json sha256 unchanged, amendment file), -55 (實作時自選: reference height 1.0 mm and arm A reduced from 18 to 9 designs - recommend telling the PI), -56 (實作時自選: 'stiffer is better' absent in radial_interleave; 'pre-declared' wording). 不符 0. last_llm_audit still 2026-11-18 06:24 (platform-window entries, current_settings.json and e04_dislocation.py not audited)."
  },
  "items": [
   {
@@ -4968,6 +4970,311 @@
    "status": "符合",
    "evidence": "讀取器列（QR）：後伸 p062 u 0.4571→0.4643 trend 0.0005 n_hold 22、p139 0.4625→0.4700 trend 0.0022 n_hold 21；前屈 p062 0.4272→0.4288 trend −0.0003 n_hold 40、p139 0.5541→0.5605 trend 0.0003 n_hold 37；4 列 NORMAL、retries 0、BIOCAGE_STICK_MEMORY 1 ✓；R 列 15／13／26／30、trend 0.0007／0.0022／0.0001／0.0006 ✓。自算差：Δu_start −0.0007／0.0000／+0.0010／+0.0005、Δu_end −0.0008／0.0000／+0.0008／−0.0003 ✓；hold-only −0.0001／0.0000／−0.0002／−0.0008（決策文第 3 項寫 −0.0003：以四位小數列值相減為 −0.0002，差在捨入位，不改「≤ 0.0008」結論）。case.log 保持段（3.9–4.4）最大 dt 0.0249／0.0250／0.0248／0.0248 s、holdR 0.0472／0.0473／0.0474／0.0467 ✓；Total elapsed 204／165／1451／483 s、resources wall_s 205.2／165.6／1452.0／483.8 ✓、normal／valid／profile_drops 0／stick_memory_logged ✓、5 核 ✓。全部 ≤ 0.005 mm、|trend| ≤ 0.01 → 第 2 款在路線 E 成立；標籤 06:13 段逐數相同、證據檔 06:13:27／34 早於標籤 06:14:33 ✓。D-20261118-7 的簽核 (b)（第 2 款未在路線 E 驗）隨之了結。",
    "checked": "2026-11-18 06:22",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-37",
+   "decisions_line": 2376,
+   "quote": "11:55「the six families written in the grammar reproduce 78 of 78 design-A mesh files element for element; L0 checks pass on all … h12 / h14 untouched」",
+   "code": [
+    "../biocage-evo/ops/geom_compile.py:101-155 (compile_spec：只重新標記 region / phi / hard)",
+    "../biocage-evo/ops/geom_compile_test.py:21-27",
+    "../biocage-evo/results/grammar/acceptance_2026-11-18.json (11:35:29)"
+   ],
+   "status": "符合",
+   "evidence": "在記憶體中重跑比對（不寫檔，14 秒）：cage_A 模型檔 78 個（axial 交錯 18、axial 混料 13、both 交錯 9、both 混料 8、radial 交錯 16、radial 混料 14），region／phi／hard 不一致 0 個，L0 拒絕 0 個；h12 檔的 cage 元素內 phi 無 NaN，比對沒有被 NaN 遮蔽。結果檔 meshes 78／identical 78 一致。h12_cage_mesh.py（11-01 之前）、h14_build_case.py（11-11 01:38）、h24_preflight.py（11-10）未動，human_study/al/meshes 今天沒有新檔；編譯器只寫呼叫者給的輸出檔與報告。「自由形狀示範設計已由 h14 建出」沒有留下證據檔，無法查證。",
+   "checked": "2026-11-18 12:10",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-38",
+   "decisions_line": 2376,
+   "quote": "PI：空間 >= 50 % 保留；PLAN.md L30「S4 void connected to both endplates, >= 50 % of the disc-space volume」；11:55「L0 checks」",
+   "code": [
+    "../biocage-evo/ops/geom_compile.py:123-125 (ok = 總空間比例 >= 0.5 且至少一個同時碰到兩端終板的空洞)",
+    "../biocage-evo/docs/PLAN.md:30",
+    "../biocage-evo/docs/DESIGN_GRAMMAR.md:40"
+   ],
+   "status": "符合",
+   "evidence": "程式檢查的是「全部空洞合計 >= 50 %」加上「至少有一個空洞同時碰到上下終板」，沒有要求那個貫通的空洞本身 >= 50 %。合成探針（不是設計，未寫檔）：底部留 0.6 mm 底板、只向上開口的大凹槽，加上中央一個半徑 1.0 mm、與凹槽不相通的貫通孔 → 編譯器全部檢查通過並判定可建（built True），總空間 0.554，但同時碰到兩端終板的空洞只佔椎間盤空間 0.038（另兩組參數 0.056、0.075）。依 PLAN 的文字（連到兩端終板的空洞 >= 50 %）這種設計應被拒絕。後果：現有 78 個 A 型模型檔都是單一貫通窗口，不受影響，沒有任何判定或數字改變；影響的是之後創意組與亂數對照組的自由形狀設計（亂數取樣器「空間不足 11 個被拒」也用同一檢查）。修法：以「同時碰到兩端終板的空洞體積」計算 50 %，兩個數字都寫進報告。 ｜ 複查 2026-11-18 12:26：geom_compile.py（12:16:48）S4 改為「同時碰到兩端終板的那一個空洞 >= 50 % 且在每個終板上佔覆蓋面 >= 25 %（MIN_VOID_FACE，標為 provisional）」，總空間仍另外回報。我在記憶體中重跑：78 個 A 型模型檔不一致 0、拒絕 0（貫通空洞 0.614–0.618、終板覆蓋 0.595）；我上次的三個探針現在都被 S4 拒絕（貫通 0.038／0.056／0.075）；結果檔（12:17:02）s4_probes 兩個探針 built false（相通小孔：貫通 0.654 但底面覆蓋 0.034；不相通小孔：貫通 0.038）。懸空改用四個側鄰（generate_binary_structure(2,1)）；修補上限標為 provisional；DESIGN_GRAMMAR.md L38-47 同步。",
+   "checked": "2026-11-18 12:26",
+   "source": "decisions",
+   "check": "llm",
+   "status_before_20261118_recheck3": "不符"
+  },
+  {
+   "id": "D-20261118-39",
+   "decisions_line": 2376,
+   "quote": "geom_compile.py L29-36「S3 … refused when > 2 %; S5 … provisional tolerance 2 % … provisional tolerance 0.5 %」",
+   "code": [
+    "../biocage-evo/ops/geom_compile.py:42 (MAX_REPAIR 0.02, TOL_FEATURE 0.02, TOL_OVERHANG 0.005)",
+    "../biocage-evo/ops/geom_compile.py:106-110, 126-129",
+    "../biocage-evo/docs/DESIGN_GRAMMAR.md:38-42"
+   ],
+   "status": "實作時自選",
+   "evidence": "S3：ndimage.label 預設面相鄰（6 連通）＝ PLAN S3 ✓，只留最大連通塊並記錄。S5：每層 2x2 開運算（0.4 mm = 2 格）✓；懸空以下一層 3x3 膨脹判定，對角方向等於允許約 55 度（嚴格 45 度應為十字形鄰域）。標示：2 %（細部）與 0.5 %（懸空）在程式說明與 DESIGN_GRAMMAR.md 都標為 provisional ✓；修補上限 2 % 沒有標 provisional（geom_compile.py L31、DESIGN_GRAMMAR.md L39 只寫 refused when > 2 %）；報告 JSON 的 tolerance 欄位也沒有 provisional 字樣。S2（可從前方放入）不在 L0 檢查內。簽核項：三個數字與 3x3 鄰域由安全守門角色確認；修補上限補標 provisional。",
+   "checked": "2026-11-18 12:10",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-40",
+   "decisions_line": 2376,
+   "quote": "11:55「ops/propose_round.py, dry run … proposals.json (status NOT LAUNCHED): 14 steered + 4 exploration + 2 replicates」；06:02「採樣權重 80：20」",
+   "code": [
+    "../biocage-evo/ops/propose_round.py:34-35 (W_FIX, W_SPACE = 0.8, 0.2；N_STEER 14, N_EXPLORE 4, N_REPL 2, MAX_PER_D 2)",
+    "../biocage-evo/ops/propose_round.py:96-97 (utility)",
+    "../biocage-evo/ops/propose_round.py:138-145 (meta；唯一寫出 out_dir/proposals.json)",
+    "../biocage-evo/results/round2/dryrun_2026-11-18/proposals.json (11:43)"
+   ],
+   "status": "符合",
+   "evidence": "meta：status「DRY RUN - NOT LAUNCHED …」、weights fixation 0.8／space 0.2、reference_conditions（screening_pass split windows；insertion_process both predicted, less favourable used）、輸入表時間 04:16／02:15。提案 14 + 4 + 2；引導的 14 個全在 radial_interleave，d 1.2–1.5 每個值剛好 2 個；P(pass) 0.965–0.967。複本 p062（後伸後移 0.443，池內最接近 0.45）與 p111 ✓。程式只寫 out_dir/proposals.json，不碰判定或標籤（R21 同時 PASS；判定與標籤檔中相關字樣 0 次）。ROUND2 L233-234、prereg weights、PI_PENDING L57 皆為 80：20，無殘留 70：30。",
+   "checked": "2026-11-18 12:10",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-41",
+   "decisions_line": 2376,
+   "quote": "11:55「a cap of 2 picks per d value now spreads the batch over d 1.2-1.5 (授權自行決定)」「P(pass) is 0.95-0.97 for every steered pick」",
+   "code": [
+    "../biocage-evo/ops/propose_round.py:21-23, 112 (cap)",
+    "../biocage-evo/ops/propose_round.py:14, 93-95 (P(pass) = P(post_ext) x P(uh_flex) x 家族比率)",
+    "../biocage-evo/docs/ROUND2_ARCHITECTURE.md:60-61 (P(pass) 另含 P(y4 computable) = family base rate)",
+    "../biocage-evo/results/surrogate/posthoc_2026-11-18_mu_req_pass_type.json"
+   ],
+   "status": "實作時自選",
+   "evidence": "(a) 每個撐開量最多 2 個：在程式說明與 evo DECISIONS 都寫明是自行決定 ✓；但 proposals.json 的 meta 沒有記錄這個上限，ROUND2 A5 也沒有，PI_PENDING G1 只間接提到。(b) P(pass) 少乘了 ROUND2 L60-61 規定的「可計算」家族基準率：radial_interleave 30 個中 4 個是不穩定／算不出，26/30 = 0.87，乘上後 P(pass) 約 0.84 而非 0.97。0.97 這個家族比率把算不出、不穩定、灰區都算成 1；PASS 類別實際 15/30。both_interleave 的 10 % 就是 1 個算不出的設計（p053）。同一家族內排序不受影響。(c) mu_req 用的是「加了篩選算法類型」的模型，不是第三次驗證檔驗證過的那個；依據是事後檔（族內按組保形涵蓋率 0.74 → 0.92，但整體 Gaussian 涵蓋率 0.823 → 0.696，且 axial_interleave 新出現涵蓋不足旗標）。(d) 06:02 寫「兩個分數在候選池內縮放到 0–1」，程式用固定公式（(0.45 − 後移)/0.45、1 − mu_req/0.35、(空間 − 0.5)/0.5），空間寫死 0.597。(e) 分布外判定用基因空間、家族內最近鄰。建議：meta 加 max_per_d；P(pass) 補上可計算率或改 ROUND2 文字。",
+   "checked": "2026-11-18 12:10",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-42",
+   "decisions_line": 2376,
+   "quote": "11:55「By the declared rule (>= 10 % better on unseen families AND not more than 5 % worse in-family) NONE is adopted … post_ext -51 % / +10 % … mu_req -18 % / +70 %; uh_flex -4 % / +24 %」",
+   "code": [
+    "../biocage-evo/ops/principles.py:9-11 (留用規則)",
+    "../biocage-evo/ops/principles.py:67-69 (adopted = gain >= 0.10 and cost <= 0.05)",
+    "../biocage-evo/results/principles/features_2026-11-18.json (11:50:55)",
+    "../biocage-evo/docs/DESIGN_PRINCIPLES.md"
+   ],
+   "status": "符合",
+   "evidence": "檔內 kept：post_ext P 0.508／+0.095、DP −0.273／−0.022；uh_flex P 0.040／+0.237、DP −0.016／+0.330；mu_req P 0.184／+0.698、DP 0.068／−0.163；adopted 全為 false，依規則逐一核對無誤。未見家族 skill 0.275 → 0.643、涵蓋率 0.914 ✓；27 個特徵 ✓；相關係數 −0.97／−0.82／−0.99 與 +0.40／+0.45、−0.41／−0.47、−0.56／−0.63 與檔一致。時序：descriptors.py（11:53:13）比結果檔晚 2.5 分鐘；我用現行程式重算 5 個家族內相關係數，與檔完全相同；誤差變化百分比只做了檔案對文字，沒有重跑。「規則在評分前宣告」只有單一輸出檔可查，無法由檔案證明先後。",
+   "checked": "2026-11-18 12:10",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-43",
+   "decisions_line": 2376,
+   "quote": "11:55「Second tier, independent of d: softer soft material and a larger hard / soft contrast go with LESS translation and LESS required friction (soft modulus +0.40 / +0.45, contrast -0.41 / -0.47, column compliance -0.56 / -0.63)」；PI_PENDING G4「在撐開量之外 …」",
+   "code": [
+    "../biocage-evo/docs/DECISIONS.md:292",
+    "human_study/PI_PENDING_DECISIONS.md:51 (G4；12:10 改版後的行號)",
+    "../biocage-evo/ops/principles.py:71-86 (只算原始的家族內相關，沒有控制撐開量)",
+    "../biocage-evo/docs/DESIGN_PRINCIPLES.md (mentor.md 會讀)"
+   ],
+   "status": "符合",
+   "evidence": "控制撐開量之後這個說法不成立。同一批資料、同樣的家族內等級中心化：這三個特徵與撐開量 d 本身相關（後伸列：軟料模數 −0.43、對比 +0.43、柱體順應性 +0.62；mu_req 列 −0.49／+0.50／+0.66），不是「與 d 無關」。扣掉 d 之後的偏相關（90 % 區間，按組重抽 300 次）：後伸 −0.08 [−0.27, +0.07]／+0.06 [−0.14, +0.28]／+0.18 [−0.01, +0.41]；mu_req −0.22 [−0.52, +0.09]／+0.18 [−0.08, +0.51]／+0.22 [−0.09, +0.57]；屈曲 −0.15／+0.09／+0.23 [+0.03, +0.42]。除屈曲的柱體順應性外，區間都含 0，而且柱體順應性的符號反過來。後果：不改任何判定或表格；但 DECISIONS 的句子、PI_PENDING G4、以及導師會讀的 DESIGN_PRINCIPLES.md 中這三條「規則」，會把與撐開量共變的現象當成獨立的設計原則。DESIGN_PRINCIPLES.md 本身照宣告的規則產生（原始相關 >= 0.3），屬簽核項。修法：principles.py 加一欄「扣掉撐開量後的偏相關」，頁面只把扣掉後仍成立的列為規則；改正 L292 與 G4。 ｜ 複查 2026-11-18 12:26：evo DECISIONS L292 該句前加註 WITHDRAWN，L313 更正；PI_PENDING G4（L50）改為更正說明。principles.py（12:18:50）改以「同家族內、扣掉撐高量後的偏相關 |rho| >= 0.3 且 90 % 區間不含 0」列規則；features_2026-11-18.json（12:19:31）新增 rho_with_height／rho_at_same_height／ci90_at_same_height。後伸：接觸面附近剛度 −0.51 [−0.68, −0.31]、軸向剛度 −0.45、100 N 高度損失／撐高量 +0.45、抗彎剛度 −0.45，與我獨立重算（−0.51／−0.45／+0.45／−0.45）相同；屈曲兩條（−0.35、−0.31）；mu_req 無。原三個特徵在檔內為 −0.08／+0.06／+0.18，rule false。模型變體沿用同日先前結果（kept 未變）。補記見 D-20261118-56。",
+   "checked": "2026-11-18 12:26",
+   "source": "decisions",
+   "check": "llm",
+   "status_before_20261118_recheck3": "不符"
+  },
+  {
+   "id": "D-20261118-44",
+   "decisions_line": 2376,
+   "quote": "11:55「results/round2/prereg.json (sha256 4359a4f7...): arms, exclusions, frozen baseline (149 designs, 101 meshes, file hashes), distance space and novelty floor 0.907 …」",
+   "code": [
+    "../biocage-evo/results/round2/prereg.json",
+    "../biocage-evo/docs/ROUND2_ARCHITECTURE.md section E (L206-218)"
+   ],
+   "status": "符合",
+   "evidence": "sha256 = 4359a4f751d3… ✓；基準檔雜湊與現行 mu_req_field.csv（793a31dc…）、verdicts.json（3b59089c…）相同 ✓；新穎門檻由 101 個模型檔、12 個描述量（母體標準差）重算得 0.9074 ✓；單尾 Fisher 精確檢定重算：4/5 對 0/5 p 0.024、8/15 對 2/15 p 0.025（7 對 2 為 0.054）、6 對 1 p 0.040、8/25 對 2/25 p 0.037 ✓；權重 0.8／0.2、排除項（補樣、複本、消融對照、稽核道）、主要比較 B 對 R（亂數對照，無語言模型）、15 個之前不下結論 ✓，與 section E 及 PI「須證明 AI 點子增加有效探索」一致。",
+   "checked": "2026-11-18 12:10",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-45",
+   "decisions_line": 2376,
+   "quote": "prereg.json 的內部一致性（提問 4）",
+   "code": [
+    "../biocage-evo/results/round2/prereg.json metrics / comparisons / distance.floor_rule",
+    "../biocage-evo/docs/ROUND2_ARCHITECTURE.md:206-218"
+   ],
+   "status": "實作時自選",
+   "evidence": "(a) 估算器組（A）的設計依定義永遠不會是「新」：同家族相鄰撐開量的模型檔，描述量距離約每毫米 2.1，A 型家族內 d 的最大間隔 0.15–0.18 mm，新 d 離最近的既有模型檔的距離上限約 0.63（radial_interleave，以最陡的一段估算；一般約 0.2），仍小於門檻 0.907。所以主要指標（新且 PASS）對 A 組必為 0，而次要比較「B vs A per GPU-hour」沒有指定用哪個指標；若沿用主要指標，創意組必勝。(b) floor_rule 的「同一輪較早的設計」沒有說是否跨組、順序怎麼定，B 與 R 互相靠近時歸屬取決於順序。(c) B 組「<= 5」與「equal counts, 5 vs 5」不一定相等。(d) section E 沒有標出哪個是主要指標。(e) 亂數對照取樣器只用環＋橫條／支柱＋材料規則，是文法的子集。建議：依檔內規定用「新增一筆有日期的條目」補上次要比較的指標與 (b) 的規則，不要改原檔。",
+   "checked": "2026-11-18 12:10",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-46",
+   "decisions_line": 2376,
+   "quote": "11:55「roles/prompts/naive.md (plain task + S1-S10 …, one analogy cue per process, no look-ups), tagger.md, senior.md, mentor.md. No role was run」；PI：新手點子須為不同機制、學長寫可否證實驗、導師可修但須保留機制且不得憑喜好篩選、由程式判定",
+   "code": [
+    "../biocage-evo/roles/prompts/naive.md:1-2, 9, 22",
+    "../biocage-evo/roles/prompts/tagger.md:1-2",
+    "../biocage-evo/roles/prompts/senior.md:1-2, 6-13",
+    "../biocage-evo/roles/prompts/mentor.md:8-20"
+   ],
+   "status": "符合",
+   "evidence": "naive：不得上網、不得讀工作目錄外的檔案、只給白話任務與 S1–S10、一個類比提示、只交一個點子並須說明靠什麼物理機制。tagger：只看一段文字、不評好壞。senior：模擬前為每個點子寫一張可否證的卡（假說、消融對照、讀值、否證條件），不改、不排名、不拒絕。mentor：可修但不得換機制；拒絕必須引用 S1–S10、編譯器檢查或文法限制；「新不新」由程式算；不預測分數、不排名。沒有任何提示詞讓語言模型給新穎度或品質打分。需知悉：標記者是語言模型，它的標籤被程式用來做「每種機制最多 2 個」與「改寫前後機制是否相同」的篩選（ROUND2 B9 已自承是最弱的判定）；新手規則裡的數字（S2 軟料最多壓三成、S1 內縮 1 mm、S8 5 百萬帕）與 PLAN.md 的寫法不同（PLAN S2 為 40 %），來源未查證；隔離只靠提示詞，程式檢查（R25）未實作。",
+   "checked": "2026-11-18 12:10",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-47",
+   "decisions_line": 2376,
+   "quote": "PI「mentor … may not filter by taste」；mentor.md 規則 2 與規則 3",
+   "code": [
+    "../biocage-evo/roles/prompts/mentor.md:12-16, 21-23",
+    "../biocage-evo/docs/ROUND2_ARCHITECTURE.md:145-148 (B11)"
+   ],
+   "status": "符合",
+   "evidence": "規則 3「Keep at most 5 ideas」與規則 2「每個拒絕都要引用規則」放在一起，沒有規定可建的點子超過 5 個時由誰、用什麼方法挑：新手 10 個點子、每種機制最多 2 個，進到導師的可能多於 5 個。輸出格式只有 kept 與 rejected（須附規則），沒有「未入選」這一類。結果是導師要嘛自己挑（等於憑喜好篩選），要嘛硬找規則拒絕。ROUND2 B11 也沒有這條。尚未執行任何角色，沒有數字受影響。修法：超過 5 個時由程式抽籤（固定種子、依機制標籤分層），導師輸出加 not_selected_by_draw。 ｜ 複查 2026-11-18 12:26：mentor.md（12:19:31）規則 3 改為「每個可建的點子都要寫規格；超過 5 個時由程式抽籤（固定種子、依機制標籤分散、可行時至少 2 個超過新穎門檻），其餘列為 not_selected_by_draw」，輸出欄位 built，kept／not_selected_by_draw 由程式加。提示詞層級的不符解除。抽籤程式尚未寫（ops/ 與 ROUND2 B11 都還沒有），併入 D-20261118-52 未實作。",
+   "checked": "2026-11-18 12:26",
+   "source": "decisions",
+   "check": "llm",
+   "status_before_20261118_recheck3": "不符"
+  },
+  {
+   "id": "D-20261118-48",
+   "decisions_line": 2376,
+   "quote": "11:55「h37 R21 (estimator separation) and R23 (grouped validation newer than its inputs), warning-level, both PASS」",
+   "code": [
+    "scripts/8_audit/h37_qa_check.py:466-482 (R21)",
+    "scripts/8_audit/h37_qa_check.py:485-492 (R23)"
+   ],
+   "status": "實作時自選",
+   "evidence": "兩者都是 warn=True ✓，現況 PASS ✓。R21 (a) 每個可用窗口的 set／case_dir 目錄存在 ✓；(b) 說明寫「verdict / label program」，程式只掃 5 支判定程式（fric_compare、collect_split、mu_req_field、e07_batch、law_shift）的字串，沒有掃標籤端（h33_capability_audit.py、platform_capabilities.json、CAPABILITY_SCORECARD.md），也沒有掃 replicate_agreement.py 與 methods/e03／e04／e07。今天人工 grep 這 7 個檔，相關字樣 0 次。R23 照說明檢查（有分組數、名目 0.90、輸入表不比驗證檔新）；它不比對估算器程式的時間（descriptors.py 11:53 比驗證檔 05:52 新，差異是空選取時的後備值，不影響既有模型檔），也不確認提案程式用的模型就是被驗證的那個（見 D-20261118-41c）。建議：R21 補上標籤端檔案；R23 加程式時間與模型規格比對。",
+   "checked": "2026-11-18 12:10",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-49",
+   "decisions_line": 2376,
+   "quote": "11:55「leaving out a whole MATERIAL SET (75 sets in 149 rows; 23-24 in the fitted rows) is as good as leaving out a design (post_ext skill +0.69 vs +0.66, uh_flex +0.58 vs +0.62 with a wider interval 0.35 vs 0.25 mm, mu_req +0.81 both)」；家族比率；「nothing launched」",
+   "code": [
+    "../biocage-evo/results/surrogate/posthoc_2026-11-18_leave_material_out.json (11:37)",
+    "../biocage-evo/results/round2/dryrun_2026-11-18/proposals.json meta.family_rate_not_compression"
+   ],
+   "status": "符合",
+   "evidence": "事後檔：post_ext 0.687 對 0.664、uh_flex 0.579 對 0.619（保形寬度 0.3461 對 0.2492）、mu_req 0.813 對 0.81；組數 23／23／24 ✓；149 列的材料組合數重算為 75 ✓。家族比率由表重算：radial_interleave 29/30 = 0.97、axial_mix 18/22 = 0.82、axial_interleave 0/28、both_mix 0/7、both_interleave 1/10 ✓（組成見 D-20261118-41b）。沒有啟動：al_v2 今天 11:00 之後新增的執行目錄只有 pilot_rep3（平台視窗的工作，不屬於本區塊），tmux 沒有第二輪相關的工作階段，proposals.json 標為未啟動，al/meshes 無新檔。",
+   "checked": "2026-11-18 12:10",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-50",
+   "decisions_line": 2353,
+   "quote": "05:58 PI「保持公開」（Hugging Face）；06:02 PI「採樣權重 80：20」；11:08 A1（提交並推送）、A2（清理後的文件上 Hugging Face）",
+   "code": [
+    "../biocage_evo_hf (HEAD cd88295，本機 clone，未連線查證)",
+    "../biocage-evo/config.json",
+    "../biocage-evo/ops/propose_round.py:34",
+    "../biocage-evo/docs/ROUND2_ARCHITECTURE.md:233-234"
+   ],
+   "status": "符合",
+   "evidence": "Hugging Face clone 5 個提交（efd5e62、80212f0、f6d89cd、94bcc0c、cd88295）：作者皆為 PI 的 noreply 身分，提交訊息與工作區檔案中 Claude／Anthropic／Co-authored 字樣 0 次，工作區乾淨。evo 76d5717、c007e07、aedd06b 與 platform d77492c 的作者為使用者本人，訊息無相關字樣。80：20 見 D-20261118-40。公開狀態與遠端內容只依本機 clone 判讀，未連線。",
+   "checked": "2026-11-18 12:10",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-51",
+   "decisions_line": 2363,
+   "quote": "11:08 A3「idle machines: first add samples and replicates for the radial_interleave family」→ 11:16「(1) no replicate batch … (3) the useful new data are … NEW material sets at d 0.9-1.2 … they need insertion from scratch」",
+   "code": [
+    "../biocage-evo/docs/DECISIONS.md:277-285",
+    "human_study/PI_PENDING_DECISIONS.md:10",
+    "../biocage-evo/results/surrogate/posthoc_2026-11-18_mu_req_pass_type.json"
+   ],
+   "status": "實作時自選",
+   "evidence": "PI 核准的是「補樣本與複本」；整合者看了失準位置後改為不做複本批次、樣本延到平台修好放開衝擊（A5）與新設計執行器（B10）之後，目前沒有啟動任何模擬。已在 PI_PENDING L10 告知 PI ✓。數字核對：mu_req 8 個、屈曲 7 個漏列 ✓；屈曲 7 個全在 d 0.9–1.15 ✓；7 個材料組合 ✓；p101 0.097 對 p039 0.719 ✓；事後檔 0.92（原 0.74）、MAE 0.0014（原 0.0025）、skill +0.81、寬度 0.0098 ✓。小差：「8 misses, all small (median absolute error 0.0020 …)」的 0.0020 是該家族 27 列全部的中位數，8 個漏列自己的中位數是 0.0052。arXiv 引文查核沒有證據檔，未查證。A4–A6 屬平台視窗，A7（h38_project_status.py、PROJECT_STATUS.md）檔案存在，內容未審。",
+   "checked": "2026-11-18 12:10",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-52",
+   "decisions_line": 2376,
+   "quote": "第二輪已決定、尚未實作的部分（11:55「Waiting for the platform」與其餘）",
+   "code": [
+    "../biocage-evo/ops/ (無點子流程執行器、標籤上限程式、卡片雜湊、稽核道抽籤)",
+    "scripts/8_audit/h37_qa_check.py (無 R22、R24、R25)"
+   ],
+   "status": "未實作",
+   "evidence": "尚未實作（不是不符）：第一輪模擬與補樣批次、編譯器的判定層級驗收、新設計執行器（B10）；新手／標記者／學長／導師的執行流程與隔離檢查（R25）、每種機制最多 2 個的程式、卡片雜湊與時間戳（R24）、提案來源檢查（R22）、稽核道抽籤、編譯器的 S2 檢查。D-20261118-32 中的 propose_round、文法與編譯器、對照組取樣器、prereg、R21／R23 已有第一版。",
+   "checked": "2026-11-18 12:10",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-53",
+   "decisions_line": 2398,
+   "quote": "12:10 PI「『材料×幾何』特徵有潛力，所以保留這個的自由度是必要的」",
+   "code": [
+    "../biocage-evo/ops/geom_compile.py:112-118 (phi 規則逐元素套用，hard 逐元素產生)",
+    "../biocage-evo/docs/ROUND2_ARCHITECTURE.md:153",
+    "../biocage-evo/ops/descriptors.py:51-83 (physics_features 由逐元素材料圖計算)"
+   ],
+   "status": "符合",
+   "evidence": "設計文法與編譯器保留逐元素的材料圖（任何實體區域上的任何 phi 場、mix 或 interleave），沒有均質化或簡化編碼；ROUND2 L153 明寫。複合特徵目前對資料庫 149 個設計計算；對新設計的計算要等新設計執行器（未實作）。12:10 條目的夾緊力數字抽查（al_v2/points.json res.clamp_N，148 筆）：d 0.45–0.55 中位數 9.2 N、d 0.95–1.05 為 37.6 N、d >= 1.4 為 91.5 N（條目寫各家族 94–96）、d 與夾緊力等級相關全體 0.92（條目寫各家族內 0.99，未分家族重算）。文獻引用條目自己註明尚未讀全文。",
+   "checked": "2026-11-18 12:26",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-54",
+   "decisions_line": 2401,
+   "quote": "12:21 PI「1–3：都照建議」：(1) 同一高度下比較 (2) 加夾緊力鬆掉的條件 (3) 報告用語改稱撐高量",
+   "code": [
+    "../biocage-evo/ops/propose_round.py:39-40 (N_STEER 7, N_EXPLORE 2, N_REPL 2；H_REF 1.0, H_LOOSE 0.5)",
+    "../biocage-evo/ops/propose_round.py:85-104 (候選只有家族 + 材料，d 固定為兩個高度)",
+    "../biocage-evo/results/round2/dryrun_2026-11-18b/proposals.json (12:20)",
+    "../biocage-evo/results/round2/prereg_amendment_2026-11-18a.json (12:21)",
+    "../biocage-evo/roles/prompts/senior.md, mentor.md (12:19)"
+   ],
+   "status": "符合",
+   "evidence": "propose_round.py：d 不再是提案的自由基因；每個設計在基準 1.0 mm 與鬆掉 0.5 mm 各算一次。第二次試跑：9 個設計（引導 7、探索 2）x 2 高度 + 2 個複本 = 20 次執行，meta 標為「DRY RUN - NOT LAUNCHED」、權重 0.8／0.2、heights_mm、integrator_choices 俱全；P(limits) 已乘可計算率（radial_interleave 0.87）並註明不是 PASS 機率；mu_req 模型註明為事後變體。prereg.json 未動（sha256 4359a4f751d3… 與修訂檔的 amends_sha256 相同）；修訂檔加入兩個高度、判定在基準高度讀、「鬆掉仍守得住」指標、B 對 A 的指標、跨組順序（R 先於 B，對創意組較嚴）。senior.md：卡片在鬆掉高度讀；mentor.md：規格須在兩個高度都能編譯。用語：DESIGN_PRINCIPLES.md 與 PI_PENDING 已用撐高量、無殘留撐開量；naive.md 的 S7 仍寫撐開量（提示詞，不是報告）。沒有啟動任何模擬。",
+   "checked": "2026-11-18 12:26",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-55",
+   "decisions_line": 2401,
+   "quote": "12:21「Implemented (授權自行決定 for the numbers): two fixed heights … reference 1.0 mm … loosened 0.5 mm」；「Run budget unchanged (PI: 20 per round): 9 designs x 2 heights + 2 replicates」；B／R／稽核道摩擦計算加倍",
+   "code": [
+    "../biocage-evo/ops/propose_round.py:6-7, 39-40",
+    "../biocage-evo/results/round2/prereg_amendment_2026-11-18a.json heights / verdict / budgets",
+    "human_study/PI_PENDING_DECISIONS.md:47 (G1)、:52 (G6)"
+   ],
+   "status": "實作時自選",
+   "evidence": "(a) 高度 1.0／0.5：PI 核准的建議文字只舉了「例如 d 0.5、9 N」當鬆掉條件；基準 1.0（判定在這裡讀）是整合者選的。PI_PENDING G1 有寫出兩個數字，但放在「已決定」。資料庫中 A 型設計剛好在 d 1.0 的只有 7 個（PASS 4、壓縮不過 3），在 d 0.5 的 15 個（PASS 3、灰區 7、其餘 5）。基準高度決定第二輪所有設計「PASS」是在哪個夾緊力下讀的，建議請 PI 明確確認 1.0。(b) 估算器組：PI 04:58 核准的是「A 20（含 4 個探索 + 2 個複本）」；現在是 20 次執行 = 9 個設計（探索 2 個）。設計數由 18 降為 9，PI_PENDING G1 沒有寫這一點（只寫了創意組、對照組、稽核道多一倍），需要告知 PI。(c) B／R／稽核道摩擦計算加倍（每輪約多 11 個）：已在 G1 告知，我認為不需另外請示。(d)「鬆掉仍守得住」門檻 0.45 mm、鬆掉高度的固定分數用 0.55、終板覆蓋 25 %：自選數字；25 % 已列入 G6。",
+   "checked": "2026-11-18 12:26",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-56",
+   "decisions_line": 2401,
+   "quote": "12:21「What survives: for the posterior translation in extension, STIFFER is better at the same height …」；DESIGN_PRINCIPLES.md「門檻事前宣告」",
+   "code": [
+    "../biocage-evo/ops/principles.py:12-16 (Changed 2026-11-18)",
+    "../biocage-evo/docs/DESIGN_PRINCIPLES.md:5-6, 14-17",
+    "human_study/PI_PENDING_DECISIONS.md:50"
+   ],
+   "status": "實作時自選",
+   "evidence": "數字與檔一致（見 D-20261118-43）。兩點需知悉：(a) 這條規則在各家族並不一致——以接觸面附近剛度為例，同家族內扣掉撐高量後的相關：axial_mix −0.87（18 列）、radial_mix −0.69（24 列，已排除的類別）、radial_interleave −0.10（26 列，PASS 最多的家族）。合併的 −0.51 主要來自兩個混料家族；對 radial_interleave 不成立。(b) 頁面寫「門檻事前宣告」：0.3 與 90 % 區間是事前宣告的，但「扣掉撐高量」這一步是看過結果、經稽核後才加的（principles.py 說明有寫 Changed）。建議：頁面加各家族一欄，並把「事前宣告」改為「門檻事前宣告、控制撐高量為事後修正」。",
+   "checked": "2026-11-18 12:26",
    "source": "decisions",
    "check": "llm"
   }

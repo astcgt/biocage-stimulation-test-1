@@ -1,4 +1,4 @@
-# QA status 2026-11-18 12:22 — WARN
+# QA status 2026-11-18 12:28 — WARN
 
 h37_qa_check.py (layer A, deterministic). PASS = check held; FAIL = drift found, fix before any number is reported; WARN = information or an audit is due. Layer B (meaning of the decisions) = qa-auditor agent, register human_study/qa/QA_SPEC.json.
 
@@ -25,5 +25,5 @@ h37_qa_check.py (layer A, deterministic). PASS = check held; FAIL = drift found,
 | R21-estimator-separation | PASS | usable windows without an existing run directory: 0 []; verdict programs that mention estimator outputs: [] |
 | R23-estimator-validation | PASS | validation_2026-11-18.json: grouped True (nominal 0.9, 132 groups); input tables newer than the report: [] |
 | R18-agent-prompts | PASS | .claude/agents vs human_study/agent_prompts: in sync |
-| R10-register | PASS | 347 register items; unmapped []; 不符 ['D-20261118-38', 'D-20261118-43', 'D-20261118-47'] (hook mode: reported, not blocking) |
+| R10-register | PASS | 351 register items; unmapped []; 不符 [] |
 | R10-llm-audit-due | WARN | LLM audit required: last 2026-11-18 06:24; gate files changed since: ['human_study/current_settings.json', '../biocage-evo/methods/e04_dislocation.py']; decision entries since: ['2026-11-18 11:08', '2026-11-18 11:25', '2026-11-18 12:10', '2026-11-18 12:21'] |
