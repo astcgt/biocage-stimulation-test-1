@@ -1,5 +1,5 @@
 {
- "time": "2026-11-18 12:42",
+ "time": "2026-11-18 12:48",
  "overall": "WARN",
  "checks": [
   {
@@ -115,7 +115,7 @@
   {
    "id": "R10-llm-audit-due",
    "status": "WARN",
-   "message": "LLM audit required: last 2026-11-18 06:24; gate files changed since: ['human_study/current_settings.json', '../biocage-evo/methods/e04_dislocation.py']; decision entries since: ['2026-11-18 11:08', '2026-11-18 11:25', '2026-11-18 12:10', '2026-11-18 12:21', '2026-11-18 12:41']"
+   "message": "LLM audit required: last 2026-11-18 06:24; gate files changed since: ['human_study/current_settings.json', '../biocage-evo/methods/e04_dislocation.py']; decision entries since: ['2026-11-18 11:08', '2026-11-18 11:25', '2026-11-18 12:10', '2026-11-18 12:21', '2026-11-18 12:41', '2026-11-18 12:47']"
   }
  ],
  "counts": {
@@ -154,7 +154,8 @@
    "2026-11-18 11:25",
    "2026-11-18 12:10",
    "2026-11-18 12:21",
-   "2026-11-18 12:41"
+   "2026-11-18 12:41",
+   "2026-11-18 12:47"
   ]
  },
  "mode": "quick"

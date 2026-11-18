@@ -2404,3 +2404,6 @@ p062 flexion 14.4 min, extension 7.8 min (GPU 3, 5 cores each), both NORMAL, evi
 
 ## 2026-11-18 12:41 PI decisions (round-2 evolution): compiler numbers; the two round settings delegated
 - Thin-feature tolerance 2 %, repair limit 2 %, endplate contact 25 % accepted; overhang rule now allows flat hole roofs up to a 2.0 mm bridge (provisional). Delegated settings chosen from the archive: reference height 0.8 mm, loosened 0.5 mm; arm A = 4 new designs x 2 heights + 2 replicates. Details and evidence: ../biocage-evo/docs/DECISIONS.md (2026-11-18 12:41). No gate file, verdict, label or class count changed.
+
+## 2026-11-18 12:47 PI decision G7 (round-2 evolution): arms B and R get 7 designs per round
+- The runs freed in arm A go to the ideation arm and the random control (5 -> 7 designs each, two heights). Details: ../biocage-evo/docs/DECISIONS.md (2026-11-18 12:47). No gate file, verdict, label or class count changed.
