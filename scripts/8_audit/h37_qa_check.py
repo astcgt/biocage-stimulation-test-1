@@ -464,6 +464,34 @@ FALLBACK_CLASSES_SETS = tuple(c.rstrip('/').split('/')[-1] for c in FALLBACK_CLA
 
 
 # ---------------------------------------------------------------- R18 agent prompts = core + patches (PI 2026-11-11)
+def r21_surrogate_separation():
+    """PI 2026-11-18 (round-2 evolution): the estimator only chooses what to simulate. Warning-level for now.
+    (a) every usable window in verdicts.json cites a run directory that exists; (b) no verdict / label program reads the
+    estimator's or the proposal program's outputs."""
+    evo = os.path.join(os.path.dirname(P), 'biocage-evo'); vf = os.path.join(evo, 'results/method/fric/verdicts.json')
+    if not os.path.exists(vf): rep('R21-estimator-separation', True, 'no verdicts.json (nothing to check)', warn=True); return
+    v = json.load(open(vf)); miss = []
+    for d, x in v.items():
+        if d == '_meta': continue
+        for wn, w in x.get('windows', {}).items():
+            if w.get('usable') and not (w.get('set') and w.get('case_dir') and os.path.isdir(os.path.join(P, 'human_study/al_v2', w['set'], w['case_dir']))): miss.append(f'{d}/{wn}')
+    hits = []
+    for f in ('ops/fric_compare.py', 'ops/collect_split.py', 'ops/mu_req_field.py', 'ops/e07_batch.py', 'ops/law_shift.py'):
+        ff = os.path.join(evo, f)
+        if os.path.exists(ff) and re.search(r'results/surrogate|results/round2|propose_round|surrogate_fit', open(ff, errors='ignore').read()): hits.append(f)
+    rep('R21-estimator-separation', not (miss or hits), f'usable windows without an existing run directory: {len(miss)} {miss[:5]}; verdict programs that mention estimator outputs: {hits}', warn=True)
+
+
+def r23_surrogate_validation():
+    """PI 2026-11-18: the estimator may steer only with a grouped validation report that is newer than its input tables. Warning-level."""
+    evo = os.path.join(os.path.dirname(P), 'biocage-evo'); fs = sorted(glob.glob(os.path.join(evo, 'results/surrogate/validation_????-??-??.json')))
+    if not fs: rep('R23-estimator-validation', True, 'no estimator validation file (estimator not in use)', warn=True); return
+    f = fs[-1]; o = json.load(open(f)); ins = [os.path.join(evo, x) for x in ('results/method/mu_req_field.csv', 'results/method/fric/verdicts.json')]
+    stale = [os.path.basename(x) for x in ins if os.path.exists(x) and os.path.getmtime(x) > os.path.getmtime(f)]
+    grouped = bool(o.get('n_groups_all')) and abs(float(o.get('nominal_coverage', 0)) - 0.90) < 1e-9
+    rep('R23-estimator-validation', grouped and not stale, f'{os.path.basename(f)}: grouped {grouped} (nominal {o.get("nominal_coverage")}, {o.get("n_groups_all")} groups); input tables newer than the report: {stale}', warn=True)
+
+
 def r18_agent_prompts():
     sys.path.insert(0, os.path.join(P, 'scripts/8_audit'))
     import h52_agent_prompts
@@ -486,7 +514,7 @@ if __name__ == '__main__':
     quick = '--quick' in sys.argv
     r1_case_dirs(); r2_no_pass_by_absence(); r3_faces(quick); counts = r5_counts(); r6_retracted(); r7_pilot_keys()
     if not quick: r8_golden()
-    r9_blocks(production_samples()); r11_constants(); r12_file_index(); r14_patch7_logs(); r15_fric5(); r17_relG_fallback(); r19_route_e(); r20_replicate_agreement(); r18_agent_prompts()
+    r9_blocks(production_samples()); r11_constants(); r12_file_index(); r14_patch7_logs(); r15_fric5(); r17_relG_fallback(); r19_route_e(); r20_replicate_agreement(); r21_surrogate_separation(); r23_surrogate_validation(); r18_agent_prompts()
     reg = r10_register()
     worst = write_status(dict(counts=counts, register=reg, mode='quick' if quick else 'full'))
     for c, s, m in R: print(f'{s:4s} {c}: {m[:300]}')

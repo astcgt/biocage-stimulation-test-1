@@ -14,6 +14,11 @@
 | `../biocage_home/` (CLAUDE.md, README.zh-TW.md, links/, skills/, agents/, agent_prompts) | 總部目錄（homerepo 輕量版，PI 2026-11-18）：專案地圖、長期規則、連到兩倉庫與決定／索引／QA 的符號連結；不含程式與資料 | 2026-11-18 |
 | `../biocage-evo/docs/ROUND2_ARCHITECTURE.md` | 下一輪演化構造細節 rev 2（代理模型主動學習 A＋分組驗證 90 %、新手／學長／導師＋設計文法＋幾何編譯器 B、原則萃取與新參數 C、多代理分工 D、創意對照評估 E；QA R21–R25 提案） | 2026-11-18 |
 | `../biocage-evo/ops/descriptors.py` | 由模型檔（h12 網格 npz）計算 12 個幾何描述量（任何材料分布圖都算得出；估算器與原則萃取共用） | 2026-11-18 |
+| `../biocage-evo/ops/geom_compile.py`, `../biocage-evo/ops/geom_compile_test.py`, `../biocage-evo/docs/DESIGN_GRAMMAR.md`, `../biocage-evo/results/grammar/acceptance_2026-11-18.json` | 設計文法與幾何編譯器 v0：在既有格子上重新標記實心與材料（不改 h12／h14）；驗收：78 個 A 型模型檔逐元素重現 | 2026-11-18 |
+| `../biocage-evo/ops/propose_round.py`, `../biocage-evo/results/round2/dryrun_2026-11-18/proposals.json` | 估算器組挑設計程式與試跑名單（未啟動）；權重 固定餘裕 80：空間 20 | 2026-11-18 |
+| `../biocage-evo/ops/principles.py`, `../biocage-evo/docs/DESIGN_PRINCIPLES.md`, `../biocage-evo/results/principles/features_2026-11-18.json` | 原則萃取：27 個特徵與各目標的家族內相關、新特徵留用檢驗（事前宣告） | 2026-11-18 |
+| `../biocage-evo/results/round2/prereg.json`, `../biocage-evo/ops/grammar_random.py` | 第二輪事前鎖定的評估指標（各組、基準、新穎距離門檻、檢定、可偵測差距）與亂數對照組抽樣器 | 2026-11-18 |
+| `../biocage-evo/roles/prompts/naive.md`, `tagger.md`, `senior.md`, `mentor.md` | 創意組四個角色的任務說明（尚未執行） | 2026-11-18 |
 | `../biocage-evo/ops/surrogate_fit.py` | 估算器驗證門：高斯過程、名目涵蓋率 90 %、依設計分組留出與整個家族留出、交叉保形校正；只讀判定檔 | 2026-11-18 |
 | `../biocage-evo/results/surrogate/validation_2026-11-18.json`、`loo_predictions_2026-11-18.csv`、`posthoc_2026-11-18_mu_req_pass_type.json`（事後檢驗：篩選算法類型當輸入）（`*_run1_superseded.*` = 目標標錯的第一次執行；`*_run2_preaudit.*` = 稽核前的第二次執行；皆已取代） | 估算器分組驗證報告（實際涵蓋率、區間寬度、平均絕對誤差／均方根誤差、各家族、新家族）與逐筆預測 | 2026-11-18 |
 | `human_study/FILE_INDEX.md` | 本檔 | Claude |

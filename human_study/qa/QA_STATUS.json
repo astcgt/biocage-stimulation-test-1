@@ -1,5 +1,5 @@
 {
- "time": "2026-11-18 11:16",
+ "time": "2026-11-18 11:55",
  "overall": "WARN",
  "checks": [
   {
@@ -60,7 +60,7 @@
   {
    "id": "R12-file-index",
    "status": "PASS",
-   "message": "294 paths in FILE_INDEX.md; missing []"
+   "message": "312 paths in FILE_INDEX.md; missing []"
   },
   {
    "id": "R14-patch7-logs",
@@ -93,6 +93,16 @@
    "message": "sets ['physio_fric5r', 'physio_relGr']: 8 deck groups, 14 windows with >= 2 computed replicates, 2 disagree (> 0.005 mm or mixed evaluation point), worst spread 0.012415672940065736 mm"
   },
   {
+   "id": "R21-estimator-separation",
+   "status": "PASS",
+   "message": "usable windows without an existing run directory: 0 []; verdict programs that mention estimator outputs: []"
+  },
+  {
+   "id": "R23-estimator-validation",
+   "status": "PASS",
+   "message": "validation_2026-11-18.json: grouped True (nominal 0.9, 132 groups); input tables newer than the report: []"
+  },
+  {
    "id": "R18-agent-prompts",
    "status": "PASS",
    "message": ".claude/agents vs human_study/agent_prompts: in sync"
@@ -105,7 +115,7 @@
   {
    "id": "R10-llm-audit-due",
    "status": "WARN",
-   "message": "LLM audit required: last 2026-11-18 06:24; gate files changed since: []; decision entries since: ['2026-11-18 11:08']"
+   "message": "LLM audit required: last 2026-11-18 06:24; gate files changed since: ['human_study/current_settings.json', '../biocage-evo/methods/e04_dislocation.py']; decision entries since: ['2026-11-18 11:08', '2026-11-18 11:25']"
   }
  ],
  "counts": {
@@ -135,9 +145,13 @@
   "n_items": 331,
   "unmapped": [],
   "mismatch": [],
-  "gate_files_changed": [],
+  "gate_files_changed": [
+   "human_study/current_settings.json",
+   "../biocage-evo/methods/e04_dislocation.py"
+  ],
   "new_decisions": [
-   "2026-11-18 11:08"
+   "2026-11-18 11:08",
+   "2026-11-18 11:25"
   ]
  },
  "mode": "quick"
