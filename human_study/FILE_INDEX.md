@@ -11,6 +11,7 @@
 | `human_study/PI_REPORT_2026-11-10.md` | 2026-11-10 進度與議題清單（決策優先：議題二流程選擇、軟面鎖死窗口、0.5 mm 灰區、捷徑容差；結果、進行中、失誤紀錄、參考檔案） |
 | `human_study/PI_REPORT_2026-11-11.md` | 給老闆的進度報告（2026-11-11 00:3x，流程 G 批次完成後）：待決 5 項、主要發現（窗口算不出 = 重啟瞬態的跨次執行數值變異，複本 p050/p068/p084/p127 證據）、批次數字、進行中試跑、QA 戳記、失誤紀錄 | Claude |
 | `human_study/PI_REPORT_2026-11-18_direction.md` | 下一輪方向選項報告（代理模型主動學習／新手導師發想／原則萃取；剪力欄位；數值項；mod 調查；homerepo） | 2026-11-18 |
+| `human_study/PI_REPORT_2026-11-18_failing_labels.md` | 不合格能力標籤處理報告（12 → 6 列；三個創新方向；待決 5 項） | 2026-11-18 |
 | `../biocage_home/` (CLAUDE.md, README.zh-TW.md, links/, skills/, agents/, agent_prompts) | 總部目錄（homerepo 輕量版，PI 2026-11-18）：專案地圖、長期規則、連到兩倉庫與決定／索引／QA 的符號連結；不含程式與資料 | 2026-11-18 |
 | `../biocage-evo/docs/ROUND2_ARCHITECTURE.md` | 下一輪演化構造細節 rev 2（代理模型主動學習 A＋分組驗證 90 %、新手／學長／導師＋設計文法＋幾何編譯器 B、原則萃取與新參數 C、多代理分工 D、創意對照評估 E；QA R21–R25 提案） | 2026-11-18 |
 | `../biocage-evo/ops/descriptors.py` | 由模型檔（h12 網格 npz）計算 12 個幾何描述量（任何材料分布圖都算得出；估算器與原則萃取共用） | 2026-11-18 |
