@@ -2359,3 +2359,6 @@ p062 flexion 14.4 min, extension 7.8 min (GPU 3, 5 cores each), both NORMAL, evi
 
 ## 2026-11-18 06:27 audit 補記 (D-20261118-Q1) fixed: holdQ wall time attribution
 - 05:52 line corrected in place: the 8258 s / 5331 s were the whole h18 case wall (insertion + two production-law reference windows); the insertion segments took 652 s (p062) / 605 s (p139). No number-bearing conclusion, verdict or label changed. Q2-Q4 符合. Rounding note from the audit: hold-only Δ for flexion p062 is -0.0003 mm from the reader's drift_start_end fields (rounded from full precision) and -0.0002 mm when recomputed from the four-decimal u values; conclusion (<= 0.0008 mm) unchanged.
+
+## 2026-11-18 11:08 PI decisions A1-A7 (topic list): all as recommended
+- A1 commit + push both repositories; A2 documents to Hugging Face without internal notes; A3 idle machines -> radial_interleave samples and replicates; A4 window split confirmed (round-2 evolution / platform numerical verification); A5 release shock before round 1; A6 re-score the conclusion-limiting capability checks before round 1; A7 automatic project status page. Details: ../biocage-evo/docs/DECISIONS.md (2026-11-18 11:08). No gate file, verdict or label changed by this entry.

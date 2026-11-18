@@ -1,5 +1,5 @@
 {
- "time": "2026-11-18 06:27",
+ "time": "2026-11-18 11:08",
  "overall": "WARN",
  "checks": [
   {
@@ -30,12 +30,7 @@
   {
    "id": "R3-faces",
    "status": "PASS",
-   "message": "398 windows, 194 cases recounted; mismatches 0 []"
-  },
-  {
-   "id": "R4-insertion-state",
-   "status": "PASS",
-   "message": "insertion value state within 0.05 of t 3.5; violations 0 []"
+   "message": "skipped (--quick); 398 e07 window files"
   },
   {
    "id": "R5-counts",
@@ -51,16 +46,6 @@
    "id": "R7-pilot-keys",
    "status": "PASS",
    "message": "settings/h14: []; production cases scanned 914, with pilot options / extra keys: []"
-  },
-  {
-   "id": "R8-golden-rebuild",
-   "status": "PASS",
-   "message": "p062 physio_fric3 rebuild md5 4f3208b5 vs recorded 4f3208b5 (11 s)"
-  },
-  {
-   "id": "R9-material-blocks",
-   "status": "PASS",
-   "message": "golden rebuild: one FEBio block per cage material in 1 cases (tmpeu_s_zgu:4); problems: []"
   },
   {
    "id": "R9-material-blocks",
@@ -119,8 +104,8 @@
   },
   {
    "id": "R10-llm-audit-due",
-   "status": "PASS",
-   "message": "LLM audit current: last 2026-11-18 06:24; gate files changed since: []; decision entries since: []"
+   "status": "WARN",
+   "message": "LLM audit required: last 2026-11-18 06:24; gate files changed since: []; decision entries since: ['2026-11-18 11:08']"
   }
  ],
  "counts": {
@@ -151,7 +136,9 @@
   "unmapped": [],
   "mismatch": [],
   "gate_files_changed": [],
-  "new_decisions": []
+  "new_decisions": [
+   "2026-11-18 11:08"
+  ]
  },
- "mode": "full"
+ "mode": "quick"
 }
