@@ -94,9 +94,9 @@ a GPU scheduler with watchdog, and a pre-flight check (`h24_preflight.py`) that 
   `surrogate/` (geometric descriptors, Gaussian-process fit with leave-one-group-out and leave-one-family-out validation,
   90 % coverage checks). The surrogate meets the 90 % coverage check inside known design families for posterior translation
   and `mu_req`, not for interface shear, and it cannot predict a design family it has not seen.
-- **Intermediate results (2026-11-17/18).** Of 73 designs with frictional-window verdicts: 53 pass, 16 grey zone (cage
-  translation 0.45-0.55 mm against a 0.5 mm limit), 0 fail, 4 open. Radial-mix designs (28) are an excluded class; with the
-  shear rule turned into a flag, the final-candidate list is 31 pass / 12 grey (counts are recomputed by the platform's
+- **Intermediate results (2026-11-18).** Of 73 designs with frictional-window verdicts: 53 pass, 17 grey zone (cage
+  translation 0.45-0.55 mm against a 0.5 mm limit), 3 open (not computable) Radial-mix designs (28) are an excluded class; with the
+  shear rule turned into a flag, the 2026-11-18 04:07 class count was 31 pass / 12 grey (counts are recomputed by the platform's
   quality-assurance checks and may change).
 
 ## 5. Quality assurance and honesty about limits
