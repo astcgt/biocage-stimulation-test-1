@@ -15,7 +15,7 @@
 | `../biocage-evo/docs/ROUND2_ARCHITECTURE.md` | 下一輪演化構造細節 rev 2（代理模型主動學習 A＋分組驗證 90 %、新手／學長／導師＋設計文法＋幾何編譯器 B、原則萃取與新參數 C、多代理分工 D、創意對照評估 E；QA R21–R25 提案） | 2026-11-18 |
 | `../biocage-evo/ops/descriptors.py` | 由模型檔（h12 網格 npz）計算 12 個幾何描述量（任何材料分布圖都算得出；估算器與原則萃取共用） | 2026-11-18 |
 | `../biocage-evo/ops/surrogate_fit.py` | 估算器驗證門：高斯過程、名目涵蓋率 90 %、依設計分組留出與整個家族留出、交叉保形校正；只讀判定檔 | 2026-11-18 |
-| `../biocage-evo/results/surrogate/validation_2026-11-18.json`、`loo_predictions_2026-11-18.csv`（`*_run1_superseded.*` = 目標標錯的第一次執行；`*_run2_preaudit.*` = 稽核前的第二次執行；皆已取代） | 估算器分組驗證報告（實際涵蓋率、區間寬度、平均絕對誤差／均方根誤差、各家族、新家族）與逐筆預測 | 2026-11-18 |
+| `../biocage-evo/results/surrogate/validation_2026-11-18.json`、`loo_predictions_2026-11-18.csv`、`posthoc_2026-11-18_mu_req_pass_type.json`（事後檢驗：篩選算法類型當輸入）（`*_run1_superseded.*` = 目標標錯的第一次執行；`*_run2_preaudit.*` = 稽核前的第二次執行；皆已取代） | 估算器分組驗證報告（實際涵蓋率、區間寬度、平均絕對誤差／均方根誤差、各家族、新家族）與逐筆預測 | 2026-11-18 |
 | `human_study/FILE_INDEX.md` | 本檔 | Claude |
 | `human_study/PROGRESS_REPORT_2026-10-31.md` | 上一份進度報告（人體模型轉向後） | Claude |
 | `human_study/README.md` | human_study 總說明 | Claude |
@@ -58,6 +58,7 @@
 | `scripts/8_audit/h40_gpu_solver_fig.py` | GPU solver vs FEBio 白話版圖（只讀結果檔） |
 | `scripts/8_audit/h38_febio_agreement_fig.py` | 平台 vs FEBio 貼合度圖與等效性檢定（只讀結果檔，不跑求解器）；`--rescan` 重掃相同輸入配對 |
 | `scripts/8_audit/h37_qa_check.py` | QA A 層：R1–R18 機械檢查；`--quick` / `launch <dir>` / `--daemon 6`；tmux `biocage_qa` |
+| `scripts/8_audit/h38_project_status.py`, `human_study/PROJECT_STATUS.md` | 專案狀態頁（PI 2026-11-18 議題 A7）：只從結果檔產生的白話一頁（設計分類、真實摩擦、估算器驗證、品質保證、計分表、機器、倉庫同步），每個數字附來源檔與時間 |
 | `scripts/common/xplt.py`, `scripts/common/cage_geom.py` | 讀 FEBio xplt、cage 幾何 |
 
 ## 4. 判定程式（evo repo，決定誰 pass／fail）
