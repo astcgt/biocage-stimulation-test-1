@@ -1,5 +1,5 @@
 {
- "time": "2026-11-18 12:53",
+ "time": "2026-11-18 13:10",
  "overall": "WARN",
  "checks": [
   {
@@ -30,12 +30,7 @@
   {
    "id": "R3-faces",
    "status": "PASS",
-   "message": "398 windows, 194 cases recounted; mismatches 0 []"
-  },
-  {
-   "id": "R4-insertion-state",
-   "status": "PASS",
-   "message": "insertion value state within 0.05 of t 3.5; violations 0 []"
+   "message": "skipped (--quick); 398 e07 window files"
   },
   {
    "id": "R5-counts",
@@ -50,17 +45,7 @@
   {
    "id": "R7-pilot-keys",
    "status": "PASS",
-   "message": "settings/h14: []; production cases scanned 914, with pilot options / extra keys: []"
-  },
-  {
-   "id": "R8-golden-rebuild",
-   "status": "PASS",
-   "message": "p062 physio_fric3 rebuild md5 4f3208b5 vs recorded 4f3208b5 (11 s)"
-  },
-  {
-   "id": "R9-material-blocks",
-   "status": "PASS",
-   "message": "golden rebuild: one FEBio block per cage material in 1 cases (tmppm0_motb:4); problems: []"
+   "message": "settings/h14: []; production cases scanned 916, with pilot options / extra keys: []"
   },
   {
    "id": "R9-material-blocks",
@@ -125,12 +110,12 @@
   {
    "id": "R10-register",
    "status": "PASS",
-   "message": "351 register items; unmapped []; 不符 []"
+   "message": "366 register items; unmapped []; 不符 []"
   },
   {
    "id": "R10-llm-audit-due",
-   "status": "WARN",
-   "message": "LLM audit required: last 2026-11-18 06:24; gate files changed since: ['human_study/current_settings.json', '../biocage-evo/methods/e04_dislocation.py']; decision entries since: ['2026-11-18 11:08', '2026-11-18 11:25', '2026-11-18 12:10', '2026-11-18 12:21', '2026-11-18 12:41', '2026-11-18 12:47']"
+   "status": "PASS",
+   "message": "LLM audit current: last 2026-11-18 13:10; gate files changed since: []; decision entries since: []"
   }
  ],
  "counts": {
@@ -156,22 +141,12 @@
   "designs": 149
  },
  "register": {
-  "last_llm_audit": "2026-11-18 06:24",
-  "n_items": 351,
+  "last_llm_audit": "2026-11-18 13:10",
+  "n_items": 366,
   "unmapped": [],
   "mismatch": [],
-  "gate_files_changed": [
-   "human_study/current_settings.json",
-   "../biocage-evo/methods/e04_dislocation.py"
-  ],
-  "new_decisions": [
-   "2026-11-18 11:08",
-   "2026-11-18 11:25",
-   "2026-11-18 12:10",
-   "2026-11-18 12:21",
-   "2026-11-18 12:41",
-   "2026-11-18 12:47"
-  ]
+  "gate_files_changed": [],
+  "new_decisions": []
  },
- "mode": "full"
+ "mode": "quick"
 }
