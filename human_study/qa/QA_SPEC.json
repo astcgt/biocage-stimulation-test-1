@@ -1,7 +1,7 @@
 {
  "meta": {
   "note": "Register: one entry per PI decision that the code must implement. status in {符合, 不符, 未實作, 實作時自選, PI待決, unmapped}. check = h37 check id or 'llm' (judged by the qa-auditor agent). last_llm_audit is set by the auditor, never by h37.",
-  "last_llm_audit": "2026-11-18 14:24",
+  "last_llm_audit": "2026-11-18 14:29",
   "gate_files": [
    "scripts/3_cage_case/h14_build_case.py",
    "scripts/6_active_learning/h22_active_learning.py",
@@ -59,7 +59,8 @@
   "note_20261118_platform_1125": "2026-11-18 13:04: platform-window entries 2026-11-18 11:25 / 11:38 (corrected 11:5x) / 12:05 + 12:2x / 12:1x / 12:3x / 12:5x and labels DIV-03 TIED, PHY-05 TIED, DIV-04 TIED, NUM-17 FRIC, NUM-15 FRIC, OBS-01 TIED/FRIC registered as D-20261118-P1..P16, P-L1 (P prefix; the surrogate window's D-20261118-27..56 untouched). Verified by recomputation: pilot_rep3 read-outs (0.5398 / 0.8242 / 0.8258), dump offsets, restart.feb identity, shortcut_consistency numbers (RMS reading consistent with PI 2026-11-10 L1979 observed 0.032 = rms_mm), DIV-04 json, verdict_lists 143/149, obs01_summary, e06 limit, negative-Jacobian attribution by case.feb element tables, relG 28/28. 不符 3: P3 (stop inventory 29 dirs = 28 designs / 21 first-dynamic, not 27 / 20; NUM-15 label '28 run / 27 設計'), P14 (p115 '1897 lines' is the cage_soft count of 2681 lines), P-L1 (PHY-05 / DIV-04 / NUM-17 evidence lists and OBS-01 threshold not updated). PI待決 1: P12 (pooling p060 with p072 crosses the DIV-03 FRIC 95 % line by a rule change). No verdict / class change.",
   "note_20261118_1310": "2026-11-18 13:10: P3 / P14 / P-L1 -> 符合 (DECISIONS L2372 / L2395 and NUM-15 label corrected; evidence paths and OBS-01 threshold updated 13:08); P12 -> 符合 (superseded by p060's own production insertion, no pooling rule); P8 / P10 re-read against the 13:01 label text (PHY-05 TIED partial, NUM-17 FRIC fail; status.date fields still 12:01). New D-20261118-P17 (13:01 entry; p093n / p060 runs and the T19-e06 re-read pending, not judged). Auditor's items 不符 0.",
   "note_20261118_1355": "2026-11-18 13:55: DECISIONS 13:19 / 13:3x / 13:45 / 13:48 registered as D-20261118-P18..P22, all 符合: p093n full Newton (0 retries, 81 NJ, 1059 s, ROM 0.5489 recomputed), obs01 re-read numbers, pilot_rep3G full Newton fails on p048 / p115 (retries 26 / 15; NJ line counts differ from the text by < 0.5 % - counting convention), p060 insertion + route-E windows (deck = p072, 51 / 0 / 88 NJ, 874 / 1268 s), pipeline diff (only p060 and p072.replicates changed; 53/17/3; e07 13/54/6; classes identical; RA 9/16/3; DIV-03 FRIC 70/73 = 95.9 % pass supported by the >= 95 % threshold). Notes: OBS-01 label cites the summary as 13:2x (file 13:09); shortcut_consistency.json not rerun with p060. 不符 0.",
-  "note_20261118_1425": "2026-11-18 14:24: DECISIONS 13:5x / 14:0x bullets, 14:00 (NUM-16 patch check) and 14:19 (full Newton 4/4) registered as D-20261118-P23..P27, all 符合: PHY-05 false-pass direction now correct, six failing rows, mu_req_field 64-row diff (62 shear_rank-only + p060 + p072), shortcut rerun 0.915 / 0.0375 / 0.1450, e06_location_check values, num16 face vs 0.5 mm patch statistics, full-Newton logs (retries 2/0/0, NJ 188/77/50 vs text 187/77/50, wall 1269/1077/1056 s) and ROM 0.5515 / 0.5478 / 0.5401 recomputed; no verdict / class change since 13:45; PI_PENDING 13:54 block has six items. 不符 0."
+  "note_20261118_1425": "2026-11-18 14:24: DECISIONS 13:5x / 14:0x bullets, 14:00 (NUM-16 patch check) and 14:19 (full Newton 4/4) registered as D-20261118-P23..P27, all 符合: PHY-05 false-pass direction now correct, six failing rows, mu_req_field 64-row diff (62 shear_rank-only + p060 + p072), shortcut rerun 0.915 / 0.0375 / 0.1450, e06_location_check values, num16 face vs 0.5 mm patch statistics, full-Newton logs (retries 2/0/0, NJ 188/77/50 vs text 187/77/50, wall 1269/1077/1056 s) and ROM 0.5515 / 0.5478 / 0.5401 recomputed; no verdict / class change since 13:45; PI_PENDING 13:54 block has six items. 不符 0.",
+  "note_20261118_1430": "2026-11-18 14:29: text corrections c667fb8 registered as D-20261118-P28..P30, all 符合: full-Newton reading softened (cross-dump gap 0.0077-0.0114 mm recomputed; 1187 s = pilot_rep3 p145 BFGS rerun), T19 posterior-most counts reproduced from obs01_summary.json (73 rows; rim<mean 72; medians 0.283/0.361/0.696; PASS rim>0.55 0, most>0.55 28, >1.0 0; GREY rim>0.55 0; p093 node z unverified), cage_hard_1.0 Gent G 213.356 / Jm 0.7 / k 640.067, no yield surface. No code, label, verdict or class change."
  },
  "items": [
   {
@@ -5662,6 +5663,51 @@
    "status": "符合",
    "evidence": "三個判定檔自 13:45／13:46 未再重生；53/17/3、13/54/6、classes 10 類不變 ✓。PI_PENDING 13:54 區塊六項：A5／NUM-15 甲乙、滑出判準最後方點、e06 門檻、窗口求解器全牛頓、NUM-16 定義、估算器輸入表更新 ✓（請求文稱 14:xx，檔內標 13:54，檔 mtime 14:19）。OBS-01 value 已改「obs01_summary.json generated 13:09」✓（P19 小註關閉）。p060 h18 關節窗兩窗 N O R M A L（p060_run.log：exit 0、wall 3462.6 s），僅參考列 ✓。",
    "checked": "2026-11-18 14:24",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-P28",
+   "decisions_line": 2452,
+   "quote": "14:2x Reading 改寫「full Newton converged 4 of 4 where BFGS converged 1 of 3 on the same dump - evidence …, not proof of a general cause … Full Newton does NOT close NUM-17: the cross-dump gap p093 (0.5478-0.5515) vs p145 (0.5401) stays 0.008-0.011 mm …; the 1187 s reference is the pilot_rep3 p145 BFGS rerun (5 cores), not a production window」；PI_PENDING 全牛頓項同改",
+   "code": [
+    "human_study/DECISIONS.md:2452",
+    "human_study/PI_PENDING_DECISIONS.md:62",
+    "D-20261118-P26 的重算（0.5515／0.5478／0.5489／0.5401）",
+    "human_study/al_v2/pilot_rep3/p145/w_extension/case.log (1185.9 s, 5 核)"
+   ],
+   "status": "符合",
+   "evidence": "跨存檔差 0.5478–0.5515 vs 0.5401 = 0.0077–0.0114 → 「0.008–0.011」✓（> 0.005 判準）；1187 s = pilot_rep3/p145/w_extension（BFGS 重跑，Total elapsed 1185.9 s、5 核）✓，非正式窗口（正式 physio_fric5r/p145 另有自己的時間）。PI_PENDING 第 4 項已加「它解決的是窗口算不算得完，不是跨存檔差距」✓。NUM-17 state fail 維持。",
+   "checked": "2026-11-18 14:29",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-P29",
+   "decisions_line": 2453,
+   "quote": "14:3x「over the 73 friction extension windows the posterior-rim mean posterior displacement is SMALLER than the whole-cage mean in 72 (median 0.283 vs 0.361 mm); rim > 0.55 mm: 0 of 31 PASS / 0 of 12 GREY; the single most-posterior node median 0.696; 28/31 PASS > 0.55, none > 1.0; p093 ROM: z 9.28 in a cage spanning 3.41-9.52 … whole-cage mean is the conservative and physically right read-out; PI_PENDING item reworded to no change recommended」",
+   "code": [
+    "../biocage-evo/results/method/obs01/obs01_summary.json (13:09) FRIC extension rows: e04.posterior_rim_posterior_mm, cage_translation_tied_mm[0], posterior_most_node_posterior_mm",
+    "../biocage-evo/results/method/split/verdict_classes_merged.json classes PASS / GREY",
+    "human_study/PI_PENDING_DECISIONS.md:60"
+   ],
+   "status": "符合",
+   "evidence": "稽核重算：FRIC 後伸列 73；rim 後移 < 全籠平均（−cage_translation[0]）72 列；中位 rim 0.283、平均 0.361、最後方單點 0.696 ✓；PASS 31 列：rim > 0.55 0、單點 > 0.55 28、> 1.0 0 ✓；GREY 12 列：rim > 0.55 0（單點 > 0.55 12）✓；全部單點 > 1.0 0 ✓。未核：p093 極值節點 z 9.28／籠 3.41–9.52（summary 無節點座標，需 xplt）。PI_PENDING 第 2 項已改「已查，建議不改」✓。只記錄、判定不變。",
+   "checked": "2026-11-18 14:29",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261118-P30",
+   "decisions_line": 2454,
+   "quote": "14:3x「the hard phase is modelled as Gent hyperelastic too (cage_hard_1.0: G 213.4 MPa, Jm 0.7, k 640 MPa, uncoupled prestrain elastic); … no material in the deck has a yield surface …; sig_hard 15 MPa is a bookkeeping parameter」；PI_PENDING e06 句同改",
+   "code": [
+    "human_study/al_v2/physio_fric5r/p093/case.feb <material name=\"cage_hard_1.0\">",
+    "human_study/PI_PENDING_DECISIONS.md:61"
+   ],
+   "status": "符合",
+   "evidence": "case.feb：cage_hard_1.0 type uncoupled prestrain elastic、elastic Gent、G 213.356、Jm 0.7、k 640.067（prestrain gradient F0 … 1.25，lc 18）✓；deck 內「yield／plastic」0 次 ✓。PI_PENDING 第 3 項已加「硬相與軟相都是 Gent 超彈性、沒有塑性 … sig_hard 只是記在參數裡的數字」✓。",
+   "checked": "2026-11-18 14:29",
    "source": "decisions",
    "check": "llm"
   }
