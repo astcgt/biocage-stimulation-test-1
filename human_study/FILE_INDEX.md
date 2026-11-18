@@ -192,6 +192,7 @@ scratchpad `/tmp/claude-1024/-raid-jupyter-alz-ee09-projects-claude-work-biocage
 | `human_study/al_v2/pilot_holdRh/` | 同 pilot_holdR 但保持段步長減半（window_dt 0.025）：NUM-13 第 2 款（步長／半步長差 ≤ 0.005 mm）在路線 E 之下的證據；`launch_wave1.sh`、`wave1.log` | 2026-11-18 |
 | `human_study/al_v2/pilot_holdQ/`, `human_study/al_v2/pilot_holdQR/` | 真正半步長保持插入模型（保持段 dtmax 0.025，holdE 式曲線；生產二進位、關節窗口＝生產律半步對照）與其 t 3.5 存檔的路線 E 黏著記憶重啟（QR）：NUM-13 第 2 款在路線 E 之下的證據；Q：`launch.sh`、`launch.log`；QR：`launch_wave1.sh`、`wave1.log` | 2026-11-18 |
 | `human_study/al_v2/pilot_rep3/` | C2 選項乙：兩組不一致複本（p093／p145 後伸、p051／p075 前屈）的第三次計算，設定同 physio_fric5r；`launch_wave1.sh`、`wave1.log` | 2026-11-18 |
+| `human_study/al_v2/pilot_rep3G/` | 全牛頓法（restart Control max_ups 0）試跑：兩個算不出的摩擦窗口 p048 後伸、p115 前屈（流程 G 存檔、physio_relGr 設定）；`launch_fullnewton.sh`、`fullnewton.log` | 2026-11-18 |
 | `febio_patches/febio-4.13-biocage-patch6-stick-memory.patch` | 補丁 6+7：黏著記憶／回映；`stick_memory` 改由環境變數 `BIOCAGE_STICK_MEMORY` 開啟（參數數量與正式版一致，存檔可互讀）、`BIOCAGE_CAGE_LAUGON` 增廣拉格朗日；凍結狀態不再換接觸元素；輪廓含錨點元素 | Claude |
 | `../biocage-evo/gpufe/verify/v17g_hold_restart.py`, `../biocage-evo/results/gpufe_verify/v2/v17g_hold_restart.json` | 重啟保持試算的讀數腳本與結果（對照、增廣拉格朗日、黏著記憶；起終點差與 t 3.95–4.4 線性趨勢、振幅、升降步數） | Claude |
 | `../biocage-evo/gpufe/verify/v17h_block_slip_onset.py`, `../biocage-evo/results/gpufe_verify/v2/v17h_block_slip_onset.json` | 區塊滑移起始測試：位移驅動平板，摩擦力平台／庫倫極限，生產 vs 黏著記憶、兩種步長（2026-11-08） | Claude |
