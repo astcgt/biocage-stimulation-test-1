@@ -1,11 +1,11 @@
 {
- "time": "2026-11-18 13:10",
+ "time": "2026-11-18 13:50",
  "overall": "WARN",
  "checks": [
   {
    "id": "R1-case-dir",
    "status": "PASS",
-   "message": "412 friction rows; windows without finished log + xplt: 0 []"
+   "message": "415 friction rows; windows without finished log + xplt: 0 []"
   },
   {
    "id": "R1-ambiguous",
@@ -30,7 +30,12 @@
   {
    "id": "R3-faces",
    "status": "PASS",
-   "message": "skipped (--quick); 398 e07 window files"
+   "message": "401 windows, 196 cases recounted; mismatches 0 []"
+  },
+  {
+   "id": "R4-insertion-state",
+   "status": "PASS",
+   "message": "insertion value state within 0.05 of t 3.5; violations 0 []"
   },
   {
    "id": "R5-counts",
@@ -45,7 +50,17 @@
   {
    "id": "R7-pilot-keys",
    "status": "PASS",
-   "message": "settings/h14: []; production cases scanned 916, with pilot options / extra keys: []"
+   "message": "settings/h14: []; production cases scanned 917, with pilot options / extra keys: []"
+  },
+  {
+   "id": "R8-golden-rebuild",
+   "status": "PASS",
+   "message": "p062 physio_fric3 rebuild md5 4f3208b5 vs recorded 4f3208b5 (11 s)"
+  },
+  {
+   "id": "R9-material-blocks",
+   "status": "PASS",
+   "message": "golden rebuild: one FEBio block per cage material in 1 cases (tmp2_xtu079:4); problems: []"
   },
   {
    "id": "R9-material-blocks",
@@ -60,7 +75,7 @@
   {
    "id": "R12-file-index",
    "status": "PASS",
-   "message": "321 paths in FILE_INDEX.md; missing []"
+   "message": "324 paths in FILE_INDEX.md; missing []"
   },
   {
    "id": "R14-patch7-logs",
@@ -85,12 +100,12 @@
   {
    "id": "R19-route-E",
    "status": "PASS",
-   "message": "route-E classes: 72 cases, 144 finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: []"
+   "message": "route-E classes: 73 cases, 146 finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: []"
   },
   {
    "id": "R20-replicate-agreement",
    "status": "WARN",
-   "message": "sets ['physio_fric5r', 'physio_relGr']: 8 deck groups, 14 windows with >= 2 computed replicates, 2 disagree (> 0.005 mm or mixed evaluation point), worst spread 0.012415672940065736 mm"
+   "message": "sets ['physio_fric5r', 'physio_relGr']: 9 deck groups, 16 windows with >= 2 computed replicates, 3 disagree (> 0.005 mm or mixed evaluation point), worst spread 0.012415672940065736 mm"
   },
   {
    "id": "R21-estimator-separation",
@@ -99,8 +114,8 @@
   },
   {
    "id": "R23-estimator-validation",
-   "status": "PASS",
-   "message": "validation_2026-11-18.json: grouped True (nominal 0.9, 132 groups); input tables newer than the report: []"
+   "status": "WARN",
+   "message": "validation_2026-11-18.json: grouped True (nominal 0.9, 132 groups); input tables newer than the report: ['mu_req_field.csv', 'verdicts.json']"
   },
   {
    "id": "R18-agent-prompts",
@@ -114,8 +129,8 @@
   },
   {
    "id": "R10-llm-audit-due",
-   "status": "PASS",
-   "message": "LLM audit current: last 2026-11-18 13:10; gate files changed since: []; decision entries since: []"
+   "status": "WARN",
+   "message": "LLM audit required: last 2026-11-18 13:10; gate files changed since: ['human_study/current_settings.json']; decision entries since: []"
   }
  ],
  "counts": {
@@ -145,8 +160,10 @@
   "n_items": 366,
   "unmapped": [],
   "mismatch": [],
-  "gate_files_changed": [],
+  "gate_files_changed": [
+   "human_study/current_settings.json"
+  ],
   "new_decisions": []
  },
- "mode": "quick"
+ "mode": "full"
 }
