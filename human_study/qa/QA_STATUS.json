@@ -1,5 +1,5 @@
 {
- "time": "2026-11-18 11:55",
+ "time": "2026-11-18 12:22",
  "overall": "WARN",
  "checks": [
   {
@@ -60,7 +60,7 @@
   {
    "id": "R12-file-index",
    "status": "PASS",
-   "message": "312 paths in FILE_INDEX.md; missing []"
+   "message": "321 paths in FILE_INDEX.md; missing []"
   },
   {
    "id": "R14-patch7-logs",
@@ -110,12 +110,12 @@
   {
    "id": "R10-register",
    "status": "PASS",
-   "message": "331 register items; unmapped []; 不符 []"
+   "message": "347 register items; unmapped []; 不符 ['D-20261118-38', 'D-20261118-43', 'D-20261118-47'] (hook mode: reported, not blocking)"
   },
   {
    "id": "R10-llm-audit-due",
    "status": "WARN",
-   "message": "LLM audit required: last 2026-11-18 06:24; gate files changed since: ['human_study/current_settings.json', '../biocage-evo/methods/e04_dislocation.py']; decision entries since: ['2026-11-18 11:08', '2026-11-18 11:25']"
+   "message": "LLM audit required: last 2026-11-18 06:24; gate files changed since: ['human_study/current_settings.json', '../biocage-evo/methods/e04_dislocation.py']; decision entries since: ['2026-11-18 11:08', '2026-11-18 11:25', '2026-11-18 12:10', '2026-11-18 12:21']"
   }
  ],
  "counts": {
@@ -142,16 +142,22 @@
  },
  "register": {
   "last_llm_audit": "2026-11-18 06:24",
-  "n_items": 331,
+  "n_items": 347,
   "unmapped": [],
-  "mismatch": [],
+  "mismatch": [
+   "D-20261118-38",
+   "D-20261118-43",
+   "D-20261118-47"
+  ],
   "gate_files_changed": [
    "human_study/current_settings.json",
    "../biocage-evo/methods/e04_dislocation.py"
   ],
   "new_decisions": [
    "2026-11-18 11:08",
-   "2026-11-18 11:25"
+   "2026-11-18 11:25",
+   "2026-11-18 12:10",
+   "2026-11-18 12:21"
   ]
  },
  "mode": "quick"

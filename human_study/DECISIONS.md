@@ -2397,3 +2397,6 @@ p062 flexion 14.4 min, extension 7.8 min (GPU 3, 5 cores each), both NORMAL, evi
 
 ## 2026-11-18 12:10 PI instruction (round-2 evolution): keep the material x geometry freedom; PI question on distraction answered from result files
 - The gene d is the cage's height above the natural disc space (not the insertion step); the tissue squeeze force rises with it (9 N -> 95 N over d 0.5 -> 1.5) and sets the required friction; at one height the material layout changes mu_req by 0.001-0.007 only. Material x geometry freedom kept in the Design Grammar (PI). Details and proposals: ../biocage-evo/docs/DECISIONS.md (2026-11-18 12:10). No gate file, verdict or label changed.
+
+## 2026-11-18 12:21 PI decisions (round-2 evolution): compare at the same height; loosened condition; wording 撐高量 - and audit part 2 fixes
+- Two fixed heights for every design (reference 1.0 mm, loosened 0.5 mm); proposal program, pre-registration amendment and role prompts changed accordingly. Audit QA_AUDIT_2026-11-18 part 2: D-20261118-38 (compiler void rule), -43 (a correlation statement withdrawn), -47 (mentor selection by lot) fixed; h37 R21 extended to label-side programs. No gate file, verdict, label or class count changed. Details: ../biocage-evo/docs/DECISIONS.md (2026-11-18 12:21).

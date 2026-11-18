@@ -466,8 +466,8 @@ FALLBACK_CLASSES_SETS = tuple(c.rstrip('/').split('/')[-1] for c in FALLBACK_CLA
 # ---------------------------------------------------------------- R18 agent prompts = core + patches (PI 2026-11-11)
 def r21_surrogate_separation():
     """PI 2026-11-18 (round-2 evolution): the estimator only chooses what to simulate. Warning-level for now.
-    (a) every usable window in verdicts.json cites a run directory that exists; (b) no verdict / label program reads the
-    estimator's or the proposal program's outputs."""
+    (a) every usable window in verdicts.json cites a run directory that exists; (b) no verdict program (evo ops/), read-out
+    method (evo methods/e03-e07) or label program (h33) mentions the estimator's or the proposal program's outputs."""
     evo = os.path.join(os.path.dirname(P), 'biocage-evo'); vf = os.path.join(evo, 'results/method/fric/verdicts.json')
     if not os.path.exists(vf): rep('R21-estimator-separation', True, 'no verdicts.json (nothing to check)', warn=True); return
     v = json.load(open(vf)); miss = []
@@ -479,6 +479,8 @@ def r21_surrogate_separation():
     for f in ('ops/fric_compare.py', 'ops/collect_split.py', 'ops/mu_req_field.py', 'ops/e07_batch.py', 'ops/law_shift.py'):
         ff = os.path.join(evo, f)
         if os.path.exists(ff) and re.search(r'results/surrogate|results/round2|propose_round|surrogate_fit', open(ff, errors='ignore').read()): hits.append(f)
+    for ff in [os.path.join(P, 'scripts/8_audit/h33_capability_audit.py')] + sorted(glob.glob(os.path.join(evo, 'methods/e0[3-7]*.py'))):      # label side and read-out methods
+        if os.path.exists(ff) and re.search(r'results/surrogate|results/round2|propose_round|surrogate_fit', open(ff, errors='ignore').read()): hits.append(os.path.basename(ff))
     rep('R21-estimator-separation', not (miss or hits), f'usable windows without an existing run directory: {len(miss)} {miss[:5]}; verdict programs that mention estimator outputs: {hits}', warn=True)
 
 
