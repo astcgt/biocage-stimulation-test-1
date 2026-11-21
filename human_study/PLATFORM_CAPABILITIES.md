@@ -111,7 +111,7 @@ Restriction 使用限制：bounded 界定｜exclusion 禁用｜scope 範圍聲�
   - 儲存：SPD-03 每設計輸出量、SPD-04 磁碟守門
   - 無人值守：SPD-05 作業韌性、SPD-06 無人值守時數
   - 吞吐與重工：SPD-07 吞吐；SPD-08 重工率（診斷）
-- **元件**：SPLIT、GPUDIRECT、OPS（h19 排程器、h23 看門狗、`resume_all.sh`）、PREFLIGHT、RETARGET（h28／h29）；
+- **元件**：SPLIT、GPUDIRECT、OPS（h19 排程器、h23 看門狗、`resume_daemons.sh` 重開機後帶回看門狗）、LANES（`resume_all.sh` 各通道的重啟清單；2026-11-22 起沒有檢查依賴它）、PREFLIGHT、RETARGET（h28／h29）；
   資源：32 核 cgroup、GPU 1–4、128 GiB、/raid 個人配額。
 - **提供**：吞吐量、無人值守的連續運轉。
 - **需要**：[觀測] 告訴它哪些狀態和變數可以不輸出；[多元] 給它不會一直翻轉、重試的模型。

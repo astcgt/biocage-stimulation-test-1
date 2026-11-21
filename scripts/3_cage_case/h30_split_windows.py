@@ -25,7 +25,12 @@ for w in sch['windows']:                 # all window rotation curves at 3.5-4.0
     lid = win[w['name']].find('Constraints/constraint').find('prescribe_' + w['dof']).get('lc')
     lc = lcs[lid]; [lc.remove(p) for p in list(lc)]
     # 2026-11-05 pilot (V17, gpufe plan): physio_hold {ramp, frac, T} follows the production ramp rate to frac of the amplitude, then holds the angle for T
-    for t, v in (((T0, 0.0), (T0 + HOLD['ramp'], HOLD['frac']), (T0 + HOLD['ramp'] + HOLD['T'], HOLD['frac'])) if HOLD else ((T0, 0.0), (T0 + 0.5, 1.0), (T0 + 1.0, 0.0))): ET.SubElement(lc, 'point').text = f'{t},{v}'
+    CYC = sch.get('window_cycles') if w['name'] == 'flexion' else None   # 2026-11-19 pilot (S9 no ratcheting): n cycles 0 -> flexion -> 0 -> extension -> 0, 0.5 s per quarter;
+    if CYC:                                                                 # extension peak = -(extension amplitude / flexion amplitude) of the flexion drive value
+        r = sch['rot_rad']['extension'] / sch['rot_rad']['flexion']; pts = [(T0, 0.0)]; a = float(CYC.get('scale', 1.0))   # PI 2026-11-19 item 5: scale 0.8 = intact ROM (window amplitude = 1.25 x intact ROM)
+        for k in range(int(CYC['n'])): b = T0 + 2.0 * k; pts += [(b + 0.5, a), (b + 1.0, 0.0), (b + 1.5, -r * a), (b + 2.0, 0.0)]
+    else: pts = ((T0, 0.0), (T0 + HOLD['ramp'], HOLD['frac']), (T0 + HOLD['ramp'] + HOLD['T'], HOLD['frac'])) if HOLD else ((T0, 0.0), (T0 + 0.5, 1.0), (T0 + 1.0, 0.0))
+    for t, v in pts: ET.SubElement(lc, 'point').text = f'{t},{v}'
 base = copy.deepcopy(root)
 for s in base.findall('Step'):
     if s.get('name')[len('physio_'):] in win: base.remove(s)
@@ -39,7 +44,10 @@ for w in sch['windows']:
         st.find('Control/analysis').set('type', 'static'); [st.find('Control').remove(x) for x in st.findall('Control/rhoi')]
     if sch.get('window_dt'):                        # 2026-11-08 pilot (h14 key window_dt): window step size / dtmax only (insertion deck unchanged) - half-step arms of the hold criterion
         dt = float(sch['window_dt']); st.find('Control/step_size').text = str(dt); st.find('Control/time_stepper/dtmax').text = str(dt); st.find('Control/time_stepper/dtmin').text = str(dt / 100)
+    if sch.get('window_max_ups') is not None:       # 2026-11-21 pilot (h14 key window_max_ups): quasi-Newton updates per reformation in the WINDOW Control only (0 = full Newton; pilot_rep3 2026-11-18 hand-edited the same field); insertion deck unchanged
+        st.find('Control/max_ups').text = str(int(sch['window_max_ups']))
     ts = st.find('Control/time_steps'); ts.text = str(int(round((HOLD['ramp'] + HOLD['T']) / float(st.find('Control/step_size').text))) if HOLD else int(ts.text) // 2)   # independent windows stop at the peak: no unload (near-zero-load tail fails the relative energy norm)
+    if sch.get('window_cycles') and w['name'] == 'flexion': ts.text = str(int(round(2.0 * int(sch['window_cycles']['n']) / float(st.find('Control/step_size').text))))   # 2026-11-19 pilot: run all n cycles (no stop at the peak)
     if sch.get('window_dt0'):                       # 2026-11-11 pilot (h14 key window_dt0): small FIRST window increment only - the restart transient (the rigid-joint drive
         dt0 = float(sch['window_dt0']); dur = int(ts.text) * float(st.find('Control/step_size').text)   # switched on at t 3.5) failed all 10 retries (dt down to 0.05/11) for p050/p084/p109/p115/p127
         st.find('Control/step_size').text = str(dt0); ts.text = str(int(round(dur / dt0))); st.find('Control/time_stepper/dtmin').text = str(dt0 / 100)   # dtmax and the end time unchanged
@@ -93,6 +101,7 @@ for w in sch['windows']:
     full = copy.deepcopy(base); full.append(copy.deepcopy(st))                     # post-processing copy (not run)
     ET.ElementTree(full).write(os.path.join(wd, 'case.feb'), encoding='ISO-8859-1', xml_declaration=True)
     s1 = dict(sch); s1['windows'] = [dict(w, t0=T0, t_peak=T0 + (HOLD['ramp'] + HOLD['T'] if HOLD else 0.5), t1=T0 + (HOLD['ramp'] + HOLD['T'] if HOLD else 0.5))]; s1['split'] = True
+    if sch.get('window_cycles') and w['name'] == 'flexion': s1['windows'][0]['t1'] = T0 + 2.0 * int(sch['window_cycles']['n']); s1['windows'][0]['cycles'] = int(sch['window_cycles']['n'])
     json.dump(s1, open(os.path.join(wd, 'physio_schedule.json'), 'w'), indent=1)
     for f in ('cage_elems.npz', 'case.json'): shutil.copy(os.path.join(cd, f), os.path.join(wd, f))
 ET.ElementTree(base).write(os.path.join(cd, 'case.feb'), encoding='ISO-8859-1', xml_declaration=True)

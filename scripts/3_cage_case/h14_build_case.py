@@ -558,6 +558,8 @@ elif test == 'physio_rot':
     if prm.get('window_drive') == 'from_state' and prm.get('window_drive_thy_rad') is not None: WMR['window_drive'] = 'from_state'; WMR['window_drive_thy_rad'] = prm['window_drive_thy_rad']   # 2026-11-11 pilot: drive curve offset by the C3 rotation at t 3.5 (h30; h47 build writes the value from the source run's C3pot.txt)
     if prm.get('window_joint'): WMR['window_joint'] = prm['window_joint']   # 2026-11-11 pilot: joint enforcement (laugon / penalty / tolerance) of the window drive, restart step only (h30)
     if prm.get('window_lc_redefine'): WMR['window_lc_redefine'] = prm['window_lc_redefine']   # 2026-11-11 diagnostic: restart-file load-curve redefinition (h30)
+    if prm.get('window_max_ups') is not None: WMR['window_max_ups'] = prm['window_max_ups']   # 2026-11-21 pilot: full-Newton window (max_ups 0), restart file only (h30)
+    if prm.get('window_cycles'): WMR['window_cycles'] = prm['window_cycles']   # 2026-11-19 pilot (PI test-gap item 4, S9 no ratcheting): the flexion window becomes n full flexion-extension cycles (h30); the insertion deck holds the new curve
     if prm.get('window_drive_mode'): WMR['window_drive_mode'] = prm['window_drive_mode']   # 2026-11-11 pilot: 'rigid_relative' = relative prescribed rotation of the C3 pot instead of the rigid joint (h30)
     json.dump(dict(control='rotation', target_moment_Nmm=M, follower_N=FL, t_follower=[FA, FB] if FIR else [3.0, T0], rot_rad={k: v * F for k, v in TH.items()},
                    windows=[dict(name=n, dof=dd, sign=sg, t0=T0 + i, t_peak=T0 + i + 0.5, t1=T0 + i + 1.0) for i, (dd, sg, n) in enumerate(seq)],

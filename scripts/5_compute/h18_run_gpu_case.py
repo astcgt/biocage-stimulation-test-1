@@ -18,6 +18,12 @@ for w in glob.glob(os.path.join(src, 'w_*')):                # h30 split case: t
     os.makedirs(os.path.join(dst, os.path.basename(w)), exist_ok=True)
     for f in glob.glob(os.path.join(w, '*')):
         if f.endswith(('.feb', '.json', '.npz')): shutil.copy2(f, os.path.join(dst, os.path.basename(w)))
+# 2026-11-19: h18 is also called directly by pilot lane drivers (not only by the h19 scheduler, which checks h24): a case whose
+# preflight went stale (settings / gate-file edit after the build) is re-checked here, and not launched (exit 4) if it fails
+import h24_preflight
+if not h24_preflight.valid(src):
+    _c = h24_preflight.check(src)
+    if not _c['ok']: print(f'NOT LAUNCHED {src}: h24 preflight FAIL {_c["errors"]}', flush=True); sys.exit(4)
 lock = open(os.path.join(P, 'human_study', '.cpu_launch.lock'), 'w'); fcntl.flock(lock, fcntl.LOCK_EX)
 busy = cpu_busy(); idle = sorted(busy, key=busy.get)
 usable = [c for c in idle[:len(idle) - RESERVE] if busy[c] < 0.10 and c not in claimed_cores()]

@@ -1,2 +1,0 @@
-started human_study/al_v2/pilot_holdH/p062_smRh on GPU 3, cores 0..6, env {'BIOCAGE_STICK_MEMORY': '1'}
-human_study/al_v2/pilot_holdH/p062_smRh extension {'exit': 0, 'normal': True, 'wall_s': 1402.1, 'gpu': 3, 'cores': 5, 'core_h': 1.947, 'gpu_h': 0.389, 'profile_drops': 0, 'valid': True, 'env_lines': []}

@@ -1,0 +1,21 @@
+{
+ "windows": {
+  "flexion": {
+   "exit": 1,
+   "banner": "ERROR",
+   "n_converged": 1321,
+   "t_last": 5.72435,
+   "n_negjac": 7795,
+   "static_retry": false,
+   "drive_rows": 346,
+   "dt_min": 0.0004999999999997229,
+   "M_max_Nmm": 0.0,
+   "target_reached": false,
+   "n_dyn": 346,
+   "rb_res_max_Nmm": null,
+   "rb_fres_max_N": 4.015045113829354
+  }
+ },
+ "n_error": 1,
+ "n_below_target": 1
+}

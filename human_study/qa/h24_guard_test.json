@@ -1,0 +1,16 @@
+{
+ "time": "2026-11-21",
+ "test": "h24 guard for a falsy pilot key (audit D-20261121-M2)",
+ "results": {
+  "with window_max_ups 0": {
+   "ok": false,
+   "errors": [
+    "pilot / process option(s) ['window_max_ups'] not in the settings class of human_study/al_v2/pilot_staticR/zzguard (h37 PILOT_KEYS)"
+   ]
+  },
+  "control (no extra key)": {
+   "ok": true,
+   "errors": []
+  }
+ }
+}

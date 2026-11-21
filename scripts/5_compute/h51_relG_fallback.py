@@ -78,6 +78,7 @@ def busy_threads():
     """threads of my live FEBio runs: h18 (process-G runs, '<gpu> <case> <cores>') and h47 ('run <case> <gpu> <cores>')"""
     n = 0
     for l in ps_args():
+        if l.split() and os.path.basename(l.split()[0]) in ('bash', 'sh', 'dash'): continue   # foreman 2026-11-19 07:0x: a hand launch 'bash -c python h18/h47 ...' showed twice (wrapper + python), 4 runs = 48 not 24, mu03r windows held with 13 cores idle
         m = re.search(r'h18_run_gpu_case\.py \d+ \S+ (\d+)', l) or re.search(r'h47_restart_pilot\.py run \S+ \d+ (\d+)', l)
         if m: n += int(m.group(1))
     return n

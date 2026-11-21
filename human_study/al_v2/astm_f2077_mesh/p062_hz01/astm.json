@@ -1,0 +1,66 @@
+{
+ "source": "human_study/al_v2/numconv_hz01/p062",
+ "source_case_sha256": "493c6a9fd6af91d522d5661009336458c569a0781506996a5879bc11aae32c77",
+ "h24": {
+  "ok": true,
+  "launch_preflight_ok": true,
+  "rebuild_identical": true,
+  "warnings": [],
+  "errors": []
+ },
+ "n_nodes": 52687,
+ "n_hex": 43010,
+ "centre_mm": [
+  -0.7000000000000002,
+  0.0,
+  6.4631300000000005
+ ],
+ "intradiscal_height_mm": 3.7174310000000004,
+ "face_z_range_mm": {
+  "top": [
+   7.835061,
+   9.52063
+  ],
+  "bottom": [
+   3.40563,
+   5.757378
+  ]
+ },
+ "D_mm": 0.6,
+ "ROT_deg": 10.0,
+ "preload_N": 100.0,
+ "materials": {
+  "cage_mix_0.25": {
+   "density": "1e-06",
+   "G": "105.984",
+   "Jm": "0.7",
+   "k": "671.234"
+  },
+  "cage_mix_0.5": {
+   "density": "1e-06",
+   "G": "231.974",
+   "Jm": "0.7",
+   "k": "1082.55"
+  },
+  "cage_mix_0.75": {
+   "density": "1e-06",
+   "G": "236.193",
+   "Jm": "0.7",
+   "k": "866.04"
+  },
+  "cage_mix_1.0": {
+   "density": "1e-06",
+   "G": "240.567",
+   "Jm": "0.7",
+   "k": "721.7"
+  }
+ },
+ "built": "2026-11-21 14:56",
+ "builder": "scripts/3_cage_case/h55_astm_f2077.py",
+ "builder_sha256": "60a8afef865009ee3f9b4b1a01a420508f7c187e598ed407b908f217966c42f9",
+ "decks": {
+  "compression": "849d9a966f64e03f825e173d67bc85f319d8634e979926551c45e7810c5edb67",
+  "shear45": "4eabd630d353b76e389ef468056c25a9a6058df5eefb89350339efaf61721790",
+  "torsion": "2fcfebbe9c3ffd46d7c866cfc67eb58a779a27f0336520b223018f6b9a2b1ab4"
+ }
+}

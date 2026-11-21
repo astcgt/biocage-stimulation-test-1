@@ -85,8 +85,11 @@ def scan():
         ins_state = {}
         for p in designs:
             runs = [d for d in sorted(glob.glob(f'{sd}/{p}_gpu*') + [f'{sd}/{p}']) if os.path.exists(os.path.join(d, 'case.log'))]
-            if not runs: ins_state[p] = 'never run'; continue
-            rd = runs[0]; b = banner(os.path.join(rd, 'case.log')); ins_state[p] = b or 'no log'
+            # 2026-11-21: restart sets (h47 build: physio_fric5 / fric5r / relGr / relG_pl / pilot_mu03r ...) have no insertion log of their own
+            # (the checkpoint comes from the source run); their windows are scanned all the same, insertion state 'restart set'
+            rst = [d for d in [f'{sd}/{p}'] if not os.path.exists(os.path.join(d, 'case.log')) and glob.glob(os.path.join(d, 'w_*', 'case.log'))]
+            if not runs and not rst: ins_state[p] = 'never run'; continue
+            rd = (runs or rst)[0]; b = banner(os.path.join(rd, 'case.log')) if runs else 'restart set'; ins_state[p] = b or 'no log'
             if b == 'ERROR':
                 lg = open(os.path.join(rd, 'case.log'), errors='ignore').read()
                 conv = [float(v) for v in re.findall(r'converged at time : ([0-9.eE+-]+)', lg)]
@@ -132,7 +135,7 @@ def report(out):
     L += [f"- 有微步（dt < {DT_MIN}）的視窗：{len(micro)} / {len(W)}", f"- 有孤立尖峰（偏離鄰點預測 > max({JUMP_ABS}×目標, {JUMP_REL}×預測)）的視窗：{len(jump)}",
           f"- 有剛體動態殘差狀態（C3pot.txt |M_rb| > {DYN_M:.0%} 目標；NUM-14）的視窗：{len(dyn)}；狀態 {n_dyn} / {n_rows}（重試步、接觸顫動、視窗起步暫態；力殘差只記錄不判定）",
           f"- **原本判「達標」、濾除後變「未達標」的視窗：{len(flip)}**（這些判定曾依賴垃圾狀態）", '']
-    for w in flip: L.append(f"  - {w['set']}/{w['design']}/{w['window']}：無效狀態 {w['invalid']}；最大有效 |M| {w['M_max']:.0f} N·mm")
+    for w in flip: L.append(f"  - {w['set']}/{w['design']}/{w['window']}：無效狀態 {w['invalid']}；最大有效 |M| {(w['M_max'] or 0):.0f} N·mm")   # 2026-11-21: M_max is None when no valid state is left
     for w in micro + jump + [w for w in dyn if w not in micro and w not in jump]:
         if w not in flip and any(i[3] != 'dyn' or abs(i[2]) >= 0.5 * 1500 for i in w['invalid']):   # dyn drops far below the target are noise, not listed
             L.append(f"  - （不影響判定）{w['set']}/{w['design']}/{w['window']}：{w['invalid']}")

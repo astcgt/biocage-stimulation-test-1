@@ -1,0 +1,16 @@
+{
+ "exit": 1,
+ "normal": false,
+ "wall_s": 85.8,
+ "gpu": 4,
+ "cores": 6,
+ "core_h": 0.143,
+ "gpu_h": 0.024,
+ "profile_drops": 0,
+ "valid": true,
+ "env_lines": [
+  "BIOCAGE patch 7: interface 'cage_C3': stick_memory = 1, laugon = 0, atol = 0.1 (env settings in effect, logged at the first update)",
+  "BIOCAGE patch 7: interface 'cage_C4': stick_memory = 1, laugon = 0, atol = 0.1 (env settings in effect, logged at the first update)"
+ ],
+ "stick_memory_logged": true
+}

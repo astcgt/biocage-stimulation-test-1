@@ -1,0 +1,14 @@
+{
+ "test": "pushout",
+ "direction": "push_ant",
+ "pushed_node_set": "push_post",
+ "mm": 3.0,
+ "axis": "frame X (anterior +)",
+ "t": [
+  3.5,
+  4.0
+ ],
+ "lc": 22,
+ "c3": "held (x y Rx Ry Rz relative 0), follower 100 N",
+ "note": "post-processing geometry copy case.feb is the flexion window deck"
+}

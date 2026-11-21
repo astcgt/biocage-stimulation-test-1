@@ -1,0 +1,39 @@
+{
+ "params": {
+  "geom": "arc",
+  "mode": "ext",
+  "t": 0.8,
+  "L": 2.0,
+  "E": 400.0,
+  "mu": 0.3,
+  "delta": 0.1,
+  "theta": 17.0,
+  "W": 1.2,
+  "b": 2.0,
+  "u": 0.5,
+  "over": 0.3,
+  "gap": 0.02,
+  "alpha": 45.0
+ },
+ "ns": 10,
+ "nt": 4,
+ "nb": 2,
+ "n_hex": 80,
+ "x_root": 0.0,
+ "plate_shift_mm": 0.8548230152413401,
+ "x_extent": [
+  -0.4,
+  2.021515319970376
+ ],
+ "root_depth_below_face_mm": 1.3314970670335715,
+ "tip_x_mm": 1.621515319970376,
+ "z_floor": -1.5814970670335715,
+ "built": "2026-11-20 14:25",
+ "builder": "scripts/3_cage_case/h56_tangou_unit.py",
+ "builder_sha256": "ac9efa81dc469517",
+ "decks": {
+  "out": "65b94ba10730c383",
+  "in": "a8bb1241b95971ba",
+  "press": "280ac2ef9da2d8a1"
+ }
+}

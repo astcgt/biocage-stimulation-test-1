@@ -1,0 +1,42 @@
+{
+ "out": {
+  "t_end": 0.563747348,
+  "normal": false,
+  "preload_Fz_N": 0.0,
+  "preload_Fx_N": 0.0,
+  "E_max_abs": 0.0692803903425,
+  "E_max_abs_preload": 0.0162670593795,
+  "E_root_max_abs": 0.0643728062446,
+  "eps_limit_15MPa": 0.0375,
+  "eps_limit_40MPa": 0.1
+ },
+ "in": {
+  "t_end": 0.563747348,
+  "normal": false,
+  "preload_Fz_N": 0.0,
+  "preload_Fx_N": 0.0,
+  "E_max_abs": 0.0692803903425,
+  "E_max_abs_preload": 0.0162670593795,
+  "E_root_max_abs": 0.0643728062446,
+  "eps_limit_15MPa": 0.0375,
+  "eps_limit_40MPa": 0.1
+ },
+ "press": {
+  "t_end": 2.0,
+  "normal": true,
+  "preload_Fz_N": -0.995783053596,
+  "preload_Fx_N": 0.487829759387,
+  "over_mm": 0.301873414214,
+  "Fz_over_N": -1.66809563726,
+  "Fz_at": {
+   "0.1": -1.2778293522697124,
+   "0.2": -1.8172928094024543,
+   "0.3": -1.6586068404327117
+  },
+  "E_max_abs": 0.03583872233,
+  "E_max_abs_preload": 0.0177596702198,
+  "E_root_max_abs": 0.0307344432521,
+  "eps_limit_15MPa": 0.0375,
+  "eps_limit_40MPa": 0.1
+ }
+}

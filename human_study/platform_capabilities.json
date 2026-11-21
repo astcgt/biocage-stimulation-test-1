@@ -8,7 +8,7 @@
   },
   "FRIC": {
    "name": "真實摩擦（驗證）",
-   "desc": "同 TIED，但 contact_type elastic、mu 0.35、nonsym、慢速動態",
+   "desc": "同 TIED，但 contact_type elastic、mu 0.3（PI 2026-11-20 決定 9；尚未以 0.3 重算的設計為 0.35）、nonsym、慢速動態",
    "use": "gate 4：檢驗 TIED 的滑出判定；摩擦下的實際滑移"
   },
   "GPUFE": {
@@ -72,10 +72,16 @@
    ]
   },
   "OPS": {
-   "name": "排程、看門狗、重啟",
+   "name": "排程、看門狗、重開機後帶回看門狗的啟動檔",
    "paths": [
     "scripts/5_compute/h19_scheduler.py",
     "scripts/5_compute/h23_watchdog.py",
+    "../biocage-evo/ops/resume_daemons.sh"
+   ]
+  },
+  "LANES": {
+   "name": "重開機後逐條重啟各運算通道的清單（resume_all.sh；foreman 每新增一條通道就加一段；先呼叫 OPS 的 resume_daemons.sh；沒有檢查依賴它）",
+   "paths": [
     "../biocage-evo/ops/resume_all.sh"
    ]
   },
@@ -378,7 +384,7 @@
    "refs": [
     "T14"
    ],
-   "text": "每份結論的範圍說明必須寫：單一 26 歲女性模型、名義材料、mu 0.35、名義置入位置；不外推。"
+   "text": "每份結論的範圍說明必須寫：單一 26 歲女性模型、名義材料、mu 0.3（PI 2026-11-20 決定 9；尚未重算的設計為 0.35，見 verdicts.json mu_basis）、名義置入位置；不外推。"
   },
   "R08": {
    "type": "scope",
@@ -457,6 +463,79 @@
     "DECISIONS 2026-11-06 00:50"
    ],
    "text": "摩擦數字隨增量數變動（NUM-13 FRIC 不合格，2026-11-06）：FEBio 每增量重設黏著點，cage 在定角度下漂移，p062 每增量約 0.0009 mm、p139 約 0.002 mm。2026-11-05「1e-6 比真實密度偏低 12–26 %」的說法已撤回：高增量的 1e-9 run 含此假象，密度本身的效應尚未分離。physio_fric3 與 physio_fric4 的平移都不是收斂值，所有滑出判定須註明。"
+  },
+  "R13": {
+   "type": "bounded",
+   "configs": [
+    "FRIC"
+   ],
+   "covers": [
+    "NUM-15"
+   ],
+   "refs": [
+    "DECISIONS 2026-11-22 PI DECISIONS item 16(a)",
+    "human_study/al_v2/pilot_relG/equivalence_p062.json",
+    "human_study/al_v2/pilot_relG/equivalence_p094.json"
+   ],
+   "text": "以流程 G 插入的設計：後伸讀值與正式流程相同（對照 p062、p094 差 ≤ 0.001 mm）；前屈 1.5 N·m 的平移讀值比正式流程低 0.02–0.05 mm（偏不保守）。使用限制：流程 G 設計的前屈任向平移若在 1 mm 限值的 0.05 mm 以內，須標示並以正式流程或加餘裕複核；跨兩種插入流程比較前屈讀值時須註明流程。（PI 2026-11-22 第 16(a) 項）"
+  },
+  "R14": {
+   "type": "bounded",
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "covers": [
+    "NUM-10"
+   ],
+   "refs": [
+    "DECISIONS 2026-11-22 PI decision 16(c)",
+    "human_study/validation/verify_patch_20261105/compare.json"
+   ],
+   "text": "FEBio 補丁回歸測試只在生產用的 C3-C4 節段模型上成立（新舊執行檔末態差 ≤ 1e-11，CPU 與 GPU 兩條路徑）。完整頸椎 C0-C7 模型：前屈差 1.1e-4（門檻邊緣），後伸有節點位移差到 2 %（自動步長路徑不同；舊執行檔已不存在，無法對跑）。使用限制：設計判定只用 C3-C4 節段模型的結果；完整頸椎模型的結果只用於解剖驗證（PHY-01，以現行執行檔直接對文獻數據），不得用來判定或排名設計。（PI 2026-11-22 第 16(c) 項：「我只關注我在意的，其他 workable 就行」）"
+  },
+  "R15": {
+   "type": "bounded",
+   "configs": [
+    "TIED"
+   ],
+   "covers": [
+    "NUM-11"
+   ],
+   "refs": [
+    "DECISIONS 2026-11-22 PI「其他照建議」",
+    "human_study/figure_data.json"
+   ],
+   "text": "GPU（cuDSS）與 CPU（Pardiso）直接求解的結果不是逐位相同：同輸入黏死窗口 15 組配對，判定量最大相對差 所需摩擦係數 0.33 %、籠體平移 0.58 %（登記門檻 1e-4 未達）。使用限制：兩種求解路徑的結果可以混用，但差異上限以 1 % 計；任何判定量距其門檻 2 % 以內的設計須標示「求解路徑待確認」。（PI 2026-11-22：周邊檢查能用即可）"
+  },
+  "R16": {
+   "type": "bounded",
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "covers": [
+    "OBS-04"
+   ],
+   "refs": [
+    "DECISIONS 2026-11-22 PI「其他照建議」"
+   ],
+   "text": "轉動幅度的自動補足沒有涵蓋所有批次（黏死：h29 只處理拆分批次；真實摩擦：路線 E 直接把節段帶過正常活動範圍，不需補足，但門檻文字是為舊流程寫的）。使用限制：沒有到達判定點（1.5 N·m 或正常活動範圍）的窗口一律不作通過或淘汰的依據，該設計記為「算不出／未達判定點」（同限制 R02）；偏差方向已知：只會少判、不會誤判。（PI 2026-11-22）"
+  },
+  "R17": {
+   "type": "bounded",
+   "configs": [
+    "TIED",
+    "FRIC"
+   ],
+   "covers": [
+    "DIV-01"
+   ],
+   "refs": [
+    "DECISIONS 2026-11-22 PI「其他照建議」",
+    "human_study/qa/design_field_check.json"
+   ],
+   "text": "「設計空間可表示」只對既有的人體設計家族成立（12 個家族組合、500 個模型檔的材料分佈已逐元素核對）。演化流程的體素場 → FEBio 路徑尚未核對。使用限制：第二輪演化的新形狀在進入模擬前，須先以 h59 的同一比對確認「模型每個元素的材料 = 設計場」；在那之前不得引用新形狀的模擬結果。（PI 2026-11-22）"
   }
  },
  "checks": [
@@ -570,24 +649,16 @@
      "date": "2026-10-22T22:05",
      "value": "39 N @ 1 mm（屍體 44 N @ 1.7 mm）",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
-      }
+      "date": "2026-11-21T15:05",
+      "note": "2026-11-21 重建比對（scripts/8_audit/h57_rebuild_sweep.py → human_study/qa/rebuild_sweep.json）：18 個判定來源集合各抽 2–3 個 run（共 52），以現行 h14／h30／設定重建的 case.feb、各窗口 restart.feb 與排程檔逐位元相同；證據日之後對 h14／h30／h31 的改動都是試算專用選項（window_cycles、window_max_ups、restart_env 守門等），不進正式模型檔"
      }
     },
     "FRIC": {
      "state": "pass",
      "date": "2026-10-22T22:05",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
-      }
+      "date": "2026-11-21T15:05",
+      "note": "2026-11-21 重建比對（scripts/8_audit/h57_rebuild_sweep.py → human_study/qa/rebuild_sweep.json）：18 個判定來源集合各抽 2–3 個 run（共 52），以現行 h14／h30／設定重建的 case.feb、各窗口 restart.feb 與排程檔逐位元相同；證據日之後對 h14／h30／h31 的改動都是試算專用選項（window_cycles、window_max_ups、restart_env 守門等），不進正式模型檔"
      }
     }
    },
@@ -637,7 +708,7 @@
     "TIED"
    ],
    "name": "gate 4：黏死滑出判定 vs 真實摩擦實測",
-   "method": "真實摩擦 run（physio_fric5 參考摩擦律（黏著記憶，PI 2026-11-09 決定 1）取代 physio_fric3，每視窗以最高級集合為準；mu 0.35、100 N 追隨載荷、前屈＋後伸視窗）：cage 剛體平移（e04，籠節點平均 − C4 終板平均）在評估點判定；評估點 = 視窗傳得到 1.5 N·m 時在 1.5 N·m 狀態判，否則在 intact ROM 狀態判（PI 2026-11-05 第 1 項；fric_compare.py ev_point，每視窗記入 verdicts.json）。無缺窗通過：前屈與後伸都要有可用視窗。相同設計參數的 id 合併證據（不一致時依 threshold 的 2026-11-17 例外處理（限值邊界灰區／最保守成員））。",
+   "method": "真實摩擦 run（physio_fric5 參考摩擦律（黏著記憶，PI 2026-11-09 決定 1）取代 physio_fric3，每視窗以最高級集合為準；mu 0.3（PI 2026-11-20 決定 9 起為正式值；尚未以 0.3 重算或 0.3 算不出的窗口暫用 0.35，verdicts.json 每設計記 mu_basis）、100 N 追隨載荷、前屈＋後伸視窗）：cage 剛體平移（e04，籠節點平均 − C4 終板平均）在評估點判定；評估點 = 視窗傳得到 1.5 N·m 時在 1.5 N·m 狀態判，否則在 intact ROM 狀態判（PI 2026-11-05 第 1 項；fric_compare.py ev_point，每視窗記入 verdicts.json）。無缺窗通過：前屈與後伸都要有可用視窗。相同設計參數的 id 合併證據（不一致時依 threshold 的 2026-11-17 例外處理（限值邊界灰區／最保守成員））。",
    "threshold": "平移 > 1 mm（任向）或後方 > 0.55 mm 即 fail；後方 0.45–0.55 mm 為灰區（grey：僅供分析，不得作為 final design；名義門檻 0.5 保留在灰區中央）（PI 2026-11-10）。捷徑一致性（PI 2026-11-10 接受）：tied mu_req_max 與金標準後方平移的等級相關 ≥ 0.9 且線性對應殘差 ≤ 0.05 mm；mu_req_max 在 0.140 ± 0.005 的設計為灰帶，須補跑摩擦 run。；例外（PI 2026-11-17）：同模型（deck 相同）複本判定不一致、各窗口後方讀值差 ≤ 0.02 mm（數值雜訊帶）且跨限值、且 fail 僅因後方限值者 → 整組灰區「限值邊界」（own_verdict 保留原判定）；差距更大取最保守成員（PI 2026-11-11 決定 4）",
    "threshold_src": "PI 2026-11-03 04:30（規則）；PI 2026-11-03（合併重複）；評估點條件式 PI 2026-11-05 第 1 項確認並實作（fric_compare.py:89-92）；灰區與捷徑容差 PI 2026-11-10（DECISIONS 2026-11-10 14:0x）；限值邊界灰區 PI 2026-11-17（DECISIONS 2026-11-17 04:38；fric_compare.py REPL_NOISE）",
    "trigger": "一次；BUILD 介面或 METRICS 變更時重做",
@@ -659,8 +730,8 @@
    "status": {
     "TIED": {
      "state": "partial",
-     "date": "2026-11-18T13:01",
-     "value": "（歷史）2026-11-11 15:0x（PI 決定 4 套用：同模型複本共用算得出的結果）：摩擦判定 pass 47 / 灰區 grey 17 / fail 0 / open 7（p050、p084、p127 以同模型 p068 的結果判 pass，標記 verdict_source 與 [數值] replicate-not-reproduced；p086/p100/p142 判定不一致標 replicate-inconsistent，結果保留）。｜2026-11-11 00:11（流程 G 批次完成後重算；verdicts.json）：摩擦判定 pass 44 / 灰區 grey 17 / fail 0 / open 10（71 設計 = 生產插入 44（physio_fric5 38＋fric5 窗口不可用改用 fric3 替代讀值 5＋physio_fric2 1）＋流程 G（process G）27）。17 個灰區全是後伸 intact 活動範圍（ROM）時點後方 0.453–0.549 mm：p026 p051 p072 p075 p076 p081 p092 p093 p100 p113 p114 p117 p133 p135 p140 p143 p145。替代讀值窗口 11：生產檔點＋0.0431 mm（p036 前屈 0.212、p132 0.386、p142 0.865、p148 0.354 pass；p100 後伸 0.500 grey）、流程 G 檔點＋0.0581 mm（對照組兩律讀值差最大值；p064 前屈 0.274、p083 0.789、p120 0.606、p095 後伸 0.327、p104 0.416、p109 0.259，全 pass）。每窗口取最高級集合後：72 個窗口傳到 1.5 N·m（最大平移 0.894 mm，p114 前屈，全部 ≤ 1 mm、後方 ≤ 0.5）、129 個到 intact ROM。兩種摩擦律從同一檔點重啟都在評估點前中止的窗口 12（9 設計；根因見 DECISIONS 2026-11-11 01:00）。每筆帶 insertion_process（production / G）與 window_law。捷徑一致性（mu_req_vs_fric5.json）仍為 2026-11-09 的 43 設計數字：等級相關 0.90、殘差 0.032 mm、0.5 mm 對應 mu_req 0.140；灰帶 0.140 ± 0.005 共 12 設計，p102、p149 尚無摩擦 run。｜揭露（2026-11-11 02:0x，稽核 D-20261111-17）：所有既有生理窗口讀值（生產與流程 G）都含「起始拉回」人為效應——窗口的剛性關節驅動指定相對 t=0 的絕對轉角，接上時把 C3 由插入段終點角度（插入段終點傾角實測 70 個檔點：正式插入 0.08–1.53°、中位 0.21°；流程 G 0.46–1.31°、中位 0.87°）瞬間拉回 0 再爬坡（DECISIONS 2026-11-11 01:00–01:58）；判定維持暫定，驅動修正後需重算。｜（歷史 2026-11-10 14:50）2026-11-10（PI 決定套用：灰區 0.45–0.55、替代讀值、流程 provenance）：摩擦判定 pass 27 / 灰區 grey 16 / fail 0 / open 28（71 設計：43 個 physio_fric5（參考摩擦律重算集）＋ 26 個插入段停算待流程 G＋ 2 個 physio_fric2）。16 個灰區全是後伸 intact 活動範圔（ROM）時點後方 0.453–0.549 mm：p026 p051 p072 p075 p076 p081 p092 p093 p100 p113 p114 p117 p133 p135 p143 p145。替代讀值（舊法則＋0.0431 mm）窗口 5 個：p036 前屈 0.212、p132 前屈 0.386、p142 前屈 0.865、p148 前屈 0.354（pass）、p100 後伸（grey）。每窗口取最高級集合後：54 個窗口傳到 1.5 N·m（最大平移 0.894 mm，p114 前屈，全部 ≤ 1 mm、後方 ≤ 0.5）、94 個到 intact ROM。tied 單面滑移上限仍被摩擦實測普遍超過：physio_fric5 84 窗口中 82 個（physio_fric3 80/84；fric5 全 84 窗口比值中位 2.956）→ tied 捷徑對前屈／後伸不保守的結論不變。捷徑一致性（mu_req_vs_fric5.json）：等級相關 0.90、殘差 0.032 mm、0.5 mm 對應 mu_req 0.140；灰帶 0.140 ± 0.005 共 12 設計，其中 p102、p149 尚無摩擦 run。舊值（2026-11-09 18:10，灰區前）：pass 35 / fail 6 / open 30，其中 p036 p148 當時以未標記的舊法則列通過（稽核 2026-11-10 不符 #1）。｜2026-11-13 更新（R5 取文中最後一次出現的計數）：2026-11-13 13:5x（路線 E 重跑完成，PI 2026-11-11 決定 1a／4）：摩擦判定 pass 52 / 灰區 grey 13 / fail 2 / open 4（71 設計；158 個勝出窗口中 122 個為路線 E（C3 剛體相對指定轉角，無起始拉回），其餘為關節驅動結果）。fail 2 = 同模型 p093／p145 後伸 ROM 後方 0.552／0.539 mm 跨 0.55 限值，依決定 4 統一為保守者；open 4 = p048 p074 p115（路線 E 下亦算不出）＋p060。替代讀值窗口 3（p095、p104 後伸 +0.0581；p148 前屈 +0.0431）。路線 E 相對關節驅動的讀值變動：正式插入設計中位 0.000 mm，流程 G 軟面厚籠前屈 1.5 N·m 位移由 0.39 → 0.16（起始拉回效應，已消除）。複本一致性 12/14 窗口 ≤ 0.005 mm（R20）。每筆帶 insertion_process、window_law、window_drive。｜2026-11-17 更新：摩擦判定 pass 52 / 灰區 grey 15 / fail 0 / open 4（71 設計；p093／p145 依 PI 2026-11-17 由 fail 改列灰區「限值邊界」：同模型兩次重算讀值 0.552／0.539 mm 跨 0.55 限值、差 0.012 mm 在數值雜訊內）；p102、p149 進行中。｜2026-11-17 08:00 更新（p102／p149 完成，R5 取文中最後一次出現的計數）：摩擦判定 pass 53 / 灰區 grey 16 / fail 0 / open 4（73 設計）；p102 灰區（路線 E 後伸 ROM 後方 0.458 mm；前屈 1.5 N·m 後方 −0.239 mm）；p149 pass（流程 G 插入；後伸路線 E ROM 後方 0.308 mm，與關節驅動列 0.3084 僅差 0.0007 mm；前屈路線 E 在 t 3.553 因 cage 軟質元素負雅可比中止、未達 1.5 N·m，改取已達 1.5 N·m 的關節驅動列 −0.165 mm）。open 4 不變。｜2026-11-18 12:01 捷徑一致性重算（ops/shortcut_consistency.py → results/method/fric/shortcut_consistency.json；73 個有摩擦判定的設計，取每個窗口自己的評估點）：後伸後方位移 vs tied mu_req_max 等級相關 0.909（≥ 0.9）、線性對應殘差 RMS 0.039 mm（≤ 0.05；p90 0.058、最大 0.152）、0.5 mm 對應 mu_req 0.1445（原 0.140）、0.55 mm 對應 0.1553；灰帶 0.140 ± 0.005 的 12 個設計全部已有摩擦 run，以新對應點 0.1445 ± 0.005 取帶 ['p076', 'p102', 'p114']，未跑摩擦者 無。摩擦判定 vs tied：73 個都在 tied ≤ mu(0.5 mm) 側，判定 pass 53／grey 16／open 4、fail 0 → 捷徑沒有把會滑出的設計放進通過名單。三項捷徑一致性條件皆成立 → 通過（前屈 u_h 的等級相關 0.47，前屈不是後方限值的判準，僅記錄）。｜2026-11-18 13:01 更正（顧問複核）：三項捷徑一致性條件在 2026-11-09／11-10 就已成立卻維持不合格，改為「部分」而非通過，理由：(a) 一致性表裡 73 個有摩擦 run 的設計全是 tied 通過者（摩擦 run 只跑 tied 通過的設計），所以表能顯示的是「tied 通過但摩擦判定不通過」的假通過（結果 fail 0、grey 17/73），不能顯示「tied 不通過但摩擦其實不滑出」的假不通過（沒有 tied 不通過的設計跑過摩擦）；(b) 73 個中 16 個落在灰區，捷徑的通過區含大量貼限值設計；(c) tied 單面滑移上限被摩擦實測普遍超過（不保守）的結論未變。要轉通過需 PI 認可以等級相關＋殘差＋假通過 0 為足，或補跑若干 tied 未通過設計的摩擦 run 檢驗假不通過率（捷徑是否過嚴）。｜2026-11-18 13:48 計數更新：摩擦判定 pass 53 / 灰區 grey 17 / fail 0 / open 3（73 設計；p060 open → grey）；一致性表 73/73 仍在 tied ≤ mu(0.5 mm) 側；狀態不變（部分）。",
+     "date": "2026-11-22T01:13",
+     "value": "（歷史）2026-11-11 15:0x（PI 決定 4 套用：同模型複本共用算得出的結果）：摩擦判定 pass 47 / 灰區 grey 17 / fail 0 / open 7（p050、p084、p127 以同模型 p068 的結果判 pass，標記 verdict_source 與 [數值] replicate-not-reproduced；p086/p100/p142 判定不一致標 replicate-inconsistent，結果保留）。｜2026-11-11 00:11（流程 G 批次完成後重算；verdicts.json）：摩擦判定 pass 44 / 灰區 grey 17 / fail 0 / open 10（71 設計 = 生產插入 44（physio_fric5 38＋fric5 窗口不可用改用 fric3 替代讀值 5＋physio_fric2 1）＋流程 G（process G）27）。17 個灰區全是後伸 intact 活動範圍（ROM）時點後方 0.453–0.549 mm：p026 p051 p072 p075 p076 p081 p092 p093 p100 p113 p114 p117 p133 p135 p140 p143 p145。替代讀值窗口 11：生產檔點＋0.0431 mm（p036 前屈 0.212、p132 0.386、p142 0.865、p148 0.354 pass；p100 後伸 0.500 grey）、流程 G 檔點＋0.0581 mm（對照組兩律讀值差最大值；p064 前屈 0.274、p083 0.789、p120 0.606、p095 後伸 0.327、p104 0.416、p109 0.259，全 pass）。每窗口取最高級集合後：72 個窗口傳到 1.5 N·m（最大平移 0.894 mm，p114 前屈，全部 ≤ 1 mm、後方 ≤ 0.5）、129 個到 intact ROM。兩種摩擦律從同一檔點重啟都在評估點前中止的窗口 12（9 設計；根因見 DECISIONS 2026-11-11 01:00）。每筆帶 insertion_process（production / G）與 window_law。捷徑一致性（mu_req_vs_fric5.json）仍為 2026-11-09 的 43 設計數字：等級相關 0.90、殘差 0.032 mm、0.5 mm 對應 mu_req 0.140；灰帶 0.140 ± 0.005 共 12 設計，p102、p149 尚無摩擦 run。｜揭露（2026-11-11 02:0x，稽核 D-20261111-17）：所有既有生理窗口讀值（生產與流程 G）都含「起始拉回」人為效應——窗口的剛性關節驅動指定相對 t=0 的絕對轉角，接上時把 C3 由插入段終點角度（插入段終點傾角實測 70 個檔點：正式插入 0.08–1.53°、中位 0.21°；流程 G 0.46–1.31°、中位 0.87°）瞬間拉回 0 再爬坡（DECISIONS 2026-11-11 01:00–01:58）；判定維持暫定，驅動修正後需重算。｜（歷史 2026-11-10 14:50）2026-11-10（PI 決定套用：灰區 0.45–0.55、替代讀值、流程 provenance）：摩擦判定 pass 27 / 灰區 grey 16 / fail 0 / open 28（71 設計：43 個 physio_fric5（參考摩擦律重算集）＋ 26 個插入段停算待流程 G＋ 2 個 physio_fric2）。16 個灰區全是後伸 intact 活動範圔（ROM）時點後方 0.453–0.549 mm：p026 p051 p072 p075 p076 p081 p092 p093 p100 p113 p114 p117 p133 p135 p143 p145。替代讀值（舊法則＋0.0431 mm）窗口 5 個：p036 前屈 0.212、p132 前屈 0.386、p142 前屈 0.865、p148 前屈 0.354（pass）、p100 後伸（grey）。每窗口取最高級集合後：54 個窗口傳到 1.5 N·m（最大平移 0.894 mm，p114 前屈，全部 ≤ 1 mm、後方 ≤ 0.5）、94 個到 intact ROM。tied 單面滑移上限仍被摩擦實測普遍超過：physio_fric5 84 窗口中 82 個（physio_fric3 80/84；fric5 全 84 窗口比值中位 2.956）→ tied 捷徑對前屈／後伸不保守的結論不變。捷徑一致性（mu_req_vs_fric5.json）：等級相關 0.90、殘差 0.032 mm、0.5 mm 對應 mu_req 0.140；灰帶 0.140 ± 0.005 共 12 設計，其中 p102、p149 尚無摩擦 run。舊值（2026-11-09 18:10，灰區前）：pass 35 / fail 6 / open 30，其中 p036 p148 當時以未標記的舊法則列通過（稽核 2026-11-10 不符 #1）。｜2026-11-13 更新（R5 取文中最後一次出現的計數）：2026-11-13 13:5x（路線 E 重跑完成，PI 2026-11-11 決定 1a／4）：摩擦判定 pass 52 / 灰區 grey 13 / fail 2 / open 4（71 設計；158 個勝出窗口中 122 個為路線 E（C3 剛體相對指定轉角，無起始拉回），其餘為關節驅動結果）。fail 2 = 同模型 p093／p145 後伸 ROM 後方 0.552／0.539 mm 跨 0.55 限值，依決定 4 統一為保守者；open 4 = p048 p074 p115（路線 E 下亦算不出）＋p060。替代讀值窗口 3（p095、p104 後伸 +0.0581；p148 前屈 +0.0431）。路線 E 相對關節驅動的讀值變動：正式插入設計中位 0.000 mm，流程 G 軟面厚籠前屈 1.5 N·m 位移由 0.39 → 0.16（起始拉回效應，已消除）。複本一致性 12/14 窗口 ≤ 0.005 mm（R20）。每筆帶 insertion_process、window_law、window_drive。｜2026-11-17 更新：摩擦判定 pass 52 / 灰區 grey 15 / fail 0 / open 4（71 設計；p093／p145 依 PI 2026-11-17 由 fail 改列灰區「限值邊界」：同模型兩次重算讀值 0.552／0.539 mm 跨 0.55 限值、差 0.012 mm 在數值雜訊內）；p102、p149 進行中。｜2026-11-17 08:00 更新（p102／p149 完成，R5 取文中最後一次出現的計數）：摩擦判定 pass 53 / 灰區 grey 16 / fail 0 / open 4（73 設計）；p102 灰區（路線 E 後伸 ROM 後方 0.458 mm；前屈 1.5 N·m 後方 −0.239 mm）；p149 pass（流程 G 插入；後伸路線 E ROM 後方 0.308 mm，與關節驅動列 0.3084 僅差 0.0007 mm；前屈路線 E 在 t 3.553 因 cage 軟質元素負雅可比中止、未達 1.5 N·m，改取已達 1.5 N·m 的關節驅動列 −0.165 mm）。open 4 不變。｜2026-11-18 12:01 捷徑一致性重算（ops/shortcut_consistency.py → results/method/fric/shortcut_consistency.json；73 個有摩擦判定的設計，取每個窗口自己的評估點）：後伸後方位移 vs tied mu_req_max 等級相關 0.909（≥ 0.9）、線性對應殘差 RMS 0.039 mm（≤ 0.05；p90 0.058、最大 0.152）、0.5 mm 對應 mu_req 0.1445（原 0.140）、0.55 mm 對應 0.1553；灰帶 0.140 ± 0.005 的 12 個設計全部已有摩擦 run，以新對應點 0.1445 ± 0.005 取帶 ['p076', 'p102', 'p114']，未跑摩擦者 無。摩擦判定 vs tied：73 個都在 tied ≤ mu(0.5 mm) 側，判定 pass 53／grey 16／open 4、fail 0 → 捷徑沒有把會滑出的設計放進通過名單。三項捷徑一致性條件皆成立 → 通過（前屈 u_h 的等級相關 0.47，前屈不是後方限值的判準，僅記錄）。｜2026-11-18 13:01 更正（顧問複核）：三項捷徑一致性條件在 2026-11-09／11-10 就已成立卻維持不合格，改為「部分」而非通過，理由：(a) 一致性表裡 73 個有摩擦 run 的設計全是 tied 通過者（摩擦 run 只跑 tied 通過的設計），所以表能顯示的是「tied 通過但摩擦判定不通過」的假通過（結果 fail 0、grey 17/73），不能顯示「tied 不通過但摩擦其實不滑出」的假不通過（沒有 tied 不通過的設計跑過摩擦）；(b) 73 個中 16 個落在灰區，捷徑的通過區含大量貼限值設計；(c) tied 單面滑移上限被摩擦實測普遍超過（不保守）的結論未變。要轉通過需 PI 認可以等級相關＋殘差＋假通過 0 為足，或補跑若干 tied 未通過設計的摩擦 run 檢驗假不通過率（捷徑是否過嚴）。｜2026-11-18 13:48 計數更新：摩擦判定 pass 53 / 灰區 grey 17 / fail 0 / open 3（73 設計；p060 open → grey）；一致性表 73/73 仍在 tied ≤ mu(0.5 mm) 側；狀態不變（部分）。｜2026-11-21（PI 11-20 決定 9：摩擦係數 0.3 為正式值；fric_compare 以 pilot_mu03r／pilot_mu03Gr 為最高級）：73 設計摩擦判定 pass 46／grey 19／fail 5／open 3；37 個兩窗口皆以 0.3 判、9 個有一個窗口在 0.3 算不出而該窗口暫用 0.35、27 個仍為 0.35（其中 23 個離限值遠且皆通過：0.35 讀值加最大觀測增幅 0.118 mm 仍不跨線；p117 兩個窗口在 0.3 都算不出，它在灰區 0.476 mm，不屬於離限值遠；另 3 個是算不出的 p048、p074、p115）；0.3 算不出的窗口共 11 個、分屬 10 個設計。新情況：5 個 tied 通過的設計在 0.3 下摩擦判定 fail（p051、p075、p093、p114、p145，後伸 ROM 後方 0.594–0.621 mm）＝捷徑的假通過 5／73（0.35 時為 0）。捷徑一致性（0.3／0.35 混合、非同基準）：等級相關 0.894（門檻 0.9）、mu_req 對應 0.5 mm 的值 0.145 → 0.139。同基準評估需其餘 27 設計補跑 0.3（已排入），屆時重評；狀態維持部分｜2026-11-21 補第二條件：線性對應殘差（均方根）0.0504 mm，超過 0.05 mm 門檻（11-18 為 0.0375），最大 0.177 mm；與等級相關 0.894 一樣是 0.3／0.35 混合集合上的數字，待同基準重評｜2026-11-22（PI 第 11、12 項後）：摩擦判定 pass 46／grey 19／fail 5／open 3；通過名單 PASS 25（5 個摩擦 fail 已移出）。摩擦係數基準：47 個設計全 0.3、6 個混合、20 個 0.35（批次 e 進行中）。捷徑一致性（仍為混合集合）：等級相關 0.894、線性殘差均方根 0.0511 mm、mu_req 對應 0.5 mm 的值 0.138；兩項都略未達門檻（0.9、0.05 mm）。批次 e 完成後以全 0.3 重評；狀態維持部分",
      "note": "2026-11-04 QA：method／threshold 改為實際判定依據（舊文字描述的 7 設計一致性測試從未執行）；fric3_summary.csv（22:30 舊判定）自證據移除。評估點：決策文 04:30 為條件式，程式兩點皆查；因 1.5 N·m 無 fail，今日結果等同「只看 ROM」；（歷史）11-04 當時估改條件式會使滑出 28 → 17、剪力 16 → 27，pass 仍 0；PI 2026-11-05 已採條件式。（2026-11-05 04:10 更新：PI 第 1 項評估點＝1.5 N·m 傳得到時、否則 ROM，第 2 項排除優先；閘 4 14 fail／24 pass／33 open（27 個插入段停算：靜態段 6、釋放衝擊 21；視窗層 6：p014 p063 p066 p078 p086 p146）；合併 radial-mix-excluded 28、dislocation-friction 17、interface-shear-provisional 14、friction-computability 14、PASS 0） | 2026-11-05 03:41 結果檔重算後更新日期｜2026-11-07 PI 決定 1（μ_req 為主，摩擦 run 只做檢查）後重算：PASS 13、friction-check-exceeded 13（註記，非閘）、interface-shear-provisional 18、radial-mix-excluded 28、friction-computability 14、open 18（collect_split 2026-11-08） ｜2026-11-09 18:10：以 physio_fric5 重算（PI 決定 1）；5 個不可用視窗（p036 p132 p142 p148 前屈、p100 後伸）為軟面元素反轉的 solver error，待補跑（DECISIONS 2026-11-09 18:10）。 ｜2026-11-09 18:10 fric5 重算後 collect_split：PASS 13、friction-check-exceeded 7（p051 p060 p072 p075 p093 p114 p145；p086 p092 p100 p117 p142 p143 解除）、其餘類別不變。 ｜2026-11-09 18:26：捷徑 vs 金標準一致性資料 mu_req_vs_fric5.json（等級相關 0.90、殘差 0.032 mm、0.5 mm 對應 mu_req 0.140）；容差數字仍待 PI（決定 1b 留白），狀態不變。 ｜2026-11-10 14:4x（PI 決定套用）：灰區 0.45–0.55 mm 生效後 collect_split：PASS 0、GREY/friction-posterior-0.45-0.55 13、friction-check-exceeded 0（原 7 個超標全部落入灰區）。"
     }
    },
@@ -692,27 +763,20 @@
    "status": {
     "TIED": {
      "state": "partial",
-     "date": "2026-11-01",
-     "value": "文獻值；無 bench",
+     "date": "2026-11-21T16:17",
+     "value": "文獻值；無 bench｜2026-11-21 重新盤點（稽核 D-20261121-1：正式摩擦係數已改，不能只「再確認」）：材料常數（E_hard、E_soft、Gent Jm、nu、濕態降伏）在 current_settings.json 的 common 自 11-08 起未變，仍是文獻值、無試片數據；摩擦係數的正式值自 PI 2026-11-20 決定 9 起為 0.3（PI 2026-10-26 所定主值，敏感度 0.2／0.45；文獻值、無 PLCL 對骨的實測），common 內的數字仍是 0.35，0.3 由 pilot_mu03／pilot_mu03G 及其路線 E 類別帶入；11-08 之後新增的正式類別 physio_fric5、physio_relG、physio_relG_pl、physio_fric5r、physio_relGr 不改任何材料常數。關鍵常數仍無試片數據 → 維持部分（使用限制 R05 涵蓋）",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: SETTINGS 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-05T04:32",
-       "note": "2026-11-05 03:40 SETTINGS 變動只是新增 physio_fric4／physio_fric4dt 類別（密度 1e-9、physio_dt）；材料常數未動"
-      }
+      "date": "2026-11-22T01:13",
+      "note": "2026-11-22：current_settings.json 今日只新增 8 圈試算類別（pilot_cyc8v、pilot_cyc8vrN、pilot_cyc8vGN）；common 與既有類別未變，材料常數與摩擦係數的說明同 11-21 16:17 的量測"
      }
     },
     "FRIC": {
      "state": "partial",
-     "date": "2026-11-01",
+     "date": "2026-11-21T16:17",
+     "value": "2026-11-21 重新盤點（稽核 D-20261121-1：正式摩擦係數已改，不能只「再確認」）：材料常數（E_hard、E_soft、Gent Jm、nu、濕態降伏）在 current_settings.json 的 common 自 11-08 起未變，仍是文獻值、無試片數據；摩擦係數的正式值自 PI 2026-11-20 決定 9 起為 0.3（PI 2026-10-26 所定主值，敏感度 0.2／0.45；文獻值、無 PLCL 對骨的實測），common 內的數字仍是 0.35，0.3 由 pilot_mu03／pilot_mu03G 及其路線 E 類別帶入；11-08 之後新增的正式類別 physio_fric5、physio_relG、physio_relG_pl、physio_fric5r、physio_relGr 不改任何材料常數。關鍵常數仍無試片數據 → 維持部分（使用限制 R05 涵蓋）",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: SETTINGS 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-05T04:32",
-       "note": "2026-11-05 03:40 SETTINGS 變動只是新增 physio_fric4／physio_fric4dt 類別（密度 1e-9、physio_dt）；材料常數未動"
-      }
+      "date": "2026-11-22T01:13",
+      "note": "2026-11-22：current_settings.json 今日只新增 8 圈試算類別（pilot_cyc8v、pilot_cyc8vrN、pilot_cyc8vGN）；common 與既有類別未變，材料常數與摩擦係數的說明同 11-21 16:17 的量測"
      }
     }
    },
@@ -745,25 +809,18 @@
      "state": "pass",
      "date": "2026-10-23T12:00",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04)"
-      }
+      "date": "2026-11-21T15:05",
+      "note": "2026-11-21 重建比對（scripts/8_audit/h57_rebuild_sweep.py → human_study/qa/rebuild_sweep.json）：18 個判定來源集合各抽 2–3 個 run（共 52），以現行 h14／h30／設定重建的 case.feb、各窗口 restart.feb 與排程檔逐位元相同；證據日之後對 h14／h30／h31 的改動都是試算專用選項（window_cycles、window_max_ups、restart_env 守門等），不進正式模型檔"
      }
     },
     "FRIC": {
      "state": "pass",
      "date": "2026-10-23T12:00",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04)"
-      }
-     }
+      "date": "2026-11-21T15:05",
+      "note": "2026-11-21 重建比對（scripts/8_audit/h57_rebuild_sweep.py → human_study/qa/rebuild_sweep.json）：18 個判定來源集合各抽 2–3 個 run（共 52），以現行 h14／h30／設定重建的 case.feb、各窗口 restart.feb 與排程檔逐位元相同；證據日之後對 h14／h30／h31 的改動都是試算專用選項（window_cycles、window_max_ups、restart_env 守門等），不進正式模型檔"
+     },
+     "value": "2026-11-22 PI 第 18(b) 項：接受此列沿用黏死配置（10 月）的證據，真實摩擦配置沒有另外量測"
     }
    },
    "refs": [
@@ -787,22 +844,15 @@
     "BUILD"
    ],
    "evidence": [
-    "human_study/proc_val/fric_push_post"
+    "human_study/proc_val/fric_push_post",
+    "../biocage-evo/results/method/e09/push2_summary.json"
    ],
    "status": {
     "FRIC": {
      "state": "partial",
-     "date": "2026-10-31",
-     "value": "p062 後方推出 93 N",
-     "note": "PI 2026-11-03：守門值 135 N 無文獻依據；待 PI 在「相對比較」與「生理剪力重推」間選擇（已說明差別）",
-     "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h14 options off by default; production rebuild byte-identical (QA R8 2026-11-04)"
-      }
-     }
+     "date": "2026-11-21T16:17",
+     "value": "p062 後方推出 93 N｜2026-11-21 重新量測（舊證據是 10-31 的單牆推法、舊摩擦律）：改用「整顆帶著走」的推法（h53 add2，路線 E 窗口設定、黏著記憶律、摩擦係數 0.35），以籠體力平衡讀推力：p062 往後推出峰值 94.8 N、p036 134.0 N、p051 79.3 N（單牆推法 96.0／149.3／下限 64）；其餘設計批次進行中。PI 2026-11-19 決定：135 N 只作排名、不作門檻，所以此列只記讀值（門檻文字仍是舊的「≥ 守門值」，待 PI 改寫）",
+     "note": "PI 2026-11-03：守門值 135 N 無文獻依據；待 PI 在「相對比較」與「生理剪力重推」間選擇（已說明差別）"
     }
    },
    "refs": [
@@ -837,12 +887,8 @@
      "date": "2026-11-02T18:00",
      "value": "p062 cage 厚度向 0.1 mm（46 層 106k hex，penalty 5 補償自動罰則 ~E/h）：|Δslip| ≤ 0.8%、|Δmu| ≤ 4.9%（0.0012 絕對；extension −6.7% = 0.0010）、Δ持續 +0.02 pp（門檻 5%）",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
-      }
+      "date": "2026-11-21T15:05",
+      "note": "2026-11-21 重建比對（scripts/8_audit/h57_rebuild_sweep.py → human_study/qa/rebuild_sweep.json）：18 個判定來源集合各抽 2–3 個 run（共 52），以現行 h14／h30／設定重建的 case.feb、各窗口 restart.feb 與排程檔逐位元相同；證據日之後對 h14／h30／h31 的改動都是試算專用選項（window_cycles、window_max_ups、restart_env 守門等），不進正式模型檔"
      }
     }
    },
@@ -878,25 +924,18 @@
      "date": "2026-10-21",
      "value": "clamp 151.3 / 148.9 / … N（≤ 2%）",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00)"
-      }
+      "date": "2026-11-21T15:05",
+      "note": "2026-11-21 重建比對（scripts/8_audit/h57_rebuild_sweep.py → human_study/qa/rebuild_sweep.json）：18 個判定來源集合各抽 2–3 個 run（共 52），以現行 h14／h30／設定重建的 case.feb、各窗口 restart.feb 與排程檔逐位元相同；證據日之後對 h14／h30／h31 的改動都是試算專用選項（window_cycles、window_max_ups、restart_env 守門等），不進正式模型檔"
      }
     },
     "FRIC": {
      "state": "pass",
      "date": "2026-10-21",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00)"
-      }
-     }
+      "date": "2026-11-21T15:05",
+      "note": "2026-11-21 重建比對（scripts/8_audit/h57_rebuild_sweep.py → human_study/qa/rebuild_sweep.json）：18 個判定來源集合各抽 2–3 個 run（共 52），以現行 h14／h30／設定重建的 case.feb、各窗口 restart.feb 與排程檔逐位元相同；證據日之後對 h14／h30／h31 的改動都是試算專用選項（window_cycles、window_max_ups、restart_env 守門等），不進正式模型檔"
+     },
+     "value": "2026-11-22 PI 第 18(b) 項：接受此列沿用黏死配置（10 月）的證據，真實摩擦配置沒有另外量測"
     }
    },
    "refs": [
@@ -930,12 +969,8 @@
      "note": "只驗了 p062；重算前 extension 曾差 6.6%，是基準的重試步偽態（NUM-14）；PI 要求再驗一個家族 B 設計——目前沒有算得完任何視窗的 B 設計，等第 4 項",
      "value": "p062 physio_dt 0.025（×0.5）：六視窗 |Δmu| ≤ 0.2%、|Δslip| ≤ 0.0%、Δ持續壓縮 0.00 pp（門檻 2%）",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD、SPLIT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
-      }
+      "date": "2026-11-21T15:05",
+      "note": "2026-11-21 重建比對（scripts/8_audit/h57_rebuild_sweep.py → human_study/qa/rebuild_sweep.json）：18 個判定來源集合各抽 2–3 個 run（共 52），以現行 h14／h30／設定重建的 case.feb、各窗口 restart.feb 與排程檔逐位元相同；證據日之後對 h14／h30／h31 的改動都是試算專用選項（window_cycles、window_max_ups、restart_env 守門等），不進正式模型檔"
      }
     }
    },
@@ -962,36 +997,23 @@
    ],
    "evidence": [
     "human_study/WINDOW_SCAN_2026-11-02.md",
-    "scripts/8_audit/h34_window_scan.py"
+    "scripts/8_audit/h34_window_scan.py",
+    "human_study/WINDOW_SCAN_2026-11-21.md",
+    "human_study/qa/metric_regression.json",
+    "human_study/qa/fric_winner_scan.json"
    ],
    "status": {
     "TIED": {
      "state": "pass",
      "note": "根因已定位為慣性殘差（NUM-14）；慢速動態 + 質量縮放的妥協見 GAPS 3.7",
-     "date": "2026-11-02T18:00",
-     "value": "474 視窗：1 微步、21 尖峰視窗（全部也被 NUM-14 的剛體殘差層抓到：尖峰 = 被驅動剛體的慣性暫態）；第一層後 3 個、第二層後再 11 個視窗的舊判定依賴垃圾狀態",
-     "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD、SPLIT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
-      }
-     }
+     "date": "2026-11-21T15:05",
+     "value": "474 視窗：1 微步、21 尖峰視窗（全部也被 NUM-14 的剛體殘差層抓到：尖峰 = 被驅動剛體的慣性暫態）；第一層後 3 個、第二層後再 11 個視窗的舊判定依賴垃圾狀態｜2026-11-21 h34 重掃（現行 e03 濾除規則；human_study/WINDOW_SCAN_2026-11-21.md）：physio_rot_split2／3／4 共 354 窗口：微步 0、孤立尖峰 0、有剛體殘差狀態的窗口 117（223／3,105 態）；原判達標、濾除後未達標 7 個，判定程式已排除這些狀態（h58 回歸：既存判定以現行濾除重算不變）"
     },
     "FRIC": {
      "state": "pass",
-     "date": "2026-11-02T18:00",
-     "value": "474 視窗：1 微步、21 尖峰視窗（全部也被 NUM-14 的剛體殘差層抓到：尖峰 = 被驅動剛體的慣性暫態）；第一層後 3 個、第二層後再 11 個視窗的舊判定依賴垃圾狀態",
-     "note": "根因已定位為慣性殘差（NUM-14）；慢速動態 + 質量縮放的妥協見 GAPS 3.7",
-     "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD、SPLIT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
-      }
-     }
+     "date": "2026-11-21T15:05",
+     "value": "474 視窗：1 微步、21 尖峰視窗（全部也被 NUM-14 的剛體殘差層抓到：尖峰 = 被驅動剛體的慣性暫態）；第一層後 3 個、第二層後再 11 個視窗的舊判定依賴垃圾狀態｜2026-11-21 判定來源窗口掃描（scripts/8_audit/h60_fric_winner_scan.py → human_study/qa/fric_winner_scan.json，以判定程式 e03.target_bracket 本身判斷）：今日摩擦判定用到的前屈＋後伸 142 窗口（路線 E 132、關節驅動 10）18,459 態中無效 59（微步 5、剛體殘差 54，後者全在關節驅動窗口），全部被判定程式排除；最短有效步 1.4e-4",
+     "note": "根因已定位為慣性殘差（NUM-14）；慢速動態 + 質量縮放的妥協見 GAPS 3.7"
     }
    },
    "refs": [
@@ -1027,12 +1049,8 @@
      "date": "2026-11-02T18:00",
      "value": "p062 罰則 ×0.5：|Δslip| ≤ 2.3%、|Δmu| ≤ 3.3%（extension +7.7% = 0.0011 絕對）、Δ持續 −0.11 pp；×2：|Δslip| ≤ 1.5%、|Δmu| ≤ 2.6%、+0.04 pp（門檻 5%；mu 相對差只在 |Δmu| > 0.005 時計）",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
-      }
+      "date": "2026-11-21T15:05",
+      "note": "2026-11-21 重建比對（scripts/8_audit/h57_rebuild_sweep.py → human_study/qa/rebuild_sweep.json）：18 個判定來源集合各抽 2–3 個 run（共 52），以現行 h14／h30／設定重建的 case.feb、各窗口 restart.feb 與排程檔逐位元相同；證據日之後對 h14／h30／h31 的改動都是試算專用選項（window_cycles、window_max_ups、restart_env 守門等），不進正式模型檔"
      }
     }
    },
@@ -1061,36 +1079,22 @@
    ],
    "evidence": [
     "human_study/WINDOW_SCAN_2026-11-02.md",
-    "human_study/BONE_INVERSION_ANALYSIS_2026-11-03.md"
+    "human_study/BONE_INVERSION_ANALYSIS_2026-11-03.md",
+    "human_study/WINDOW_SCAN_2026-11-21.md",
+    "human_study/qa/bone_strain_check.json"
    ],
    "status": {
     "TIED": {
      "state": "partial",
      "note": "2026-11-03 BONE_INVERSION_ANALYSIS：FEBio 並未「算不動骨頭」；真正的平台缺陷是 t=2（tied 形成）與 t=3（追隨力＋static→dynamic 切換＋dt 改變）三事件疊加的步進穩健性，以及 σ_demand/E_soft ≳ 1.5 的設計在 Gent Jm=0.7 下物理超載",
-     "date": "2026-11-03T01:30",
-     "value": "修正：15/16 失敗 run 的「骨翻轉」是重試迭代的發散值（J −2…−1e13），不是收斂態；每個失敗 run 第一個翻轉的都是 cage_soft（Gent 軟墊到鎖死伸長 λ≈0.60）；骨 tet4 初始品質與整塊一致",
-     "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD、SPLIT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
-      }
-     }
+     "date": "2026-11-22T01:35",
+     "value": "修正：15/16 失敗 run 的「骨翻轉」是重試迭代的發散值（J −2…−1e13），不是收斂態；每個失敗 run 第一個翻轉的都是 cage_soft（Gent 軟墊到鎖死伸長 λ≈0.60）；骨 tet4 初始品質與整塊一致｜2026-11-21 h34 重掃 916 窗口（含重啟集合）：插入失敗 41（physio_fric3 28、physio_rot_split2 13），第一個翻轉元素：籠體 36、C3 皮質骨 3、無紀錄 2；以 ERROR 結束的窗口 125 個，第一個翻轉元素為皮質骨 39、籠體 86。骨元素翻轉仍出現在停算 run 的紀錄裡（是否皆為重試迭代的發散值未逐一判別）→ 維持部分｜2026-11-22（PI 問：骨元素翻轉是現實超載還是數值限制）量測（scripts/8_audit/h61_bone_strain_check.py → human_study/qa/bone_strain_check.json）：3 個停算窗口（physio_fric5r p125 前屈、pilot_mu03r p079 後伸、pilot_mu03Gr p095 後伸）在停算前最後一個收斂狀態，113,987 個骨四面體的體積比全部在 0.985–1.002，最大主應變 0.8–1.7 %（第 99.9 百分位 0.7–1.2 %、中位 0.05 %）；紀錄檔隨後在失敗的試探迭代中印出骨元素體積比 −0.04 到 −0.64，即一個試探步之內由 0.99 跳到負值→ 翻轉發生在未收斂的試探解，是數值事件，不是骨頭被逐步壓壞；3 例中 2 例第一個翻轉的是籠體軟相。骨頭是否超載另由下陷讀值 e08（應變準則）判讀。狀態維持部分（門檻字面「翻轉含骨元素的 run = 0」未達）"
     },
     "FRIC": {
      "state": "partial",
-     "date": "2026-11-03T01:30",
-     "value": "修正：15/16 失敗 run 的「骨翻轉」是重試迭代的發散值（J −2…−1e13），不是收斂態；每個失敗 run 第一個翻轉的都是 cage_soft（Gent 軟墊到鎖死伸長 λ≈0.60）；骨 tet4 初始品質與整塊一致",
-     "note": "2026-11-03 BONE_INVERSION_ANALYSIS：FEBio 並未「算不動骨頭」；真正的平台缺陷是 t=2（tied 形成）與 t=3（追隨力＋static→dynamic 切換＋dt 改變）三事件疊加的步進穩健性，以及 σ_demand/E_soft ≳ 1.5 的設計在 Gent Jm=0.7 下物理超載",
-     "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD、SPLIT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | FEBio full rebuild 2026-11-03 03:00 added the tied-elastic option init_converged (off by default; no production run ever used the changed path, DECISIONS 2026-11-03 03:00); binary otherwise from the same patched source"
-      }
-     }
+     "date": "2026-11-22T01:35",
+     "value": "修正：15/16 失敗 run 的「骨翻轉」是重試迭代的發散值（J −2…−1e13），不是收斂態；每個失敗 run 第一個翻轉的都是 cage_soft（Gent 軟墊到鎖死伸長 λ≈0.60）；骨 tet4 初始品質與整塊一致｜2026-11-21 h34 重掃 916 窗口（含重啟集合）：插入失敗 41（physio_fric3 28、physio_rot_split2 13），第一個翻轉元素：籠體 36、C3 皮質骨 3、無紀錄 2；以 ERROR 結束的窗口 125 個，第一個翻轉元素為皮質骨 39、籠體 86。骨元素翻轉仍出現在停算 run 的紀錄裡（是否皆為重試迭代的發散值未逐一判別）→ 維持部分｜2026-11-22（PI 問：骨元素翻轉是現實超載還是數值限制）量測（scripts/8_audit/h61_bone_strain_check.py → human_study/qa/bone_strain_check.json）：3 個停算窗口（physio_fric5r p125 前屈、pilot_mu03r p079 後伸、pilot_mu03Gr p095 後伸）在停算前最後一個收斂狀態，113,987 個骨四面體的體積比全部在 0.985–1.002，最大主應變 0.8–1.7 %（第 99.9 百分位 0.7–1.2 %、中位 0.05 %）；紀錄檔隨後在失敗的試探迭代中印出骨元素體積比 −0.04 到 −0.64，即一個試探步之內由 0.99 跳到負值→ 翻轉發生在未收斂的試探解，是數值事件，不是骨頭被逐步壓壞；3 例中 2 例第一個翻轉的是籠體軟相。骨頭是否超載另由下陷讀值 e08（應變準則）判讀。狀態維持部分（門檻字面「翻轉含骨元素的 run = 0」未達）",
+     "note": "2026-11-03 BONE_INVERSION_ANALYSIS：FEBio 並未「算不動骨頭」；真正的平台缺陷是 t=2（tied 形成）與 t=3（追隨力＋static→dynamic 切換＋dt 改變）三事件疊加的步進穩健性，以及 σ_demand/E_soft ≳ 1.5 的設計在 Gent Jm=0.7 下物理超載"
     }
    },
    "refs": [
@@ -1124,12 +1128,8 @@
      "date": "2026-10-31T08:30",
      "value": "p062 六向；屈曲 0.0259 vs 0.0261；AR 差 = 力矩過衝比",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: SPLIT、BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00) | METRICS component widened 2026-11-04 to include e07 / fric_compare (new files, hence stale); e03 / e04 / e05 themselves unchanged except an e04 docstring; self-tests PASS 2026-11-04 14:55"
-      }
+      "date": "2026-11-21T15:05",
+      "note": "2026-11-21 重建比對（scripts/8_audit/h57_rebuild_sweep.py → human_study/qa/rebuild_sweep.json）：18 個判定來源集合各抽 2–3 個 run（共 52），以現行 h14／h30／設定重建的 case.feb、各窗口 restart.feb 與排程檔逐位元相同；證據日之後對 h14／h30／h31 的改動都是試算專用選項（window_cycles、window_max_ups、restart_env 守門等），不進正式模型檔"
      }
     }
    },
@@ -1156,7 +1156,8 @@
     "FEBIO"
    ],
    "evidence": [
-    "human_study/al_v2/physio_rot_dyn"
+    "human_study/al_v2/physio_rot_dyn",
+    "human_study/al_v2/pilot_staticR/p062"
    ],
    "status": {
     "TIED": {
@@ -1165,17 +1166,15 @@
      "value": "p062 / p002：差 ≤ 0.002 / 0.02 mm",
      "note": "[2026-11-02T18:00] 速率無關性佐證：振幅差 10% 的重複設計在 1.5 N·m 的 mu／slip／N 差 ≤ 0.5%（p082/p088 extension、p092/p117 LB_right、p100/p142 AR_left）；靜態對照仍未做",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00)"
-      }
+      "date": "2026-11-21T15:05",
+      "note": "2026-11-21 重建比對（scripts/8_audit/h57_rebuild_sweep.py → human_study/qa/rebuild_sweep.json）：18 個判定來源集合各抽 2–3 個 run（共 52），以現行 h14／h30／設定重建的 case.feb、各窗口 restart.feb 與排程檔逐位元相同；證據日之後對 h14／h30／h31 的改動都是試算專用選項（window_cycles、window_max_ups、restart_env 守門等），不進正式模型檔"
      }
     },
     "FRIC": {
-     "state": "not_run",
-     "note": "[2026-11-02T18:00] 速率無關性佐證：振幅差 10% 的重複設計在 1.5 N·m 的 mu／slip／N 差 ≤ 0.5%（p082/p088 extension、p092/p117 LB_right、p100/p142 AR_left）；靜態對照仍未做"
+     "state": "pass",
+     "note": "[2026-11-02T18:00] 速率無關性佐證：振幅差 10% 的重複設計在 1.5 N·m 的 mu／slip／N 差 ≤ 0.5%（p082/p088 extension、p092/p117 LB_right、p100/p142 AR_left）；靜態對照仍未做",
+     "date": "2026-11-21T16:17",
+     "value": "2026-11-21 首次執行，兩個窗口皆已正常結束後以 e04 讀取（類別 pilot_staticR = physio_fric5r ＋ window_static；p062，摩擦係數 0.35（此對照沿用 0.35 的存檔，不是正式值 0.3）；同一個 t 3.5 存檔、黏著記憶律、路線 E 驅動，窗口改靜態步）：後伸（傳不到 1.5 N·m，窗口末態）後方平移 靜態 0.6624／慢速動態 0.6629 mm、正常活動範圍處 0.4421／0.4426 mm、mu_squeeze 0.0543／0.0543、單面滑移上限 1.2420／1.2426 mm（差 0.0006）；前屈在 1.5 N·m 的平移 0.1760／0.1747 mm（差 0.0013）、mu_squeeze 0.0393／0.0394、單面滑移上限 0.4426／0.4395 mm（差 0.0031）→ 皆在門檻內（mu ≤ 0.005、滑移上限 ≤ 0.02 mm）。限制：只驗一個設計、摩擦係數 0.35"
     }
    },
    "refs": [
@@ -1236,12 +1235,12 @@
      "state": "partial",
      "date": "2026-11-05T06:38",
      "value": "2026-11-05 重跑（2026-11-03 03:00 執行檔，verify_patch_20261105/compare.json）：FSU 六向 CPU 與 10-21 基準末態差 ≤ 4.8e-12，GPU（cuDSS）路徑 ≤ 7.9e-12，GPU vs CPU 同執行檔 ≤ 7.9e-12（compare.json gpu_vs_cpu_same_binary） → 生產幾何通過。C0-C7 前屈 1.1e-4（絕對 0.004 mm，門檻邊緣）；C0-C7 後伸 C0 轉角差 0.025 %，但節點位移差最大 0.12 mm（C6 相對 2 %），自動步長路徑不同（嘗試步數 46 vs 56 含重試，收斂步 30 vs 32；compare.json c0c7_step_counts），舊執行檔已不存在無法固定步長雙跑 → 此案超門檻，未能證明非物理差異",
-     "note": "PI 2026-11-05 06:38：判「部分通過」— 生產用 FSU 幾何（CPU 與 cuDSS 兩路徑）通過 ≤ 1e-11；Herron C0-C7 後伸一案 2 % 節點差超過 1e-4 門檻，舊執行檔已不存在無法對跑，門檻不加例外。"
+     "note": "PI 2026-11-05 06:38：判「部分通過」— 生產用 FSU 幾何（CPU 與 cuDSS 兩路徑）通過 ≤ 1e-11；Herron C0-C7 後伸一案 2 % 節點差超過 1e-4 門檻，舊執行檔已不存在無法對跑，門檻不加例外。｜2026-11-22 PI 第 16(c) 項：加使用限制 R14（回歸只在 C3-C4 節段模型成立；完整頸椎模型不用於設計判定）→ 狀態仍為部分，連同有界限制判為有條件合格；11-05 的「門檻不加例外」由此決定取代"
     },
     "FRIC": {
      "state": "partial",
      "date": "2026-11-05T06:38",
-     "note": "PI 2026-11-05 06:38：判「部分通過」— 生產用 FSU 幾何（CPU 與 cuDSS 兩路徑）通過 ≤ 1e-11；Herron C0-C7 後伸一案 2 % 節點差超過 1e-4 門檻，舊執行檔已不存在無法對跑，門檻不加例外。",
+     "note": "PI 2026-11-05 06:38：判「部分通過」— 生產用 FSU 幾何（CPU 與 cuDSS 兩路徑）通過 ≤ 1e-11；Herron C0-C7 後伸一案 2 % 節點差超過 1e-4 門檻，舊執行檔已不存在無法對跑，門檻不加例外。｜2026-11-22 PI 第 16(c) 項：加使用限制 R14（回歸只在 C3-C4 節段模型成立；完整頸椎模型不用於設計判定）→ 狀態仍為部分，連同有界限制判為有條件合格；11-05 的「門檻不加例外」由此決定取代",
      "value": "2026-11-05 重跑（2026-11-03 03:00 執行檔，verify_patch_20261105/compare.json）：FSU 六向 CPU 與 10-21 基準末態差 ≤ 4.8e-12，GPU（cuDSS）路徑 ≤ 7.9e-12，GPU vs CPU 同執行檔 ≤ 7.9e-12（compare.json gpu_vs_cpu_same_binary） → 生產幾何通過。C0-C7 前屈 1.1e-4（絕對 0.004 mm，門檻邊緣）；C0-C7 後伸 C0 轉角差 0.025 %，但節點位移差最大 0.12 mm（C6 相對 2 %），自動步長路徑不同（嘗試步數 46 vs 56 含重試，收斂步 30 vs 32；compare.json c0c7_step_counts），舊執行檔已不存在無法固定步長雙跑 → 此案超門檻，未能證明非物理差異"
     }
    },
@@ -1275,10 +1274,10 @@
      "state": "partial",
      "date": "2026-11-08",
      "value": "同輸入黏死視窗 GPU(cuDSS) vs CPU(pardiso)，有效配對 15／21（figure_data.json tied）：判定量最大相對差 mu 0.33%（/tied_design_level/mu/worst/max）、cage 平移 0.58%（max_trans）；超過登記門檻 1e-4 的視窗數 mu 3、slip 2、N 2、peak 2，全部在 PI 的 2% 容差內（h38 fig_febio_agreement）",
-     "note": "PI 2026-11-07 選 (a)：門檻維持 1e-4，改為部分通過（DECISIONS 2026-11-07）。取代 11-02 的 ≤ 0.1% 說法｜2026-11-09 QA 不符 #6 修正：證據檔補登（figure_data.json、same_input_scan.json）；原 value 的「slip 0.20%」在證據檔中無來源，已移除",
+     "note": "PI 2026-11-07 選 (a)：門檻維持 1e-4，改為部分通過（DECISIONS 2026-11-07）。取代 11-02 的 ≤ 0.1% 說法｜2026-11-09 QA 不符 #6 修正：證據檔補登（figure_data.json、same_input_scan.json）；原 value 的「slip 0.20%」在證據檔中無來源，已移除｜2026-11-22 PI「其他照建議」：加有界使用限制（R15）→ 狀態仍為部分，判為有條件合格（PI 原則：只關注在意的，其他能用即可）",
      "reconfirmed": {
-      "date": "2026-11-04",
-      "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00)"
+      "date": "2026-11-21T15:05",
+      "note": "2026-11-21：h18_run_gpu_case.py 自 11-04 以來的改動只有啟動前 h24 複查（11-19）與 launch.json 紀錄，cuDSS 外掛與求解路徑未動（git diff）；狀態仍為部分（PI 2026-11-07 (a)）"
      }
     }
    },
@@ -1390,12 +1389,8 @@
      "date": "2026-10-31",
      "value": "約 23 min（CPU 46 min）",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD、SPLIT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04)"
-      }
+      "date": "2026-11-21T15:05",
+      "note": "2026-11-21 重建比對（scripts/8_audit/h57_rebuild_sweep.py → human_study/qa/rebuild_sweep.json）：18 個判定來源集合各抽 2–3 個 run（共 52），以現行 h14／h30／設定重建的 case.feb、各窗口 restart.feb 與排程檔逐位元相同；證據日之後對 h14／h30／h31 的改動都是試算專用選項（window_cycles、window_max_ups、restart_env 守門等），不進正式模型檔；h18 自證據日以來只新增啟動前 h24 複查與 launch.json 紀錄（git diff），求解路徑未動"
      }
     }
    },
@@ -1455,17 +1450,9 @@
    "status": {
     "TIED": {
      "state": "partial",
-     "date": "2026-11-03T00:30",
-     "value": "歸檔第一階段（舊／無效集合約 1.1 TB）進行中；每設計輸出 0.8 GB 不再是門檻",
-     "note": "h36_nas_archive.sh；第二階段等摩擦第二回合結束",
-     "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD、SPLIT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04)"
-      }
-     }
+     "date": "2026-11-22T01:14",
+     "value": "歸檔第一階段（舊／無效集合約 1.1 TB）進行中；每設計輸出 0.8 GB 不再是門檻｜2026-11-21：/raid 專案用量 1,335 GB（watchdog.log 14:45 的用量列），NAS 1,212 GB（11-03 最後一次歸檔，上限 3 TB）；11-04 以後完成的集合（真實摩擦各回合與各試算）尚未歸檔 → 維持部分；今日流程結束後以 h36 歸檔已完成集合｜2026-11-22：11-21 晚間以 h36 歸檔 51 個已完成集合（舊試算、physio_fric4／fric4dt／fric5、彈性 ASTM、三循環舊批次；約 430 GB），NAS 用量 1,212 → 1,722 GB（上限 3 TB），各集合留下符號連結。仍在 /raid 的已完成集合：判定流程還要讀的來源集合（physio_fric3／fric5r／relG／relGr、pilot_mu03*）與有運算在跑的集合；批次 e 與推出批次結束後再歸檔 → 維持部分",
+     "note": "h36_nas_archive.sh；第二階段等摩擦第二回合結束"
     }
    },
    "refs": [
@@ -1496,24 +1483,16 @@
      "date": "2026-11-02T15:30",
      "value": "h19 disk_ok：全域剩餘 < 100 GB 暫停啟動（單元測試通過）；本帳號用量門檻待 PI 定配額（null = 關）",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: OPS 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h19 / h23 hardening 2026-11-02/03 (commit e9f8ea4): scheduler and watchdog robustness only; does not touch case content or metrics"
-      }
+      "date": "2026-11-22T01:14",
+      "note": "2026-11-21：h19_scheduler.py（檔案時間 11-02 14:43）與 h23_watchdog.py（11-02 14:44）自證據日後未改；OPS 的新時間來自 ../biocage-evo/ops/resume_all.sh（重開機後重啟各通道的清單，foreman 維護），與磁碟守門、狀態檔、告警邏輯無關。運轉佐證：watchdog.log 每小時磁碟用量列持續到 11-21 14:45（scheduler.log 最後一筆是 11-21 04:26 的作業結束列）；看門狗 11-20 23:29 依「45 分鐘無進度」規則停掉 2 個 run｜2026-11-22：OPS 新增 resume_daemons.sh（自 resume_all.sh 拆出的看門狗啟動行，內容不變），與磁碟守門、狀態檔、告警、吞吐無關"
      }
     },
     "FRIC": {
      "state": "pass",
      "date": "2026-11-02T15:30",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: OPS 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h19 / h23 hardening 2026-11-02/03 (commit e9f8ea4): scheduler and watchdog robustness only; does not touch case content or metrics"
-      }
+      "date": "2026-11-22T01:14",
+      "note": "2026-11-21：h19_scheduler.py（檔案時間 11-02 14:43）與 h23_watchdog.py（11-02 14:44）自證據日後未改；OPS 的新時間來自 ../biocage-evo/ops/resume_all.sh（重開機後重啟各通道的清單，foreman 維護），與磁碟守門、狀態檔、告警邏輯無關。運轉佐證：watchdog.log 每小時磁碟用量列持續到 11-21 14:45（scheduler.log 最後一筆是 11-21 04:26 的作業結束列）；看門狗 11-20 23:29 依「45 分鐘無進度」規則停掉 2 個 run｜2026-11-22：OPS 新增 resume_daemons.sh（自 resume_all.sh 拆出的看門狗啟動行，內容不變），與磁碟守門、狀態檔、告警、吞吐無關"
      }
     }
    },
@@ -1545,24 +1524,16 @@
      "date": "2026-11-02T15:30",
      "value": "scheduler_tuning.json 每輪重讀；h23 狀態檔原子寫入 + 損壞容錯；連續 3 輪崩潰寫 ALERT_watchdog.txt；AL loop .done 標記",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: OPS 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h19 / h23 hardening 2026-11-02/03 (commit e9f8ea4): scheduler and watchdog robustness only; does not touch case content or metrics"
-      }
+      "date": "2026-11-22T01:14",
+      "note": "2026-11-21：h19_scheduler.py（檔案時間 11-02 14:43）與 h23_watchdog.py（11-02 14:44）自證據日後未改；OPS 的新時間來自 ../biocage-evo/ops/resume_all.sh（重開機後重啟各通道的清單，foreman 維護），與磁碟守門、狀態檔、告警邏輯無關。運轉佐證：watchdog.log 每小時磁碟用量列持續到 11-21 14:45（scheduler.log 最後一筆是 11-21 04:26 的作業結束列）；看門狗 11-20 23:29 依「45 分鐘無進度」規則停掉 2 個 run｜2026-11-22：OPS 新增 resume_daemons.sh（自 resume_all.sh 拆出的看門狗啟動行，內容不變），與磁碟守門、狀態檔、告警、吞吐無關"
      }
     },
     "FRIC": {
      "state": "pass",
      "date": "2026-11-02T15:30",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: OPS 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h19 / h23 hardening 2026-11-02/03 (commit e9f8ea4): scheduler and watchdog robustness only; does not touch case content or metrics"
-      }
+      "date": "2026-11-22T01:14",
+      "note": "2026-11-21：h19_scheduler.py（檔案時間 11-02 14:43）與 h23_watchdog.py（11-02 14:44）自證據日後未改；OPS 的新時間來自 ../biocage-evo/ops/resume_all.sh（重開機後重啟各通道的清單，foreman 維護），與磁碟守門、狀態檔、告警邏輯無關。運轉佐證：watchdog.log 每小時磁碟用量列持續到 11-21 14:45（scheduler.log 最後一筆是 11-21 04:26 的作業結束列）；看門狗 11-20 23:29 依「45 分鐘無進度」規則停掉 2 個 run｜2026-11-22：OPS 新增 resume_daemons.sh（自 resume_all.sh 拆出的看門狗啟動行，內容不變），與磁碟守門、狀態檔、告警、吞吐無關"
      }
     }
    },
@@ -1581,16 +1552,21 @@
    "name": "無人值守時數",
    "method": "scheduler.log / watchdog.log：連續運轉無人工介入的時數；每 100 run 人工介入次數",
    "threshold": "≥ 24 h；≤ 1 次 / 100 run",
-   "threshold_src": "提案",
+   "threshold_src": "提案；PI 2026-11-22 第 15 項：方法修正後取消排隊中的舊作業不算人工介入",
    "trigger": "每週",
    "depends": [
     "OPS"
    ],
-   "evidence": [],
+   "evidence": [
+    "human_study/scheduler.log",
+    "human_study/watchdog.log"
+   ],
    "status": {
     "TIED": {
-     "state": "not_run",
-     "note": "未統計"
+     "state": "pass",
+     "note": "未統計",
+     "date": "2026-11-22T01:14",
+     "value": "2026-11-21 首次統計（scheduler.log）：排程器連續運轉區段 11-02 14:45 → 11-09 05:40 共 159 小時（啟動 172 個、全部結束且 exit 0）、11-17 03:34 → 11-21 共 97 小時（啟動 40、結束 39、exit 皆 0）→「≥ 24 小時」達成；人工介入：第一區段 4 個排隊作業被人工取消（11-05 過期振幅 2、11-06 手動啟動 2；都是方法修正後清掉舊作業，不是運轉故障）= 每 100 run 2.3 次，最近區段 0 次；「≤ 1 次／100 run」是否達成取決於「人工介入」是否包含方法修正後的取消（門檻為提案，待 PI 定義）→ 部分｜2026-11-21 21:0x（稽核 D-20261121-S5）：此列改為同時依賴 LANES（resume_all.sh 是伺服器重啟後把看門狗帶回來的入口，連續無人值守能跨過重啟靠的是它）；數字同上、重新蓋章。foreman 每次修改通道清單都會讓此列再度過期，根治做法是把檔頭「常駐程式啟動段」拆成獨立檔留在 OPS（未做，需與 foreman 協調）｜2026-11-22 PI 第 15 項：方法修正後的取消不算人工介入 → 人工介入 0 次／212 個 run（11-02 14:45 起兩個連續區段 159 小時與 97 小時，全部 exit 0）；「≥ 24 小時」與「≤ 1 次／100 run」皆達成 → 通過。此列依賴 LANES，foreman 修改通道清單後會再過期（見 11-21 註）｜2026-11-22 01:1x 根治（稽核 D-20261121-S5 建議的做法）：把「帶回看門狗」那一行自 resume_all.sh 拆成 ../biocage-evo/ops/resume_daemons.sh（resume_all.sh 第一步呼叫它；已實跑測試，看門狗在時不重複啟動），此檔列入 OPS；此列改回只依賴 OPS，foreman 修改通道清單不再讓它過期"
     }
    },
    "refs": []
@@ -1621,12 +1597,8 @@
      "date": "2026-10-31",
      "value": "8-10 設計 / h",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: OPS、SPLIT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h28 change since the evidence is the physio_windows subset option (2026-11-03 05:00, off by default); build byte-identical"
-      }
+      "date": "2026-11-22T01:14",
+      "note": "2026-11-21 重建比對（scripts/8_audit/h57_rebuild_sweep.py → human_study/qa/rebuild_sweep.json）：18 個判定來源集合各抽 2–3 個 run（共 52），以現行 h14／h30／設定重建的 case.feb、各窗口 restart.feb 與排程檔逐位元相同；證據日之後對 h14／h30／h31 的改動都是試算專用選項（window_cycles、window_max_ups、restart_env 守門等），不進正式模型檔；另：排程元件 h19_scheduler.py、h23_watchdog.py 自 11-02 未改（吞吐是在同一套排程下量的），OPS 的新時間只來自 resume_all.sh｜2026-11-22：OPS 新增 resume_daemons.sh（自 resume_all.sh 拆出的看門狗啟動行，內容不變），與磁碟守門、狀態檔、告警、吞吐無關"
      }
     }
    },
@@ -1690,12 +1662,16 @@
     "TIED": {
      "state": "pass",
      "date": "2026-11-18T13:19",
-     "value": "缺 e06；T19 缺最後方點與硬體素 best fit｜2026-11-18 12:51 補齊兩個缺口（PI 2026-11-18「不合格依重要性開始解決」）：(1) e06 硬相持續應力讀值已實作（../biocage-evo/methods/e06_hard_stress.py：純硬相區塊 von Mises 第 99 百分位與最大值，持續狀態 t 3.5 與各窗口到目標的峰值；門檻 0.18 × sig_hard = 2.7 MPa，以濕態降伏 15 MPa 代替短期強度，暫定、只記錄不判定，PI 2026-11-03 第 7 項「次要」）；(2) T19 兩個補充量在 e04 內實作（最後方 0.5 mm 緣帶與最後方單點的後方位移、純硬相節點的剛體最佳擬合：平移、轉角、繞椎間盤法向的原地轉角、擬合殘差、硬塊局部位移），e04 --test 含擬合自測。批次 ../biocage-evo/ops/obs01_batch.py 跑遍 726 個勝出窗口（黏死 564、摩擦 162；xplt 皆在，0 錯誤；results/method/obs01/obs01_summary.json）。讀值摘要：硬相剛體擬合平移 vs 全節點平均平移差 中位 0.006／0.006 mm（最大 0.074／0.080）→ 現行「全節點平均」已代表硬塊剛體平移；原地轉角 中位 0.14°／0.017°、最大 1.59°／1.92°（側彎／軸旋窗口 p060、p062）；最後方單點比平均多往後 中位 0.11／0.25 mm、最大 0.89／0.79 mm → 若以最後方點取代平均平移當滑出判準會嚴格許多（PI 待決）。e06：持續狀態硬相 p99 von Mises 3.4–25.9 MPa（中位 9.5／10.1 MPa），670/670 超過暫定 2.7 MPa → 以降伏 15 MPa 的 18 % 為代理門檻時全部超過；硬相破裂是本實驗室先前籠體的實際失效（Lintz 2021），此讀值需配合硬相短期強度實測值與介面網格解析度（NUM-16）再解讀；只記錄。摩擦窗口的 T19／e06 窗口峰值改在各窗口的判定點（ROM 或 1.5 N·m）讀取（顧問複核 2026-11-18 13:0x）。每個失效模式至少一個已實作指標：滑出 e03/e04（＋T19）、軟相壓縮 e05、硬相持續應力 e06、後方推出 PHY-08 推出試驗、局部硬塊移動與原地旋轉 T19 → 通過（GPUFE 欄無結果檔，維持不合格）。｜2026-11-18 13:19 摩擦窗口重讀完成（162 窗，75 個在 ROM 狀態、82 個在 1.5 N·m、5 個未達評估點者用 e04 括弧；obs01_summary.json generated 13:09）：硬相擬合平移 vs 平均 中位 0.009（最大 0.061）mm；原地轉角 中位 0.017°、最大 1.92°；最後方單點比平均多往後 中位 0.25、最大 0.79 mm；判定點的硬相 p99 von Mises 中位 25.0、最大 65.3 MPa（持續狀態中位 10.1）。數值與 12:5x 的「驅動終點」讀法同量級，結論不變。"
+     "value": "缺 e06；T19 缺最後方點與硬體素 best fit｜2026-11-18 12:51 補齊兩個缺口（PI 2026-11-18「不合格依重要性開始解決」）：(1) e06 硬相持續應力讀值已實作（../biocage-evo/methods/e06_hard_stress.py：純硬相區塊 von Mises 第 99 百分位與最大值，持續狀態 t 3.5 與各窗口到目標的峰值；門檻 0.18 × sig_hard = 2.7 MPa，以濕態降伏 15 MPa 代替短期強度，暫定、只記錄不判定，PI 2026-11-03 第 7 項「次要」）；(2) T19 兩個補充量在 e04 內實作（最後方 0.5 mm 緣帶與最後方單點的後方位移、純硬相節點的剛體最佳擬合：平移、轉角、繞椎間盤法向的原地轉角、擬合殘差、硬塊局部位移），e04 --test 含擬合自測。批次 ../biocage-evo/ops/obs01_batch.py 跑遍 726 個勝出窗口（黏死 564、摩擦 162；xplt 皆在，0 錯誤；results/method/obs01/obs01_summary.json）。讀值摘要：硬相剛體擬合平移 vs 全節點平均平移差 中位 0.006／0.006 mm（最大 0.074／0.080）→ 現行「全節點平均」已代表硬塊剛體平移；原地轉角 中位 0.14°／0.017°、最大 1.59°／1.92°（側彎／軸旋窗口 p060、p062）；最後方單點比平均多往後 中位 0.11／0.25 mm、最大 0.89／0.79 mm → 若以最後方點取代平均平移當滑出判準會嚴格許多（PI 待決）。e06：持續狀態硬相 p99 von Mises 3.4–25.9 MPa（中位 9.5／10.1 MPa），670/670 超過暫定 2.7 MPa → 以降伏 15 MPa 的 18 % 為代理門檻時全部超過；硬相破裂是本實驗室先前籠體的實際失效（Lintz 2021），此讀值需配合硬相短期強度實測值與介面網格解析度（NUM-16）再解讀；只記錄。摩擦窗口的 T19／e06 窗口峰值改在各窗口的判定點（ROM 或 1.5 N·m）讀取（顧問複核 2026-11-18 13:0x）。每個失效模式至少一個已實作指標：滑出 e03/e04（＋T19）、軟相壓縮 e05、硬相持續應力 e06、後方推出 PHY-08 推出試驗、局部硬塊移動與原地旋轉 T19 → 通過（GPUFE 欄無結果檔，維持不合格）。｜2026-11-18 13:19 摩擦窗口重讀完成（162 窗，75 個在 ROM 狀態、82 個在 1.5 N·m、5 個未達評估點者用 e04 括弧；obs01_summary.json generated 13:09）：硬相擬合平移 vs 平均 中位 0.009（最大 0.061）mm；原地轉角 中位 0.017°、最大 1.92°；最後方單點比平均多往後 中位 0.25、最大 0.79 mm；判定點的硬相 p99 von Mises 中位 25.0、最大 65.3 MPa（持續狀態中位 10.1）。數值與 12:5x 的「驅動終點」讀法同量級，結論不變。",
+     "reconfirmed": {
+      "date": "2026-11-22T01:13",
+      "note": "2026-11-22：fric_compare.py 與 e07_batch.py 今日的改動只加入全牛頓法集合（PI 第 12 項，排在擬牛頓法 0.3 集合之後）與 window_solver 欄；重跑後既有窗口的讀值不變，判定計數 46／19／5／3 不變（變動只有：6 個原本 0.3 算不出的窗口改用全牛頓法讀值、批次 e 新完成的 6 個設計改用 0.3）；e03／e04／e05／e07 未動"
+     }
     },
     "FRIC": {
      "state": "pass",
-     "date": "2026-11-18T13:19",
-     "value": "｜2026-11-18 12:51 補齊兩個缺口（PI 2026-11-18「不合格依重要性開始解決」）：(1) e06 硬相持續應力讀值已實作（../biocage-evo/methods/e06_hard_stress.py：純硬相區塊 von Mises 第 99 百分位與最大值，持續狀態 t 3.5 與各窗口到目標的峰值；門檻 0.18 × sig_hard = 2.7 MPa，以濕態降伏 15 MPa 代替短期強度，暫定、只記錄不判定，PI 2026-11-03 第 7 項「次要」）；(2) T19 兩個補充量在 e04 內實作（最後方 0.5 mm 緣帶與最後方單點的後方位移、純硬相節點的剛體最佳擬合：平移、轉角、繞椎間盤法向的原地轉角、擬合殘差、硬塊局部位移），e04 --test 含擬合自測。批次 ../biocage-evo/ops/obs01_batch.py 跑遍 726 個勝出窗口（黏死 564、摩擦 162；xplt 皆在，0 錯誤；results/method/obs01/obs01_summary.json）。讀值摘要：硬相剛體擬合平移 vs 全節點平均平移差 中位 0.006／0.006 mm（最大 0.074／0.080）→ 現行「全節點平均」已代表硬塊剛體平移；原地轉角 中位 0.14°／0.017°、最大 1.59°／1.92°（側彎／軸旋窗口 p060、p062）；最後方單點比平均多往後 中位 0.11／0.25 mm、最大 0.89／0.79 mm → 若以最後方點取代平均平移當滑出判準會嚴格許多（PI 待決）。e06：持續狀態硬相 p99 von Mises 3.4–25.9 MPa（中位 9.5／10.1 MPa），670/670 超過暫定 2.7 MPa → 以降伏 15 MPa 的 18 % 為代理門檻時全部超過；硬相破裂是本實驗室先前籠體的實際失效（Lintz 2021），此讀值需配合硬相短期強度實測值與介面網格解析度（NUM-16）再解讀；只記錄。摩擦窗口的 T19／e06 窗口峰值改在各窗口的判定點（ROM 或 1.5 N·m）讀取（顧問複核 2026-11-18 13:0x）。每個失效模式至少一個已實作指標：滑出 e03/e04（＋T19）、軟相壓縮 e05、硬相持續應力 e06、後方推出 PHY-08 推出試驗、局部硬塊移動與原地旋轉 T19 → 通過（GPUFE 欄無結果檔，維持不合格）。｜2026-11-18 13:19 摩擦窗口重讀完成（162 窗，75 個在 ROM 狀態、82 個在 1.5 N·m、5 個未達評估點者用 e04 括弧；obs01_summary.json generated 13:09）：硬相擬合平移 vs 平均 中位 0.009（最大 0.061）mm；原地轉角 中位 0.017°、最大 1.92°；最後方單點比平均多往後 中位 0.25、最大 0.79 mm；判定點的硬相 p99 von Mises 中位 25.0、最大 65.3 MPa（持續狀態中位 10.1）。數值與 12:5x 的「驅動終點」讀法同量級，結論不變。"
+     "date": "2026-11-22T01:13",
+     "value": "｜2026-11-18 12:51 補齊兩個缺口（PI 2026-11-18「不合格依重要性開始解決」）：(1) e06 硬相持續應力讀值已實作（../biocage-evo/methods/e06_hard_stress.py：純硬相區塊 von Mises 第 99 百分位與最大值，持續狀態 t 3.5 與各窗口到目標的峰值；門檻 0.18 × sig_hard = 2.7 MPa，以濕態降伏 15 MPa 代替短期強度，暫定、只記錄不判定，PI 2026-11-03 第 7 項「次要」）；(2) T19 兩個補充量在 e04 內實作（最後方 0.5 mm 緣帶與最後方單點的後方位移、純硬相節點的剛體最佳擬合：平移、轉角、繞椎間盤法向的原地轉角、擬合殘差、硬塊局部位移），e04 --test 含擬合自測。批次 ../biocage-evo/ops/obs01_batch.py 跑遍 726 個勝出窗口（黏死 564、摩擦 162；xplt 皆在，0 錯誤；results/method/obs01/obs01_summary.json）。讀值摘要：硬相剛體擬合平移 vs 全節點平均平移差 中位 0.006／0.006 mm（最大 0.074／0.080）→ 現行「全節點平均」已代表硬塊剛體平移；原地轉角 中位 0.14°／0.017°、最大 1.59°／1.92°（側彎／軸旋窗口 p060、p062）；最後方單點比平均多往後 中位 0.11／0.25 mm、最大 0.89／0.79 mm → 若以最後方點取代平均平移當滑出判準會嚴格許多（PI 待決）。e06：持續狀態硬相 p99 von Mises 3.4–25.9 MPa（中位 9.5／10.1 MPa），670/670 超過暫定 2.7 MPa → 以降伏 15 MPa 的 18 % 為代理門檻時全部超過；硬相破裂是本實驗室先前籠體的實際失效（Lintz 2021），此讀值需配合硬相短期強度實測值與介面網格解析度（NUM-16）再解讀；只記錄。摩擦窗口的 T19／e06 窗口峰值改在各窗口的判定點（ROM 或 1.5 N·m）讀取（顧問複核 2026-11-18 13:0x）。每個失效模式至少一個已實作指標：滑出 e03/e04（＋T19）、軟相壓縮 e05、硬相持續應力 e06、後方推出 PHY-08 推出試驗、局部硬塊移動與原地旋轉 T19 → 通過（GPUFE 欄無結果檔，維持不合格）。｜2026-11-18 13:19 摩擦窗口重讀完成（162 窗，75 個在 ROM 狀態、82 個在 1.5 N·m、5 個未達評估點者用 e04 括弧；obs01_summary.json generated 13:09）：硬相擬合平移 vs 平均 中位 0.009（最大 0.061）mm；原地轉角 中位 0.017°、最大 1.92°；最後方單點比平均多往後 中位 0.25、最大 0.79 mm；判定點的硬相 p99 von Mises 中位 25.0、最大 65.3 MPa（持續狀態中位 10.1）。數值與 12:5x 的「驅動終點」讀法同量級，結論不變。｜2026-11-21（摩擦係數 0.3 為正式值後）：obs01_batch 對今日判定來源的摩擦窗口重算 T19 與 e06：162 窗口全部 ok、0 錯誤，其中 83 個是 0.3 的窗口（結果檔標籤加入集合名，避免沿用 0.35 窗口的讀值；第一次重跑曾誤用舊快取，已重算）。判定點硬相 p99 von Mises 中位約 25.5 MPa（前屈＋後伸 146 窗口 25.46，全部 162 窗口 25.59；範圍 14.1–65.3）、持續狀態中位 10.2 MPa（仍只是讀值，無強度門檻）｜2026-11-22 obs01_batch 重跑（判定來源加入全牛頓法窗口與批次 e 的新窗口後）：726 窗口全部 ok、0 錯誤"
     },
     "GPUFE": {
      "state": "fail",
@@ -1725,33 +1701,27 @@
     "METRICS"
    ],
    "evidence": [
-    "../biocage-evo/methods/e03_mu_req.py"
+    "../biocage-evo/methods/e03_mu_req.py",
+    "human_study/qa/metric_regression.json"
    ],
    "status": {
     "TIED": {
      "state": "pass",
-     "date": "2026-11-02T15:30",
-     "value": "e03.target_bracket 包夾兩態線性插值；p062 extension 滑移 0.1463→0.1383（連續 run 0.1339）、AR_left 0.2090→0.2016（0.2006）",
+     "date": "2026-11-21T15:05",
+     "value": "e03.target_bracket 包夾兩態線性插值；p062 extension 滑移 0.1463→0.1383（連續 run 0.1339）、AR_left 0.2090→0.2016（0.2006）｜2026-11-21 指標回歸（scripts/8_audit/h58_metric_regression.py → human_study/qa/metric_regression.json）：現行 e03／e04／e05 重算 19 個既存結果檔（黏死 e04 8、e05 3、摩擦 e04 8；其中 17 個是舊版程式產生的結果、有鑑別力，另 2 個是今日剛算的），數值逐項相同（相對 1e-6），新增鍵只有 T19 讀值；e03／e04／e05 --test 皆 SELFTEST PASS",
      "note": "重算後 234 個雙方達標視窗：mu 中位數 −0.4%、滑移 −3.4%；13 個 |Δmu| > 20% 全可解釋（10 個舊判定用了尖峰狀態、3 個 mu < 0.01 絕對變動 ≤ 0.002）",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: METRICS 只有 fric_compare 的 _meta.rule 文字改成「檢查而非閘」（PI 2026-11-07 決定 1）；e03/e04/e05/e07 未動",
-      "previous": {
-       "date": "2026-11-05T04:32",
-       "note": "2026-11-05 03:40 gate 檔變動（fric_compare 評估點、collect_split 順序）不觸及 e03.target_bracket；e03 --test PASS 2026-11-05 04:31"
-      }
+      "date": "2026-11-22T01:13",
+      "note": "2026-11-22：fric_compare.py 與 e07_batch.py 今日的改動只加入全牛頓法集合（PI 第 12 項，排在擬牛頓法 0.3 集合之後）與 window_solver 欄；重跑後既有窗口的讀值不變，判定計數 46／19／5／3 不變（變動只有：6 個原本 0.3 算不出的窗口改用全牛頓法讀值、批次 e 新完成的 6 個設計改用 0.3）；e03／e04／e05／e07 未動"
      }
     },
     "FRIC": {
      "state": "pass",
-     "date": "2026-11-02T15:30",
+     "date": "2026-11-21T15:05",
+     "value": "2026-11-21 指標回歸（scripts/8_audit/h58_metric_regression.py → human_study/qa/metric_regression.json）：現行 e03／e04／e05 重算 19 個既存結果檔（黏死 e04 8、e05 3、摩擦 e04 8；其中 17 個是舊版程式產生的結果、有鑑別力，另 2 個是今日剛算的），數值逐項相同（相對 1e-6），新增鍵只有 T19 讀值；e03／e04／e05 --test 皆 SELFTEST PASS",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: METRICS 只有 fric_compare 的 _meta.rule 文字改成「檢查而非閘」（PI 2026-11-07 決定 1）；e03/e04/e05/e07 未動",
-      "previous": {
-       "date": "2026-11-05T04:32",
-       "note": "2026-11-05 03:40 gate 檔變動（fric_compare 評估點、collect_split 順序）不觸及 e03.target_bracket；e03 --test PASS 2026-11-05 04:31"
-      }
+      "date": "2026-11-22T01:13",
+      "note": "2026-11-22：fric_compare.py 與 e07_batch.py 今日的改動只加入全牛頓法集合（PI 第 12 項，排在擬牛頓法 0.3 集合之後）與 window_solver 欄；重跑後既有窗口的讀值不變，判定計數 46／19／5／3 不變（變動只有：6 個原本 0.3 算不出的窗口改用全牛頓法讀值、批次 e 新完成的 6 個設計改用 0.3）；e03／e04／e05／e07 未動"
      }
     }
    },
@@ -1777,32 +1747,26 @@
     "METRICS"
    ],
    "evidence": [
-    "../biocage-evo/methods/e03_mu_req.py"
+    "../biocage-evo/methods/e03_mu_req.py",
+    "human_study/qa/metric_regression.json"
    ],
    "status": {
     "TIED": {
      "state": "pass",
-     "date": "2026-11-02T15:30",
-     "value": "e03.filter_rows：dt < 1e-4、孤立尖峰、首列 > 3×目標；自測含 p060/p100/p015/p027 模式",
+     "date": "2026-11-21T15:05",
+     "value": "e03.filter_rows：dt < 1e-4、孤立尖峰、首列 > 3×目標；自測含 p060/p100/p015/p027 模式｜2026-11-21 指標回歸（scripts/8_audit/h58_metric_regression.py → human_study/qa/metric_regression.json）：現行 e03／e04／e05 重算 19 個既存結果檔（黏死 e04 8、e05 3、摩擦 e04 8；其中 17 個是舊版程式產生的結果、有鑑別力，另 2 個是今日剛算的），數值逐項相同（相對 1e-6），新增鍵只有 T19 讀值；e03／e04／e05 --test 皆 SELFTEST PASS",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: METRICS 只有 fric_compare 的 _meta.rule 文字改成「檢查而非閘」（PI 2026-11-07 決定 1）；e03/e04/e05/e07 未動",
-      "previous": {
-       "date": "2026-11-05T04:32",
-       "note": "2026-11-05 03:40 gate 檔變動不觸及 e03.filter_rows；e03 --test PASS 2026-11-05 04:31"
-      }
+      "date": "2026-11-22T01:13",
+      "note": "2026-11-22：fric_compare.py 與 e07_batch.py 今日的改動只加入全牛頓法集合（PI 第 12 項，排在擬牛頓法 0.3 集合之後）與 window_solver 欄；重跑後既有窗口的讀值不變，判定計數 46／19／5／3 不變（變動只有：6 個原本 0.3 算不出的窗口改用全牛頓法讀值、批次 e 新完成的 6 個設計改用 0.3）；e03／e04／e05／e07 未動"
      }
     },
     "FRIC": {
      "state": "pass",
-     "date": "2026-11-02T15:30",
+     "date": "2026-11-21T15:05",
+     "value": "2026-11-21 指標回歸（scripts/8_audit/h58_metric_regression.py → human_study/qa/metric_regression.json）：現行 e03／e04／e05 重算 19 個既存結果檔（黏死 e04 8、e05 3、摩擦 e04 8；其中 17 個是舊版程式產生的結果、有鑑別力，另 2 個是今日剛算的），數值逐項相同（相對 1e-6），新增鍵只有 T19 讀值；e03／e04／e05 --test 皆 SELFTEST PASS",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: METRICS 只有 fric_compare 的 _meta.rule 文字改成「檢查而非閘」（PI 2026-11-07 決定 1）；e03/e04/e05/e07 未動",
-      "previous": {
-       "date": "2026-11-05T04:32",
-       "note": "2026-11-05 03:40 gate 檔變動不觸及 e03.filter_rows；e03 --test PASS 2026-11-05 04:31"
-      }
+      "date": "2026-11-22T01:13",
+      "note": "2026-11-22：fric_compare.py 與 e07_batch.py 今日的改動只加入全牛頓法集合（PI 第 12 項，排在擬牛頓法 0.3 集合之後）與 window_solver 欄；重跑後既有窗口的讀值不變，判定計數 46／19／5／3 不變（變動只有：6 個原本 0.3 算不出的窗口改用全牛頓法讀值、批次 e 新完成的 6 個設計改用 0.3）；e03／e04／e05／e07 未動"
      }
     }
    },
@@ -1828,33 +1792,25 @@
     "RETARGET",
     "SPLIT"
    ],
-   "evidence": [],
+   "evidence": [
+    "human_study/qa/fric_winner_scan.json"
+   ],
    "status": {
     "TIED": {
      "state": "partial",
      "date": "2026-10-31",
      "value": "h29 只對 split 批次",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: SPLIT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: METRICS component widened 2026-11-04 to include e07 / fric_compare (new files, hence stale); e03 / e04 / e05 themselves unchanged except an e04 docstring; self-tests PASS 2026-11-04 14:55 | h28 change since the evidence is the physio_windows subset option (2026-11-03 05:00, off by default); build byte-identical"
-      }
-     }
+      "date": "2026-11-21T15:05",
+      "note": "2026-11-21 重建比對（scripts/8_audit/h57_rebuild_sweep.py → human_study/qa/rebuild_sweep.json）：18 個判定來源集合各抽 2–3 個 run（共 52），以現行 h14／h30／設定重建的 case.feb、各窗口 restart.feb 與排程檔逐位元相同；證據日之後對 h14／h30／h31 的改動都是試算專用選項（window_cycles、window_max_ups、restart_env 守門等），不進正式模型檔"
+     },
+     "note": "2026-11-22 PI「其他照建議」：加有界使用限制（R16）→ 狀態仍為部分，判為有條件合格（PI 原則：只關注在意的，其他能用即可）"
     },
     "FRIC": {
      "state": "partial",
-     "date": "2026-11-02T15:30",
-     "value": "h28 重定振幅已加尖峰濾除；physrotFr2_ 排隊中；h29 仍只對非拆分批次",
-     "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: SPLIT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: METRICS component widened 2026-11-04 to include e07 / fric_compare (new files, hence stale); e03 / e04 / e05 themselves unchanged except an e04 docstring; self-tests PASS 2026-11-04 14:55 | h28 change since the evidence is the physio_windows subset option (2026-11-03 05:00, off by default); build byte-identical"
-      }
-     }
+     "date": "2026-11-21T16:17",
+     "value": "2026-11-21 重寫（舊值「physrotFr2_ 排隊中」已不適用）：現行摩擦判定窗口全是路線 E（把 C3 以相對轉角直接帶到前屈 0.126／後伸 0.161 rad，都超過正常活動範圍 0.1009／0.1286 rad），不再靠重定振幅或串接下一回合；窗口只要算完就一定經過評估點（傳得到 1.5 N·m 就在該點判，傳不到就在正常活動範圍判；PI 2026-11-05）。今日 146 個必要窗口中 143 個有評估點（verdicts.json；其中 4 個是 p050／p084 繼承同模型複本 p068 的讀值），其餘 3 個是停算（p048 後伸、p074 前屈、p115 前屈）。原門檻文字（h29 自動串接）是針對力矩重定流程寫的，是否對路線 E 視為達成待 PI 確認 → 維持部分",
+     "note": "2026-11-22 PI「其他照建議」：加有界使用限制（R16）→ 狀態仍為部分，判為有條件合格（PI 原則：只關注在意的，其他能用即可）"
     }
    },
    "refs": [
@@ -1882,32 +1838,27 @@
    "evidence": [
     "scripts/5_compute/h31_split_run.py",
     "scripts/8_audit/h34_window_scan.py",
-    "human_study/WINDOW_SCAN_2026-11-02.md"
+    "human_study/WINDOW_SCAN_2026-11-02.md",
+    "human_study/WINDOW_SCAN_2026-11-21.md",
+    "human_study/qa/fric_winner_scan.json"
    ],
    "status": {
     "TIED": {
      "state": "pass",
-     "date": "2026-11-02T15:30",
-     "value": "h31 每視窗寫 window_check.json + split_check.json；舊 run 由 h34 回溯掃描；collect_split 拒收無有效狀態的視窗",
+     "date": "2026-11-21T15:05",
+     "value": "h31 每視窗寫 window_check.json + split_check.json；舊 run 由 h34 回溯掃描；collect_split 拒收無有效狀態的視窗｜2026-11-21：h34 重掃 916 窗口（11-21 起涵蓋 h47 建立的重啟集合）；collect_split 今日重跑 276 窗口 0 錯誤、被拒窗口 0；摩擦判定來源窗口另由 h60 以判定程式檢查（158 窗口 0 錯誤）",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: COLLECT 只改閘門段（滑脫摩擦閘 → 檢查，PI 2026-11-07 決定 1）；完整性、拒收與拆分邏輯未動；SPLIT：h30 只加預設關閉的 window_min_residual／window_static",
-      "previous": {
-       "date": "2026-11-05T04:32",
-       "note": "2026-11-05 03:40 collect_split 只改第一原因順序；無有效狀態視窗的拒收邏輯不變（rejected windows 0）"
-      }
+      "date": "2026-11-22T01:13",
+      "note": "2026-11-22：collect_split.py 今日只加一條規則（PI 第 11 項：摩擦判定 fail 的 tied 通過設計改列 DESIGN/dislocation-friction），重跑後除這 5 個設計由 PASS 改為該類別外，其餘 144 個設計的類別與 11-21 相同（比對檔 scratchpad before_pi1122/verdict_classes_merged.json）；窗口完整性與拒收邏輯未動"
      }
     },
     "FRIC": {
      "state": "pass",
-     "date": "2026-11-02T15:30",
+     "date": "2026-11-21T15:05",
+     "value": "2026-11-21：h34 重掃 916 窗口（11-21 起涵蓋 h47 建立的重啟集合）；collect_split 今日重跑 276 窗口 0 錯誤、被拒窗口 0；摩擦判定來源窗口另由 h60 以判定程式檢查（158 窗口 0 錯誤）",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: COLLECT 只改閘門段（滑脫摩擦閘 → 檢查，PI 2026-11-07 決定 1）；完整性、拒收與拆分邏輯未動；SPLIT：h30 只加預設關閉的 window_min_residual／window_static",
-      "previous": {
-       "date": "2026-11-05T04:32",
-       "note": "2026-11-05 03:40 collect_split 只改第一原因順序；無有效狀態視窗的拒收邏輯不變（rejected windows 0）"
-      }
+      "date": "2026-11-22T01:13",
+      "note": "2026-11-22：collect_split.py 今日只加一條規則（PI 第 11 項：摩擦判定 fail 的 tied 通過設計改列 DESIGN/dislocation-friction），重跑後除這 5 個設計由 PASS 改為該類別外，其餘 144 個設計的類別與 11-21 相同（比對檔 scratchpad before_pi1122/verdict_classes_merged.json）；窗口完整性與拒收邏輯未動"
      }
     }
    },
@@ -1938,9 +1889,9 @@
    "status": {
     "TIED": {
      "state": "pass",
-     "date": "2026-11-08",
+     "date": "2026-11-22T01:13",
      "note": "取代 11-05 03:41 的計數（fail 131、PASS 0）",
-     "value": "collect_split 2026-11-08（PI 2026-11-07 決定 1 後）：276 視窗 0 錯誤，149 設計全部有 class；PASS 13、open 18、fail 118；friction_check_exceeded 13（註記）"
+     "value": "collect_split 2026-11-08（PI 2026-11-07 決定 1 後）：276 視窗 0 錯誤，149 設計全部有 class；PASS 13、open 18、fail 118；friction_check_exceeded 13（註記）｜2026-11-21 collect_split 重跑（摩擦係數 0.3 的判定併入後）：276 窗口 0 錯誤，149 設計全部有類別（100 %）｜2026-11-22 collect_split 重跑（PI 第 11 項的類別改動後）：276 窗口 0 錯誤、被拒窗口 0，149 設計全部有類別（100 %）"
     }
    },
    "refs": [
@@ -1966,34 +1917,28 @@
     "XPLT"
    ],
    "evidence": [
-    "../biocage-evo/work/board/r0003/redteam.json"
+    "../biocage-evo/work/board/r0003/redteam.json",
+    "human_study/qa/metric_regression.json"
    ],
    "status": {
     "TIED": {
      "state": "pass",
-     "date": "2026-11-04T14:55",
-     "value": "e03/e04/e05 --test 全部 PASS（解析案例 + 包夾濾除模式 + 單軸壓縮）",
+     "date": "2026-11-21T15:05",
+     "value": "e03/e04/e05 --test 全部 PASS（解析案例 + 包夾濾除模式 + 單軸壓縮）｜2026-11-21 指標回歸（scripts/8_audit/h58_metric_regression.py → human_study/qa/metric_regression.json）：現行 e03／e04／e05 重算 19 個既存結果檔（黏死 e04 8、e05 3、摩擦 e04 8；其中 17 個是舊版程式產生的結果、有鑑別力，另 2 個是今日剛算的），數值逐項相同（相對 1e-6），新增鍵只有 T19 讀值；e03／e04／e05 --test 皆 SELFTEST PASS",
      "note": " | 2026-11-04 14:55 QA：e03/e04/e05 --test 重跑全部 PASS（e04 docstring 修正、e07/fric_compare 加入 METRICS 元件後）",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: METRICS 只有 fric_compare 的 _meta.rule 文字改成「檢查而非閘」（PI 2026-11-07 決定 1）；e03/e04/e05/e07 未動",
-      "previous": {
-       "date": "2026-11-05T04:32",
-       "note": "e03／e04／e05 --test 重跑全部 PASS 2026-11-05 04:31"
-      }
+      "date": "2026-11-22T01:13",
+      "note": "2026-11-22：fric_compare.py 與 e07_batch.py 今日的改動只加入全牛頓法集合（PI 第 12 項，排在擬牛頓法 0.3 集合之後）與 window_solver 欄；重跑後既有窗口的讀值不變，判定計數 46／19／5／3 不變（變動只有：6 個原本 0.3 算不出的窗口改用全牛頓法讀值、批次 e 新完成的 6 個設計改用 0.3）；e03／e04／e05／e07 未動"
      }
     },
     "FRIC": {
      "state": "pass",
-     "date": "2026-11-04T14:55",
+     "date": "2026-11-21T15:05",
      "note": " | 2026-11-04 14:55 QA：e03/e04/e05 --test 重跑全部 PASS（e04 docstring 修正、e07/fric_compare 加入 METRICS 元件後）",
+     "value": "2026-11-21 指標回歸（scripts/8_audit/h58_metric_regression.py → human_study/qa/metric_regression.json）：現行 e03／e04／e05 重算 19 個既存結果檔（黏死 e04 8、e05 3、摩擦 e04 8；其中 17 個是舊版程式產生的結果、有鑑別力，另 2 個是今日剛算的），數值逐項相同（相對 1e-6），新增鍵只有 T19 讀值；e03／e04／e05 --test 皆 SELFTEST PASS",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: METRICS 只有 fric_compare 的 _meta.rule 文字改成「檢查而非閘」（PI 2026-11-07 決定 1）；e03/e04/e05/e07 未動",
-      "previous": {
-       "date": "2026-11-05T04:32",
-       "note": "e03／e04／e05 --test 重跑全部 PASS 2026-11-05 04:31"
-      }
+      "date": "2026-11-22T01:13",
+      "note": "2026-11-22：fric_compare.py 與 e07_batch.py 今日的改動只加入全牛頓法集合（PI 第 12 項，排在擬牛頓法 0.3 集合之後）與 window_solver 欄；重跑後既有窗口的讀值不變，判定計數 46／19／5／3 不變（變動只有：6 個原本 0.3 算不出的窗口改用全牛頓法讀值、批次 e 新完成的 6 個設計改用 0.3）；e03／e04／e05／e07 未動"
      }
     }
    },
@@ -2017,32 +1962,20 @@
     "PREFLIGHT"
    ],
    "evidence": [
-    "human_study/preflight.log"
+    "human_study/preflight.log",
+    "human_study/qa/rebuild_sweep.json",
+    "human_study/qa/h24_guard_test.json"
    ],
    "status": {
     "TIED": {
      "state": "pass",
-     "date": "2026-11-02",
-     "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: PREFLIGHT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "h24 only gained an extra failure condition (h37 launch gate); p062 physio_fric3 preflight re-run OK, a stricter gate cannot turn a recorded pass into a false pass"
-      }
-     }
+     "date": "2026-11-21T16:17",
+     "value": "2026-11-21：preflight.log 自 11-08 起 21 次檢查全部 OK、0 次 FAIL；h47／h51／h18 啟動路徑各自呼叫 h24（11-19 起 h18 啟動前也複查）；11-21 設定檔新增試算類別後，7 個尚未啟動的試算案例被 h24 擋下，就地重查通過後才啟動（紀錄在 human_study/al_v2/pilot_mu03rN/ 的 p079、p086、p093、p117 各自的 _run.log）；h37 R7（正式案例無試算選項）、R8（p062 重建一致）通過｜2026-11-21 h24 守門修正後重測（稽核 D-20261121-M2：試算選項值為 0 時舊寫法擋不住）：h24 與 h37 改以「鍵存在且值不是 None／False」判斷；反向測試（human_study/qa/h24_guard_test.json）：把帶 window_max_ups 0 的案例放進沒有此鍵的類別 → h24 拒絕並指出該鍵，不帶此鍵的對照 → 通過；h37 R7 以新規則重掃 917 個正式案例 0 個命中；路線 E 完整性檢查 R19 納入摩擦係數 0.3 的兩個集合後 120 個案例、240 個窗口 0 問題"
     },
     "FRIC": {
      "state": "pass",
-     "date": "2026-11-02",
-     "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: PREFLIGHT 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "h24 only gained an extra failure condition (h37 launch gate); p062 physio_fric3 preflight re-run OK, a stricter gate cannot turn a recorded pass into a false pass"
-      }
-     }
+     "date": "2026-11-21T16:17",
+     "value": "2026-11-21：preflight.log 自 11-08 起 21 次檢查全部 OK、0 次 FAIL；h47／h51／h18 啟動路徑各自呼叫 h24（11-19 起 h18 啟動前也複查）；11-21 設定檔新增試算類別後，7 個尚未啟動的試算案例被 h24 擋下，就地重查通過後才啟動（紀錄在 human_study/al_v2/pilot_mu03rN/ 的 p079、p086、p093、p117 各自的 _run.log）；h37 R7（正式案例無試算選項）、R8（p062 重建一致）通過｜2026-11-21 h24 守門修正後重測（稽核 D-20261121-M2：試算選項值為 0 時舊寫法擋不住）：h24 與 h37 改以「鍵存在且值不是 None／False」判斷；反向測試（human_study/qa/h24_guard_test.json）：把帶 window_max_ups 0 的案例放進沒有此鍵的類別 → h24 拒絕並指出該鍵，不帶此鍵的對照 → 通過；h37 R7 以新規則重掃 917 個正式案例 0 個命中；路線 E 完整性檢查 R19 納入摩擦係數 0.3 的兩個集合後 120 個案例、240 個窗口 0 問題"
     }
    },
    "refs": []
@@ -2120,15 +2053,15 @@
    "status": {
     "TIED": {
      "state": "pass",
-     "date": "2026-11-18T04:07",
-     "value": "（歷史）（歷史）276 視窗 0 錯誤（collect_split 2026-11-08）：tied 篩選 72 pass；classes：DESIGN/compression-sustained 53、-sustained-lowerbound 10、-peak 5、-peak-lowerbound 4、radial-mix-excluded 28、interface-shear-provisional 18、[多元]/friction-computability 14、[多元]/computability 2、[數值]/unstable-window 2、PASS 13；friction-check-exceeded 13（PI 決定 1：註記，非類別）｜2026-11-09 18:10（fric5 重算）：類別數全部不變，friction-check-exceeded 7｜2026-11-10（灰區生效）：PASS 0、GREY 13、friction-check-exceeded 0｜2026-11-11 00:14 更新：276 視窗 0 錯誤（collect_split 2026-11-11 00:14，流程 G 27 設計與 24 個參考律重啟窗口完成後（17 + 7；稽核 2026-11-11 更正））：tied 篩選 both 3（2026-11-11 15:03；原 1）；classes：DESIGN/compression-sustained 53、-sustained-lowerbound 10、-peak 5、-peak-lowerbound 4、radial-mix-excluded 28、interface-shear-provisional 22、friction-computability 0、[多元]/computability 2、[數值]/unstable-window 2、[觀測]/friction-window 5（14:42；原 7）、[數值]/not-computable-both-laws 2（PI 2026-11-11 2b）、GREY/friction-posterior-0.45-0.55 13、PASS 3（2026-11-11 14:42，剪力閘採替代窗口後；原 1）、friction-check-exceeded 0；摩擦判定 pass 47 / grey 17 / open 7（71 設計；PI 決定 4 後，DECISIONS 2026-11-11 15:04）｜2026-11-13 更新（R5 取文中最後一次出現的計數）：2026-11-13 13:5x（collect_split，路線 E 重跑後）：276 視窗 0 錯誤；tied 篩選 both 5；classes：DESIGN/compression-sustained 53、-sustained-lowerbound 10、-peak 5、-peak-lowerbound 4、radial-mix-excluded 28、interface-shear-provisional 28、friction-computability 0、[多元]/computability 2、[數值]/unstable-window 2、[數值]/not-computable-both-laws 2、[觀測]/friction-window 2、GREY/friction-posterior-0.45-0.55 8、PASS 5、friction-check-exceeded 2；摩擦判定 pass 52 / grey 13 / fail 2 / open 4。｜2026-11-17：GREY/friction-posterior-0.45-0.55 10（含 p093、p145 限值邊界）、PASS 3（p086 p100 p142）、friction-check-exceeded 0。｜2026-11-17 08:00（73 設計）：compression-sustained 53、compression-peak-lowerbound 4、radial-mix-excluded 28、[數值]/unstable-window 2、compression-sustained-lowerbound 10、compression-peak 5、[多元]/computability 2、interface-shear-provisional 28、[數值]/not-computable-both-laws 2、GREY/friction-posterior-0.45-0.55 10、[觀測]/friction-window 2、PASS 3、friction-check-exceeded 0；摩擦判定 pass 53 / 灰區 grey 16 / fail 0 / open 4（73 設計）。｜2026-11-18 04:07（PI 2026-11-18 剪力改旗＋排序，DESIGN/interface-shear-provisional 類別退役）：compression-sustained 53、compression-peak-lowerbound 4、radial-mix-excluded 28、[數值]/unstable-window 2、compression-sustained-lowerbound 10、compression-peak 5、[多元]/computability 2、PASS 31、[數值]/not-computable-both-laws 2、GREY/friction-posterior-0.45-0.55 12；friction-check-exceeded 0；shear_check 旗：exceeded 54／within 13／not evaluated 82（149 設計）；PASS 31（剪力旗：超過 3 MPa 26、未超過 3、未評估 2）。R5 計數：interface-shear 54（旗標，非類別）。",
+     "date": "2026-11-22T01:13",
+     "value": "（歷史）（歷史）276 視窗 0 錯誤（collect_split 2026-11-08）：tied 篩選 72 pass；classes：DESIGN/compression-sustained 53、-sustained-lowerbound 10、-peak 5、-peak-lowerbound 4、radial-mix-excluded 28、interface-shear-provisional 18、[多元]/friction-computability 14、[多元]/computability 2、[數值]/unstable-window 2、PASS 13；friction-check-exceeded 13（PI 決定 1：註記，非類別）｜2026-11-09 18:10（fric5 重算）：類別數全部不變，friction-check-exceeded 7｜2026-11-10（灰區生效）：PASS 0、GREY 13、friction-check-exceeded 0｜2026-11-11 00:14 更新：276 視窗 0 錯誤（collect_split 2026-11-11 00:14，流程 G 27 設計與 24 個參考律重啟窗口完成後（17 + 7；稽核 2026-11-11 更正））：tied 篩選 both 3（2026-11-11 15:03；原 1）；classes：DESIGN/compression-sustained 53、-sustained-lowerbound 10、-peak 5、-peak-lowerbound 4、radial-mix-excluded 28、interface-shear-provisional 22、friction-computability 0、[多元]/computability 2、[數值]/unstable-window 2、[觀測]/friction-window 5（14:42；原 7）、[數值]/not-computable-both-laws 2（PI 2026-11-11 2b）、GREY/friction-posterior-0.45-0.55 13、PASS 3（2026-11-11 14:42，剪力閘採替代窗口後；原 1）、friction-check-exceeded 0；摩擦判定 pass 47 / grey 17 / open 7（71 設計；PI 決定 4 後，DECISIONS 2026-11-11 15:04）｜2026-11-13 更新（R5 取文中最後一次出現的計數）：2026-11-13 13:5x（collect_split，路線 E 重跑後）：276 視窗 0 錯誤；tied 篩選 both 5；classes：DESIGN/compression-sustained 53、-sustained-lowerbound 10、-peak 5、-peak-lowerbound 4、radial-mix-excluded 28、interface-shear-provisional 28、friction-computability 0、[多元]/computability 2、[數值]/unstable-window 2、[數值]/not-computable-both-laws 2、[觀測]/friction-window 2、GREY/friction-posterior-0.45-0.55 8、PASS 5、friction-check-exceeded 2；摩擦判定 pass 52 / grey 13 / fail 2 / open 4。｜2026-11-17：GREY/friction-posterior-0.45-0.55 10（含 p093、p145 限值邊界）、PASS 3（p086 p100 p142）、friction-check-exceeded 0。｜2026-11-17 08:00（73 設計）：compression-sustained 53、compression-peak-lowerbound 4、radial-mix-excluded 28、[數值]/unstable-window 2、compression-sustained-lowerbound 10、compression-peak 5、[多元]/computability 2、interface-shear-provisional 28、[數值]/not-computable-both-laws 2、GREY/friction-posterior-0.45-0.55 10、[觀測]/friction-window 2、PASS 3、friction-check-exceeded 0；摩擦判定 pass 53 / 灰區 grey 16 / fail 0 / open 4（73 設計）。｜2026-11-18 04:07（PI 2026-11-18 剪力改旗＋排序，DESIGN/interface-shear-provisional 類別退役）：compression-sustained 53、compression-peak-lowerbound 4、radial-mix-excluded 28、[數值]/unstable-window 2、compression-sustained-lowerbound 10、compression-peak 5、[多元]/computability 2、PASS 31、[數值]/not-computable-both-laws 2、GREY/friction-posterior-0.45-0.55 12；friction-check-exceeded 0；shear_check 旗：exceeded 54／within 13／not evaluated 82（149 設計）；PASS 31（剪力旗：超過 3 MPa 26、未超過 3、未評估 2）。R5 計數：interface-shear 54（旗標，非類別）。｜2026-11-21 collect_split 重跑（摩擦係數 0.3 併入）：149 設計全部有類別：PASS 30、GREY/friction-posterior-0.45-0.55 13、DESIGN/radial-mix-excluded 28、DESIGN/compression-sustained 53、compression-sustained-lowerbound 10、compression-peak 5、compression-peak-lowerbound 4、[多元]/computability 2、[數值]/unstable-window 2、[數值]/not-computable-both-laws 2；剪力旗 exceeded 52｜R5 計數（2026-11-21，摩擦係數 0.3）：friction-check-exceeded 5（p051、p075、p093、p114、p145；旗標，類別仍為 PASS，待 PI）、interface-shear 52（旗標，非類別）、radial-mix 28｜2026-11-22（PI 第 11 項：摩擦判定不通過的設計移出通過名單，類別 DESIGN/dislocation-friction）collect_split 重跑：149 設計全部有類別：PASS 25、GREY/friction-posterior-0.45-0.55 13、DESIGN/dislocation-friction 5（p051、p075、p093、p114、p145）、DESIGN/radial-mix-excluded 28、DESIGN/compression-sustained 53、compression-sustained-lowerbound 10、compression-peak 5、compression-peak-lowerbound 4、[多元]/computability 2、[數值]/unstable-window 2、[數值]/not-computable-both-laws 2。R5 計數：friction-check-exceeded 5、interface-shear 52（旗標）、radial-mix 28",
      "note": "2026-11-05：first-cause 順序 tied 篩選 → radial-mix 排除 → dislocation → shear（collect_split.py:215-223；PI 2026-11-05 第 2 項，排除優先） | 2026-11-05 03:41 結果檔重算後更新日期"
     },
     "FRIC": {
      "state": "pass",
-     "date": "2026-11-18T04:07",
+     "date": "2026-11-22T01:13",
      "note": "2026-11-04 QA：原「尚未套用 class 欄位」已過期 | 2026-11-05 03:41 結果檔重算後更新日期",
-     "value": "（歷史）2026-11-11 00:14（verdict_classes_merged.json）：摩擦 run 結果併入 collect_split 的 gates 欄位：interface_shear 為閘（interface-shear-provisional 22；e07 pass 15 / fail 40 / open 15，PI 2026-11-11 決定 6：替代窗口（同檔點舊法則窗口）計入剪力閘並標記 fallback，12 個窗口）、dislocation_friction 為檢查（role check；friction-check-exceeded 0；灰區 GREY/friction-posterior-0.45-0.55 13）、radial-mix-excluded 28、[數值]/not-computable-both-laws 2（PI 2026-11-11 決定 2b：數值問題、判定 open，不是設計失敗）、[多元]/computability 2、[數值]/unstable-window 2、[觀測]/friction-window 5；每個設計都有 class／reason，每筆帶 insertion_process／window_law；PI 2026-11-11 決定 4：gates.dislocation_friction 帶 numerical_flags（replicate-not-reproduced 3 設計、replicate-inconsistent 3 設計）與 verdict_source。｜（歷史 2026-11-10 14:30）摩擦 run 結果併入 collect_split 的 gates 欄位：interface_shear 為閘（18 fail）、dislocation_friction 為檢查（role check，7 個 PASS 設計超標（2026-11-09 fric5 重算後；11-08 時 13 個），暫定），radial-mix 排除 28；每個設計都有 class／reason｜2026-11-13 更新（R5 取文中最後一次出現的計數）：2026-11-13 13:5x：interface_shear 為閘（interface-shear-provisional 28；e07 pass 12 / fail 53 / open 5；替代窗口計入並標記 fallback）、dislocation_friction 為檢查（friction-check-exceeded 2；GREY 8；numerical_flags replicate-not-reproduced 2、replicate-inconsistent 2；verdict_source 記錄複本統一／繼承）、radial-mix-excluded 28；每筆帶 insertion_process／window_law／window_drive。｜2026-11-17：collect_split 的設計層記錄現含 window_drive（73 筆，含進行中的 p102/p149）。｜2026-11-17：friction-check-exceeded 0（p093／p145 改列灰區）。｜2026-11-17 08:00（73 設計）：e07 pass 12 / fail 54 / open 6（p149 前屈兩種驅動皆未達 ROM → open；p102 fail）；friction-check-exceeded 0；GREY 10；PASS 3。｜2026-11-18 04:07：剪力由門改旗（PI 2026-11-18）：每設計記 shear_check（exceeded／within／not evaluated、所需剪力 p99 與絕對最大、窗口、是否完整）與 shear_ranking（所需剪力由低到高）；PASS 31（剪力旗：超過 3 MPa 26、未超過 3、未評估 2）；PASS 內所需剪力最低者：p064 0.08、p121 0.15、p086 2.72、p100 2.72、p142 2.72、p061 3.01、p052 3.17、p083 3.18 MPa。e07 檢查本身不變：pass 12 / fail 54 / open 6。R5 計數：interface-shear 54（旗標，非類別）。"
+     "value": "（歷史）2026-11-11 00:14（verdict_classes_merged.json）：摩擦 run 結果併入 collect_split 的 gates 欄位：interface_shear 為閘（interface-shear-provisional 22；e07 pass 15 / fail 40 / open 15，PI 2026-11-11 決定 6：替代窗口（同檔點舊法則窗口）計入剪力閘並標記 fallback，12 個窗口）、dislocation_friction 為檢查（role check；friction-check-exceeded 0；灰區 GREY/friction-posterior-0.45-0.55 13）、radial-mix-excluded 28、[數值]/not-computable-both-laws 2（PI 2026-11-11 決定 2b：數值問題、判定 open，不是設計失敗）、[多元]/computability 2、[數值]/unstable-window 2、[觀測]/friction-window 5；每個設計都有 class／reason，每筆帶 insertion_process／window_law；PI 2026-11-11 決定 4：gates.dislocation_friction 帶 numerical_flags（replicate-not-reproduced 3 設計、replicate-inconsistent 3 設計）與 verdict_source。｜（歷史 2026-11-10 14:30）摩擦 run 結果併入 collect_split 的 gates 欄位：interface_shear 為閘（18 fail）、dislocation_friction 為檢查（role check，7 個 PASS 設計超標（2026-11-09 fric5 重算後；11-08 時 13 個），暫定），radial-mix 排除 28；每個設計都有 class／reason｜2026-11-13 更新（R5 取文中最後一次出現的計數）：2026-11-13 13:5x：interface_shear 為閘（interface-shear-provisional 28；e07 pass 12 / fail 53 / open 5；替代窗口計入並標記 fallback）、dislocation_friction 為檢查（friction-check-exceeded 2；GREY 8；numerical_flags replicate-not-reproduced 2、replicate-inconsistent 2；verdict_source 記錄複本統一／繼承）、radial-mix-excluded 28；每筆帶 insertion_process／window_law／window_drive。｜2026-11-17：collect_split 的設計層記錄現含 window_drive（73 筆，含進行中的 p102/p149）。｜2026-11-17：friction-check-exceeded 0（p093／p145 改列灰區）。｜2026-11-17 08:00（73 設計）：e07 pass 12 / fail 54 / open 6（p149 前屈兩種驅動皆未達 ROM → open；p102 fail）；friction-check-exceeded 0；GREY 10；PASS 3。｜2026-11-18 04:07：剪力由門改旗（PI 2026-11-18）：每設計記 shear_check（exceeded／within／not evaluated、所需剪力 p99 與絕對最大、窗口、是否完整）與 shear_ranking（所需剪力由低到高）；PASS 31（剪力旗：超過 3 MPa 26、未超過 3、未評估 2）；PASS 內所需剪力最低者：p064 0.08、p121 0.15、p086 2.72、p100 2.72、p142 2.72、p061 3.01、p052 3.17、p083 3.18 MPa。e07 檢查本身不變：pass 12 / fail 54 / open 6。R5 計數：interface-shear 54（旗標，非類別）。｜2026-11-21：73 個摩擦設計全部有判定與理由（pass 46／grey 19／fail 5／open 3，verdicts.json）。注意：5 個摩擦判定 fail 的設計（p051、p075、p093、p114、p145）依 PI 2026-11-07 規則（摩擦 run 是檢查、不是門）只帶旗標 friction_check exceeded，類別仍是 PASS；「摩擦 fail 是否比照灰區排除」是 11-17 留待出現 fail 時再問的 PI 待決項（已列 PI_PENDING_DECISIONS）｜R5 計數（2026-11-21，摩擦係數 0.3）：friction-check-exceeded 5（p051、p075、p093、p114、p145；旗標，類別仍為 PASS，待 PI）、interface-shear 52（旗標，非類別）、radial-mix 28｜2026-11-22：73 個摩擦設計全部有判定與理由（pass 46／grey 19／fail 5／open 3）；5 個 fail 依 PI 第 11 項改列類別 DESIGN/dislocation-friction，不再留在 PASS（11-21 註記的待決點已解決）。R5 計數：friction-check-exceeded 5、interface-shear 52（旗標）、radial-mix 28"
     }
    },
    "refs": [
@@ -2197,25 +2130,19 @@
      "date": "2026-11-01",
      "value": "人體家族全部；evo 體素場路徑未核",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | current_settings.json changes add classes and lock keys production already carried (QA 2026-11-04 14:15); no value of an existing production class changed"
-      }
-     }
+      "date": "2026-11-21T15:05",
+      "note": "2026-11-21 重建比對（scripts/8_audit/h57_rebuild_sweep.py → human_study/qa/rebuild_sweep.json）：18 個判定來源集合各抽 2–3 個 run（共 52），以現行 h14／h30／設定重建的 case.feb、各窗口 restart.feb 與排程檔逐位元相同；證據日之後對 h14／h30／h31 的改動都是試算專用選項（window_cycles、window_max_ups、restart_env 守門等），不進正式模型檔"
+     },
+     "note": "2026-11-22 PI「其他照建議」：加有界使用限制（R17）→ 狀態仍為部分，判為有條件合格（PI 原則：只關注在意的，其他能用即可）"
     },
     "FRIC": {
      "state": "partial",
      "date": "2026-11-01",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | current_settings.json changes add classes and lock keys production already carried (QA 2026-11-04 14:15); no value of an existing production class changed"
-      }
-     }
+      "date": "2026-11-21T15:05",
+      "note": "2026-11-21 重建比對（scripts/8_audit/h57_rebuild_sweep.py → human_study/qa/rebuild_sweep.json）：18 個判定來源集合各抽 2–3 個 run（共 52），以現行 h14／h30／設定重建的 case.feb、各窗口 restart.feb 與排程檔逐位元相同；證據日之後對 h14／h30／h31 的改動都是試算專用選項（window_cycles、window_max_ups、restart_env 守門等），不進正式模型檔"
+     },
+     "note": "2026-11-22 PI「其他照建議」：加有界使用限制（R17）→ 狀態仍為部分，判為有條件合格（PI 原則：只關注在意的，其他能用即可）"
     },
     "GPUFE": {
      "state": "not_run"
@@ -2243,32 +2170,19 @@
     "BUILD",
     "EQLAW"
    ],
-   "evidence": [],
+   "evidence": [
+    "human_study/qa/design_field_check.json"
+   ],
    "status": {
     "TIED": {
-     "state": "partial",
-     "date": "2026-11-01",
-     "value": "h12 依構造成立；無自動比對",
-     "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | current_settings.json changes add classes and lock keys production already carried (QA 2026-11-04 14:15); no value of an existing production class changed | QA R9 2026-11-04: one FEBio block per cage material in production and golden rebuild"
-      }
-     }
+     "state": "pass",
+     "date": "2026-11-21T16:17",
+     "value": "h12 依構造成立；無自動比對｜2026-11-21 自動比對（scripts/8_audit/h59_design_field_check.py → human_study/qa/design_field_check.json）：190 個模型檔（黏死 physio_rot_split2、摩擦插入 physio_fric3／physio_relG／pilot_mu03／pilot_mu03G，9 個家族組合）每個籠體元素的材料區塊 = 網格檔 0.2 mm 設計場值（mix：混合比例 phi；interleave：該體素印硬或軟），共約 400 萬個元素 0 不符；元素↔體素對應以節點一對一映射驗證｜2026-11-21 擴大（稽核：證據檔原本只含 physio_rot_split2 的黏死模型）：h59 重跑全部黏死判定來源集合（physio_rot、_dyn、_dyn2、_r2、_split2、_split3、_split4）與摩擦插入集合，500／500 個模型檔、12 個家族組合，每個籠體元素 = 設計場值"
     },
     "FRIC": {
-     "state": "partial",
-     "date": "2026-11-01",
-     "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: BUILD 之後的改動都是預設關閉的試算選項（h14 window_min_residual／window_static、h30 同、h06 BIOCAGE_FEBIO 覆寫、設定檔新增 pilot_holdH／Hf 類別），h37 R7 守門通過；R8 黃金重建 p062 physio_fric3 md5 4f3208b5 逐位元相同（h37 完整執行 2026-11-08）；正式 FEBio 二進位（cbuild）未動",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: h14 changes since the evidence are options off by default (tied_init_converged, sliding_off_after_tie, aggressiveness, dtmax_windows, cage_penalty_fixed, physio_windows, dynamic_from_release, c3_release_ramp); production p062 fric3 rebuild byte-identical md5 4f3208b5 (DECISIONS 2026-11-03 03:00 / 14:30 / 22:30, QA R8 2026-11-04) | current_settings.json changes add classes and lock keys production already carried (QA 2026-11-04 14:15); no value of an existing production class changed | QA R9 2026-11-04: one FEBio block per cage material in production and golden rebuild"
-      }
-     }
+     "state": "pass",
+     "date": "2026-11-21T16:17",
+     "value": "2026-11-21 自動比對（scripts/8_audit/h59_design_field_check.py → human_study/qa/design_field_check.json）：190 個模型檔（黏死 physio_rot_split2、摩擦插入 physio_fric3／physio_relG／pilot_mu03／pilot_mu03G，9 個家族組合）每個籠體元素的材料區塊 = 網格檔 0.2 mm 設計場值（mix：混合比例 phi；interleave：該體素印硬或軟），共約 400 萬個元素 0 不符；元素↔體素對應以節點一對一映射驗證｜2026-11-21 擴大（稽核：證據檔原本只含 physio_rot_split2 的黏死模型）：h59 重跑全部黏死判定來源集合（physio_rot、_dyn、_dyn2、_r2、_split2、_split3、_split4）與摩擦插入集合，500／500 個模型檔、12 個家族組合，每個籠體元素 = 設計場值"
     },
     "GPUFE": {
      "state": "not_run"
@@ -2304,18 +2218,14 @@
    "status": {
     "TIED": {
      "state": "pass",
-     "date": "2026-11-18T11:55",
-     "value": "（歷史）verdict_lists_merged.json（2026-11-04 14:35）：149 設計，有判定（fail）131、open 18（friction-computability 14、[多元]/computability 2、unstable-window 2）、pass 0 → 有判定率 131/149 = 88 %（open 全為可計算性問題）｜2026-11-11 00:14 更新：verdict_lists_merged.json（2026-11-11 00:14）：149 設計（2026-11-11 15:03）：有判定（fail）122、grey 13、both 3、open 11（[多元]/computability 2、[數值]/not-computable-both-laws 2、[數值]/unstable-window 2、[觀測]/friction-window 5）→ 有判定率 (122+13+3)/149 = 92.6%；open 全部有標籤｜2026-11-17 更新（稽核 L3）：verdict_lists_merged.json 2026-11-13 13:51：fail 128 / grey 8 / both 5 / open 8（[多元]/computability 2、[數值]/not-computable-both-laws 2、[數值]/unstable-window 2、[觀測]/friction-window 2）→ 有判定率 (128+8+5)/149 = 94.6%｜2026-11-18 更新（稽核 D-20261117-L3）：verdict_lists_merged.json 2026-11-17 07:57：fail 128 / grey 10 / both 3 / open 8（p093、p145 由 both 移入 grey）→ 有判定率 (128+10+3)/149 = 94.6 %，state 不變｜2026-11-18 11:5x 更新：verdict_lists_merged.json（2026-11-18 04:16，剪力改旗之後）：both 31 / grey 12 / fail 100 / open 6（[數值]/unstable-window p003 p027、[多元]/computability p023 p053、[數值]/not-computable-both-laws p048 p115）→ 有判定率 (31+12+100)/149 = 143/149 = 96.0 % ≥ 95 % → 通過。相較 07:57 的 94.6 %，增加的 2 個是剪力由門改旗（PI 2026-11-18）後由 [觀測]/friction-window 釋出的設計（簽核項 D-20261118-14：未評剪力不再擋 PASS）；其餘 6 個 open 全為可計算性問題，另見 DIV-04。",
+     "date": "2026-11-22T01:13",
+     "value": "（歷史）verdict_lists_merged.json（2026-11-04 14:35）：149 設計，有判定（fail）131、open 18（friction-computability 14、[多元]/computability 2、unstable-window 2）、pass 0 → 有判定率 131/149 = 88 %（open 全為可計算性問題）｜2026-11-11 00:14 更新：verdict_lists_merged.json（2026-11-11 00:14）：149 設計（2026-11-11 15:03）：有判定（fail）122、grey 13、both 3、open 11（[多元]/computability 2、[數值]/not-computable-both-laws 2、[數值]/unstable-window 2、[觀測]/friction-window 5）→ 有判定率 (122+13+3)/149 = 92.6%；open 全部有標籤｜2026-11-17 更新（稽核 L3）：verdict_lists_merged.json 2026-11-13 13:51：fail 128 / grey 8 / both 5 / open 8（[多元]/computability 2、[數值]/not-computable-both-laws 2、[數值]/unstable-window 2、[觀測]/friction-window 2）→ 有判定率 (128+8+5)/149 = 94.6%｜2026-11-18 更新（稽核 D-20261117-L3）：verdict_lists_merged.json 2026-11-17 07:57：fail 128 / grey 10 / both 3 / open 8（p093、p145 由 both 移入 grey）→ 有判定率 (128+10+3)/149 = 94.6 %，state 不變｜2026-11-18 11:5x 更新：verdict_lists_merged.json（2026-11-18 04:16，剪力改旗之後）：both 31 / grey 12 / fail 100 / open 6（[數值]/unstable-window p003 p027、[多元]/computability p023 p053、[數值]/not-computable-both-laws p048 p115）→ 有判定率 (31+12+100)/149 = 143/149 = 96.0 % ≥ 95 % → 通過。相較 07:57 的 94.6 %，增加的 2 個是剪力由門改旗（PI 2026-11-18）後由 [觀測]/friction-window 釋出的設計（簽核項 D-20261118-14：未評剪力不再擋 PASS）；其餘 6 個 open 全為可計算性問題，另見 DIV-04。｜2026-11-21 collect_split 重跑：有判定 143／149 = 96.0 %（open 6：[多元]/computability 2、[數值]/unstable-window 2、[數值]/not-computable-both-laws 2），與 11-18 相同｜2026-11-22 collect_split 重跑：有判定 143／149 = 96.0 %（open 6 同前；5 個設計由 PASS 改列 DESIGN/dislocation-friction 仍屬有判定）",
      "note": "tied 篩選 72 pass 經摩擦閘門後全數 fail 或 open；可計算率的分母與 11-02 的 150 不同（149 個有 case 的設計） | 2026-11-05 03:41 結果檔重算後更新日期"
     },
     "FRIC": {
-     "state": "pass",
-     "date": "2026-11-18T13:48",
-     "value": "（歷史）2026-11-11 15:03 結果檔（PI 決定 4 後）：摩擦判定有結論 64/71（pass 47＋grey 17 = 90.1 %），open 7 = 6 個設計的 8 個窗口兩種摩擦律從同一檔點重啟都在評估點前中止（p048 p074 p097 p109 p115 p116）＋p060 資料缺；另 3 個設計（p050 p084 p127）以同模型 p068 的結果判定（[數值] replicate-not-reproduced）。27 個生產插入停算的設計以流程 G 全部插入完成（27/27）；friction-computability 0。窗口驅動根因（DECISIONS 2026-11-11 01:00）已決定修法（PI 1a 路線 E，2026-11-13 重跑中）。｜（歷史）2026-11-11：27 個生產插入停算的設計以流程 G（process G，全程動態、釋放力矩時同步加壓）全部插入完成（27/27 resources.json normal）；摩擦判定有結論 61/71（pass 44＋grey 17 = 85.9 %），open 10 = 9 個設計的 12 個窗口兩種摩擦律從同一檔點重啟都在評估點前中止（physio_relG 與 physio_relG_pl）＋p060 資料缺；friction-computability 0。根因（DECISIONS 2026-11-11 01:00）：窗口的剛性關節驅動在 t 3.5 接上時把 C3 拉回 t=0 方位（流程 G 1.16°、生產插入 0.3–0.4°），修法方向待 PI 決定（PI_PENDING 2026-11-11）。｜（歷史 2026-11-05 03:41）physio_fric3 插入 43/70 完成（axial 18/18、radial 25/52）；14 個 tied 通過的 interleave 設計摩擦下算不完（[多元]/friction-computability）｜2026-11-13 更新（R5 取文中最後一次出現的計數）：2026-11-13 13:5x（路線 E 重跑後）：摩擦判定有結論 67/71（pass 52＋grey 13＋fail 2 = 94.4 %），open 4 = p048 p074 p115（兩種摩擦律、兩種驅動都算不出的窗口）＋p060 資料缺；140 個重跑窗口中第一增量失敗 1 個（p048 後伸，依程式定義 t_last 3.516、負 Jacobian 4941；原文「0 個」為稽核更正）。｜2026-11-17 08:00 更新（R5 取文中最後一次出現的計數）：摩擦判定有結論 69/73（pass 53＋grey 16＋fail 0 = 94.5 %），open 4 = p048 p074 p115＋p060；p102／p149 已完成（p149 前屈的路線 E 窗口算不出，但關節驅動列已達 1.5 N·m，仍有判定）。｜2026-11-18 13:48 更新（p060 自己的正式插入＋路線 E 窗口完成，判定流程重跑；verdicts.json 13:4x）：摩擦判定有結論 70/73（pass 53＋grey 17＝95.9 %）≥ 95 % → 通過；open 3 = p048 p074 p115（p048／p115 兩種摩擦律、兩種驅動、全牛頓法都在第一批增量停算 → 材料／設計極限；p074 屬徑向混合家族已整批排除）。p060：後伸 ROM 後方 0.4747 mm（灰區）、前屈 1.5 N·m 0.7972 mm → grey，與同模型 p072（0.4692／0.7936）一致。其餘 72 個設計的讀值與判定逐一不變（T19 擴充後的 e04 首次進入流程，無差異）。",
-     "reconfirmed": {
-      "date": "2026-11-02T10:00",
-      "note": "11-02 collect_split 只改資料夾路徑字串（改名），不影響此檢查"
-     },
+     "state": "partial",
+     "date": "2026-11-22T01:13",
+     "value": "（歷史）2026-11-11 15:03 結果檔（PI 決定 4 後）：摩擦判定有結論 64/71（pass 47＋grey 17 = 90.1 %），open 7 = 6 個設計的 8 個窗口兩種摩擦律從同一檔點重啟都在評估點前中止（p048 p074 p097 p109 p115 p116）＋p060 資料缺；另 3 個設計（p050 p084 p127）以同模型 p068 的結果判定（[數值] replicate-not-reproduced）。27 個生產插入停算的設計以流程 G 全部插入完成（27/27）；friction-computability 0。窗口驅動根因（DECISIONS 2026-11-11 01:00）已決定修法（PI 1a 路線 E，2026-11-13 重跑中）。｜（歷史）2026-11-11：27 個生產插入停算的設計以流程 G（process G，全程動態、釋放力矩時同步加壓）全部插入完成（27/27 resources.json normal）；摩擦判定有結論 61/71（pass 44＋grey 17 = 85.9 %），open 10 = 9 個設計的 12 個窗口兩種摩擦律從同一檔點重啟都在評估點前中止（physio_relG 與 physio_relG_pl）＋p060 資料缺；friction-computability 0。根因（DECISIONS 2026-11-11 01:00）：窗口的剛性關節驅動在 t 3.5 接上時把 C3 拉回 t=0 方位（流程 G 1.16°、生產插入 0.3–0.4°），修法方向待 PI 決定（PI_PENDING 2026-11-11）。｜（歷史 2026-11-05 03:41）physio_fric3 插入 43/70 完成（axial 18/18、radial 25/52）；14 個 tied 通過的 interleave 設計摩擦下算不完（[多元]/friction-computability）｜2026-11-13 更新（R5 取文中最後一次出現的計數）：2026-11-13 13:5x（路線 E 重跑後）：摩擦判定有結論 67/71（pass 52＋grey 13＋fail 2 = 94.4 %），open 4 = p048 p074 p115（兩種摩擦律、兩種驅動都算不出的窗口）＋p060 資料缺；140 個重跑窗口中第一增量失敗 1 個（p048 後伸，依程式定義 t_last 3.516、負 Jacobian 4941；原文「0 個」為稽核更正）。｜2026-11-17 08:00 更新（R5 取文中最後一次出現的計數）：摩擦判定有結論 69/73（pass 53＋grey 16＋fail 0 = 94.5 %），open 4 = p048 p074 p115＋p060；p102／p149 已完成（p149 前屈的路線 E 窗口算不出，但關節驅動列已達 1.5 N·m，仍有判定）。｜2026-11-18 13:48 更新（p060 自己的正式插入＋路線 E 窗口完成，判定流程重跑；verdicts.json 13:4x）：摩擦判定有結論 70/73（pass 53＋grey 17＝95.9 %）≥ 95 % → 通過；open 3 = p048 p074 p115（p048／p115 兩種摩擦律、兩種驅動、全牛頓法都在第一批增量停算 → 材料／設計極限；p074 屬徑向混合家族已整批排除）。p060：後伸 ROM 後方 0.4747 mm（灰區）、前屈 1.5 N·m 0.7972 mm → grey，與同模型 p072（0.4692／0.7936）一致。其餘 72 個設計的讀值與判定逐一不變（T19 擴充後的 e04 首次進入流程，無差異）。｜2026-11-21（摩擦係數 0.3 為正式值後）：有結論 70／73 = 95.9 %（open 3：p048、p074、p115，同 11-18）。補充：0.3 的 94 個路線 E 窗口中 11 個以擬牛頓法在評估點前停算（12 %），這些窗口暫用 0.35 讀值並標 mu03_not_computable；全牛頓法補算進行中（pilot_mu03rN：p014、p026 後伸已算完；流程 G 的 p095／p104／p128 後伸兩種解法都在同一時刻停）｜2026-11-21 稽核（D-20261121）後改列部分：70／73 = 95.9 % 是靠 10 個設計的窗口暫用 0.35 讀值才成立；以正式摩擦係數 0.3 計：算到評估點的窗口 83／94 = 88.3 %、兩個窗口都算到的設計 37／47 = 78.7 %（< 95 %）。全牛頓法補算（非判定來源、待 PI 決定是否採用）：一般設計 8 個窗口中 6 個算完、2 個仍停（p079 後伸、p086 前屈）；流程 G 3 個窗口與擬牛頓法停在同一時刻；若採用，0.3 的窗口算到評估點者為 89／94 = 94.7 %。其餘 23 個設計的 0.3 補算完成、且 PI 對全牛頓法作出決定後重評｜2026-11-22（PI 第 12 項：全牛頓法為正式窗口設定，pilot_mu03rN／GrN 納入判定來源、排在擬牛頓法 0.3 窗口之後）：摩擦係數 0.3 的窗口現有 6 個取自全牛頓法；0.3 下仍算不出的窗口 5 個（p079 後伸、p086 前屈，兩種解法都停；流程 G 的 p095、p104、p128 後伸，兩種解法停在同一時刻）。設計層：47 個兩窗口皆 0.3、6 個混合、20 個仍為 0.35（批次 e 進行中，已完成 6 個）。有判定 70／73 = 95.9 % 不變；「全部以正式摩擦係數判定」要等批次 e 完成再計 → 維持部分",
      "note": "2026-11-04 QA 更新；舊值 4/7 為 physio_fric 第一批 | 2026-11-05 03:41 結果檔重算後更新日期"
     }
    },
@@ -2349,7 +2259,11 @@
     "TIED": {
      "state": "pass",
      "date": "2026-11-18T12:01",
-     "value": "split2 整體 31%；家族 B 8/9 (89%)、gradient both 7/8 (88%)、interleave 11/30 (37%) vs mix 2/12、E_soft 低三分位 8/14 (57%) vs 高 0/14｜2026-11-18 12:01 重算（results/method/split/div04_noncomputable_bias.json；149 設計，算不出／不穩定 6 = p003 p027 p023 p053 p048 p115，整體 0.040，上限 2 倍 = 0.081）：家族 A 5/125、B 1/24；梯度 axial 0/58、both 2/25（0.080）、radial 4/66（0.061）；製法 interleave 6/80（0.075）、mix 0/69；E_soft 三分位 低 3/49、中 3/50、高 0/50 → 沒有類別超過 2 倍整體比例 → 通過；但 6 個全是 interleave（0.075 貼近上限 0.081，再多 1 個即不通過），且撐開量都 ≥ 1.0 mm、4 個 ≥ 1.45 mm：算不出的設計集中在「交錯製法＋大撐開量」。"
+     "value": "split2 整體 31%；家族 B 8/9 (89%)、gradient both 7/8 (88%)、interleave 11/30 (37%) vs mix 2/12、E_soft 低三分位 8/14 (57%) vs 高 0/14｜2026-11-18 12:01 重算（results/method/split/div04_noncomputable_bias.json；149 設計，算不出／不穩定 6 = p003 p027 p023 p053 p048 p115，整體 0.040，上限 2 倍 = 0.081）：家族 A 5/125、B 1/24；梯度 axial 0/58、both 2/25（0.080）、radial 4/66（0.061）；製法 interleave 6/80（0.075）、mix 0/69；E_soft 三分位 低 3/49、中 3/50、高 0/50 → 沒有類別超過 2 倍整體比例 → 通過；但 6 個全是 interleave（0.075 貼近上限 0.081，再多 1 個即不通過），且撐開量都 ≥ 1.0 mm、4 個 ≥ 1.45 mm：算不出的設計集中在「交錯製法＋大撐開量」。",
+     "reconfirmed": {
+      "date": "2026-11-22T01:14",
+      "note": "2026-11-22：collect_split.py 今日只加 PI 第 11 項的類別規則（5 個摩擦 fail 設計由 PASS 改列 DESIGN/dislocation-friction）；算不出的 6 個設計與其家族分佈不變（div04_noncomputable_bias.json 的輸入相同）"
+     }
     }
    },
    "refs": [
@@ -2716,35 +2630,29 @@
    "evidence": [
     "human_study/WINDOW_SCAN_2026-11-02.md",
     "human_study/CAPABILITY_GAPS_2026-11-02.md",
-    "../biocage-evo/methods/e03_mu_req.py"
+    "../biocage-evo/methods/e03_mu_req.py",
+    "human_study/WINDOW_SCAN_2026-11-21.md",
+    "human_study/qa/fric_winner_scan.json"
    ],
    "status": {
     "TIED": {
      "state": "pass",
-     "date": "2026-11-02T18:00",
-     "value": "474 視窗 5278 態：158 視窗有 dyn 態（337 = 6.4%）；11 視窗由達標改未達標（生產批 5：p088 AR_left、p107 AR_right、p117 AR_right、p015 AR_right、p082 AR_left）；123 視窗重算，70/62/16",
+     "date": "2026-11-21T15:05",
+     "value": "474 視窗 5278 態：158 視窗有 dyn 態（337 = 6.4%）；11 視窗由達標改未達標（生產批 5：p088 AR_left、p107 AR_right、p117 AR_right、p015 AR_right、p082 AR_left）；123 視窗重算，70/62/16｜2026-11-21 h34 重掃：physio_rot_split2／3／4 354 窗口 3,105 態，剛體殘差狀態 223（7.2 %）在 117 窗口；達標→未達標 7 窗口，判定皆不使用這些狀態（e03.filter_rows；h58 回歸相同）",
      "note": "PI 2026-11-03：兩層濾除接受為常規；根治（降密度／靜態／重試回步）不現在做（GAPS 3.7） | 2026-11-04 QA：value 的 70/62/16 是 11-02 計數，現 tied pass 72（合併重複後）；physio_fric3 批次沒有 h34 批次掃描（視窗層的 window_check.n_dyn 有逐窗記錄）→ FRIC 證據不完整",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: METRICS 只有 fric_compare 的 _meta.rule 文字改成「檢查而非閘」（PI 2026-11-07 決定 1）；e03/e04/e05/e07 未動；BUILD/SPLIT：預設關閉的試算選項（window_min_residual／window_static），R8 黃金重建 md5 4f3208b5 相同",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00) | h14 options off by default (QA R8 golden rebuild)"
-      }
+      "date": "2026-11-22T01:13",
+      "note": "2026-11-22：fric_compare.py 與 e07_batch.py 今日的改動只加入全牛頓法集合（PI 第 12 項，排在擬牛頓法 0.3 集合之後）與 window_solver 欄；重跑後既有窗口的讀值不變，判定計數 46／19／5／3 不變（變動只有：6 個原本 0.3 算不出的窗口改用全牛頓法讀值、批次 e 新完成的 6 個設計改用 0.3）；e03／e04／e05／e07 未動"
      }
     },
     "FRIC": {
      "state": "partial",
-     "date": "2026-11-02T18:00",
-     "value": "physio_fric／fric2 視窗同規則掃描；p060 LB_left 末態殘差 281483（已由 dt 層濾除）",
+     "date": "2026-11-21T15:05",
+     "value": "physio_fric／fric2 視窗同規則掃描；p060 LB_left 末態殘差 281483（已由 dt 層濾除）｜2026-11-21 h60 掃描今日判定來源 142 窗口：關節驅動 10 窗口的剛體殘差狀態 54 個已被判定排除；路線 E 132 窗口三個轉動都是指定值，沒有力矩殘差可判（e03 exclude all，稽核 D-20261111-32），只記錄力殘差：路線 E 132 窗口的有效狀態中位 1.9 N、第 90 百分位 19.4 N、最大 96.7 N（p101 前屈；追隨負荷 100 N），22 窗口超過 10 N（全部 142 窗口的第 90 百分位 17.6 N），無門檻 → 維持部分（待定：力殘差門檻，或它對讀值影響的檢驗）",
      "note": "PI 2026-11-03：兩層濾除接受為常規；根治（降密度／靜態／重試回步）不現在做（GAPS 3.7） | 2026-11-04 QA：physio_fric3（86 視窗）未做 h34 批掃描，降為 partial",
      "reconfirmed": {
-      "date": "2026-11-08",
-      "note": "QA 2026-11-08: METRICS 只有 fric_compare 的 _meta.rule 文字改成「檢查而非閘」（PI 2026-11-07 決定 1）；e03/e04/e05/e07 未動；BUILD/SPLIT：預設關閉的試算選項（window_min_residual／window_static），R8 黃金重建 md5 4f3208b5 相同",
-      "previous": {
-       "date": "2026-11-04",
-       "note": "QA 2026-11-04: FEBio full rebuild 2026-11-03 03:00 added only the off-by-default tied-elastic option init_converged (DECISIONS 2026-11-03 03:00) | h14 options off by default (QA R8 golden rebuild)"
-      }
+      "date": "2026-11-22T01:13",
+      "note": "2026-11-22：fric_compare.py 與 e07_batch.py 今日的改動只加入全牛頓法集合（PI 第 12 項，排在擬牛頓法 0.3 集合之後）與 window_solver 欄；重跑後既有窗口的讀值不變，判定計數 46／19／5／3 不變（變動只有：6 個原本 0.3 算不出的窗口改用全牛頓法讀值、批次 e 新完成的 6 個設計改用 0.3）；e03／e04／e05／e07 未動"
      }
     }
    },
@@ -2781,8 +2689,8 @@
    "status": {
     "FRIC": {
      "state": "partial",
-     "date": "2026-11-18T04:07",
-     "value": "修正介面定義後（軟側 p99，MPa）：前屈 ROM／前屈 1.5 N·m／後伸 ROM：axial 10.5–15.8／4.7–6.7／3.2–7.4；radial mix 10.7–16.6／5.2–7.0／2.3–3.2；interleave 1.7–2.7／1.2–1.5／0.3–0.5。網格收斂未過（HZ 0.1：層間 −15.9 %、帶邊界 +16.7 %，容差 5 %）；interleave 軟／硬側差到 ~27 倍｜2026-11-18 04:07 PI 決定「改旗＋排序；等實測後再定門」：3 MPa 不再是設計門，改為旗標（shear_check）並以所需介面強度 shear_req_p99_MPa（完整窗口內軟側 99 百分位剪力最大值）排序；71 設計有值，0.08–21.9 MPa、中位 12.7；超過 3 MPa 54 個。平台已能算出並記錄此量；門檻值待 PLCL 硬／軟共印介面黏結強度實測 → 狀態改「部分」（指標可算、門檻未定）。",
+     "date": "2026-11-22T01:13",
+     "value": "修正介面定義後（軟側 p99，MPa）：前屈 ROM／前屈 1.5 N·m／後伸 ROM：axial 10.5–15.8／4.7–6.7／3.2–7.4；radial mix 10.7–16.6／5.2–7.0／2.3–3.2；interleave 1.7–2.7／1.2–1.5／0.3–0.5。網格收斂未過（HZ 0.1：層間 −15.9 %、帶邊界 +16.7 %，容差 5 %）；interleave 軟／硬側差到 ~27 倍｜2026-11-18 04:07 PI 決定「改旗＋排序；等實測後再定門」：3 MPa 不再是設計門，改為旗標（shear_check）並以所需介面強度 shear_req_p99_MPa（完整窗口內軟側 99 百分位剪力最大值）排序；71 設計有值，0.08–21.9 MPa、中位 12.7；超過 3 MPa 54 個。平台已能算出並記錄此量；門檻值待 PLCL 硬／軟共印介面黏結強度實測 → 狀態改「部分」（指標可算、門檻未定）。｜2026-11-21 e07 以摩擦係數 0.3 為正式值重算（pilot_mu03r／pilot_mu03Gr 加入最高級；496 窗口）：e07 pass 15／fail 52／open 6（p061、p083 由 fail 轉 pass）；所需介面強度 72 設計 0.08–21.89 MPa、中位 12.79，超過 3 MPa 52 個；0.35 → 0.3 的變動 −1.07 至 +2.84 MPa、中位 0。門檻未定（等黏結強度實測）→ 維持部分｜2026-11-22 e07 重跑（519 窗口；全牛頓法集合納入）：pass 15／fail 52／open 6；所需介面強度 72 設計 0.08–21.89 MPa、中位 12.68，超過 3 MPa 52 個；門檻未定 → 維持部分",
      "note": "2026-11-04 11:30：舊版以 hard 旗標當介面，mix 數值全部作廢。門檻暫定、評估點待 PI；只涵蓋前屈／後伸 | 2026-11-04 14:35：ROM 時點內插改為只用有效狀態（NUM-14），6 視窗變動 ≤ 0.2 MPa，判定不變；錯誤介面版輸出移至 results/method/fric/retired_wrong_faces_20261104/。只涵蓋前屈／後伸（R10）。"
     }
    },
@@ -2798,10 +2706,10 @@
    "configs": [
     "FRIC"
    ],
-   "name": "C3 固定自由度一次釋放的衝擊（摩擦插入可計算性）",
-   "method": "release 步以 x、y、Rx、Ry、Rz 夾住 C3；t 3 後一步全部放開。比較 t 3 後第一步初始殘差與 C3pot.txt 在 t 3 的反力平方和；pilot：動態切換移到 t 2、全靜態、真實密度 1e-9、反力在 t 3→3.5 線性漸放（h14 c3_release_ramp）",
-   "threshold": "t 3 後第一步初始殘差 ≤ 1e2（與靜態步同級）；14 個 radial interleave 設計插入可完成",
-   "threshold_src": "提案（第一步殘差 ≤ 1e2 為整合者自訂）；可計算性要求來自 PI 2026-11-03 05:00（71 設計補跑前屈＋後伸）",
+   "name": "摩擦插入的可計算性（新設計用流程 G；原：C3 固定自由度一次釋放的衝擊）",
+   "method": "PI 2026-11-22 第 16(a) 項：新設計的摩擦插入一律用流程 G（physio_relG 配方：全程慢速動態、釋放時同步加追隨負荷、插入段即用黏著記憶律），不再經過正式流程在 t 3 一步放開 C3、同時由靜態切到動態的那一步（該步是原檢查量的對象，21 個設計停在那裡）。檢查兩件事：(1) 流程 G 的插入完成率，特別是正式流程停算的設計；(2) 兩種流程都算得出的設計上，流程 G 與正式流程的讀值差（pilot_relG/equivalence_p062.json、_p094.json）。已用正式流程算完的設計維持原結果。｜舊方法文字保留在 method_before_20261122",
+   "threshold": "(1) 正式流程停算的設計在流程 G 下插入全部完成（原門檻第 2 款「radial interleave 設計插入可完成」）；(2) 後伸讀值差 ≤ 0.005 mm（讀值雜訊判準）；前屈讀值差列為使用限制（R13）。原第 1 款（t 3 後第一步殘差 ≤ 1e2）只適用正式流程的切換步，流程 G 沒有這一步",
+   "threshold_src": "PI 2026-11-22 第 16(a) 項（以流程 G 迴避釋放衝擊，標籤隨之改寫）；第 2 款沿用 PI 2026-11-03 的可計算性要求；0.005 mm 為 R20 的讀值雜訊判準",
    "trigger": "一次；h14 釋放步或接觸設定變更時重做",
    "depends": [
     "BUILD",
@@ -2819,15 +2727,17 @@
    ],
    "status": {
     "FRIC": {
-     "state": "fail",
-     "date": "2026-11-18T12:01",
-     "value": "27/52 radial 摩擦插入失敗（axial 18/18 完成）。停點分兩群：t < 3 靜態釋放段 6（p039 2.23、p064 2.44、p052 2.45、p050 2.52、p097 2.64、p048 2.93：平台問題，與 C3 釋放無關）；t 3.005–3.07 第一個動態步 20 ＋ p109 3.34（C3 釋放衝擊）。釋放衝擊：t 3 後第一步 R0 = |F|²+|M|²；鎖住的 C3 反力（t 3，c3_reactions_t3.json）p061 (−10.6 N, 244.5 N·mm)、p083 (−16.6, 400.2)、p129 (−13.5, 323.9)、p120 (−16.9, 412.6)；t 2 反力與撐開量 d 相關 0.98（seated_reactions_t2.json，70 設計，回歸斜率約 950 N·mm/mm）。動態切換前移、全靜態、真實密度單獨皆無效；反力漸放（c3_release_ramp）第一步殘差降約 100 倍，但動態＋漸放在第二步崩潰（R0 ∝ 1/dt²，慣性預測項，量值原因未明）。相同輸入 ~150 步後因捨入誤差分岔（p061 c3ramp 卡 dt_min vs pilot_static 通過）。2026-11-04 14:00 進行中：真實密度＋漸放 p061 插入 NORMAL（t 3.5，視窗跑中）、p120 ERROR t 2.77（靜態段）、p083/p129 跑中；靜態＋漸放 p061/p120/p129 已過 t 3.3（跑中）、p083 t 2.84。｜2026-11-18 12:01 流程 G 紀錄檢查（A5 第一步，不用 GPU）：正式插入停算的 29 個 run 目錄 = 28 個設計（p071 兩次；6 個停在靜態釋放段 t 2.23–2.93、21 個停在 t 3.01–3.07 第一個動態步、p109 3.34、p071_gpu5 t 0；稽核 D-20261118-P3 更正計數）在流程 G（physio_relG：全程動態、釋放時同步加壓）之下插入全部 N O R M A L：interleave 15/15、mix 13/13 → 門檻第 2 款「14 個 radial interleave 設計插入可完成」在流程 G 下成立；第 1 款（t 3 後第一步殘差 ≤ 1e2）描述的是正式流程的切換步，流程 G 沒有這一步。流程 G 對照正式流程（pilot_relG/equivalence_p062.json、_p094.json）：後伸 ROM 讀值相同（0.441／0.308 vs 0.441／0.307），前屈 1.5 N·m 低 0.02–0.05 mm（0.159／0.094 vs 0.176／0.143；釋放前先加壓改變了摩擦預載）。狀態維持不合格；是否以流程 G 作為新設計的正式插入並改寫本項方法（選項甲）或續試放開段緩和（選項乙）待 PI。",
+     "state": "partial",
+     "date": "2026-11-22T01:06",
+     "value": "27/52 radial 摩擦插入失敗（axial 18/18 完成）。停點分兩群：t < 3 靜態釋放段 6（p039 2.23、p064 2.44、p052 2.45、p050 2.52、p097 2.64、p048 2.93：平台問題，與 C3 釋放無關）；t 3.005–3.07 第一個動態步 20 ＋ p109 3.34（C3 釋放衝擊）。釋放衝擊：t 3 後第一步 R0 = |F|²+|M|²；鎖住的 C3 反力（t 3，c3_reactions_t3.json）p061 (−10.6 N, 244.5 N·mm)、p083 (−16.6, 400.2)、p129 (−13.5, 323.9)、p120 (−16.9, 412.6)；t 2 反力與撐開量 d 相關 0.98（seated_reactions_t2.json，70 設計，回歸斜率約 950 N·mm/mm）。動態切換前移、全靜態、真實密度單獨皆無效；反力漸放（c3_release_ramp）第一步殘差降約 100 倍，但動態＋漸放在第二步崩潰（R0 ∝ 1/dt²，慣性預測項，量值原因未明）。相同輸入 ~150 步後因捨入誤差分岔（p061 c3ramp 卡 dt_min vs pilot_static 通過）。2026-11-04 14:00 進行中：真實密度＋漸放 p061 插入 NORMAL（t 3.5，視窗跑中）、p120 ERROR t 2.77（靜態段）、p083/p129 跑中；靜態＋漸放 p061/p120/p129 已過 t 3.3（跑中）、p083 t 2.84。｜2026-11-18 12:01 流程 G 紀錄檢查（A5 第一步，不用 GPU）：正式插入停算的 29 個 run 目錄 = 28 個設計（p071 兩次；6 個停在靜態釋放段 t 2.23–2.93、21 個停在 t 3.01–3.07 第一個動態步、p109 3.34、p071_gpu5 t 0；稽核 D-20261118-P3 更正計數）在流程 G（physio_relG：全程動態、釋放時同步加壓）之下插入全部 N O R M A L：interleave 15/15、mix 13/13 → 門檻第 2 款「14 個 radial interleave 設計插入可完成」在流程 G 下成立；第 1 款（t 3 後第一步殘差 ≤ 1e2）描述的是正式流程的切換步，流程 G 沒有這一步。流程 G 對照正式流程（pilot_relG/equivalence_p062.json、_p094.json）：後伸 ROM 讀值相同（0.441／0.308 vs 0.441／0.307），前屈 1.5 N·m 低 0.02–0.05 mm（0.159／0.094 vs 0.176／0.143；釋放前先加壓改變了摩擦預載）。狀態維持不合格；是否以流程 G 作為新設計的正式插入並改寫本項方法（選項甲）或續試放開段緩和（選項乙）待 PI。｜2026-11-21：摩擦係數 0.3 批次的插入：正式流程 22／22 完成（都是 0.35 時正式流程可插入的設計）、流程 G 7／7 完成；結論不變（徑向家族需流程 G；標籤文字是否改寫待 PI，A5）｜2026-11-22（PI 第 16(a) 項：新設計用流程 G，本項改寫）：(1) 正式流程停算的 28 個設計在流程 G 下插入 28／28 完成（interleave 15／15、mix 13／13）；摩擦係數 0.3 的流程 G 插入 7／7 完成，另 17 個進行中（批次 e）；(2) 對照設計 p062／p094：後伸正常活動範圍讀值 0.441／0.308（流程 G）對 0.441／0.307 mm（正式流程），差 ≤ 0.001；前屈 1.5 N·m 讀值 0.159／0.094 對 0.176／0.143 mm，流程 G 低 0.02–0.05 mm（釋放前先加壓改變了摩擦預載；方向偏不保守） → 可計算性成立，前屈偏差列為使用限制 R13 → 狀態「部分」＋有界限制＝有條件合格。只有兩個對照設計",
      "note": "靜態＋漸放、真實密度＋漸放進行中；通過組合需 p062 對照（5 %/2 % 容差）後才可用於 14 個 interleave 設計的補跑。"
     }
    },
    "refs": [
     "DECISIONS 2026-11-04 01:30"
-   ]
+   ],
+   "method_before_20261122": "release 步以 x、y、Rx、Ry、Rz 夾住 C3；t 3 後一步全部放開。比較 t 3 後第一步初始殘差與 C3pot.txt 在 t 3 的反力平方和；pilot：動態切換移到 t 2、全靜態、真實密度 1e-9、反力在 t 3→3.5 線性漸放（h14 c3_release_ramp）",
+   "threshold_before_20261122": "t 3 後第一步初始殘差 ≤ 1e2（與靜態步同級）；14 個 radial interleave 設計插入可完成"
   },
   {
    "required": true,
@@ -2891,7 +2801,7 @@
     "FRIC": {
      "state": "fail",
      "date": "2026-11-18T14:19",
-     "value": "（歷史）2026-11-11（灰區規則 PI 2026-11-10；verdicts.json 00:11）：0.5 mm 線的數值解析：同設計參數不同編號的複本 — 後伸 ROM 後方 p077 0.435 / p139 0.435（一致，pass）、p100 0.5（替代讀值，grey）vs p142 0.442（pass）、p086 0.44；流程 G 逐位元相同模型 p050/p068/p084/p127 各自的結果 open/pass/open/open（窗口第一增量收斂與否的跨次執行變異；根因 = 關節驅動接上時的拉回，DECISIONS 2026-11-11 01:00）→ PI 決定 4（2026-11-11）後設計層共用 p068 的 pass，平台層以 [數值] replicate-not-reproduced 旗標追蹤；路線 E 重跑的驗收 = 複本一致（驗證：0.1621 vs 0.1620 mm）→ 灰區邊界附近的判定與窗口可算性仍不被數值解析；驅動修正後需重算。｜（歷史 2026-11-04 12:20）後伸後方位移：p077 0.456 vs p139 0.634、p100 0.457 vs p142 0.575、p086 0.466（相同設計參數，振幅不同）→ 0.5 mm 線未被數值解析；插入段相同輸入 151 步後因捨入分岔（一過一卡 dt_min）｜2026-11-13 更新（R5 取文中最後一次出現的計數）：2026-11-13 13:5x（路線 E 重跑；R20 複本一致性）：8 個同模型群、14 個雙複本以上的窗口，12 個讀值差 ≤ 0.005 mm（p050/p068/p084/p127 前屈皆 0.162，差 0.00015；p077/p139 差 1e-11），2 個超過：p093/p145 後伸 0.552/0.539（差 0.012，跨 0.55 限值 → 依決定 4 統一為 fail）、p051/p075 前屈差 0.0068（皆 grey）。0.5 mm 線附近的數值解析仍待：限值附近的設計（p093/p145、灰區 8 個）讀值差 0.003–0.012 mm。｜2026-11-17 PI 決定：跨限值且差距 ≤ 0.02 mm 的同模型複本群列為灰區（限值邊界），不判 fail；p093／p145 → grey。｜2026-11-17 08:00：複本一致性不變（14 窗口中 12 個 ≤ 0.005 mm，最大差 0.0124 mm）；replicates.consistent 現指成員各自算出的判定一致（p093／p145 False、unified True）；邊界灰區規則限定於後方位移限值的 fail。另一路徑敏感性旁證：p149 後伸在關節驅動與路線 E 兩種驅動下 ROM 後方位移 0.3084／0.3077 mm（差 0.0007 mm）。｜2026-11-18 12:01 pilot_rep3（PI 2026-11-18 C2 乙：兩組不一致複本各自從同一存檔重跑，2 × 2）：窗口過程本身可重現 — p145 後伸 ROM 0.5398 vs 正式 0.5393（0.0005 mm）；p051／p075 前屈 1.5 N·m 0.8242／0.8258 vs 正式 0.8275／0.8208（0.0033／0.0050 mm，兩次重跑彼此差 0.0016）。正式的 0.012 mm 後伸差距（p093 0.5517 vs p145 0.5393）不是窗口雜訊而是插入存檔血統＋解路徑（兩存檔 t 3.5 狀態只差 0.0019 mm）；p093 後伸重跑在第一增量 E R R O R（10 次重試、1422 負 Jacobian；正式同存檔同模型正常），只差 GPU 與執行緒數 → 窗口能否算完也有路徑依賴（第二次以正式配置重跑中，tmux rep3b_pilot）。結論：灰區外的複本判定一致、窗口讀值雜訊 0.0005–0.005 mm（R20 判準 0.005 成立於窗口層）；仍開著的是存檔血統造成的 0.012 mm 與收斂的路徑依賴 → 部分。｜2026-11-18 13:01 更正（顧問複核）：2 × 2 設計缺一格（p093 自己的存檔兩次重跑都未收斂，1/3 收斂），「0.012 mm 是血統差而非窗口雜訊」尚未證明，0.0005 mm 只來自一對；且本項方法問「相同輸入是否給相同步序」，p093 的答案是否 → 維持不合格（不轉部分）。p093 後伸現在是幾分鐘就能重現的失敗案例，用它測全牛頓（max_ups 0）、接觸罰則與增廣拉格朗日。｜2026-11-18 13:19 p093 後伸全牛頓法重跑（pilot_rep3/p093n：同存檔同模型，restart Control max_ups 10 → 0）：N O R M A L、0 次重試、81 個負 Jacobian 警告（BFGS 正式 run 1 次重試／250；BFGS 兩次重跑皆失敗）、1060 s 6 核；ROM 後方位移 0.5489 mm（同存檔 BFGS 正式 0.5517、p145 存檔 0.5393／0.5398）→ 全牛頓法讓這個 2/3 失敗的窗口直接收斂，同存檔的解差 0.0028 mm；是否把窗口 Control 改為全牛頓（max_ups 0）作為正式設定（影響閘門檔）待 p048／p115 試跑與 PI 決定。狀態維持不合格。｜2026-11-18 13:48 複本一致性更新（replicate_agreement.json 13:4x）：9 個同模型群、16 個雙複本以上窗口，13 個 ≤ 0.005 mm，3 個超過：p093／p145 後伸 0.0124、p051／p075 前屈 0.0068、新群 p060／p072 後伸 0.0055（0.4747 vs 0.4692；判定皆 grey、一致）。灰區外的複本判定仍全部一致。狀態不變（不合格，理由同 13:01）。｜2026-11-18 14:19 全牛頓法重現性（pilot_rep3/p093n2 GPU 1 5 核、p093n3 GPU 3 6 核、p145n GPU 4 6 核，restart Control max_ups 0）：4/4 N O R M A L（含 13:1x 的 p093n），重試 0／2／0／0、負 Jacobian 81／187／77／50 行、1057–1271 s；p093 同存檔三次 ROM 後方 0.5489／0.5515／0.5478 mm（同存檔散佈 0.0037；擬牛頓法正式值 0.5517、擬牛頓法重跑 2/2 失敗），p145n 0.5401（擬牛頓法 0.5393／0.5398）。跨存檔差 p093–p145 仍 0.008–0.012 mm。結論：窗口收斂的路徑依賴來自擬牛頓（BFGS）更新，全牛頓法每次都收斂、時間相近；改正式設定（閘門檔 h14／h31 的窗口 Control）待 PI；狀態維持不合格（正式設定仍是擬牛頓）。",
+     "value": "（歷史）2026-11-11（灰區規則 PI 2026-11-10；verdicts.json 00:11）：0.5 mm 線的數值解析：同設計參數不同編號的複本 — 後伸 ROM 後方 p077 0.435 / p139 0.435（一致，pass）、p100 0.5（替代讀值，grey）vs p142 0.442（pass）、p086 0.44；流程 G 逐位元相同模型 p050/p068/p084/p127 各自的結果 open/pass/open/open（窗口第一增量收斂與否的跨次執行變異；根因 = 關節驅動接上時的拉回，DECISIONS 2026-11-11 01:00）→ PI 決定 4（2026-11-11）後設計層共用 p068 的 pass，平台層以 [數值] replicate-not-reproduced 旗標追蹤；路線 E 重跑的驗收 = 複本一致（驗證：0.1621 vs 0.1620 mm）→ 灰區邊界附近的判定與窗口可算性仍不被數值解析；驅動修正後需重算。｜（歷史 2026-11-04 12:20）後伸後方位移：p077 0.456 vs p139 0.634、p100 0.457 vs p142 0.575、p086 0.466（相同設計參數，振幅不同）→ 0.5 mm 線未被數值解析；插入段相同輸入 151 步後因捨入分岔（一過一卡 dt_min）｜2026-11-13 更新（R5 取文中最後一次出現的計數）：2026-11-13 13:5x（路線 E 重跑；R20 複本一致性）：8 個同模型群、14 個雙複本以上的窗口，12 個讀值差 ≤ 0.005 mm（p050/p068/p084/p127 前屈皆 0.162，差 0.00015；p077/p139 差 1e-11），2 個超過：p093/p145 後伸 0.552/0.539（差 0.012，跨 0.55 限值 → 依決定 4 統一為 fail）、p051/p075 前屈差 0.0068（皆 grey）。0.5 mm 線附近的數值解析仍待：限值附近的設計（p093/p145、灰區 8 個）讀值差 0.003–0.012 mm。｜2026-11-17 PI 決定：跨限值且差距 ≤ 0.02 mm 的同模型複本群列為灰區（限值邊界），不判 fail；p093／p145 → grey。｜2026-11-17 08:00：複本一致性不變（14 窗口中 12 個 ≤ 0.005 mm，最大差 0.0124 mm）；replicates.consistent 現指成員各自算出的判定一致（p093／p145 False、unified True）；邊界灰區規則限定於後方位移限值的 fail。另一路徑敏感性旁證：p149 後伸在關節驅動與路線 E 兩種驅動下 ROM 後方位移 0.3084／0.3077 mm（差 0.0007 mm）。｜2026-11-18 12:01 pilot_rep3（PI 2026-11-18 C2 乙：兩組不一致複本各自從同一存檔重跑，2 × 2）：窗口過程本身可重現 — p145 後伸 ROM 0.5398 vs 正式 0.5393（0.0005 mm）；p051／p075 前屈 1.5 N·m 0.8242／0.8258 vs 正式 0.8275／0.8208（0.0033／0.0050 mm，兩次重跑彼此差 0.0016）。正式的 0.012 mm 後伸差距（p093 0.5517 vs p145 0.5393）不是窗口雜訊而是插入存檔血統＋解路徑（兩存檔 t 3.5 狀態只差 0.0019 mm）；p093 後伸重跑在第一增量 E R R O R（10 次重試、1422 負 Jacobian；正式同存檔同模型正常），只差 GPU 與執行緒數 → 窗口能否算完也有路徑依賴（第二次以正式配置重跑中，tmux rep3b_pilot）。結論：灰區外的複本判定一致、窗口讀值雜訊 0.0005–0.005 mm（R20 判準 0.005 成立於窗口層）；仍開著的是存檔血統造成的 0.012 mm 與收斂的路徑依賴 → 部分。｜2026-11-18 13:01 更正（顧問複核）：2 × 2 設計缺一格（p093 自己的存檔兩次重跑都未收斂，1/3 收斂），「0.012 mm 是血統差而非窗口雜訊」尚未證明，0.0005 mm 只來自一對；且本項方法問「相同輸入是否給相同步序」，p093 的答案是否 → 維持不合格（不轉部分）。p093 後伸現在是幾分鐘就能重現的失敗案例，用它測全牛頓（max_ups 0）、接觸罰則與增廣拉格朗日。｜2026-11-18 13:19 p093 後伸全牛頓法重跑（pilot_rep3/p093n：同存檔同模型，restart Control max_ups 10 → 0）：N O R M A L、0 次重試、81 個負 Jacobian 警告（BFGS 正式 run 1 次重試／250；BFGS 兩次重跑皆失敗）、1060 s 6 核；ROM 後方位移 0.5489 mm（同存檔 BFGS 正式 0.5517、p145 存檔 0.5393／0.5398）→ 全牛頓法讓這個 2/3 失敗的窗口直接收斂，同存檔的解差 0.0028 mm；是否把窗口 Control 改為全牛頓（max_ups 0）作為正式設定（影響閘門檔）待 p048／p115 試跑與 PI 決定。狀態維持不合格。｜2026-11-18 13:48 複本一致性更新（replicate_agreement.json 13:4x）：9 個同模型群、16 個雙複本以上窗口，13 個 ≤ 0.005 mm，3 個超過：p093／p145 後伸 0.0124、p051／p075 前屈 0.0068、新群 p060／p072 後伸 0.0055（0.4747 vs 0.4692；判定皆 grey、一致）。灰區外的複本判定仍全部一致。狀態不變（不合格，理由同 13:01）。｜2026-11-18 14:19 全牛頓法重現性（pilot_rep3/p093n2 GPU 1 5 核、p093n3 GPU 3 6 核、p145n GPU 4 6 核，restart Control max_ups 0）：4/4 N O R M A L（含 13:1x 的 p093n），重試 0／2／0／0、負 Jacobian 81／187／77／50 行、1057–1271 s；p093 同存檔三次 ROM 後方 0.5489／0.5515／0.5478 mm（同存檔散佈 0.0037；擬牛頓法正式值 0.5517、擬牛頓法重跑 2/2 失敗），p145n 0.5401（擬牛頓法 0.5393／0.5398）。跨存檔差 p093–p145 仍 0.008–0.012 mm。結論：窗口收斂的路徑依賴來自擬牛頓（BFGS）更新，全牛頓法每次都收斂、時間相近；改正式設定（閘門檔 h14／h31 的窗口 Control）待 PI；狀態維持不合格（正式設定仍是擬牛頓）。｜2026-11-21（摩擦係數 0.3）：複本一致性改為只在相同摩擦係數下比較（ops/replicate_agreement.py）：0.3 下 12 個窗口有 ≥ 2 個複本，後伸（判定用）6 個窗口差 ≤ 0.0021 mm（0.35 時最大 0.0124），前屈 2 個超過 0.005 mm（p100／p142 0.0083，同組的 p086 在 0.3 下前屈算不出；p051／p075 0.0060）；各複本組的判定都落在同一側（p093／p145 皆 fail、p051／p075 皆 fail、p086／p100／p142 皆灰區、p077／p139 皆 0.446 通過）。窗口收斂的路徑敏感仍在：0.3 的 94 個窗口有 11 個以擬牛頓法停算；全牛頓法補算 p014、p026 後伸一次算完，流程 G 的 p095／p104／p128 後伸兩種解法停在同一時刻（非路徑問題）。狀態不變（不合格），待 PI 對「窗口改全牛頓法」的決定｜2026-11-22（PI 第 12 項：全牛頓法為正式窗口設定）：0.3 下原本停算的 11 個窗口，全牛頓法算完 6 個（一般設計 8 個中的 6 個），5 個兩種解法都停。複本一致性（同摩擦係數比較）：0.3 下 13 個窗口，2 個前屈窗口超過 0.005 mm，後伸最大 0.0021 mm。5 個已通過設計的全牛頓法對照重算進行中（pilot_mu03/drive_newton_confirm.sh）；完成後重評本項",
      "note": "2026-11-04 QA 新增；目前以「合併重複、任一 fail 即 fail」處理（PI 2026-11-03 第 6 項），容差待 PI｜2026-11-17 起：同模型複本不一致時依 PI 2026-11-17 例外（差 ≤ 0.02 mm 且跨限值 → 灰區「限值邊界」；更大取最保守成員），容差 0.02 mm 已由 PI 決定"
     }
    }

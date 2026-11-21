@@ -1,0 +1,50 @@
+[
+ {
+  "window": "physio_fric5r/p125/w_flexion",
+  "t_last_state": 3.5615644454956055,
+  "t_last_converged": 3.56156,
+  "n_bone_tets": 113987,
+  "J_min": 0.9933490974190787,
+  "J_p01": 0.9955049045324094,
+  "J_max": 1.001506004788314,
+  "strain_max": 0.008470758958592617,
+  "strain_p999": 0.00669513569049772,
+  "strain_median": 0.00044755795015025265,
+  "log_bone_inversions": 36,
+  "log_bone_J_min": -0.64134,
+  "log_bone_J_median": -0.1527945,
+  "first_inverted_block": "C4_cortical"
+ },
+ {
+  "window": "pilot_mu03r/p079/w_extension",
+  "t_last_state": 3.545454502105713,
+  "t_last_converged": 3.54545,
+  "n_bone_tets": 113987,
+  "J_min": 0.9882774897567788,
+  "J_p01": 0.992869525958474,
+  "J_max": 1.0017424210949022,
+  "strain_max": 0.013646934117577711,
+  "strain_p999": 0.009833818726779572,
+  "strain_median": 0.0004658631002011378,
+  "log_bone_inversions": 0,
+  "log_bone_J_min": null,
+  "log_bone_J_median": null,
+  "first_inverted_block": "cage_mix_0.0"
+ },
+ {
+  "window": "pilot_mu03Gr/p095/w_extension",
+  "t_last_state": 3.539869785308838,
+  "t_last_converged": 3.53987,
+  "n_bone_tets": 113987,
+  "J_min": 0.9853480871813393,
+  "J_p01": 0.9911021562878831,
+  "J_max": 1.0021531216030435,
+  "strain_max": 0.0170602447971338,
+  "strain_p999": 0.012248032532570884,
+  "strain_median": 0.0005817690325288415,
+  "log_bone_inversions": 8,
+  "log_bone_J_min": -0.10468,
+  "log_bone_J_median": -0.03754945,
+  "first_inverted_block": "cage_mix_0.0"
+ }
+]

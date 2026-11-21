@@ -113,7 +113,7 @@ def check(cd):
     # in common + class were compared, so an extra key such as follower_in_release [2.0, 2.5] in a physio_fric5 params file passed the gate)
     try:
         sys.path.insert(0, os.path.join(P, 'scripts/8_audit')); import h37_qa_check as _q
-        stray = [k for k in _q.PILOT_KEYS if prm.get(k) and k not in want]
+        stray = [k for k in _q.PILOT_KEYS if _q.pilot_set(prm, k) and k not in want]   # audit D-20261121-M2: 'set' = present and not None / False (0 counts)
         if stray: err.append(f'pilot / process option(s) {stray} not in the settings class of {rel} (h37 PILOT_KEYS)')
     except Exception as _ex: warn.append(f'pilot-key check skipped: {_ex}')
     if 'cage_gaplib' in want and os.path.exists(os.path.join(P, prm['cage_npz'])):

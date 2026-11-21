@@ -1,0 +1,7 @@
+{
+ "exit": 1,
+ "normal": false,
+ "wall_s": 0.3,
+ "cores": 2,
+ "febio_sha256": "2224996d451a4ae6"
+}

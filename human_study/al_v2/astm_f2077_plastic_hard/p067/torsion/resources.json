@@ -1,0 +1,8 @@
+{
+ "exit": 0,
+ "normal": true,
+ "wall_s": 491.5,
+ "cores": 4,
+ "febio": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/third_party/FEBio/cbuild/bin/febio4",
+ "febio_sha256": "2224996d451a4ae6e9cc0b8bae8f27b5954fd4f8e0fbab703de1cc643353b4c3"
+}

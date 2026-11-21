@@ -54,6 +54,17 @@ if not ended(os.path.join(d, 'case.log')):
     fargs, _ = febio_args(d, 'case.feb')
     subprocess.run([FEBIO] + fargs + extra, cwd=d, stdout=subprocess.DEVNULL)
 if 'N O R M A L' not in open(os.path.join(d, 'case.log'), errors='ignore').read()[-4000:]: sys.exit(1)   # insertion failed
+# 2026-11-19: a class that declares restart_env (stick-memory window law, route E) must not get its windows from this path unless
+# the caller exported the same BIOCAGE_* variables and BIOCAGE_FEBIO = cbuild_fric (physio_relG convention): pilot_fl250 / pilot_lbar
+# windows ran on the production binary this way. The insertion is kept (it is the production recipe); the windows are skipped and
+# must be restarted from this checkpoint with h47 / h51 (they read restart_env from the params).
+try: _renv = (json.load(open(os.path.join(d, 'case.json'))).get('params') or {}).get('restart_env') or {}
+except (OSError, ValueError): _renv = {}
+if _renv and (any(os.environ.get(k) != str(v) for k, v in _renv.items()) or 'cbuild_fric' not in FEBIO):
+    json.dump(dict(skipped='restart_env declared but not in this process', restart_env=_renv, febio=FEBIO,
+                   env={k: os.environ.get(k) for k in _renv}, next='h51 generic mode or h47 run from this checkpoint'),
+              open(os.path.join(d, 'windows_skipped.json'), 'w'), indent=1)
+    print('windows skipped (restart_env): see windows_skipped.json', flush=True); sys.exit(0)
 checks = {}
 for w in json.load(open(os.path.join(d, 'split.json')))['windows']:
     wd = os.path.join(d, 'w_' + w)

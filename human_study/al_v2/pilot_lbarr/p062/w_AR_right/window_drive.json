@@ -1,0 +1,11 @@
+{
+ "window_drive_mode": "rigid_relative",
+ "prescribed": [
+  {
+   "dof": "Rz",
+   "lc": "25",
+   "value": "-0.1134",
+   "rigid_body_mat": "2"
+  }
+ ]
+}

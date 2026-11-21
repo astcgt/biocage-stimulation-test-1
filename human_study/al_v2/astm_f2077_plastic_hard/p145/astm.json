@@ -1,0 +1,64 @@
+{
+ "source": "human_study/al_v2/physio_fric5r/p145",
+ "source_case_sha256": "17f7470a3e22834c17362336121126720a34e1b06379980dea5b91a100db12a3",
+ "h24": {
+  "ok": true,
+  "launch_preflight_ok": true,
+  "rebuild_identical": true,
+  "warnings": [],
+  "errors": []
+ },
+ "n_nodes": 26904,
+ "n_hex": 21505,
+ "centre_mm": [
+  -0.7000000000000002,
+  0.0,
+  6.4631300000000005
+ ],
+ "intradiscal_height_mm": 3.7174310000000004,
+ "face_z_range_mm": {
+  "top": [
+   7.835061,
+   9.52063
+  ],
+  "bottom": [
+   3.40563,
+   5.757378
+  ]
+ },
+ "D_mm": 1.0,
+ "ROT_deg": 10.0,
+ "preload_N": 100.0,
+ "materials": {
+  "cage_hard_1.0": {
+   "density": "1e-06",
+   "G": "213.356",
+   "Jm": "0.7",
+   "k": "640.067"
+  },
+  "cage_soft_0.0": {
+   "density": "1e-06",
+   "G": "3.56759",
+   "Jm": "0.7",
+   "k": "34.4867"
+  }
+ },
+ "built": "2026-11-21 09:42",
+ "builder": "scripts/3_cage_case/h55_astm_f2077.py",
+ "builder_sha256": "60a8afef865009ee3f9b4b1a01a420508f7c187e598ed407b908f217966c42f9",
+ "plastic": {
+  "model": "reactive plasticity, DC von Mises stress, PFC paper nf 1",
+  "we": 0.02,
+  "sig_soft": 3.0,
+  "sig_hard": 15.0,
+  "scope": "hard",
+  "Y0": {
+   "cage_hard_1.0": 15.0
+  }
+ },
+ "decks": {
+  "compression": "109f094d9031a503f15f34e523ac9e5717c1c687643381e953a956f0ca41401c",
+  "shear45": "8c6231128fa7033e8ecdb04d75adbe7500030d6c8cf80c9e50d75d8a657db955",
+  "torsion": "57951a2b699e281403e94553f57ea94ec25a61e5c47fee6a354d393590a292f5"
+ }
+}

@@ -12,6 +12,12 @@
 | `human_study/PI_REPORT_2026-11-11.md` | 給老闆的進度報告（2026-11-11 00:3x，流程 G 批次完成後）：待決 5 項、主要發現（窗口算不出 = 重啟瞬態的跨次執行數值變異，複本 p050/p068/p084/p127 證據）、批次數字、進行中試跑、QA 戳記、失誤紀錄 | Claude |
 | `human_study/PI_REPORT_2026-11-18_direction.md` | 下一輪方向選項報告（代理模型主動學習／新手導師發想／原則萃取；剪力欄位；數值項；mod 調查；homerepo） | 2026-11-18 |
 | `human_study/PI_REPORT_2026-11-18_failing_labels.md` | 不合格能力標籤處理報告（12 → 6 列；三個創新方向；待決 5 項） | 2026-11-18 |
+| `human_study/DESIGN_REVIEW_elastic_fingers_2026-11-20.md` | 審視 PI 2026-11-20 提案「嵌入式彈性抗遷移指狀結構」（3 幾何 × 2 整合）：手算每根力與自鎖角、與現行規則的衝突、平台限制、分級測試模型清單、PI 待答 6 問 | 2026-11-20 |
+| `human_study/PI_REPORT_2026-11-20_tangou.md` | 彈勾階段 1／1b 試跑報告（每根力量、預壓力是內力、斜坡 tan(α＋φ)、C4 側籠面張開量、終板邊緣斜率；待決 4 項） | 2026-11-20 |
+| `human_study/FRICTION_DEMAND_2026-11-20.md` | 籠體－終板介面需要的抓力量級（滑動 0.05–0.45 MPa、翻轉拉力 6–15 MPa）與生物膠文獻對照（PI 2026-11-20 實驗需求） | 2026-11-20 |
+| `scripts/3_cage_case/h56_tangou_unit.py` | 階段 1 單根彈勾對剛性終板板的子模型（4 幾何 × 外掛／口袋；壓入、外滑、內滑、過壓三組 deck；讀夾持力、法向力、根部應變）；結果在 `human_study/al_v2/pilot_tangou/`（batch1.json 972 案例、summary.json、batch1.log） | 2026-11-20 |
+| `scripts/4_postprocess/h57_face_liftoff.py` | 籠面卸載讀值：物理窗口尖峰時上下籠面前／中／後三分之一無法向應力的面積比例（結果 face_liftoff.json 在各窗口目錄） | 2026-11-20 |
+| `human_study/al_v2/pilot_tangou/STAGE1_RESULTS.md` | 彈勾階段 1／1b 結果摘要（batch1_table.csv、stage1b/）與解讀 | 2026-11-20 |
 | `../biocage_home/` (CLAUDE.md, README.zh-TW.md, links/, skills/, agents/, agent_prompts) | 總部目錄（homerepo 輕量版，PI 2026-11-18）：專案地圖、長期規則、連到兩倉庫與決定／索引／QA 的符號連結；不含程式與資料 | 2026-11-18 |
 | `../biocage-evo/docs/ROUND2_ARCHITECTURE.md` | 下一輪演化構造細節 rev 2（代理模型主動學習 A＋分組驗證 90 %、新手／學長／導師＋設計文法＋幾何編譯器 B、原則萃取與新參數 C、多代理分工 D、創意對照評估 E；QA R21–R25 提案） | 2026-11-18 |
 | `../biocage-evo/ops/descriptors.py` | 由模型檔（h12 網格 npz）計算 12 個幾何描述量（任何材料分布圖都算得出；估算器與原則萃取共用） | 2026-11-18 |
@@ -64,17 +70,47 @@
 | `scripts/8_audit/h40_gpu_solver_fig.py` | GPU solver vs FEBio 白話版圖（只讀結果檔） |
 | `scripts/8_audit/h38_febio_agreement_fig.py` | 平台 vs FEBio 貼合度圖與等效性檢定（只讀結果檔，不跑求解器）；`--rescan` 重掃相同輸入配對 |
 | `scripts/8_audit/h37_qa_check.py` | QA A 層：R1–R18 機械檢查；`--quick` / `launch <dir>` / `--daemon 6`；tmux `biocage_qa` |
+| `scripts/8_audit/h57_rebuild_sweep.py`, `human_study/qa/rebuild_sweep.json` | 重建比對：判定來源各集合抽樣，以現行 h14／h30／設定重建模型檔與窗口重啟檔，逐位元比對（能力標籤重評依據） |
+| `scripts/8_audit/h58_metric_regression.py`, `human_study/qa/metric_regression.json` | 指標回歸：現行 e03／e04／e05 重算既存結果檔抽樣並逐項比對 |
+| `scripts/8_audit/h59_design_field_check.py`, `human_study/qa/design_field_check.json` | 材料分佈自動比對（DIV-02）：每個籠體元素的材料區塊 = 0.2 mm 設計場值 |
+| `scripts/8_audit/h60_fric_winner_scan.py`, `human_study/qa/fric_winner_scan.json` | 今日摩擦判定來源窗口的狀態有效性掃描（以判定程式本身；NUM-04／NUM-14 摩擦） |
+| `human_study/qa/audits/QA_AUDIT_2026-11-21.md`, `human_study/qa/audits/QA_AUDIT_2026-11-21b.md`（複查）, `human_study/qa/h24_guard_test.json` | 2026-11-21 層 B 稽核報告（能力標籤重評、摩擦係數 0.3 實作）；h24 守門對值為 0 的試算選項的反向測試 |
+| `scripts/8_audit/h61_bone_strain_check.py`, `human_study/qa/bone_strain_check.json` | 停算窗口最後一個收斂狀態的骨頭變形量（體積比、主應變）對照紀錄檔中的翻轉值（NUM-06；PI 2026-11-22 的提問） |
+| `scripts/5_compute/wait_quota.sh` | 等帳號 CPU 配額（32 核心）有空再啟動；各通道腳本在每次啟動前呼叫 |
+| `human_study/WINDOW_SCAN_2026-11-21.md` | h34 重掃 916 窗口（含重啟集合） |
 | `scripts/8_audit/h38_project_status.py`, `human_study/PROJECT_STATUS.md` | 專案狀態頁（PI 2026-11-18 議題 A7）：只從結果檔產生的白話一頁（設計分類、真實摩擦、估算器驗證、品質保證、計分表、機器、倉庫同步），每個數字附來源檔與時間 |
 | `scripts/common/xplt.py`, `scripts/common/cage_geom.py` | 讀 FEBio xplt、cage 幾何 |
 
 ## 4. 判定程式（evo repo，決定誰 pass／fail）
 | 檔案 | 做什麼 |
 |---|---|
+| `../biocage-evo/methods/e08_subsidence.py`, `../biocage-evo/ops/e08_batch.py`, `../biocage-evo/results/method/e08/` | 骨頭下陷起始讀值（PI 2026-11-19 補測試第 1 項；h15 終點 b：足印下 3 mm 海綿骨降伏體積 > 10 %，Morgan & Keaveny 2001）：43 個通過／灰區設計的黏死與摩擦判定狀態；summary.json；壓縮／拉伸分開 |
+| `../biocage-evo/methods/e09_pushout.py`, `scripts/5_compute/h53_push_restart.py`, `human_study/al_v2/pilot_push/` | 推出試驗（PI 2026-11-19 補測試第 3 項；S9 往後 ≥ 135 N；仿 ASTM 草案 F04.25.02.02）：從正式摩擦插入存檔重啟、推前牆或後牆節點 3 mm；推力主值 = cage 整體受力平衡（上下兩面接觸力合力；2026-11-19 改，元素應力反算只有約 0.6–0.87 倍，留作下限）；試跑 p062 往後 96 N、往前 114 N |
+| `../biocage-evo/methods/e10_cycles.py`, `human_study/al_v2/pilot_cyc3/`, `human_study/al_v2/pilot_cyc3r/` | 每方向 3 個循環（補測試第 4 項；S9 位移不能逐步累積）：h14/h30 的 window_cycles 鍵把屈曲窗口改成 n 個屈伸循環；e10 讀每次回中立位的 cage 位置（基準 = 繪圖檔 t 3.5）；cyc3 = 正式摩擦算法參考、cyc3r = 黏滯記憶（正式判定用法）；試跑 p062 |
+| `scripts/3_cage_case/h55_astm_f2077.py`, `../biocage-evo/methods/e11_astm.py`, `human_study/al_v2/astm_f2077/` | ASTM F2077-24 式剛性夾板靜態測試（補測試第 2 項、PI 決定 6）：cage 單獨夾在兩塊剛體間，壓縮／45° 壓剪／扭轉（100 N 預壓）；報勁度與硬相應力替代降伏（不是標準的 2 % 偏移降伏）；batch.sh 跑 43 個設計 |
+| `human_study/al_v2/astm_f2077_plastic/` | ASTM 夾板測試彈塑性版（PI 決定 8 乙）：h55 第 5 個參數 WE＝不降伏鍵比例（硬化斜率），反應式塑性、降伏 6/9/12/15 MPa 依硬相比例；先跑 p062 |
+| `human_study/al_v2/astm_f2077_plastic_hard/`, `astm_f2077_plastic_perfect/`, `astm_f2077_mesh/` | ASTM 彈塑性正式版（只硬相降伏、硬化 2 %，全部設計；lane.sh）、p062 無硬化對照、p062 細網格敏感度（彈性＋彈塑性） |
+| `human_study/al_v2/pilot_cyc3v/`, `pilot_cyc3vr/`, `pilot_cyc3vG/` | 三循環以正常活動範圍幅度（window_cycles scale 0.8，PI 決定 5）跑前 10 名＋p062；lanes.sh 每張 GPU 一條 |
+| `human_study/al_v2/pilot_cyc3vdt/`, `pilot_cyc3vnum/`, `pilot_cyc3vpen/` | 三循環數值檢查（PI 決定 10）：同插入檢查點，只改窗口——時間步上限壓到 0.001 秒（window_dt 0.001，約原步數 3 倍；原 0.025 半步版效果太小已撤）／籠接觸罰則加倍（重啟檔重定義負載曲線 16）；p062、p124；run_one.sh、lanes.log |
+| `human_study/al_v2/pilot_push/push2_lane.sh`, `pilot_push*/p*/w_push_post2/` | 推出試驗「整顆帶著走」版（h53 add2：前後牆同時給位移），修正單牆推法把牆推扁的問題；`push2_retry.sh` = 第一步就失敗者以小步長＋全牛頓法重試；彙整 `../biocage-evo/ops/push2_summary.py` → `results/method/e09/push2_summary.json` |
+| `human_study/PI_REPORT_2026-11-21_labels_tests.md` | 給 PI 的報告：能力標籤修補結果、新測試可行性表、待決事項 11–17 |
+| `human_study/al_v2/pilot_mu03rN/`, `pilot_mu03GrN/`, `pilot_mu03/drive_mu03rN.sh` | 全牛頓法試算：摩擦係數 0.3 下停算的 11 個窗口以 window_max_ups 0 從同一存檔重跑（非判定來源，供 PI 決定） |
+| `human_study/al_v2/pilot_staticR/`, `pilot_staticR_run.sh` | NUM-08 摩擦：p062 路線 E 窗口靜態步對慢速動態 |
+| `human_study/al_v2/pilot_cyc8v/`, `pilot_cyc8vrN/`, `pilot_cyc8vGN/`, `pilot_cyc8v/lanes8.sh` | 8 圈前屈－後伸試算（PI 決定 14：看是否達到穩定態）：p124、p036（正式插入＋路線 E 全牛頓窗口）、p140（流程 G）；讀值 e10 的 steady_state 分類 |
+| `human_study/al_v2/pilot_mu03/drive_newton_confirm.sh` | 全牛頓法成為正式窗口設定（PI 決定 12）的確認：5 個已通過設計兩個窗口重算，與擬牛頓法讀值比對 |
+| `human_study/al_v2/numconv_hz01/build16b.py`, `lane16b.sh`, `../biocage-evo/ops/num16_multi.py` | 介面剪力「0.5 mm 塊平均」定義的多設計細網格驗證（PI 決定 16(b)）：p036、p052、p060、p113＋既有 p062 → `results/method/numconv/num16_multi.json` |
+| `../biocage-evo/ops/resume_daemons.sh` | 重開機後帶回看門狗的啟動檔（2026-11-22 自 resume_all.sh 拆出；能力元件 OPS 的一部分） |
+| `../biocage-evo/results/round2/prereg_amendment_2026-11-22a.json` | 第二輪演化事前鎖定設定的修訂：提案程式摩擦係數 0.35 → 0.3（PI 決定 17） |
+| `human_study/al_v2/pilot_mu03/build_e.py`, `drive_mu03r_d.sh`, `drive_mu03r_e.sh` | 摩擦係數 0.3 補算：d = 可能跨線的 29 個設計（已完成）；e = 其餘仍為 0.35 的 23 個設計 |
+| `human_study/al_v2/pilot_pushG/`, `pilot_push/push_batch.sh` | 推出試驗排名批次（PI 決定 4 = 乙）：流程 G 設計放 pilot_pushG；每個設計跑前才建案例 |
+| `human_study/al_v2/pilot_mu03G/`, `pilot_mu03Gr/`, `pilot_mu03/drive_mu03r_b.sh`, `pilot_mu03/drive_mu03G.sh` | 摩擦係數 0.3 邊界設計重跑（PI 決定 7 = 甲′）：9 個一般設計＋p061（流程 G） |
+| `human_study/al_v2/pilot_fl250/`, `pilot_fl250r/`, `pilot_lbar/`, `pilot_lbarr/` | 250 N 跟隨壓力、側彎與旋轉試跑（補測試第 5 項）；無 r 的兩組窗口誤用正式摩擦算法（h18→h31 不套 restart_env），r 版用 h51 以黏滯記憶從同一插入存檔重跑 |
+| `human_study/al_v2/pilot_mu03/`, `pilot_mu03r/`, `pilot_mu03/drive_mu03r.sh` | 摩擦係數 0.3 抽 5 個設計重跑（PI 2026-11-19 選乙）：mu03 = 正式流程插入、mu03r = h51 黏滯記憶屈伸窗口；與 0.35 正式結果配對比較 |
 | `../biocage-evo/methods/e03_mu_req.py` | 每個狀態是否有效（兩層狀態過濾 NUM-14）、目標括號 |
 | `../biocage-evo/methods/e04_dislocation.py` | cage 相對 C4 的剛體位移（滑出指標） |
 | `../biocage-evo/methods/e05_compression.py` | 軟層壓縮量 |
 | `../biocage-evo/methods/e07_interface_shear.py` | 硬／軟介面剪力（p99、軟側） |
-| `../biocage-evo/ops/fric_compare.py` | 摩擦視窗：1.5 N·m 點與 intact ROM 點的位移 → `verdicts.json`（閘 4） |
+| `../biocage-evo/ops/fric_compare.py` | 摩擦視窗：1.5 N·m 點與 intact ROM 點的位移 → `verdicts.json`（閘 4）；2026-11-20 起摩擦係數 0.3 為正式值（pilot_mu03r／pilot_mu03Gr 優先，0.35 讀值留在 mu035 欄，邊界 ±0.005 mm 標示，PI 決定 9） |
 | `../biocage-evo/ops/e07_batch.py` | 介面剪力批次＋3 MPa 判定 → `e07_verdicts.json` |
 | `../biocage-evo/methods/e06_hard_stress.py` | 硬相持續應力讀值（e06，OBS-01；18 % × sig_hard 暫定門檻，只記錄不判定） |
 | `../biocage-evo/ops/obs01_batch.py` | OBS-01 批次：T19（最後方點、硬體素剛體擬合，在 e04 內）＋ e06 跑遍黏死與摩擦勝出窗口 → `results/method/obs01/` |

@@ -1,11 +1,11 @@
 {
- "time": "2026-11-18 14:31",
+ "time": "2026-11-22 01:17",
  "overall": "WARN",
  "checks": [
   {
    "id": "R1-case-dir",
    "status": "PASS",
-   "message": "415 friction rows; windows without finished log + xplt: 0 []"
+   "message": "533 friction rows; windows without finished log + xplt: 0 []"
   },
   {
    "id": "R1-ambiguous",
@@ -30,12 +30,17 @@
   {
    "id": "R3-faces",
    "status": "PASS",
-   "message": "skipped (--quick); 401 e07 window files"
+   "message": "519 windows, 259 cases recounted; mismatches 0 []"
+  },
+  {
+   "id": "R4-insertion-state",
+   "status": "PASS",
+   "message": "insertion value state within 0.05 of t 3.5; violations 0 []"
   },
   {
    "id": "R5-counts",
    "status": "PASS",
-   "message": "classes {'friction-check-exceeded': (0, 0), 'interface-shear': (54, 53), 'radial-mix': (28, 27), 'friction-computability': (0, 0)} (all / among tied passes); stale document counts: []"
+   "message": "classes {'friction-check-exceeded': (5, 5), 'interface-shear': (52, 51), 'radial-mix': (28, 27), 'friction-computability': (0, 0)} (all / among tied passes); stale document counts: []"
   },
   {
    "id": "R6-retracted",
@@ -46,6 +51,16 @@
    "id": "R7-pilot-keys",
    "status": "PASS",
    "message": "settings/h14: []; production cases scanned 917, with pilot options / extra keys: []"
+  },
+  {
+   "id": "R8-golden-rebuild",
+   "status": "PASS",
+   "message": "p062 physio_fric3 rebuild md5 4f3208b5 vs recorded 4f3208b5 (12 s)"
+  },
+  {
+   "id": "R9-material-blocks",
+   "status": "PASS",
+   "message": "golden rebuild: one FEBio block per cage material in 1 cases (tmpf3la_4mn:4); problems: []"
   },
   {
    "id": "R9-material-blocks",
@@ -60,7 +75,7 @@
   {
    "id": "R12-file-index",
    "status": "PASS",
-   "message": "329 paths in FILE_INDEX.md; missing []"
+   "message": "409 paths in FILE_INDEX.md; missing []"
   },
   {
    "id": "R14-patch7-logs",
@@ -85,12 +100,12 @@
   {
    "id": "R19-route-E",
    "status": "PASS",
-   "message": "route-E classes: 73 cases, 146 finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: []"
+   "message": "route-E classes: 141 cases, 264 finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: []"
   },
   {
    "id": "R20-replicate-agreement",
    "status": "WARN",
-   "message": "sets ['physio_fric5r', 'physio_relGr']: 9 deck groups, 16 windows with >= 2 computed replicates, 3 disagree (> 0.005 mm or mixed evaluation point), worst spread 0.012415672940065736 mm"
+   "message": "sets ['physio_fric5r', 'physio_relGr', 'pilot_mu03rN', 'pilot_mu03GrN', 'pilot_mu03r', 'pilot_mu03Gr']: 9 deck groups, 29 windows with >= 2 computed replicates, 5 disagree (> 0.005 mm or mixed evaluation point), worst spread 0.012415672940065736 mm"
   },
   {
    "id": "R21-estimator-separation",
@@ -110,23 +125,23 @@
   {
    "id": "R10-register",
    "status": "PASS",
-   "message": "379 register items; unmapped []; 不符 []"
+   "message": "414 register items; unmapped []; 不符 []"
   },
   {
    "id": "R10-llm-audit-due",
-   "status": "PASS",
-   "message": "LLM audit current: last 2026-11-18 14:29; gate files changed since: []; decision entries since: []"
+   "status": "WARN",
+   "message": "LLM audit required: last 2026-11-21 20:56; gate files changed since: ['human_study/current_settings.json', '../biocage-evo/ops/fric_compare.py', '../biocage-evo/ops/e07_batch.py', '../biocage-evo/ops/collect_split.py']; decision entries since: ['2026-11-22', '2026-11-22']"
   }
  ],
  "counts": {
   "classes": {
    "friction-check-exceeded": [
-    0,
-    0
+    5,
+    5
    ],
    "interface-shear": [
-    54,
-    53
+    52,
+    51
    ],
    "radial-mix": [
     28,
@@ -141,12 +156,20 @@
   "designs": 149
  },
  "register": {
-  "last_llm_audit": "2026-11-18 14:29",
-  "n_items": 379,
+  "last_llm_audit": "2026-11-21 20:56",
+  "n_items": 414,
   "unmapped": [],
   "mismatch": [],
-  "gate_files_changed": [],
-  "new_decisions": []
+  "gate_files_changed": [
+   "human_study/current_settings.json",
+   "../biocage-evo/ops/fric_compare.py",
+   "../biocage-evo/ops/e07_batch.py",
+   "../biocage-evo/ops/collect_split.py"
+  ],
+  "new_decisions": [
+   "2026-11-22",
+   "2026-11-22"
+  ]
  },
- "mode": "quick"
+ "mode": "full"
 }

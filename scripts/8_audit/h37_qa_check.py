@@ -22,7 +22,7 @@ H14 = os.path.join(P, 'scripts/3_cage_case/h14_build_case.py')
 GOLDEN = dict(params='human_study/al_v2/physio_fric3/p062_params.json', md5='4f3208b5e014c353f0f0e3683c1679ed',
               note='production p062 physio_fric3 case.feb, DECISIONS 2026-11-03 14:30 / 22:30')
 # pilot-only options: never in a production class or case (DECISIONS 2026-11-03 22:30: all default off, production byte-identical)
-PILOT_KEYS = ('dynamic_from_release', 'c3_release_ramp', 'sliding_off_after_tie', 'tied_init_converged', 'test_dynamic', 'only_distract', 'physio_hold', 'cage_laugon', 'cage_stick_memory', 'min_residual', 'window_static', 'window_dt', 'release_all_dofs', 'physio_static_until_windows', 'all_dynamic', 'follower_in_release', 'physio_dt0', 'window_dt0', 'window_null', 'window_drive', 'window_joint', 'window_lc_redefine', 'window_drive_mode')   # QA audit 2026-11-10 不符 #6: the two fix-3 keys are pilot keys; the one production class that carries them (physio_fric3p, 11-03 fix 3, 12/12 failed) is allow-listed below
+PILOT_KEYS = ('dynamic_from_release', 'c3_release_ramp', 'sliding_off_after_tie', 'tied_init_converged', 'test_dynamic', 'only_distract', 'physio_hold', 'cage_laugon', 'cage_stick_memory', 'min_residual', 'window_static', 'window_dt', 'release_all_dofs', 'physio_static_until_windows', 'all_dynamic', 'follower_in_release', 'physio_dt0', 'window_dt0', 'window_null', 'window_drive', 'window_joint', 'window_lc_redefine', 'window_drive_mode', 'window_cycles', 'window_max_ups')   # QA audit 2026-11-10 不符 #6: the two fix-3 keys are pilot keys; the one production class that carries them (physio_fric3p, 11-03 fix 3, 12/12 failed) is allow-listed below
 # 2026-11-09 (PI decision 1): restart_env + window_min_residual left the pilot list - they ARE the production friction law of physio_fric5 (R15 pins their values)
 FRIC5 = dict(cls='human_study/al_v2/physio_fric5/', restart_env={'BIOCAGE_STICK_MEMORY': '1'}, window_min_residual=1e-4,
              lib_sha256='be7b357f71f155e462e1c3e3ca60d60b7bd9308d35d79b5cef5805ca149b2f89')   # patch 8 (FEBioXML rigid_moment load_type) lives in libfebioxml.so sha256 eb4b36e4b0610e092a05... (not in launch records; README item 8)   # validated cbuild_fric libfebiomech.so (patch 6 + 7 + 7b evidence line, built 2026-11-09 06:13)   # 'test' is the protocol name, not an option
@@ -52,7 +52,11 @@ PRODUCTION_OPTIONS = {'human_study/al_v2/physio_relG/': ('release_all_dofs', 'al
                       'human_study/al_v2/physio_fric3p/': ('follower_in_release', 'physio_dt0')}   # 2026-11-03 fix-3 set (production name, 12/12 failed, not in any verdict SETS); allow-listed, not renamed (run dirs, FILE_INDEX, NAS)
 LAW_CLASSES = ('human_study/al_v2/physio_fric5/', 'human_study/al_v2/physio_relG/', 'human_study/al_v2/physio_fric5r/', 'human_study/al_v2/physio_relGr/')
 FALLBACK_CLASSES = {'human_study/al_v2/physio_relG_pl/': 'human_study/al_v2/physio_relG/'}   # fallback class -> its stick-law class: the same deck and checkpoint, production law (restart_env 0); a fallback SOURCE only (PI 2026-11-10 item 1 extended to process G, DECISIONS 2026-11-10 14:45; R17)   # the two production classes that carry the reference friction law (PI 2026-11-09 decision 1; PI 2026-11-10 option a); R15 / R16 pin their values
-def pilot_keys_in(prm, allowed=()): return [k for k in PILOT_KEYS if prm.get(k) and k not in allowed]
+def pilot_set(prm, k):
+    """a pilot key counts as set when it is present with any value other than None / False (audit D-20261121-M2: window_max_ups = 0, the
+    full-Newton value, is falsy and slipped through the old truthiness test)"""
+    return k in prm and prm[k] is not None and prm[k] is not False
+def pilot_keys_in(prm, allowed=()): return [k for k in PILOT_KEYS if pilot_set(prm, k) and k not in allowed]
 
 
 # ---------------------------------------------------------------- R1 run dir resolved (error 2026-11-04: p110 build dir vs p110_gpu3)
@@ -409,7 +413,14 @@ def r17_relG_fallback():
                 if w in (v.get('soft_face_locking') or []): bad.append(f'verdict {p} {w}: fallback applied to a window classed not computable under either law')
     rep('R17-relG-fallback', not bad, f'{n} physio_relG_pl cases, {nw} finished windows checked; {nf} fallback windows in the verdicts; problems: {bad[:8]}')
 ROUTE_E = {'human_study/al_v2/physio_fric5r/': dict(base='human_study/al_v2/physio_fric5/', src_set='physio_fric3', src_params='human_study/al_v2/physio_fric3', extra=('restart_env', 'window_min_residual', 'window_drive_mode', 'restart_source')),
-           'human_study/al_v2/physio_relGr/': dict(base='human_study/al_v2/physio_relG/', src_set='physio_relG', src_params='human_study/al_v2/physio_relG', extra=('window_drive_mode', 'restart_source'))}
+           'human_study/al_v2/physio_relGr/': dict(base='human_study/al_v2/physio_relG/', src_set='physio_relG', src_params='human_study/al_v2/physio_relG', extra=('window_drive_mode', 'restart_source')),
+           # 2026-11-21 (audit D-20261121-S1): since PI 2026-11-20 decision 9 the mu 0.3 route-E sets are verdict sources (83 of 146 required windows);
+           # their class names still say 'pilot', so they are listed here explicitly and get the same integrity check (class = base + relative drive + mu 0.3)
+           'human_study/al_v2/pilot_mu03r/': dict(base='human_study/al_v2/physio_fric5/', src_set='pilot_mu03', src_params='human_study/al_v2/pilot_mu03', extra=('restart_env', 'window_min_residual', 'window_drive_mode', 'restart_source'), plus=dict(mu=0.3)),
+           'human_study/al_v2/pilot_mu03Gr/': dict(base='human_study/al_v2/physio_relG/', src_set='pilot_mu03G', src_params='human_study/al_v2/pilot_mu03G', extra=('window_drive_mode', 'restart_source'), plus=dict(mu=0.3)),
+           # 2026-11-22 (PI pending item 12): full Newton is the official window solver setting - same mu 0.3 checkpoints, window Control max_ups 0
+           'human_study/al_v2/pilot_mu03rN/': dict(base='human_study/al_v2/physio_fric5/', src_set='pilot_mu03', src_params='human_study/al_v2/pilot_mu03', extra=('restart_env', 'window_min_residual', 'window_drive_mode', 'restart_source', 'window_max_ups'), plus=dict(mu=0.3, window_max_ups=0)),
+           'human_study/al_v2/pilot_mu03GrN/': dict(base='human_study/al_v2/physio_relG/', src_set='pilot_mu03G', src_params='human_study/al_v2/pilot_mu03G', extra=('window_drive_mode', 'restart_source', 'window_max_ups'), plus=dict(mu=0.3, window_max_ups=0))}
 def r19_route_e():
     """Route E (PI 2026-11-11 decision 1a): physio_fric5r / physio_relGr = the stick-law windows restarted from the SAME checkpoints (physio_fric3
     insertion run dirs / physio_relG run dirs) with the window drive as a RELATIVE prescribed rotation of the C3 pot (h30 window_drive_mode
@@ -421,7 +432,8 @@ def r19_route_e():
     for cls, cfg in ROUTE_E.items():
         v = S['classes'].get(cls)
         if v is None: continue
-        if v != dict(S['classes'][cfg['base']], window_drive_mode='rigid_relative'): bad.append(f"class {cls} != {cfg['base']} + window_drive_mode rigid_relative: {sorted(k for k in set(v) | set(S['classes'][cfg['base']]) if v.get(k) != dict(S['classes'][cfg['base']], window_drive_mode='rigid_relative').get(k))}")
+        want = dict(S['classes'][cfg['base']], window_drive_mode='rigid_relative', **cfg.get('plus', {}))
+        if v != want: bad.append(f"class {cls} != {cfg['base']} + window_drive_mode rigid_relative{' + ' + str(cfg['plus']) if cfg.get('plus') else ''}: {sorted(k for k in set(v) | set(want) if v.get(k) != want.get(k))}")
         for pj in sorted(glob.glob(os.path.join(P, cls, 'p*_params.json'))):
             prm = json.load(open(pj)); cd = pj[:-len('_params.json')]; rel = os.path.relpath(cd, P); src = prm.get('restart_source') or ''; sp = os.path.join(P, src)
             if not os.path.exists(os.path.join(cd, 'preflight.json')): continue   # case still being built by h47 (launched_feb.sha256 is copied before the preflight is written): checked on the next pass

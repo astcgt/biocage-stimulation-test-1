@@ -1,7 +1,7 @@
 {
  "meta": {
   "note": "Register: one entry per PI decision that the code must implement. status in {符合, 不符, 未實作, 實作時自選, PI待決, unmapped}. check = h37 check id or 'llm' (judged by the qa-auditor agent). last_llm_audit is set by the auditor, never by h37.",
-  "last_llm_audit": "2026-11-18 14:29",
+  "last_llm_audit": "2026-11-21 20:56",
   "gate_files": [
    "scripts/3_cage_case/h14_build_case.py",
    "scripts/6_active_learning/h22_active_learning.py",
@@ -21,9 +21,13 @@
    "../biocage-evo/ops/law_shift.py",
    "scripts/5_compute/h50_relG_batch.py",
    "scripts/5_compute/h51_relG_fallback.py",
-   "../biocage-evo/ops/replicate_agreement.py"
+   "../biocage-evo/ops/replicate_agreement.py",
+   "scripts/5_compute/h31_split_run.py",
+   "scripts/5_compute/h18_run_gpu_case.py",
+   "../biocage-evo/ops/obs01_batch.py",
+   "../biocage-evo/ops/shortcut_consistency.py"
   ],
-  "audit_report": "human_study/qa/audits/QA_AUDIT_2026-11-18.md",
+  "audit_report": "human_study/qa/audits/QA_AUDIT_2026-11-21b.md",
   "note_15_10": "statuses updated by the main session after the 14:50-15:00 label maintenance; register content from the qa-auditor run of 14:41",
   "note_20261105": "second LLM audit (qa-auditor) 2026-11-05 04:13-04:21: PI decisions of 04:10 registered (D-20261105-*); 11 existing items revised; 不符 D-20261104-L1, D-20261104-L5, D-20261105-L3 (label / document text and numbers, no verdict change)",
   "note_recheck": "2026-11-05 04:29: re-check after main-session fixes (DECISIONS 04:24 / 04:25 / 04:28 entries): D-20261104-L1, D-20261104-L5, D-20261105-L3 -> 符合; D-20261105-6 -> 符合; new D-20261105-S4 (NUM-10 pass with threshold exception, PI sign-off), D-20261105-L6 (labels stale after gate-file edits). 不符 0.",
@@ -60,7 +64,11 @@
   "note_20261118_1310": "2026-11-18 13:10: P3 / P14 / P-L1 -> 符合 (DECISIONS L2372 / L2395 and NUM-15 label corrected; evidence paths and OBS-01 threshold updated 13:08); P12 -> 符合 (superseded by p060's own production insertion, no pooling rule); P8 / P10 re-read against the 13:01 label text (PHY-05 TIED partial, NUM-17 FRIC fail; status.date fields still 12:01). New D-20261118-P17 (13:01 entry; p093n / p060 runs and the T19-e06 re-read pending, not judged). Auditor's items 不符 0.",
   "note_20261118_1355": "2026-11-18 13:55: DECISIONS 13:19 / 13:3x / 13:45 / 13:48 registered as D-20261118-P18..P22, all 符合: p093n full Newton (0 retries, 81 NJ, 1059 s, ROM 0.5489 recomputed), obs01 re-read numbers, pilot_rep3G full Newton fails on p048 / p115 (retries 26 / 15; NJ line counts differ from the text by < 0.5 % - counting convention), p060 insertion + route-E windows (deck = p072, 51 / 0 / 88 NJ, 874 / 1268 s), pipeline diff (only p060 and p072.replicates changed; 53/17/3; e07 13/54/6; classes identical; RA 9/16/3; DIV-03 FRIC 70/73 = 95.9 % pass supported by the >= 95 % threshold). Notes: OBS-01 label cites the summary as 13:2x (file 13:09); shortcut_consistency.json not rerun with p060. 不符 0.",
   "note_20261118_1425": "2026-11-18 14:24: DECISIONS 13:5x / 14:0x bullets, 14:00 (NUM-16 patch check) and 14:19 (full Newton 4/4) registered as D-20261118-P23..P27, all 符合: PHY-05 false-pass direction now correct, six failing rows, mu_req_field 64-row diff (62 shear_rank-only + p060 + p072), shortcut rerun 0.915 / 0.0375 / 0.1450, e06_location_check values, num16 face vs 0.5 mm patch statistics, full-Newton logs (retries 2/0/0, NJ 188/77/50 vs text 187/77/50, wall 1269/1077/1056 s) and ROM 0.5515 / 0.5478 / 0.5401 recomputed; no verdict / class change since 13:45; PI_PENDING 13:54 block has six items. 不符 0.",
-  "note_20261118_1430": "2026-11-18 14:29: text corrections c667fb8 registered as D-20261118-P28..P30, all 符合: full-Newton reading softened (cross-dump gap 0.0077-0.0114 mm recomputed; 1187 s = pilot_rep3 p145 BFGS rerun), T19 posterior-most counts reproduced from obs01_summary.json (73 rows; rim<mean 72; medians 0.283/0.361/0.696; PASS rim>0.55 0, most>0.55 28, >1.0 0; GREY rim>0.55 0; p093 node z unverified), cage_hard_1.0 Gent G 213.356 / Jm 0.7 / k 640.067, no yield surface. No code, label, verdict or class change."
+  "note_20261118_1430": "2026-11-18 14:29: text corrections c667fb8 registered as D-20261118-P28..P30, all 符合: full-Newton reading softened (cross-dump gap 0.0077-0.0114 mm recomputed; 1187 s = pilot_rep3 p145 BFGS rerun), T19 posterior-most counts reproduced from obs01_summary.json (73 rows; rim<mean 72; medians 0.283/0.361/0.696; PASS rim>0.55 0, most>0.55 28, >1.0 0; GREY rim>0.55 0; p093 node z unverified), cage_hard_1.0 Gent G 213.356 / Jm 0.7 / k 640.067, no yield surface. No code, label, verdict or class change.",
+  "note_20261121": "LLM audit (qa-auditor) 2026-11-21 15:52: DECISIONS 2026-11-20 evening (L2573-2593) and 2026-11-21 (L2595-2614) registered as D-20261120-8/8a/8S/9/9a/9b/10/10a and D-20261121-1..6, L1, M1..M5, S1..S4, B1; the 2026-11-19 PI decisions (L2480-2530) and the 2026-11-20 elastic-hook entries (L2532-2570) lie after the previous audit but outside the assigned range: registered minimally (D-20261119-1..5, 7; D-20261120-T1 = not-in-production-path only; the sub-model read-outs, push-out / 250 N / LB-AR pilot numbers and FRICTION_DEMAND text of L2486-2499, L2511-2515, L2523-2529, L2541-2545, L2550-2563, L2577-2579 were NOT audited). 不符 6: D-20261121-1 (re-score rule (b): PHY-06, PHY-08 FRIC, OBS-04 FRIC stamped reconfirmed), M1 (NUM-08 FRIC set to pass while its flexion run was still computing; mu 0.35; DECISIONS not updated), M2 (pilot-key guard blind to window_max_ups 0 in h37:55 / h24:116; no leak today), M3 (mu-basis wording: p117 and 3 open designs are not \"far from the lines\"), M4 (mu 0.35 constants left in mu_req_field.py / propose_round.py / configs.FRIC.desc), M5 (record / label numbers that contradict the evidence files: DECISIONS 44 / 1 stale / 3 not run vs registry 46 / 0 / 2; 17 vs 18 sets; scheduler.log vs watchdog.log; NUM-14 FRIC percentile population; NUM-17 replicate names). Existing items re-checked: D-20261113-29 re-opened (PI待決, cross-reference D-20261121-3), D-20261105-L6 未實作 -> 符合 (required checks stale 52 -> 0), D-20261107-3 stays 未實作. B1 is a record-keeping list (status word borrowed), not a PI sign-off. No friction or class verdict count changes. Counts reproduced: verdicts 46/19/5/3, mu basis 37/9/27, e07 15/52/6, classes PASS 30 / GREY 13, registry required checks pass 46 / partial 16 / fail 6 / not run 2 (15:28 file; DECISIONS says 44 / 16 / 6 / 3 + 1 stale). Auditor read-only runs: h59 function on 69 tied verdict-source run dirs outside physio_rot_split2 (69/69, 0 mismatch), R19-equivalent on pilot_mu03r / pilot_mu03Gr (47 cases, 94 windows, 0 problems), e03/e04/e05 --test PASS. Gate-file suggestions in D-20261121-B1 (10).",
+  "note_gate_files_20261121": "h31_split_run.py, h18_run_gpu_case.py (launch path: restart_env guard, h24 re-check; edited 2026-11-19), ops/obs01_batch.py (read-out cache tag), ops/shortcut_consistency.py (PHY-05 evidence) added by the qa-auditor 2026-11-21 (re-check)",
+  "note_20261121b": "re-check (qa-auditor) 2026-11-21 20:51 of the fixes recorded in DECISIONS L2616-2628: the 6 不符 of 15:58 are resolved (D-20261121-1, M1, M2, M3, M4, M5 -> 符合; evidence: static flexion window ended normally 16:04 and re-read, pilot_set() in h37:55-59 / h24:116 with negative test, three rows measured again, wording and number corrections, mu_req_field reads mu_official, verdicts.json identical to the pre-fix copy). New: D-20261121-N1 不符 (OBS-04 FRIC value written at 16:17 says 142 windows with an evaluation point / 4 stopped; verdicts.json gives 143 / 3), D-20261121-M4b PI待決 (propose_round.py MU_REAL 0.35 left unchanged, PI_PENDING item 17: accepted handling), D-20261121-S5 實作時自選 (OPS -> OPS + LANES: accepted for SPD-04 / 05 / 07, weakens SPD-06 - keep LANES or a split-out bootstrap file as a dependency of SPD-06; PLATFORM_CAPABILITIES.md:114 not updated). B1 closed (-> 符合). Required checks from the registry (16:18 file): pass 45, partial 17, fail 6, not run 2, stale 0, deferred 10. Four gate files added.",
+  "note_20261121c": "closing check (qa-auditor) 2026-11-21 20:55: D-20261121-N1 -> 符合 (OBS-04 FRIC wording now 143 with an evaluation point / 4 inherited / 3 stopped, matches verdicts.json); D-20261121-S5 stays 實作時自選 with the minimum recommendation applied (SPD-06 depends on OPS + LANES, PLATFORM_CAPABILITIES.md:114 updated; the split of resume_all.sh into a bootstrap file and a lane list is not done); three record corrections confirmed (DIV-03 FRIC 6 of 8, 94 rows, mu_req_field.py warning). 不符 0. Registry required checks: pass 45, partial 17, fail 6, not run 2, stale 0, deferred 10. last_llm_audit set to 2026-11-21 20:56 after reading the 20:55 edit of mu_req_field.py (warning line only)."
  },
  "items": [
   {
@@ -1356,9 +1364,9 @@
     "human_study/CAPABILITY_SCORECARD.md:50-72",
     "scripts/8_audit/h33_capability_audit.py:88-90"
    ],
-   "status": "未實作",
-   "evidence": "h33 以元件 mtime 比 status.date：fric_compare / collect_split（METRICS、COLLECT）與 current_settings（SETTINGS）03:40-03:5x 的改動使 PHY-06（SETTINGS）、OBS-02、OBS-03、OBS-07（METRICS）、OBS-05、OBS-06（COLLECT）在 04:25 計分表標「過期」（計分表共 23 處「過期」）。QA_SYSTEM／h33 規則：改動不影響者加 status.reconfirmed {date, note}，否則重跑。尚未處理；不影響判定數字。 ｜ 2026-11-09 11:33 複查：再度過期：h33 Registry 於記憶體內重算（2026-11-09 11:1x，元件 mtime BUILD/SETTINGS 2026-11-09 06:21、METRICS 06:16、SPLIT 11-08 05:09、COLLECT 11-08 02:02、GPUFE 11-08 05:07），52 個 檢查×配置 因 BUILD/SETTINGS（h14、current_settings 06:21）、METRICS（fric_compare 06:16）、SPLIT（h30 11-08）、COLLECT、GPUFE 改動而「過期」（PHY-03/04/05/06/07/08、NUM-01..08/12/13/14/15/16/17、SPD-01/02/03、OBS-01/02/03/07、DIV-01..04/06、GEN-02/03、TIM-01/03、PHY-09）；磁碟上的計分表 06:08 只列 1 條過期——它產生於 06:16-06:21 的 fric_compare／h14／settings 改動之前幾分鐘，不是漏報。R8 golden rebuild 以現行 h14 重算 md5 4f3208b5 = 登記值（12 s），且 30 個 fric5 重建 case.feb 與 fric3 來源 byte-identical，可作 reconfirm 證據；尚無人套用。 ｜ 2026-11-10 14:05 複查：h33 Registry 記憶體內重算（不寫計分表）：38 個 檢查×配置 stale（BUILD 11-09 22:11 all_dynamic、SETTINGS 11-10 13:45 pilot_relGctl、METRICS 11-09 11:45、OPS 11-09 23:47、GPUDIRECT 11-09 11:46）；磁碟計分表 18:43 含 62 處「過期」。R8 golden md5 4f3208b5（2026-11-10 全檢）可作 BUILD reconfirm 證據；仍無人套用。 ｜ 2026-11-11 00:4x 複查：h33 計分表 00:22 重寫：「過期」78 處（含 OBS-10 TIED/FRIC「COLLECT 已改動」、PHY-05「BUILD,METRICS 已改動」、DIV-03「BUILD,SPLIT,COLLECT 已改動」）；PHY-05/OBS-10 FRIC/DIV-03 FRIC 的 value 數字已與證據檔不一致（D-20261109-R5、R10、D-20261111-L1）；仍無 reconfirmed。 ｜ 複查 2026-11-11 02:02：計分表 01:52：「過期」77 處（原 78）；四個重寫標籤 date 01:12，但 PHY-05/DIV-03 因 h14（01:38）再 stale（BUILD）。",
-   "checked": "2026-11-11 02:02",
+   "status": "符合",
+   "evidence": "h33 以元件 mtime 比 status.date：fric_compare / collect_split（METRICS、COLLECT）與 current_settings（SETTINGS）03:40-03:5x 的改動使 PHY-06（SETTINGS）、OBS-02、OBS-03、OBS-07（METRICS）、OBS-05、OBS-06（COLLECT）在 04:25 計分表標「過期」（計分表共 23 處「過期」）。QA_SYSTEM／h33 規則：改動不影響者加 status.reconfirmed {date, note}，否則重跑。尚未處理；不影響判定數字。 ｜ 2026-11-09 11:33 複查：再度過期：h33 Registry 於記憶體內重算（2026-11-09 11:1x，元件 mtime BUILD/SETTINGS 2026-11-09 06:21、METRICS 06:16、SPLIT 11-08 05:09、COLLECT 11-08 02:02、GPUFE 11-08 05:07），52 個 檢查×配置 因 BUILD/SETTINGS（h14、current_settings 06:21）、METRICS（fric_compare 06:16）、SPLIT（h30 11-08）、COLLECT、GPUFE 改動而「過期」（PHY-03/04/05/06/07/08、NUM-01..08/12/13/14/15/16/17、SPD-01/02/03、OBS-01/02/03/07、DIV-01..04/06、GEN-02/03、TIM-01/03、PHY-09）；磁碟上的計分表 06:08 只列 1 條過期——它產生於 06:16-06:21 的 fric_compare／h14／settings 改動之前幾分鐘，不是漏報。R8 golden rebuild 以現行 h14 重算 md5 4f3208b5 = 登記值（12 s），且 30 個 fric5 重建 case.feb 與 fric3 來源 byte-identical，可作 reconfirm 證據；尚無人套用。 ｜ 2026-11-10 14:05 複查：h33 Registry 記憶體內重算（不寫計分表）：38 個 檢查×配置 stale（BUILD 11-09 22:11 all_dynamic、SETTINGS 11-10 13:45 pilot_relGctl、METRICS 11-09 11:45、OPS 11-09 23:47、GPUDIRECT 11-09 11:46）；磁碟計分表 18:43 含 62 處「過期」。R8 golden md5 4f3208b5（2026-11-10 全檢）可作 BUILD reconfirm 證據；仍無人套用。 ｜ 2026-11-11 00:4x 複查：h33 計分表 00:22 重寫：「過期」78 處（含 OBS-10 TIED/FRIC「COLLECT 已改動」、PHY-05「BUILD,METRICS 已改動」、DIV-03「BUILD,SPLIT,COLLECT 已改動」）；PHY-05/OBS-10 FRIC/DIV-03 FRIC 的 value 數字已與證據檔不一致（D-20261109-R5、R10、D-20261111-L1）；仍無 reconfirmed。 ｜ 複查 2026-11-11 02:02：計分表 01:52：「過期」77 處（原 78）；四個重寫標籤 date 01:12，但 PHY-05/DIV-03 因 h14（01:38）再 stale（BUILD）。 ｜ 複查 2026-11-21 15:58：2026-11-21 登錄檔重評後，h33 類別唯讀重算：必要檢查「過期」52 → 0（26 個欄位加 reconfirmed、其餘重新量測）。計分表第 3 節仍列 15 處（診斷列 PHY-04、SPD-02、OBS-09×2、DIV-05、DIV-06；暫緩列 GEN-02、GEN-03、TIM-01、TIM-03；GPUFE 與不合格列 NUM-12、NUM-13、OBS-01、NUM-15、NUM-16），都不影響合格判定。狀態由未實作改為符合；其中三列的再確認不被接受（D-20261121-1），數字更正見 D-20261121-M5。",
+   "checked": "2026-11-21 15:58",
    "source": "labels",
    "check": "llm"
   },
@@ -1607,8 +1615,8 @@
     "human_study/current_settings.json:427-430 (physio_fric5 physio_windows = flexion, extension)"
    ],
    "status": "未實作",
-   "evidence": "依決策順序在修法採用後才跑；physio_fric5 類只有 flexion/extension；無 LB/AR 摩擦 set。fric5 重算完成後排程（需新的 settings 類與 h48 窗口清單 WINDOWS:12）。",
-   "checked": "2026-11-09 11:33",
+   "evidence": "依決策順序在修法採用後才跑；physio_fric5 類只有 flexion/extension；無 LB/AR 摩擦 set。fric5 重算完成後排程（需新的 settings 類與 h48 窗口清單 WINDOWS:12）。 ｜ 複查 2026-11-21 15:58：仍無正式的側彎／軸旋摩擦集合（fric_compare.py:106 REQ 只有前屈、後伸）；2026-11-19 有單一設計試算 pilot_lbar／pilot_lbarr p062（DECISIONS 第 2498、2528 行），不是判定來源。維持未實作。",
+   "checked": "2026-11-21 15:58",
    "source": "decisions",
    "check": "llm"
   },
@@ -3899,8 +3907,8 @@
     "human_study/DECISIONS.md:1732-1735 (PI 2026-11-07 13:00 「照建議」; decision 1: friction run = check), :1973 (PI 2026-11-10 verbatim 灰區), :1978 (reading: a grey design is never counted as a pass)"
    ],
    "status": "PI待決",
-   "evidence": "現行 PASS = p086 p093 p100 p142 p145；基準 PASS = p061 p083 p120（三者現在都在 interface-shear-provisional：路線 E 窗口到達 ROM 後剪力 > 3 MPa）→ 原 3 個候選全部出列，無一延續。新 PASS 5 中 p093、p145 正是摩擦判定 FAIL 的兩個設計（friction_check_exceeded）：collect_split.py:243-244 摩擦 fail 只記 friction_check=exceeded、tied PASS 保留（PI 2026-11-07 13:00 L1732-1735「照建議」接受決定 1：摩擦 run 是檢查非閘；PASS 含 exceeded 旗標的呈現自 2026-11-07/08 起已回報過，PHY-05 note「PASS 13、friction-check-exceeded 13」）；:249 摩擦 grey 則移出 PASS 進 GREY（PI 2026-11-10 L1973「0.45–0.55 當灰區…不接受為 final design」、L1978「a grey design is never counted as a pass」）。結果：p093/p145 因由 grey 變 fail 而從 GREY 類「升」入 PASS 類。新元素是兩條規則的交互作用：fail（> 0.55）排在 grey（0.45–0.55）之上進 PASS 類；兩段 PI 原文都沒有處理這個不對稱；需 PI 決定 fail 是否同樣排除。後果：若 fail 比照 grey 排除，PASS 5 → 3（p086 p100 p142）；向 PI 匯報「PASS 5 (was 3)」時必須說明成員全換且含 2 個摩擦 fail。 ｜ 複查 2026-11-17 04:30（DECISIONS 04:23 L2237-2249 修正後）：已列入 PI_PENDING_DECISIONS.md（04:23，第 5 行「最終候選（PASS）是否排除摩擦判定 fail 的設計」，附建議 fail 比照 grey 排除 → PASS 5→3）；程式未改（collect_split.py:243-244 仍保留 fail 於 PASS），等 PI。 ｜ 複查 2026-11-18 02:03：休眠：PI 2026-11-17 04:38 把 p093/p145 列為灰區後，目前沒有摩擦 fail 的設計，PASS = p086 p100 p142（verdict_classes_merged.json 07:57）；PI_PENDING_DECISIONS.md 第 5 行已劃掉、註明「下次出現 fail 再問」。程式未改：collect_split.py:243-244 仍把摩擦 fail 保留在 PASS 類。規則問題未經 PI 回答，維持 PI待決（目前零影響）。",
-   "checked": "2026-11-18 02:03",
+   "evidence": "現行 PASS = p086 p093 p100 p142 p145；基準 PASS = p061 p083 p120（三者現在都在 interface-shear-provisional：路線 E 窗口到達 ROM 後剪力 > 3 MPa）→ 原 3 個候選全部出列，無一延續。新 PASS 5 中 p093、p145 正是摩擦判定 FAIL 的兩個設計（friction_check_exceeded）：collect_split.py:243-244 摩擦 fail 只記 friction_check=exceeded、tied PASS 保留（PI 2026-11-07 13:00 L1732-1735「照建議」接受決定 1：摩擦 run 是檢查非閘；PASS 含 exceeded 旗標的呈現自 2026-11-07/08 起已回報過，PHY-05 note「PASS 13、friction-check-exceeded 13」）；:249 摩擦 grey 則移出 PASS 進 GREY（PI 2026-11-10 L1973「0.45–0.55 當灰區…不接受為 final design」、L1978「a grey design is never counted as a pass」）。結果：p093/p145 因由 grey 變 fail 而從 GREY 類「升」入 PASS 類。新元素是兩條規則的交互作用：fail（> 0.55）排在 grey（0.45–0.55）之上進 PASS 類；兩段 PI 原文都沒有處理這個不對稱；需 PI 決定 fail 是否同樣排除。後果：若 fail 比照 grey 排除，PASS 5 → 3（p086 p100 p142）；向 PI 匯報「PASS 5 (was 3)」時必須說明成員全換且含 2 個摩擦 fail。 ｜ 複查 2026-11-17 04:30（DECISIONS 04:23 L2237-2249 修正後）：已列入 PI_PENDING_DECISIONS.md（04:23，第 5 行「最終候選（PASS）是否排除摩擦判定 fail 的設計」，附建議 fail 比照 grey 排除 → PASS 5→3）；程式未改（collect_split.py:243-244 仍保留 fail 於 PASS），等 PI。 ｜ 複查 2026-11-18 02:03：休眠：PI 2026-11-17 04:38 把 p093/p145 列為灰區後，目前沒有摩擦 fail 的設計，PASS = p086 p100 p142（verdict_classes_merged.json 07:57）；PI_PENDING_DECISIONS.md 第 5 行已劃掉、註明「下次出現 fail 再問」。程式未改：collect_split.py:243-244 仍把摩擦 fail 保留在 PASS 類。規則問題未經 PI 回答，維持 PI待決（目前零影響）。 ｜ 複查 2026-11-21 15:58：重新開啟。PI 2026-11-20 決定 9（mu 0.3 為正式值）之後出現 5 個摩擦判定 fail 的設計（p051、p075、p093、p114、p145；後伸 ROM 後方 0.594–0.621 mm），依現行規則仍在 PASS 類（PASS 30 = 摩擦 pass 25 + fail 5；collect_split.py:253-254 未改）。已記入 DECISIONS 第 2607 行與 PI_PENDING_DECISIONS.md 第 121 行（第 11 項，最優先）。本次細節見 D-20261121-3（含 shear_ranking 前 5 名即這 5 個設計）。維持 PI待決。",
+   "checked": "2026-11-21 15:58",
    "source": "decisions",
    "check": "llm"
   },
@@ -5709,6 +5717,546 @@
    "evidence": "case.feb：cage_hard_1.0 type uncoupled prestrain elastic、elastic Gent、G 213.356、Jm 0.7、k 640.067（prestrain gradient F0 … 1.25，lc 18）✓；deck 內「yield／plastic」0 次 ✓。PI_PENDING 第 3 項已加「硬相與軟相都是 Gent 超彈性、沒有塑性 … sig_hard 只是記在參數裡的數字」✓。",
    "checked": "2026-11-18 14:29",
    "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261119-1",
+   "decisions_line": 2480,
+   "quote": "PI「摩擦係數照建議乙，先抽5個用0.3重跑」；2482「class pilot_mu03 = physio_fric3 + mu 0.3; the common setting stays 0.35 … route-E windows pilot_mu03r (class = physio_fric5r + mu 0.3)」",
+   "code": [
+    "human_study/current_settings.json classes pilot_mu03 / pilot_mu03r",
+    "human_study/al_v2/pilot_mu03r/p002/case.feb fric_coeff"
+   ],
+   "status": "符合",
+   "evidence": "設定檔：pilot_mu03 == physio_fric3 + {mu 0.3}、pilot_mu03r == physio_fric5r + {mu 0.3}（逐鍵相等）；common.mu 仍 0.35。模型檔 fric_coeff：pilot_mu03r/p002 = 0.3、physio_fric5r/p002 = 0.35。",
+   "checked": "2026-11-21 15:52",
+   "source": "sim",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261119-2",
+   "decisions_line": 2502,
+   "quote": "「The runner guard moved from h18 to h31 … h31 runs the insertion, then SKIPS the windows (writes windows_skipped.json, exit 0) when the class declares restart_env and the process lacks the BIOCAGE_* env / cbuild_fric binary」；2530「h18 now re-checks h24 when the preflight is stale and does not launch (exit 4) on FAIL」",
+   "code": [
+    "scripts/5_compute/h31_split_run.py:57-67",
+    "scripts/5_compute/h18_run_gpu_case.py:21-26"
+   ],
+   "status": "符合",
+   "evidence": "git diff（自 11-08 提交 e3acc56）：h31 只新增 restart_env 守門（_renv 非空且環境變數不符或執行檔不是 cbuild_fric → 寫 windows_skipped.json、exit 0）；h18 只新增 h24 複查（valid() 不成立時 check()，不 ok → 印 NOT LAUNCHED、exit 4）與 launch.json 紀錄。黏死類別不宣告 restart_env，路徑不變。",
+   "checked": "2026-11-21 15:52",
+   "source": "sim",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261119-3",
+   "decisions_line": 2507,
+   "quote": "PI「4 照乙」：「S9 posterior push-out >= 135 N is a RANKING read-out, not a pass / fail gate … Push force = cage equilibrium (e09)」",
+   "code": [
+    "../biocage-evo/ops/collect_split.py（無 e09／push 讀取）",
+    "../biocage-evo/ops/fric_compare.py:18",
+    "human_study/al_v2/pilot_push/"
+   ],
+   "status": "符合",
+   "evidence": "collect_split.py、fric_compare.py、e07_batch.py 都不讀 e09 結果或 pilot_push（grep 只命中註解中的字串）；推出窗口 w_push_* 只存在於 pilot_push／pilot_pushG（physio_* 目錄 0 個）。推出量沒有進任何判定。",
+   "checked": "2026-11-21 15:52",
+   "source": "verdict",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261119-4",
+   "decisions_line": 2508,
+   "quote": "PI「5 照建議」：「the S9 3-cycle test is run at the verdict amplitude (intact ROM = window amplitude / 1.25) … h30 window_cycles gains a 'scale' entry (0.8)」；2513 類別 pilot_cyc3v／cyc3vr／cyc3vG",
+   "code": [
+    "scripts/3_cage_case/h30_split_windows.py:28-33,50,104",
+    "scripts/3_cage_case/h14_build_case.py:562",
+    "human_study/current_settings.json classes pilot_cyc3v*"
+   ],
+   "status": "符合",
+   "evidence": "h30:30 a = float(CYC.get('scale', 1.0))（預設 1.0）；只在 sch 有 window_cycles 且窗口為 flexion 時生效。類別：pilot_cyc3v == pilot_cyc3 + {window_cycles {n 3, scale 0.8}}、pilot_cyc3vr == pilot_cyc3r + 同、pilot_cyc3vG == physio_relGr + window_cycles + physio_windows [flexion]（逐鍵相等）。正式集合 13 個的 params 0 個含 window_cycles。",
+   "checked": "2026-11-21 15:52",
+   "source": "sim",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261119-5",
+   "decisions_line": 2509,
+   "quote": "PI「6 照建議」：「ASTM F2077-style rigid-block static tests report stiffness + \"load at first exceedance of the hard-phase material limit (e06)\" explicitly named as a proxy, not the standard's 2 % offset yield」",
+   "code": [
+    "scripts/3_cage_case/h55_astm_f2077.py",
+    "human_study/al_v2/astm_f2077/p062/astm_result.json"
+   ],
+   "status": "符合",
+   "evidence": "astm_result.json 每個試驗有 stiffness 與 hard_phase_proxy{short_term_sig_hard（15 MPa）、sustained_0.18_sig_hard（2.7 MPa）}，鍵名即「proxy」；彈性版 offset_yield／ultimate 為 null。（PI 11-20 第 8 項之後另加彈塑性版，見 D-20261120-8。）",
+   "checked": "2026-11-21 15:52",
+   "source": "verdict",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261119-7",
+   "decisions_line": 2517,
+   "quote": "PI「7 照甲′」：borderline designs rerun at mu 0.3；2520 類別 pilot_mu03G（= physio_relG + mu 0.3）／pilot_mu03Gr（= physio_relGr + mu 0.3）；2521「reclassify each design with its mu 0.3 value under the existing PASS / GREY / FAIL limits (0.45 / 0.55) … the mu 0.35 production verdicts stay on file」",
+   "code": [
+    "human_study/current_settings.json classes pilot_mu03G / pilot_mu03Gr",
+    "../biocage-evo/results/method/fric/verdicts_mu035_2026-11-20.json",
+    "../biocage-evo/ops/fric_compare.py:48,176-177"
+   ],
+   "status": "符合",
+   "evidence": "類別逐鍵相等：pilot_mu03G == physio_relG + {mu 0.3}、pilot_mu03Gr == physio_relGr + {mu 0.3}。限值未動（GREY_LO 0.45、GREY_HI 0.55、LIM_ANY 1.0）。0.35 判定檔存在（generated 2026-11-18 13:45，pass 53／grey 17／open 3）。",
+   "checked": "2026-11-21 15:52",
+   "source": "verdict",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261120-T1",
+   "decisions_line": 2547,
+   "quote": "PI DECISIONS 彈勾六問回覆；2549「stage 1 single-彈勾 sub-model … outside the C3-C4 h24 gate (standalone sub-model, no production dir touched)」；2566 PI「彈勾試跑 keeps the window at 50 % (S4 unchanged; the earlier '35 %' is void)」；2569 類別 pilot_mu06／pilot_mu06r",
+   "code": [
+    "scripts/3_cage_case/h56_tangou_unit.py",
+    "human_study/current_settings.json classes pilot_mu06 / pilot_mu06r",
+    "../biocage-evo/ops/fric_compare.py:18"
+   ],
+   "status": "符合",
+   "evidence": "只核對「不進正式路徑」：h56_tangou_unit.py 存在且為獨立建模程式；fric_compare／e07_batch／collect_split 的 SETS 不含 pilot_tangou、pilot_mu06*；pilot_mu06 == pilot_mu03 + {mu 0.6}、pilot_mu06r == pilot_mu03r + {mu 0.6}。彈勾子模型的讀值（保持力、根部應力、端板斜度、面張開量）與文獻敘述本次未稽核（不在指派範圍、不進任何判定）。",
+   "checked": "2026-11-21 15:52",
+   "source": "sim",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261120-8",
+   "decisions_line": 2574,
+   "quote": "PI「8 照乙」：「h55 gains a 5th build argument WE: every cage material becomes FEBio 'reactive plasticity' … von Mises yield criterion; flow curve 'PFC paper', one yielding bond family, Y0 = sig_of_phi (… 6 / 9 / 12 / 15 MPa for phi 0.25 / 0.5 / 0.75 / 1.0), w0 = 1 - WE … Displacement D 1.0 mm … Production decks untouched」",
+   "code": [
+    "scripts/3_cage_case/h55_astm_f2077.py:48,77-83,90-101,182",
+    "scripts/3_cage_case/h14_build_case.py:58",
+    "human_study/al_v2/astm_f2077_plastic/p062/astm.json"
+   ],
+   "status": "符合",
+   "evidence": "h55:182 build(out, src, D, ROT, WE, SCOPE)（WE 為第 5 個建置參數、SCOPE 第 6 個）；h55:94-101 material type reactive plasticity、yield_criterion「DC von Mises stress」、flow_curve「PFC paper」、Y0 = Ymax = ss + phi (sh − ss)、w0 = 1 − WE、we = WE、nf 1、isochoric 1；ss／sh 取自來源案例 params（3／15）＝ h14:58 的 sig_of_phi。astm.json：Y0 {0.25: 6, 0.5: 9, 0.75: 12, 1.0: 15}、we 0.02、D_mm 1.0、來源 physio_fric5r/p062、source_case_sha256 與彈性版相同（3afc644d…）。h55 只寫 out 目錄。",
+   "checked": "2026-11-21 15:52",
+   "source": "sim",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261120-8a",
+   "decisions_line": 2584,
+   "quote": "「2 % offset yield, hard phase only elastoplastic (SCOPE hard = the PI decision wording; astm_f2077_plastic_hard/p062): compression 667 N at 0.18 mm, compression-shear 464 N at 0.21 mm, torsion 1.58 N m at 4.3 deg … Every phase … 556 N / 381 N / 1.13 N m」；2611「42 of 43 designs read … 274-678 N (median 306), 180-470 N (198), 0.64-1.61 N m (0.68); FDA medians … 33x / 18.5x / 12.6x higher; no design reaches 1,164 N. p062 without hardening: 629 / 447 N / 1.50 N m」",
+   "code": [
+    "human_study/al_v2/astm_f2077_plastic_hard/*/astm_result.json",
+    "human_study/al_v2/astm_f2077_plastic/p062/astm_result.json",
+    "human_study/al_v2/astm_f2077_plastic_perfect/p062/astm_result.json"
+   ],
+   "status": "符合",
+   "evidence": "由結果檔重算：硬相版 p062 offset_yield 667.15 N @ 0.18 mm／463.72 N @ 0.21 mm／1584.58 N·mm @ 4.28°；全相版 555.73／380.96／1126.86；無硬化 629.41／446.76／1501.91。43 個目錄中 42 個有結果（缺 p064）：壓縮 274.28–677.93（中位 306.31）、壓剪 179.85–469.84（198.38）、扭轉 637.05–1611.15 N·mm（682.73）；10117／306.31 = 33.0、3680／198.38 = 18.5、8.6／0.683 = 12.6；壓縮與壓剪 0 個達 1164 N。42 個 astm.json 的 Y0 都只有硬相一塊 = 15.0、we 0.02、scope hard、D 1.0。",
+   "checked": "2026-11-21 15:52",
+   "source": "verdict",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261120-8S",
+   "decisions_line": 2574,
+   "quote": "「Hardening choice (授權自行決定): WE 0.02 (2 % of the initial modulus, bilinear) as the main run, WE 0 (perfectly plastic) as the bound」；h55:83 SCOPE hard = 該模型檔中 phi 最大的區塊",
+   "code": [
+    "scripts/3_cage_case/h55_astm_f2077.py:81-83"
+   ],
+   "status": "實作時自選",
+   "evidence": "簽核項：(1) 硬化比 2 % 與「主結果 = 只有硬相降伏（SCOPE hard）」是實作時選的，決策文只說「彈塑性硬相」；(2) SCOPE hard 的判斷是「phi ≥ 該檔最大 phi」，不是「phi = 1.0」——目前 42 個設計最大 phi 都是 1.0（Y0 全為 15.0），沒有設計受影響；(3) 2582「壓縮剛度低 2 %」來自包覆材料不走三場六面體公式，為已揭露的模型差異。",
+   "checked": "2026-11-21 15:52",
+   "source": "sim",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261120-9",
+   "decisions_line": 2575,
+   "quote": "PI「9 照建議」：「mu 0.3 is the official friction coefficient. fric_compare.py: sets pilot_mu03r / pilot_mu03Gr added at the top rank … their windows supersede the mu 0.35 windows per (design, window); every superseded window keeps its mu 0.35 read-out under windows[*].mu035; design field mu_basis; 'boundary' list … within 0.005 mm of 0.45 / 0.55; 'mu03_not_run' …」；2605「a mu 0.3 window that did not reach an evaluation point never takes the slot」",
+   "code": [
+    "../biocage-evo/ops/fric_compare.py:18,37,41-43,118,238-275,336",
+    "../biocage-evo/results/method/fric/verdicts.json"
+   ],
+   "status": "符合",
+   "evidence": "SETS 末兩位 = pilot_mu03r、pilot_mu03Gr（RANK 最高）；MU03_SETS:37；STICK_SETS 含兩者:43；:118 MU03 集合且未達評估點的列（含 placeholder）直接跳過、不佔位；:238-250 best35 = 不含 0.3 集合的勝出列，寫入 windows[*].mu035；:261 mu_basis；:268 |post − 0.45／0.55| ≤ 0.005 → boundary；:271 mu03_not_computable；:274 mu03_not_run（實作用「線 − 0.005」為界，比決策文略保守，並加測任向 1 mm）。verdicts.json（generated 14:39）逐窗口核對 146 個必要窗口：集合為 0.3 者 83 個全部 mu = 0.3、usable、帶 mu035；其餘 63 個 mu = 0.35；沒有不可用的 0.3 列佔位。",
+   "checked": "2026-11-21 15:52",
+   "source": "verdict",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261120-9a",
+   "decisions_line": 2605,
+   "quote": "「Verdicts now 46 pass / 19 grey / 5 fail / 3 open; mu basis 37 designs at 0.3, 9 mixed (11 windows not computable at 0.3 …), 27 at 0.35 (far from the lines). No design is flagged mu03_not_run any more.」",
+   "code": [
+    "../biocage-evo/results/method/fric/verdicts.json",
+    "../biocage-evo/results/method/fric/verdicts_mu035_2026-11-20.json"
+   ],
+   "status": "符合",
+   "evidence": "重數 73 設計：pass 46／grey 19／fail 5（p051 p075 p093 p114 p145）／open 3（p048 p074 p115）✓；mu_basis 0.3：37、[0.3, 0.35]：9、0.35：27 ✓；mu03_not_run 0 ✓；mu03_not_computable 11 個窗口 ✓；邊界 p026（0.455）、p077／p105／p139（0.446）。相對 0.35 檔：pass→grey 7（p061 p062 p086 p100 p112 p122 p142）、grey→fail 5。_meta.mu_shift_max_mm 0.1177、mu_shift_uh_max_mm 0.1936、mu_shift_n 40。判定×基準：pass = 0.3 17＋混合 6＋0.35 23；grey = 16＋2＋1；fail = 4＋1；open = 0.35 3。（文字「27 個離限值遠」「9 個混合含 11 窗口」不準，見 D-20261121-M3。）",
+   "checked": "2026-11-21 15:52",
+   "source": "verdict",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261120-9b",
+   "decisions_line": 2606,
+   "quote": "「Downstream pipeline rerun with mu 0.3 as the official value: ops/e07_batch.py (… e07 pass 15 / fail 52 / open 6), ops/replicate_agreement.py (replicates are compared at ONE mu: at 0.3 the six extension windows agree within 0.0021 mm, two flexion windows exceed 0.005 mm), collect_split (PASS 30, GREY 13 …), shortcut_consistency (Spearman 0.894 … mu_req at 0.5 mm 0.145 -> 0.139), obs01_batch (result cache tag now carries the set …)」",
+   "code": [
+    "../biocage-evo/ops/e07_batch.py:21,77",
+    "../biocage-evo/ops/replicate_agreement.py:17,27-31",
+    "../biocage-evo/ops/obs01_batch.py:48",
+    "../biocage-evo/results/method/fric/e07_verdicts.json",
+    "../biocage-evo/results/method/fric/replicate_agreement.json",
+    "../biocage-evo/results/method/fric/shortcut_consistency.json",
+    "../biocage-evo/results/method/split/verdict_classes_merged.json",
+    "../biocage-evo/results/method/obs01/obs01_summary.json"
+   ],
+   "status": "符合",
+   "evidence": "e07：SETS 末兩位為 0.3 集合，勝出鍵 (rom_reached, RANK)；73 設計 pass 15／fail 52／open 6（p061、p083 fail→pass）；72 個有值 0.082–21.894、中位 12.787、> 3 MPa 52 個；與提交版差 −1.068 至 +2.836、中位 0。replicate_agreement：同一 mu 才比；0.3 下 12 個窗口有 ≥ 2 複本，後伸 6 個差 0.0000–0.0021，前屈 p100／p142 0.0083、p051／p075 0.0060；總計 28 窗口 5 個超過 0.005，最大 0.0124（= h37 R20）。shortcut：spearman 0.8944、mu_req_at_0p5mm 0.1389（提交版 0.9151／0.1450）。collect_split：PASS 30、GREY 13、合計 149。obs01：FRIC 162 列全 ok、83 列來自 pilot_mu03*；TIED 564 列與提交版逐列相同。",
+   "checked": "2026-11-21 15:52",
+   "source": "verdict",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261120-10",
+   "decisions_line": 2576,
+   "quote": "PI「10 照建議」：「pilot_cyc3vdt = window time step …, pilot_cyc3vpen = cage contact penalty x2 (window_lc_redefine of load curve 16, the penalty scale of cage_C3 / cage_C4 only: 1 -> 2 between t 3.5 and 3.6). Designs p062 … and p124」；2593「step arm is rebuilt with window_dt 0.001 (step size = dtmax = 0.001 s, dtmin 1e-5, 6,000 steps; class pilot_cyc3vdt updated)」",
+   "code": [
+    "human_study/current_settings.json classes pilot_cyc3vdt / pilot_cyc3vpen",
+    "scripts/3_cage_case/h30_split_windows.py:45-46,50",
+    "human_study/al_v2/pilot_cyc3vpen/p062/case.feb:936",
+    "human_study/al_v2/pilot_cyc3vpen/p062/w_flexion/restart.feb"
+   ],
+   "status": "符合",
+   "evidence": "類別逐鍵相等：pilot_cyc3vdt == pilot_cyc3vr + {window_dt 0.001}、pilot_cyc3vpen == pilot_cyc3vr + {window_lc_redefine {16: [[0,0],[1,0],[1.001,1],[3.5,1],[3.6,2],[1000,2]]}}。h30:45-46 window_dt → step_size = dtmax = dt、dtmin = dt/100（1e-5）；:50 步數 = 2 × 3 ／ 0.001 = 6000。case.feb 中 lc=\"16\" 只出現 2 次（cage_C3、cage_C4 的 penalty）；restart.feb 重定義 loadcurve 16（3.5 → 1、3.6 → 2）。四個案例的 restart_source 與 pilot_cyc3vr 相同（pilot_cyc3v/p062_gpu1、p124_gpu2）。這些類別沒有 mu 鍵 → 0.35（與原 3 循環試算同基準）。",
+   "checked": "2026-11-21 15:52",
+   "source": "sim",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261120-10a",
+   "decisions_line": 2604,
+   "quote": "「contact penalty x2 does NOT change the accumulation - p124 increments -0.037 / +0.116 / +0.168 mm vs -0.033 / +0.120 / +0.170 (original), p062 +0.312 / +0.379 (third cycle not finished: stopped at t 9.40 of 9.5) vs +0.320 / +0.377. The small-step arm (window_dt 0.001) gave no answer」",
+   "code": [
+    "../biocage-evo/results/method/e10/pilot_cyc3vpen_p124.json",
+    "../biocage-evo/results/method/e10/pilot_cyc3vpen_p062.json",
+    "../biocage-evo/results/method/e10/p124_cyc3v.json",
+    "../biocage-evo/results/method/e10/p062_cyc3v.json",
+    "human_study/watchdog.log:2659-2660"
+   ],
+   "status": "符合",
+   "evidence": "posterior_increment_per_cycle_mm：p124 罰則×2 [−0.0372, 0.1156, 0.1680]／原 [−0.0329, 0.1196, 0.1701]；p062 罰則×2 [0.3124, 0.3793, None]／原 [0.3200, 0.3773, 1.1777] ✓。看門狗 11-20 23:29:39 停掉 pilot_cyc3vdt p062（t 3.7636）、p124（t 3.7045）✓。注意：p062 第 3 循環的 +1.18 mm（選它的原因）在罰則臂沒有算到，小步長臂無結果 → 2576 的判別規則（兩臂皆在 30 % 內才算模型結果）目前尚不能下結論；DECISIONS 沒有宣稱已下結論。",
+   "checked": "2026-11-21 15:52",
+   "source": "verdict",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261121-1",
+   "decisions_line": 2600,
+   "quote": "「Re-score rule: 'reconfirmed' only where (a) the component change cannot reach the evidence (shown by a regression: h57 deck rebuild sweep, h58 metric regression, a diff of the changed file) AND (b) the evidence was taken on the recipe the configuration uses today; otherwise the check is measured again (new date, new value). Timestamps in reconfirmed.date are full」",
+   "code": [
+    "human_study/platform_capabilities.json",
+    "scripts/8_audit/h33_capability_audit.py:83-91",
+    "human_study/qa/rebuild_sweep.json",
+    "human_study/qa/metric_regression.json"
+   ],
+   "status": "符合",
+   "evidence": "逐列比對（改前檔 = git HEAD，逐位元相同）：今日蓋章的 26 個 reconfirmed 欄位（17 個檢查）中，條件 (a) 成立者——h57（52／52，18 個集合：16 個取 3、2 個取 2；h14／h30 檔案時間 14:40 早於掃描 14:47；設定檔 15:09 的改動只新增試算類別，既有 89 類別逐鍵相同）、h31／h18 的 git diff、h19／h23 檔案時間 11-02、OBS-01 TIED 564 列與提交版相同。條件 (b) 不成立而仍標 reconfirmed 的列：PHY-06 TIED／FRIC（正式 mu 已改 0.3，mu 是本項列舉的常數；note「之後只新增試算類別」不實：f14b527c 之後新增 physio_fric5、physio_relG、physio_relG_pl、physio_fric5r、physio_relGr 五個正式類別）、PHY-08 FRIC（證據為 10-31 單牆推出 93 N、mu 0.35、舊摩擦律；現行讀法為籠體平衡力 e09，且 DECISIONS 2608 已說單牆推出混入牆體壓潰）、OBS-04 FRIC（值仍寫 11-02 的「physrotFr2_ 排隊中」，現行判定窗口是路線 E 指定轉角，不經重定振幅）。後果：三項狀態都是「部分」，計分表合格／不合格數不變；規則要求的是「重新量測（新日期、新值）」。另 NUM-02 FRIC、PHY-03 FRIC、PHY-07 FRIC 沿用 10 月黏死／壓縮協定證據、FRIC 欄無自己的值，見 D-20261121-S3。 ｜ 複查 2026-11-21 20:51（DECISIONS 第 2616–2628 行的修正）：已解決。PHY-06 TIED／FRIC、PHY-08 FRIC、OBS-04 FRIC 的 reconfirmed 已移除，改為 16:17 重新量測並重寫值欄（狀態皆部分）：PHY-06 寫明正式摩擦係數 0.3、common 仍 0.35、五個正式類別為 11-08 後新增；PHY-08 改用攜帶式推出與籠體平衡力（p062 94.8 N、p036 134.0 N、p051 79.3 N，與 ../biocage-evo/results/method/e09/push2_summary.json 一致；摩擦係數 0.35 已寫明）；OBS-04 FRIC 改寫為路線 E。16:17 新增的 reconfirmed（OBS-01、OBS-02、OBS-03、OBS-07、NUM-14、PHY-09、PHY-05、SPD-07）理由成立：fric_compare.py 只加窗口的摩擦係數標籤，重跑後 verdicts.json 與修正前備份逐設計相同（0 個設計有差異，只有 generated 時間不同）。殘留：OBS-04 FRIC 新值欄有一個數字不對（見 D-20261121-N1）；PHY-08 與 OBS-04 的門檻文字已過時，值欄已註明待 PI。",
+   "checked": "2026-11-21 20:51",
+   "source": "labels",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261121-2",
+   "decisions_line": 2613,
+   "quote": "「Capability registry re-scored (platform_capabilities.json, 15:05 …): required checks pass 6 -> 44, stale 52 -> 1 (OBS-01 FRIC …), partial 2 -> 16 …, not run 4 -> 3, fail 6 -> 6 … Wording changed only where the PI decided (mu 0.3 in PHY-05 method and restriction R07). NUM-15 / NUM-16 / NUM-17 / NUM-10 / GPUFE rows untouched in state.」",
+   "code": [
+    "human_study/platform_capabilities.json",
+    "scripts/8_audit/h33_capability_audit.py:83-91"
+   ],
+   "status": "符合",
+   "evidence": "以 h33 的類別唯讀重算：改前（= git HEAD）必要檢查 pass 6／stale 52／partial 2／not_run 4／fail 6 ✓。method／threshold／restriction 文字只有 PHY-05 method 與 R07 兩處改動 ✓；evidence 清單只增不減（11 項）；configs／components／capabilities 未動；NUM-10、NUM-16、GPUFE 各列逐鍵未變，NUM-15／NUM-17 狀態與日期未變、只追加值 ✓；h33 錯誤 0、警告 0（證據路徑都存在）。現況（登錄檔 15:28）為 pass 46／stale 0／partial 16／not_run 2／fail 6：15:05 之後又手改三列（OBS-01 FRIC 15:08、PHY-06 15:28、NUM-08 FRIC 15:28），DECISIONS 未補記，見 D-20261121-M1、B1。",
+   "checked": "2026-11-21 15:52",
+   "source": "labels",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261121-M1",
+   "decisions_line": 2610,
+   "quote": "「NUM-08 FRIC (never run): class pilot_staticR (= physio_fric5r + window_static); p062 extension static vs slow dynamic: posterior at ROM 0.4421 vs 0.4426 mm, mu_squeeze 0.0543 vs 0.0543, saturation moment 590.5 vs 590.5 N mm. Flexion running.」 vs 登錄檔 NUM-08.status.FRIC = pass（2026-11-21T15:28，含前屈數字）",
+   "code": [
+    "human_study/platform_capabilities.json checks[NUM-08].status.FRIC",
+    "human_study/al_v2/pilot_staticR/p062/w_flexion/case.log",
+    "human_study/al_v2/pilot_staticR/p062_params.json"
+   ],
+   "status": "符合",
+   "evidence": "15:40:30 查看：靜態前屈窗口仍在計算（case.log 最後時間 3.928／4.0、無結束列、檔案時間 15:40），登錄檔卻在 15:28 改為 pass 並寫入前屈數字；判定流程自己的規則只讀已結束的窗口（fric_compare.py:50 ended()）。DECISIONS 2610 仍寫「Flexion running」、2613 仍寫 pass 44／not run 3。數字本身可重現（稽核以文字紀錄檔獨立讀取）：後伸 ROM 後方 靜態 0.4421／動態 0.4426、飽和力矩 590.5／590.5；前屈 1.5 N·m（t 3.725，已過）0.1760／0.1747。另：(1) p062_params.json mu = 0.35（類別 = physio_fric5r + window_static），不是正式值 0.3，值欄未寫明；(2) 門檻含「滑移上限差 ≤ 0.02 mm」，後伸的滑移上限差未列；(3) 只有 1 個設計。後果：必要檢查「通過」46 → 45、「未做／部分」+1，直到前屈正常結束並重讀。建議：窗口結束後以 e04 重讀、補記 DECISIONS；值欄註明 mu 0.35，或以 pilot_mu03r + window_static 補一個設計。 ｜ 複查 2026-11-21 20:51（DECISIONS 第 2616–2628 行的修正）：已解決。靜態前屈窗口 16:04 正常結束（case.log 時間 4.0、N O R M A L；後伸 14:54 同）。登錄檔 NUM-08 FRIC 16:17 重蓋：值欄寫明「摩擦係數 0.35（不是正式值 0.3）」「只驗一個設計」，並補上後伸的滑移上限（1.2420／1.2426，差 0.0006）。稽核以文字紀錄檔獨立重讀：後伸窗口末態後方 0.6624／0.6629、ROM 0.4421／0.4426；前屈 1.5 N·m 0.1760／0.1747，與值欄一致（mu_squeeze 與滑移上限未獨立重算，數字遠在門檻內）。DECISIONS 第 2618 行已更正「Flexion running」。保留的限制（單一設計、0.35）已揭露。",
+   "checked": "2026-11-21 20:51",
+   "source": "labels",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261121-M2",
+   "decisions_line": 2609,
+   "quote": "「new window key window_max_ups (h14 pass-through, h30 restart Control; h37 PILOT_KEYS)」",
+   "code": [
+    "scripts/8_audit/h37_qa_check.py:25,55,168,186",
+    "scripts/5_compute/h24_preflight.py:116",
+    "scripts/3_cage_case/h14_build_case.py:561",
+    "scripts/3_cage_case/h30_split_windows.py:47-48"
+   ],
+   "status": "符合",
+   "evidence": "鍵已列入 PILOT_KEYS（h37:25），但守門函式以真假值判斷：h37:55 pilot_keys_in = [k … if prm.get(k) …]、h24:116 stray = [k … if prm.get(k) and k not in want]。全牛頓法的值是 0（假值）：實測 pilot_keys_in({'window_max_ups': 0}) → []（值 5 才回報）。h14:561 與 h30:47 用 is not None，所以 0 會一路寫進重啟檔的 max_ups。結果：正式類別或正式案例若帶 window_max_ups: 0，R7 的類別檢查與 h24 的多餘鍵檢查都不會擋（R7 的「同集合鍵集合一致」只在整批掃描時有效，launch 模式單一目錄時無比較對象）。現況無外洩：13 個判定來源集合共 1,610 個 restart.feb 中 max_ups 0 為 0 個、params 含 window_max_ups／window_cycles 為 0 個；pilot_mu03rN 的重啟檔 max_ups = 0（鍵有效）。不影響任何已報數字。建議：兩處改為 k in prm and prm[k] is not None and prm[k] is not False（或對數值鍵把 0 視為已設定），並加一個自測。 ｜ 複查 2026-11-21 20:51（DECISIONS 第 2616–2628 行的修正）：已解決。h37_qa_check.py:55-59 新增 pilot_set(prm, k) = 鍵存在且值不是 None／False，pilot_keys_in 改用它；h24_preflight.py:116 改用 _q.pilot_set。稽核實測：{window_max_ups: 0} → 回報該鍵；None、False → 不回報。反向測試檔 human_study/qa/h24_guard_test.json：帶 window_max_ups 0 的案例 ok false（錯誤訊息指出該鍵）、對照 ok true；測試用目錄已不存在。h37 --quick：R7 重掃 917 個正式案例 0 命中；設定檔中帶試算鍵的非試算類別都在既有允許清單內（R7 PASS）。",
+   "checked": "2026-11-21 20:51",
+   "source": "sim",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261121-M3",
+   "decisions_line": 2605,
+   "quote": "「mu basis 37 designs at 0.3, 9 mixed (11 windows not computable at 0.3 …, kept on 0.35, flagged), 27 at 0.35 (far from the lines)」；登錄檔 PHY-05 值「27 個仍為 0.35（離限值遠：0.35 讀值加最大觀測增幅 0.118 mm 仍不跨線）」",
+   "code": [
+    "../biocage-evo/results/method/fric/verdicts.json p117",
+    "human_study/platform_capabilities.json checks[PHY-05].status.TIED.value",
+    "human_study/DECISIONS.md:2605"
+   ],
+   "status": "符合",
+   "evidence": "計數 37／9／27 正確，但說明不對：(1) 11 個算不出的 0.3 窗口分屬 10 個設計 = 9 個混合 + p117（前屈、後伸兩個 0.3 窗口都沒到評估點，所以 mu_basis 記為 0.35）；(2) p117 不是「離限值遠」：0.35 後伸 ROM 後方 0.476（灰區），+0.118 = 0.594 > 0.55；前屈任向 0.878，+0.194 = 1.07 > 1.0；(3) 27 個中另有 3 個是 open（p048、p074、p115），沒有判定。正確拆法：0.35 基準 27 = 離線遠且有判定 23（皆 pass）+ p117（0.3 兩窗口算不出，灰區，暫定）+ open 3。判定計數不變（p117 的同模型複本 p092／p143 在 0.3 下為灰區 0.530，一致）。建議改寫 DECISIONS 2605 與 PHY-05 值欄。 ｜ 複查 2026-11-21 20:51（DECISIONS 第 2616–2628 行的修正）：已解決。DECISIONS 第 2621 行有更正條目（11 個窗口分屬 10 個設計 = 9 個混合 + p117；27 = 離線遠 23 + p117 + 算不出 3）；登錄檔 PHY-05 值欄已同步改寫（舊字串 0 處、新字串 1 處）。計數 37／9／27 不變。",
+   "checked": "2026-11-21 20:51",
+   "source": "labels,decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261121-M4",
+   "decisions_line": 2606,
+   "quote": "「Downstream pipeline rerun with mu 0.3 as the official value: … mu_req_field …」",
+   "code": [
+    "../biocage-evo/ops/mu_req_field.py:11,13,43",
+    "../biocage-evo/results/method/mu_req_field.json _meta.mu_real",
+    "../biocage-evo/ops/propose_round.py:23-24,43",
+    "human_study/platform_capabilities.json configs.FRIC.desc"
+   ],
+   "status": "符合",
+   "evidence": "決定 9 沒有傳到三處：(1) mu_req_field.py:13 MU_REAL = 0.35（註解「the coefficient the real-friction check runs with」），:43 ratio_to_mu_real = mu_req／0.35；今日 14:55 重跑的 mu_req_field.json _meta.mu_real 仍為 0.35；(2) propose_round.py:43 MU_REAL 0.35（演化提案的固定分數 1 − mu_req／0.35）；(3) 登錄檔 configs.FRIC.desc 仍寫「mu 0.35」，與 PHY-05 method、R07 的 0.3 不一致。後果：mu_req_field 的 ratio_to_mu_real 欄（149 列）改 0.3 後全部 ×1.167；propose_round 的固定分數會變；判定計數不受影響。mu_req 灰帶 0.140 ± 0.005 的對應值今日為 0.139（差 0.001，在帶寬內）。建議：兩個常數改 0.3 或改讀 verdicts.json _meta.mu_official；configs.FRIC.desc 比照 R07 改寫。 ｜ 複查 2026-11-21 20:51（DECISIONS 第 2616–2628 行的修正）：已解決（主線可處理的兩處）。(1) mu_req_field.py:13-15 改讀 verdicts.json _meta.mu_official；mu_req_field.json _meta.mu_real = 0.3（generated 16:10）；與修正前的 csv 逐列比對：149 列、欄位相同，只有 ratio_to_mu_real 一欄在 94 列改變（新／舊 = 1.164–1.171；其餘 55 列該欄本來就是空的——稽核原先寫「149 列」不準，DECISIONS 第 2622 行沿用了這個數字）。讀檔失敗時靜默退回 0.35（except: pass），_meta 會記實際用的值。(2) configs.FRIC.desc 已改為 0.3。(3) propose_round.py:43 的 MU_REAL 0.35 未改，改列 PI 待決（見 D-20261121-M4b）。 ｜ 複查 2026-11-21 20:55：兩項補記已處理：DECISIONS 第 2638 行更正「149 rows」為「94 列有值」；mu_req_field.py:15 讀不到 mu_official 時改印 WARNING（不再靜默退回）。該檔 20:55 的改動只有這一行。",
+   "checked": "2026-11-21 20:55",
+   "source": "verdict,labels",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261121-3",
+   "decisions_line": 2607,
+   "quote": "「FOUND, needs the PI: collect_split keeps the five friction-FAIL designs (p051, p075, p093, p114, p145; posterior 0.594-0.621 mm at mu 0.3) in class PASS with a flag only (rule PI 2026-11-07 …), while grey designs (0.45-0.55) leave PASS (PI 2026-11-10) … Nothing changed in the class rule; reported with a recommendation (exclude: class FAIL/friction-posterior).」",
+   "code": [
+    "../biocage-evo/ops/collect_split.py:225-226,253-254,259",
+    "../biocage-evo/results/method/split/verdict_classes_merged.json",
+    "human_study/PI_PENDING_DECISIONS.md:121"
+   ],
+   "status": "PI待決",
+   "evidence": "已記為 PI 問題：DECISIONS 2607、PI_PENDING 第 11 項（標「最優先」）✓。程式未改 ✓（collect_split.py 檔案時間 11-18 04:16）。現況：PASS 30 = 摩擦判定 pass 25 + fail 5（p051 p075 p093 p114 p145，後伸 ROM 後方 0.5945–0.6210）；friction_check_exceeded 5。補充一個決策文沒寫的後果：shear_ranking（所需介面強度由低到高）的前 5 名正是這 5 個摩擦 fail 設計（1.85–2.14 MPa，cls PASS、verdict pass）。PI 決定前，「PASS 30」與剪力排序前段都不宜直接引用為候選名單。PASS 30 的 mu 基準：0.3 16 個、0.35 13 個、混合 1 個。",
+   "checked": "2026-11-21 15:52",
+   "source": "verdict",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261121-4",
+   "decisions_line": 2608,
+   "quote": "「h53 add2: 'carried' push - both wall node sets get the same prescribed X displacement (window w_push_post2; deck untouched; force read-out unchanged = cage equilibrium)」",
+   "code": [
+    "scripts/5_compute/h53_push_restart.py:23-45,52-53",
+    "human_study/al_v2/pilot_push/p062/",
+    "human_study/al_v2/pilot_push/p051/"
+   ],
+   "status": "符合",
+   "evidence": "add2 → add_windows(both=True)：只建立 w_push_post2／w_push_ant2 目錄，寫 restart.feb、push.json，並從 w_flexion 複製 4 個後處理用檔；不碰插入模型檔。p062、p051：case.feb sha256 = launched_feb.sha256（3afc644d…／becf8bb3…），檔案時間仍為 11-19；physio_* 目錄中 w_push* 0 個。簽核小項：add2 不檢查目標目錄是否在 pilot_push 之下（誤用時會在任何案例目錄新增窗口目錄，不改既有檔）。",
+   "checked": "2026-11-21 15:52",
+   "source": "sim",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261121-5",
+   "decisions_line": 2609,
+   "quote": "「Full-Newton pilot: … classes pilot_mu03rN / pilot_mu03GrN; the 11 mu 0.3 windows that stopped are restarted from the same checkpoints with max_ups 0 … these windows are NOT verdict sources.」；2610 pilot_staticR",
+   "code": [
+    "human_study/current_settings.json",
+    "../biocage-evo/ops/fric_compare.py:18",
+    "../biocage-evo/ops/e07_batch.py:21",
+    "human_study/al_v2/pilot_mu03rN/p014/w_extension/restart.feb"
+   ],
+   "status": "符合",
+   "evidence": "設定檔對 git HEAD：common 相同；既有 89 個類別逐鍵相同、順序相同、0 個移除；新增 24 個類別，名稱全含 pilot。pilot_mu03rN == pilot_mu03r + {window_max_ups 0}、pilot_mu03GrN == pilot_mu03Gr + 同、pilot_cyc3vrN == pilot_cyc3vr + 同、pilot_cyc3vGN == pilot_cyc3vG + 同、pilot_staticR == physio_fric5r + {window_static true}（逐鍵相等）。fric_compare／e07_batch 的 SETS 不含 rN、GrN、staticR、cyc3*；verdicts.json 146 個必要窗口的集合只有 pilot_mu03r／mu03Gr／physio_fric5r／relGr／relG／fric5／relG_pl。",
+   "checked": "2026-11-21 15:52",
+   "source": "sim",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261121-6",
+   "decisions_line": 2612,
+   "quote": "「h57_rebuild_sweep.py (52 / 52 decks of 17 verdict-source sets rebuild byte-identical …), h58_metric_regression.py (19 / 19 …), h59_design_field_check.py (190 / 190 decks …; DIV-02 automatic comparison), h60_fric_winner_scan.py (… 142 flexion / extension windows …); h34 now also scans the h47 restart sets (916 windows)」",
+   "code": [
+    "human_study/qa/rebuild_sweep.json",
+    "human_study/qa/metric_regression.json",
+    "human_study/qa/design_field_check.json",
+    "human_study/qa/fric_winner_scan.json",
+    "human_study/window_scan.json"
+   ],
+   "status": "符合",
+   "evidence": "rebuild_sweep：n_checked 52、n_identical 52、reference_kind 全為 launched_feb.sha256；集合數是 18（非 17）。metric_regression：19／19 n_diff 0；其中 pilot_mu03Gr p129、pilot_mu03r p148 兩個結果檔存於 11-21 14:3x（現行程式自己算的），有鑑別力的是其餘 17 個（存於 11-02 至 11-13，早於 e03 11-17／e04 11-18 的改動）。design_field_check：190 檔、4,390,711 個籠體元素、n_mismatch 全 0、9 個家族組合。fric_winner_scan：必要窗口 142（路線 E 132、關節 10）、18,459 列、無效 59（dt 5、dyn 54 全在關節驅動）、dt_min_valid 1.42e-4、errors 0；全部 158 窗口。window_scan：916 窗口、插入失敗 41（fric3 28、split2 13）。稽核另跑 e03／e04／e05 --test：三者 SELFTEST PASS。",
+   "checked": "2026-11-21 15:52",
+   "source": "labels",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261121-L1",
+   "decisions_line": 2613,
+   "quote": "登錄檔今日改為或維持 pass 的量測列：NUM-04 TIED／FRIC、NUM-14 TIED、OBS-01 FRIC、OBS-02／03／07、OBS-05、OBS-06、OBS-08、OBS-10、DIV-02、DIV-03 TIED",
+   "code": [
+    "human_study/platform_capabilities.json",
+    "human_study/window_scan.json",
+    "human_study/qa/fric_winner_scan.json",
+    "human_study/qa/design_field_check.json",
+    "../biocage-evo/results/method/split/verdict_classes_merged.json",
+    "human_study/preflight.log"
+   ],
+   "status": "符合",
+   "evidence": "值欄數字逐一對到證據檔：NUM-04／NUM-14 TIED：split2／3／4 共 354 窗口、微步 0、尖峰 0、dyn 窗口 117、223／3,105 態（7.2 %）、達標→未達標 7 ✓。NUM-04 FRIC：142／18,459／59／1.4e-4 ✓。NUM-06：916／41／籠體 36、皮質骨 3、無紀錄 2；ERROR 窗口 125 = 皮質骨 39 + 籠體 86 ✓。OBS-01 FRIC：162 ok、83 個 0.3、p99 中位 25.6（14.1–65.3）、持續中位 10.2 ✓。OBS-06／10／DIV-03 TIED：149 設計皆有類別、143／149 = 96.0 % ✓。OBS-08：preflight.log 自 11-08 起 21 筆 OK、0 FAIL ✓；h24 擋下的紀錄在 pilot_mu03rN/p079／p086／p093／p117 的 _run.log「no valid preflight (h24)」（值欄引用的 drive_N_fric.log 只寫「ended within 2 min」）。DIV-02：FRIC 73／73 設計的插入模型檔都在 190 檔內；TIED 只含 physio_rot_split2 42 檔，稽核以同一函式唯讀補跑其餘 6 個黏死判定來源集合 69 個 run 目錄：69／69、1,622,225 元素、0 不符（結果在 scratchpad qa_h59_tied_ext.json）。補記事項見 D-20261121-B1。",
+   "checked": "2026-11-21 15:52",
+   "source": "labels",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261121-S1",
+   "decisions_line": 2575,
+   "quote": "決定 9 的落實方式：正式 mu 0.3 的判定來源是名稱含 pilot 的類別（pilot_mu03／mu03r／mu03G／mu03Gr）；common.mu 仍為 0.35",
+   "code": [
+    "scripts/8_audit/h37_qa_check.py:168,177-184,221-228,411-412",
+    "human_study/current_settings.json common.mu",
+    "../biocage-evo/ops/fric_compare.py:37"
+   ],
+   "status": "實作時自選",
+   "evidence": "簽核項＋守門缺口：(1) 146 個必要窗口中 83 個（57 %）來自 pilot_mu03r／mu03Gr，但 h37 的正式守門以名稱排除它們：R7 的案例清單（h37:177）不含 pilot_mu03*，且類別含「pilot」即跳過（:168、:184）；R15／R16 只釘 physio_fric5／physio_relG；R19 的 ROUTE_E（:411-412）只有 physio_fric5r／physio_relGr（訊息仍為 73 cases）。(2) 稽核以 R19 同等條件手動核對 0.3 兩個集合：47 個案例、94 個已結束窗口、問題 0（類別 = 基底 + mu 0.3；params 與來源只差允許鍵；模型檔雜湊 = 來源；重啟檔無關節、相對 Ry、max_ups 10；有黏著記憶證據列；啟動函式庫雜湊與環境變數正確；無丟棄剛度項）。(3) common.mu 0.35 不變是 11-19 的明文（2482），決定 9 之後未再說明：新建的正式類別案例預設仍是 0.35。建議：把四個類別改名或登記為正式（R7 清單、ROUTE_E、R15／R16 的 mu 釘值），並由 PI 確認 common.mu 是否改 0.3。 ｜ 複查 2026-11-21 20:51：h37 ROUTE_E（h37:416-420）已加入 pilot_mu03r（= physio_fric5 + 相對驅動 + mu 0.3）與 pilot_mu03Gr（= physio_relG + 相對驅動 + mu 0.3）；R19 現為 120 個案例、240 個窗口、問題 0，與稽核手動核對一致。仍未涵蓋：R7 的案例清單（917 個）與 R15／R16 仍依名稱不含 pilot_mu03*；類別名稱與 common.mu 0.35 待 PI（DECISIONS 第 2624 行已列）。維持實作時自選。",
+   "checked": "2026-11-21 20:51",
+   "source": "verdict",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261121-S2",
+   "decisions_line": 2605,
+   "quote": "0.3 算不出的窗口「kept on 0.35, flagged」仍計入判定；登錄檔 DIV-03 FRIC = pass（70／73 = 95.9 %）",
+   "code": [
+    "../biocage-evo/ops/fric_compare.py:118,271",
+    "../biocage-evo/results/method/fric/verdicts.json",
+    "human_study/platform_capabilities.json checks[DIV-03].status.FRIC"
+   ],
+   "status": "實作時自選",
+   "evidence": "簽核項：決定 9 只說 0.3 為正式值；「0.3 窗口沒到評估點時沿用 0.35 讀值並算作有判定」是實作時加的（2590、2605 有記錄、有旗標）。依正式配方計：已嘗試 0.3 的設計 47 個中兩窗口皆以 0.3 判定者 37 個（78.7 %）；0.3 窗口 94 個中算到評估點 83 個（88.3 %）。pass 46 之中 6 個是混合基準（p014 p079 p095 p104 p125 p128），23 個仍是 0.35。DIV-03 FRIC 的 95.9 % 把這些暫定判定算作「可計算」，數字符合門檻字面，但不是在今日正式配方上量到的；建議標「部分」直到全牛頓法（PI 待決）或其餘補跑完成，或請 PI 簽核「暫用 0.35 的窗口可計入可計算率」。另 e07_verdicts.json 沒有 mu 欄：p102 前屈剪力取自 0.35 窗口（0.3 窗口到 1.5 N·m 未到 ROM），摩擦判定卻用 0.3 窗口。 ｜ 複查 2026-11-21 20:51：DIV-03 FRIC 已由通過改為部分（16:17；值欄寫明 83／94 = 88.3 %、37／47 = 78.7 %）。「暫用 0.35 的窗口計入判定」的規則本身與 e07 結果檔沒有摩擦係數欄仍待簽核。值欄的全牛頓法進度（5 完成、2 仍停、1 進行中）在蓋章時已是 6 完成、2 仍停（pilot_mu03/drive_N_fric.log：p117 前屈 16:11 正常結束）。 ｜ 複查 2026-11-21 20:55：DIV-03 FRIC 值欄已改為「8 個窗口中 6 個算完、2 個仍停（p079 後伸、p086 前屈）」，與 pilot_mu03/drive_N_fric.log 及 DECISIONS 第 2633 行一致；狀態仍部分。簽核內容不變。",
+   "checked": "2026-11-21 20:55",
+   "source": "verdict,labels",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261121-S3",
+   "decisions_line": 2600,
+   "quote": "重評規則 (b) 對 FRIC 欄的適用：NUM-02 FRIC、PHY-03 FRIC、PHY-07 FRIC 標 reconfirmed；NUM-04 TIED 門檻字面；OBS-02／03／07 以回歸當作「重新量測」",
+   "code": [
+    "human_study/platform_capabilities.json checks[NUM-02|PHY-03|PHY-07].status.FRIC",
+    "human_study/platform_capabilities.json checks[NUM-04].threshold",
+    "human_study/platform_capabilities.json checks[OBS-02|OBS-03|OBS-07].status"
+   ],
+   "status": "實作時自選",
+   "evidence": "簽核項：(1) 三個 FRIC 欄沒有自己的值，沿用 10-21 至 10-23 的黏死／壓縮協定證據；撐開剛度與摩擦配方無關（可接受），端板網格收斂（壓縮協定的夾持力）與負荷協定（方法欄寫「1.5 N·m 六向純力矩」，現行摩擦判定是前屈／後伸、路線 E 指定轉角）是否算「今日配方上的證據」需 PI 認定；若不算，必要檢查通過數 −2。(2) NUM-04 TIED 門檻「原判達標、濾除後未達標的視窗數 = 0 或已重跑」：7 個窗口中 4 個已由其他來源取代，3 個（p027 後伸、p107 AR_right、p015 AR_right）仍是勝出列、記為未達標（判定不使用無效狀態，但未重跑）；與 11-02 的 pass 同一讀法。(3) OBS-02／03／07 的新日期來自 h58 回歸與自測，沒有重新量門檻量；實質是「再確認」，卻移動了證據日期（h33 說明寫明證據日期不移動）。狀態不受影響。",
+   "checked": "2026-11-21 15:52",
+   "source": "labels",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261121-S4",
+   "decisions_line": 2601,
+   "quote": "「Feasibility criteria per new test (proposal, 授權自行決定; verdict 可行 / 部分可行 / 尚不可行): F1 … at least 90 % … F2 … no more than 5 % (or 0.005 mm for a translation); F3 … one independent self-check; F4 coverage - at least 3 designs from at least 2 design families (a one-design pilot can only be 部分可行)」",
+   "code": [
+    "human_study/DECISIONS.md:2601"
+   ],
+   "status": "實作時自選",
+   "evidence": "簽核項：四條可行性準則與數字（90 %、5 %／0.005 mm、3 個設計 2 個家族）是提案，待 PI 認可；目前沒有程式實作，也還沒有測試被依此判定。「先定準則再讀結果」無法由檔案驗證（同一批編輯內）。對照：NUM-08 FRIC 以單一設計給 pass（D-20261121-M1），與 F4「單一設計最多部分可行」的精神不一致。",
+   "checked": "2026-11-21 15:52",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261121-B1",
+   "decisions_line": 2613,
+   "quote": "補記清單（請主線代理補文字或補清單；不是 PI 簽核項，也不改任何判定數字）",
+   "code": [
+    "human_study/DECISIONS.md",
+    "scripts/8_audit/h59_design_field_check.py:16,21",
+    "human_study/qa/metric_regression.json",
+    "human_study/al_v2/pilot_mu03/build_e.log",
+    "../biocage-evo/ops/fric_compare.py:238-261,270",
+    "../biocage-evo/results/method/fric/shortcut_consistency.json",
+    "human_study/qa/QA_SPEC.json meta.gate_files"
+   ],
+   "status": "符合",
+   "evidence": "狀態欄借用「實作時自選」（五個狀態詞中唯一不擋 R10 的非符合詞）；內容是補記。(1) 其餘 0.35 基準設計的 0.3 補跑已建立（批次 e：pilot_mu03 新增 6 個、pilot_mu03G 新增 17 個 params，15:06–15:20；build_e.log、drive_e_*.log），DECISIONS 沒有記這次啟動。(2) h59 說明文字（:16）寫「all designs of the tied production sets」，SETS（:21）的黏死集合只有 physio_rot_split2；建議加入 physio_rot、physio_rot_r2、physio_rot_dyn、physio_rot_dyn2、physio_rot_split3、physio_rot_split4（稽核唯讀補跑 69 個判定來源目錄：69／69、0 不符、25 秒）。(3) h58 的 19 個比對中 pilot_mu03Gr p129、pilot_mu03r p148 兩個結果檔是今日 14:3x 由現行程式算的，有鑑別力的是 17 個；值欄宜寫明。(4) SPD-07 的再確認註記只引模型重建比對，請補 OPS 的理由（h19／h23 自 11-02 未改；新時間來自 resume_all.sh）。(5) PHY-05 值欄只寫等級相關 0.894，請補第二條件：shortcut_consistency.json rms_residual_mm 0.0504 > 0.05（提交版 0.0375）。(6) OBS-08 值欄引用的 pilot_mu03/drive_N_fric.log 沒有 h24 字樣；h24 擋下的紀錄在 pilot_mu03rN/p079、p086、p093、p117 的 _run.log（「no valid preflight (h24)」）與 15:10 重查的 preflight.json。(7) fric_compare.py:238-261 的潛在錯標（今日 0 例）：windows[*].mu 只在 best35 迴圈內設定，若某 (設計, 窗口) 只有 0.3 的列、沒有非佔位的 0.35 列，mu 會落到預設 0.35，並在 :270 被誤標 mu03_not_computable；建議在建立窗口列時就寫入 mu。(8) 建議加入 meta.gate_files：scripts/5_compute/h31_split_run.py、scripts/5_compute/h18_run_gpu_case.py（啟動路徑，11-19 改過）、../biocage-evo/ops/obs01_batch.py、../biocage-evo/ops/shortcut_consistency.py。(9) 新稽核報告 human_study/qa/audits/QA_AUDIT_2026-11-21.md 尚未列入 FILE_INDEX.md。 ｜ 複查 2026-11-21 20:51：(1) 批次 e 已記入 DECISIONS 第 2628 行；(2) h59 SETS 已含 7 個黏死集合，design_field_check.json 16:12：500／500、11,506,056 個元素、0 不符；(3) h58 值欄已寫明 17 個有鑑別力；(4) SPD-07 註記已補；(5) PHY-05 已補 0.0504 > 0.05；(6) OBS-08 引用已改為 _run.log；(7) fric_compare 已在每個窗口寫入自己集合的摩擦係數（verdicts.json 逐設計相同）；(8) 四個檔已由稽核加入 meta.gate_files；(9) FILE_INDEX.md 第 77 行已列稽核報告。全部處理完畢，改為符合。",
+   "checked": "2026-11-21 20:51",
+   "source": "labels,decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261121-M5",
+   "decisions_line": 2613,
+   "quote": "登錄檔值欄／註記與 DECISIONS 第 2612、2613 行的數字或引用，與證據檔不一致者",
+   "code": [
+    "human_study/DECISIONS.md:2612,2613",
+    "human_study/qa/rebuild_sweep.json sets",
+    "human_study/watchdog.log:2675",
+    "human_study/scheduler.log（最後一列 11-21 04:26:54）",
+    "human_study/qa/fric_winner_scan.json windows[*].rb_fres_max_N",
+    "../biocage-evo/results/method/fric/replicate_agreement.json",
+    "human_study/platform_capabilities.json"
+   ],
+   "status": "符合",
+   "evidence": "(a) DECISIONS 2613「pass 44、stale 1（OBS-01 FRIC）、not run 3」是 15:05 的狀態；登錄檔 15:28 的現況以 h33 類別重算為 pass 46／stale 0／partial 16／not run 2／fail 6（OBS-01 FRIC 15:08 重讀、NUM-08 FRIC 15:28 改通過、PHY-06 15:28 重蓋，皆未入 DECISIONS）。(b)「17 個判定來源集合各抽 3 個 run（共 52）」：rebuild_sweep.json 的 sets 有 18 個（16 個取 3、physio_fric5 與 physio_relG_pl 各取 2）；這句話出現在 18 個 reconfirmed 註記與 DECISIONS 2612。(c) SPD-03 值欄「scheduler.log 14:45」與 SPD-04／SPD-05 註記「scheduler.log 每小時磁碟用量列持續到 11-21 14:45」：該列在 watchdog.log（:2675「11-21 14:45:50 disk usage human_study 1335 GB」），scheduler.log 沒有磁碟用量列、最後一列是 04:26。(d) NUM-14 FRIC 值欄把力殘差統計寫成「路線 E 132 窗口」的數字：132 個路線 E 窗口的第 90 百分位是 19.4 N（中位 1.86）；值欄的 17.6 N／1.9 N 接近全部 142 個窗口的統計（17.5／1.92）。最大 96.7 N（p101 前屈）與「22 個窗口 > 10 N」正確。(e) NUM-17 值欄「p086／p100／p142 0.0083」：0.3 下該組前屈只有 p100、p142 兩個複本有值（p086 的 0.3 前屈沒到評估點）。(f) OBS-01 FRIC「中位 25.5 MPa」為 25.59（捨位差 0.1）。後果：都不改判定；(a) 影響向 PI 匯報的「通過 44」這個數字。建議逐處更正。 ｜ 複查 2026-11-21 20:51（DECISIONS 第 2616–2628 行的修正）：已解決。(a) DECISIONS 第 2623 行更正 15:28 的計數為 46／0／2，並補記三次蓋章；(b) 登錄檔「17 個判定來源集合」0 處，改為「18 個…各抽 2–3 個」；(c)「scheduler.log 14:45」「scheduler.log 每小時」0 處，改引 watchdog.log；(d) NUM-14 FRIC 改為路線 E 132 窗口第 90 百分位 19.4 N，並註明 17.6 N 是全部 142 窗口（最近秩法 17.64；線性內插 17.48）；(e) NUM-17 改為 p100／p142；(f) OBS-01 FRIC 改為「146 窗口 25.46、全部 162 窗口 25.59」，稽核重算一致。",
+   "checked": "2026-11-21 20:51",
+   "source": "labels,decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261121-N1",
+   "decisions_line": 2620,
+   "quote": "登錄檔 OBS-04 FRIC 新值欄（16:17）：「今日 146 個必要窗口中 142 個有評估點（h60），其餘 4 個是停算」",
+   "code": [
+    "human_study/platform_capabilities.json checks[OBS-04].status.FRIC.value",
+    "../biocage-evo/results/method/fric/verdicts.json",
+    "human_study/qa/fric_winner_scan.json"
+   ],
+   "status": "符合",
+   "evidence": "修正時新寫入的數字與證據檔不一致：verdicts.json 的 146 個必要窗口中 usable 且有評估點者 143 個（139 個來自自己的窗口，4 個是 p050／p084 繼承同模型複本 p068 的讀值），停算 3 個（p048 後伸、p074 前屈、p115 前屈）。142 是 h60 掃描的窗口數（不含 4 個繼承窗口，且其中 3 個不可用），不是「有評估點」的數目。不影響任何判定或狀態（此列為部分）。建議改為「143 個有評估點（其中 4 個繼承自同模型複本），3 個停算」。 ｜ 複查 2026-11-21 20:55：已解決。登錄檔 OBS-04 FRIC 值欄現為「146 個必要窗口中 143 個有評估點（verdicts.json；其中 4 個是 p050／p084 繼承同模型複本 p068 的讀值），其餘 3 個是停算（p048 後伸、p074 前屈、p115 前屈）」；與 verdicts.json（generated 16:10）重數一致：146／143／繼承 4／停算 3。舊字串「142 個有評估點」0 處。DECISIONS 第 2638 行有更正。",
+   "checked": "2026-11-21 20:55",
+   "source": "labels",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261121-M4b",
+   "decisions_line": 2622,
+   "quote": "「NOT changed: ../biocage-evo/ops/propose_round.py MU_REAL 0.35 (the fixation score of the round-2 evolution proposals, other session's pre-registered script) -> PI question.」",
+   "code": [
+    "../biocage-evo/ops/propose_round.py:43,111",
+    "human_study/PI_PENDING_DECISIONS.md:127"
+   ],
+   "status": "PI待決",
+   "evidence": "處理方式可接受，不列不符：propose_round.py（檔案時間 11-18 12:40，未動）是第二輪演化的事前鎖定流程的一部分，:111 固定分數 = 0.5·(1 − post／0.55) + 0.5·(1 − mu_req／MU_REAL)；改常數會改變候選排序，屬於需 PI 核可的預先登記修訂，不是主線代理可自行決定的事。已列 PI_PENDING_DECISIONS 第 17 項，寫明後果（所有候選固定分數下降、排序可能改變）與建議（改 0.3，並在第一輪模擬開始前重算候選名單）。prereg.json 與三個修訂檔內沒有這個常數的文字（grep 無 0.35／mu_real），所以決定後需同時補一筆修訂紀錄。在 PI 決定前，凡引用第二輪候選名單或固定分數，須註明以 0.35 計。",
+   "checked": "2026-11-21 20:51",
+   "source": "decisions",
+   "check": "llm"
+  },
+  {
+   "id": "D-20261121-S5",
+   "decisions_line": 2626,
+   "quote": "「Registry structure (授權自行決定, auditor to check): component OPS = h19_scheduler.py + h23_watchdog.py only; ../biocage-evo/ops/resume_all.sh moved to a new component LANES that no check depends on.」",
+   "code": [
+    "human_study/platform_capabilities.json components.OPS / components.LANES",
+    "../biocage-evo/ops/resume_all.sh:2-3,10,25-26",
+    "scripts/5_compute/h23_watchdog.py:16-18",
+    "human_study/PLATFORM_CAPABILITIES.md:114"
+   ],
+   "status": "實作時自選",
+   "evidence": "簽核項。分拆的理由屬實：resume_all.sh 424 行、未提交 202 行，今日 16:44 又改一次；grep 無磁碟守門、狀態檔、告警邏輯。對 SPD-04（磁碟守門，在 h19）、SPD-05（三項韌性機制，在 h19／h23）、SPD-07（吞吐）合理，接受。對 SPD-06（無人值守時數）會弱化：resume_all.sh:2-3「帳號所有行程被 Jupyter 伺服器停止／清除後把無人值守工作帶回來，每次伺服器啟動時呼叫」，:10 啟動看門狗 h23，h23 的 DAEMONS（h23:16-18）再啟動排程器 h19——scheduler.log 的 11-09 05:40、11-13 01:07、11-17 03:34 重啟就是這條路徑；「連續無人值守 ≥ 24 小時」能跨過伺服器重啟靠的正是這個檔。分拆後 SPD-06 只依賴 11-02 起未改的 h19／h23，往後不會再因啟動鏈改動而過期。建議保留的依賴：SPD-06 depends = [OPS, LANES]（此列本來就是每次重算的日誌統計，偶爾過期成本低）；更好的做法是把 resume_all.sh 開頭的常駐程式啟動段（看門狗、QA 常駐、evo 常駐）拆成獨立檔留在 OPS，通道清單留在 LANES。另：規則文件 human_study/PLATFORM_CAPABILITIES.md:114 仍把 resume_all.sh 寫在 OPS 內，與登錄檔不一致，需同步；LANES 的說明文字沒提它也負責啟動看門狗。元件定義屬規則層，建議請 PI 知悉。 ｜ 複查 2026-11-21 20:55：最低建議已採納：登錄檔 checks[SPD-06].depends = [OPS, LANES]（依賴 LANES 的檢查只有 SPD-06）；LANES 的名稱已寫明「重啟入口與各通道清單…先帶回看門狗」；SPD-06 於 20:54 重蓋（部分）；human_study/PLATFORM_CAPABILITIES.md:114 已把 OPS（h19、h23）與 LANES 分列。h33 唯讀重算：必要檢查通過 45、部分 17、不合格 6、未做 2、過期 0。未做：把 resume_all.sh 檔頭的常駐程式啟動段拆成獨立檔留在 OPS（該檔由 foreman 維護；DECISIONS 第 2638 行記為未做）。在拆檔之前，每次新增通道都會讓 SPD-06 過期，需重蓋；SPD-04／05／07 不再受該檔影響。元件定義屬規則層，維持實作時自選（請 PI 知悉）。",
+   "checked": "2026-11-21 20:55",
+   "source": "labels",
    "check": "llm"
   }
  ]

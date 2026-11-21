@@ -1,0 +1,798 @@
+{
+ "time": "2026-11-21T14:47",
+ "sets": {
+  "physio_rot_dyn": 18,
+  "physio_rot_split3": 7,
+  "physio_rot_split4": 5,
+  "physio_rot_split2": 16,
+  "physio_rot": 28,
+  "physio_rot_r2": 7,
+  "physio_rot_dyn2": 4,
+  "pilot_mu03r": 38,
+  "physio_fric5r": 12,
+  "physio_relGr": 18,
+  "physio_relG": 21,
+  "pilot_mu03Gr": 8,
+  "physio_fric2": 4,
+  "physio_fric5": 2,
+  "physio_relG_pl": 2,
+  "physio_fric3": 13,
+  "pilot_mu03": 38,
+  "pilot_mu03G": 8
+ },
+ "n_checked": 52,
+ "n_identical": 52,
+ "gate_files": {
+  "scripts/3_cage_case/h14_build_case.py": "2026-11-21T14:40",
+  "scripts/3_cage_case/h30_split_windows.py": "2026-11-21T14:40",
+  "scripts/3_cage_case/h12_cage_mesh.py": "2026-10-22T16:58",
+  "scripts/common/cage_geom.py": "2026-10-22T16:58",
+  "human_study/current_settings.json": "2026-11-21T14:40"
+ },
+ "results": [
+  {
+   "set": "physio_fric2",
+   "case_dir": "p060",
+   "problems": [],
+   "case_feb": "52f62690c7aa",
+   "reference": "52f62690c7aa",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_AR_left/restart.feb": "identical",
+    "w_AR_left/physio_schedule.json": "identical",
+    "w_AR_right/restart.feb": "identical",
+    "w_AR_right/physio_schedule.json": "identical",
+    "w_LB_left/restart.feb": "identical",
+    "w_LB_left/physio_schedule.json": "identical",
+    "w_LB_right/restart.feb": "identical",
+    "w_LB_right/physio_schedule.json": "identical",
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_fric2",
+   "case_dir": "p109",
+   "problems": [],
+   "case_feb": "38a3e0efe10a",
+   "reference": "38a3e0efe10a",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_AR_left/restart.feb": "identical",
+    "w_AR_left/physio_schedule.json": "identical",
+    "w_AR_right/restart.feb": "identical",
+    "w_AR_right/physio_schedule.json": "identical",
+    "w_LB_left/restart.feb": "identical",
+    "w_LB_left/physio_schedule.json": "identical",
+    "w_LB_right/restart.feb": "identical",
+    "w_LB_right/physio_schedule.json": "identical",
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_fric2",
+   "case_dir": "p125",
+   "problems": [],
+   "case_feb": "faf91f4ce6e9",
+   "reference": "faf91f4ce6e9",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_AR_left/restart.feb": "identical",
+    "w_AR_left/physio_schedule.json": "identical",
+    "w_AR_right/restart.feb": "identical",
+    "w_AR_right/physio_schedule.json": "identical",
+    "w_LB_left/restart.feb": "identical",
+    "w_LB_left/physio_schedule.json": "identical",
+    "w_LB_right/restart.feb": "identical",
+    "w_LB_right/physio_schedule.json": "identical",
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_fric3",
+   "case_dir": "p014",
+   "problems": [],
+   "case_feb": "a67ee6d615cd",
+   "reference": "a67ee6d615cd",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_fric3",
+   "case_dir": "p086_gpu3",
+   "problems": [],
+   "case_feb": "9343badac825",
+   "reference": "9343badac825",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_fric3",
+   "case_dir": "p146_gpu1",
+   "problems": [],
+   "case_feb": "6e0202a6a558",
+   "reference": "6e0202a6a558",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_fric5",
+   "case_dir": "p067",
+   "problems": [],
+   "case_feb": "862636f1d9de",
+   "reference": "862636f1d9de",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_fric5",
+   "case_dir": "p125",
+   "problems": [],
+   "case_feb": "50cb5f49a69c",
+   "reference": "50cb5f49a69c",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_fric5r",
+   "case_dir": "p014",
+   "problems": [],
+   "case_feb": "a67ee6d615cd",
+   "reference": "a67ee6d615cd",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_fric5r",
+   "case_dir": "p086",
+   "problems": [],
+   "case_feb": "9343badac825",
+   "reference": "9343badac825",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_fric5r",
+   "case_dir": "p146",
+   "problems": [],
+   "case_feb": "6e0202a6a558",
+   "reference": "6e0202a6a558",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_relG",
+   "case_dir": "p039_gpu1",
+   "problems": [],
+   "case_feb": "860678597c19",
+   "reference": "860678597c19",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_relG",
+   "case_dir": "p101_gpu3",
+   "problems": [],
+   "case_feb": "747225949853",
+   "reference": "747225949853",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_relG",
+   "case_dir": "p149_gpu4",
+   "problems": [],
+   "case_feb": "92b87dd3a19c",
+   "reference": "92b87dd3a19c",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_relG_pl",
+   "case_dir": "p095",
+   "problems": [],
+   "case_feb": "b4d715d988c7",
+   "reference": "b4d715d988c7",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_relG_pl",
+   "case_dir": "p104",
+   "problems": [],
+   "case_feb": "5339439c94b8",
+   "reference": "5339439c94b8",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_relGr",
+   "case_dir": "p039",
+   "problems": [],
+   "case_feb": "860678597c19",
+   "reference": "860678597c19",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_relGr",
+   "case_dir": "p101",
+   "problems": [],
+   "case_feb": "747225949853",
+   "reference": "747225949853",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_relGr",
+   "case_dir": "p149",
+   "problems": [],
+   "case_feb": "92b87dd3a19c",
+   "reference": "92b87dd3a19c",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_rot",
+   "case_dir": "p001_gpu6",
+   "problems": [],
+   "case_feb": "612615ab311f",
+   "reference": "612615ab311f",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {}
+  },
+  {
+   "set": "physio_rot",
+   "case_dir": "p081_gpu1",
+   "problems": [],
+   "case_feb": "03930f8fbdc5",
+   "reference": "03930f8fbdc5",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {}
+  },
+  {
+   "set": "physio_rot",
+   "case_dir": "p148_gpu2",
+   "problems": [],
+   "case_feb": "b587b20c2530",
+   "reference": "b587b20c2530",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {}
+  },
+  {
+   "set": "physio_rot_dyn",
+   "case_dir": "p002_gpu3",
+   "problems": [],
+   "case_feb": "d1f3fba44182",
+   "reference": "d1f3fba44182",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {}
+  },
+  {
+   "set": "physio_rot_dyn",
+   "case_dir": "p120_gpu1",
+   "problems": [],
+   "case_feb": "2dcce117b70c",
+   "reference": "2dcce117b70c",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {}
+  },
+  {
+   "set": "physio_rot_dyn",
+   "case_dir": "p149_gpu1",
+   "problems": [],
+   "case_feb": "8a35b01c3724",
+   "reference": "8a35b01c3724",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {}
+  },
+  {
+   "set": "physio_rot_dyn2",
+   "case_dir": "p039_gpu2",
+   "problems": [],
+   "case_feb": "dab029509c91",
+   "reference": "dab029509c91",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {}
+  },
+  {
+   "set": "physio_rot_dyn2",
+   "case_dir": "p114",
+   "problems": [],
+   "case_feb": "8affaad69fa6",
+   "reference": "8affaad69fa6",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {}
+  },
+  {
+   "set": "physio_rot_dyn2",
+   "case_dir": "p123_gpu2",
+   "problems": [],
+   "case_feb": "21d1a2e55372",
+   "reference": "21d1a2e55372",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {}
+  },
+  {
+   "set": "physio_rot_r2",
+   "case_dir": "p028_gpu4",
+   "problems": [],
+   "case_feb": "ab0c0706ae2c",
+   "reference": "ab0c0706ae2c",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {}
+  },
+  {
+   "set": "physio_rot_r2",
+   "case_dir": "p109_gpu1",
+   "problems": [],
+   "case_feb": "55df2c7b0ab0",
+   "reference": "55df2c7b0ab0",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {}
+  },
+  {
+   "set": "physio_rot_r2",
+   "case_dir": "p149_gpu1",
+   "problems": [],
+   "case_feb": "e180950d344b",
+   "reference": "e180950d344b",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {}
+  },
+  {
+   "set": "physio_rot_split2",
+   "case_dir": "p027",
+   "problems": [],
+   "case_feb": "ad31a0134339",
+   "reference": "ad31a0134339",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_AR_left/restart.feb": "identical",
+    "w_AR_left/physio_schedule.json": "identical",
+    "w_AR_right/restart.feb": "identical",
+    "w_AR_right/physio_schedule.json": "identical",
+    "w_LB_left/restart.feb": "identical",
+    "w_LB_left/physio_schedule.json": "identical",
+    "w_LB_right/restart.feb": "identical",
+    "w_LB_right/physio_schedule.json": "identical",
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_rot_split2",
+   "case_dir": "p083_gpu1",
+   "problems": [],
+   "case_feb": "c312706d15d9",
+   "reference": "c312706d15d9",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_AR_left/restart.feb": "identical",
+    "w_AR_left/physio_schedule.json": "identical",
+    "w_AR_right/restart.feb": "identical",
+    "w_AR_right/physio_schedule.json": "identical",
+    "w_LB_left/restart.feb": "identical",
+    "w_LB_left/physio_schedule.json": "identical",
+    "w_LB_right/restart.feb": "identical",
+    "w_LB_right/physio_schedule.json": "identical",
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_rot_split2",
+   "case_dir": "p146_gpu2",
+   "problems": [],
+   "case_feb": "df87ffa05d38",
+   "reference": "df87ffa05d38",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_AR_left/restart.feb": "identical",
+    "w_AR_left/physio_schedule.json": "identical",
+    "w_AR_right/restart.feb": "identical",
+    "w_AR_right/physio_schedule.json": "identical",
+    "w_LB_left/restart.feb": "identical",
+    "w_LB_left/physio_schedule.json": "identical",
+    "w_LB_right/restart.feb": "identical",
+    "w_LB_right/physio_schedule.json": "identical",
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_rot_split3",
+   "case_dir": "p003_gpu1",
+   "problems": [],
+   "case_feb": "2b3a3b7bf8ae",
+   "reference": "2b3a3b7bf8ae",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_AR_left/restart.feb": "identical",
+    "w_AR_left/physio_schedule.json": "identical",
+    "w_AR_right/restart.feb": "identical",
+    "w_AR_right/physio_schedule.json": "identical",
+    "w_LB_left/restart.feb": "identical",
+    "w_LB_left/physio_schedule.json": "identical",
+    "w_LB_right/restart.feb": "identical",
+    "w_LB_right/physio_schedule.json": "identical",
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_rot_split3",
+   "case_dir": "p100_gpu3",
+   "problems": [],
+   "case_feb": "eb340602d8cd",
+   "reference": "eb340602d8cd",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_AR_left/restart.feb": "identical",
+    "w_AR_left/physio_schedule.json": "identical",
+    "w_AR_right/restart.feb": "identical",
+    "w_AR_right/physio_schedule.json": "identical",
+    "w_LB_left/restart.feb": "identical",
+    "w_LB_left/physio_schedule.json": "identical",
+    "w_LB_right/restart.feb": "identical",
+    "w_LB_right/physio_schedule.json": "identical",
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_rot_split3",
+   "case_dir": "p117_gpu1",
+   "problems": [],
+   "case_feb": "74202033ac55",
+   "reference": "74202033ac55",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_AR_left/restart.feb": "identical",
+    "w_AR_left/physio_schedule.json": "identical",
+    "w_AR_right/restart.feb": "identical",
+    "w_AR_right/physio_schedule.json": "identical",
+    "w_LB_left/restart.feb": "identical",
+    "w_LB_left/physio_schedule.json": "identical",
+    "w_LB_right/restart.feb": "identical",
+    "w_LB_right/physio_schedule.json": "identical",
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_rot_split4",
+   "case_dir": "p036_gpu2",
+   "problems": [],
+   "case_feb": "e964b333be36",
+   "reference": "e964b333be36",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_AR_left/restart.feb": "identical",
+    "w_AR_left/physio_schedule.json": "identical",
+    "w_AR_right/restart.feb": "identical",
+    "w_AR_right/physio_schedule.json": "identical",
+    "w_LB_left/restart.feb": "identical",
+    "w_LB_left/physio_schedule.json": "identical",
+    "w_LB_right/restart.feb": "identical",
+    "w_LB_right/physio_schedule.json": "identical",
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_rot_split4",
+   "case_dir": "p082_gpu1",
+   "problems": [],
+   "case_feb": "ee40700ecd2a",
+   "reference": "ee40700ecd2a",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_AR_left/restart.feb": "identical",
+    "w_AR_left/physio_schedule.json": "identical",
+    "w_AR_right/restart.feb": "identical",
+    "w_AR_right/physio_schedule.json": "identical",
+    "w_LB_left/restart.feb": "identical",
+    "w_LB_left/physio_schedule.json": "identical",
+    "w_LB_right/restart.feb": "identical",
+    "w_LB_right/physio_schedule.json": "identical",
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "physio_rot_split4",
+   "case_dir": "p113_gpu2",
+   "problems": [],
+   "case_feb": "e1e392f73171",
+   "reference": "e1e392f73171",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_AR_left/restart.feb": "identical",
+    "w_AR_left/physio_schedule.json": "identical",
+    "w_AR_right/restart.feb": "identical",
+    "w_AR_right/physio_schedule.json": "identical",
+    "w_LB_left/restart.feb": "identical",
+    "w_LB_left/physio_schedule.json": "identical",
+    "w_LB_right/restart.feb": "identical",
+    "w_LB_right/physio_schedule.json": "identical",
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "pilot_mu03",
+   "case_dir": "p002_gpu0",
+   "problems": [],
+   "case_feb": "362c46bb3924",
+   "reference": "362c46bb3924",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "pilot_mu03",
+   "case_dir": "p100_gpu1",
+   "problems": [],
+   "case_feb": "fa6c80786301",
+   "reference": "fa6c80786301",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "pilot_mu03",
+   "case_dir": "p148_gpu1",
+   "problems": [],
+   "case_feb": "c494a6fd5f26",
+   "reference": "c494a6fd5f26",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "pilot_mu03G",
+   "case_dir": "p052_gpu2",
+   "problems": [],
+   "case_feb": "956966af3700",
+   "reference": "956966af3700",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "pilot_mu03G",
+   "case_dir": "p104_gpu3",
+   "problems": [],
+   "case_feb": "6d04b015c8eb",
+   "reference": "6d04b015c8eb",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "pilot_mu03G",
+   "case_dir": "p129_gpu3",
+   "problems": [],
+   "case_feb": "bb790737387a",
+   "reference": "bb790737387a",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "pilot_mu03Gr",
+   "case_dir": "p052",
+   "problems": [],
+   "case_feb": "956966af3700",
+   "reference": "956966af3700",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "pilot_mu03Gr",
+   "case_dir": "p104",
+   "problems": [],
+   "case_feb": "6d04b015c8eb",
+   "reference": "6d04b015c8eb",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "pilot_mu03Gr",
+   "case_dir": "p129",
+   "problems": [],
+   "case_feb": "bb790737387a",
+   "reference": "bb790737387a",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "pilot_mu03r",
+   "case_dir": "p002",
+   "problems": [],
+   "case_feb": "362c46bb3924",
+   "reference": "362c46bb3924",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "pilot_mu03r",
+   "case_dir": "p100",
+   "problems": [],
+   "case_feb": "fa6c80786301",
+   "reference": "fa6c80786301",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  },
+  {
+   "set": "pilot_mu03r",
+   "case_dir": "p148",
+   "problems": [],
+   "case_feb": "c494a6fd5f26",
+   "reference": "c494a6fd5f26",
+   "reference_kind": "launched_feb.sha256",
+   "windows": {
+    "w_extension/restart.feb": "identical",
+    "w_extension/physio_schedule.json": "identical",
+    "w_flexion/restart.feb": "identical",
+    "w_flexion/physio_schedule.json": "identical"
+   }
+  }
+ ]
+}

@@ -1,0 +1,183 @@
+{
+ "window": "extension",
+ "dir": "human_study/al_v2/physio_fric5r/p086/w_extension",
+ "P_MIN": 0.01,
+ "states": {
+  "3.5000": {
+   "bot_post": {
+    "area": 13.15,
+    "lifted_frac": 0.028,
+    "force_N": 53.75
+   },
+   "bot_mid": {
+    "area": 14.51,
+    "lifted_frac": 0.491,
+    "force_N": 14.38
+   },
+   "bot_ant": {
+    "area": 13.01,
+    "lifted_frac": 0.116,
+    "force_N": 44.81
+   },
+   "top_post": {
+    "area": 12.38,
+    "lifted_frac": 0.392,
+    "force_N": 57.03
+   },
+   "top_mid": {
+    "area": 12.93,
+    "lifted_frac": 0.213,
+    "force_N": 11.09
+   },
+   "top_ant": {
+    "area": 13.2,
+    "lifted_frac": 0.179,
+    "force_N": 43.4
+   },
+   "top_all": {
+    "area": 38.51,
+    "lifted_frac": 0.259,
+    "force_N": 111.52
+   },
+   "bot_all": {
+    "area": 40.67,
+    "lifted_frac": 0.222,
+    "force_N": 112.94
+   }
+  },
+  "3.5500": {
+   "bot_post": {
+    "area": 13.15,
+    "lifted_frac": 0.028,
+    "force_N": 84.93
+   },
+   "bot_mid": {
+    "area": 14.51,
+    "lifted_frac": 0.468,
+    "force_N": 12.91
+   },
+   "bot_ant": {
+    "area": 13.01,
+    "lifted_frac": 0.269,
+    "force_N": 7.16
+   },
+   "top_post": {
+    "area": 12.38,
+    "lifted_frac": 0.34,
+    "force_N": 85.96
+   },
+   "top_mid": {
+    "area": 12.93,
+    "lifted_frac": 0.253,
+    "force_N": 12.97
+   },
+   "top_ant": {
+    "area": 13.2,
+    "lifted_frac": 0.364,
+    "force_N": 6.69
+   },
+   "top_all": {
+    "area": 38.51,
+    "lifted_frac": 0.319,
+    "force_N": 105.62
+   },
+   "bot_all": {
+    "area": 40.67,
+    "lifted_frac": 0.262,
+    "force_N": 105.0
+   }
+  },
+  "3.5867": {
+   "bot_post": {
+    "area": 13.15,
+    "lifted_frac": 0.025,
+    "force_N": 104.23
+   },
+   "bot_mid": {
+    "area": 14.51,
+    "lifted_frac": 0.527,
+    "force_N": 11.53
+   },
+   "bot_ant": {
+    "area": 13.01,
+    "lifted_frac": 0.623,
+    "force_N": 4.75
+   },
+   "top_post": {
+    "area": 12.38,
+    "lifted_frac": 0.233,
+    "force_N": 104.18
+   },
+   "top_mid": {
+    "area": 12.93,
+    "lifted_frac": 0.325,
+    "force_N": 13.69
+   },
+   "top_ant": {
+    "area": 13.2,
+    "lifted_frac": 0.807,
+    "force_N": 0.62
+   },
+   "top_all": {
+    "area": 38.51,
+    "lifted_frac": 0.461,
+    "force_N": 118.49
+   },
+   "bot_all": {
+    "area": 40.67,
+    "lifted_frac": 0.395,
+    "force_N": 120.51
+   }
+  }
+ },
+ "summary": {
+  "bot_post": {
+   "start": 0.028,
+   "peak": 0.025,
+   "force_start": 53.75,
+   "force_peak": 104.23
+  },
+  "bot_mid": {
+   "start": 0.491,
+   "peak": 0.527,
+   "force_start": 14.38,
+   "force_peak": 11.53
+  },
+  "bot_ant": {
+   "start": 0.116,
+   "peak": 0.623,
+   "force_start": 44.81,
+   "force_peak": 4.75
+  },
+  "top_post": {
+   "start": 0.392,
+   "peak": 0.233,
+   "force_start": 57.03,
+   "force_peak": 104.18
+  },
+  "top_mid": {
+   "start": 0.213,
+   "peak": 0.325,
+   "force_start": 11.09,
+   "force_peak": 13.69
+  },
+  "top_ant": {
+   "start": 0.179,
+   "peak": 0.807,
+   "force_start": 43.4,
+   "force_peak": 0.62
+  },
+  "top_all": {
+   "start": 0.259,
+   "peak": 0.461,
+   "force_start": 111.52,
+   "force_peak": 118.49
+  },
+  "bot_all": {
+   "start": 0.222,
+   "peak": 0.395,
+   "force_start": 112.94,
+   "force_peak": 120.51
+  }
+ }
+}

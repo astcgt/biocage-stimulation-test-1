@@ -1,0 +1,382 @@
+{
+ "time": "2026-11-21T14:55",
+ "tolerance": {
+  "rel": 1e-06,
+  "abs": 1e-09
+ },
+ "programs": {
+  "e03_mu_req.py": "2026-11-17T04:16",
+  "e04_dislocation.py": "2026-11-18T13:02",
+  "e05_compression.py": "2026-11-02T17:09"
+ },
+ "n_jobs": 19,
+ "n_compared": 19,
+ "n_identical": 19,
+ "results": [
+  {
+   "kind": "tied e04",
+   "stored": "results/method/split/p015__AR_left.e04.json",
+   "stored_time": "2026-11-02T15:00",
+   "window": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/human_study/al_v2/physio_rot_split2/p015/w_AR_left",
+   "n_diff": 0,
+   "differences": [],
+   "new_keys": [
+    "hard_fit_minus_mean_mm",
+    "hard_fit_n",
+    "hard_fit_rms_mm",
+    "hard_fit_rotation_deg",
+    "hard_fit_rotation_z_deg",
+    "hard_fit_translation_mm",
+    "hard_local_max_inplane_mm",
+    "hard_phi",
+    "n_dyn",
+    "posterior_most_node_posterior_mm",
+    "posterior_rim_minus_mean_mm",
+    "posterior_rim_n"
+   ]
+  },
+  {
+   "kind": "tied e04",
+   "stored": "results/method/split/p051_gpu2__LB_right.e04.json",
+   "stored_time": "2026-11-02T15:01",
+   "window": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/human_study/al_v2/physio_rot_split2/p051_gpu2/w_LB_right",
+   "n_diff": 0,
+   "differences": [],
+   "new_keys": [
+    "hard_fit_minus_mean_mm",
+    "hard_fit_n",
+    "hard_fit_rms_mm",
+    "hard_fit_rotation_deg",
+    "hard_fit_rotation_z_deg",
+    "hard_fit_translation_mm",
+    "hard_local_max_inplane_mm",
+    "hard_phi",
+    "n_dyn",
+    "posterior_most_node_posterior_mm",
+    "posterior_rim_minus_mean_mm",
+    "posterior_rim_n"
+   ]
+  },
+  {
+   "kind": "tied e04",
+   "stored": "results/method/split/p083_gpu1__AR_right.e04.json",
+   "stored_time": "2026-11-02T15:02",
+   "window": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/human_study/al_v2/physio_rot_split2/p083_gpu1/w_AR_right",
+   "n_diff": 0,
+   "differences": [],
+   "new_keys": [
+    "hard_fit_minus_mean_mm",
+    "hard_fit_n",
+    "hard_fit_rms_mm",
+    "hard_fit_rotation_deg",
+    "hard_fit_rotation_z_deg",
+    "hard_fit_translation_mm",
+    "hard_local_max_inplane_mm",
+    "hard_phi",
+    "n_dyn",
+    "posterior_most_node_posterior_mm",
+    "posterior_rim_minus_mean_mm",
+    "posterior_rim_n"
+   ]
+  },
+  {
+   "kind": "tied e04",
+   "stored": "results/method/split/p100__extension.e04.json",
+   "stored_time": "2026-11-02T15:02",
+   "window": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/human_study/al_v2/physio_rot_split2/p100/w_extension",
+   "n_diff": 0,
+   "differences": [],
+   "new_keys": [
+    "hard_fit_minus_mean_mm",
+    "hard_fit_n",
+    "hard_fit_rms_mm",
+    "hard_fit_rotation_deg",
+    "hard_fit_rotation_z_deg",
+    "hard_fit_translation_mm",
+    "hard_local_max_inplane_mm",
+    "hard_phi",
+    "n_dyn",
+    "posterior_most_node_posterior_mm",
+    "posterior_rim_minus_mean_mm",
+    "posterior_rim_n"
+   ]
+  },
+  {
+   "kind": "tied e04",
+   "stored": "results/method/split/p142_gpu2__AR_right.e04.json",
+   "stored_time": "2026-11-02T15:03",
+   "window": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/human_study/al_v2/physio_rot_split2/p142_gpu2/w_AR_right",
+   "n_diff": 0,
+   "differences": [],
+   "new_keys": [
+    "hard_fit_minus_mean_mm",
+    "hard_fit_n",
+    "hard_fit_rms_mm",
+    "hard_fit_rotation_deg",
+    "hard_fit_rotation_z_deg",
+    "hard_fit_translation_mm",
+    "hard_local_max_inplane_mm",
+    "hard_phi",
+    "n_dyn",
+    "posterior_most_node_posterior_mm",
+    "posterior_rim_minus_mean_mm",
+    "posterior_rim_n"
+   ]
+  },
+  {
+   "kind": "tied e04",
+   "stored": "results/method/split/physio_rot_split3__p051_gpu1__extension.e04.json",
+   "stored_time": "2026-11-02T17:22",
+   "window": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/human_study/al_v2/physio_rot_split3/p051_gpu1/w_extension",
+   "n_diff": 0,
+   "differences": [],
+   "new_keys": [
+    "hard_fit_minus_mean_mm",
+    "hard_fit_n",
+    "hard_fit_rms_mm",
+    "hard_fit_rotation_deg",
+    "hard_fit_rotation_z_deg",
+    "hard_fit_translation_mm",
+    "hard_local_max_inplane_mm",
+    "hard_phi",
+    "posterior_most_node_posterior_mm",
+    "posterior_rim_minus_mean_mm",
+    "posterior_rim_n",
+    "posterior_rim_posterior_mm"
+   ]
+  },
+  {
+   "kind": "tied e04",
+   "stored": "results/method/split/physio_rot_split3__p113__LB_left.e04.json",
+   "stored_time": "2026-11-02T15:04",
+   "window": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/human_study/al_v2/physio_rot_split3/p113/w_LB_left",
+   "n_diff": 0,
+   "differences": [],
+   "new_keys": [
+    "hard_fit_minus_mean_mm",
+    "hard_fit_n",
+    "hard_fit_rms_mm",
+    "hard_fit_rotation_deg",
+    "hard_fit_rotation_z_deg",
+    "hard_fit_translation_mm",
+    "hard_local_max_inplane_mm",
+    "hard_phi",
+    "n_dyn",
+    "posterior_most_node_posterior_mm",
+    "posterior_rim_minus_mean_mm",
+    "posterior_rim_n"
+   ]
+  },
+  {
+   "kind": "tied e04",
+   "stored": "results/method/split/physio_rot_split4__p113_gpu2__flexion.e04.json",
+   "stored_time": "2026-11-02T15:05",
+   "window": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/human_study/al_v2/physio_rot_split4/p113_gpu2/w_flexion",
+   "n_diff": 0,
+   "differences": [],
+   "new_keys": [
+    "hard_fit_minus_mean_mm",
+    "hard_fit_n",
+    "hard_fit_rms_mm",
+    "hard_fit_rotation_deg",
+    "hard_fit_rotation_z_deg",
+    "hard_fit_translation_mm",
+    "hard_local_max_inplane_mm",
+    "hard_phi",
+    "n_dyn",
+    "posterior_most_node_posterior_mm",
+    "posterior_rim_minus_mean_mm",
+    "posterior_rim_n"
+   ]
+  },
+  {
+   "kind": "tied e05",
+   "stored": "results/method/split/p015__AR_left.e05.json",
+   "stored_time": "2026-11-02T15:00",
+   "window": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/human_study/al_v2/physio_rot_split2/p015/w_AR_left",
+   "n_diff": 0,
+   "differences": [],
+   "new_keys": [
+    "n_dyn",
+    "rb_fres_max",
+    "rb_res_max"
+   ]
+  },
+  {
+   "kind": "tied e05",
+   "stored": "results/method/split/p117__AR_left.e05.json",
+   "stored_time": "2026-11-02T15:03",
+   "window": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/human_study/al_v2/physio_rot_split2/p117/w_AR_left",
+   "n_diff": 0,
+   "differences": [],
+   "new_keys": [
+    "n_dyn",
+    "rb_fres_max",
+    "rb_res_max"
+   ]
+  },
+  {
+   "kind": "tied e05",
+   "stored": "results/method/split/physio_rot_split4__p113_gpu2__flexion.e05.json",
+   "stored_time": "2026-11-02T15:05",
+   "window": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/human_study/al_v2/physio_rot_split4/p113_gpu2/w_flexion",
+   "n_diff": 0,
+   "differences": [],
+   "new_keys": [
+    "n_dyn",
+    "rb_fres_max",
+    "rb_res_max"
+   ]
+  },
+  {
+   "kind": "fric e04",
+   "stored": "results/method/fric/p060_gpu1__AR_left.e04.json",
+   "stored_time": "2026-11-03T03:00",
+   "window": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/human_study/al_v2/physio_fric/p060_gpu1/w_AR_left",
+   "n_diff": 0,
+   "differences": [],
+   "new_keys": [
+    "hard_fit_minus_mean_mm",
+    "hard_fit_n",
+    "hard_fit_rms_mm",
+    "hard_fit_rotation_deg",
+    "hard_fit_rotation_z_deg",
+    "hard_fit_translation_mm",
+    "hard_local_max_inplane_mm",
+    "hard_phi",
+    "posterior_most_node_posterior_mm",
+    "posterior_rim_minus_mean_mm",
+    "posterior_rim_n",
+    "posterior_rim_posterior_mm"
+   ]
+  },
+  {
+   "kind": "fric e04",
+   "stored": "results/method/fric/physio_fric3__p077_gpu3__extension.e04.json",
+   "stored_time": "2026-11-03T19:39",
+   "window": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/human_study/al_v2/physio_fric3/p077_gpu3/w_extension",
+   "n_diff": 0,
+   "differences": [],
+   "new_keys": [
+    "hard_fit_minus_mean_mm",
+    "hard_fit_n",
+    "hard_fit_rms_mm",
+    "hard_fit_rotation_deg",
+    "hard_fit_rotation_z_deg",
+    "hard_fit_translation_mm",
+    "hard_local_max_inplane_mm",
+    "hard_phi",
+    "posterior_most_node_posterior_mm",
+    "posterior_rim_minus_mean_mm",
+    "posterior_rim_n",
+    "posterior_rim_posterior_mm"
+   ]
+  },
+  {
+   "kind": "fric e04",
+   "stored": "results/method/fric/physio_fric5__p065__flexion.e04.json",
+   "stored_time": "2026-11-09T17:55",
+   "window": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/human_study/al_v2/physio_fric5/p065/w_flexion",
+   "n_diff": 0,
+   "differences": [],
+   "new_keys": [
+    "hard_fit_minus_mean_mm",
+    "hard_fit_n",
+    "hard_fit_rms_mm",
+    "hard_fit_rotation_deg",
+    "hard_fit_rotation_z_deg",
+    "hard_fit_translation_mm",
+    "hard_local_max_inplane_mm",
+    "hard_phi",
+    "posterior_most_node_posterior_mm",
+    "posterior_rim_minus_mean_mm",
+    "posterior_rim_n",
+    "posterior_rim_posterior_mm"
+   ]
+  },
+  {
+   "kind": "fric e04",
+   "stored": "results/method/fric/physio_fric5r__p038__flexion.e04.json",
+   "stored_time": "2026-11-13T04:50",
+   "window": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/human_study/al_v2/physio_fric5r/p038/w_flexion",
+   "n_diff": 0,
+   "differences": [],
+   "new_keys": [
+    "hard_fit_minus_mean_mm",
+    "hard_fit_n",
+    "hard_fit_rms_mm",
+    "hard_fit_rotation_deg",
+    "hard_fit_rotation_z_deg",
+    "hard_fit_translation_mm",
+    "hard_local_max_inplane_mm",
+    "hard_phi",
+    "posterior_most_node_posterior_mm",
+    "posterior_rim_minus_mean_mm",
+    "posterior_rim_n",
+    "posterior_rim_posterior_mm"
+   ]
+  },
+  {
+   "kind": "fric e04",
+   "stored": "results/method/fric/physio_fric5r__p146__extension.e04.json",
+   "stored_time": "2026-11-13T13:38",
+   "window": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/human_study/al_v2/physio_fric5r/p146/w_extension",
+   "n_diff": 0,
+   "differences": [],
+   "new_keys": [
+    "hard_fit_minus_mean_mm",
+    "hard_fit_n",
+    "hard_fit_rms_mm",
+    "hard_fit_rotation_deg",
+    "hard_fit_rotation_z_deg",
+    "hard_fit_translation_mm",
+    "hard_local_max_inplane_mm",
+    "hard_phi",
+    "posterior_most_node_posterior_mm",
+    "posterior_rim_minus_mean_mm",
+    "posterior_rim_n",
+    "posterior_rim_posterior_mm"
+   ]
+  },
+  {
+   "kind": "fric e04",
+   "stored": "results/method/fric/physio_relG_pl__p109__extension.e04.json",
+   "stored_time": "2026-11-11T00:10",
+   "window": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/human_study/al_v2/physio_relG_pl/p109/w_extension",
+   "n_diff": 0,
+   "differences": [],
+   "new_keys": [
+    "hard_fit_minus_mean_mm",
+    "hard_fit_n",
+    "hard_fit_rms_mm",
+    "hard_fit_rotation_deg",
+    "hard_fit_rotation_z_deg",
+    "hard_fit_translation_mm",
+    "hard_local_max_inplane_mm",
+    "hard_phi",
+    "posterior_most_node_posterior_mm",
+    "posterior_rim_minus_mean_mm",
+    "posterior_rim_n",
+    "posterior_rim_posterior_mm"
+   ]
+  },
+  {
+   "kind": "fric e04",
+   "stored": "results/method/fric/pilot_mu03Gr__p129__flexion.e04.json",
+   "stored_time": "2026-11-21T14:33",
+   "window": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/human_study/al_v2/pilot_mu03Gr/p129/w_flexion",
+   "n_diff": 0,
+   "differences": [],
+   "new_keys": []
+  },
+  {
+   "kind": "fric e04",
+   "stored": "results/method/fric/pilot_mu03r__p148__flexion.e04.json",
+   "stored_time": "2026-11-21T14:32",
+   "window": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/human_study/al_v2/pilot_mu03r/p148/w_flexion",
+   "n_diff": 0,
+   "differences": [],
+   "new_keys": []
+  }
+ ]
+}

@@ -1,0 +1,37 @@
+{
+ "params": {
+  "geom": "strut",
+  "mode": "pocket",
+  "t": 0.4,
+  "L": 3.0,
+  "E": 900.0,
+  "mu": 0.3,
+  "delta": 0.3,
+  "theta": 10.0,
+  "W": 2.0,
+  "b": 2.0,
+  "u": 0.5,
+  "over": 0.3,
+  "gap": 0.02
+ },
+ "ns": 15,
+ "nt": 2,
+ "nb": 2,
+ "n_hex": 60,
+ "x_root": -2.0,
+ "x_extent": [
+  -2.2,
+  -1.279055466999209
+ ],
+ "root_depth_below_face_mm": 2.68915289457001,
+ "tip_x_mm": -1.4790554669992089,
+ "z_floor": -2.773882530103396,
+ "built": "2026-11-20 13:56",
+ "builder": "scripts/3_cage_case/h56_tangou_unit.py",
+ "builder_sha256": "ce93e14dafb109e8",
+ "decks": {
+  "out": "4603e3f3be422ea5",
+  "in": "3881f102c17d6d4d",
+  "press": "50abfedb000b8a44"
+ }
+}
