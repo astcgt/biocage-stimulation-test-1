@@ -101,6 +101,7 @@
 | `human_study/al_v2/pilot_mu03/drive_newton_confirm.sh` | 全牛頓法成為正式窗口設定（PI 決定 12）的確認：5 個已通過設計兩個窗口重算，與擬牛頓法讀值比對 |
 | `human_study/al_v2/numconv_hz01/build16b.py`, `lane16b.sh`, `../biocage-evo/ops/num16_multi.py` | 介面剪力「0.5 mm 塊平均」定義的多設計細網格驗證（PI 決定 16(b)）：p036、p052、p060、p113＋既有 p062 → `results/method/numconv/num16_multi.json` |
 | `human_study/al_v2/numconv_hz01/build16c.py`, `lane16c.sh`, `numconv_hz01/inplane/` | 第 16(b) 項第二輪（2026-11-22 更正）：交錯（interleave）籠體的平面方向加密（檢查垂直交界面）＋ p146 厚度方向加密；`build16c.py z`（列印層厚維持 0.2 mm 的厚度加密）被 h24 擋下，待 h12 加選項。比對程式 `num16_multi.py` 第二版：兩類交界面、面數防呆、兩種分塊（柱／0.5 mm 方塊） |
+| `../biocage-evo/ops/precision_budget.py` → `results/method/fric/precision_budget.json` | PI 第 19 項：判定讀值（判定點的後方平移）的數值不確定度預算（GUM 合成、U95、ISO 5725 重複性限、JCGM 106 保護帶比較、距線 U 內的設計清單、排除項與理由、參考文獻） |
 | `../biocage-evo/ops/resume_daemons.sh` | 重開機後帶回看門狗的啟動檔（2026-11-22 自 resume_all.sh 拆出；能力元件 OPS 的一部分） |
 | `../biocage-evo/results/round2/prereg_amendment_2026-11-22a.json` | 第二輪演化事前鎖定設定的修訂：提案程式摩擦係數 0.35 → 0.3（PI 決定 17） |
 | `human_study/al_v2/pilot_mu03/build_e.py`, `drive_mu03r_d.sh`, `drive_mu03r_e.sh` | 摩擦係數 0.3 補算：d = 可能跨線的 29 個設計（已完成）；e = 其餘仍為 0.35 的 23 個設計 |
