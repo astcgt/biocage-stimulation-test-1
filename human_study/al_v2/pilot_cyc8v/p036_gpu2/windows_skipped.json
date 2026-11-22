@@ -1,0 +1,11 @@
+{
+ "skipped": "restart_env declared but not in this process",
+ "restart_env": {
+  "BIOCAGE_STICK_MEMORY": "1"
+ },
+ "febio": "/raid/jupyter-alz.ee09/projects/claude-work/biocage_simulation_test_oct2026/third_party/FEBio/cbuild/bin/febio4",
+ "env": {
+  "BIOCAGE_STICK_MEMORY": null
+ },
+ "next": "h51 generic mode or h47 run from this checkpoint"
+}

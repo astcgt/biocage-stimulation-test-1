@@ -76,6 +76,7 @@
 | `scripts/8_audit/h60_fric_winner_scan.py`, `human_study/qa/fric_winner_scan.json` | 今日摩擦判定來源窗口的狀態有效性掃描（以判定程式本身；NUM-04／NUM-14 摩擦） |
 | `human_study/qa/audits/QA_AUDIT_2026-11-21.md`, `human_study/qa/audits/QA_AUDIT_2026-11-21b.md`（複查）, `human_study/qa/h24_guard_test.json` | 2026-11-21 層 B 稽核報告（能力標籤重評、摩擦係數 0.3 實作）；h24 守門對值為 0 的試算選項的反向測試 |
 | `scripts/8_audit/h61_bone_strain_check.py`, `human_study/qa/bone_strain_check.json` | 停算窗口最後一個收斂狀態的骨頭變形量（體積比、主應變）對照紀錄檔中的翻轉值（NUM-06；PI 2026-11-22 的提問） |
+| `scripts/8_audit/h62_weak_spots.py`, `human_study/qa/weak_spots.json`, `human_study/WEAK_SPOTS.md` | 弱點登記表（PI 2026-11-22）：每次停算記錄先讓步的材料、位置（貼哪一面、第幾層、方位、座標）、動作與轉角、被波及的骨頭位置，附一行明確標籤；停算不作設計判定（使用限制 R18） |
 | `scripts/5_compute/wait_quota.sh` | 等帳號 CPU 配額（32 核心）有空再啟動；各通道腳本在每次啟動前呼叫 |
 | `human_study/WINDOW_SCAN_2026-11-21.md` | h34 重掃 916 窗口（含重啟集合） |
 | `scripts/8_audit/h38_project_status.py`, `human_study/PROJECT_STATUS.md` | 專案狀態頁（PI 2026-11-18 議題 A7）：只從結果檔產生的白話一頁（設計分類、真實摩擦、估算器驗證、品質保證、計分表、機器、倉庫同步），每個數字附來源檔與時間 |
@@ -86,7 +87,7 @@
 |---|---|
 | `../biocage-evo/methods/e08_subsidence.py`, `../biocage-evo/ops/e08_batch.py`, `../biocage-evo/results/method/e08/` | 骨頭下陷起始讀值（PI 2026-11-19 補測試第 1 項；h15 終點 b：足印下 3 mm 海綿骨降伏體積 > 10 %，Morgan & Keaveny 2001）：43 個通過／灰區設計的黏死與摩擦判定狀態；summary.json；壓縮／拉伸分開 |
 | `../biocage-evo/methods/e09_pushout.py`, `scripts/5_compute/h53_push_restart.py`, `human_study/al_v2/pilot_push/` | 推出試驗（PI 2026-11-19 補測試第 3 項；S9 往後 ≥ 135 N；仿 ASTM 草案 F04.25.02.02）：從正式摩擦插入存檔重啟、推前牆或後牆節點 3 mm；推力主值 = cage 整體受力平衡（上下兩面接觸力合力；2026-11-19 改，元素應力反算只有約 0.6–0.87 倍，留作下限）；試跑 p062 往後 96 N、往前 114 N |
-| `../biocage-evo/methods/e10_cycles.py`, `human_study/al_v2/pilot_cyc3/`, `human_study/al_v2/pilot_cyc3r/` | 每方向 3 個循環（補測試第 4 項；S9 位移不能逐步累積）：h14/h30 的 window_cycles 鍵把屈曲窗口改成 n 個屈伸循環；e10 讀每次回中立位的 cage 位置（基準 = 繪圖檔 t 3.5）；cyc3 = 正式摩擦算法參考、cyc3r = 黏滯記憶（正式判定用法）；試跑 p062 |
+| `../biocage-evo/methods/e10_cycles.py`, `human_study/al_v2/pilot_cyc3/`, `human_study/al_v2/pilot_cyc3r/` | 每方向 3 個循環（補測試第 4 項；S9 位移不能逐步累積）：h14/h30 的 window_cycles 鍵把屈曲窗口改成 n 個屈伸循環；e10 讀每次回中立位的 cage 位置（基準 = 繪圖檔 t 3.5）；cyc3 = 正式摩擦算法參考、cyc3r = 黏滯記憶（正式判定用法）；試跑 p062；2026-11-22 讀值改為「峰值時刻 ±0.25 秒內的極值」與「回中立內插」，雜訊下限 峰值 0.03／回中立 0.01 mm（p124 時間步對照實測），舊結果在 `../biocage-evo/results/method/e10/before_20261122_peakread/` |
 | `scripts/3_cage_case/h55_astm_f2077.py`, `../biocage-evo/methods/e11_astm.py`, `human_study/al_v2/astm_f2077/` | ASTM F2077-24 式剛性夾板靜態測試（補測試第 2 項、PI 決定 6）：cage 單獨夾在兩塊剛體間，壓縮／45° 壓剪／扭轉（100 N 預壓）；報勁度與硬相應力替代降伏（不是標準的 2 % 偏移降伏）；batch.sh 跑 43 個設計 |
 | `human_study/al_v2/astm_f2077_plastic/` | ASTM 夾板測試彈塑性版（PI 決定 8 乙）：h55 第 5 個參數 WE＝不降伏鍵比例（硬化斜率），反應式塑性、降伏 6/9/12/15 MPa 依硬相比例；先跑 p062 |
 | `human_study/al_v2/astm_f2077_plastic_hard/`, `astm_f2077_plastic_perfect/`, `astm_f2077_mesh/` | ASTM 彈塑性正式版（只硬相降伏、硬化 2 %，全部設計；lane.sh）、p062 無硬化對照、p062 細網格敏感度（彈性＋彈塑性） |
@@ -99,6 +100,7 @@
 | `human_study/al_v2/pilot_cyc8v/`, `pilot_cyc8vrN/`, `pilot_cyc8vGN/`, `pilot_cyc8v/lanes8.sh` | 8 圈前屈－後伸試算（PI 決定 14：看是否達到穩定態）：p124、p036（正式插入＋路線 E 全牛頓窗口）、p140（流程 G）；讀值 e10 的 steady_state 分類 |
 | `human_study/al_v2/pilot_mu03/drive_newton_confirm.sh` | 全牛頓法成為正式窗口設定（PI 決定 12）的確認：5 個已通過設計兩個窗口重算，與擬牛頓法讀值比對 |
 | `human_study/al_v2/numconv_hz01/build16b.py`, `lane16b.sh`, `../biocage-evo/ops/num16_multi.py` | 介面剪力「0.5 mm 塊平均」定義的多設計細網格驗證（PI 決定 16(b)）：p036、p052、p060、p113＋既有 p062 → `results/method/numconv/num16_multi.json` |
+| `human_study/al_v2/numconv_hz01/build16c.py`, `lane16c.sh`, `numconv_hz01/inplane/` | 第 16(b) 項第二輪（2026-11-22 更正）：交錯（interleave）籠體的平面方向加密（檢查垂直交界面）＋ p146 厚度方向加密；`build16c.py z`（列印層厚維持 0.2 mm 的厚度加密）被 h24 擋下，待 h12 加選項。比對程式 `num16_multi.py` 第二版：兩類交界面、面數防呆、兩種分塊（柱／0.5 mm 方塊） |
 | `../biocage-evo/ops/resume_daemons.sh` | 重開機後帶回看門狗的啟動檔（2026-11-22 自 resume_all.sh 拆出；能力元件 OPS 的一部分） |
 | `../biocage-evo/results/round2/prereg_amendment_2026-11-22a.json` | 第二輪演化事前鎖定設定的修訂：提案程式摩擦係數 0.35 → 0.3（PI 決定 17） |
 | `human_study/al_v2/pilot_mu03/build_e.py`, `drive_mu03r_d.sh`, `drive_mu03r_e.sh` | 摩擦係數 0.3 補算：d = 可能跨線的 29 個設計（已完成）；e = 其餘仍為 0.35 的 23 個設計 |
@@ -211,6 +213,7 @@ scratchpad `/tmp/claude-1024/-raid-jupyter-alz-ee09-projects-claude-work-biocage
 | `../biocage-evo/ops/relG_drive.py`, `../biocage-evo/ops/relG_drive_tuning.json`, `human_study/al_v2/physio_relG/drive.log` | physio_relG 批次第二驅動程式（工頭 2026-11-10 14:55）：每 60 s 一輪，最多 5 個 run × 6 核（32 核配額），GPU 4/1/3/2，中斷的 run 目錄在原 GPU 續跑；結束標記 RELG DRIVE DONE | Claude |
 | `../biocage-evo/ops/law_shift.py`, `../biocage-evo/results/method/fric/relG_law_shift.json` | 兩種摩擦律在同一存檔上的讀值差異產生器：fric3→fric5（替代讀值餘量 abs_p90 0.0431 mm 的來源；percentile 取觀測值）與 relG_pl→relG（流程 G 存檔上的轉移檢查） | Claude |
 | `../biocage-evo/ops/replicate_agreement.py`, `../biocage-evo/results/method/fric/replicate_agreement.json` | 複本一致性檢查（PI 2026-11-11 決定 4 的平台面驗收）：同模型（模型檔雜湊分組）的設計在指定窗口集（預設路線 E 的 physio_fric5r／physio_relGr）讀值差距；判準 = 同評估點且差 ≤ 0.005 mm（驗證試跑看到的讀值雜訊），超過者為 [數值] 項目而非設計結果 | Claude |
+| `../biocage-evo/ops/newton_confirm.py`, `../biocage-evo/results/method/fric/newton_confirm.json`, `human_study/al_v2/pilot_mu03/drive_newton_confirm.sh`, `human_study/al_v2/pilot_mu03/fill_newton_e.sh` | 全牛頓法確認（PI 2026-11-22 第 12 項）：5 個已通過設計從同一存檔以擬牛頓法與全牛頓法各算一次，判定點讀值比對（10/10 ≤ 0.0009 mm，判準 0.005 mm）；fill_newton_e.sh＝批次 e 中擬牛頓法沒算到判定點的窗口以全牛頓法補算（pilot_mu03rN／pilot_mu03GrN，紀錄 fill_N_G.log） |
 | `human_study/al_v2/pilot_relGdt0/`, `human_study/al_v2/pilot_relGdt0/run_batch.log` | 試跑類別 pilot_relGdt0（2026-11-11 00:08）：流程 G 檔點以黏著記憶律重啟、窗口第一個增量步長 0.005（h30 鍵 window_dt0；dtmax 0.05 與結束時間不變），對象 = 兩種摩擦律都在第一增量中止的 12 個窗口 + 2 個對照（p068 前屈、p039 後伸）；由 h51 通用模式驅動（H51_DST=pilot_relGdt0 H51_KEYS=window_dt0=0.005），結果在各 pNNN/resources*.json 與 w_*/case.log |
 | `human_study/al_v2/pilot_relGnull/`, `human_study/al_v2/pilot_relGnull/run_batch.log` | 試跑類別 pilot_relGnull（2026-11-11 00:2x）「空重啟」：流程 G 檔點以黏著記憶律重啟、旋轉驅動為零（窗口專用鍵 window_null（h30：重啟檔的 prescribe 值設 0、0.2 s 窗口 4 步；physio_hold 會改主模型檔，h47 擋下）），跟隨壓力照常；若 p050/p084/p109/p127 仍在第一增量發散而 p068 不會，根因在重啟再平衡而非驅動；對象 = 4 個第一增量失敗窗口 + p048 前屈 + 對照 p068 前屈；h51 通用模式 H51_DST=pilot_relGnull | Claude |
 | `human_study/al_v2/pilot_relGnull2/`, `human_study/al_v2/pilot_relGnull2/run_batch.log` | 試跑類別 pilot_relGnull2（2026-11-11 00:5x）「無關節重啟」：window_null = nojoint，重啟步不宣告剛性關節驅動（只保留跟隨壓力、0.2 s 窗口）；pilot_relGnull（關節在、驅動 0）六個窗口含對照 p068 全部第一增量中止，此變體切分「關節接上」與「存檔重載」兩個假說；對象 p050 前屈、p068 前屈、p084 後伸 | Claude |

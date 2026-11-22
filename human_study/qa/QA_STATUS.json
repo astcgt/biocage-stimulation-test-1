@@ -1,5 +1,5 @@
 {
- "time": "2026-11-22 01:17",
+ "time": "2026-11-22 10:24",
  "overall": "WARN",
  "checks": [
   {
@@ -60,7 +60,7 @@
   {
    "id": "R9-material-blocks",
    "status": "PASS",
-   "message": "golden rebuild: one FEBio block per cage material in 1 cases (tmpf3la_4mn:4); problems: []"
+   "message": "golden rebuild: one FEBio block per cage material in 1 cases (tmp9zf7teqi:4); problems: []"
   },
   {
    "id": "R9-material-blocks",
@@ -75,7 +75,7 @@
   {
    "id": "R12-file-index",
    "status": "PASS",
-   "message": "409 paths in FILE_INDEX.md; missing []"
+   "message": "424 paths in FILE_INDEX.md; missing []"
   },
   {
    "id": "R14-patch7-logs",
@@ -100,7 +100,7 @@
   {
    "id": "R19-route-E",
    "status": "PASS",
-   "message": "route-E classes: 141 cases, 264 finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: []"
+   "message": "route-E classes: 152 cases, 286 finished windows checked (class = base + window_drive_mode, source run, params, deck hash, restart.feb no joint + relative Ry, evidence, lib/env, stderr); problems: []"
   },
   {
    "id": "R20-replicate-agreement",
@@ -130,7 +130,7 @@
   {
    "id": "R10-llm-audit-due",
    "status": "WARN",
-   "message": "LLM audit required: last 2026-11-21 20:56; gate files changed since: ['human_study/current_settings.json', '../biocage-evo/ops/fric_compare.py', '../biocage-evo/ops/e07_batch.py', '../biocage-evo/ops/collect_split.py']; decision entries since: ['2026-11-22', '2026-11-22']"
+   "message": "LLM audit required: last 2026-11-21 20:56; gate files changed since: ['human_study/current_settings.json', '../biocage-evo/ops/fric_compare.py', '../biocage-evo/ops/e07_batch.py', '../biocage-evo/ops/collect_split.py']; decision entries since: ['2026-11-22', '2026-11-22', '2026-11-22', '2026-11-22']"
   }
  ],
  "counts": {
@@ -167,6 +167,8 @@
    "../biocage-evo/ops/collect_split.py"
   ],
   "new_decisions": [
+   "2026-11-22",
+   "2026-11-22",
    "2026-11-22",
    "2026-11-22"
   ]
